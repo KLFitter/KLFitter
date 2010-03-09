@@ -1,5 +1,10 @@
 2010-03-09 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
 	
+	* migrate to SVN
+	* tag: KLFitter-00-02-00
+
+2010-03-09 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+	
 	* fix: re-introduce truth info that was lost due to Whizard issues
 	* tag: KLFitter2-00-01-06
 
