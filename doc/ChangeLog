@@ -1,0 +1,419 @@
+2010-03-09 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+	
+	* fix: re-introduce truth info that was lost due to Whizard issues
+	* tag: KLFitter2-00-01-06
+
+2010-03-09 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+	
+	* Makefiles: adopt for OSX
+	* <cmath> needed for fabs() functions on OSX
+	* Add photons to Detector, Particles, etc.
+	* Add classification tool PhotonType
+	* Add likelihood functions for ttGamma hypothesis test
+	* Add default photon transfer function parametrisationi (copied from electrons)
+	* Needed some changes in LikelihoodTopLeptonJets for convenient inheritance of LikelihoodTTGamma
+	* Added new examples folder ttGamma
+	* runKLFitter.c in ttGamma is set up for a DetectorDummy so far
+	* runKLFitter.c event selection: require 4 jets with pT > 20 GeV
+	* tag: KLFitter2-00-01-05
+
+2010-02-25 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+	
+	* src/LikelihoodTopLeptonJets.cxx : Bugfix in GetNeutrinoPzSolutions()
+	* tag: KLFitter2-00-01-04
+		
+2010-01-12 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+	
+	* src/LikelihoodTopLeptonJets.cxx : Remove invariant particle permutations for n jets
+	* tag: KLFitter2-00-01-03
+	
+2009-12-23 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+	* examples/top_ljets/runKLFitter.c : minor change
+	* src/SelectionTool.cxx : use highest jets in pT
+	* tag: KLFitter2-00-01-02
+
+2009-12-23 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+	* tag for reference
+	* tag: KLFitter2-00-01-01
+
+2009-12-07 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+
+	* LikelihoodBase.cxx: minor bug fix.
+
+2009-12-04 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+	* tag for Athena reference
+	* tag: KLFitter2-00-01-00
+
+2009-12-04 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+
+	* InterfaceOutput.cxx: sort results by EventProbability not by LoglIkelihood.
+	* LikelihoodBase.cxx: set default b-tag cut value to 1e4. 
+
+2009-12-03 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+
+	* Added missing comments and updated version number to 1.3. 
+        * Updated README files.
+	* Reactivated examples/top_ejets to run with a dummy detector.
+        * Fixed bug in b-tagging. 
+	
+2009-11-27 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+
+	* Fitter.cxx: small bug fix (b-tagging).
+
+2009-11-21 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+        * Makefiles cleaned up in ./ and ./examples/top_ljets (not in ./examples/ttH ...)
+	* tag: KLFitter2-00-00-33
+
+2009-11-21 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+        * make use of KLFITTER_UNUSED to suppress compiler warnings due to unused parameters in functions
+	* modification to main Makefile (re-compile of header changed)
+	* tag: KLFitter2-00-00-32
+
+2009-11-20 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+        * undo changes for abstract methods in base classes
+	* add include/PREPROC.h for pre-processor options
+	* modification to Makefiles
+	* tag: KLFitter2-00-00-31
+
+2009-11-20 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+
+	* Fitter, LikelihoodBase, Particles, InterfaceOutput, LikelihoodTopLeptonJets: added b-tag information to model and selected particles and added jet/electron/muon index of measured particles to model particles. Added cut value for b-tagging. 
+
+2009-11-20 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+
+        * InterfaceRoot: SetFlagIsSignalMC if Signal MC is used as input
+	* InterfaceGoTopTree.cxx: truth particle container is only filled for Signal MC
+	* InterfaceOutput: Event_Weight is branch of TreeMeasured.
+	* runKLFitter.c Signal MC flag is true as default
+	* Add runKLFitter_bg.c as example file for bg
+	* tag: KLFitter2-00-00-30
+	
+2009-11-20 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+
+	* Makefile: removed classes which have been removed
+
+2009-11-20 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+        * removed classes InterfaceDPD, LikelihoodTopElectronJets and LikelihoodTopMass
+	* made examples/top_ejets empty (obsolete)
+	* tag: KLFitter2-00-00-29
+
+
+2009-11-19 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+        * some changes in virtuality of interface methods (make athena warnings happy)
+	* tag: KLFitter2-00-00-28
+
+2009-11-19 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+        * really minor change
+	* tag: KLFitter2-00-00-27
+
+2009-11-18 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+        * top_ljets/runKLFitter: flag for electrons or muons
+	* muon transfer function: simple version (Gaussian) in LikelihoodTopLeptonJets
+	* tag: KLFitter2-00-00-26
+
+2009-11-18 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+
+        * Bug fix wrt jet mass.
+	* Minor modifications.
+
+2009-11-16 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+
+        * InterfaceGoTopTree: renamed variable Truth_IsProperTtbarEvent to Truth_IsProperMCEvent. 
+
+2009-11-13 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+
+        * LikelihoodTopLeptonJets.cxx: code clean-up.
+	* LikelihoodTopLeptonJets.cxx: added flag for using jet masses instead of parton masses. 
+	
+2009-10-29 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+
+        * Added a "-" to the include in the Makefile
+	* Added simulated annealing in case Minuit did not converge 
+
+2009-10-27 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+	* set the default top mass range to [100 GeV, 1000 GeV] (was not done before...)
+	* use examples/top_ljets/runKLFitter.c with two parameters (first and last event)
+	* remove W mass window requirement
+	* tag: KLFitter2-00-00-25
+	* tag: KLFitter2-00-00-24
+
+2009-09-29 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+	* set the default top mass range to [100 GeV, 1000 GeV]
+	* minor changes in examples/top_ljets/runKLFitter.c
+	* tag: KLFitter2-00-00-23
+
+2009-09-06 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+	* another bug fix in Detector class
+	* tag: KLFitter2-00-00-22
+
+2009-09-06 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+	* another bug fix in Detector class
+	* tag: KLFitter2-00-00-21
+
+2009-09-04 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+	* bug fix in Detector class
+	* tag: KLFitter2-00-00-20
+
+2009-09-04 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+	* Detector class : minor change
+	* tag: KLFitter2-00-00-19
+
+2009-09-04 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+	* Detector class : add eta and phi resolutions for different eta regions
+	* Detector class : add another constructor for eta and phi resolutions (light and b-jets)
+	* Detector class : add MET resolution to the new constructor
+	* tag: KLFitter2-00-00-18
+
+2009-09-04 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+	* top_ljets/runKLFitter.c : make "equal top mass constraint" the default
+	* src/Fitter.cxx : fix bug in the order of MET assignment and parameter range adjusting
+	* src/Fitter.cxx : set MINUIT status to 500 if at least one parameter is at its border
+	* src/LikelihoodTopLeptonjets.cxx : clean up in CalculateLorentzVector(...)
+	* src/LikelihoodTopLeptonjets.cxx : fix bug in hadronic W mass preselection (40 - 120 GeV)
+	* src/LikelihoodTopLeptonjets.cxx : simplify phi resolution terms in LogLikelihood(...)
+	* src/LikelihoodTopLeptonjets.cxx : take out Gaussian for fFlagTopMassDifference
+	* tag: KLFitter2-00-00-17
+
+2009-08-24 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+	* new resolution parameters for jet angles and missing ET
+	* tag: KLFitter2-00-00-16
+
+2009-08-24 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+	* correct mistake when updating energy resolution parameter files
+	* tag: KLFitter2-00-00-15
+
+2009-08-24 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+	* new energy resolution parameters for top_ljets (now from logarithmic energy bins)
+	* tag: KLFitter2-00-00-14
+
+2009-08-07 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+
+	* Added Likelihood for lepton+jets. This one should now be used
+	instead of e+jets. It contains a couple of changes compared to
+	e+jets.	
+	* Added example on how to use the new likelihood. 
+	* Added all necessary resolutions to ATLAS detector description
+	* Bug fix: deltaPhi
+	
+2009-08-04 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+
+	* Constrained eta-region of jets to (-2.5, 2.5)
+	* Reject permutation with measured W-mass outside (40 GeV, 120 GeV)
+	* Test 2nd neutrino solution for starting value
+	* Output Migrad uncertainties on all parameters
+	* Added top pole mass as parameter
+	* Included BW for top mass into Likelihood
+	* Bug fix in finding best permutation
+	* Bug fix in using angles of jets in Lieklihood.
+
+2009-07-31 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+	* added missing ET to Fitter, InterfaceGoTopTree, InterfaceRoot, LikelihoodBase,
+	* setting initial parameters to measured values + calculate neutrino pz solutions
+	* LikelihoodTopElectronJets: (hard-coded) resolutions for missing ET and jet eta and phi
+	* neutrino px and py set to (fitted) missing Px and Py values
+	* additional fit parameters: missing Px, missing Py, jet angles (8 additional parameters)
+	* runKLFitter.c: currently only running over matched events
+	* tag: KLFitter2-00-00-13
+
+2009-07-16 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+	* bug in the energy parametrisation (ResDoubleGauss.cxx)
+	* new parametrisation of the energy resolutions for electrons and jets (sample: 2009-07-09)
+	* InterfaceGoTopTree: adapted for changes in variable names in GotopTreeMaker
+	* examples/top_ejets/runKLFitter.c: small change for reading in data in batch jobs
+	* tag: KLFitter2-00-00-12
+
+2009-06-17 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+	* really minor change in top_ejets/runKLFitter.c
+	* tag: KLFitter2-00-00-11
+
+2009-06-17 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+	* minor changes to top_ejets/runKLFitter.c and cleanup
+	* new parametrisation (from GoTopTree sample)
+	* tag: KLFitter2-00-00-10
+	
+2009-06-15 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+
+	* SelectionTool.cxx bug fixes.
+	* InterfaceOutput added maps. 
+	* InterfaceGoTopTree simplified access to light truth quarks.
+	* LikelihoodTopElectronJets.cxx bug fix: neutrino was not calculated correctly.
+
+2009-06-15 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+
+	* SelectionTool.cxx Added event selection and maps. 
+
+2009-06-14 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+
+	* Added selection tool.
+	
+2009-06-09 Stefan Guindon <stefan.guindon@phys.uni-goettingen.de>
+
+	* Added Likelihood for Top Pole Mass
+
+2009-06-06 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+
+	* InterfaceGoTopTree: Bug fix in truth information.
+
+2009-06-02 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+
+	* InterfaceGoTopTree: Added truth information. 
+
+2009-06-02 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+	* tag version for Athena reference
+	* tag: KLFitter2-00-00-09
+
+2009-06-01 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+
+	* InterfaceGoTopTree: added interface to GoTopTree. Need to sort out truth particles. 
+
+2009-05-31 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+
+	* LikelihoodTTHElectron.cxx: bug fix (model particles)
+
+2009-05-29 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+	* minimal change to Makefile
+	* tag: KLFitter2-00-00-08
+
+2009-05-29 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+	* use 5 Markov Chains by default
+	* mini-beautifying for the removal of invariant particle permutations
+	* add a flag 'IS_BATCH' in examples/top_ejets/runKLFitter.c
+	* tag: KLFitter2-00-00-07
+
+2009-05-29 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+	* tag Kevin's version
+	* tag: KLFitter2-00-00-06
+
+2009-05-28 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+
+	* InterfaceOutput: calculated event probability.
+	
+2009-05-26 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+
+	* InterfaceOutput: added list of indices ordered by log likelihood.
+	
+2009-05-15 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+
+	* LikelihoodBase: added b-tagging probability, event probability, and flag for integration
+	* Fitter: check if b-tagging is active
+	* InterfaceOutput: added event probability
+	* added ttH likelihood.
+
+2009-05-07 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+	* Permutations: bug fix for removing invariant particle permutations for more than 2 particles.
+	* tag: KLFitter2-00-00-05
+
+2009-05-07 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+	* InterfaceDPD: missing implementation of NEvents().
+	* tag: KLFitter2-00-00-04
+
+2009-05-07 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+	* minor change in Makefile
+
+2009-05-06 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+	* new transfer function parametrisations
+	* tag: KLFitter2-00-00-03
+
+2009-05-04 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+	* keep multiple muons (bug fix and rewrite Permutations more general)
+	* modify TreeMesaured (vectors)
+	* tag: KLFitter2-00-00-02
+	
+2009-05-04 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+	* bug fix for TreeModel variable names (changed 'const char *' to 'std::string')
+	* tag: KLFitter2-00-00-01
+
+2009-04-27 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+	* InterfaceDPD now reads the whole info from input, needed '*char' fix in Particles
+
+2009-04-21 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+	* event weights in output
+	* add taus to particles
+	* add cutflow
+
+2009-04-21 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+	* set first event counter in runKLFitter.c to zero
+	
+2009-04-15 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+
+	* InterfaceOutput: added information from matching tool.
+
+2009-04-14 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+
+	* MatchingTool: added matching tool.
+
+2009-04-09 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+
+	* InterfaceDummy: free memory of fLorentzVectorContainer (bug-fix).
+	* Misc: cleaning memory leaks.
+
+2009-04-08 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+
+	* Misc: cleaning memory leaks.
+	
+2009-04-07 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+
+	* LikelihoodTopElectronJets: switched arguments of resolution function (bug-fix); 
+	* InterfaceDPD: Added truth information to input;
+	* InterfaceDPD: Added NEvents() function;
+	* InterfaceOutput: Added Minuit status to output;
+	* ResDoubleGaus: fixed normalization constant (bug-fix); 
+	* Misc: minor modifications to the code (clean-up). 
+
+2009-04-06 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+
+	* Added truth tree to InterfaceOutput;
+	* added truth particles to InterfaceBase.
+
+2009-04-06 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+
+	* Added class InterfaceOutput;
+	* added class InterfaceDummy;
+	* Misc: minor modifications to match the output classes.
+
+2009-04-02 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+
+	* Adding method PermutationTable to Permutations
+	
+2009-04-02 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+
+	* First release of version 1.2. 
+

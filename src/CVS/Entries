@@ -1,0 +1,22 @@
+/Detector.cxx/1.7/Sun Sep  6 13:58:48 2009//TKLFitter2-00-01-04
+/DetectorAtlas.cxx/1.7/Wed Nov 18 14:47:47 2009//TKLFitter2-00-01-04
+/DetectorBase.cxx/1.2/Wed Apr  8 11:36:03 2009//TKLFitter2-00-01-04
+/DetectorDummy.cxx/1.2/Thu Dec  3 12:41:03 2009//TKLFitter2-00-01-04
+/Fitter.cxx/1.22/Thu Dec  3 12:41:03 2009//TKLFitter2-00-01-04
+/InterfaceBase.cxx/1.5/Thu Apr  9 08:43:11 2009//TKLFitter2-00-01-04
+/InterfaceDummy.cxx/1.8/Thu Dec  3 12:41:03 2009//TKLFitter2-00-01-04
+/InterfaceGoTopTree.cxx/1.10/Thu Dec  3 17:26:11 2009//TKLFitter2-00-01-04
+/InterfaceOutput.cxx/1.21/Fri Dec  4 10:34:02 2009//TKLFitter2-00-01-04
+/InterfaceRoot.cxx/1.7/Thu Apr  9 08:43:11 2009//TKLFitter2-00-01-04
+/LikelihoodBase.cxx/1.14/Mon Dec  7 10:24:00 2009//TKLFitter2-00-01-04
+/LikelihoodTTHElectron.cxx/1.2/Sun May 31 18:09:08 2009//TKLFitter2-00-01-04
+/LikelihoodTopLeptonJets.cxx/1.14/Thu Feb 25 17:10:51 2010//TKLFitter2-00-01-04
+/MatchingTool.cxx/1.4/Tue Jun 16 09:32:58 2009//TKLFitter2-00-01-04
+/Particles.cxx/1.14/Thu Dec  3 17:26:11 2009//TKLFitter2-00-01-04
+/Permutations.cxx/1.12/Thu Dec  3 17:26:11 2009//TKLFitter2-00-01-04
+/PhysicsConstants.cxx/1.2/Fri Nov 20 09:54:04 2009//TKLFitter2-00-01-04
+/ResDoubleGauss.cxx/1.6/Fri Aug  7 16:08:22 2009//TKLFitter2-00-01-04
+/ResGauss.cxx/1.2/Fri Aug  7 16:08:22 2009//TKLFitter2-00-01-04
+/ResolutionBase.cxx/1.5/Fri Aug  7 16:08:22 2009//TKLFitter2-00-01-04
+/SelectionTool.cxx/1.5/Wed Dec 23 11:32:59 2009//TKLFitter2-00-01-04
+D
