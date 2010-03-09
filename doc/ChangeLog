@@ -1,5 +1,10 @@
 2010-03-09 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
 	
+	* fix: add Makefiles
+	* tag: KLFitter-00-02-01
+
+2010-03-09 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+	
 	* migrate to SVN
 	* tag: KLFitter-00-02-00
 
