@@ -1,5 +1,11 @@
 2010-03-09 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
 	
+	* fix: add setup.sh to example directories
+	* fix: add photon transfer function parametrisation to all example directories
+	* tag: KLFitter-00-02-02
+
+2010-03-09 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+	
 	* fix: add Makefiles
 	* tag: KLFitter-00-02-01
 
