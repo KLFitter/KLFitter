@@ -11,12 +11,8 @@
 
 // --------------------------------------------------------- 
 
-#ifndef __INTERFACEBASE__H
-#define __INTERFACEBASE__H
-
-// --------------------------------------------------------- 
-
-#include "Particles.h" 
+#ifndef INTERFACEBASE
+#define INTERFACEBASE
 
 // --------------------------------------------------------- 
 
@@ -27,113 +23,109 @@
 namespace KLFitter
 {
 
-	class InterfaceBase
-	{
-		
-	public: 
-		
-		/** \name Constructors and destructors */ 
-		/* @{ */ 
-		
-		/** 
-		 * The default constructor. 
-		 */ 
-		InterfaceBase(); 
-		
-		/**
-		 * The default destructor.
-		 */
-		virtual ~InterfaceBase(); 
+  class Particles;
 
-		/* @} */
-		/** \name Member functions (Get)  */
-		/* @{ */
+  class InterfaceBase
+  {
+                
+  public: 
+                
+    /** \name Constructors and destructors */ 
+    /* @{ */ 
+                
+    /** 
+     * The default constructor. 
+     */ 
+    InterfaceBase(); 
+                
+    /**
+     * The default destructor.
+     */
+    virtual ~InterfaceBase(); 
 
-		/**
-		 * Return a set of particles. 
-		 * @return A pointer to the set of particles. 
-		 */ 
-		KLFitter::Particles * Particles()
-			{ return fParticles; }; 
+    /* @} */
+    /** \name Member functions (Get)  */
+    /* @{ */
 
-		KLFitter::Particles ** PParticles()
-			{ return &fParticles; }; 
+    /**
+     * Return a set of particles. 
+     * @return A pointer to the set of particles. 
+     */ 
+    KLFitter::Particles * Particles()
+      { return fParticles; }; 
 
-		/**
-		 * Return a set of particles. 
-		 * @return A pointer to the set of particles. 
-		 */ 
-		KLFitter::Particles * ParticlesTruth()
-			{ return fParticlesTruth; }; 
+    KLFitter::Particles ** PParticles()
+      { return &fParticles; }; 
 
-		/**
-		 * Return a pointer to a pointer of a set of particles. 
-		 * @return A pointer to the pointer of a set of particles. 
-		 */ 
-		KLFitter::Particles ** PParticlesTruth()
-			{ return &fParticlesTruth; }; 
+    /**
+     * Return a set of particles. 
+     * @return A pointer to the set of particles. 
+     */ 
+    KLFitter::Particles * ParticlesTruth()
+      { return fParticlesTruth; }; 
 
-		/**
-		 * Return the number of events. 
-		 * @return The number of events
-		 */ 
-		virtual int NEvents()
-		{ return 0; }; 
+    /**
+     * Return a pointer to a pointer of a set of particles. 
+     * @return A pointer to the pointer of a set of particles. 
+     */ 
+    KLFitter::Particles ** PParticlesTruth()
+      { return &fParticlesTruth; }; 
 
-		/**
-		 * Get event weight (MC@NLO)
-		 * @return Pointer to event weight.
-		 */
-		virtual double Weight()
-			{ return fWeight; };
+    /**
+     * Return the number of events. 
+     * @return The number of events
+     */ 
+    virtual int NEvents()
+    { return 0; }; 
 
-		/**
-		 * Return the measured missing transverse energy. 
-		 * @return The missing ET
-		 */ 
-		virtual double ET_miss()
-		{ return 0; }; 
-		
-		/* @} */
-		/** \name Member functions (Set)  */
-		/* @{ */
+    /**
+     * Get event weight (MC@NLO)
+     * @return Pointer to event weight.
+     */
+    virtual double Weight()
+    { return fWeight; };
 
-		/* @} */
-		/** \name Member functions (misc)  */
-		/* @{ */
+    /**
+     * Return the measured missing transverse energy. 
+     * @return The missing ET
+     */ 
+    virtual double ET_miss()
+    { return 0; }; 
+                
+    /* @} */
+    /** \name Member functions (Set)  */
+    /* @{ */
 
-		/* @} */
+    /* @} */
+    /** \name Member functions (misc)  */
+    /* @{ */
 
-	protected: 
+    /* @} */
 
-		/**
-		 * A set of particles. 
-		 */ 
-		KLFitter::Particles * fParticles; 
+  protected: 
 
-		/**
-		 * A set of truth particles. 
-		 */ 
-		KLFitter::Particles * fParticlesTruth; 
+    /**
+     * A set of particles. 
+     */ 
+    KLFitter::Particles * fParticles; 
 
-		/**
-		 * A container for four-vectors. This is needed to properly remove
-		 * the particles.
-		 */ 
-		std::vector <TLorentzVector *> * fLorentzVectorContainer; 
+    /**
+     * A set of truth particles. 
+     */ 
+    KLFitter::Particles * fParticlesTruth; 
 
-		/**
-		 * The event weight
-		 */
-		double fWeight;
+    /**
+     * The event weight
+     */
+    double fWeight;
 
-	private: 
+  private: 
 
-	}; 
+  }; 
 
 } // namespace KLFitter 
 
 // --------------------------------------------------------- 
 
-#endif // __INTERFACEBASE__H
+#endif 
 

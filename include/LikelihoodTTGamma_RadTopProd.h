@@ -10,8 +10,8 @@
 
 // --------------------------------------------------------- 
 
-#ifndef __LIKELIHOODTTGAMMA_RADTOPPROD__H
-#define __LIKELIHOODTTGAMMA_RADTOPPROD__H
+#ifndef LIKELIHOODTTGAMMA_RADTOPPROD
+#define LIKELIHOODTTGAMMA_RADTOPPROD
 
 // --------------------------------------------------------- 
 
@@ -26,25 +26,25 @@
 namespace KLFitter
 {
 
-	class LikelihoodTTGamma_RadTopProd : public KLFitter::LikelihoodTTGamma
-	{
-		
-	public: 
-		
-		/** 
-		 * The default constructor. 
-		 */ 
-		LikelihoodTTGamma_RadTopProd(); 
-		
-		/**
-		 * The default destructor.
-		 */
-		virtual ~LikelihoodTTGamma_RadTopProd(); 
+  class LikelihoodTTGamma_RadTopProd : public KLFitter::LikelihoodTTGamma
+  {
+                
+  public: 
+                
+    /** 
+     * The default constructor. 
+     */ 
+    LikelihoodTTGamma_RadTopProd(); 
+                
+    /**
+     * The default destructor.
+     */
+    virtual ~LikelihoodTTGamma_RadTopProd(); 
 
-	}; 
+  }; 
 
 } // namespace KLFitter 
 
 // --------------------------------------------------------- 
 
-#endif // __LIKELIHOODTTGAMMA_RADTOPPROD__H
+#endif 

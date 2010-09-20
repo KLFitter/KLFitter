@@ -4,23 +4,23 @@
 // --------------------------------------------------------- 
 KLFitter::LikelihoodTTGamma_LepTopRadDecay::LikelihoodTTGamma_LepTopRadDecay()
 {
-	// calls base class constructor
+  // calls base class constructor
 }
 
 // --------------------------------------------------------- 
 KLFitter::LikelihoodTTGamma_LepTopRadDecay::~LikelihoodTTGamma_LepTopRadDecay()
 {
-	// calls base class destructor
+  // calls base class destructor
 }
 
 // --------------------------------------------------------- 
 int KLFitter::LikelihoodTTGamma_LepTopRadDecay::CalculateLorentzVectors(std::vector <double> parameters)
 {
-	KLFitter::LikelihoodTTGamma::CalculateLorentzVectors(parameters);
+  KLFitter::LikelihoodTTGamma::CalculateLorentzVectors(parameters);
 
-	// leptonic top 
-	*(fParticlesModel->Parton(5)) += *(fParticlesModel->Photon(0));
+  // leptonic top 
+  *(fParticlesModel->Parton(5)) += *(fParticlesModel->Photon(0));
 
-	// no error 
-	return 1; 
+  // no error 
+  return 1; 
 }

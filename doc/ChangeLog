@@ -1,7 +1,123 @@
+A2010-09-20 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
+	* all changes from 2010-04-22 until 2010-09-20 have been commited to the Goettingen CVS
+	* migrating finally back to SVN
+	* tag: KLFitter-00-03-00
+
 2010-09-20 Johannes Erdmann <johannes.erdmann@cern.ch>
 	
 	* removing CVS directories
 	* tag: KLFitter-00-02-03
+
+2010-09-20 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
+	* pay attention: tag KLFitter2-00-01-19 broken (!)
+	* replaced all tabs by spaces
+	* tag : KLFitter2-00-01-20
+
+2010-08-13 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+	
+	* Major code clean-up in all classes. Sorry, I forgot to fill out
+	  the ChangeLog. See commit messages for some details.
+	
+2010-08-02 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+	
+	* InterfaceOutput.cxx: free memory, commented out the creation of tables which were not needed.
+	* InterfaceGoTopTree.cxx: added flag to include photons or not
+	* InterfaceRoot.cxx: free memory
+	* Permutations.cxx: return the fPermutationTable instead of creating a copy and wasting memory.
+	* examples/top_ljets/runKLFitter.c: free memory.
+	* Will continue to find the memory leaks.
+
+2010-07-30 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+	
+	* LikelihoodTopLeptonJets.cxx: initialized variables in constructor before calling methods.
+
+2010-07-20 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
+	* DetectorAtlas.cxx: bug fix for jet phi resolution
+	* tag: KLFitter2-00-01-18
+
+2010-05-11 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
+	* Modified examples/top_ljets/runKLFitter.c, so that it may run now over background events, too (w/o truth info)
+	* runKLFitter_bg.c is not deprecated !
+	* tag: KLFitter2-00-01-17
+
+2010-05-10 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
+	* Changed back to old transfer functions (KLFitter2-00-01-11):
+	* Gaussian for muons
+	* Old parametrization for electrons and jets
+	* To be kept until new transfer functions are fully understood
+	* Remove obsolete ResDoubleGauss class
+	* tag: KLFitter2-00-01-16
+
+2010-05-03 Sven Ebert <sven.ebert@stud.uni-goettingen.de>
+	
+	* MatchingTool.cxx::ListMatchedTruth expanded for muon and photon support. This bug fix repairs the problem that one had just -1 entries in TreeMatching->Matches_Muon.
+	* few cosmetic changes
+	* tag: KLFitter2-00-01-15
+
+2010-05-02 Sven Ebert <sven.ebert@stud.uni-goettingen.de>
+	
+	* Update of par_energy_muon_eta*.txt
+	* Because of this: Two different DoubleGauss.h/.cxx, called DoubleGaussE and DoubleGaussPt. The second is used for muon energy TF the other for the rest	* ReadConfigFile-class updated. Now you can use PathToInputFile and PathToOutputFile in the config.conf -> Thus no recompiling necessary if you want to fit different root-files
+	* tag: KLFitter2-00-01-14
+
+2010-04-29 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+	
+	* InterfaceOutput: bug fix in TreeModel
+	* tag: KLFitter2-00-01-13
+
+2010-04-26 Sven Ebert <sven.ebert@stud.uni-goettingen.de>
+	
+	* Implemented new parametrization of DoubleGaussian transferfunctions in ResDoubleGauss.cxx
+	* Updated par_energy_electron_eta*.txt, par_energy_ljet_eta*.txt, par_energy_bjet_eta*.txt
+	* tag: KLFitter2-00-01-12
+
+2010-04-23 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+	
+	* InterfaceOutput: is now able to cope with number of jets changing in every event (resizing vectors)
+	* tag: KLFitter2-00-01-11
+
+2010-04-23 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+	
+	* Change on behalf of Sven Ebert:
+	* Introduce config class and config file for reading parameters for runKLFitter
+	* tag: KLFitter2-00-01-10
+
+2010-04-23 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+	
+	* InterfaceGoTopTree: bug fix for samples w/o photons + more initializations in the constructor
+	* tag: KLFitter2-00-01-09
+
+2010-04-23 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+	
+	* USE KLFitter2-00-01-09 INSTEAD (BUG FIX)
+	* Changes on behalf of Sven Ebert
+	* InterfaceGoTopTree: read isolations for electrons and muons from ntuple
+	* LikelihoodBase, Fitter, LikelihoodTopLeptonjets: NaN flag for Minuit output -> stop fit, run with SA and re-run with Minuit
+	* LikelihoodTopLeptonJets: take correct dependence of pT uncertainty in muons
+	* LikelihoodTopLeptonJets: remove 'phi = eta' issue
+	* examples/top_ljets/runKLFitter.c: generalize for muons
+	* tag: KLFitter2-00-01-08
+
+2010-04-22 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+	
+	* InterfaceGoTopTree: fix for reading std::vector<bool> from TTree
+	* InterfaceGoTopTree: initialize all variables in the constructor
+	* InterfaceBase: initialize all variables in the constructor
+	* LikelihoodTopLeptonJets: generalize RemoveInveriantParticlePermutations for electrons and muons
+	* SelectionTool: removed possibility to choose object cuts independent of event selection
+	*    -> object pt cut is now defined by lowest (in pt) event selection cut on the object
+	* SelectionTool: remove tolerances (dn) for electrons, muons and photons
+	* SelectionTool: set default tolerance (dn) to "-1" for jets, meaning "infinity"
+	* SelectionTool: introduce flag for maximal number of jets to be used within in the fitter
+	* SelectionTool: remove all jets (start with lowest in pt) that are "too much" according to this flag
+	* runKLFitter.c: object selection -> made eta cut explitcit (|eta| < 2.5)
+	* InterfaceOutput: replace arrays by vectors
+	* tag: KLFitter2-00-01-07
 
 2010-03-09 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
 	

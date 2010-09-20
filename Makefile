@@ -24,7 +24,7 @@ OBJDIR     = obj
 
 # flags and libs
 CXXFLAGS += $(ROOTCFLAGS) $(BATCFLAGS) -I$(INCLUDEDIR)
-CXXFLAGS += -Wall -Wno-deprecated -O2
+CXXFLAGS += -Wall -Wno-deprecated -O2 -ggdb
 ifneq ($(MACHINE), $(MAC))
 	CXXFLAGS += -fPIC
 endif
@@ -39,7 +39,8 @@ endif
 # files
 CXSRCS = ResolutionBase.cxx \
 	ResGauss.cxx \
-	ResDoubleGauss.cxx \
+	ResDoubleGaussE.cxx \
+	ResDoubleGaussPt.cxx \
 	Fitter.cxx \
 	DetectorBase.cxx \
 	Detector.cxx \
@@ -64,7 +65,8 @@ CXSRCS = ResolutionBase.cxx \
 	LikelihoodTTHElectron.cxx \
 	MatchingTool.cxx \
 	SelectionTool.cxx \
-	PhotonType.cxx
+	PhotonType.cxx \
+	ReadConfigFile.cxx
 
 PREPROCESSOR_H = $(INCLUDEDIR)/PREPROC.h
 HEADERSRCS     = $(patsubst %.cxx, $(INCLUDEDIR)/%.h, $(CXSRCS))

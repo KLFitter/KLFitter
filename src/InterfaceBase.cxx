@@ -1,19 +1,22 @@
 #include "InterfaceBase.h" 
-#include <iostream> 
+#include "Particles.h" 
 
 // --------------------------------------------------------- 
-KLFitter::InterfaceBase::InterfaceBase()
+KLFitter::InterfaceBase::InterfaceBase() :
+  fParticles(0),
+  fParticlesTruth(0),  
+  fWeight(0)
 {
-	fParticles = 0; 
-	fParticlesTruth = 0; 
-	fLorentzVectorContainer = 0; 
 }
 
 // --------------------------------------------------------- 
 KLFitter::InterfaceBase::~InterfaceBase()
 {
-	delete fParticles; 
-	delete fParticlesTruth; 
+  if (fParticles) 
+    delete fParticles; 
+
+  if (fParticlesTruth)
+    delete fParticlesTruth; 
 }
 
 // --------------------------------------------------------- 

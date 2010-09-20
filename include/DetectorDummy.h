@@ -10,11 +10,10 @@
 
 // --------------------------------------------------------- 
 
-#ifndef __DETECTORDUMMY__H
-#define __DETECTORDUMMY__H
+#ifndef DETECTORDUMMY
+#define DETECTORDUMMY
 
 #include "DetectorBase.h"
-#include "ResGauss.h" 
 
 // --------------------------------------------------------- 
 
@@ -25,36 +24,36 @@
 namespace KLFitter
 {
 
-	class DetectorDummy : public DetectorBase
-	{
-		
-	public: 
-		
-		/** \name Constructors and destructors */ 
-		/* @{ */ 
-		
-		/** 
-		 * The default constructor. 
-		 */ 
-		DetectorDummy(); 
-		
-		/**
-		 * The default destructor.
-		 */
-		virtual ~DetectorDummy(); 
+  class DetectorDummy : public DetectorBase
+  {
+                
+  public: 
+                
+    /** \name Constructors and destructors */ 
+    /* @{ */ 
+                
+    /** 
+     * The default constructor. 
+     */ 
+    DetectorDummy(); 
+                
+    /**
+     * The default destructor.
+     */
+    virtual ~DetectorDummy(); 
 
-		/* @} */
-		/** \name Member functions (Set)  */
-		/* @{ */
+    /* @} */
+    /** \name Member functions (Set)  */
+    /* @{ */
 
-		/* @} */
+    /* @} */
 
- private: 
+  private: 
 
-	}; 
+  }; 
 
 } // namespace KLFitter 
 
 // --------------------------------------------------------- 
 
-#endif // __DETECTORDUMMY__H
+#endif 

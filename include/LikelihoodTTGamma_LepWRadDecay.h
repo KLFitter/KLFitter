@@ -10,8 +10,8 @@
 
 // --------------------------------------------------------- 
 
-#ifndef __LIKELIHOODTTGAMMA_LEPWRADDECAY__H
-#define __LIKELIHOODTTGAMMA_LEPWRADDECAY__H
+#ifndef LIKELIHOODTTGAMMA_LEPWRADDECAY
+#define LIKELIHOODTTGAMMA_LEPWRADDECAY
 
 // --------------------------------------------------------- 
 
@@ -26,40 +26,40 @@
 namespace KLFitter
 {
 
-	class LikelihoodTTGamma_LepWRadDecay : public KLFitter::LikelihoodTTGamma
-	{
-		
-	public: 
-		
-		/** 
-		 * The default constructor. 
-		 */ 
-		LikelihoodTTGamma_LepWRadDecay(); 
-		
-		/**
-		 * The default destructor.
-		 */
-		virtual ~LikelihoodTTGamma_LepWRadDecay(); 
+  class LikelihoodTTGamma_LepWRadDecay : public KLFitter::LikelihoodTTGamma
+  {
+                
+  public: 
+                
+    /** 
+     * The default constructor. 
+     */ 
+    LikelihoodTTGamma_LepWRadDecay(); 
+                
+    /**
+     * The default destructor.
+     */
+    virtual ~LikelihoodTTGamma_LepWRadDecay(); 
 
-	protected: 
+  protected: 
 
-		/**
-		 * Update 4-vectors of model particles. 
-		 * @return An error flag.
-		 */ 
-		virtual int CalculateLorentzVectors(std::vector <double> parameters); 
+    /**
+     * Update 4-vectors of model particles. 
+     * @return An error flag.
+     */ 
+    virtual int CalculateLorentzVectors(std::vector <double> parameters); 
 
-		/**
-		 * Calculates the neutrino pz solutions from the measured values
-		 * and the W mass.
-		 * @return A vector with 0, 1 or 2 neutrino pz solutions.
-		 */
-		virtual std::vector<double> GetNeutrinoPzSolutions();
+    /**
+     * Calculates the neutrino pz solutions from the measured values
+     * and the W mass.
+     * @return A vector with 0, 1 or 2 neutrino pz solutions.
+     */
+    virtual std::vector<double> GetNeutrinoPzSolutions();
 
-	}; 
+  }; 
 
 } // namespace KLFitter 
 
 // --------------------------------------------------------- 
 
-#endif // __LIKELIHOODTTGAMMA_LEPWRADDECAY__H
+#endif 

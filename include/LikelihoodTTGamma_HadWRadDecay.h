@@ -10,8 +10,8 @@
 
 // --------------------------------------------------------- 
 
-#ifndef __LIKELIHOODTTGAMMA_HADWRADDECAY__H
-#define __LIKELIHOODTTGAMMA_HADWRADDECAY__H
+#ifndef LIKELIHOODTTGAMMA_HADWRADDECAY
+#define LIKELIHOODTTGAMMA_HADWRADDECAY
 
 // --------------------------------------------------------- 
 
@@ -26,33 +26,33 @@
 namespace KLFitter
 {
 
-	class LikelihoodTTGamma_HadWRadDecay : public KLFitter::LikelihoodTTGamma
-	{
-		
-	public: 
-		
-		/** 
-		 * The default constructor. 
-		 */ 
-		LikelihoodTTGamma_HadWRadDecay(); 
-		
-		/**
-		 * The default destructor.
-		 */
-		virtual ~LikelihoodTTGamma_HadWRadDecay(); 
+  class LikelihoodTTGamma_HadWRadDecay : public KLFitter::LikelihoodTTGamma
+  {
+                
+  public: 
+                
+    /** 
+     * The default constructor. 
+     */ 
+    LikelihoodTTGamma_HadWRadDecay(); 
+                
+    /**
+     * The default destructor.
+     */
+    virtual ~LikelihoodTTGamma_HadWRadDecay(); 
 
-	protected: 
+  protected: 
 
-		/**
-		 * Update 4-vectors of model particles. 
-		 * @return An error flag.
-		 */ 
-		virtual int CalculateLorentzVectors(std::vector <double> parameters); 
+    /**
+     * Update 4-vectors of model particles. 
+     * @return An error flag.
+     */ 
+    virtual int CalculateLorentzVectors(std::vector <double> parameters); 
 
-	}; 
+  }; 
 
 } // namespace KLFitter 
 
 // --------------------------------------------------------- 
 
-#endif // __LIKELIHOODTTGAMMA_HADWRADDECAY__H
+#endif 

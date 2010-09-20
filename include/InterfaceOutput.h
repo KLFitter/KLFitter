@@ -11,20 +11,19 @@
 
 // --------------------------------------------------------- 
 
-#ifndef __INTERFACEOUTPUT__H
-#define __INTERFACEOUTPUT__H
+#ifndef INTERFACEOUTPUT
+#define INTERFACEOUTPUT
 
 // --------------------------------------------------------- 
 
 #include "InterfaceRoot.h" 
 #include "Particles.h" 
-#include "Fitter.h" 
-#include "MatchingTool.h" 
-#include "SelectionTool.h" 
-#include "TTree.h" 
+
 #include <string>
 
 // --------------------------------------------------------- 
+
+class TTree;
 
 /*!
  * \namespace KLFitter
@@ -33,315 +32,326 @@
 namespace KLFitter
 {
 
-	class InterfaceOutput : public InterfaceRoot 
-	{
-		
-	public: 
-		
-		/** \name Constructors and destructors */ 
-		/* @{ */ 
-		
-		/** 
-		 * The default constructor. 
-		 */ 
-		InterfaceOutput(); 
-		
-		/**
-		 * The default destructor.
-		 */
-		virtual ~InterfaceOutput(); 
+  class Fitter;
+  class SelectionTool;
+  class MatchingTool;
 
-		/* @} */
-		/** \name Member functions (Get)  */
-		/* @{ */
+  class InterfaceOutput : public InterfaceRoot 
+  {
+                
+  public: 
+                
+    /** \name Constructors and destructors */ 
+    /* @{ */ 
+                
+    /** 
+     * The default constructor. 
+     */ 
+    InterfaceOutput(); 
+                
+    /**
+     * The default destructor.
+     */
+    virtual ~InterfaceOutput(); 
 
-		/* @} */
-		/** \name Member functions (Set)  */
-		/* @{ */
+    /* @} */
+    /** \name Member functions (Get)  */
+    /* @{ */
 
-		/**
-		 * Set pointer to fitter.
-		 * @param fitter A fitter.
-		 * @return An error code. 
-		 */ 
-		int SetFitter(KLFitter::Fitter * fitter); 
+    /* @} */
+    /** \name Member functions (Set)  */
+    /* @{ */
 
-		/**
-		 * Set pointer to matching tool. 
-		 * @param matchingtool A matching tool.
-		 * @return An error code. 
-		 */ 
-		int SetMatchingTool(KLFitter::MatchingTool * matchingtool); 
+    /**
+     * Set pointer to fitter.
+     * @param fitter A fitter.
+     * @return An error code. 
+     */ 
+    int SetFitter(KLFitter::Fitter * fitter); 
 
-		/**
-		 * Set pointer to selection tool. 
-		 * @param selectiontool A selection tool.
-		 * @return An error code. 
-		 */ 
-		int SetSelectionTool(KLFitter::SelectionTool * selectiontool); 
+    /**
+     * Set pointer to matching tool. 
+     * @param matchingtool A matching tool.
+     * @return An error code. 
+     */ 
+    int SetMatchingTool(KLFitter::MatchingTool * matchingtool); 
 
-		/**
-		 * Set pointer to a set of truth particles.
-		 * @param pparticles A set of particles.
-		 * @return An error code. 
-		 */ 
-		int SetParticlesTruth(KLFitter::Particles ** pparticles)
-		{ fParticlesTruth = pparticles; return 1; }; 
+    /**
+     * Set pointer to selection tool. 
+     * @param selectiontool A selection tool.
+     * @return An error code. 
+     */ 
+    int SetSelectionTool(KLFitter::SelectionTool * selectiontool); 
 
-		/**
-		 * Set pointer to a set of measured particles.
-		 * @param pparticles A set of particles.
-		 * @return An error code. 
-		 */ 
-		int SetParticlesMeasured(KLFitter::Particles ** pparticles)
-		{ fParticlesMeasured = pparticles; return 1; }; 
+    /**
+     * Set pointer to a set of truth particles.
+     * @param pparticles A set of particles.
+     * @return An error code. 
+     */ 
+    int SetParticlesTruth(KLFitter::Particles ** pparticles)
+    { fParticlesTruth = pparticles; return 1; }; 
 
-		/* @} */
-		/** \name Member functions (misc)  */
-		/* @{ */
+    /**
+     * Set pointer to a set of measured particles.
+     * @param pparticles A set of particles.
+     * @return An error code. 
+     */ 
+    int SetParticlesMeasured(KLFitter::Particles ** pparticles)
+    { fParticlesMeasured = pparticles; return 1; }; 
 
-		/**
-		 * Open Root file containing tree.
-		 * @param filename The filename. 
-		 * @param opt options.
-		 * @return An error code.
-		 */ 
-		virtual int OpenRootFile(const char * filename, Option_t * opt = "RECREATE"); 
+    /* @} */
+    /** \name Member functions (misc)  */
+    /* @{ */
 
-		/**
-		 * Close Root file. 
-		 * @return An error code.
-		 */ 
-		virtual int CloseRootFile(); 
+    /**
+     * Open Root file containing tree.
+     * @param filename The filename. 
+     * @param opt options.
+     * @return An error code.
+     */ 
+    virtual int OpenRootFile(const char * filename, Option_t * opt = "RECREATE"); 
 
-		/**
-		 * Creates trees for the truth, model and measured particles. 
-		 * @return An error code. 
-		 */ 
-		int CreateTrees(); 
+    /**
+     * Close Root file. 
+     * @return An error code.
+     */ 
+    virtual int CloseRootFile(); 
 
-		/**
-		 * Creates a tree for the model particles. 
-		 * @return An error code. 
-		 */ 
-		int CreateTreeModel(); 
+    /**
+     * Creates trees for the truth, model and measured particles. 
+     * @return An error code. 
+     */ 
+    int CreateTrees(); 
 
-		/**
-		 * Creates a tree for the measured particles. 
-		 * @return An error code. 
-		 */ 
-		int CreateTreeMeasured(); 
+    /**
+     * Creates a tree for the model particles. 
+     * @return An error code. 
+     */ 
+    int CreateTreeModel(); 
 
-		/**
-		 * Creates a tree for the selected particles. 
-		 * @return An error code. 
-		 */ 
-		int CreateTreeSelected(); 
+    /**
+     * Creates a tree for the measured particles. 
+     * @return An error code. 
+     */ 
+    int CreateTreeMeasured(); 
 
-		/**
-		 * Creates a tree for the truth particles. 
-		 * @return An error code. 
-		 */ 
-		int CreateTreeTruth(); 
+    /**
+     * Creates a tree for the selected particles. 
+     * @return An error code. 
+     */ 
+    int CreateTreeSelected(); 
 
-		/**
-		 * Creates a tree for the matching information.
-		 * @return An error code. 
-		 */ 
-		int CreateTreeMatching(); 
+    /**
+     * Creates a tree for the truth particles. 
+     * @return An error code. 
+     */ 
+    int CreateTreeTruth(); 
 
-		/**
-		 * Creates a tree for the mapping information.
-		 * @return An error code. 
-		 */ 
-		int CreateTreeMap(); 
+    /**
+     * Creates a tree for the matching information.
+     * @return An error code. 
+     */ 
+    int CreateTreeMatching(); 
 
-		/**
-		 * Fills copies of the model particles of the current permutation
-		 * into the tree variables.
-		 * @return An error code. 
-		 */ 
-		int FillTreeModelPermutation();
+    /**
+     * Creates a tree for the mapping information.
+     * @return An error code. 
+     */ 
+    int CreateTreeMap(); 
 
-		/**
-		 * Fills copies of the measured particles into the tree variables.
-		 * @return An error code.
-		 */ 
-		int FillTreeMeasured();
+    /**
+     * Fills copies of the model particles of the current permutation
+     * into the tree variables.
+     * @return An error code. 
+     */ 
+    int FillTreeModelPermutation();
 
-		/**
-		 * Fills copies of the measured particles into the tree variables.
-		 * @return An error code.
-		 */ 
-		int FillTreeSelected();
+    /**
+     * Fills copies of the measured particles into the tree variables.
+     * @return An error code.
+     */ 
+    int FillTreeMeasured();
 
-		/**
-		 * Fills copies of the truth particles into the tree variables.
-		 * @return An error code.
-		 */ 
-		int FillTreeTruth();
+    /**
+     * Fills copies of the measured particles into the tree variables.
+     * @return An error code.
+     */ 
+    int FillTreeSelected();
 
-		/**
-		 * Fill copies of the matching information in the tree variables.
-		 * @return An error code.
-		 */ 
-		int FillTreeMatching(); 
+    /**
+     * Fills copies of the truth particles into the tree variables.
+     * @return An error code.
+     */ 
+    int FillTreeTruth();
 
-		/**
-		 * Fill copies of the mapping information in the tree variables.
-		 * @return An error code.
-		 */ 
-		int FillTreeMap(); 
+    /**
+     * Fill copies of the matching information in the tree variables.
+     * @return An error code.
+     */ 
+    int FillTreeMatching(); 
 
-		/**
-		 * Fill the trees.
-		 * @return An error code.
-		 */ 
-		int FillTrees(); 
+    /**
+     * Fill copies of the mapping information in the tree variables.
+     * @return An error code.
+     */ 
+    int FillTreeMap(); 
 
-		/**
-		 * Fill the event weight.
-		 * @return An error code.
-		 */
-		int SetEventWeight(double weight);
+    /**
+     * Fill the trees.
+     * @return An error code.
+     */ 
+    int FillTrees(); 
 
-		/**
-		 * Fill the photon type.
-		 * @return An error code.
-		 */
-		int SetPhotonType(bool isNotClassified, bool isRadTopProd, bool isHadTopRadDecay, bool isLepTopRadDecay, bool isHadWRadDecay, bool isLepWRadDecay);
+    /**
+     * Fill the event weight.
+     * @return An error code.
+     */
+    int SetEventWeight(double weight);
 
-		/**
-		 * A helper class which removes blanks from a string. 
-		 * @param str A string. 
-		 * @return A string. 
-		 */ 
-		std::string ModifyString(std::string str); 
+    /**
+     * Fill the photon type.
+     * @return An error code.
+     */
+    int SetPhotonType(bool isNotClassified, bool isRadTopProd, bool isHadTopRadDecay, bool isLepTopRadDecay, bool isHadWRadDecay, bool isLepWRadDecay);
 
-		/* @} */
+    /**
+     * A helper class which removes blanks from a string. 
+     * @param str A string. 
+     * @return A string. 
+     */ 
+    std::string ModifyString(std::string str); 
 
-	protected: 
+    /* @} */
 
-		/**
-		 * A pointer to a pointer to a set of truth particles. 
-		 */ 
-		KLFitter::Particles ** fParticlesTruth; 
+  protected: 
 
-		/**
-		 * A pointer to a pointer to a set of model particles. 
-		 */ 
-		KLFitter::Particles ** fParticlesModel; 
-		
-		/**
-		 * A pointer to a pointer to a set of measured particles. 
-		 */ 
-		KLFitter::Particles ** fParticlesMeasured; 
+    /**
+     * A pointer to a pointer to a set of truth particles. 
+     */ 
+    KLFitter::Particles ** fParticlesTruth; 
 
-		/**
-		 * A pointer to a pointer to a set of selected particles. 
-		 */ 
-		KLFitter::Particles ** fParticlesSelected; 
+    /**
+     * A pointer to a pointer to a set of model particles. 
+     */ 
+    KLFitter::Particles ** fParticlesModel; 
+                
+    /**
+     * A pointer to a pointer to a set of measured particles. 
+     */ 
+    KLFitter::Particles ** fParticlesMeasured; 
 
-		/**
-		 * A pointer to the matching tool
-		 */ 
-		KLFitter::MatchingTool * fMatchingTool; 
+    /**
+     * A pointer to a pointer to a set of selected particles. 
+     */ 
+    KLFitter::Particles ** fParticlesSelected; 
 
-		/**
-		 * A pointer to the selection tool
-		 */ 
-		KLFitter::SelectionTool * fSelectionTool; 
+    /**
+     * A pointer to the matching tool
+     */ 
+    KLFitter::MatchingTool * fMatchingTool; 
 
-		/**
-		 * A pointer to a fitter 
-		 */ 
-		KLFitter::Fitter * fFitter; 
+    /**
+     * A pointer to the selection tool
+     */ 
+    KLFitter::SelectionTool * fSelectionTool; 
 
-		/**
-		 * The Root tree for the truth particles
-		 */ 
-		TTree * fTreeTruth; 
+    /**
+     * A pointer to a fitter 
+     */ 
+    KLFitter::Fitter * fFitter; 
 
-		/**
-		 * The Root tree for the model particles
-		 */ 
-		TTree * fTreeModel; 
+    /**
+     * The Root tree for the truth particles
+     */ 
+    TTree * fTreeTruth; 
 
-		/**
-		 * The Root tree for the measured particles
-		 */ 
-		TTree * fTreeMeasured; 
+    /**
+     * The Root tree for the model particles
+     */ 
+    TTree * fTreeModel; 
 
-		/**
-		 * The Root tree for the selected particles
-		 */ 
-		TTree * fTreeSelected; 
+    /**
+     * The Root tree for the measured particles
+     */ 
+    TTree * fTreeMeasured; 
 
-		/**
-		 * The Root tree for the matching information
-		 */ 
-		TTree * fTreeMatching; 
+    /**
+     * The Root tree for the selected particles
+     */ 
+    TTree * fTreeSelected; 
 
-		/**
-		 * The Root tree for mapping the selected to the measured particles 
-		 */ 
-		TTree * fTreeMap; 
+    /**
+     * The Root tree for the matching information
+     */ 
+    TTree * fTreeMatching; 
 
-	private: 
+    /**
+     * The Root tree for mapping the selected to the measured particles 
+     */ 
+    TTree * fTreeMap; 
 
-		/** 
-		 * A helper method for creating the branch names for TreeMeasured
-		 * @param The type of the particle
-		 * @return Particle name - empty string for particles that cannot be measured directly
-		 */
+  private: 
 
-		std::string TreeMeasuredBranchName(KLFitter::Particles::ParticleType pType);
+    /** 
+     * A helper method for resizing vectors of vectors.
+     * @param v The vector of vectors.
+     * @param length The new length.
+     */
+    template<class type> void Resize(std::vector<std::vector<type> * > * v, unsigned int length);
 
-		/** \name The tree variables */ 
-		/* @{ */ 
-		
-		int fTreeVarEventNumber; 
-		int fTreeVarNPermutations;
-		int fTreeVarNBTags;
-		int * fTreeVarBestPermutation; 
-		double * fTreeVarLogLikelihood; 
-		double * fTreeVarMinuitStatus; 
-		double * fTreeVarIntegral;
-		double * fTreeVarEventProbability; 
+    /** 
+     * A helper method for creating the branch names for TreeMeasured
+     * @param The type of the particle
+     * @return Particle name - empty string for particles that cannot be measured directly
+     */
 
-		int fTreeVarNPartonsMeasured; 
-		int fTreeVarNElectronsMeasured; 
-		int fTreeVarNMuonsMeasured; 
-		int fTreeVarNPhotonsMeasured; 
+    std::string TreeMeasuredBranchName(KLFitter::Particles::ParticleType pType);
 
-		int fTreeVarNPartonsSelected; 
-		int fTreeVarNElectronsSelected; 
-		int fTreeVarNMuonsSelected; 
-		int fTreeVarNPhotonsSelected; 
+    /** \name The tree variables */ 
+    /* @{ */ 
+                
+    int fTreeVarEventNumber; 
+    int fTreeVarNPermutations;
+    int fTreeVarNBTags;
+    std::vector<int> * fTreeVarBestPermutation; 
+    std::vector<double> * fTreeVarLogLikelihood; 
+    std::vector<double> * fTreeVarMinuitStatus; 
+    std::vector<double> * fTreeVarIntegral;
+    std::vector<double> * fTreeVarEventProbability; 
 
-		std::vector <double *> * fTreeVarParameters; 
-		std::vector <double *> * fTreeVarParameterErrors; 
-		std::vector <double *> * fTreeVarModel; 
-		std::vector <std::vector<double> *> * fTreeVarMeasured;
-		std::vector <std::vector<double> *> * fTreeVarSelected;
-		std::vector <double *> * fTreeVarTruth; 
-		
-		std::vector <int *> * fTreeVarNMatchedPartons; 
-		std::vector <int *> * fTreeVarNMatchedElectrons; 
-		std::vector <int *> * fTreeVarNMatchedMuons; 
-		std::vector <int *> * fTreeVarNMatchedPhotons; 
+    int fTreeVarNPartonsMeasured; 
+    int fTreeVarNElectronsMeasured; 
+    int fTreeVarNMuonsMeasured; 
+    int fTreeVarNPhotonsMeasured; 
 
-		std::vector <int *> * fTreeVarMatchedPartons; 
-		std::vector <int *> * fTreeVarMatchedElectrons; 
-		std::vector <int *> * fTreeVarMatchedMuons; 
-		std::vector <int *> * fTreeVarMatchedPhotons; 
+    int fTreeVarNPartonsSelected; 
+    int fTreeVarNElectronsSelected; 
+    int fTreeVarNMuonsSelected; 
+    int fTreeVarNPhotonsSelected; 
 
-		int * fTreeVarMapJets; 
-		int * fTreeVarMapElectrons; 
-		int * fTreeVarMapMuons; 
-		int * fTreeVarMapPhotons; 
+    std::vector <std::vector<double> *> * fTreeVarParameters; 
+    std::vector <std::vector<double> *> * fTreeVarParameterErrors; 
+    std::vector <std::vector<double> *> * fTreeVarModel; 
+    std::vector <std::vector<double> *> * fTreeVarMeasured;
+    std::vector <std::vector<double> *> * fTreeVarSelected;
+    std::vector <std::vector<double> *> * fTreeVarTruth; 
+                
+    std::vector <int *> * fTreeVarNMatchedPartons; 
+    std::vector <int *> * fTreeVarNMatchedElectrons; 
+    std::vector <int *> * fTreeVarNMatchedMuons; 
+    std::vector <int *> * fTreeVarNMatchedPhotons; 
 
-		double fEventWeight;
+    std::vector <std::vector<int> *> * fTreeVarMatchedPartons; 
+    std::vector <std::vector<int> *> * fTreeVarMatchedElectrons; 
+    std::vector <std::vector<int> *> * fTreeVarMatchedMuons; 
+    std::vector <std::vector<int> *> * fTreeVarMatchedPhotons; 
+
+    std::vector<int> * fTreeVarMapJets; 
+    std::vector<int> * fTreeVarMapElectrons; 
+    std::vector<int> * fTreeVarMapMuons; 
+    std::vector<int> * fTreeVarMapPhotons; 
+
+    double fEventWeight;
 
     bool fIsNotClassified;
     bool fIsRadTopProd;
@@ -350,13 +360,13 @@ namespace KLFitter
     bool fIsHadWRadDecay;
     bool fIsLepWRadDecay;
 
-		/* @} */
+    /* @} */
 
-	}; 
+  }; 
 
 } // namespace KLFitter 
 
 // --------------------------------------------------------- 
 
-#endif // __INTERFACEOUTPUT__H
+#endif 
 

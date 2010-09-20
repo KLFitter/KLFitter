@@ -1,20 +1,21 @@
 /*!
- * \class KLFitter::ResGauss
- * \brief A class describing a Gaussian resolution. 
+ * \class KLFitter::ResDoubleGaussE
+ * \brief A class describing a resolution parameterized with a double Gaussian. 
  * \author Kevin Kr&ouml;ninger
  * \version 1.3
  * \date 03.12.2009
  *
  * This class offers a simple parameterization of a resolution. The
- * parameterization is a Gaussian with a width of a constant times the
- * square root of the true parameter.
+ * parameterization is a double Gaussian with energy dependent
+ * parameters.
  */
 
 // --------------------------------------------------------- 
 
-#ifndef RESGAUSS
-#define RESGAUSS
+#ifndef RESDOUBLEGAUSSE
+#define RESDOUBLEGAUSSE
 
+#include <vector>
 #include "ResolutionBase.h" 
 
 // --------------------------------------------------------- 
@@ -26,7 +27,7 @@
 namespace KLFitter
 {
 
-  class ResGauss : public ResolutionBase
+  class ResDoubleGaussE : public ResolutionBase
   {
                 
   public: 
@@ -37,18 +38,18 @@ namespace KLFitter
     /** 
      * The default constructor. 
      */ 
-    ResGauss(const char * filename); 
+    ResDoubleGaussE(const char * filename); 
 
-    /** 
-     * A constructor. 
-     * @param sigma The width of the Gaussian.
-     */ 
-    ResGauss(double sigma); 
-                
+    /**
+     * A constructor.
+     * @param parameters The parameters of the parameterization. 
+     */
+    ResDoubleGaussE(std::vector<double> const& parameters);
+
     /**
      * The default destructor.
      */
-    virtual ~ResGauss(); 
+    virtual ~ResDoubleGaussE(); 
 
     /* @} */
     /** \name Member functions (Get)  */
@@ -66,14 +67,11 @@ namespace KLFitter
     /* @} */
     /** \name Member functions (Set)  */
     /* @{ */
-
-    /**
-     * Set the width of the Gaussian 
-     * @param sigma The width of the Gaussian. 
-     */ 
-    void SetSigma(double sigma)
-    { if (sigma < 0) sigma = - sigma; this -> SetPar(0, sigma); }; 
-
+        
+    /* @} */
+    /** \name Member functions (misc)  */
+    /* @{ */
+                
     /* @} */
 
   private: 

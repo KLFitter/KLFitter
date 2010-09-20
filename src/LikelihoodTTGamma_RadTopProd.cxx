@@ -3,11 +3,11 @@
 // --------------------------------------------------------- 
 KLFitter::LikelihoodTTGamma_RadTopProd::LikelihoodTTGamma_RadTopProd()
 {
-	// calls base class constructor
+  // calls base class constructor
 }
 
 // --------------------------------------------------------- 
 KLFitter::LikelihoodTTGamma_RadTopProd::~LikelihoodTTGamma_RadTopProd()
 {
-	// calls base class destructor
+  // calls base class destructor
 }

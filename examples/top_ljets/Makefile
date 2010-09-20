@@ -29,7 +29,7 @@ LN   = ln -s
 
 # flags and libs
 CXXFLAGS += $(ROOTCFLAGS) $(BATCFLAGS) -I$(KLFITTERINCLUDE)
-CXXFLAGS += -Wall -Wno-deprecated -O2 
+CXXFLAGS += -Wall -Wno-deprecated -O2 -ggdb
 ifneq ($(MACHINE), $(MAC))
 	CXXFLAGS += -fPIC
 endif

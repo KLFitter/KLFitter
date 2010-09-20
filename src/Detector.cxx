@@ -1,21 +1,27 @@
 #include "Detector.h" 
+#include "ResolutionBase.h" 
+#include "ResGauss.h"
+#include "ResDoubleGaussE.h"
+#include "ResDoubleGaussPt.h"
+
 #include <cmath>
+#include <iostream>
 
 // --------------------------------------------------------- 
 
 KLFitter::Detector::Detector(std::vector<double> MaxValuesForEtaRegions,
-														 std::string eResTypeLightJet,
-														 std::string eResTypeBJet,
-														 std::string eResTypeGluonJet,
-														 std::string eResTypeElectron,
-														 std::string eResTypeMuon,
-														 std::string eResTypePhoton,
-														 std::vector<double> eResParLightJet,
-														 std::vector<double> eResParBJet,
-														 std::vector<double> eResParGluonJet,
-														 std::vector<double> eResParElectron,
-														 std::vector<double> eResParMuon,
-														 std::vector<double> eResParPhoton) : DetectorBase() {
+                             std::string eResTypeLightJet,
+                             std::string eResTypeBJet,
+                             std::string eResTypeGluonJet,
+                             std::string eResTypeElectron,
+                             std::string eResTypeMuon,
+                             std::string eResTypePhoton,
+                             std::vector<double> eResParLightJet,
+                             std::vector<double> eResParBJet,
+                             std::vector<double> eResParGluonJet,
+                             std::vector<double> eResParElectron,
+                             std::vector<double> eResParMuon,
+                             std::vector<double> eResParPhoton) : DetectorBase() {
 
   fMaxValuesForEtaRegions = MaxValuesForEtaRegions;
   fNEtaRegions = fMaxValuesForEtaRegions.size();
@@ -31,42 +37,42 @@ KLFitter::Detector::Detector(std::vector<double> MaxValuesForEtaRegions,
     if (eResTypeLightJet=="Gauss")
       fResEnergyLightJet_etaRegions->push_back(new KLFitter::ResGauss(eResParLightJet.at(iEtaRegion)));
     else if (eResTypeLightJet=="DoubleGauss")
-      fResEnergyLightJet_etaRegions->push_back(new KLFitter::ResDoubleGauss(getDoubleGaussParameters(eResParLightJet, iEtaRegion)));
+      fResEnergyLightJet_etaRegions->push_back(new KLFitter::ResDoubleGaussE(getDoubleGaussParameters(eResParLightJet, iEtaRegion)));
     else
       std::cout << "energy resolution type for light jets not recognised" << std::endl;
 
     if (eResTypeBJet=="Gauss")
       fResEnergyBJet_etaRegions->push_back(new KLFitter::ResGauss(eResParBJet.at(0)));
     else if (eResTypeBJet=="DoubleGauss")
-      fResEnergyBJet_etaRegions->push_back(new KLFitter::ResDoubleGauss(getDoubleGaussParameters(eResParBJet, iEtaRegion)));
+      fResEnergyBJet_etaRegions->push_back(new KLFitter::ResDoubleGaussE(getDoubleGaussParameters(eResParBJet, iEtaRegion)));
     else
       std::cout << "energy resolution type for b jets not recognised" << std::endl;
 
     if (eResTypeGluonJet=="Gauss")
       fResEnergyGluonJet_etaRegions->push_back(new KLFitter::ResGauss(eResParGluonJet.at(0)));
     else if (eResTypeGluonJet=="DoubleGauss")
-      fResEnergyGluonJet_etaRegions->push_back(new KLFitter::ResDoubleGauss(getDoubleGaussParameters(eResParGluonJet, iEtaRegion)));
+      fResEnergyGluonJet_etaRegions->push_back(new KLFitter::ResDoubleGaussE(getDoubleGaussParameters(eResParGluonJet, iEtaRegion)));
     else
       std::cout << "energy resolution type for gluon jets not recognised" << std::endl;
 
     if (eResTypeElectron=="Gauss")
       fResEnergyElectron_etaRegions->push_back(new KLFitter::ResGauss(eResParElectron.at(0)));
     else if (eResTypeElectron=="DoubleGauss")
-      fResEnergyElectron_etaRegions->push_back(new KLFitter::ResDoubleGauss(getDoubleGaussParameters(eResParElectron, iEtaRegion)));
+      fResEnergyElectron_etaRegions->push_back(new KLFitter::ResDoubleGaussE(getDoubleGaussParameters(eResParElectron, iEtaRegion)));
     else
       std::cout << "energy resolution type for electrons not recognised" << std::endl;
 
     if (eResTypeMuon=="Gauss")
       fResEnergyMuon_etaRegions->push_back(new KLFitter::ResGauss(eResParMuon.at(0)));
     else if (eResTypeMuon=="DoubleGauss")
-      fResEnergyMuon_etaRegions->push_back(new KLFitter::ResDoubleGauss(getDoubleGaussParameters(eResParMuon, iEtaRegion)));
+      fResEnergyMuon_etaRegions->push_back(new KLFitter::ResDoubleGaussPt(getDoubleGaussParameters(eResParMuon, iEtaRegion)));
     else
       std::cout << "energy resolution type for muons not recognised" << std::endl;
 
     if (eResTypePhoton=="Gauss")
       fResEnergyPhoton_etaRegions->push_back(new KLFitter::ResGauss(eResParPhoton.at(0)));
     else if (eResTypePhoton=="DoubleGauss")
-      fResEnergyPhoton_etaRegions->push_back(new KLFitter::ResDoubleGauss(getDoubleGaussParameters(eResParPhoton, iEtaRegion)));
+      fResEnergyPhoton_etaRegions->push_back(new KLFitter::ResDoubleGaussE(getDoubleGaussParameters(eResParPhoton, iEtaRegion)));
     else
       std::cout << "energy resolution type for photons not recognised" << std::endl;
 
@@ -86,28 +92,28 @@ KLFitter::Detector::Detector(std::vector<double> MaxValuesForEtaRegions,
 // --------------------------------------------------------- 
 
 KLFitter::Detector::Detector(std::vector<double> MaxValuesForEtaRegions,
-														 std::string eResTypeLightJet,
-														 std::string eResTypeBJet,
-														 std::string eResTypeGluonJet,
-														 std::string eResTypeElectron,
-														 std::string eResTypeMuon,
-														 std::string eResTypePhoton,
-														 std::string etaResTypeLightJet,
-														 std::string etaResTypeBJet,
-														 std::string phiResTypeLightJet,
-														 std::string phiResTypeBJet,
-														 std::string metResType,
-														 std::vector<double> eResParLightJet,
-														 std::vector<double> eResParBJet,
-														 std::vector<double> eResParGluonJet,
-														 std::vector<double> eResParElectron,
-														 std::vector<double> eResParMuon,
-														 std::vector<double> eResParPhoton,
-														 std::vector<double> etaResParLightJet,
-														 std::vector<double> etaResParBJet,
-														 std::vector<double> phiResParLightJet,
-														 std::vector<double> phiResParBJet,
-														 std::vector<double> metResPar) : DetectorBase() {
+                             std::string eResTypeLightJet,
+                             std::string eResTypeBJet,
+                             std::string eResTypeGluonJet,
+                             std::string eResTypeElectron,
+                             std::string eResTypeMuon,
+                             std::string eResTypePhoton,
+                             std::string etaResTypeLightJet,
+                             std::string etaResTypeBJet,
+                             std::string phiResTypeLightJet,
+                             std::string phiResTypeBJet,
+                             std::string metResType,
+                             std::vector<double> eResParLightJet,
+                             std::vector<double> eResParBJet,
+                             std::vector<double> eResParGluonJet,
+                             std::vector<double> eResParElectron,
+                             std::vector<double> eResParMuon,
+                             std::vector<double> eResParPhoton,
+                             std::vector<double> etaResParLightJet,
+                             std::vector<double> etaResParBJet,
+                             std::vector<double> phiResParLightJet,
+                             std::vector<double> phiResParBJet,
+                             std::vector<double> metResPar) : DetectorBase() {
 
   fMaxValuesForEtaRegions = MaxValuesForEtaRegions;
   fNEtaRegions = fMaxValuesForEtaRegions.size();
@@ -122,85 +128,85 @@ KLFitter::Detector::Detector(std::vector<double> MaxValuesForEtaRegions,
   fResEtaBJet_etaRegions        = new std::vector<KLFitter::ResolutionBase*>;
   fResPhiLightJet_etaRegions    = new std::vector<KLFitter::ResolutionBase*>;
   fResPhiBJet_etaRegions        = new std::vector<KLFitter::ResolutionBase*>;
-	fResMissingET_etaRegions      = new std::vector<KLFitter::ResolutionBase*>;
+  fResMissingET_etaRegions      = new std::vector<KLFitter::ResolutionBase*>;
 
   for (unsigned int iEtaRegion = 0; iEtaRegion < fNEtaRegions; iEtaRegion++) {
     if (eResTypeLightJet=="Gauss")
       fResEnergyLightJet_etaRegions->push_back(new KLFitter::ResGauss(eResParLightJet.at(iEtaRegion)));
     else if (eResTypeLightJet=="DoubleGauss")
-      fResEnergyLightJet_etaRegions->push_back(new KLFitter::ResDoubleGauss(getDoubleGaussParameters(eResParLightJet, iEtaRegion)));
+      fResEnergyLightJet_etaRegions->push_back(new KLFitter::ResDoubleGaussE(getDoubleGaussParameters(eResParLightJet, iEtaRegion)));
     else
       std::cout << "energy resolution type for light jets not recognised" << std::endl;
 
     if (eResTypeBJet=="Gauss")
       fResEnergyBJet_etaRegions->push_back(new KLFitter::ResGauss(eResParBJet.at(0)));
     else if (eResTypeBJet=="DoubleGauss")
-      fResEnergyBJet_etaRegions->push_back(new KLFitter::ResDoubleGauss(getDoubleGaussParameters(eResParBJet, iEtaRegion)));
+      fResEnergyBJet_etaRegions->push_back(new KLFitter::ResDoubleGaussE(getDoubleGaussParameters(eResParBJet, iEtaRegion)));
     else
       std::cout << "energy resolution type for b jets not recognised" << std::endl;
 
     if (eResTypeGluonJet=="Gauss")
       fResEnergyGluonJet_etaRegions->push_back(new KLFitter::ResGauss(eResParGluonJet.at(0)));
     else if (eResTypeGluonJet=="DoubleGauss")
-      fResEnergyGluonJet_etaRegions->push_back(new KLFitter::ResDoubleGauss(getDoubleGaussParameters(eResParGluonJet, iEtaRegion)));
+      fResEnergyGluonJet_etaRegions->push_back(new KLFitter::ResDoubleGaussE(getDoubleGaussParameters(eResParGluonJet, iEtaRegion)));
     else
       std::cout << "energy resolution type for gluon jets not recognised" << std::endl;
 
     if (eResTypeElectron=="Gauss")
       fResEnergyElectron_etaRegions->push_back(new KLFitter::ResGauss(eResParElectron.at(0)));
     else if (eResTypeElectron=="DoubleGauss")
-      fResEnergyElectron_etaRegions->push_back(new KLFitter::ResDoubleGauss(getDoubleGaussParameters(eResParElectron, iEtaRegion)));
+      fResEnergyElectron_etaRegions->push_back(new KLFitter::ResDoubleGaussE(getDoubleGaussParameters(eResParElectron, iEtaRegion)));
     else
       std::cout << "energy resolution type for electrons not recognised" << std::endl;
 
     if (eResTypeMuon=="Gauss")
       fResEnergyMuon_etaRegions->push_back(new KLFitter::ResGauss(eResParMuon.at(0)));
     else if (eResTypeMuon=="DoubleGauss")
-      fResEnergyMuon_etaRegions->push_back(new KLFitter::ResDoubleGauss(getDoubleGaussParameters(eResParMuon, iEtaRegion)));
+      fResEnergyMuon_etaRegions->push_back(new KLFitter::ResDoubleGaussPt(getDoubleGaussParameters(eResParMuon, iEtaRegion)));
     else
       std::cout << "energy resolution type for muons not recognised" << std::endl;
 
     if (eResTypePhoton=="Gauss")
       fResEnergyPhoton_etaRegions->push_back(new KLFitter::ResGauss(eResParPhoton.at(0)));
     else if (eResTypePhoton=="DoubleGauss")
-      fResEnergyPhoton_etaRegions->push_back(new KLFitter::ResDoubleGauss(getDoubleGaussParameters(eResParPhoton, iEtaRegion)));
+      fResEnergyPhoton_etaRegions->push_back(new KLFitter::ResDoubleGaussE(getDoubleGaussParameters(eResParPhoton, iEtaRegion)));
     else
       std::cout << "energy resolution type for photons not recognised" << std::endl;
 
     if (etaResTypeLightJet=="Gauss")
       fResEtaLightJet_etaRegions->push_back(new KLFitter::ResGauss(etaResParLightJet.at(iEtaRegion)));
     else if (etaResTypeLightJet=="DoubleGauss")
-      fResEtaLightJet_etaRegions->push_back(new KLFitter::ResDoubleGauss(getDoubleGaussParameters(etaResParLightJet, iEtaRegion)));
+      fResEtaLightJet_etaRegions->push_back(new KLFitter::ResDoubleGaussE(getDoubleGaussParameters(etaResParLightJet, iEtaRegion)));
     else
       std::cout << "eta resolution type for light jets not recognised" << std::endl;
 
     if (etaResTypeBJet=="Gauss")
       fResEtaBJet_etaRegions->push_back(new KLFitter::ResGauss(etaResParBJet.at(0)));
     else if (etaResTypeBJet=="DoubleGauss")
-      fResEtaBJet_etaRegions->push_back(new KLFitter::ResDoubleGauss(getDoubleGaussParameters(etaResParBJet, iEtaRegion)));
+      fResEtaBJet_etaRegions->push_back(new KLFitter::ResDoubleGaussE(getDoubleGaussParameters(etaResParBJet, iEtaRegion)));
     else
       std::cout << "eta resolution type for b jets not recognised" << std::endl;
 
     if (phiResTypeLightJet=="Gauss")
       fResPhiLightJet_etaRegions->push_back(new KLFitter::ResGauss(phiResParLightJet.at(iEtaRegion)));
     else if (phiResTypeLightJet=="DoubleGauss")
-      fResPhiLightJet_etaRegions->push_back(new KLFitter::ResDoubleGauss(getDoubleGaussParameters(phiResParLightJet, iEtaRegion)));
+      fResPhiLightJet_etaRegions->push_back(new KLFitter::ResDoubleGaussE(getDoubleGaussParameters(phiResParLightJet, iEtaRegion)));
     else
       std::cout << "phi resolution type for light jets not recognised" << std::endl;
 
     if (phiResTypeBJet=="Gauss")
       fResPhiBJet_etaRegions->push_back(new KLFitter::ResGauss(phiResParBJet.at(0)));
     else if (phiResTypeBJet=="DoubleGauss")
-      fResPhiBJet_etaRegions->push_back(new KLFitter::ResDoubleGauss(getDoubleGaussParameters(phiResParBJet, iEtaRegion)));
+      fResPhiBJet_etaRegions->push_back(new KLFitter::ResDoubleGaussE(getDoubleGaussParameters(phiResParBJet, iEtaRegion)));
     else
-			std::cout << "phi resolution type for b jets not recognised" << std::endl;
+      std::cout << "phi resolution type for b jets not recognised" << std::endl;
 
     if (metResType=="Gauss")
       fResMissingET_etaRegions->push_back(new KLFitter::ResGauss(metResPar.at(0)));
     else if (metResType=="DoubleGauss")
-      fResMissingET_etaRegions->push_back(new KLFitter::ResDoubleGauss(getDoubleGaussParameters(metResPar, iEtaRegion)));
+      fResMissingET_etaRegions->push_back(new KLFitter::ResDoubleGaussE(getDoubleGaussParameters(metResPar, iEtaRegion)));
     else
-			std::cout << "resolution type for missing ET not recognised" << std::endl;
+      std::cout << "resolution type for missing ET not recognised" << std::endl;
   }
 
   // just to make DetectorBase::Status() happy
@@ -214,7 +220,7 @@ KLFitter::Detector::Detector(std::vector<double> MaxValuesForEtaRegions,
   fResEtaBJet        = new KLFitter::ResGauss(1.0);
   fResPhiLightJet    = new KLFitter::ResGauss(1.0);
   fResPhiBJet        = new KLFitter::ResGauss(1.0);
-	fResMissingET = new KLFitter::ResGauss(1.0); 
+  fResMissingET = new KLFitter::ResGauss(1.0); 
 }
 
 // --------------------------------------------------------- 
@@ -461,7 +467,7 @@ KLFitter::ResolutionBase * KLFitter::Detector::ResPhiBJet(double eta) {
 
 // --------------------------------------------------------- 
 KLFitter::ResolutionBase * KLFitter::Detector::ResMissingET() {
-	fResMissingET = fResMissingET_etaRegions->at(0);
+  fResMissingET = fResMissingET_etaRegions->at(0);
 
   return fResMissingET; 
 }
