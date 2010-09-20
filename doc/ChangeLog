@@ -1,3 +1,8 @@
+2010-09-20 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
+	* removing CVS directories
+	* tag: KLFitter-00-02-03
+
 2010-03-09 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
 	
 	* fix: add setup.sh to example directories
