@@ -1,4 +1,9 @@
-A2010-09-20 Johannes Erdmann <johannes.erdmann@cern.ch>
+2010-09-20 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
+	* minor change to default configuration in the top_ljets example
+	* tag: KLFitter-00-03-01
+
+2010-09-20 Johannes Erdmann <johannes.erdmann@cern.ch>
 	
 	* all changes from 2010-04-22 until 2010-09-20 have been commited to the Goettingen CVS
 	* migrating finally back to SVN
