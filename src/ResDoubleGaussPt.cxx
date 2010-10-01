@@ -30,7 +30,7 @@ KLFitter::ResDoubleGaussPt::~ResDoubleGaussPt()
 double KLFitter::ResDoubleGaussPt::p(double x, double xmeas)
 {
   double p1 = fParameters[0] + x * fParameters[1];
-  double p2 = fParameters[2]  + x * fParameters[3];
+  double p2 = fParameters[2] + x * fParameters[3];
   double p3 = fParameters[4] + x * fParameters[5];
   double p4 = fParameters[6] + x * fParameters[7];
   double p5 = fParameters[8] + x * fParameters[9];

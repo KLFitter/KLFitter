@@ -1,3 +1,19 @@
+2010-10-01 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+	
+	* implementation of the new TF for 7TeV ttbar:
+		-distinguish: DetectorAtlas_7TeV / DetectorAtlas_10TeV
+		-new ResDoubleGaussE_1: ljets/e @7TeV, ResDoubleGaussE_2: bjets @7TeV,
+		 ResDoubleGaussE_3: ljets/bjets/e @10TeV
+		-TF for muons is @7TeV ResDoubleGaussPt instead of single Gaussian
+		-ASCII files with the parameters of the TF are now in transferfunctions/ttbar
+	* 7TeV and 10TeV TF for ttbar can be chosen with two flags in config.conf: FlagIs7TeV / FlagIs10TeV
+	* Note: 
+		-This is not the final solution, because this is not general enough for all kinds 
+		 of topologies and object definitions
+		-There has been a bug introduced in the interface during the major code clean-up,
+		 so no matching information for the jets is available. This bug has not yet been fixed.
+	* tag: KLFitter-00-03-02
+
 2010-09-20 Johannes Erdmann <johannes.erdmann@cern.ch>
 	
 	* minor change to default configuration in the top_ljets example

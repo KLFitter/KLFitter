@@ -124,6 +124,18 @@ namespace KLFitter
      */
     bool GetIsBkg() { return IsBkg; }
 
+    /**
+     * Return FlagIs7TeV
+     * @return The flag.
+     */
+    bool GetFlagIs7TeV() { return FlagIs7TeV; }	
+
+    /**
+     * Return FlagIs10TeV
+     * @return The flag.
+     */
+    bool GetFlagIs10TeV() { return FlagIs10TeV; }
+
   private: 
 
     int ReadConfig(std::string filename);
@@ -191,6 +203,15 @@ namespace KLFitter
      * For background (w/o truth info!)
      */ 
     bool IsBkg;
+    /**
+     * Flag for using 7TeV transferfunctions
+     */ 
+    bool FlagIs7TeV;
+    /**
+     * Flag for using 10TeV transferfunctions
+     */ 
+    bool FlagIs10TeV;
+
 
   }; 
 

@@ -4,6 +4,8 @@
 #include <Fitter.h> 
 #include <PhysicsConstants.h> 
 #include <DetectorAtlas.h> 
+#include <DetectorAtlas_7TeV.h> 
+#include <DetectorAtlas_10TeV.h> 
 #include <DetectorDummy.h> 
 #include <InterfaceRoot.h> 
 #include <InterfaceDummy.h> 
@@ -45,12 +47,15 @@ int main(int argc, char **argv)
   bool FlagTopMassFixed = configReader->GetFlagTopMassFixed();
   bool FlagUseJetMass   = configReader->GetFlagUseJetMass();
   bool FlagIsSignalMC   = configReader->GetFlagIsSignalMC();
+  bool FlagIs7TeV   = configReader->GetFlagIs7TeV();
+  bool FlagIs10TeV   = configReader->GetFlagIs10TeV();
+
   double MassTop = configReader->GetTopMass();
   std::string input_file=configReader->GetInputPath();
   std::string output_file=configReader->GetOutputPath();
   bool IsBkg = configReader->GetIsBkg();
   delete configReader;
-  if(!valid){std::cout<<"Error: InputPath=OutputPath. Will not overwrite InputFile!"<<std::endl;return 0;}
+  if(!valid){ return 0;}//std::cout<<"Error: InputPath=OutputPath. Will not overwrite InputFile!"<<std::endl;return 0;}
 
   //counters
   unsigned int countLMatch = 0;
@@ -63,8 +68,14 @@ int main(int argc, char **argv)
   KLFitter::InterfaceRoot * myInterfaceRoot = new KLFitter::InterfaceGoTopTree(); 
   myInterfaceRoot -> OpenRootFile(input_file.c_str());
 
-  // create detector 
-  KLFitter::DetectorBase * myDetector = new KLFitter::DetectorAtlas(); 
+  // create detector
+  KLFitter::DetectorBase * myDetector; // = new KLFitter::DetectorAtlas_7TeV();	
+  if (FlagIs7TeV && !FlagIs10TeV)
+  	myDetector = new KLFitter::DetectorAtlas_7TeV(); 
+  else if (!FlagIs7TeV && FlagIs10TeV)
+  	myDetector = new KLFitter::DetectorAtlas_10TeV();
+  else{std::cout<<"Error: Detector could not be created, please check the transferfunction flags"<<std::endl;return 1;}
+
   if (!myFitter -> SetDetector(myDetector))
     return 0; 
         

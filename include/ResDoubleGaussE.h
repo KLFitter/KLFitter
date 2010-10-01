@@ -12,7 +12,7 @@
 
 // --------------------------------------------------------- 
 
-#ifndef RESDOUBLEGAUSSE
+#ifndef ResDoubleGaussE
 #define RESDOUBLEGAUSSE
 
 #include <vector>

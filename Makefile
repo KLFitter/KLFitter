@@ -40,11 +40,15 @@ endif
 CXSRCS = ResolutionBase.cxx \
 	ResGauss.cxx \
 	ResDoubleGaussE.cxx \
+	ResDoubleGaussE_1.cxx \
+	ResDoubleGaussE_2.cxx \
+	ResDoubleGaussE_3.cxx \
 	ResDoubleGaussPt.cxx \
 	Fitter.cxx \
 	DetectorBase.cxx \
 	Detector.cxx \
-	DetectorAtlas.cxx \
+	DetectorAtlas_7TeV.cxx \
+	DetectorAtlas_10TeV.cxx \
 	DetectorDummy.cxx \
 	PhysicsConstants.cxx \
 	Particles.cxx \

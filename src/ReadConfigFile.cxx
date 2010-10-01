@@ -16,6 +16,8 @@ KLFitter::ReadConfigFile::ReadConfigFile(std::string filename)
   FlagTopMassFixed = false;
   FlagUseJetMass   = false;
   FlagIsSignalMC   = true;
+  FlagIs7TeV	   = true;
+  FlagIs10TeV	   = false;
 
   MassTop = 172.5;
 
@@ -40,6 +42,8 @@ KLFitter::ReadConfigFile::ReadConfigFile(std::string filename, bool * validconfi
   FlagTopMassFixed = false;
   FlagUseJetMass   = false;
   FlagIsSignalMC   = true;
+  FlagIs7TeV	   = true;
+  FlagIs10TeV	   = false;
 
   MassTop = 172.5;
 
@@ -261,6 +265,44 @@ int KLFitter::ReadConfigFile::ReadConfig(std::string filename)
                                                     }
                                                 }
                                             }
+					else
+                                        {
+                                          found=line.find("FlagIs7TeV");
+                                          if(found!=std::string::npos)
+                                            {
+                                              found=line.find("=",found);
+                                              if(found!=std::string::npos)
+                                                {
+                                                  tmp=GetTrueOrFalse(line,found);
+                                                  if(tmp!=-1)
+                                                    {
+                                                      FlagIs7TeV=(tmp==1);
+                                                    }
+                                                  else
+                                                    {
+                                                      std::cout<<"Warning: Error while reading value of FlagIs7TeV, using standard value"<<std::endl;
+                                                    }
+                                                }
+                                            }
+					else
+                                        {
+                                          found=line.find("FlagIs10TeV");
+                                          if(found!=std::string::npos)
+                                            {
+                                              found=line.find("=",found);
+                                              if(found!=std::string::npos)
+                                                {
+                                                  tmp=GetTrueOrFalse(line,found);
+                                                  if(tmp!=-1)
+                                                    {
+                                                      FlagIs10TeV=(tmp==1);
+                                                    }
+                                                  else
+                                                    {
+                                                      std::cout<<"Warning: Error while reading value of FlagIs10TeV, using standard value"<<std::endl;
+                                                    }
+                                                }
+                                            }
                                           else
                                             {
                                               found=line.find("MassTop");
@@ -357,6 +399,8 @@ int KLFitter::ReadConfigFile::ReadConfig(std::string filename)
                 }
             }
         }
+    }
+}
       configfile.close();
     }
   else
@@ -375,15 +419,23 @@ int KLFitter::ReadConfigFile::ReadConfig(std::string filename)
   std::cout<< "FlagTopMassFixed = "<<FlagTopMassFixed<<std::endl;
   std::cout<< "FlagUseJetMass = "<<FlagUseJetMass<<std::endl;
   std::cout<< "FlagIsSignalMC = "<<FlagIsSignalMC<<std::endl;
+  std::cout<< "FlagIs7TeV = "<<FlagIs7TeV<<std::endl;
+  std::cout<< "FlagIs10TeV = "<<FlagIs10TeV<<std::endl;
   std::cout<< "MassTop = "<<MassTop<<std::endl;
   std::cout<< "PathToInputFile = " << input_path<<std::endl;
   std::cout<< "PathToOutputFile = " << output_path<<std::endl;
   std::cout << "IsBkg = " << IsBkg << std::endl;
   std::cout << std::endl;
 
-  if(CheckIOPath()){ return 0;}
-  else{std::cout<<"Error: PathToInputFile==PathToOutputFile! Will not overwrite input file!!!";return -1;}
+  if(CheckIOPath()){ 
+	if(FlagIs7TeV && !FlagIs10TeV){ return 0;}
+  		else if(!FlagIs7TeV && FlagIs10TeV){ return 0;}
+  		else{std::cout<<"KLFitter::ReadConfigFile::ReadConfig(). Error: Ambiguities in the chosen centre-of-mass energy for using the correct transferfunctions! Exactly one flag has to be true!!!"<<std::endl;return -1;}
+	}
+  else{std::cout<<"KLFitter::ReadConfigFile::ReadConfig(). Error: PathToInputFile==PathToOutputFile! Will not overwrite input file!!!"<<std::endl;return -1;}
+
 }
+
 
 
 bool KLFitter::ReadConfigFile::CheckIOPath()
