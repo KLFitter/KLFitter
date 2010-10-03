@@ -1,3 +1,9 @@
+2010-10-03 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
+	* remove DetectorAtlas, Detector, ResDoubleGaussE
+	* change default constructor for DetectorBase and derived classes
+	* tag KLFitter-00-03-04
+
 2010-10-01 Johannes Erdmann <johannes.erdmann@cern.ch>
 	
 	* just a follow up tag on the changes already documented by Olaf

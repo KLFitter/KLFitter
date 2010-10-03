@@ -18,6 +18,7 @@
 // --------------------------------------------------------- 
 
 #include "PREPROC.h"
+#include <string>
 
 // --------------------------------------------------------- 
 
@@ -40,8 +41,9 @@ namespace KLFitter
                 
     /** 
      * The default constructor. 
+     * @param folder The folder with transfer function parameters.
      */ 
-    DetectorBase(); 
+    DetectorBase(std::string folder = ""); 
                 
     /**
      * The default destructor.

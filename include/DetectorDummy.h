@@ -14,6 +14,7 @@
 #define DETECTORDUMMY
 
 #include "DetectorBase.h"
+#include <string>
 
 // --------------------------------------------------------- 
 
@@ -34,8 +35,9 @@ namespace KLFitter
                 
     /** 
      * The default constructor. 
+     * @param folder The folder with transfer function parameters.
      */ 
-    DetectorDummy(); 
+    DetectorDummy(std::string folder = ""); 
                 
     /**
      * The default destructor.

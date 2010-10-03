@@ -16,6 +16,7 @@
 // --------------------------------------------------------- 
 
 #include "DetectorBase.h"
+#include <string>
 
 // --------------------------------------------------------- 
 
@@ -36,9 +37,10 @@ namespace KLFitter
                 
     /** 
      * The default constructor. 
+     * @param folder The folder with transfer function parameters.
      */ 
-    DetectorAtlas_10TeV(); 
-                
+    DetectorAtlas_10TeV(std::string folder = ""); 
+
     /**
      * The default destructor.
      */

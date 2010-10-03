@@ -3,7 +3,6 @@
 #include <set>
 #include <Fitter.h> 
 #include <PhysicsConstants.h> 
-#include <DetectorAtlas.h> 
 #include <DetectorAtlas_7TeV.h> 
 #include <DetectorAtlas_10TeV.h> 
 #include <DetectorDummy.h> 
@@ -69,11 +68,11 @@ int main(int argc, char **argv)
   myInterfaceRoot -> OpenRootFile(input_file.c_str());
 
   // create detector
-  KLFitter::DetectorBase * myDetector; // = new KLFitter::DetectorAtlas_7TeV();	
+  KLFitter::DetectorBase * myDetector;
   if (FlagIs7TeV && !FlagIs10TeV)
-  	myDetector = new KLFitter::DetectorAtlas_7TeV(); 
+    myDetector = new KLFitter::DetectorAtlas_7TeV("../../transferfunctions/ttbar"); 
   else if (!FlagIs7TeV && FlagIs10TeV)
-  	myDetector = new KLFitter::DetectorAtlas_10TeV();
+    myDetector = new KLFitter::DetectorAtlas_10TeV("../../transferfunctions/ttbar");
   else{std::cout<<"Error: Detector could not be created, please check the transferfunction flags"<<std::endl;return 1;}
 
   if (!myFitter -> SetDetector(myDetector))
