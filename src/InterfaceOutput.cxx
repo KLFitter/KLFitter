@@ -1276,24 +1276,36 @@ int KLFitter::InterfaceOutput::FillTreeMatching()
   fTreeVarNMuonsSelected = (*fParticlesSelected)->NMuons(); 
   fTreeVarNPhotonsSelected = (*fParticlesSelected)->NPhotons(); 
 
+  // set matching vector for all partons to [-1,-1,-1,-1]	
+  for (unsigned int k = 0; k < fTreeVarMatchedPartons->size(); ++k) {
+    std::vector<int>* d = fTreeVarMatchedPartons->at(k); 
+    d->clear();
+    d->assign(fTreeVarNPartonsSelected, -1);
+    // set number of matched partons to -1	
+    *fTreeVarNMatchedPartons->at(k) = -1; 	
+  }
+	
   // loop over partons
   for (int i = 0; i < (*fParticlesTruth)->NPartons(); ++i)
     {
-      // get number of matched partons
+      // get number of matched partons	
       *(fTreeVarNMatchedPartons->at(i)) = fMatchingTool->NMatchedTruth(i, KLFitter::Particles::kParton); 
-
+	
       // loop over reconstructed partons 
-      for (unsigned int k = 0; k < fTreeVarMatchedPartons->size(); ++k) {
-        std::vector<int>* d = fTreeVarMatchedPartons->at(k); 
-        d->clear();
-        d->assign(fTreeVarNPartonsSelected, -1);
-      }
       for (int j = 0; j < fTreeVarNPartonsSelected; ++j)
         {
           (*(fTreeVarMatchedPartons->at(i)))[j] = (fMatchingTool->ListMatchedTruth(i, KLFitter::Particles::kParton)).at(j);  
         }
     }
-
+  
+  // set matching vector for all electrons to [-1,-1,-1,-1]
+  for (unsigned int k = 0; k < fTreeVarMatchedElectrons->size(); ++k) {
+    std::vector<int>* d = fTreeVarMatchedElectrons->at(k); 
+    d->clear();
+    d->assign(fTreeVarNElectronsSelected, -1);
+    // set number of matched electrons to -1	
+    *fTreeVarNMatchedElectrons->at(k) = -1; 	
+  }
   // loop over electrons
   for (int i = 0; i < (*fParticlesTruth)->NElectrons(); ++i)
     {
@@ -1301,17 +1313,20 @@ int KLFitter::InterfaceOutput::FillTreeMatching()
       *(fTreeVarNMatchedElectrons->at(i)) = fMatchingTool->NMatchedTruth(i, KLFitter::Particles::kElectron); 
 
       // loop over reconstructed electrons 
-      for (unsigned int k = 0; k < fTreeVarMatchedElectrons->size(); ++k) {
-        std::vector<int>* d = fTreeVarMatchedElectrons->at(k); 
-        d->clear();
-        d->assign(fTreeVarNElectronsSelected, -1);
-      }
       for (int j = 0; j < fTreeVarNElectronsSelected; ++j)
         {
           (*(fTreeVarMatchedElectrons->at(i)))[j] = (fMatchingTool->ListMatchedTruth(i, KLFitter::Particles::kElectron)).at(j);  
         }
     }
 
+  // set matching vector for all muons to [-1,-1,-1,-1]
+  for (unsigned int k = 0; k < fTreeVarMatchedMuons->size(); ++k) {
+    std::vector<int>* d = fTreeVarMatchedMuons->at(k); 
+    d->clear();
+    d->assign(fTreeVarNMuonsSelected, -1);
+    // set number of matched muons to -1	
+    *fTreeVarNMatchedMuons->at(k) = -1; 
+  }
   // loop over muons
   for (int i = 0; i < (*fParticlesTruth)->NMuons(); ++i)
     {
@@ -1319,17 +1334,20 @@ int KLFitter::InterfaceOutput::FillTreeMatching()
       *(fTreeVarNMatchedMuons->at(i)) = fMatchingTool->NMatchedTruth(i, KLFitter::Particles::kMuon); 
 
       // loop over reconstructed muons 
-      for (unsigned int k = 0; k < fTreeVarMatchedMuons->size(); ++k) {
-        std::vector<int>* d = fTreeVarMatchedMuons->at(k); 
-        d->clear();
-        d->assign(fTreeVarNMuonsSelected, -1);
-      }
       for (int j = 0; j < fTreeVarNMuonsSelected; ++j)
         {
           (*(fTreeVarMatchedMuons->at(i)))[j] = (fMatchingTool->ListMatchedTruth(i, KLFitter::Particles::kMuon)).at(j);  
         }
     }
 
+  // set matching vector for all photons to [-1,-1,-1,-1]
+  for (unsigned int k = 0; k < fTreeVarMatchedPhotons->size(); ++k) {
+    std::vector<int>* d = fTreeVarMatchedPhotons->at(k); 
+    d->clear();
+    d->assign(fTreeVarNPhotonsSelected, -1);
+    // set number of matched photons to -1	
+    *fTreeVarNMatchedPhotons->at(k) = -1; 
+  } 
   // loop over photons
   for (int i = 0; i < (*fParticlesTruth)->NPhotons(); ++i)
     {
@@ -1338,11 +1356,6 @@ int KLFitter::InterfaceOutput::FillTreeMatching()
       *(fTreeVarNMatchedPhotons->at(i)) = fMatchingTool->NMatchedTruth(i, KLFitter::Particles::kPhoton); 
 
       // loop over reconstructed photons 
-      for (unsigned int k = 0; k < fTreeVarMatchedPhotons->size(); ++k) {
-        std::vector<int>* d = fTreeVarMatchedPhotons->at(k); 
-        d->clear();
-        d->assign(fTreeVarNPhotonsSelected, -1);
-      }
       for (int j = 0; j < fTreeVarNPhotonsSelected; ++j)
         {
           (*(fTreeVarMatchedPhotons->at(i)))[j] = (fMatchingTool->ListMatchedTruth(i, KLFitter::Particles::kPhoton)).at(j);  
