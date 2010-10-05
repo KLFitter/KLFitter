@@ -87,7 +87,7 @@ int main(int argc, char **argv)
   myLikelihood -> SetFlagIntegrate(FlagIntegrate); 
   myLikelihood -> SetFlagTopMassFixed(FlagTopMassFixed);
   myLikelihood -> SetFlagUseJetMass(FlagUseJetMass);
-  myLikelihood -> SetCutBTagging(CutBTagging);
+  myLikelihood -> SetCutBTag(CutBTagging);
   myInterfaceRoot -> SetFlagIsSignalMC(FlagIsSignalMC);
         
   if (DO_ELECTRON)
