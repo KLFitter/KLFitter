@@ -1,5 +1,10 @@
 2010-10-05 Stefan Guindon <stefan.guindon@cern.ch>
 	
+	* LikelihoodBase.h: back to SetCutBTag - Consistency with TopKLFitter
+	* tag KLFitter-00-03-08
+
+2010-10-05 Stefan Guindon <stefan.guindon@cern.ch>
+	
 	* InterfaceGoTopTree.cxx: Include b-tagging weights
 	* Fitter.cxx: Run b-tagging with FlagIntegrate
 	* ReadConfigFile: Add cut btagging
