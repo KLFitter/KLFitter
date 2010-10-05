@@ -48,6 +48,7 @@ int main(int argc, char **argv)
   bool FlagIsSignalMC   = configReader->GetFlagIsSignalMC();
   bool FlagIs7TeV   = configReader->GetFlagIs7TeV();
   bool FlagIs10TeV   = configReader->GetFlagIs10TeV();
+  double CutBTagging   = configReader->GetCutBTagging();
 
   double MassTop = configReader->GetTopMass();
   std::string input_file=configReader->GetInputPath();
@@ -86,6 +87,7 @@ int main(int argc, char **argv)
   myLikelihood -> SetFlagIntegrate(FlagIntegrate); 
   myLikelihood -> SetFlagTopMassFixed(FlagTopMassFixed);
   myLikelihood -> SetFlagUseJetMass(FlagUseJetMass);
+  myLikelihood -> SetCutBTagging(CutBTagging);
   myInterfaceRoot -> SetFlagIsSignalMC(FlagIsSignalMC);
         
   if (DO_ELECTRON)

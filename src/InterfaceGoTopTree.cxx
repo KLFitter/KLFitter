@@ -46,6 +46,8 @@ KLFitter::InterfaceGoTopTree::InterfaceGoTopTree()
   Jet_Eta = 0;  
   Jet_Phi = 0;  
 
+  Jet_SV0_Weight = 0;  
+
   Photon_N = 0;  
   Photon_E = 0;  
   Photon_Px = 0;  
@@ -190,6 +192,8 @@ int KLFitter::InterfaceGoTopTree::ConnectTree(const char* treename)
   fTree->SetBranchAddress("Jet_Eta", &Jet_Eta); 
   fTree->SetBranchAddress("Jet_Phi", &Jet_Phi); 
 
+  fTree->SetBranchAddress("Jet_SV0_Weight", &Jet_SV0_Weight); 
+
   if (fTree->FindBranch("Photon_N"))
     fTree->SetBranchAddress("Photon_N",  &Photon_N); 
   if (fTree->FindBranch("Photon_E"))
@@ -299,7 +303,7 @@ int KLFitter::InterfaceGoTopTree::FillParticles()
 
   // fill jets
   for (int i = 0; i < Jet_N; ++i)
-    fParticles->AddParticle(new TLorentzVector(Jet_Px->at(i), Jet_Py->at(i), Jet_Pz->at(i), Jet_E->at(i)), KLFitter::Particles::kParton); 
+    fParticles->AddParticle(new TLorentzVector(Jet_Px->at(i), Jet_Py->at(i), Jet_Pz->at(i), Jet_E->at(i)), KLFitter::Particles::kParton,"",Jet_SV0_Weight->at(i)); 
 
   // fill electrons
   for (int i = 0; i < Electron_N; ++i)

@@ -210,7 +210,7 @@ namespace KLFitter
      */ 
     bool GetFlagIsNan(void) { return fFlagIsNan; }
 
-    void SetCutBTag(double cut)
+    void SetCutBTagging(double cut)
     { fCutBTag = cut; }; 
 
     /**

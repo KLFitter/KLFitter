@@ -107,6 +107,12 @@ namespace KLFitter
     double GetTopMass() { return MassTop; }
 
     /**
+     * Return Fthe BTagging cut value
+     * @return The value.
+     */ 
+    double GetCutBTagging() { return CutBTagging; }
+
+    /**
      * Return input_path
      * @return The path.
      */
@@ -189,6 +195,10 @@ namespace KLFitter
      * The top mass.
      */ 
     double MassTop;
+    /**
+     * The cut value.
+     */ 
+    double CutBTagging;
     /**
      * Path of the inputfile.
      */ 

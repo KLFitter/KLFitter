@@ -158,6 +158,7 @@ namespace KLFitter
     std::vector<double> * Jet_Pt;  
     std::vector<double> * Jet_Eta;  
     std::vector<double> * Jet_Phi;  
+    std::vector<double> * Jet_SV0_Weight; 
 
     int Photon_N;  
     std::vector<double> * Photon_E;  
