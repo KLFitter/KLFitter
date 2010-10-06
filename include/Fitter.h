@@ -147,6 +147,11 @@ namespace KLFitter
      */ 
     int Status(); 
 
+    /**
+     * Turn of simulated annealing.
+     */
+    void TurnOffSA() { fTurnOffSA = true; };
+
     /* @} */
                 
   private: 
@@ -186,6 +191,12 @@ namespace KLFitter
      * The TMinuit status
      */ 
     int fMinuitStatus; 
+
+    /**
+     * Flag for turning off simulated annealing.
+     */
+    int fTurnOffSA;
+
   }; 
 
 } // namespace KLFitter 

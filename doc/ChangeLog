@@ -1,5 +1,11 @@
 2010-10-06 Johannes Erdmann <johannes.erdmann@cern.ch>
 	
+	* add flag for the athena comparison (different selection + no SimAnn)
+	* add flag for truth selection (default : false)
+	* tag KLFitter-00-03-10
+
+2010-10-06 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
 	* InterfaceGoTopTree.cxx : require IsTopInputs; remove obsolte isolation (was not used anyway)
 	* tag KLFitter-00-03-09
 

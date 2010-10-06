@@ -17,6 +17,7 @@ KLFitter::Fitter::Fitter()
   fParticlesPermuted = 0; 
   fPermutations = new KLFitter::Permutations(&fParticles, &fParticlesPermuted);         
   fMinuitStatus = 0; 
+  fTurnOffSA = false;
 }
 
 // --------------------------------------------------------- 
@@ -170,9 +171,11 @@ int KLFitter::Fitter::Fit(int index)
     {
       // print to screen
       //        std::cout << "KLFitter::Fit(). Minuit did not find proper minimum. Rerun with Simulated Annealing."<<std::endl; 
-      fLikelihood->SetFlagIsNan(false);
-      fLikelihood->SetOptimizationMethod( BCIntegrate::kOptSA );
-      fLikelihood->FindMode( fLikelihood->GetInitialParameters() );
+      if (!fTurnOffSA) {
+        fLikelihood->SetFlagIsNan(false);
+        fLikelihood->SetOptimizationMethod( BCIntegrate::kOptSA );
+        fLikelihood->FindMode( fLikelihood->GetInitialParameters() );
+      }
                         
       fLikelihood->SetOptimizationMethod( BCIntegrate::kOptMinuit); 
       fLikelihood->FindMode( fLikelihood->GetBestFitParameters() ); 

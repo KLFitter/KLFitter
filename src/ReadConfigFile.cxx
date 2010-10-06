@@ -19,6 +19,8 @@ KLFitter::ReadConfigFile::ReadConfigFile(std::string filename)
   FlagIsSignalMC   = true;
   FlagIs7TeV	   = true;
   FlagIs10TeV	   = false;
+  FlagTruthSel     = true;
+  FlagAthenaComp   = false;
 
   MassTop = 172.5;
 
@@ -46,6 +48,8 @@ KLFitter::ReadConfigFile::ReadConfigFile(std::string filename, bool * validconfi
   FlagIsSignalMC   = true;
   FlagIs7TeV	   = true;
   FlagIs10TeV	   = false;
+  FlagTruthSel     = true;
+  FlagAthenaComp   = false;
 
   MassTop = 172.5;
 
@@ -400,12 +404,52 @@ int KLFitter::ReadConfigFile::ReadConfig(std::string filename)
 										}
 									    }
 									}
-								      else
-									{
-									  if(is_whitespace==false)
-									    {
-									      std::cout<<"Warning: the line \""<<line.c_str()<<"\" does not match any variable. It is ignored."<<std::endl;
-									    }
+                                                                      else
+                                                                        {
+                                                                          found=line.find("FlagTruthSel");
+                                                                          if(found!=std::string::npos)
+                                                                            {
+                                                                              found=line.find("=",found);
+                                                                              if(found!=std::string::npos)
+                                                                                {
+                                                                                  tmp=GetTrueOrFalse(line,found);
+                                                                                  if(tmp!=-1)
+                                                                                    {
+                                                                                      FlagTruthSel=(tmp==1);
+                                                                                    }
+                                                                                  else
+                                                                                    {
+                                                                                      std::cout<<"Warning: Error while reading value of FlagTruthSel, using standard value"<<std::endl;
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                          else
+                                                                            {
+                                                                              found=line.find("FlagAthenaComp");
+                                                                              if(found!=std::string::npos)
+                                                                                {
+                                                                                  found=line.find("=",found);
+                                                                                  if(found!=std::string::npos)
+                                                                                    {
+                                                                                      tmp=GetTrueOrFalse(line,found);
+                                                                                      if(tmp!=-1)
+                                                                                        {
+                                                                                          FlagAthenaComp=(tmp==1);
+                                                                                        }
+                                                                                      else
+                                                                                        {
+                                                                                          std::cout<<"Warning: Error while reading value of FlagAthenaComp, using standard value"<<std::endl;
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                              else
+                                                                                {
+                                                                                  if(is_whitespace==false)
+                                                                                    {
+                                                                                      std::cout<<"Warning: the line \""<<line.c_str()<<"\" does not match any variable. It is ignored."<<std::endl;
+                                                                                    }
+                                                                                }
+                                                                            }
 									}
 								    }
 								}
@@ -447,6 +491,8 @@ int KLFitter::ReadConfigFile::ReadConfig(std::string filename)
   std::cout<< "PathToInputFile = " << input_path<<std::endl;
   std::cout<< "PathToOutputFile = " << output_path<<std::endl;
   std::cout << "IsBkg = " << IsBkg << std::endl;
+  std::cout << "FlagTruthSel = " << FlagTruthSel << std::endl;
+  std::cout << "FlagAthenaComp = " << FlagAthenaComp << std::endl;
   std::cout << std::endl;
 
   if(CheckIOPath()){ 

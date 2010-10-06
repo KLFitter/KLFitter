@@ -142,6 +142,16 @@ namespace KLFitter
      */
     bool GetFlagIs10TeV() { return FlagIs10TeV; }
 
+    /**
+     * Flag for using the truth selection.
+     */
+    bool GetFlagTruthSel() { return FlagTruthSel; }
+
+    /**
+     * Flag for doing the comparison to TopKLFitter.
+     */
+    bool GetFlagAthenaComp() { return FlagAthenaComp; }
+
   private: 
 
     int ReadConfig(std::string filename);
@@ -222,6 +232,15 @@ namespace KLFitter
      */ 
     bool FlagIs10TeV;
 
+    /**
+     * Flag for using the truth selection.
+     */
+    bool FlagTruthSel;
+
+    /**
+     * Flag for doing the comparison to TopKLFitter.
+     */
+    bool FlagAthenaComp;
 
   }; 
 

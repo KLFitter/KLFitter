@@ -54,6 +54,8 @@ int main(int argc, char **argv)
   std::string input_file=configReader->GetInputPath();
   std::string output_file=configReader->GetOutputPath();
   bool IsBkg = configReader->GetIsBkg();
+  bool FlagTruthSel = configReader->GetFlagTruthSel();
+  bool FlagAthenaComp = configReader->GetFlagAthenaComp();
   delete configReader;
   if(!valid){ return 0;}//std::cout<<"Error: InputPath=OutputPath. Will not overwrite InputFile!"<<std::endl;return 0;}
 
@@ -78,6 +80,9 @@ int main(int argc, char **argv)
 
   if (!myFitter -> SetDetector(myDetector))
     return 0; 
+
+  if (FlagAthenaComp)
+    myFitter->TurnOffSA();
         
   // create likelihood for ttbar->e+jets channel 
   KLFitter::LikelihoodTopLeptonJets * myLikelihood = new KLFitter::LikelihoodTopLeptonJets(); 
@@ -115,13 +120,17 @@ int main(int argc, char **argv)
   mySelectionTool -> SelectPhotonEta(2.5);
   mySelectionTool -> SelectJetEta(2.5);
   mySelectionTool -> RequireNJetsPt(20.0, 4, -1); 
-  mySelectionTool -> RequireNJetsPt(40.0, 3, -1); 
+  if (!FlagAthenaComp)
+    mySelectionTool -> RequireNJetsPt(40.0, 3, -1); 
   mySelectionTool -> SetMaxNJetsForFit(4);
   if (DO_ELECTRON)
     mySelectionTool -> RequireNElectronsPt(20.0, 1); 
   if (DO_MUON)
     mySelectionTool -> RequireNMuonsPt(20.0, 1);
-  mySelectionTool -> RequireMET(20.); 
+  if (!FlagAthenaComp)
+    mySelectionTool -> RequireMET(20.); 
+  else
+    mySelectionTool -> RequireMET(0.); 
 
   // create matching tool
   KLFitter::MatchingTool * myMatchingTool = 0x0;
@@ -173,8 +182,9 @@ int main(int argc, char **argv)
 
       // truth event selection
       if (!IsBkg)
-        if (!EventTruthSelection(truthparticles, DO_ELECTRON, DO_MUON))
-          continue; 
+        if (FlagTruthSel)
+          if (!EventTruthSelection(truthparticles, DO_ELECTRON, DO_MUON))
+            continue; 
 
       // select event
       if (!mySelectionTool -> SelectEvent(measuredparticles, myInterfaceRoot -> ET_miss())) 
