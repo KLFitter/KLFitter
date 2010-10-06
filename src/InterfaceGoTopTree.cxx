@@ -25,7 +25,7 @@ KLFitter::InterfaceGoTopTree::InterfaceGoTopTree()
   Muon_Pt = 0;  
   Muon_Eta = 0;  
   Muon_Phi = 0;  
-  //    Muon_Iso = false;
+  Muon_IsTopInputs = 0;
 
   Electron_N = 0;  
   Electron_E = 0;  
@@ -35,7 +35,7 @@ KLFitter::InterfaceGoTopTree::InterfaceGoTopTree()
   Electron_Pt = 0;  
   Electron_Eta = 0;  
   Electron_Phi = 0;  
-  //    Electron_Iso = false;
+  Electron_IsTopInputs = 0;
 
   Jet_N = 0;  
   Jet_E = 0;  
@@ -45,6 +45,7 @@ KLFitter::InterfaceGoTopTree::InterfaceGoTopTree()
   Jet_Pt = 0;  
   Jet_Eta = 0;  
   Jet_Phi = 0;  
+  Jet_IsTopInputs = 0;
 
   Jet_SV0_Weight = 0;  
 
@@ -56,6 +57,7 @@ KLFitter::InterfaceGoTopTree::InterfaceGoTopTree()
   Photon_Pt = 0;  
   Photon_Eta = 0;  
   Photon_Phi = 0;  
+  Photon_IsTopInputs = 0;
 
   MET_Et = 0; 
   MET_Phi = 0; 
@@ -171,7 +173,7 @@ int KLFitter::InterfaceGoTopTree::ConnectTree(const char* treename)
   fTree->SetBranchAddress("Muon_Pt", &Muon_Pt); 
   fTree->SetBranchAddress("Muon_Eta", &Muon_Eta); 
   fTree->SetBranchAddress("Muon_Phi", &Muon_Phi); 
-  //    fTree->SetBranchAddress("Muon_Iso", &Muon_Iso); 
+  fTree->SetBranchAddress("Muon_IsTopInputs", &Muon_IsTopInputs); 
 
   fTree->SetBranchAddress("Electron_N",  &Electron_N); 
   fTree->SetBranchAddress("Electron_E",  &Electron_E); 
@@ -181,7 +183,7 @@ int KLFitter::InterfaceGoTopTree::ConnectTree(const char* treename)
   fTree->SetBranchAddress("Electron_Pt", &Electron_Pt); 
   fTree->SetBranchAddress("Electron_Eta", &Electron_Eta); 
   fTree->SetBranchAddress("Electron_Phi", &Electron_Phi); 
-  //    fTree->SetBranchAddress("Electron_Iso", &Electron_Iso); 
+  fTree->SetBranchAddress("Electron_IsTopInputs", &Electron_IsTopInputs); 
 
   fTree->SetBranchAddress("Jet_N",   &Jet_N); 
   fTree->SetBranchAddress("Jet_E",   &Jet_E); 
@@ -191,6 +193,7 @@ int KLFitter::InterfaceGoTopTree::ConnectTree(const char* treename)
   fTree->SetBranchAddress("Jet_Pt",  &Jet_Pt); 
   fTree->SetBranchAddress("Jet_Eta", &Jet_Eta); 
   fTree->SetBranchAddress("Jet_Phi", &Jet_Phi); 
+  fTree->SetBranchAddress("Jet_IsTopInputs", &Jet_IsTopInputs); 
 
   fTree->SetBranchAddress("Jet_SV0_Weight", &Jet_SV0_Weight); 
 
@@ -210,6 +213,8 @@ int KLFitter::InterfaceGoTopTree::ConnectTree(const char* treename)
     fTree->SetBranchAddress("Photon_Eta", &Photon_Eta); 
   if (fTree->FindBranch("Photon_Phi"))
     fTree->SetBranchAddress("Photon_Phi", &Photon_Phi); 
+  if (fTree->FindBranch("Photon_IsTopInputs"))
+    fTree->SetBranchAddress("Photon_IsTopInputs", &Photon_IsTopInputs); 
         
   fTree->SetBranchAddress("MET_Et",  &MET_Et); 
   fTree->SetBranchAddress("MET_Phi", &MET_Phi); 
@@ -303,30 +308,29 @@ int KLFitter::InterfaceGoTopTree::FillParticles()
 
   // fill jets
   for (int i = 0; i < Jet_N; ++i)
-    fParticles->AddParticle(new TLorentzVector(Jet_Px->at(i), Jet_Py->at(i), Jet_Pz->at(i), Jet_E->at(i)), KLFitter::Particles::kParton,"",Jet_SV0_Weight->at(i)); 
-
+    {
+      if ((*Jet_IsTopInputs)[i])
+        fParticles->AddParticle(new TLorentzVector(Jet_Px->at(i), Jet_Py->at(i), Jet_Pz->at(i), Jet_E->at(i)), KLFitter::Particles::kParton,"",Jet_SV0_Weight->at(i)); 
+    }
   // fill electrons
   for (int i = 0; i < Electron_N; ++i)
     {
-      //                  if(Electron_Iso->at(i)==false)
-      //        continue;
-
-      fParticles->AddParticle(new TLorentzVector(Electron_Px->at(i), Electron_Py->at(i), Electron_Pz->at(i), Electron_E->at(i)), KLFitter::Particles::kElectron); 
+      if ((*Electron_IsTopInputs)[i])
+        fParticles->AddParticle(new TLorentzVector(Electron_Px->at(i), Electron_Py->at(i), Electron_Pz->at(i), Electron_E->at(i)), KLFitter::Particles::kElectron); 
     }
 
   // fill muons
   for (int i = 0; i < Muon_N; ++i)
     {
-      //if(Muon_Iso->at(i)==false)
-      //        continue;
-
-      fParticles->AddParticle(new TLorentzVector(Muon_Px->at(i), Muon_Py->at(i), Muon_Pz->at(i), Muon_E->at(i)), KLFitter::Particles::kMuon); 
+      if ((*Muon_IsTopInputs)[i])
+        fParticles->AddParticle(new TLorentzVector(Muon_Px->at(i), Muon_Py->at(i), Muon_Pz->at(i), Muon_E->at(i)), KLFitter::Particles::kMuon); 
     }
 
   // fill photons
   for (int i = 0; i < Photon_N; ++i)
     {
-      fParticles->AddParticle(new TLorentzVector(Photon_Px->at(i), Photon_Py->at(i), Photon_Pz->at(i), Photon_E->at(i)), KLFitter::Particles::kPhoton); 
+      if ((*Photon_IsTopInputs)[i])
+        fParticles->AddParticle(new TLorentzVector(Photon_Px->at(i), Photon_Py->at(i), Photon_Pz->at(i), Photon_E->at(i)), KLFitter::Particles::kPhoton); 
     }
 
   // check if input is Signal MC

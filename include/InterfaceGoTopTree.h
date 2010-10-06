@@ -138,7 +138,7 @@ namespace KLFitter
     std::vector<double> * Muon_Pt;  
     std::vector<double> * Muon_Eta;  
     std::vector<double> * Muon_Phi;  
-    std::vector<bool> * Muon_Iso;
+    std::vector<bool> * Muon_IsTopInputs;
 
     int Electron_N;  
     std::vector<double> * Electron_E;  
@@ -148,7 +148,7 @@ namespace KLFitter
     std::vector<double> * Electron_Pt;  
     std::vector<double> * Electron_Eta;  
     std::vector<double> * Electron_Phi;  
-    std::vector<bool> * Electron_Iso;
+    std::vector<bool> * Electron_IsTopInputs;
 
     int Jet_N;  
     std::vector<double> * Jet_E;  
@@ -159,6 +159,7 @@ namespace KLFitter
     std::vector<double> * Jet_Eta;  
     std::vector<double> * Jet_Phi;  
     std::vector<double> * Jet_SV0_Weight; 
+    std::vector<bool>   * Jet_IsTopInputs;
 
     int Photon_N;  
     std::vector<double> * Photon_E;  
@@ -168,6 +169,7 @@ namespace KLFitter
     std::vector<double> * Photon_Pt;  
     std::vector<double> * Photon_Eta;  
     std::vector<double> * Photon_Phi;  
+    std::vector<bool>   * Photon_IsTopInputs;
 
     double MET_Et; 
     double MET_Phi; 
