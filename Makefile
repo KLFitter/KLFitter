@@ -55,6 +55,8 @@ CXSRCS = ResolutionBase.cxx \
 	InterfaceRoot.cxx \
 	InterfaceOutput.cxx \
 	InterfaceGoTopTree.cxx \
+	InterfaceStructNtup.cxx \
+	InterfaceD3PD.cxx \
 	InterfaceDummy.cxx \
 	LikelihoodBase.cxx \
 	LikelihoodTTGamma.cxx \

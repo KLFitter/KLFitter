@@ -1,3 +1,9 @@
+2010-11-03 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+	
+	* add InterfaceD3PD.cxx, InterfaceD3PD.h, InterfaceStructNtup.cxx, InterfaceStructNtup.h: Interfaces for TopInputsD3PD and NIKHEF StructNtuples
+	* add runKLFitter_D3PD.c: example file for running on a different ntuple without truth information  
+	* tag KLFitter-00-03-11
+
 2010-10-06 Johannes Erdmann <johannes.erdmann@cern.ch>
 	
 	* add flag for the athena comparison (different selection + no SimAnn)
