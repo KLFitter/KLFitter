@@ -123,8 +123,9 @@ int KLFitter::InterfaceD3PD::ConnectTree(const char* treename)
 
   // set branch addresses
   fTree->SetBranchAddress("EventNumber",  &EventNumber); 
-  fTree->SetBranchAddress("mcevt_weight", &fWeight); 
-
+  //fTree->SetBranchAddress("mcevt_weight", &fWeight);
+  fTree->SetBranchAddress("mcevt_weight", &mcevt_weight);
+		
   fTree->SetBranchAddress("topMu_n",  &topMu_n);
   fTree->SetBranchAddress("topMu_index",  &topMu_index);
   fTree->SetBranchAddress("topMu_use",  &topMu_use);
@@ -210,6 +211,9 @@ int KLFitter::InterfaceD3PD::FillParticles()
 
   // create new particle container
   fParticles = new KLFitter::Particles(); 
+  
+  //set weight
+ 	fWeight = mcevt_weight->at(0);
   
 	// fill jets
 	for (int i = 0; i < topJet_n; ++i){

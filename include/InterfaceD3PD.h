@@ -129,7 +129,8 @@ namespace KLFitter
     /* @{ */
 
     UInt_t EventNumber; 
-
+    std::vector<double> * mcevt_weight;  
+    
     int topMu_n;
     std::vector<int> * topMu_index;
     std::vector<int> * topMu_use;

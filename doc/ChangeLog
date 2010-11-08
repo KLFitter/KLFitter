@@ -1,3 +1,8 @@
+2010-11-08 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+	
+	* bugfix in InterfaceD3PD.cxx, InterfaceD3PD.h: MC weight
+	* tag KLFitter-00-03-12
+
 2010-11-03 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
 	
 	* add InterfaceD3PD.cxx, InterfaceD3PD.h, InterfaceStructNtup.cxx, InterfaceStructNtup.h: Interfaces for TopInputsD3PD and NIKHEF StructNtuples
