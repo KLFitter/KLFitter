@@ -121,7 +121,13 @@ int KLFitter::InterfaceD3PD::ConnectTree(const char* treename)
       return 0; 
     }
 
-  // set branch addresses
+  return ConnectTree(fTree);
+}
+// --------------------------------------------------------- 
+int KLFitter::InterfaceD3PD::ConnectTree(TTree * fTree)
+{
+  if (!this->fTree) this->fTree = fTree;
+  // set branch adresses
   fTree->SetBranchAddress("EventNumber",  &EventNumber); 
   //fTree->SetBranchAddress("mcevt_weight", &fWeight);
   fTree->SetBranchAddress("mcevt_weight", &mcevt_weight);
@@ -213,7 +219,11 @@ int KLFitter::InterfaceD3PD::FillParticles()
   fParticles = new KLFitter::Particles(); 
   
   //set weight
- 	fWeight = mcevt_weight->at(0);
+    if (mcevt_weight){
+      fWeight = mcevt_weight->at(0);
+    } else {
+    fWeight=1.0;
+    }
   
 	// fill jets
 	for (int i = 0; i < topJet_n; ++i){
@@ -230,7 +240,7 @@ int KLFitter::InterfaceD3PD::FillParticles()
 
 	//fill electrons
   for (int i = 0; i < topEl_n; ++i){
-  	if ( topEl_use->at(i) && topEl_inTrigger ){ 
+  	if ( topEl_use->at(i) && topEl_inTrigger->at(i) ){ 
       fParticles->AddParticle(new TLorentzVector(el_px->at(topEl_index->at(i)) / 1000., 
       																					 el_py->at(topEl_index->at(i)) / 1000., 
       																					 el_pz->at(topEl_index->at(i)) / 1000., 
@@ -241,7 +251,7 @@ int KLFitter::InterfaceD3PD::FillParticles()
 
   // fill muons
   for (int i = 0; i < topMu_n; ++i){
-  	if ( topMu_use->at(i) && topMu_inTrigger ){ 
+  	if ( topMu_use->at(i) && topMu_inTrigger->at(i) ){ 
       fParticles->AddParticle(new TLorentzVector(mu_px->at(topMu_index->at(i)) / 1000., mu_py->at(topMu_index->at(i)) / 1000., mu_pz->at(topMu_index->at(i)) / 1000., mu_E->at(topMu_index->at(i)) / 1000.), KLFitter::Particles::kMuon); 
     }
 	}

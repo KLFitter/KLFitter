@@ -1,3 +1,8 @@
+2010-11-09 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+	
+	* minor changes in InterfaceD3PD.cxx, InterfaceD3PD.h: overload ConnectTree
+	* tag KLFitter-00-03-13
+
 2010-11-08 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
 	
 	* bugfix in InterfaceD3PD.cxx, InterfaceD3PD.h: MC weight

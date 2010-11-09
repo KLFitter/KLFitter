@@ -92,14 +92,22 @@ namespace KLFitter
      * @param opt Options.
      * @return An error code.
      */ 
-    int OpenRootFile(const char * filename, Option_t * opt = "READ"); 
+    int OpenRootFile(const char * filename, Option_t * opt = "READ");
+
 
     /**
      * Get a tree from Root file and set branch addresses. 
      * @param treename The name of the tree.
      * @return An error code. 
      */ 
-    int ConnectTree(const char * treename); 
+    int ConnectTree(const char * treename);
+
+    /**
+     * Set branch addresses for a given tree directly, skip OpenRootFile. 
+     * @param treename The name of the tree.
+     * @return An error code. 
+     */ 
+    int ConnectTree(TTree * fTree); 
 
     /**
      * Get event from Root tree. 
