@@ -43,7 +43,7 @@ namespace KLFitter
      * The default constructor. 
      * @param folder The folder with transfer function parameters.
      */ 
-    DetectorBase(std::string folder = ""); 
+    DetectorBase(std::string KLFITTER_UNUSED(folder) = ""); 
                 
     /**
      * The default destructor.
