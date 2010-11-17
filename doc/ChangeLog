@@ -1,6 +1,6 @@
 2010-11-17 Johannes Erdmann <johannes.erdmann@cern.ch>
 	
-	* DetectorBase : fix compiler for unused variable
+	* DetectorBase : fix compiler warning for unused variable
 	* tag KLFitter-00-03-14
 
 2010-11-09 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
