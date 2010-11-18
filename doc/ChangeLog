@@ -1,5 +1,10 @@
 2010-11-18 Johannes Erdmann <johannes.erdmann@cern.ch>
 	
+	* runKLFitter.c : clean up flags
+	* tag KLFitter-00-03-17
+
+2010-11-18 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
 	* Refining comments.
 	* tag KLFitter-00-03-16
 

@@ -135,14 +135,15 @@ int main(int argc, char **argv)
   // create matching tool
   KLFitter::MatchingTool * myMatchingTool = 0x0;
   if (!IsBkg)
-    myMatchingTool = new KLFitter::MatchingTool( myFitter -> PParticles(), myInterfaceRoot -> PParticlesTruth() ); 
+    if (FlagTruthSel)
+      myMatchingTool = new KLFitter::MatchingTool( myFitter -> PParticles(), myInterfaceRoot -> PParticlesTruth() ); 
 
   // set fitter and truth particles 
   myInterfaceOutput -> SetFitter(myFitter); 
   if (!IsBkg)
     myInterfaceOutput -> SetParticlesTruth( myInterfaceRoot -> PParticlesTruth() ); 
   myInterfaceOutput -> SetParticlesMeasured( myInterfaceRoot -> PParticles() ); 
-  if (!IsBkg)
+  if (myMatchingTool)
     myInterfaceOutput -> SetMatchingTool(myMatchingTool); 
   myInterfaceOutput -> SetSelectionTool(mySelectionTool); 
 
@@ -201,7 +202,7 @@ int main(int argc, char **argv)
       if (!myFitter -> SetET_miss_XY( myInterfaceRoot -> ET_miss_x(), myInterfaceRoot -> ET_miss_y() ) )
         return 0;
 
-      if (!IsBkg)
+      if (myMatchingTool)
         {
           // perform matching
           myMatchingTool -> MatchTruthAll(KLFitter::Particles::kParton); 
@@ -246,7 +247,7 @@ int main(int argc, char **argv)
       myInterfaceOutput -> FillTrees(); 
 
       // check if the particles have been matched
-      if (!IsBkg)
+      if (myMatchingTool)
         {
           bool leptonsMatched = true;
           if (DO_ELECTRON) {
