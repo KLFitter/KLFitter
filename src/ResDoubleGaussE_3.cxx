@@ -1,4 +1,5 @@
 #include "ResDoubleGaussE_3.h" 
+#include "ResDoubleGaussE_1.h" 
 #include <iostream>
 
 #include <cmath>
@@ -41,6 +42,9 @@ double KLFitter::ResDoubleGaussE_3::p(double x, double xmeas)
   //  double p3 = fParameters.at(4) + x * fParameters.at(5);
   //  double p4 = fParameters.at(6) + x * fParameters.at(7);
   //  double p5 = fParameters.at(8) + x * fParameters.at(9);
+
+  // sanity checks for p3 and p5
+  ResDoubleGaussE_1::CheckDoubleGaussianSanity(p2, p3, p5);
 
   double dx = (x - xmeas) / x; 
  

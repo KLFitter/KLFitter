@@ -164,7 +164,7 @@ int main(int argc, char **argv)
   // loop over events
   for (int ievent = minEv; ievent < maxEv; ++ievent)
     {
-      if ((ievent-minEv+1)%1000 == 0)
+      if ((ievent-minEv+1)%100 == 0)
         std::cout << " event " << (ievent+1) << std::endl; 
 
       // get first event

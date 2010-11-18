@@ -17,6 +17,7 @@
 
 #include <vector>
 #include "ResolutionBase.h" 
+#include <iostream>
 
 // --------------------------------------------------------- 
 
@@ -73,6 +74,18 @@ namespace KLFitter
     /* @{ */
                 
     /* @} */
+
+    /**
+     * Sanity check for double gaussian parameters p2, p3 and p5 (1st sigma, scale and 2nd sigma).
+     * @param p2 (the 1st sigma).
+     * @param p3 (the scale parameter).
+     * @param p5 (the 2nd sigma).
+     */
+    inline static const void CheckDoubleGaussianSanity(double p2, double &p3, double &p5) {
+      if (p2 < 0.) std::cout << "KLFitter::ResDoubleGauss::CheckDoubleGaussianSanity() ERROR IN TRANSFERFUNCTIONS the sigma of the main Gaussian is < 0  -  FIT RESULT WILL NOT BE RELIABLE" << std::endl;
+      if (p3 < 0.) p3 = 0.;
+      if (p5 < 0.) p3 = 0.;
+    }
 
   private: 
 

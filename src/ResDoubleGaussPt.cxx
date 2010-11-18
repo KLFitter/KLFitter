@@ -1,4 +1,5 @@
 #include "ResDoubleGaussPt.h" 
+#include "ResDoubleGaussE_1.h"
 #include <iostream>
 #include <cmath>
 
@@ -34,7 +35,12 @@ double KLFitter::ResDoubleGaussPt::p(double x, double xmeas)
   double p3 = fParameters[4] + x * fParameters[5];
   double p4 = fParameters[6] + x * fParameters[7];
   double p5 = fParameters[8] + x * fParameters[9];
+
+  // sanity checks for p3 and p5
+  ResDoubleGaussE_1::CheckDoubleGaussianSanity(p2, p3, p5);
+
   double dx = (x - xmeas) / x; 
+
   // calculate double-Gaussian 
   double prob= 0.398942280401 / (p2 + p3 * p5) * ( exp( -(dx - p1)*(dx - p1)/(2 * p2*p2) ) + p3 * exp( -(dx - p4)*(dx -p4)/(2 * p5 * p5) ) );
 
