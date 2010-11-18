@@ -36,7 +36,7 @@ double KLFitter::ResDoubleGaussPt::p(double x, double xmeas)
   double p4 = fParameters[6] + x * fParameters[7];
   double p5 = fParameters[8] + x * fParameters[9];
 
-  // sanity checks for p3 and p5
+  // sanity checks for p2, p3 and p5
   ResDoubleGaussE_1::CheckDoubleGaussianSanity(p2, p3, p5);
 
   double dx = (x - xmeas) / x; 

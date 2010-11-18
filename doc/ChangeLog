@@ -1,5 +1,10 @@
 2010-11-18 Johannes Erdmann <johannes.erdmann@cern.ch>
 	
+	* Refining comments.
+	* tag KLFitter-00-03-16
+
+2010-11-18 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
 	* ResDoubleGauss classes : implement a check for the TF parameters
 	* tag KLFitter-00-03-15
 
