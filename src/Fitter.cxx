@@ -200,7 +200,7 @@ int KLFitter::Fitter::Fit(int index)
       fMinuitStatus=509;
     }
   // check b-tagging and calculate probability
-  if (fLikelihood->FlagBTagging());// && fLikelihood->FlagIntegrate())
+  if (fLikelihood->FlagBTagging()) // && fLikelihood->FlagIntegrate())
     if (fLikelihood->BTaggingProbability() == 0)
       return 1; 
 
