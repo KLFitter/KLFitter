@@ -81,10 +81,10 @@ namespace KLFitter
      * @param p3 (the scale parameter).
      * @param p5 (the 2nd sigma).
      */
-    inline static const void CheckDoubleGaussianSanity(double p2, double &p3, double &p5) {
-      if (p2 < 0.) std::cout << "KLFitter::ResDoubleGauss::CheckDoubleGaussianSanity() ERROR IN TRANSFERFUNCTIONS the sigma of the main Gaussian is < 0  -  FIT RESULT WILL NOT BE RELIABLE" << std::endl;
+    inline static const void CheckDoubleGaussianSanity(double p2, double &p3, double p5) {
+      if (p2 < 0.) std::cout << "KLFitter::ResDoubleGauss::CheckDoubleGaussianSanity() ERROR IN TRANSFERFUNCTIONS the sigma of the 1st Gaussian is < 0  -  FIT RESULT WILL NOT BE RELIABLE" << std::endl;
+      if (p5 < 0.) std::cout << "KLFitter::ResDoubleGauss::CheckDoubleGaussianSanity() ERROR IN TRANSFERFUNCTIONS the sigma of the 2nd Gaussian is < 0  -  FIT RESULT WILL NOT BE RELIABLE" << std::endl;
       if (p3 < 0.) p3 = 0.;
-      if (p5 < 0.) p3 = 0.;
     }
 
   private: 

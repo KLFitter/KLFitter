@@ -1,3 +1,8 @@
+2010-11-22 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
+	* ResDoubleGauss classes : check for the TF parameters -> only warning if sigma < 0
+	* tag KLFitter-00-03-19
+
 2010-11-18 Johannes Erdmann <johannes.erdmann@cern.ch>
 	
 	* fix in Fitter.cxx for (non-used) b-tagging weighting method
