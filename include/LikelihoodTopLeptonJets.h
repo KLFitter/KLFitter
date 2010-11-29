@@ -121,6 +121,12 @@ namespace KLFitter
      */
     virtual std::vector<double> GetInitialParametersWoNeutrinoPz();
 
+    /**
+     * Check if there are TF problems.
+     * @return Return false if TF problem.
+     */
+    virtual bool NoTFProblem(std::vector<double> parameters);
+
     /* @} */
 
   protected: 
@@ -214,6 +220,12 @@ namespace KLFitter
      * The value of 2*pi stored here for CPU time reasons.
      */ 
     double fTwoPi;
+
+    /**
+     * Global variable for TF problems.
+     */
+    bool fTFgood;
+
   }; 
 
 } // namespace KLFitter 

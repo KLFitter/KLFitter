@@ -19,6 +19,7 @@ KLFitter::LikelihoodTopLeptonJets::LikelihoodTopLeptonJets() : KLFitter::Likelih
                                                              , fTypeLepton(1)
                                                              , fPi(3.14159265358979312)
                                                              , fTwoPi(6.28318530717958623)
+                                                             , fTFgood(true)
 {
   // define model particles 
   DefineModelParticles(); 
@@ -487,37 +488,38 @@ double KLFitter::LikelihoodTopLeptonJets::LogLikelihood(std::vector<double> para
   // define log of likelihood 
   double logprob = 0.; 
 
+  fTFgood = true;
+  bool TFgoodTmp(true);
+
   // jet energy resolution terms 
-  logprob += log( (*fDetector)->ResEnergyBJet( parameters[8] )->p( parameters[0], parton0->E()) ); 
-  logprob += log( (*fDetector)->ResEnergyBJet( parameters[9] )->p( parameters[1], parton1->E()) ); 
-  logprob += log( (*fDetector)->ResEnergyLightJet( parameters[10] )->p( parameters[2], parton2->E()) ); 
-  logprob += log( (*fDetector)->ResEnergyLightJet( parameters[11] )->p( parameters[3], parton3->E()) ); 
+  logprob += log( (*fDetector)->ResEnergyBJet( parameters[8] )->p( parameters[0], parton0->E(), TFgoodTmp) ); if (!TFgoodTmp) fTFgood = false;
+  logprob += log( (*fDetector)->ResEnergyBJet( parameters[9] )->p( parameters[1], parton1->E(), TFgoodTmp) );  if (!TFgoodTmp) fTFgood = false;
+  logprob += log( (*fDetector)->ResEnergyLightJet( parameters[10] )->p( parameters[2], parton2->E(), TFgoodTmp) );  if (!TFgoodTmp) fTFgood = false;
+  logprob += log( (*fDetector)->ResEnergyLightJet( parameters[11] )->p( parameters[3], parton3->E(), TFgoodTmp) );  if (!TFgoodTmp) fTFgood = false;
 
   // lepton energy resolution terms 
   if (fTypeLepton == 1) {
     TLorentzVector* electron = (*fParticlesPermuted)->Electron(0);
-    logprob += log( (*fDetector)->ResEnergyElectron( electron->Eta() )->p( parameters[4], electron->E()) ); 
+    logprob += log( (*fDetector)->ResEnergyElectron( electron->Eta() )->p( parameters[4], electron->E(), TFgoodTmp) );  if (!TFgoodTmp) fTFgood = false;
   }
   
   else if (fTypeLepton == 2) {
-    //    logprob += log( (*fDetector)->ResEnergyMuon( (*fParticlesPermuted)->Muon(0)->Eta() )->p( parameters[4],               (*fParticlesPermuted)->Muon(0)->E()) );
+    //    logprob += log( (*fDetector)->ResEnergyMuon( (*fParticlesPermuted)->Muon(0)->Eta() )->p( parameters[4],               (*fParticlesPermuted)->Muon(0)->E(), TFgoodTmp) ); if (!TFgoodTmp) fTFgood = false;
     TLorentzVector* muon = (*fParticlesPermuted)->Muon(0);
     double pt_fit = parameters[4]* sin(muon->Theta());
     double pt_reco = muon->Pt();
-    double pt2 = pt_fit* pt_fit;
-    // (pt)^2 == 0 cannot happen if event selection does not allow for eta = +/- infinity
-    logprob += log( (*fDetector)->ResEnergyMuon( muon->Eta() )->p( pt_fit/pt2, pt_reco/pt2 ));
+    logprob += log( (*fDetector)->ResEnergyMuon( muon->Eta() )->p( pt_fit, pt_reco, TFgoodTmp )); if (!TFgoodTmp) fTFgood = false;
   }
 
   //    ETmiss_x and ETmiss_y
-  logprob += log( (*fDetector)->ResMissingET()->p( parameters[6], ETmiss_x) ); 
-  logprob += log( (*fDetector)->ResMissingET()->p( parameters[7], ETmiss_y) ); 
+  logprob += log( (*fDetector)->ResMissingET()->p( parameters[6], ETmiss_x, TFgoodTmp) );  if (!TFgoodTmp) fTFgood = false;
+  logprob += log( (*fDetector)->ResMissingET()->p( parameters[7], ETmiss_y, TFgoodTmp) );  if (!TFgoodTmp) fTFgood = false;
 
   // eta resolution 
-  logprob += log( (*fDetector)->ResEtaBJet(parameters[8])->p(parameters[8], parton0->Eta()) ); 
-  logprob += log( (*fDetector)->ResEtaBJet(parameters[9])->p(parameters[9], parton1->Eta()) ); 
-  logprob += log( (*fDetector)->ResEtaLightJet(parameters[10])->p(parameters[10], parton2->Eta()) );
-  logprob += log( (*fDetector)->ResEtaLightJet(parameters[11])->p(parameters[11], parton3->Eta()) );    
+  logprob += log( (*fDetector)->ResEtaBJet(parameters[8])->p(parameters[8], parton0->Eta(), TFgoodTmp) );  if (!TFgoodTmp) fTFgood = false;
+  logprob += log( (*fDetector)->ResEtaBJet(parameters[9])->p(parameters[9], parton1->Eta(), TFgoodTmp) );  if (!TFgoodTmp) fTFgood = false;
+  logprob += log( (*fDetector)->ResEtaLightJet(parameters[10])->p(parameters[10], parton2->Eta(), TFgoodTmp) ); if (!TFgoodTmp) fTFgood = false;
+  logprob += log( (*fDetector)->ResEtaLightJet(parameters[11])->p(parameters[11], parton3->Eta(), TFgoodTmp) ); if (!TFgoodTmp) fTFgood = false;
 
   // check phi variable
   if (parameters[12] < -fPi)
@@ -555,10 +557,10 @@ double KLFitter::LikelihoodTopLeptonJets::LogLikelihood(std::vector<double> para
   if (diff3>fPi)
     diff3 -= fTwoPi;
 
-  logprob += log( (*fDetector)->ResPhiBJet(parameters[8])->p(0.0, diff0) ); 
-  logprob += log( (*fDetector)->ResPhiBJet(parameters[9])->p(0.0, diff1) ); 
-  logprob += log( (*fDetector)->ResPhiLightJet(parameters[10])->p(0.0, diff2) ); 
-  logprob += log( (*fDetector)->ResPhiLightJet(parameters[11])->p(0.0, diff3) ); 
+  logprob += log( (*fDetector)->ResPhiBJet(parameters[8])->p(0.0, diff0, TFgoodTmp) );  if (!TFgoodTmp) fTFgood = false;
+  logprob += log( (*fDetector)->ResPhiBJet(parameters[9])->p(0.0, diff1, TFgoodTmp) );  if (!TFgoodTmp) fTFgood = false;
+  logprob += log( (*fDetector)->ResPhiLightJet(parameters[10])->p(0.0, diff2, TFgoodTmp) );  if (!TFgoodTmp) fTFgood = false;
+  logprob += log( (*fDetector)->ResPhiLightJet(parameters[11])->p(0.0, diff3, TFgoodTmp) );  if (!TFgoodTmp) fTFgood = false;
 
   // Breit-Wigner of hadronically decaying W-boson
   logprob += BCMath::LogBreitWignerRel( fParticlesModel->Boson(0)->M(), fPhysicsConstants->MassW(), fPhysicsConstants->GammaW()); 
@@ -716,4 +718,10 @@ std::vector<double> KLFitter::LikelihoodTopLeptonJets::CalculateNeutrinoPzSoluti
   return pz;
 }
 
+// --------------------------------------------------------- 
+bool KLFitter::LikelihoodTopLeptonJets::NoTFProblem(std::vector<double> parameters) {
+  fTFgood = true;
+  this->LogLikelihood(parameters);
+  return fTFgood;
+}
 // --------------------------------------------------------- 

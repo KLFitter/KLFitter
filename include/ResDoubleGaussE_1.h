@@ -61,9 +61,10 @@ namespace KLFitter
      * measured value, xmeas.
      * @param x The true value of x.
      * @param xmeas The measured value of x.
+     * @param good False if problem with TF.
      * @return The probability. 
      */ 
-    double p(double x, double xmeas); 
+    double p(double x, double xmeas, bool &good); 
 
     /* @} */
     /** \name Member functions (Set)  */
@@ -80,11 +81,17 @@ namespace KLFitter
      * @param p2 (the 1st sigma).
      * @param p3 (the scale parameter).
      * @param p5 (the 2nd sigma).
+     * @return False if problem with TF.
      */
-    inline static const void CheckDoubleGaussianSanity(double p2, double &p3, double p5) {
-      if (p2 < 0.) std::cout << "KLFitter::ResDoubleGauss::CheckDoubleGaussianSanity() ERROR IN TRANSFERFUNCTIONS the sigma of the 1st Gaussian is < 0  -  FIT RESULT WILL NOT BE RELIABLE" << std::endl;
-      if (p5 < 0.) std::cout << "KLFitter::ResDoubleGauss::CheckDoubleGaussianSanity() ERROR IN TRANSFERFUNCTIONS the sigma of the 2nd Gaussian is < 0  -  FIT RESULT WILL NOT BE RELIABLE" << std::endl;
+    inline static const bool CheckDoubleGaussianSanity(double p2, double &p3, double p5) {
+      bool val(true);
+      if (p2 < 0.) //std::cout << "KLFitter::ResDoubleGauss::CheckDoubleGaussianSanity() ERROR IN TRANSFERFUNCTIONS the sigma of the 1st Gaussian is < 0  -  FIT RESULT MAY NOT BE RELIABLE" << std::endl;
+        val = false;
+      if (p5 < 0.) //std::cout << "KLFitter::ResDoubleGauss::CheckDoubleGaussianSanity() ERROR IN TRANSFERFUNCTIONS the sigma of the 2nd Gaussian is < 0  -  FIT RESULT MAY NOT BE RELIABLE" << std::endl;
+        val = false;
       if (p3 < 0.) p3 = 0.;
+
+      return val;
     }
 
   private: 

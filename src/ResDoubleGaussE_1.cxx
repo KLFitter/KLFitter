@@ -28,7 +28,7 @@ KLFitter::ResDoubleGaussE_1::~ResDoubleGaussE_1()
 }
 
 // --------------------------------------------------------- 
-double KLFitter::ResDoubleGaussE_1::p(double x, double xmeas)
+double KLFitter::ResDoubleGaussE_1::p(double x, double xmeas, bool &good)
 {
   double p1 = fParameters[0] + fParameters[1] * x; 
   double p2 = fParameters[2] / sqrt(x) + fParameters[3];
@@ -37,7 +37,7 @@ double KLFitter::ResDoubleGaussE_1::p(double x, double xmeas)
   double p5 = fParameters[8] + fParameters[9] * x; 
 
   // sanity checks for p2, p3 and p5
-  ResDoubleGaussE_1::CheckDoubleGaussianSanity(p2, p3, p5);
+  good = ResDoubleGaussE_1::CheckDoubleGaussianSanity(p2, p3, p5);
 
   double dx = (x - xmeas) / x; 
  

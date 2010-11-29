@@ -94,7 +94,8 @@ double KLFitter::LikelihoodTTGamma::LogLikelihood(std::vector <double> parameter
   double logprob = KLFitter::LikelihoodTopLeptonJets::LogLikelihood(parameters);
 
   // add photon transfer function
-  logprob += log((*fDetector)->ResEnergyPhoton((*fParticlesPermuted)->Photon(0)->Eta())->p(parameters.at(17), (*fParticlesPermuted)->Photon(0)->E()));
+  bool TFgood(true);
+  logprob += log((*fDetector)->ResEnergyPhoton((*fParticlesPermuted)->Photon(0)->Eta())->p(parameters.at(17), (*fParticlesPermuted)->Photon(0)->E(), TFgood) );
 
   // return log of likelihood 
   return logprob; 

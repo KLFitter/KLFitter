@@ -289,6 +289,13 @@ namespace KLFitter
     virtual std::vector<double> GetInitialParameters()
     { std::vector<double> v; return v; };
 
+    /**
+     * Check if there are TF problems.
+     * @return Return false if TF problem.
+     */
+    virtual bool NoTFProblem(std::vector<double> KLFITTER_UNUSED(parameters))
+    { return true; };
+
     /* @} */
 
   protected: 

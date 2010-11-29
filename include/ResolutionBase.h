@@ -61,10 +61,11 @@ namespace KLFitter
      * measured value, xmeas.
      * @param x The true value of x.
      * @param xmeas The measured value of x.
+     * @param good False if problem with TF.
      * @return The probability. 
      */ 
-    virtual double p(double KLFITTER_UNUSED(x), double KLFITTER_UNUSED(xmeas))
-    { return 0; } 
+    virtual double p(double KLFITTER_UNUSED(x), double KLFITTER_UNUSED(xmeas), bool good)
+    { good = true; return 0; } 
 
     /**
      * Return a parameter of the parameterization. 

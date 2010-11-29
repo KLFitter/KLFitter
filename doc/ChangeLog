@@ -1,3 +1,9 @@
+2010-11-30 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
+	* Fix bug in muon TF.
+	* Replace TF warnings by StatusCode 510.
+	* tag KLFitter-00-03-20
+
 2010-11-22 Johannes Erdmann <johannes.erdmann@cern.ch>
 	
 	* ResDoubleGauss classes : check for the TF parameters -> only warning if sigma < 0

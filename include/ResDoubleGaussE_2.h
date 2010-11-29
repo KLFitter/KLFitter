@@ -60,9 +60,10 @@ namespace KLFitter
      * measured value, xmeas.
      * @param x The true value of x.
      * @param xmeas The measured value of x.
+     * @param good False if problem with TF.
      * @return The probability. 
      */ 
-    double p(double x, double xmeas); 
+    double p(double x, double xmeas, bool &good); 
 
     /* @} */
     /** \name Member functions (Set)  */

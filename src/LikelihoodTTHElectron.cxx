@@ -346,14 +346,16 @@ double KLFitter::LikelihoodTTHElectron::LogLikelihood(std::vector <double> param
   // define log of likelihood 
   double logprob = 0.; 
 
+  bool TFgood(true);
+
   // energy resolution terms 
-  logprob += log( (*fDetector) -> ResEnergyBJet( (*fParticlesPermuted) -> Parton(0) -> Eta() ) -> p( parameters.at(0), (*fParticlesPermuted) -> Parton(0) -> E()) ); 
-  logprob += log( (*fDetector) -> ResEnergyBJet( (*fParticlesPermuted) -> Parton(1) -> Eta() ) -> p( parameters.at(1), (*fParticlesPermuted) -> Parton(1) -> E()) ); 
-  logprob += log( (*fDetector) -> ResEnergyLightJet( (*fParticlesPermuted) -> Parton(2) -> Eta() ) -> p( parameters.at(2), (*fParticlesPermuted) -> Parton(2) -> E()) ); 
-  logprob += log( (*fDetector) -> ResEnergyLightJet( (*fParticlesPermuted) -> Parton(3) -> Eta() ) -> p( parameters.at(3), (*fParticlesPermuted) -> Parton(3) -> E()) ); 
-  logprob += log( (*fDetector) -> ResEnergyLightJet( (*fParticlesPermuted) -> Parton(4) -> Eta() ) -> p( parameters.at(4), (*fParticlesPermuted) -> Parton(4) -> E()) ); 
-  logprob += log( (*fDetector) -> ResEnergyLightJet( (*fParticlesPermuted) -> Parton(5) -> Eta() ) -> p( parameters.at(5), (*fParticlesPermuted) -> Parton(5) -> E()) ); 
-  logprob += log( (*fDetector) -> ResEnergyElectron( (*fParticlesPermuted) -> Electron(0) -> Eta() ) -> p( parameters.at(6), (*fParticlesPermuted) -> Electron(0) -> E()) ); 
+  logprob += log( (*fDetector) -> ResEnergyBJet( (*fParticlesPermuted) -> Parton(0) -> Eta() ) -> p( parameters.at(0), (*fParticlesPermuted) -> Parton(0) -> E(), TFgood) ); 
+  logprob += log( (*fDetector) -> ResEnergyBJet( (*fParticlesPermuted) -> Parton(1) -> Eta() ) -> p( parameters.at(1), (*fParticlesPermuted) -> Parton(1) -> E(), TFgood) ); 
+  logprob += log( (*fDetector) -> ResEnergyLightJet( (*fParticlesPermuted) -> Parton(2) -> Eta() ) -> p( parameters.at(2), (*fParticlesPermuted) -> Parton(2) -> E(), TFgood) ); 
+  logprob += log( (*fDetector) -> ResEnergyLightJet( (*fParticlesPermuted) -> Parton(3) -> Eta() ) -> p( parameters.at(3), (*fParticlesPermuted) -> Parton(3) -> E(), TFgood) ); 
+  logprob += log( (*fDetector) -> ResEnergyLightJet( (*fParticlesPermuted) -> Parton(4) -> Eta() ) -> p( parameters.at(4), (*fParticlesPermuted) -> Parton(4) -> E(), TFgood) ); 
+  logprob += log( (*fDetector) -> ResEnergyLightJet( (*fParticlesPermuted) -> Parton(5) -> Eta() ) -> p( parameters.at(5), (*fParticlesPermuted) -> Parton(5) -> E(), TFgood) ); 
+  logprob += log( (*fDetector) -> ResEnergyElectron( (*fParticlesPermuted) -> Electron(0) -> Eta() ) -> p( parameters.at(6), (*fParticlesPermuted) -> Electron(0) -> E(), TFgood) ); 
 
   // Breit-Wigner of hadronically decaying W-boson
   logprob += BCMath::LogBreitWignerRel( fParticlesModel -> Boson(0) -> M(), fPhysicsConstants -> MassW(), fPhysicsConstants -> GammaW()); 
