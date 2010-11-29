@@ -2,7 +2,7 @@
 	
 	* Fix bug in muon TF.
 	* Replace TF warnings by StatusCode 510.
-	* tag KLFitter-00-03-20
+	* tag KLFitter-00-03-30
 
 2010-11-22 Johannes Erdmann <johannes.erdmann@cern.ch>
 	
