@@ -64,7 +64,7 @@ namespace KLFitter
      * @param good False if problem with TF.
      * @return The probability. 
      */ 
-    virtual double p(double KLFITTER_UNUSED(x), double KLFITTER_UNUSED(xmeas), bool good)
+    virtual double p(double KLFITTER_UNUSED(x), double KLFITTER_UNUSED(xmeas), bool &good)
     { good = true; return 0; } 
 
     /**

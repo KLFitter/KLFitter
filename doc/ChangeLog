@@ -1,5 +1,10 @@
 2010-11-30 Johannes Erdmann <johannes.erdmann@cern.ch>
 	
+	* Fix compiler warnings.
+	* tag KLFitter-00-03-31
+
+2010-11-30 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
 	* Fix bug in muon TF.
 	* Replace TF warnings by StatusCode 510.
 	* tag KLFitter-00-03-30

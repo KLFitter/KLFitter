@@ -83,7 +83,7 @@ namespace KLFitter
      * @param p5 (the 2nd sigma).
      * @return False if problem with TF.
      */
-    inline static const bool CheckDoubleGaussianSanity(double p2, double &p3, double p5) {
+    inline static bool CheckDoubleGaussianSanity(double p2, double &p3, double p5) {
       bool val(true);
       if (p2 < 0.) //std::cout << "KLFitter::ResDoubleGauss::CheckDoubleGaussianSanity() ERROR IN TRANSFERFUNCTIONS the sigma of the 1st Gaussian is < 0  -  FIT RESULT MAY NOT BE RELIABLE" << std::endl;
         val = false;
