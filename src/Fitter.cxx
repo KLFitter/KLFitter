@@ -199,10 +199,11 @@ int KLFitter::Fitter::Fit(int index)
     {
       fMinuitStatus=509;
     }
-
-  // check if TF problem
-  if (! fLikelihood->NoTFProblem(fLikelihood->GetBestFitParameters()))
-    fMinuitStatus = 510;
+  else {
+    // check if TF problem
+    if (! fLikelihood->NoTFProblem(fLikelihood->GetBestFitParameters()))
+      fMinuitStatus = 510;
+  }
 
   // check b-tagging and calculate probability
   if (fLikelihood->FlagBTagging()) // && fLikelihood->FlagIntegrate())
