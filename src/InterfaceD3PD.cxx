@@ -235,8 +235,9 @@ int KLFitter::InterfaceD3PD::FillParticles()
   										jet_E  ->at(topJet_index->at(i)) / 1000.);
 					
 	  	fParticles->AddParticle(tmp, KLFitter::Particles::kParton,"",jet_flavor_weight_SV0->at(topJet_index->at(i)));
- 	  }
-	} 
+		}
+	}
+	std::sort(fParticles->ParticleContainer(KLFitter::Particles::kParton)->begin(),  fParticles->ParticleContainer(KLFitter::Particles::kParton)->end() , KLFitter::Particles::PtOrder);
 
 	//fill electrons
   for (int i = 0; i < topEl_n; ++i){
@@ -248,13 +249,16 @@ int KLFitter::InterfaceD3PD::FillParticles()
       																					 KLFitter::Particles::kElectron);
 		}   																					 
 	}
+	std::sort(fParticles->ParticleContainer(KLFitter::Particles::kElectron)->begin(),  fParticles->ParticleContainer(KLFitter::Particles::kElectron)->end() , KLFitter::Particles::PtOrder);
 
   // fill muons
   for (int i = 0; i < topMu_n; ++i){
-  	if ( topMu_use->at(i) && topMu_inTrigger->at(i) ){ 
+  	if ( topMu_use->at(i)){ 
       fParticles->AddParticle(new TLorentzVector(mu_px->at(topMu_index->at(i)) / 1000., mu_py->at(topMu_index->at(i)) / 1000., mu_pz->at(topMu_index->at(i)) / 1000., mu_E->at(topMu_index->at(i)) / 1000.), KLFitter::Particles::kMuon); 
     }
 	}
+	std::sort(fParticles->ParticleContainer(KLFitter::Particles::kMuon)->begin(),  fParticles->ParticleContainer(KLFitter::Particles::kMuon)->end() , KLFitter::Particles::PtOrder);
+	
   // no error 
   return 1;
 }

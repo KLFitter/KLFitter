@@ -357,6 +357,14 @@ namespace KLFitter
      * @return An error flag. 
      */ 
     int CheckIndex(std::vector <TLorentzVector *> * container, int index);
+    
+    /**
+     * Compare function for std::sort with pT as comparison criteria.
+     * @param p1 First particle. 
+     * @param p2 Second particle.
+     * @return bool. 
+     */ 
+    static bool PtOrder(const TLorentzVector *p1, const TLorentzVector * p2){return p1->Pt() > p2->Pt();}
 
     /* @} */
 
