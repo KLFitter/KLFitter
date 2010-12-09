@@ -35,7 +35,8 @@ KLFitter::InterfaceOutput::InterfaceOutput()
   fTreeVarEventNumber = 0; 
   fTreeVarParameters = new std::vector<std::vector<double> *>(0); 
   fTreeVarParameterErrors = new std::vector<std::vector<double> *>(0); 
-  fTreeVarModel = new std::vector<std::vector<double> *>(0); 
+  fTreeVarModel = new std::vector<std::vector<double> *>(0);
+  fTreeIntVarModel = new std::vector<std::vector<int> *>(0);  
   fTreeVarTruth = new std::vector<std::vector<double> *>(0); 
   fTreeVarMeasured = new std::vector<std::vector<double> *>(0); 
   fTreeVarSelected = new std::vector<std::vector<double> *>(0); 
@@ -100,7 +101,15 @@ KLFitter::InterfaceOutput::~InterfaceOutput()
       fTreeVarModel->erase(fTreeVarModel->begin()); 
       delete d; 
     }
-  delete fTreeVarModel; 
+  delete fTreeVarModel;
+  
+  while (!fTreeIntVarModel->empty())
+    {
+      std::vector<int>* d = fTreeIntVarModel->front(); 
+      fTreeIntVarModel->erase(fTreeIntVarModel->begin()); 
+      delete d; 
+    }
+  delete fTreeIntVarModel;  
         
   while (!fTreeVarTruth->empty())
     {
@@ -407,7 +416,7 @@ int KLFitter::InterfaceOutput::CreateTreeModel()
           std::vector<double>* eta = new std::vector<double>(0); 
           std::vector<double>* phi = new std::vector<double>(0); 
           std::vector<double>* btag = new std::vector<double>(0); 
-          std::vector<double>* index = new std::vector<double>(0);
+          std::vector<int>* index = new std::vector<int>(0);
 
           // add variables to vector 
           fTreeVarModel->push_back(E); 
@@ -419,7 +428,7 @@ int KLFitter::InterfaceOutput::CreateTreeModel()
           fTreeVarModel->push_back(eta); 
           fTreeVarModel->push_back(phi); 
           fTreeVarModel->push_back(btag); 
-          fTreeVarModel->push_back(index); 
+          fTreeIntVarModel->push_back(index); 
 
           // create new branches                                        
           fTreeModel->Branch(this->ModifyString((name+"_E")).data(), E);
@@ -915,6 +924,14 @@ int KLFitter::InterfaceOutput::FillTreeModelPermutation()
         d->clear();
         d->assign(fTreeVarNPermutations, -1.);    
       }
+      
+      n = fTreeIntVarModel->size();
+      for (unsigned int i = 0; i < n; ++i) {
+        std::vector<int>* d = fTreeIntVarModel->at(i); 
+        d->clear();
+        d->assign(fTreeVarNPermutations, -1.);    
+      }
+      
     }
         
   (*fTreeVarLogLikelihood)[pindex] = fFitter->Likelihood()->LogLikelihood( fFitter->Likelihood()->GetBestFitParameters() ); 
@@ -964,7 +981,9 @@ int KLFitter::InterfaceOutput::FillTreeModelPermutation()
       (*fTreeVarParameters->at(i))[pindex] = fFitter->Likelihood()->GetBestFitParameter(i); 
       (*fTreeVarParameterErrors->at(i))[pindex] = fFitter->Likelihood()->GetBestFitParameterError(i); 
     }
-
+	
+	int IntVarcounter = 0;	
+	
   // loop over all particle type 
   for (KLFitter::Particles::ParticleType itype = KLFitter::Particles::kParton; itype <= KLFitter::Particles::kPhoton; ++itype)
     {
@@ -973,12 +992,13 @@ int KLFitter::InterfaceOutput::FillTreeModelPermutation()
 
       // get number of particles in container 
       int n = int(momcontainer->size());                        
-                        
+                                
       // loop over particles 
       for (int i = 0; i < n; ++i)
         {
-          // get variables 
-          std::vector<double>* E  = fTreeVarModel->at(counter); 
+          // get variables
+          std::vector<int>* index = fTreeIntVarModel->at(IntVarcounter); 
+          std::vector<double>* E  = fTreeVarModel->at(counter);
           std::vector<double>* px = fTreeVarModel->at(++counter); 
           std::vector<double>* py = fTreeVarModel->at(++counter); 
           std::vector<double>* pz = fTreeVarModel->at(++counter); 
@@ -987,7 +1007,7 @@ int KLFitter::InterfaceOutput::FillTreeModelPermutation()
           std::vector<double>* eta = fTreeVarModel->at(++counter); 
           std::vector<double>* phi = fTreeVarModel->at(++counter); 
           std::vector<double>* btag = fTreeVarModel->at(++counter); 
-          std::vector<double>* index = fTreeVarModel->at(++counter); 
+          
                                         
           // get four vector 
           TLorentzVector* lv = momcontainer->at(i); 
@@ -1001,22 +1021,29 @@ int KLFitter::InterfaceOutput::FillTreeModelPermutation()
           (*pt)[pindex] = lv->Pt(); 
           (*eta)[pindex] = lv->Eta(); 
           (*phi)[pindex] = lv->Phi(); 
-          if (itype == KLFitter::Particles::kParton &&
-              (*fParticlesModel)->JetIndex(i)>=0) {
-            (*btag)[pindex] = (*fParticlesModel)->FlavorTag(i); 
+          if (itype == KLFitter::Particles::kParton && (*fParticlesModel)->JetIndex(i)>=0) {
+            (*btag)[pindex] = (*fParticlesModel)->FlavorTag(i);
+            //std::cout << pindex << " : " << (fFitter->Permutations()->PermutationTable())->at(pindex)->at(i) << std::endl;	
+
+            //std::cout <<fParticles->NameParticle(0, KLFitter::Particles::kParton)	<< std::endl;
             (*index)[pindex] = (fFitter->Permutations()->PermutationTable())->at(pindex)->at(i); //(*fParticlesModel)->JetIndex(i);
+
+          	IntVarcounter++;  
           }
+          
           if (itype == KLFitter::Particles::kElectron) {
             (*index)[pindex] = (*fParticlesModel)->ElectronIndex(i);
+            IntVarcounter++;
           }
           if (itype == KLFitter::Particles::kMuon) {
             (*index)[pindex] = (*fParticlesModel)->MuonIndex(i);
+            IntVarcounter++;
           }
           if (itype == KLFitter::Particles::kPhoton) {
             (*index)[pindex] = (*fParticlesModel)->PhotonIndex(i);
+            IntVarcounter++;
           }
-
-
+				
           // increase counter
           counter++; 
         }

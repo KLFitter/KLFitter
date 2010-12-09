@@ -331,7 +331,8 @@ namespace KLFitter
 
     std::vector <std::vector<double> *> * fTreeVarParameters; 
     std::vector <std::vector<double> *> * fTreeVarParameterErrors; 
-    std::vector <std::vector<double> *> * fTreeVarModel; 
+    std::vector <std::vector<double> *> * fTreeVarModel;
+    std::vector <std::vector<int> *> 		* fTreeIntVarModel; 
     std::vector <std::vector<double> *> * fTreeVarMeasured;
     std::vector <std::vector<double> *> * fTreeVarSelected;
     std::vector <std::vector<double> *> * fTreeVarTruth; 

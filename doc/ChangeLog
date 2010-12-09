@@ -1,4 +1,9 @@
-2010-12-00 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+2010-12-09 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+	
+	* InterfaceOutput.cxx, InterfaceOutput.h: indices are now int
+	* tag KLFitter-00-03-34
+
+2010-12-08 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
 	
 	* InterfaceD3PD.cxx, Particles.h: pT order for objects and bugfix
 	* tag KLFitter-00-03-33
