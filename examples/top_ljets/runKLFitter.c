@@ -66,9 +66,14 @@ int main(int argc, char **argv)
   // create new fitter 
   KLFitter::Fitter * myFitter = new KLFitter::Fitter(); 
 
-  // open Root file 
-  KLFitter::InterfaceRoot * myInterfaceRoot = new KLFitter::InterfaceGoTopTree(); 
-  myInterfaceRoot -> OpenRootFile(input_file.c_str());
+	// open Root file 
+  KLFitter::InterfaceRoot * myInterfaceRoot = new KLFitter::InterfaceGoTopTree();
+  std::vector<std::string> inputfiles = myInterfaceRoot->ReadInputFiles(input_file.c_str());
+  std::cout << "Input Files: " << std::endl;
+  for(unsigned int i=0; i<inputfiles.size(); i++)
+  	std::cout << inputfiles.at(i) << std::endl;
+  myInterfaceRoot -> OpenRootFiles(inputfiles);
+  //myInterfaceRoot -> OpenRootFile(input_file.c_str());
 
   // create detector
   KLFitter::DetectorBase * myDetector;

@@ -1,4 +1,5 @@
-#include <iostream> 
+#include <iostream>
+#include <fstream>
 #include <vector>
 #include <set>
 #include <Fitter.h> 
@@ -57,9 +58,13 @@ int main(int argc, char **argv)
   KLFitter::Fitter * myFitter = new KLFitter::Fitter(); 
 
   // open Root file 
-  KLFitter::InterfaceRoot * myInterfaceRoot = new KLFitter::InterfaceD3PD(); 
-  myInterfaceRoot -> OpenRootFile(input_file.c_str());
-
+  KLFitter::InterfaceRoot * myInterfaceRoot = new KLFitter::InterfaceD3PD();
+  std::vector<std::string> inputfiles = myInterfaceRoot->ReadInputFiles(input_file.c_str());
+  std::cout << "Input Files: " << std::endl;
+  for(unsigned int i=0; i<inputfiles.size(); i++)
+  	std::cout << inputfiles.at(i) << std::endl;
+  myInterfaceRoot -> OpenRootFiles(inputfiles);
+	
   // create detector
   KLFitter::DetectorBase * myDetector;
   if (FlagIs7TeV && !FlagIs10TeV)
@@ -141,6 +146,7 @@ int main(int argc, char **argv)
       if ((ievent-minEv+1)%1000 == 0)
         std::cout << " event " << (ievent+1) << std::endl; 
 
+
       // get first event
       if (!myInterfaceRoot -> Event(ievent))
         return 0; 
@@ -218,6 +224,4 @@ int main(int argc, char **argv)
   return 1; 
 
 }
-
 // -----------------------------------------------------------------------------------------------------------
-

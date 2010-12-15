@@ -112,11 +112,12 @@ KLFitter::InterfaceGoTopTree::~InterfaceGoTopTree()
 // --------------------------------------------------------- 
 int KLFitter::InterfaceGoTopTree::NEvents()
 {
-  if (!fTree)
-    return 0; 
-        
+  if(fTree)
+  	return fTree->GetEntries();
+  if(fChain)
+  	return fChain->GetEntries();	        
   else
-    return fTree->GetEntries(); 
+    return 0; 
 }
 
 // --------------------------------------------------------- 
@@ -130,6 +131,26 @@ int KLFitter::InterfaceGoTopTree::OpenRootFile(const char* filename, Option_t* o
 
   // connect Root tree 
   err *= this ->ConnectTree("GoTopTree"); 
+
+  // return error code 
+  return err; 
+}
+
+//--------------------------------------------------------- 
+int KLFitter::InterfaceGoTopTree::OpenRootFiles(std::vector<std::string> filenames, Option_t* opt)
+{
+  // define error code 
+  int err = 1; 
+	
+	fChain =  new TChain("GoTopTree");
+  // open files
+  for(unsigned int i=0; i<filenames.size(); i++){ 
+  	err *= KLFitter::InterfaceRoot::OpenRootFile(filenames.at(i).c_str(), opt);
+  	fChain->Add(filenames.at(i).c_str());
+  }	 
+		
+  // connect Root tree 
+  err *= this ->ConnectChain(fChain); 
 
   // return error code 
   return err; 
@@ -262,27 +283,145 @@ int KLFitter::InterfaceGoTopTree::ConnectTree(const char* treename)
   // no error 
   return 1;
 }
+// --------------------------------------------------------- 
+int KLFitter::InterfaceGoTopTree::ConnectChain(TChain * fChain)
+{
+	if (!this->fChain) this->fChain = fChain;
+  
+  // set branch addresses
+  fChain->SetBranchAddress("Event_EventNumber",  &Event_EventNumber); 
+  fChain->SetBranchAddress("Event_Weight", &fWeight); 
+
+  fChain->SetBranchAddress("Muon_N",  &Muon_N); 
+  fChain->SetBranchAddress("Muon_E",  &Muon_E); 
+  fChain->SetBranchAddress("Muon_Px", &Muon_Px); 
+  fChain->SetBranchAddress("Muon_Py", &Muon_Py); 
+  fChain->SetBranchAddress("Muon_Pz", &Muon_Pz); 
+  fChain->SetBranchAddress("Muon_Pt", &Muon_Pt); 
+  fChain->SetBranchAddress("Muon_Eta", &Muon_Eta); 
+  fChain->SetBranchAddress("Muon_Phi", &Muon_Phi); 
+  fChain->SetBranchAddress("Muon_IsTopInputs", &Muon_IsTopInputs); 
+
+  fChain->SetBranchAddress("Electron_N",  &Electron_N); 
+  fChain->SetBranchAddress("Electron_E",  &Electron_E); 
+  fChain->SetBranchAddress("Electron_Px", &Electron_Px); 
+  fChain->SetBranchAddress("Electron_Py", &Electron_Py); 
+  fChain->SetBranchAddress("Electron_Pz", &Electron_Pz); 
+  fChain->SetBranchAddress("Electron_Pt", &Electron_Pt); 
+  fChain->SetBranchAddress("Electron_Eta", &Electron_Eta); 
+  fChain->SetBranchAddress("Electron_Phi", &Electron_Phi); 
+  fChain->SetBranchAddress("Electron_IsTopInputs", &Electron_IsTopInputs); 
+
+  fChain->SetBranchAddress("Jet_N",   &Jet_N); 
+  fChain->SetBranchAddress("Jet_E",   &Jet_E); 
+  fChain->SetBranchAddress("Jet_Px",  &Jet_Px); 
+  fChain->SetBranchAddress("Jet_Py",  &Jet_Py); 
+  fChain->SetBranchAddress("Jet_Pz",  &Jet_Pz); 
+  fChain->SetBranchAddress("Jet_Pt",  &Jet_Pt); 
+  fChain->SetBranchAddress("Jet_Eta", &Jet_Eta); 
+  fChain->SetBranchAddress("Jet_Phi", &Jet_Phi); 
+  fChain->SetBranchAddress("Jet_IsTopInputs", &Jet_IsTopInputs); 
+
+  fChain->SetBranchAddress("Jet_SV0_Weight", &Jet_SV0_Weight); 
+
+  if (fChain->FindBranch("Photon_N"))
+    fChain->SetBranchAddress("Photon_N",  &Photon_N); 
+  if (fChain->FindBranch("Photon_E"))
+    fChain->SetBranchAddress("Photon_E",  &Photon_E); 
+  if (fChain->FindBranch("Photon_Px"))
+    fChain->SetBranchAddress("Photon_Px", &Photon_Px); 
+  if (fChain->FindBranch("Photon_Py"))
+    fChain->SetBranchAddress("Photon_Py", &Photon_Py); 
+  if (fChain->FindBranch("Photon_Pz"))
+    fChain->SetBranchAddress("Photon_Pz", &Photon_Pz); 
+  if (fChain->FindBranch("Photon_Pt"))
+    fChain->SetBranchAddress("Photon_Pt", &Photon_Pt); 
+  if (fChain->FindBranch("Photon_Eta"))
+    fChain->SetBranchAddress("Photon_Eta", &Photon_Eta); 
+  if (fChain->FindBranch("Photon_Phi"))
+    fChain->SetBranchAddress("Photon_Phi", &Photon_Phi); 
+  if (fChain->FindBranch("Photon_IsTopInputs"))
+    fChain->SetBranchAddress("Photon_IsTopInputs", &Photon_IsTopInputs); 
+        
+  fChain->SetBranchAddress("MET_Et",  &MET_Et); 
+  fChain->SetBranchAddress("MET_Phi", &MET_Phi); 
+  fChain->SetBranchAddress("MET_Etx", &MET_Etx); 
+  fChain->SetBranchAddress("MET_Ety", &MET_Ety); 
+
+  fChain->SetBranchAddress("Truth_IsProperMCEvent", &Truth_IsProperMCEvent); 
+  fChain->SetBranchAddress("TruthPart_N",           &TruthPart_N); 
+  fChain->SetBranchAddress("TruthPart_PDG",         &TruthPart_PDG); 
+
+
+  fChain->SetBranchAddress("TruthPart_NParents", &TruthPart_NParents); 
+  fChain->SetBranchAddress("TruthPart_ParentIdx", &TruthPart_ParentIdx); 
+  fChain->SetBranchAddress("TruthPart_NChildren", &TruthPart_NChildren); 
+  fChain->SetBranchAddress("TruthPart_ChildIdx", &TruthPart_ChildIdx); 
+  fChain->SetBranchAddress("TruthPart_E",   &TruthPart_E); 
+  fChain->SetBranchAddress("TruthPart_Px",  &TruthPart_Px); 
+  fChain->SetBranchAddress("TruthPart_Py",  &TruthPart_Py); 
+  fChain->SetBranchAddress("TruthPart_Pz",  &TruthPart_Pz); 
+  fChain->SetBranchAddress("TruthPart_Eta", &TruthPart_Eta); 
+  fChain->SetBranchAddress("TruthPart_Phi", &TruthPart_Phi); 
+  fChain->SetBranchAddress("TruthPart_Pt",  &TruthPart_Pt); 
+
+  fChain->SetBranchAddress("Truth_WplusHad",  &Truth_WplusHad); 
+  fChain->SetBranchAddress("Truth_WminusHad",  &Truth_WminusHad); 
+
+  fChain->SetBranchAddress("TruthIdx_Wplus",  &TruthIdx_Wplus); 
+  fChain->SetBranchAddress("TruthIdx_b",      &TruthIdx_b); 
+  fChain->SetBranchAddress("TruthIdx_bbar",   &TruthIdx_bbar); 
+  fChain->SetBranchAddress("TruthIdx_lminus", &TruthIdx_lminus); 
+  fChain->SetBranchAddress("TruthIdx_lplus",  &TruthIdx_lplus); 
+  fChain->SetBranchAddress("TruthIdx_n",      &TruthIdx_n); 
+  fChain->SetBranchAddress("TruthIdx_nbar",   &TruthIdx_nbar); 
+  fChain->SetBranchAddress("TruthIdx_t",      &TruthIdx_t); 
+  fChain->SetBranchAddress("TruthIdx_Wminus", &TruthIdx_Wminus); 
+  fChain->SetBranchAddress("TruthIdx_tbar",   &TruthIdx_tbar); 
+                    
+  if (fChain->FindBranch("TruthIdx_photon"))
+    fChain->SetBranchAddress("TruthIdx_photon", &TruthIdx_photon);
+  fChain->SetBranchAddress("TruthIdx_QfromWminus", &TruthIdx_QfromWminus); 
+  fChain->SetBranchAddress("TruthIdx_QfromWplus", &TruthIdx_QfromWplus); 
+  fChain->SetBranchAddress("TruthIdx_QbarfromWminus", &TruthIdx_QbarfromWminus); 
+  fChain->SetBranchAddress("TruthIdx_QbarfromWplus", &TruthIdx_QbarfromWplus); 
+
+  // no error 
+  return 1;
+}
 
 // --------------------------------------------------------- 
 int KLFitter::InterfaceGoTopTree::Event(int index)
 {
 
   // check tree 
-  if (!fTree)
+  if (!fTree && !fChain)
     {
       std::cout << "KLFitter::InterfaceGoTopTree::GetEvent(). Tree not defined." << std::endl; 
       return 0; 
     } 
 
-  // check event number 
-  if (index < 0 || index >= fTree->GetEntries())
-    {
-      std::cout << "KLFitter::InterfaceGoTopTree::GetEvent(). Event number negative or too large." << std::endl; 
-      return 0; 
-    } 
-
-  // get event 
-  fTree->GetEntry(index); 
+  if(fTree){
+  	// check event number
+  	if (index < 0 || index >= fTree->GetEntries())
+    	{
+      	std::cout << "KLFitter::InterfaceGoTopTree::GetEvent(). Event number negative or too large." << std::endl; 
+      	return 0; 
+    	} 
+   	// get event 
+  	fTree->GetEntry(index);
+  }
+  
+  if(fChain){
+  	// check event number
+  	if (index < 0 || index >= fChain->GetEntries())
+    	{
+      	std::cout << "KLFitter::InterfaceGoTopTree::GetEvent(). Event number negative or too large." << std::endl; 
+      	return 0; 
+    	} 
+    // get event 
+  	fChain->GetEntry(index);
+  } 
 
   // fill particles 
   if (!this->FillParticles())

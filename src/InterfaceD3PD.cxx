@@ -5,6 +5,7 @@
 
 #include <TROOT.h>
 #include <TTree.h>
+#include <TChain.h>
 #include <TFile.h>
 
 #include <iostream> 
@@ -72,11 +73,12 @@ KLFitter::InterfaceD3PD::~InterfaceD3PD()
 // --------------------------------------------------------- 
 int KLFitter::InterfaceD3PD::NEvents()
 {
-  if (!fTree)
-    return 0; 
-        
+  if(fTree)
+  	return fTree->GetEntries();
+  if(fChain)
+  	return fChain->GetEntries();	        
   else
-    return fTree->GetEntries(); 
+    return 0; 
 }
 
 // --------------------------------------------------------- 
@@ -90,6 +92,25 @@ int KLFitter::InterfaceD3PD::OpenRootFile(const char* filename, Option_t* opt)
 
   // connect Root tree 
   err *= this ->ConnectTree("physics"); 
+
+  // return error code 
+  return err; 
+}
+// --------------------------------------------------------- 
+int KLFitter::InterfaceD3PD::OpenRootFiles(std::vector<std::string> filenames, Option_t* opt)
+{
+  // define error code 
+  int err = 1; 
+	
+	fChain =  new TChain("physics");
+  // open files
+  for(unsigned int i=0; i<filenames.size(); i++){ 
+  	err *= KLFitter::InterfaceRoot::OpenRootFile(filenames.at(i).c_str(), opt);
+  	fChain->Add(filenames.at(i).c_str());
+  }	 
+		
+  // connect Root tree 
+  err *= this ->ConnectChain(fChain); 
 
   // return error code 
   return err; 
@@ -144,7 +165,6 @@ int KLFitter::InterfaceD3PD::ConnectTree(TTree * fTree)
   fTree->SetBranchAddress("mu_eta", &mu_eta); 
   fTree->SetBranchAddress("mu_phi", &mu_phi); 
  
-
   fTree->SetBranchAddress("topEl_n",  &topEl_n); 
   fTree->SetBranchAddress("topEl_index",  &topEl_index);
   fTree->SetBranchAddress("topEl_use",  &topEl_use);
@@ -175,31 +195,97 @@ int KLFitter::InterfaceD3PD::ConnectTree(TTree * fTree)
   fTree->SetBranchAddress("topMET_etx", &topMET_etx); 
   fTree->SetBranchAddress("topMET_ety", &topMET_ety); 
 
-  // no error 
+  // no error     
+  return 1;
+}
+// --------------------------------------------------------- 
+int KLFitter::InterfaceD3PD::ConnectChain(TChain * fChain)
+{
+  if (!this->fChain) this->fChain = fChain;
+  // set branch adresses
+  fChain->SetBranchAddress("EventNumber",  &EventNumber); 
+  //fChain->SetBranchAddress("mcevt_weight", &fWeight);
+  fChain->SetBranchAddress("mcevt_weight", &mcevt_weight);
+		
+  fChain->SetBranchAddress("topMu_n",  &topMu_n);
+  fChain->SetBranchAddress("topMu_index",  &topMu_index);
+  fChain->SetBranchAddress("topMu_use",  &topMu_use);
+  fChain->SetBranchAddress("topMu_inTrigger",  &topMu_inTrigger);  
+  fChain->SetBranchAddress("mu_E",  &mu_E); 
+  fChain->SetBranchAddress("mu_px", &mu_px); 
+  fChain->SetBranchAddress("mu_py", &mu_py); 
+  fChain->SetBranchAddress("mu_pz", &mu_pz); 
+  fChain->SetBranchAddress("mu_pt", &mu_pt); 
+  fChain->SetBranchAddress("mu_eta", &mu_eta); 
+  fChain->SetBranchAddress("mu_phi", &mu_phi); 
+ 
+  fChain->SetBranchAddress("topEl_n",  &topEl_n); 
+  fChain->SetBranchAddress("topEl_index",  &topEl_index);
+  fChain->SetBranchAddress("topEl_use",  &topEl_use);
+  fChain->SetBranchAddress("topEl_inTrigger",  &topEl_inTrigger);
+  fChain->SetBranchAddress("el_E",  &el_E); 
+  fChain->SetBranchAddress("el_px", &el_px); 
+  fChain->SetBranchAddress("el_py", &el_py); 
+  fChain->SetBranchAddress("el_pz", &el_pz); 
+  fChain->SetBranchAddress("el_pt", &el_pt); 
+  fChain->SetBranchAddress("el_eta", &el_eta); 
+  fChain->SetBranchAddress("el_phi", &el_phi); 
+  
+  fChain->SetBranchAddress("topJet_n",   &topJet_n);
+  fChain->SetBranchAddress("topJet_index",   &topJet_index);
+  fChain->SetBranchAddress("topJet_use",  &topJet_use);
+  fChain->SetBranchAddress("topJet_inTrigger",  &topJet_inTrigger);  
+  fChain->SetBranchAddress("jet_E",   &jet_E); 
+  //fChain->SetBranchAddress("jet_px",  &jet_px); 
+  //fChain->SetBranchAddress("jet_py",  &jet_py); 
+  //fChain->SetBranchAddress("jet_pz",  &jet_pz); 
+  fChain->SetBranchAddress("jet_pt",  &jet_pt); 
+  fChain->SetBranchAddress("jet_eta", &jet_eta); 
+  fChain->SetBranchAddress("jet_phi", &jet_phi); 
+  fChain->SetBranchAddress("jet_flavor_weight_SV0", &jet_flavor_weight_SV0); 
+
+  fChain->SetBranchAddress("topMET_et",  &topMET_et); 
+  fChain->SetBranchAddress("topMET_phi", &topMET_phi); 
+  fChain->SetBranchAddress("topMET_etx", &topMET_etx); 
+  fChain->SetBranchAddress("topMET_ety", &topMET_ety); 
+
+  // no error     
   return 1;
 }
 
 // --------------------------------------------------------- 
 int KLFitter::InterfaceD3PD::Event(int index)
 {
-
+		
   // check tree 
-  if (!fTree)
+  if (!fTree && !fChain)
     {
-      std::cout << "KLFitter::InterfaceD3PD::GetEvent(). Tree not defined." << std::endl; 
+      std::cout << "KLFitter::InterfaceD3PD::GetEvent(). Tree or Chain not defined." << std::endl; 
       return 0; 
     } 
 
-  // check event number 
-  if (index < 0 || index >= fTree->GetEntries())
-    {
-      std::cout << "KLFitter::InterfaceD3PD::GetEvent(). Event number negative or too large." << std::endl; 
-      return 0; 
-    } 
-
-  // get event 
-  fTree->GetEntry(index); 
-
+  if(fTree){
+  	// check event number
+  	if (index < 0 || index >= fTree->GetEntries())
+    	{
+      	std::cout << "KLFitter::InterfaceD3PD::GetEvent(). Event number negative or too large." << std::endl; 
+      	return 0; 
+    	} 
+   	// get event 
+  	fTree->GetEntry(index);
+  }
+  
+  if(fChain){
+  	// check event number
+  	if (index < 0 || index >= fChain->GetEntries())
+    	{
+      	std::cout << "KLFitter::InterfaceD3PD::GetEvent(). Event number negative or too large." << std::endl; 
+      	return 0; 
+    	} 
+    // get event 
+  	fChain->GetEntry(index);
+  } 
+  
   // fill particles 
   if (!this->FillParticles())
     return 0; 
@@ -264,3 +350,5 @@ int KLFitter::InterfaceD3PD::FillParticles()
 }
 
 // --------------------------------------------------------- 
+
+

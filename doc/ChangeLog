@@ -1,3 +1,10 @@
+2010-12-15 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+	
+	* InterfaceRoot/GoTopTree/D3PD: multiple input files can be read in defined in input.txt,
+	 																trees are collected in a chain
+	* runKLFitter*.c: changed according to the different read in  																
+	* tag KLFitter-00-03-35
+	
 2010-12-09 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
 	
 	* InterfaceOutput.cxx, InterfaceOutput.h: indices are now int

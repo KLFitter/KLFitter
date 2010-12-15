@@ -17,6 +17,7 @@
 // --------------------------------------------------------- 
 
 #include "InterfaceRoot.h" 
+#include <TChain.h>
 
 // --------------------------------------------------------- 
 
@@ -93,7 +94,13 @@ namespace KLFitter
      * @return An error code.
      */ 
     int OpenRootFile(const char * filename, Option_t * opt = "READ");
-
+    /**
+     * Open Root files containing trees.
+     * @param filenames vector containing the filenames. 
+     * @param opt Options.
+     * @return An error code.
+     */ 
+    int OpenRootFiles(std::vector<std::string> filenames, Option_t * opt = "READ");		
 
     /**
      * Get a tree from Root file and set branch addresses. 
@@ -108,6 +115,13 @@ namespace KLFitter
      * @return An error code. 
      */ 
     int ConnectTree(TTree * fTree); 
+    
+    /**
+     * Set branch addresses for a given Chain directly, skip OpenRootFile. 
+     * @param fChain The name of the Chain.
+     * @return An error code. 
+     */ 
+    int ConnectChain(TChain * fChain); 
 
     /**
      * Get event from Root tree. 
@@ -131,8 +145,11 @@ namespace KLFitter
     /**
      * The Root tree. 
      */ 
-    TTree * fTree; 
-                
+    TTree * fTree;
+    /**
+     * The Root chain. 
+     */      
+    TChain * fChain;            
     /** \name Tree variables  */
     /* @{ */
 

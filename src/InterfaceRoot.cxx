@@ -68,3 +68,42 @@ int KLFitter::InterfaceRoot::CloseRootFile()
 
 // --------------------------------------------------------- 
 
+std::vector<std::string> KLFitter::InterfaceRoot::ReadInputFiles(const char * filename)
+{
+  // define input file 
+  std::ifstream inputfile; 
+
+  // open file 
+  inputfile.open(filename); 
+
+  // check if file is open 
+  if (!inputfile.is_open())
+    {
+      std::cout << "ReadInputFiles(). File \"" << filename << "\" not found." << std::endl;              
+    }
+
+  // reset parameters 
+  std::vector<std::string> filenameVec; 
+  std::string name = "empty";
+	 
+  // read parameters 
+  //for (int i = 0; i < nfiles; ++i)
+  while(!inputfile.eof())
+    {
+      name = ""; 
+      inputfile >> name;
+			if(name.size()==0)
+				break;
+      filenameVec.push_back(name); 
+    }
+	
+	// close file 
+  inputfile.close();    
+
+  // no error 
+  return filenameVec; 
+}
+
+// -----------------------------------------------------------------------------------------------------------
+
+

@@ -19,6 +19,7 @@
 #include "InterfaceBase.h" 
 
 #include <TROOT.h>
+#include <fstream>
 
 // --------------------------------------------------------- 
 
@@ -109,12 +110,27 @@ namespace KLFitter
      * @return An error code.
      */ 
     virtual int OpenRootFile(const char * filename, Option_t * opt = "READ"); 
-
+		
+		 /**
+     * Open Root files containing tree.
+     * @param filenames The filenames. 
+     * @param opt Options.
+     * @return An error code.
+     */ 
+		virtual int OpenRootFiles(std::vector<std::string> filenames, Option_t * opt= "READ")
+		{ return 1; }; 
+		
     /**
      * Close Root file. 
      * @return An error code.
      */ 
     virtual int CloseRootFile(); 
+		/**
+     * Read input files from txt-file.
+     * @param filename The name of the txt-file.
+     * @return An error code. 
+     */     
+    virtual std::vector<std::string> ReadInputFiles(const char * filename);	
 
     /* @} */
 
