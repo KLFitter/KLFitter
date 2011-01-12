@@ -929,7 +929,7 @@ int KLFitter::InterfaceOutput::FillTreeModelPermutation()
       for (unsigned int i = 0; i < n; ++i) {
         std::vector<int>* d = fTreeIntVarModel->at(i); 
         d->clear();
-        d->assign(fTreeVarNPermutations, -1.);    
+        d->assign(fTreeVarNPermutations, -1);    
       }
       
     }
