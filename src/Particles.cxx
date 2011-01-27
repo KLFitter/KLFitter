@@ -25,8 +25,13 @@ KLFitter::Particles::Particles() :
   fMuonIndex(new std::vector <int>(0)),  
   fPhotonIndex(new std::vector <int>(0)),  
 
-  fBTaggingProbability(new std::vector <double>(0)),  
-  fFlavorTag(new std::vector<double>(0))        
+  fBTaggingProbability(new std::vector <double>(0)),
+  fFlavorTag(new std::vector<double>(0)),
+
+  fElectronDetEta(new std::vector<double>(0)),
+  fMuonDetEta(new std::vector<double>(0)),
+  fJetDetEta(new std::vector<double>(0)),
+  fPhotonDetEta(new std::vector<double>(0))
 {
 }
 
@@ -126,9 +131,20 @@ KLFitter::Particles::~Particles()
     delete fBTaggingProbability; 
 
   if (fFlavorTag)
-    delete fFlavorTag; 
-}
+    delete fFlavorTag;
 
+  if (fElectronDetEta)
+    delete fElectronDetEta;
+
+  if (fMuonDetEta)
+    delete fMuonDetEta;
+
+  if (fJetDetEta)
+    delete fJetDetEta;
+
+  if (fPhotonDetEta)
+    delete fPhotonDetEta;
+}
 // --------------------------------------------------------- 
 int KLFitter::Particles::AddParticle(TLorentzVector* particle, KLFitter::Particles::ParticleType ptype, std::string name, double btagprob, double flavortag, int measuredindex)
 {
@@ -161,14 +177,75 @@ int KLFitter::Particles::AddParticle(TLorentzVector* particle, KLFitter::Particl
     if (ptype == KLFitter::Particles::kParton) {
       fBTaggingProbability->push_back(btagprob); 
       fFlavorTag->push_back(flavortag); 
-      fJetIndex->push_back(measuredindex); 
+      fJetIndex->push_back(measuredindex);      
     }
-    else if (ptype == KLFitter::Particles::kElectron) 
-      fElectronIndex->push_back(measuredindex); 
-    else if (ptype == KLFitter::Particles::kMuon) 
-      fMuonIndex->push_back(measuredindex); 
-    else if (ptype == KLFitter::Particles::kPhoton) 
-      fPhotonIndex->push_back(measuredindex); 
+    else if (ptype == KLFitter::Particles::kElectron){ 
+      fElectronIndex->push_back(measuredindex);
+    }
+    else if (ptype == KLFitter::Particles::kMuon){ 
+      fMuonIndex->push_back(measuredindex);
+     } 
+    else if (ptype == KLFitter::Particles::kPhoton){
+      fPhotonIndex->push_back(measuredindex);
+     } 
+  }
+  else {
+    std::cout << "KLFitter::Particles::AddParticle(). Particle with the name " << name << " exists already." << std::endl; 
+    return 0; 
+  }
+
+  // no error
+  return 1;
+        
+}
+
+// --------------------------------------------------------- 
+int KLFitter::Particles::AddParticle(TLorentzVector* particle, double DetEta, KLFitter::Particles::ParticleType ptype, std::string name, double btagprob, double flavortag, int measuredindex)
+{
+  // get particle container
+  std::vector <TLorentzVector *>* container = ParticleContainer(ptype); 
+
+  // check if container exists
+  if (!container)
+    {
+      std::cout << "KLFitter::Particles::AddParticle(). Container does not exist." << std::endl; 
+      return 0; 
+    }
+
+  // check name 
+  if (name == "")
+    name = Form("particle_%i", NParticles()); 
+
+  // get index and type 
+  TLorentzVector* vect = 0; 
+  int index = 0; 
+  KLFitter::Particles::ParticleType temptype = kParton; 
+
+  // check if particle with name exists already 
+  if (!FindParticle(name, vect, index, temptype)) {
+
+    // add particle 
+    container->push_back(particle); 
+    ParticleNameContainer(ptype)->push_back(name); 
+
+    if (ptype == KLFitter::Particles::kParton) {
+      fBTaggingProbability->push_back(btagprob); 
+      fFlavorTag->push_back(flavortag); 
+      fJetIndex->push_back(measuredindex);
+      fJetDetEta->push_back(DetEta); 
+    }
+    else if (ptype == KLFitter::Particles::kElectron){ 
+      fElectronIndex->push_back(measuredindex);
+      fElectronDetEta->push_back(DetEta);
+    }
+    else if (ptype == KLFitter::Particles::kMuon){ 
+      fMuonIndex->push_back(measuredindex);
+      fMuonDetEta->push_back(DetEta);
+    } 
+    else if (ptype == KLFitter::Particles::kPhoton){
+      fPhotonIndex->push_back(measuredindex);
+      fPhotonDetEta->push_back(DetEta);
+    } 
   }
   else {
     std::cout << "KLFitter::Particles::AddParticle(). Particle with the name " << name << " exists already." << std::endl; 
@@ -606,7 +683,26 @@ double KLFitter::Particles::FlavorTag(int index)
   return fFlavorTag->at(index); 
   */
 }
+// --------------------------------------------------------- 
+double KLFitter::Particles::DetEta(int index, KLFitter::Particles::ParticleType ptype)
+{
+  if (index < 0 || index > NParticles(ptype)) {
+    std::cout << "KLFitter::Particles::DetEta(). Index out of range." << std::endl; 
+    return 0; 
+  }
 
+  if (ptype == KLFitter::Particles::kParton)
+    return fJetDetEta->at(index);
+  else if (ptype == KLFitter::Particles::kElectron) 
+    return fElectronDetEta->at(index);
+  else if (ptype == KLFitter::Particles::kMuon)
+    return fMuonDetEta->at(index);
+  else if (ptype == KLFitter::Particles::kPhoton)
+    return fPhotonDetEta->at(index);
+
+  // return error value
+  return -100;
+}
 // --------------------------------------------------------- 
 int KLFitter::Particles::JetIndex(int index)
 {

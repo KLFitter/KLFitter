@@ -64,6 +64,7 @@ int KLFitter::SelectionTool::SelectObjects(KLFitter::Particles * particles)
 
       // add jet 
       fParticlesSelected->AddParticle( new TLorentzVector(*particles->Parton(i)),
+                                       particles->DetEta(i, KLFitter::Particles::kParton),
                                        KLFitter::Particles::kParton, 
                                        particles->NameParticle(i, KLFitter::Particles::kParton) ); 
       // add flavor tag
@@ -90,6 +91,7 @@ int KLFitter::SelectionTool::SelectObjects(KLFitter::Particles * particles)
 
       // add electron 
       fParticlesSelected->AddParticle( new TLorentzVector(*particles->Electron(i)),
+                                       particles->DetEta(i, KLFitter::Particles::kElectron),
                                        KLFitter::Particles::kElectron, 
                                        particles->NameParticle(i, KLFitter::Particles::kElectron) ); 
       // add index to map 
@@ -111,6 +113,7 @@ int KLFitter::SelectionTool::SelectObjects(KLFitter::Particles * particles)
 
       // add muon 
       fParticlesSelected->AddParticle( new TLorentzVector(*particles->Muon(i)),
+                                       particles->DetEta(i, KLFitter::Particles::kMuon),
                                        KLFitter::Particles::kMuon, 
                                        particles->NameParticle(i, KLFitter::Particles::kMuon) ); 
 
@@ -133,6 +136,7 @@ int KLFitter::SelectionTool::SelectObjects(KLFitter::Particles * particles)
 
       // add photon 
       fParticlesSelected->AddParticle( new TLorentzVector(*particles->Photon(i)),
+                                       particles->DetEta(i, KLFitter::Particles::kPhoton),
                                        KLFitter::Particles::kPhoton, 
                                        particles->NameParticle(i, KLFitter::Particles::kPhoton) ); 
       

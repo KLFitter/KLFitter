@@ -24,6 +24,7 @@ KLFitter::InterfaceGoTopTree::InterfaceGoTopTree()
   Muon_Pz = 0;  
   Muon_Pt = 0;  
   Muon_Eta = 0;  
+  Muon_DetEta = 0;  
   Muon_Phi = 0;  
   Muon_IsTopInputs = 0;
 
@@ -34,6 +35,7 @@ KLFitter::InterfaceGoTopTree::InterfaceGoTopTree()
   Electron_Pz = 0;  
   Electron_Pt = 0;  
   Electron_Eta = 0;  
+  Electron_DetEta = 0;  
   Electron_Phi = 0;  
   Electron_IsTopInputs = 0;
 
@@ -43,7 +45,8 @@ KLFitter::InterfaceGoTopTree::InterfaceGoTopTree()
   Jet_Py = 0;  
   Jet_Pz = 0;  
   Jet_Pt = 0;  
-  Jet_Eta = 0;  
+  Jet_Eta = 0;
+  Jet_DetEta = 0;  
   Jet_Phi = 0;  
   Jet_IsTopInputs = 0;
 
@@ -192,7 +195,8 @@ int KLFitter::InterfaceGoTopTree::ConnectTree(const char* treename)
   fTree->SetBranchAddress("Muon_Py", &Muon_Py); 
   fTree->SetBranchAddress("Muon_Pz", &Muon_Pz); 
   fTree->SetBranchAddress("Muon_Pt", &Muon_Pt); 
-  fTree->SetBranchAddress("Muon_Eta", &Muon_Eta); 
+  fTree->SetBranchAddress("Muon_Eta", &Muon_Eta);
+  fTree->SetBranchAddress("Muon_DetEta", &Muon_DetEta);  
   fTree->SetBranchAddress("Muon_Phi", &Muon_Phi); 
   fTree->SetBranchAddress("Muon_IsTopInputs", &Muon_IsTopInputs); 
 
@@ -202,7 +206,8 @@ int KLFitter::InterfaceGoTopTree::ConnectTree(const char* treename)
   fTree->SetBranchAddress("Electron_Py", &Electron_Py); 
   fTree->SetBranchAddress("Electron_Pz", &Electron_Pz); 
   fTree->SetBranchAddress("Electron_Pt", &Electron_Pt); 
-  fTree->SetBranchAddress("Electron_Eta", &Electron_Eta); 
+  fTree->SetBranchAddress("Electron_Eta", &Electron_Eta);
+  fTree->SetBranchAddress("Electron_DetEta", &Electron_DetEta); 
   fTree->SetBranchAddress("Electron_Phi", &Electron_Phi); 
   fTree->SetBranchAddress("Electron_IsTopInputs", &Electron_IsTopInputs); 
 
@@ -212,7 +217,8 @@ int KLFitter::InterfaceGoTopTree::ConnectTree(const char* treename)
   fTree->SetBranchAddress("Jet_Py",  &Jet_Py); 
   fTree->SetBranchAddress("Jet_Pz",  &Jet_Pz); 
   fTree->SetBranchAddress("Jet_Pt",  &Jet_Pt); 
-  fTree->SetBranchAddress("Jet_Eta", &Jet_Eta); 
+  fTree->SetBranchAddress("Jet_Eta", &Jet_Eta);
+  fTree->SetBranchAddress("Jet_EMscaleDetEta", &Jet_DetEta);
   fTree->SetBranchAddress("Jet_Phi", &Jet_Phi); 
   fTree->SetBranchAddress("Jet_IsTopInputs", &Jet_IsTopInputs); 
 
@@ -298,7 +304,8 @@ int KLFitter::InterfaceGoTopTree::ConnectChain(TChain * fChain)
   fChain->SetBranchAddress("Muon_Py", &Muon_Py); 
   fChain->SetBranchAddress("Muon_Pz", &Muon_Pz); 
   fChain->SetBranchAddress("Muon_Pt", &Muon_Pt); 
-  fChain->SetBranchAddress("Muon_Eta", &Muon_Eta); 
+  fChain->SetBranchAddress("Muon_Eta", &Muon_Eta);
+  fChain->SetBranchAddress("Muon_DetEta", &Muon_DetEta);  
   fChain->SetBranchAddress("Muon_Phi", &Muon_Phi); 
   fChain->SetBranchAddress("Muon_IsTopInputs", &Muon_IsTopInputs); 
 
@@ -309,6 +316,7 @@ int KLFitter::InterfaceGoTopTree::ConnectChain(TChain * fChain)
   fChain->SetBranchAddress("Electron_Pz", &Electron_Pz); 
   fChain->SetBranchAddress("Electron_Pt", &Electron_Pt); 
   fChain->SetBranchAddress("Electron_Eta", &Electron_Eta); 
+  fChain->SetBranchAddress("Electron_DetEta", &Electron_DetEta); 
   fChain->SetBranchAddress("Electron_Phi", &Electron_Phi); 
   fChain->SetBranchAddress("Electron_IsTopInputs", &Electron_IsTopInputs); 
 
@@ -319,6 +327,7 @@ int KLFitter::InterfaceGoTopTree::ConnectChain(TChain * fChain)
   fChain->SetBranchAddress("Jet_Pz",  &Jet_Pz); 
   fChain->SetBranchAddress("Jet_Pt",  &Jet_Pt); 
   fChain->SetBranchAddress("Jet_Eta", &Jet_Eta); 
+  fChain->SetBranchAddress("Jet_EMscaleDetEta", &Jet_DetEta); 
   fChain->SetBranchAddress("Jet_Phi", &Jet_Phi); 
   fChain->SetBranchAddress("Jet_IsTopInputs", &Jet_IsTopInputs); 
 
@@ -423,7 +432,7 @@ int KLFitter::InterfaceGoTopTree::Event(int index)
   	fChain->GetEntry(index);
   } 
 
-  // fill particles 
+  // fill particles
   if (!this->FillParticles())
     return 0; 
 
@@ -434,6 +443,7 @@ int KLFitter::InterfaceGoTopTree::Event(int index)
 // --------------------------------------------------------- 
 int KLFitter::InterfaceGoTopTree::FillParticles()
 {
+
   // delete old particle container
   if (fParticles) 
     delete fParticles; 
@@ -449,27 +459,27 @@ int KLFitter::InterfaceGoTopTree::FillParticles()
   for (int i = 0; i < Jet_N; ++i)
     {
       if ((*Jet_IsTopInputs)[i])
-        fParticles->AddParticle(new TLorentzVector(Jet_Px->at(i), Jet_Py->at(i), Jet_Pz->at(i), Jet_E->at(i)), KLFitter::Particles::kParton,"",Jet_SV0_Weight->at(i)); 
+        fParticles->AddParticle(new TLorentzVector(Jet_Px->at(i), Jet_Py->at(i), Jet_Pz->at(i), Jet_E->at(i)), Jet_DetEta->at(i), KLFitter::Particles::kParton,"",Jet_SV0_Weight->at(i)); 
     }
   // fill electrons
   for (int i = 0; i < Electron_N; ++i)
     {
       if ((*Electron_IsTopInputs)[i])
-        fParticles->AddParticle(new TLorentzVector(Electron_Px->at(i), Electron_Py->at(i), Electron_Pz->at(i), Electron_E->at(i)), KLFitter::Particles::kElectron); 
+        fParticles->AddParticle(new TLorentzVector(Electron_Px->at(i), Electron_Py->at(i), Electron_Pz->at(i), Electron_E->at(i)), Electron_DetEta->at(i), KLFitter::Particles::kElectron); 
     }
 
   // fill muons
   for (int i = 0; i < Muon_N; ++i)
     {
       if ((*Muon_IsTopInputs)[i])
-        fParticles->AddParticle(new TLorentzVector(Muon_Px->at(i), Muon_Py->at(i), Muon_Pz->at(i), Muon_E->at(i)), KLFitter::Particles::kMuon); 
+        fParticles->AddParticle(new TLorentzVector(Muon_Px->at(i), Muon_Py->at(i), Muon_Pz->at(i), Muon_E->at(i)), Muon_DetEta->at(i), KLFitter::Particles::kMuon); 
     }
 
   // fill photons
   for (int i = 0; i < Photon_N; ++i)
-    {
+    { 
       if ((*Photon_IsTopInputs)[i])
-        fParticles->AddParticle(new TLorentzVector(Photon_Px->at(i), Photon_Py->at(i), Photon_Pz->at(i), Photon_E->at(i)), KLFitter::Particles::kPhoton); 
+        fParticles->AddParticle(new TLorentzVector(Photon_Px->at(i), Photon_Py->at(i), Photon_Pz->at(i), Photon_E->at(i)), Photon_Eta->at(i), KLFitter::Particles::kPhoton); 
     }
 
   // check if input is Signal MC
@@ -614,6 +624,7 @@ int KLFitter::InterfaceGoTopTree::FillParticles()
 
   // no error 
   return 1;
+
 }
 
 // --------------------------------------------------------- 

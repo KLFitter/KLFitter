@@ -281,6 +281,14 @@ namespace KLFitter
     double FlavorTag(int index); 
 
     /**
+     * Return the detector eta of a particle with some index and type. 
+     * @param index The index of the particle
+     * @param ptype The particle type.
+     * @return The detector eta of the particle
+     */ 
+    double DetEta(int index, KLFitter::Particles::ParticleType ptype); 
+
+    /**
      * Return the number of b-tags.
      */
     int NBTags(); 
@@ -309,7 +317,7 @@ namespace KLFitter
     /** \name Member functions (misc)  */
     /* @{ */
 
-    /**
+/**
      * Add a particle to a list of particles. 
      * @param particle A pointer to the particle. 
      * @param ptype The type of particle.
@@ -319,7 +327,20 @@ namespace KLFitter
      * @param measuredindex The index of the associated measured particle. 
      * @return An error code.
      */ 
-    int AddParticle(TLorentzVector * particle, KLFitter::Particles::ParticleType ptype, std::string name = "", double btagprob = 0, double flavortag = 0, int measuredindex = -1); 
+    int AddParticle(TLorentzVector * particle, KLFitter::Particles::ParticleType ptype, std::string name = "", double btagprob = 0, double flavortag = 0, int measuredindex = -1);
+
+    /**
+     * Add a particle to a list of particles. 
+     * @param particle A pointer to the particle. 
+     * @param DetEta The Detector Eta of the particle.
+     * @param ptype The type of particle.
+     * @param name The name of the particle.
+     * @param btagprob The b-tagging probability. 
+     * @param flavortag The flavor-tag
+     * @param measuredindex The index of the associated measured particle. 
+     * @return An error code.
+     */ 
+    int AddParticle(TLorentzVector * particle, double DetEta, KLFitter::Particles::ParticleType ptype, std::string name = "", double btagprob = 0, double flavortag = 0, int measuredindex = -1); 
 
     /**
      * Removes a particle from a list of particles. 
@@ -477,6 +498,23 @@ namespace KLFitter
      * 1: tagged as b-jet
      */ 
     std::vector <double> * fFlavorTag; 
+
+    /**
+     * Vector containing the detector eta of electrons. 
+     */ 
+    std::vector <double> * fElectronDetEta;
+    /**
+     * Vector containing the detector eta of muons. 
+     */ 
+    std::vector <double> * fMuonDetEta;
+    /**
+     * Vector containing the detector eta of jets. 
+     */ 
+    std::vector <double> * fJetDetEta;
+    /**
+     * Vector containing the detector eta of photons. 
+     */ 
+    std::vector <double> * fPhotonDetEta;    
 
   }; 
 

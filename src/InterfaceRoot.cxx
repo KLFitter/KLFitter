@@ -79,7 +79,7 @@ std::vector<std::string> KLFitter::InterfaceRoot::ReadInputFiles(const char * fi
   // check if file is open 
   if (!inputfile.is_open())
     {
-      std::cout << "ReadInputFiles(). File \"" << filename << "\" not found." << std::endl;              
+      std::cout << "KLFitter::InterfaceRoot::ReadInputFiles(). File \"" << filename << "\" not found." << std::endl;              
     }
 
   // reset parameters 
