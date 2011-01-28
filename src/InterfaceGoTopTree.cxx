@@ -201,14 +201,14 @@ int KLFitter::InterfaceGoTopTree::ConnectTree(const char* treename)
   fTree->SetBranchAddress("Muon_IsTopInputs", &Muon_IsTopInputs); 
 
   fTree->SetBranchAddress("Electron_N",  &Electron_N); 
-  fTree->SetBranchAddress("Electron_E",  &Electron_E); 
+  fTree->SetBranchAddress("Electron_EgE",  &Electron_E); 
   fTree->SetBranchAddress("Electron_Px", &Electron_Px); 
   fTree->SetBranchAddress("Electron_Py", &Electron_Py); 
   fTree->SetBranchAddress("Electron_Pz", &Electron_Pz); 
-  fTree->SetBranchAddress("Electron_Pt", &Electron_Pt); 
-  fTree->SetBranchAddress("Electron_Eta", &Electron_Eta);
+  fTree->SetBranchAddress("Electron_EgPt", &Electron_Pt); 
+  fTree->SetBranchAddress("Electron_EgEta", &Electron_Eta);
   fTree->SetBranchAddress("Electron_DetEta", &Electron_DetEta); 
-  fTree->SetBranchAddress("Electron_Phi", &Electron_Phi); 
+  fTree->SetBranchAddress("Electron_EgPhi", &Electron_Phi); 
   fTree->SetBranchAddress("Electron_IsTopInputs", &Electron_IsTopInputs); 
 
   fTree->SetBranchAddress("Jet_N",   &Jet_N); 
@@ -310,14 +310,14 @@ int KLFitter::InterfaceGoTopTree::ConnectChain(TChain * fChain)
   fChain->SetBranchAddress("Muon_IsTopInputs", &Muon_IsTopInputs); 
 
   fChain->SetBranchAddress("Electron_N",  &Electron_N); 
-  fChain->SetBranchAddress("Electron_E",  &Electron_E); 
+  fChain->SetBranchAddress("Electron_EgE",  &Electron_E); 
   fChain->SetBranchAddress("Electron_Px", &Electron_Px); 
   fChain->SetBranchAddress("Electron_Py", &Electron_Py); 
   fChain->SetBranchAddress("Electron_Pz", &Electron_Pz); 
-  fChain->SetBranchAddress("Electron_Pt", &Electron_Pt); 
-  fChain->SetBranchAddress("Electron_Eta", &Electron_Eta); 
+  fChain->SetBranchAddress("Electron_EgPt", &Electron_Pt); 
+  fChain->SetBranchAddress("Electron_EgEta", &Electron_Eta); 
   fChain->SetBranchAddress("Electron_DetEta", &Electron_DetEta); 
-  fChain->SetBranchAddress("Electron_Phi", &Electron_Phi); 
+  fChain->SetBranchAddress("Electron_EgPhi", &Electron_Phi); 
   fChain->SetBranchAddress("Electron_IsTopInputs", &Electron_IsTopInputs); 
 
   fChain->SetBranchAddress("Jet_N",   &Jet_N); 
@@ -464,8 +464,12 @@ int KLFitter::InterfaceGoTopTree::FillParticles()
   // fill electrons
   for (int i = 0; i < Electron_N; ++i)
     {
-      if ((*Electron_IsTopInputs)[i])
-        fParticles->AddParticle(new TLorentzVector(Electron_Px->at(i), Electron_Py->at(i), Electron_Pz->at(i), Electron_E->at(i)), Electron_DetEta->at(i), KLFitter::Particles::kElectron); 
+      if ((*Electron_IsTopInputs)[i]){
+        TLorentzVector * tmp = new TLorentzVector(0,0,0,0);
+        tmp->SetPtEtaPhiE(Electron_Pt->at(i), Electron_Eta->at(i), Electron_Phi->at(i), Electron_E->at(i));
+        fParticles->AddParticle(tmp, Electron_DetEta->at(i), KLFitter::Particles::kElectron); //Temporarily Eg variables
+        //fParticles->AddParticle(new TLorentzVector(Electron_Px->at(i), Electron_Py->at(i), Electron_Pz->at(i), Electron_E->at(i)), Electron_DetEta->at(i), KLFitter::Particles::kElectron);
+      } 
     }
 
   // fill muons

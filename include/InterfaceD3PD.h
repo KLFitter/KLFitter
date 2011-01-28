@@ -165,7 +165,8 @@ namespace KLFitter
     std::vector<float> * mu_py;  
     std::vector<float> * mu_pz;  
     std::vector<float> * mu_pt;  
-    std::vector<float> * mu_eta;  
+    std::vector<float> * mu_eta;
+    std::vector<float> * mu_dettheta;    
     std::vector<float> * mu_phi;  
 
     int topEl_n;
@@ -177,7 +178,8 @@ namespace KLFitter
     std::vector<float> * el_py;  
     std::vector<float> * el_pz;  
     std::vector<float> * el_pt;  
-    std::vector<float> * el_eta;  
+    std::vector<float> * el_eta;
+    std::vector<float> * el_deteta;  
     std::vector<float> * el_phi;  
 
     int topJet_n;
@@ -189,7 +191,8 @@ namespace KLFitter
     //std::vector<float> * jet_py;  
     //std::vector<float> * jet_pz;  
     std::vector<float> * jet_pt;  
-    std::vector<float> * jet_eta;  
+    std::vector<float> * jet_eta;
+    std::vector<float> * jet_deteta;  
     std::vector<float> * jet_phi;  
     std::vector<double> * jet_flavor_weight_SV0; 
 

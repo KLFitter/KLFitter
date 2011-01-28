@@ -407,43 +407,52 @@ int KLFitter::LikelihoodTopLeptonJets::AdjustParameterRanges()
   double eta = (*fParticlesPermuted)->Parton(0)->Eta(); 
   double etamin = std::max(-2.5, eta - 0.2); 
   double etamax = std::min(2.5, eta + 0.2); 
-  SetParameterRange(8, etamin, etamax); 
+  //SetParameterRange(8, etamin, etamax);
+  SetParameterRange(8, eta, eta); // Fix temporarily eta & phi until proper TFs are available
 
   eta = (*fParticlesPermuted)->Parton(1)->Eta(); 
   etamin = std::max(-2.5, eta - 0.2); 
   etamax = std::min(2.5, eta + 0.2); 
-  SetParameterRange(9, etamin, etamax); 
+  //SetParameterRange(9, etamin, etamax);
+  SetParameterRange(9, eta, eta); // Fix temporarily eta & phi until proper TFs are available 
 
   eta = (*fParticlesPermuted)->Parton(2)->Eta(); 
   etamin = std::max(-2.5, eta - 0.2); 
   etamax = std::min(2.5, eta + 0.2); 
-  SetParameterRange(10, etamin, etamax); 
+  //SetParameterRange(10, etamin, etamax);
+  SetParameterRange(10, eta, eta); // Fix temporarily eta & phi until proper TFs are available 
 
   eta = (*fParticlesPermuted)->Parton(3)->Eta(); 
   etamin = std::max(-2.5, eta - 0.2); 
   etamax = std::min(2.5, eta + 0.2); 
-  SetParameterRange(11, etamin, etamax); 
+  //SetParameterRange(11, etamin, etamax);
+  SetParameterRange(11, eta, eta); // Fix temporarily eta & phi until proper TFs are available 
 
   // phi 
   double phi = (*fParticlesPermuted)->Parton(0)->Phi(); 
   double phimin = phi - 0.1;
   double phimax = phi + 0.1;
-  SetParameterRange(12, phimin, phimax); 
+  //SetParameterRange(12, phimin, phimax);
+  SetParameterRange(12, phi, phi); // Fix temporarily eta & phi until proper TFs are available 
 
   phi = (*fParticlesPermuted)->Parton(1)->Phi(); 
   phimin = phi - 0.1;
   phimax = phi + 0.1;
-  SetParameterRange(13, phimin, phimax); 
+  //SetParameterRange(13, phimin, phimax); 
+  SetParameterRange(13, phi, phi); // Fix temporarily eta & phi until proper TFs are available
 
   phi = (*fParticlesPermuted)->Parton(2)->Phi(); 
   phimin = phi - 0.1;
   phimax = phi + 0.1;
-  SetParameterRange(14, phimin, phimax); 
+  //SetParameterRange(14, phimin, phimax);
+  SetParameterRange(14, phi, phi); // Fix temporarily eta & phi until proper TFs are available 
 
   phi = (*fParticlesPermuted)->Parton(3)->Phi(); 
   phimin = phi - 0.1;
   phimax = phi + 0.1;
-  SetParameterRange(15, phimin, phimax); 
+  //SetParameterRange(15, phimin, phimax);
+  SetParameterRange(15, phi, phi); // Fix temporarily eta & phi until proper TFs are available
+ 
 
   // top mass 
   if (fFlagTopMassFixed)

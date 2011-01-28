@@ -37,23 +37,34 @@ KLFitter::DetectorAtlas_7TeV::DetectorAtlas_7TeV(std::string folder) : DetectorB
   fResEnergyMuon_eta3     = new KLFitter::ResDoubleGaussPt(Form("%s/par_energy_muon_eta3_7TeV.txt", folder.c_str()));; 
   fResEnergyPhoton_eta3   = new KLFitter::ResGauss(Form("%s/par_energy_photon_eta3_7TeV.txt", folder.c_str()));; 
 
+  fResEnergyLightJet_eta4 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_light_eta4_7TeV.txt", folder.c_str()));; 
+  fResEnergyBJet_eta4     = new KLFitter::ResDoubleGaussE_2(Form("%s/par_energy_b_eta4_7TeV.txt", folder.c_str()));; 
+  fResEnergyGluonJet_eta4 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_gluon_eta4_7TeV.txt", folder.c_str()));; 
+  fResEnergyElectron_eta4 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_electron_eta4_7TeV.txt", folder.c_str()));; 
+  fResEnergyMuon_eta4     = new KLFitter::ResDoubleGaussPt(Form("%s/par_energy_muon_eta4_7TeV.txt", folder.c_str()));; 
+  fResEnergyPhoton_eta4   = new KLFitter::ResGauss(Form("%s/par_energy_photon_eta4_7TeV.txt", folder.c_str()));; 
+
   // eta resolution 
   fResEtaLightJet_eta1 = new KLFitter::ResGauss(Form("%s/par_eta_light_eta1_7TeV.txt", folder.c_str()));; 
   fResEtaLightJet_eta2 = new KLFitter::ResGauss(Form("%s/par_eta_light_eta2_7TeV.txt", folder.c_str()));; 
-  fResEtaLightJet_eta3 = new KLFitter::ResGauss(Form("%s/par_eta_light_eta3_7TeV.txt", folder.c_str()));; 
+  fResEtaLightJet_eta3 = new KLFitter::ResGauss(Form("%s/par_eta_light_eta3_7TeV.txt", folder.c_str()));;
+  fResEtaLightJet_eta4 = new KLFitter::ResGauss(Form("%s/par_eta_light_eta4_7TeV.txt", folder.c_str()));;  
 
   fResEtaBJet_eta1 = new KLFitter::ResGauss(Form("%s/par_eta_b_eta1_7TeV.txt", folder.c_str()));; 
   fResEtaBJet_eta2 = new KLFitter::ResGauss(Form("%s/par_eta_b_eta2_7TeV.txt", folder.c_str()));; 
-  fResEtaBJet_eta3 = new KLFitter::ResGauss(Form("%s/par_eta_b_eta3_7TeV.txt", folder.c_str()));; 
+  fResEtaBJet_eta3 = new KLFitter::ResGauss(Form("%s/par_eta_b_eta3_7TeV.txt", folder.c_str()));;
+  fResEtaBJet_eta4 = new KLFitter::ResGauss(Form("%s/par_eta_b_eta4_7TeV.txt", folder.c_str()));;  
 
   // phi resolution 
   fResPhiLightJet_eta1 = new KLFitter::ResGauss(Form("%s/par_phi_light_eta1_7TeV.txt", folder.c_str()));; 
   fResPhiLightJet_eta2 = new KLFitter::ResGauss(Form("%s/par_phi_light_eta2_7TeV.txt", folder.c_str()));; 
-  fResPhiLightJet_eta3 = new KLFitter::ResGauss(Form("%s/par_phi_light_eta3_7TeV.txt", folder.c_str()));; 
+  fResPhiLightJet_eta3 = new KLFitter::ResGauss(Form("%s/par_phi_light_eta3_7TeV.txt", folder.c_str()));;
+  fResPhiLightJet_eta4 = new KLFitter::ResGauss(Form("%s/par_phi_light_eta4_7TeV.txt", folder.c_str()));;  
 
   fResPhiBJet_eta1 = new KLFitter::ResGauss(Form("%s/par_phi_b_eta1_7TeV.txt", folder.c_str()));; 
   fResPhiBJet_eta2 = new KLFitter::ResGauss(Form("%s/par_phi_b_eta2_7TeV.txt", folder.c_str()));; 
   fResPhiBJet_eta3 = new KLFitter::ResGauss(Form("%s/par_phi_b_eta3_7TeV.txt", folder.c_str()));; 
+  fResPhiBJet_eta4 = new KLFitter::ResGauss(Form("%s/par_phi_b_eta4_7TeV.txt", folder.c_str()));;
 
   // missing et resolution in x and y 
   fResMissingET      = new KLFitter::ResGauss(Form("%s/par_misset_7TeV.txt", folder.c_str()));; 
@@ -68,7 +79,29 @@ KLFitter::DetectorAtlas_7TeV::DetectorAtlas_7TeV(std::string folder) : DetectorB
   fResEtaLightJet    = fResEtaLightJet_eta1; 
   fResEtaBJet        = fResEtaBJet_eta1; 
   fResPhiLightJet    = fResPhiLightJet_eta1; 
-  fResPhiBJet        = fResPhiBJet_eta1; 
+  fResPhiBJet        = fResPhiBJet_eta1;
+
+  // Set eta binning for different objects starting with eta=0
+  fJetEtaBin_1 = 0.8;
+  fJetEtaBin_2 = 1.37;
+  fJetEtaBin_3 = 1.52;
+  fJetEtaBin_4 = 2.5;
+
+  fElectronEtaBin_1 = 0.8;
+  fElectronEtaBin_2 = 1.37;
+  fElectronEtaBin_3 = 1.52;
+  fElectronEtaBin_4 = 2.5;
+
+  fMuonEtaBin_1 = 1.11;
+  fMuonEtaBin_2 = 1.25;
+  fMuonEtaBin_3 = 2.5;
+  fMuonEtaBin_4 = 3.0;
+
+  fPhotonEtaBin_1 = 1.11;
+  fPhotonEtaBin_2 = 1.25;
+  fPhotonEtaBin_3 = 2.5;
+  fPhotonEtaBin_4 = 3.0;
+    
 }
 
 // --------------------------------------------------------- 
@@ -111,7 +144,7 @@ KLFitter::DetectorAtlas_7TeV::~DetectorAtlas_7TeV()
   if (fResEnergyElectron_eta3)
     delete fResEnergyElectron_eta3; 
 
-  if (fResEnergyMuon_eta1)
+  if (fResEnergyPhoton_eta1)
     delete fResEnergyMuon_eta1; 
 
   if (fResEnergyMuon_eta2)
@@ -172,12 +205,14 @@ KLFitter::DetectorAtlas_7TeV::~DetectorAtlas_7TeV()
 // --------------------------------------------------------- 
 KLFitter::ResolutionBase * KLFitter::DetectorAtlas_7TeV::ResEnergyLightJet(double eta)
 {
-  if (fabs(eta) < 1.0) 
+  if (fabs(eta) < fJetEtaBin_1) 
     fResEnergyLightJet = fResEnergyLightJet_eta1; 
-  else if (fabs(eta) < 1.7) 
+  else if (fabs(eta) < fJetEtaBin_2) 
     fResEnergyLightJet = fResEnergyLightJet_eta2; 
-  else if (fabs(eta) <= 2.5) 
+  else if (fabs(eta) < fJetEtaBin_3) 
     fResEnergyLightJet = fResEnergyLightJet_eta3;
+  else if (fabs(eta) <= fJetEtaBin_4) 
+    fResEnergyLightJet = fResEnergyLightJet_eta4;
   else 
     {
       std::cout << "KLFitter::DetectorAtlas_7TeV::ResEnergyLightJet(). Eta range exceeded." << std::endl; 
@@ -190,12 +225,14 @@ KLFitter::ResolutionBase * KLFitter::DetectorAtlas_7TeV::ResEnergyLightJet(doubl
 // --------------------------------------------------------- 
 KLFitter::ResolutionBase * KLFitter::DetectorAtlas_7TeV::ResEnergyBJet(double eta)
 {
-  if (fabs(eta) < 1.0) 
+  if (fabs(eta) < fJetEtaBin_1) 
     fResEnergyBJet = fResEnergyBJet_eta1; 
-  else if (fabs(eta) < 1.7) 
+  else if (fabs(eta) < fJetEtaBin_2) 
     fResEnergyBJet = fResEnergyBJet_eta2; 
-  else if (fabs(eta) <= 2.5) 
+  else if (fabs(eta) < fJetEtaBin_3) 
     fResEnergyBJet = fResEnergyBJet_eta3;
+  else if (fabs(eta) <= fJetEtaBin_4) 
+    fResEnergyBJet = fResEnergyBJet_eta4;
   else 
     {
       std::cout << "KLFitter::DetectorAtlas_7TeV::ResEnergyBJet(). Eta range exceeded." << std::endl; 
@@ -208,12 +245,14 @@ KLFitter::ResolutionBase * KLFitter::DetectorAtlas_7TeV::ResEnergyBJet(double et
 // --------------------------------------------------------- 
 KLFitter::ResolutionBase * KLFitter::DetectorAtlas_7TeV::ResEnergyGluonJet(double eta)
 {
-  if (fabs(eta) < 1.0) 
+  if (fabs(eta) < fJetEtaBin_1) 
     fResEnergyGluonJet = fResEnergyGluonJet_eta1; 
-  else if (fabs(eta) < 1.7) 
+  else if (fabs(eta) < fJetEtaBin_2) 
     fResEnergyGluonJet = fResEnergyGluonJet_eta2; 
-  else if (fabs(eta) <= 2.5) 
+  else if (fabs(eta) < fJetEtaBin_3) 
     fResEnergyGluonJet = fResEnergyGluonJet_eta3;
+  else if (fabs(eta) <= fJetEtaBin_4) 
+    fResEnergyGluonJet = fResEnergyGluonJet_eta4;
   else 
     {
       std::cout << "KLFitter::DetectorAtlas_7TeV::ResEnergyGluonJet(). Eta range exceeded." << std::endl; 
@@ -226,12 +265,16 @@ KLFitter::ResolutionBase * KLFitter::DetectorAtlas_7TeV::ResEnergyGluonJet(doubl
 // --------------------------------------------------------- 
 KLFitter::ResolutionBase * KLFitter::DetectorAtlas_7TeV::ResEnergyElectron(double eta)
 {
-  if (fabs(eta) < 1.0) 
+  if (fabs(eta) < fElectronEtaBin_1) 
     fResEnergyElectron = fResEnergyElectron_eta1; 
-  else if (fabs(eta) < 1.7) 
+  else if (fabs(eta) < fElectronEtaBin_2) 
     fResEnergyElectron = fResEnergyElectron_eta2; 
-  else if (fabs(eta) <= 2.5) 
-    fResEnergyElectron = fResEnergyElectron_eta3;
+  else if (fabs(eta) < fElectronEtaBin_3){ 
+    std::cout << "KLFitter::DetectorAtlas_7TeV::ResEnergyElectron(). Electron in crack region" << std::endl;
+    return 0;
+  }
+  else if (fabs(eta) <= fElectronEtaBin_4) 
+    fResEnergyElectron = fResEnergyElectron_eta4;
   else 
     {
       std::cout << "KLFitter::DetectorAtlas_7TeV::ResEnergyElectron(). Eta range exceeded." << std::endl; 
@@ -244,12 +287,16 @@ KLFitter::ResolutionBase * KLFitter::DetectorAtlas_7TeV::ResEnergyElectron(doubl
 // --------------------------------------------------------- 
 KLFitter::ResolutionBase * KLFitter::DetectorAtlas_7TeV::ResEnergyMuon(double eta)
 {
-  if (fabs(eta) < 1.0) 
+  if (fabs(eta) < fMuonEtaBin_1) 
     fResEnergyMuon = fResEnergyMuon_eta1; 
-  else if (fabs(eta) < 1.7) 
+  else if (fabs(eta) < fMuonEtaBin_2) 
     fResEnergyMuon = fResEnergyMuon_eta2; 
-  else if (fabs(eta) <= 2.5) 
+  else if (fabs(eta) < fMuonEtaBin_3) 
     fResEnergyMuon = fResEnergyMuon_eta3;
+  else if (fabs(eta) <= fMuonEtaBin_4){
+    std::cout << "KLFitter::DetectorAtlas_7TeV::ResEnergyMuon(). Eta range exceeded." << std::endl;
+    return 0;
+  }
   else 
     {
       std::cout << "KLFitter::DetectorAtlas_7TeV::ResEnergyMuon(). Eta range exceeded." << std::endl; 
@@ -262,12 +309,14 @@ KLFitter::ResolutionBase * KLFitter::DetectorAtlas_7TeV::ResEnergyMuon(double et
 // --------------------------------------------------------- 
 KLFitter::ResolutionBase * KLFitter::DetectorAtlas_7TeV::ResEnergyPhoton(double eta)
 {
-  if (fabs(eta) < 1.0) 
+  if (fabs(eta) < fPhotonEtaBin_1) 
     fResEnergyPhoton = fResEnergyPhoton_eta1; 
-  else if (fabs(eta) < 1.7) 
+  else if (fabs(eta) < fMuonEtaBin_2) 
     fResEnergyPhoton = fResEnergyPhoton_eta2; 
-  else if (fabs(eta) <= 2.5) 
+  else if (fabs(eta) < fMuonEtaBin_3) 
     fResEnergyPhoton = fResEnergyPhoton_eta3;
+  else if (fabs(eta) <= fMuonEtaBin_4) 
+    fResEnergyPhoton = fResEnergyPhoton_eta4;
   else 
     {
       std::cout << "KLFitter::DetectorAtlas_7TeV::ResEnergyPhoton(). Eta range exceeded." << std::endl; 
@@ -280,12 +329,14 @@ KLFitter::ResolutionBase * KLFitter::DetectorAtlas_7TeV::ResEnergyPhoton(double 
 // --------------------------------------------------------- 
 KLFitter::ResolutionBase * KLFitter::DetectorAtlas_7TeV::ResEtaLightJet(double eta)
 {
-  if (fabs(eta) < 1.0) 
+  if (fabs(eta) < fJetEtaBin_1) 
     fResEtaLightJet = fResEtaLightJet_eta1; 
-  else if (fabs(eta) < 1.7) 
+  else if (fabs(eta) < fJetEtaBin_2) 
     fResEtaLightJet = fResEtaLightJet_eta2; 
-  else if (fabs(eta) <= 2.5) 
+  else if (fabs(eta) < fJetEtaBin_3) 
     fResEtaLightJet = fResEtaLightJet_eta3;
+  else if (fabs(eta) <= fJetEtaBin_4) 
+    fResEtaLightJet = fResEtaLightJet_eta4;
   else 
     {
       std::cout << "KLFitter::DetectorAtlas_7TeV::ResEtaLightJet(). Eta range exceeded." << std::endl; 
@@ -298,12 +349,14 @@ KLFitter::ResolutionBase * KLFitter::DetectorAtlas_7TeV::ResEtaLightJet(double e
 // --------------------------------------------------------- 
 KLFitter::ResolutionBase * KLFitter::DetectorAtlas_7TeV::ResEtaBJet(double eta)
 {
-  if (fabs(eta) < 1.0) 
+  if (fabs(eta) < fJetEtaBin_1) 
     fResEtaBJet = fResEtaBJet_eta1; 
-  else if (fabs(eta) < 1.7) 
+  else if (fabs(eta) < fJetEtaBin_2) 
     fResEtaBJet = fResEtaBJet_eta2; 
-  else if (fabs(eta) <= 2.5) 
+  else if (fabs(eta) < fJetEtaBin_3) 
     fResEtaBJet = fResEtaBJet_eta3;
+  else if (fabs(eta) <= fJetEtaBin_4) 
+    fResEtaBJet = fResEtaBJet_eta4;
   else 
     {
       std::cout << "KLFitter::DetectorAtlas_7TeV::ResEtaBJet(). Eta range exceeded." << std::endl; 
@@ -316,12 +369,14 @@ KLFitter::ResolutionBase * KLFitter::DetectorAtlas_7TeV::ResEtaBJet(double eta)
 // --------------------------------------------------------- 
 KLFitter::ResolutionBase * KLFitter::DetectorAtlas_7TeV::ResPhiLightJet(double eta)
 {
-  if (fabs(eta) < 1.0) 
+  if (fabs(eta) < fJetEtaBin_1) 
     fResPhiLightJet = fResPhiLightJet_eta1; 
-  else if (fabs(eta) < 1.7) 
+  else if (fabs(eta) < fJetEtaBin_2) 
     fResPhiLightJet = fResPhiLightJet_eta2; 
-  else if (fabs(eta) <= 2.5) 
+  else if (fabs(eta) < fJetEtaBin_3) 
     fResPhiLightJet = fResPhiLightJet_eta3;
+  else if (fabs(eta) <= fJetEtaBin_4) 
+    fResPhiLightJet = fResPhiLightJet_eta4;
   else 
     {
       std::cout << "KLFitter::DetectorAtlas_7TeV::ResPhiLightJet(). Phi range exceeded." << std::endl; 
@@ -334,12 +389,14 @@ KLFitter::ResolutionBase * KLFitter::DetectorAtlas_7TeV::ResPhiLightJet(double e
 // --------------------------------------------------------- 
 KLFitter::ResolutionBase * KLFitter::DetectorAtlas_7TeV::ResPhiBJet(double eta)
 {
-  if (fabs(eta) < 1.0) 
+  if (fabs(eta) < fJetEtaBin_1) 
     fResPhiBJet = fResPhiBJet_eta1; 
-  else if (fabs(eta) < 1.7) 
+  else if (fabs(eta) < fJetEtaBin_2) 
     fResPhiBJet = fResPhiBJet_eta2; 
-  else if (fabs(eta) <= 2.5) 
+  else if (fabs(eta) < fJetEtaBin_3) 
     fResPhiBJet = fResPhiBJet_eta3;
+  else if (fabs(eta) <= fJetEtaBin_4) 
+    fResPhiLightJet = fResPhiLightJet_eta4;
   else 
     {
       std::cout << "KLFitter::DetectorAtlas_7TeV::ResPhiBJet(). Phi range exceeded." << std::endl; 

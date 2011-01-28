@@ -55,7 +55,7 @@ int KLFitter::SelectionTool::SelectObjects(KLFitter::Particles * particles)
   for (int i = 0; i < npartons; ++i)
     {
       // check eta region 
-      if (TMath::Abs(particles->Parton(i)->Eta()) > fJetEta) 
+      if (TMath::Abs( particles->DetEta(i, KLFitter::Particles::kParton) ) > fJetEta) 
         continue; 
 
       // check pT 
@@ -82,7 +82,7 @@ int KLFitter::SelectionTool::SelectObjects(KLFitter::Particles * particles)
   for (int i = 0; i < nelectrons; ++i)
     {
       // check eta region 
-      if (TMath::Abs(particles->Electron(i)->Eta()) > fElectronEta) 
+      if (TMath::Abs(particles->DetEta(i, KLFitter::Particles::kElectron)) > fElectronEta) 
         continue; 
 
       // check pT 
@@ -104,7 +104,7 @@ int KLFitter::SelectionTool::SelectObjects(KLFitter::Particles * particles)
   for (int i = 0; i < nmuons; ++i)
     {
       // check eta region 
-      if (TMath::Abs(particles->Muon(i)->Eta()) > fMuonEta) 
+      if (TMath::Abs(particles->DetEta(i, KLFitter::Particles::kMuon)) > fMuonEta) 
         continue; 
 
       // check pT 
@@ -127,7 +127,7 @@ int KLFitter::SelectionTool::SelectObjects(KLFitter::Particles * particles)
   for (int i = 0; i < nphotons; ++i)
     {
       // check eta region 
-      if (TMath::Abs(particles->Photon(i)->Eta()) > fPhotonEta) 
+      if (TMath::Abs(particles->DetEta(i, KLFitter::Particles::kPhoton)) > fPhotonEta) 
         continue; 
 
       // check pT 

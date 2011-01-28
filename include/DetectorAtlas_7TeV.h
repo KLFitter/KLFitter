@@ -134,42 +134,48 @@ namespace KLFitter
      */ 
     KLFitter::ResolutionBase * fResEnergyLightJet_eta1; 
     KLFitter::ResolutionBase * fResEnergyLightJet_eta2; 
-    KLFitter::ResolutionBase * fResEnergyLightJet_eta3; 
+    KLFitter::ResolutionBase * fResEnergyLightJet_eta3;
+    KLFitter::ResolutionBase * fResEnergyLightJet_eta4; 
 
     /**
      * The energy resolution of b jets for different eta regions. 
      */ 
     KLFitter::ResolutionBase * fResEnergyBJet_eta1; 
     KLFitter::ResolutionBase * fResEnergyBJet_eta2; 
-    KLFitter::ResolutionBase * fResEnergyBJet_eta3; 
+    KLFitter::ResolutionBase * fResEnergyBJet_eta3;
+    KLFitter::ResolutionBase * fResEnergyBJet_eta4; 
 
     /**
      * The energy resolution of gluon jets for different eta regions.
      */ 
     KLFitter::ResolutionBase * fResEnergyGluonJet_eta1; 
     KLFitter::ResolutionBase * fResEnergyGluonJet_eta2; 
-    KLFitter::ResolutionBase * fResEnergyGluonJet_eta3; 
+    KLFitter::ResolutionBase * fResEnergyGluonJet_eta3;
+    KLFitter::ResolutionBase * fResEnergyGluonJet_eta4; 
 
     /**
      * The energy resolution of electrons for different eta regions. 
      */ 
     KLFitter::ResolutionBase * fResEnergyElectron_eta1; 
     KLFitter::ResolutionBase * fResEnergyElectron_eta2; 
-    KLFitter::ResolutionBase * fResEnergyElectron_eta3; 
+    KLFitter::ResolutionBase * fResEnergyElectron_eta3;
+    KLFitter::ResolutionBase * fResEnergyElectron_eta4; 
 
     /**
      * The energy resolution of muons for different eta regions.
      */ 
     KLFitter::ResolutionBase * fResEnergyMuon_eta1; 
     KLFitter::ResolutionBase * fResEnergyMuon_eta2; 
-    KLFitter::ResolutionBase * fResEnergyMuon_eta3; 
+    KLFitter::ResolutionBase * fResEnergyMuon_eta3;
+    KLFitter::ResolutionBase * fResEnergyMuon_eta4; 
 
     /**
      * The energy resolution of photons for different eta regions.
      */ 
     KLFitter::ResolutionBase * fResEnergyPhoton_eta1; 
     KLFitter::ResolutionBase * fResEnergyPhoton_eta2; 
-    KLFitter::ResolutionBase * fResEnergyPhoton_eta3; 
+    KLFitter::ResolutionBase * fResEnergyPhoton_eta3;
+    KLFitter::ResolutionBase * fResEnergyPhoton_eta4; 
 
     /**
      * The eta resolution of light jets for different eta regions. 
@@ -177,6 +183,7 @@ namespace KLFitter
     KLFitter::ResolutionBase * fResEtaLightJet_eta1;
     KLFitter::ResolutionBase * fResEtaLightJet_eta2;
     KLFitter::ResolutionBase * fResEtaLightJet_eta3;
+    KLFitter::ResolutionBase * fResEtaLightJet_eta4;
 
     /**
      * The eta resolution of b jets for different eta regions. 
@@ -184,6 +191,7 @@ namespace KLFitter
     KLFitter::ResolutionBase * fResEtaBJet_eta1;
     KLFitter::ResolutionBase * fResEtaBJet_eta2;
     KLFitter::ResolutionBase * fResEtaBJet_eta3;
+    KLFitter::ResolutionBase * fResEtaBJet_eta4;
 
     /**
      * The phi resolution of light jets for different eta regions. 
@@ -191,6 +199,7 @@ namespace KLFitter
     KLFitter::ResolutionBase * fResPhiLightJet_eta1;
     KLFitter::ResolutionBase * fResPhiLightJet_eta2;
     KLFitter::ResolutionBase * fResPhiLightJet_eta3;
+    KLFitter::ResolutionBase * fResPhiLightJet_eta4;
 
     /**
      * The phi resolution of b jets for different eta regions. 
@@ -198,6 +207,41 @@ namespace KLFitter
     KLFitter::ResolutionBase * fResPhiBJet_eta1;
     KLFitter::ResolutionBase * fResPhiBJet_eta2;
     KLFitter::ResolutionBase * fResPhiBJet_eta3;
+    KLFitter::ResolutionBase * fResPhiBJet_eta4;
+
+    /**
+     * The eta binning for jets
+    */
+    double fJetEtaBin_1;
+    double fJetEtaBin_2;
+    double fJetEtaBin_3;
+    double fJetEtaBin_4;
+
+    /**
+     * The eta binning for electrons
+    */
+    double fElectronEtaBin_1;
+    double fElectronEtaBin_2;
+    double fElectronEtaBin_3;
+    double fElectronEtaBin_4;
+
+    /**
+     * The eta binning for muons
+    */
+    double fMuonEtaBin_1;
+    double fMuonEtaBin_2;
+    double fMuonEtaBin_3;
+    double fMuonEtaBin_4;
+
+    /**
+     * The eta binning for muons
+    */
+    double fPhotonEtaBin_1;
+    double fPhotonEtaBin_2;
+    double fPhotonEtaBin_3;
+    double fPhotonEtaBin_4;
+
+  
 
   }; 
 

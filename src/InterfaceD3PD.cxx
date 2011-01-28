@@ -27,7 +27,8 @@ KLFitter::InterfaceD3PD::InterfaceD3PD()
   mu_py = 0;  
   mu_pz = 0;  
   mu_pt = 0;  
-  mu_eta = 0;  
+  mu_eta = 0;
+  mu_dettheta = 0;  
   mu_phi = 0;  
 
   topEl_n = 0;
@@ -39,7 +40,8 @@ KLFitter::InterfaceD3PD::InterfaceD3PD()
   el_py = 0;  
   el_pz = 0;  
   el_pt = 0;  
-  el_eta = 0;  
+  el_eta = 0;
+  el_deteta = 0;  
   el_phi = 0;  
 
   topJet_n = 0;
@@ -51,7 +53,8 @@ KLFitter::InterfaceD3PD::InterfaceD3PD()
   //jet_py = 0;  
   //jet_pz = 0;  
   jet_pt = 0;  
-  jet_eta = 0;  
+  jet_eta = 0;
+  jet_deteta = 0;  
   jet_phi = 0;  
   jet_flavor_weight_SV0 = 0;  
 
@@ -162,7 +165,8 @@ int KLFitter::InterfaceD3PD::ConnectTree(TTree * fTree)
   fTree->SetBranchAddress("mu_py", &mu_py); 
   fTree->SetBranchAddress("mu_pz", &mu_pz); 
   fTree->SetBranchAddress("mu_pt", &mu_pt); 
-  fTree->SetBranchAddress("mu_eta", &mu_eta); 
+  fTree->SetBranchAddress("mu_eta", &mu_eta);
+  fTree->SetBranchAddress("mu_ms_theta", &mu_dettheta); 
   fTree->SetBranchAddress("mu_phi", &mu_phi); 
  
   fTree->SetBranchAddress("topEl_n",  &topEl_n); 
@@ -174,7 +178,8 @@ int KLFitter::InterfaceD3PD::ConnectTree(TTree * fTree)
   fTree->SetBranchAddress("el_py", &el_py); 
   fTree->SetBranchAddress("el_pz", &el_pz); 
   fTree->SetBranchAddress("el_pt", &el_pt); 
-  fTree->SetBranchAddress("el_eta", &el_eta); 
+  fTree->SetBranchAddress("el_eta", &el_eta);
+  fTree->SetBranchAddress("el_cl_eta", &el_deteta); 
   fTree->SetBranchAddress("el_phi", &el_phi); 
   
   fTree->SetBranchAddress("topJet_n",   &topJet_n);
@@ -186,7 +191,8 @@ int KLFitter::InterfaceD3PD::ConnectTree(TTree * fTree)
   //fTree->SetBranchAddress("jet_py",  &jet_py); 
   //fTree->SetBranchAddress("jet_pz",  &jet_pz); 
   fTree->SetBranchAddress("jet_pt",  &jet_pt); 
-  fTree->SetBranchAddress("jet_eta", &jet_eta); 
+  fTree->SetBranchAddress("jet_eta", &jet_eta);
+  fTree->SetBranchAddress("jet_emscale_eta", &jet_deteta);  
   fTree->SetBranchAddress("jet_phi", &jet_phi); 
   fTree->SetBranchAddress("jet_flavor_weight_SV0", &jet_flavor_weight_SV0); 
 
@@ -216,7 +222,8 @@ int KLFitter::InterfaceD3PD::ConnectChain(TChain * fChain)
   fChain->SetBranchAddress("mu_py", &mu_py); 
   fChain->SetBranchAddress("mu_pz", &mu_pz); 
   fChain->SetBranchAddress("mu_pt", &mu_pt); 
-  fChain->SetBranchAddress("mu_eta", &mu_eta); 
+  fChain->SetBranchAddress("mu_eta", &mu_eta);
+  fChain->SetBranchAddress("mu_ms_theta", &mu_dettheta);  
   fChain->SetBranchAddress("mu_phi", &mu_phi); 
  
   fChain->SetBranchAddress("topEl_n",  &topEl_n); 
@@ -228,7 +235,7 @@ int KLFitter::InterfaceD3PD::ConnectChain(TChain * fChain)
   fChain->SetBranchAddress("el_py", &el_py); 
   fChain->SetBranchAddress("el_pz", &el_pz); 
   fChain->SetBranchAddress("el_pt", &el_pt); 
-  fChain->SetBranchAddress("el_eta", &el_eta); 
+  fChain->SetBranchAddress("el_eta", &el_eta);  fChain->SetBranchAddress("el_cl_eta", &el_deteta); 
   fChain->SetBranchAddress("el_phi", &el_phi); 
   
   fChain->SetBranchAddress("topJet_n",   &topJet_n);
@@ -240,7 +247,8 @@ int KLFitter::InterfaceD3PD::ConnectChain(TChain * fChain)
   //fChain->SetBranchAddress("jet_py",  &jet_py); 
   //fChain->SetBranchAddress("jet_pz",  &jet_pz); 
   fChain->SetBranchAddress("jet_pt",  &jet_pt); 
-  fChain->SetBranchAddress("jet_eta", &jet_eta); 
+  fChain->SetBranchAddress("jet_eta", &jet_eta);
+  fChain->SetBranchAddress("jet_emscale_eta", &jet_deteta); 
   fChain->SetBranchAddress("jet_phi", &jet_phi); 
   fChain->SetBranchAddress("jet_flavor_weight_SV0", &jet_flavor_weight_SV0); 
 
@@ -320,7 +328,7 @@ int KLFitter::InterfaceD3PD::FillParticles()
   										jet_phi->at(topJet_index->at(i)),
   										jet_E  ->at(topJet_index->at(i)) / 1000.);
 					
-	  	fParticles->AddParticle(tmp, KLFitter::Particles::kParton,"",jet_flavor_weight_SV0->at(topJet_index->at(i)));
+	  	fParticles->AddParticle(tmp, jet_deteta->at(topJet_index->at(i)), KLFitter::Particles::kParton,"",jet_flavor_weight_SV0->at(topJet_index->at(i)));
 		}
 	}
 	std::sort(fParticles->ParticleContainer(KLFitter::Particles::kParton)->begin(),  fParticles->ParticleContainer(KLFitter::Particles::kParton)->end() , KLFitter::Particles::PtOrder);
@@ -331,7 +339,8 @@ int KLFitter::InterfaceD3PD::FillParticles()
       fParticles->AddParticle(new TLorentzVector(el_px->at(topEl_index->at(i)) / 1000., 
       																					 el_py->at(topEl_index->at(i)) / 1000., 
       																					 el_pz->at(topEl_index->at(i)) / 1000., 
-      																					 el_E ->at(topEl_index->at(i)) / 1000.), 		
+      																					 el_E ->at(topEl_index->at(i)) / 1000.),
+                                                 el_deteta->at(topEl_index->at(i)),	
       																					 KLFitter::Particles::kElectron);
 		}   																					 
 	}
@@ -340,7 +349,12 @@ int KLFitter::InterfaceD3PD::FillParticles()
   // fill muons
   for (int i = 0; i < topMu_n; ++i){
   	if ( topMu_use->at(i)){ 
-      fParticles->AddParticle(new TLorentzVector(mu_px->at(topMu_index->at(i)) / 1000., mu_py->at(topMu_index->at(i)) / 1000., mu_pz->at(topMu_index->at(i)) / 1000., mu_E->at(topMu_index->at(i)) / 1000.), KLFitter::Particles::kMuon); 
+      fParticles->AddParticle(new TLorentzVector(mu_px->at(topMu_index->at(i)) / 1000., 
+                                                 mu_py->at(topMu_index->at(i)) / 1000., 
+                                                 mu_pz->at(topMu_index->at(i)) / 1000., 
+                                                 mu_E->at(topMu_index->at(i)) / 1000.), 
+                                                 -TMath::Log( TMath::Tan(mu_dettheta->at(topMu_index->at(i))/2.) ),
+                                                 KLFitter::Particles::kMuon);     
     }
 	}
 	std::sort(fParticles->ParticleContainer(KLFitter::Particles::kMuon)->begin(),  fParticles->ParticleContainer(KLFitter::Particles::kMuon)->end() , KLFitter::Particles::PtOrder);
