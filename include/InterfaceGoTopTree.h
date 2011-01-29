@@ -155,7 +155,6 @@ namespace KLFitter
     std::vector<double> * Muon_Pz;  
     std::vector<double> * Muon_Pt;  
     std::vector<double> * Muon_Eta;
-    std::vector<double> * Muon_DetEta;  
     std::vector<double> * Muon_Phi;  
     std::vector<bool> * Muon_IsTopInputs;
 

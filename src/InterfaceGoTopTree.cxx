@@ -24,7 +24,6 @@ KLFitter::InterfaceGoTopTree::InterfaceGoTopTree()
   Muon_Pz = 0;  
   Muon_Pt = 0;  
   Muon_Eta = 0;  
-  Muon_DetEta = 0;  
   Muon_Phi = 0;  
   Muon_IsTopInputs = 0;
 
@@ -196,7 +195,6 @@ int KLFitter::InterfaceGoTopTree::ConnectTree(const char* treename)
   fTree->SetBranchAddress("Muon_Pz", &Muon_Pz); 
   fTree->SetBranchAddress("Muon_Pt", &Muon_Pt); 
   fTree->SetBranchAddress("Muon_Eta", &Muon_Eta);
-  fTree->SetBranchAddress("Muon_DetEta", &Muon_DetEta);  
   fTree->SetBranchAddress("Muon_Phi", &Muon_Phi); 
   fTree->SetBranchAddress("Muon_IsTopInputs", &Muon_IsTopInputs); 
 
@@ -305,7 +303,6 @@ int KLFitter::InterfaceGoTopTree::ConnectChain(TChain * fChain)
   fChain->SetBranchAddress("Muon_Pz", &Muon_Pz); 
   fChain->SetBranchAddress("Muon_Pt", &Muon_Pt); 
   fChain->SetBranchAddress("Muon_Eta", &Muon_Eta);
-  fChain->SetBranchAddress("Muon_DetEta", &Muon_DetEta);  
   fChain->SetBranchAddress("Muon_Phi", &Muon_Phi); 
   fChain->SetBranchAddress("Muon_IsTopInputs", &Muon_IsTopInputs); 
 
@@ -476,7 +473,7 @@ int KLFitter::InterfaceGoTopTree::FillParticles()
   for (int i = 0; i < Muon_N; ++i)
     {
       if ((*Muon_IsTopInputs)[i])
-        fParticles->AddParticle(new TLorentzVector(Muon_Px->at(i), Muon_Py->at(i), Muon_Pz->at(i), Muon_E->at(i)), Muon_DetEta->at(i), KLFitter::Particles::kMuon); 
+        fParticles->AddParticle(new TLorentzVector(Muon_Px->at(i), Muon_Py->at(i), Muon_Pz->at(i), Muon_E->at(i)), Muon_Eta->at(i), KLFitter::Particles::kMuon); 
     }
 
   // fill photons
