@@ -1,5 +1,10 @@
 2011-01-29 Johannes Erdmann <johannes.erdmann@cern.ch>
 	
+	* update muon TFs (minor fix)
+	* tag KLFitter-00-03-38
+
+2011-01-29 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
 	* replace Muon_DetEta by Muon_Eta
 	* tag KLFitter-00-03-37
 
