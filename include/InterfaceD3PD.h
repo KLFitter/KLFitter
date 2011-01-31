@@ -166,7 +166,6 @@ namespace KLFitter
     std::vector<float> * mu_pz;  
     std::vector<float> * mu_pt;  
     std::vector<float> * mu_eta;
-    std::vector<float> * mu_dettheta;    
     std::vector<float> * mu_phi;  
 
     int topEl_n;

@@ -28,7 +28,6 @@ KLFitter::InterfaceD3PD::InterfaceD3PD()
   mu_pz = 0;  
   mu_pt = 0;  
   mu_eta = 0;
-  mu_dettheta = 0;  
   mu_phi = 0;  
 
   topEl_n = 0;
@@ -166,21 +165,20 @@ int KLFitter::InterfaceD3PD::ConnectTree(TTree * fTree)
   fTree->SetBranchAddress("mu_pz", &mu_pz); 
   fTree->SetBranchAddress("mu_pt", &mu_pt); 
   fTree->SetBranchAddress("mu_eta", &mu_eta);
-  fTree->SetBranchAddress("mu_ms_theta", &mu_dettheta); 
   fTree->SetBranchAddress("mu_phi", &mu_phi); 
  
   fTree->SetBranchAddress("topEl_n",  &topEl_n); 
   fTree->SetBranchAddress("topEl_index",  &topEl_index);
   fTree->SetBranchAddress("topEl_use",  &topEl_use);
   fTree->SetBranchAddress("topEl_inTrigger",  &topEl_inTrigger);
-  fTree->SetBranchAddress("el_E",  &el_E); 
+  fTree->SetBranchAddress("el_cl_E",  &el_E); 
   fTree->SetBranchAddress("el_px", &el_px); 
   fTree->SetBranchAddress("el_py", &el_py); 
   fTree->SetBranchAddress("el_pz", &el_pz); 
   fTree->SetBranchAddress("el_pt", &el_pt); 
-  fTree->SetBranchAddress("el_eta", &el_eta);
+  fTree->SetBranchAddress("el_tracketa", &el_eta);
   fTree->SetBranchAddress("el_cl_eta", &el_deteta); 
-  fTree->SetBranchAddress("el_phi", &el_phi); 
+  fTree->SetBranchAddress("el_trackphi", &el_phi); 
   
   fTree->SetBranchAddress("topJet_n",   &topJet_n);
   fTree->SetBranchAddress("topJet_index",   &topJet_index);
@@ -223,20 +221,20 @@ int KLFitter::InterfaceD3PD::ConnectChain(TChain * fChain)
   fChain->SetBranchAddress("mu_pz", &mu_pz); 
   fChain->SetBranchAddress("mu_pt", &mu_pt); 
   fChain->SetBranchAddress("mu_eta", &mu_eta);
-  fChain->SetBranchAddress("mu_ms_theta", &mu_dettheta);  
   fChain->SetBranchAddress("mu_phi", &mu_phi); 
  
   fChain->SetBranchAddress("topEl_n",  &topEl_n); 
   fChain->SetBranchAddress("topEl_index",  &topEl_index);
   fChain->SetBranchAddress("topEl_use",  &topEl_use);
   fChain->SetBranchAddress("topEl_inTrigger",  &topEl_inTrigger);
-  fChain->SetBranchAddress("el_E",  &el_E); 
+  fChain->SetBranchAddress("el_cl_E",  &el_E); 
   fChain->SetBranchAddress("el_px", &el_px); 
   fChain->SetBranchAddress("el_py", &el_py); 
   fChain->SetBranchAddress("el_pz", &el_pz); 
   fChain->SetBranchAddress("el_pt", &el_pt); 
-  fChain->SetBranchAddress("el_eta", &el_eta);  fChain->SetBranchAddress("el_cl_eta", &el_deteta); 
-  fChain->SetBranchAddress("el_phi", &el_phi); 
+  fChain->SetBranchAddress("el_tracketa", &el_eta);  
+  fChain->SetBranchAddress("el_cl_eta", &el_deteta); 
+  fChain->SetBranchAddress("el_trackphi", &el_phi); 
   
   fChain->SetBranchAddress("topJet_n",   &topJet_n);
   fChain->SetBranchAddress("topJet_index",   &topJet_index);
@@ -335,13 +333,13 @@ int KLFitter::InterfaceD3PD::FillParticles()
 
 	//fill electrons
   for (int i = 0; i < topEl_n; ++i){
-  	if ( topEl_use->at(i) && topEl_inTrigger->at(i) ){ 
-      fParticles->AddParticle(new TLorentzVector(el_px->at(topEl_index->at(i)) / 1000., 
-      																					 el_py->at(topEl_index->at(i)) / 1000., 
-      																					 el_pz->at(topEl_index->at(i)) / 1000., 
-      																					 el_E ->at(topEl_index->at(i)) / 1000.),
-                                                 el_deteta->at(topEl_index->at(i)),	
-      																					 KLFitter::Particles::kElectron);
+  	if ( topEl_use->at(i) && topEl_inTrigger->at(i) ){
+      TLorentzVector * tmp = new TLorentzVector(0,0,0,0);
+      tmp->SetPtEtaPhiE((el_E ->at(topEl_index->at(i)) / 1000.) / cosh(el_eta->at(topEl_index->at(i))),
+                        el_eta->at(topEl_index->at(i)),
+                        el_phi->at(topEl_index->at(i)),
+                        el_E  ->at(topEl_index->at(i)) / 1000.);
+      fParticles->AddParticle(tmp, el_deteta->at(topEl_index->at(i)), KLFitter::Particles::kElectron);
 		}   																					 
 	}
 	std::sort(fParticles->ParticleContainer(KLFitter::Particles::kElectron)->begin(),  fParticles->ParticleContainer(KLFitter::Particles::kElectron)->end() , KLFitter::Particles::PtOrder);
@@ -353,7 +351,7 @@ int KLFitter::InterfaceD3PD::FillParticles()
                                                  mu_py->at(topMu_index->at(i)) / 1000., 
                                                  mu_pz->at(topMu_index->at(i)) / 1000., 
                                                  mu_E->at(topMu_index->at(i)) / 1000.), 
-                                                 -TMath::Log( TMath::Tan(mu_dettheta->at(topMu_index->at(i))/2.) ),
+                                                 mu_eta->at(topMu_index->at(i)),
                                                  KLFitter::Particles::kMuon);     
     }
 	}
