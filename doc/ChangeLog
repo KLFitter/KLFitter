@@ -1,7 +1,7 @@
 2011-01-31 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
 
 	* InterfaceD3PD: replace Muon_DetEta by Muon_Eta
-									 electron variables: cluster for E, track for eta/phi
+                   electron variables: cluster for E, track for eta/phi
 	* tag KLFitter-00-03-39
 
 2011-01-29 Johannes Erdmann <johannes.erdmann@cern.ch>
