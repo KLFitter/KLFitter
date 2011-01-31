@@ -1,7 +1,7 @@
 2011-01-31 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
 
 	* InterfaceD3PD: replace Muon_DetEta by Muon_Eta
-                   electron variables: cluster for E, track for eta/phi
+	                 electron variables: cluster for E, track for eta/phi
 	* tag KLFitter-00-03-39
 
 2011-01-29 Johannes Erdmann <johannes.erdmann@cern.ch>
@@ -16,14 +16,14 @@
 
 2011-01-28 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
 	
-	* InterfaceGoTopTree: detector eta of objects is read in and passed to particles, 
-												Electron_Eg is used temporarily
+	* InterfaceGoTopTree: detector eta of objects is read in and passed to particles,
+	                      Electron_Eg is used temporarily
 	* InterfaceD3PD: detector eta of objects is read in and passed to particles
 	* Particles: particles can have DetEta as an attribute, can be called with DetEta(index, ptype)
 	* Permutations: DetEta as attribute of particlespermuted
 	* SelectionTool: DetEta as attribute of selected particles, selection according to DetEta
-	* LikelihoodTopLetonJets: bugfix: TFs are chosen according to DetEta, 
-														eta/phi parameter for jets are frozen to measured value
+	* LikelihoodTopLetonJets: bugfix: TFs are chosen according to DetEta,
+	                          eta/phi parameter for jets are frozen to measured value
 	* DetectorAtlas_7TeV: four object dependent eta bins for TFs
 	* transferfunctions/ttbar: new energy transferfunctions for bjets, ljets, electron, muon
 	* tag KLFitter-00-03-36
@@ -31,7 +31,7 @@
 2010-12-15 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
 	
 	* InterfaceRoot/GoTopTree/D3PD: multiple input files can be read in defined in input.txt,
-	 																trees are collected in a chain
+	                                trees are collected in a chain
 	* runKLFitter*.c: changed according to the different read in  																
 	* tag KLFitter-00-03-35
 	
