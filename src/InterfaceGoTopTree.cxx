@@ -542,7 +542,7 @@ int KLFitter::InterfaceGoTopTree::FillParticles()
 
       index_photon = TruthIdx_photon;
     }
-
+  //std::cout << TruthPart_Px->size() << " : " << index_bhad << " : "<< index_blep << " : "<< index_q1<< " : " << index_q2<< " : " << index_l<< " : " << index_nu<< " : " << index_tophad<< " : " << index_toplep << std::endl;
   // create Lorentz-vectors and add to list of particles 
   fParticlesTruth->AddParticle(new TLorentzVector(TruthPart_Px->at(index_bhad), 
                                                   TruthPart_Py->at(index_bhad), 
@@ -569,21 +569,21 @@ int KLFitter::InterfaceGoTopTree::FillParticles()
                                KLFitter::Particles::kParton, 
                                "light quark 2"); 
 
-  if (abs(TruthPart_PDG->at(index_l)) == 11)
+  if (index_l!=-1 && abs(TruthPart_PDG->at(index_l)) == 11)
     fParticlesTruth->AddParticle(new TLorentzVector(TruthPart_Px->at(index_l), 
                                                     TruthPart_Py->at(index_l), 
                                                     TruthPart_Pz->at(index_l), 
                                                     TruthPart_E->at(index_l)),
                                  KLFitter::Particles::kElectron, 
                                  "electron"); 
-  else if (     abs(TruthPart_PDG->at(index_l)) == 13)
+  else if (index_l!=-1 && abs(TruthPart_PDG->at(index_l)) == 13)
     fParticlesTruth->AddParticle(new TLorentzVector(TruthPart_Px->at(index_l), 
                                                     TruthPart_Py->at(index_l), 
                                                     TruthPart_Pz->at(index_l), 
                                                     TruthPart_E->at(index_l)),
                                  KLFitter::Particles::kMuon, 
                                  "muon"); 
-  else if (     abs(TruthPart_PDG->at(index_l)) == 15)
+  else if (index_l!=-1 && abs(TruthPart_PDG->at(index_l)) == 15)
     fParticlesTruth->AddParticle(new TLorentzVector(TruthPart_Px->at(index_l), 
                                                     TruthPart_Py->at(index_l), 
                                                     TruthPart_Pz->at(index_l), 
@@ -598,13 +598,14 @@ int KLFitter::InterfaceGoTopTree::FillParticles()
                                  KLFitter::Particles::kPhoton, 
                                  "photon"); 
   }
-
+  if (index_nu!=-1){
   fParticlesTruth->AddParticle(new TLorentzVector(TruthPart_Px->at(index_nu), 
                                                   TruthPart_Py->at(index_nu), 
                                                   TruthPart_Pz->at(index_nu), 
                                                   TruthPart_E->at(index_nu)), 
                                KLFitter::Particles::kNeutrino, 
-                               "neutrino"); 
+                               "neutrino");
+  } 
   if (index_tophad >= 0) {
     fParticlesTruth->AddParticle(new TLorentzVector(TruthPart_Px->at(index_tophad), 
                                                     TruthPart_Py->at(index_tophad), 
