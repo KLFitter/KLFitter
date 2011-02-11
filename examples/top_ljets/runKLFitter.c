@@ -124,9 +124,9 @@ int main(int argc, char **argv)
   mySelectionTool -> SelectMuonEta(2.5);
   mySelectionTool -> SelectPhotonEta(2.5);
   mySelectionTool -> SelectJetEta(2.5);
-  mySelectionTool -> RequireNJetsPt(20.0, 4, -1); 
-  if (!FlagAthenaComp)
-    mySelectionTool -> RequireNJetsPt(40.0, 3, -1); 
+  mySelectionTool -> RequireNJetsPt(25.0, 4, -1); 
+  //if (!FlagAthenaComp)
+    //mySelectionTool -> RequireNJetsPt(40.0, 3, -1); 
   mySelectionTool -> SetMaxNJetsForFit(4);
   if (DO_ELECTRON)
     mySelectionTool -> RequireNElectronsPt(20.0, 1); 
@@ -135,7 +135,7 @@ int main(int argc, char **argv)
   if (!FlagAthenaComp)
     mySelectionTool -> RequireMET(20.); 
   else
-    mySelectionTool -> RequireMET(0.); 
+    mySelectionTool -> RequireMET(20.); 
 
   // create matching tool
   KLFitter::MatchingTool * myMatchingTool = 0x0;
@@ -170,7 +170,7 @@ int main(int argc, char **argv)
   // loop over events
   for (int ievent = minEv; ievent < maxEv; ++ievent)
     {
-      if ((ievent-minEv+1)%100 == 0)
+      if ((ievent-minEv+1)%1000 == 0)
         std::cout << " event " << (ievent+1) << std::endl; 
 
       // get first event
