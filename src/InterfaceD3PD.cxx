@@ -17,7 +17,8 @@ KLFitter::InterfaceD3PD::InterfaceD3PD()
   fTree = 0; 
 
   EventNumber = 0;
-	mcevt_weight =0;
+	if(mcevt_weight)
+		mcevt_weight =0;
 
 	topMu_n = 0;
 	topMu_index = 0;
