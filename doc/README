@@ -2,10 +2,14 @@
 KLFitter
 ===========================================================
 
-Author:  Kevin Kroeninger, University of Goettingen
-Email:   kevin.kroeninger *AT* phys.uni-goettingen.de
-Version: 1.2 
-Date:    20.03.2009 
+Authors: Kevin Kroeninger, University of Goettingen
+         Johannes Erdmann, University of Goettingen
+         Olaf Nackenhorst, University of Goettingen
+Email:   kevin.kroeninger *AT* phys.uni-goettingen.de, 
+         johannes.erdmann *AT* phys.uni-goettingen.de
+         olaf.nackenhorst *AT* phys.uni-goettingen.de
+Version: 1.4
+Date:    23.02.2011 
 
 ===========================================================
 
@@ -41,7 +45,7 @@ from the following web page:
 
 http://www.mppmu.mpg.de/bat/ 
 
-The current version of BAT is v0.2. Please read the instructions on
+The current version of BAT is v0.4.2. Please read the instructions on
 how to install and run BAT.
 
 2.2 Installation 
@@ -49,20 +53,24 @@ how to install and run BAT.
 
 The installation procedure is simple: 
 
-* Unpack the tarball KLFitter.tar.gz 
-* Change into the KLFitter/ directory
+* Check out the latest KLFitter tag from SVN: 
+  "svn co $SVNGRP/Institutes/Goettingen/KLFitter/KLFitter-<latest-tag> KLFitter"
+* Change to the KLFitter directory
+* Make sure that the environment variable $BATINSTALLDIR is correctly defined 
 * Compile the KLFitter library: 
 	"make"
 
-In order to run the ttbar e+jets example do the following:
+In order to run the ttbar lepton+jets example on a D3PD ntuple do the following:
 
-* Change into the KLFitter/examples/top_e+jets
+* Change into the KLFitter/examples/top_ljets
 * Compile the example: 
 	"make" 
 * Source the setup file: 
 	"source setup.sh"
-* Run the example: 
-	"./runKLFitter.exe" 
+* Define your input files in input.txt
+* Configure config.conf depending on the run options you would like to use
+* Run the example over 100 events: 
+	"./runKLFitter.exe 0 100" 
 
 
 3. Class structure
@@ -70,9 +78,7 @@ In order to run the ttbar e+jets example do the following:
 
 The KLFitter package is build in a modular way so as to allow the
 implementation of different physics processes and parameterizations of
-the detector response. All class live in the "KLFitter" namespace. A
-reference guide for all classes exists (see
-http://physik2.uni-goettingen.de/~kkroeni/KLFitter_v1.2/reference/). The
+the detector response. All classes live in the "KLFitter" namespace. The
 class structure is as follows:
 
 The central class is "Fitter". It contains objects which describe the
@@ -92,8 +98,8 @@ ResolutionBase. An example exists for a dummy detector with Gaussian
 energy resolutions.
 
 The Particle class holds containers for different types of particles,
-partons (a common class for all quarks and gluons), electron, muons,
-neutrinos and boson (a common class for photons and W/Z
+partons (a common class for all quarks and gluons), electron, muons, taus,
+neutrinos, photons and boson (a common class for photons and W/Z
 bosons). Parton-level or reconstructed particles can be described
 here. 
 
@@ -101,7 +107,7 @@ The actual fitting procedure is done in the LikelihoodBase class. This
 class inherits from the BAT BCModel class. In order to implement a new
 process, the user has to create a class which inherits from
 LikelihoodBase. The user has to define the parameters of the fit and
-the likelihood itself. An example for e+jets ttbar channel exists. 
+the likelihood itself. One example is the LikelihoodTopLeptonJets class for l+jets ttbar channel.
 
 
 4. The fitting procedure
@@ -117,18 +123,18 @@ product of some parameterization of the energy resolution of the
 measured jets and leptons, and functions describing the physics
 process, such as Breit-Wigner functions, matrix elements, etc. 
 
-In case of semileptonic ttbar events, the likelihood the product of
-four quark energy resolution functions, one lepton energy resolution
-function and the Breit-Wigner functions of the W boson
-masses. Optionally, the Breit-Wigner functions of the top quarks can
-be used or, if no explicit dependence on the top mass is aimed at, a
-Gaussian term for the difference of the two invariant masses can be
-used. 
+In case of semileptonic ttbar events, the likelihood is the product of
+four quark energy resolution functions, four quark eta/phi resolution 
+functions one lepton energy resolution function, neutrino pT resolution 
+function and the Breit-Wigner functions of the W boson masses. Optionally, 
+the Breit-Wigner functions of the top quarks can be used either with a free
+or a fixed top pole mass parameter. 
 
 In this example, the parameters which are estimated are: 
-a) the energies of the four jets
+a) the energies and angular variables of the four jets
 b) the energy of the charged lepton
-c) the z-component of the neutrino momentum
+c) the x,y,z-components of the neutrino momentum
+d) optionally, the top pole mass parameter
 
 Other parameters can easily be added. 
 
@@ -159,12 +165,11 @@ find the maximum with a greater precision.
 -----------------------------------
 
 The measured quantities are the 4-vectors of four jets and one charged
-lepton, as well as the missing transverse energy (although the latter
-is not used yet). An object of type Particles is passed to the Fitter
-object. The input quantities can either be set by defining
-TLorentzVectors and adding them to Particles object, or by using an
-interface. An example for a Root interface exists which reads the data
-from a flat Root tree.
+lepton, as well as the missing transverse energy. An object of type 
+Particles is passed to the Fitter object. The input quantities can 
+either be set by defining TLorentzVectors and adding them to Particles 
+object, or by using an interface. An example for a Root interface exists 
+which reads the data from a flat Root tree.
 
 5.2 Combinatorics
 -----------------
@@ -183,10 +188,41 @@ permutations are removed from the table. The indices can be set via
 
 int InvariantPartonPermutations(int index1, int index2, int index3 = -1). 
 
+5.3 Output
+----------
+
+The output comes in form of a ROOT file which contains the following
+trees: 
+
+* TreeMeasured | the measured particles.
+* TreeSelected | the particles selected for the fitting. 
+* TreeModel    | the model particles (e.g., including also the top quark.
+               | and other intermediate particles).
+* TreeTruth    | the Monte Carlo truth information (if avialable).
+* TreeMap      | maps containing the mapping between the measured and the selected particles. 
+
+The TreeModel contains the results from the fit. The most important
+stored variables are:
+
+* EventNumber                      | the event number.
+* N_permutations                   | the number of permutations.
+* best_permutation[N_permutations] | a list of indices ordered by the EventProbability. The 
+                                   | best permutation has the index best_permutation[0], etc. 
+* EventProbability[N_permutations] | the event probability for each permutation.
+* LogLikelihood[N_permutations]    | the log Likelihood for each permutation.
+* MinuitStatus[N_permutations]     | the Minuit convergence status for each permutation.
+* x_E[N_permutations], x_pt, ...   | x is a particle known in the model (i.e., initial state 
+                                   | or intermediate particle, etc.). The _E, ... describe
+                                   | the kinematics for each permutation. 
+* par_x[N_permutations]            | x is the best fit parameter for each permutation. 
+* parerr_x[N_permutations]         | x is the estimated uncertainty on the best fit 
+                                   | parameter for each permutation. 
 
 6. How to run KLFitter - an example
 -----------------------------------
 
-A commented example on how to run KLFitter is provided with the code. 
-
-
+A example on how to use the KLFitter library is provided: ExampleCode.C.
+The example is extensively commented. However, it is kept "minimal" in order to
+briefly show the necessary steps to get the KLFitter running in your analysis.
+It will hence not run out-of-the-box itself (for working example consult the example
+directory). So, just go ahead and try it in your own analysis code.

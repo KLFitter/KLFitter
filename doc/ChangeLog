@@ -1,3 +1,13 @@
+2011-02-24 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>, Johannes Erdmann <johannes.erdmann@cern.ch>
+
+	* update of README
+	* addition of ExampleCode.C
+	* change runKLFitter.c to work with D3PDs
+	* re-name the GTT example to runKLFitter_GTT.c
+	* some clean-up
+	* minor bug fixes
+	* tag KLFitter-00-03-41
+
 2011-02-11 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
 
 	* InterfaceD3PD/GoTopTree: minor bugfixes
