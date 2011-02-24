@@ -29,7 +29,10 @@ KLFitter::LikelihoodBase::LikelihoodBase(Particles** particles) : BCModel(),
 KLFitter::LikelihoodBase::~LikelihoodBase()
 {
   if (fParticlesModel)
-    delete fParticlesModel; 
+    delete fParticlesModel;
+
+	if (fPhysicsConstants)
+		delete fPhysicsConstants;
 }
 
 // --------------------------------------------------------- 

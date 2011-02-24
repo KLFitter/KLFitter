@@ -115,7 +115,10 @@ KLFitter::DetectorAtlas_7TeV::~DetectorAtlas_7TeV()
     delete fResEnergyLightJet_eta2; 
 
   if (fResEnergyLightJet_eta3)
-    delete fResEnergyLightJet_eta3; 
+    delete fResEnergyLightJet_eta3;
+
+  if (fResEnergyLightJet_eta4)
+    delete fResEnergyLightJet_eta4;  
 
   if (fResEnergyBJet_eta1)
     delete fResEnergyBJet_eta1; 
@@ -124,7 +127,10 @@ KLFitter::DetectorAtlas_7TeV::~DetectorAtlas_7TeV()
     delete fResEnergyBJet_eta2; 
 
   if (fResEnergyBJet_eta3)
-    delete fResEnergyBJet_eta3; 
+    delete fResEnergyBJet_eta3;
+
+  if (fResEnergyBJet_eta4)
+    delete fResEnergyBJet_eta4;  
 
   if (fResEnergyGluonJet_eta1)
     delete fResEnergyGluonJet_eta1; 
@@ -133,7 +139,10 @@ KLFitter::DetectorAtlas_7TeV::~DetectorAtlas_7TeV()
     delete fResEnergyGluonJet_eta2; 
 
   if (fResEnergyGluonJet_eta3)
-    delete fResEnergyGluonJet_eta3; 
+    delete fResEnergyGluonJet_eta3;
+
+ if (fResEnergyGluonJet_eta4)
+    delete fResEnergyGluonJet_eta4; 
 
   if (fResEnergyElectron_eta1)
     delete fResEnergyElectron_eta1; 
@@ -142,7 +151,10 @@ KLFitter::DetectorAtlas_7TeV::~DetectorAtlas_7TeV()
     delete fResEnergyElectron_eta2; 
 
   if (fResEnergyElectron_eta3)
-    delete fResEnergyElectron_eta3; 
+    delete fResEnergyElectron_eta3;
+
+  if (fResEnergyElectron_eta4)
+    delete fResEnergyElectron_eta4; 
 
   if (fResEnergyPhoton_eta1)
     delete fResEnergyMuon_eta1; 
@@ -151,7 +163,10 @@ KLFitter::DetectorAtlas_7TeV::~DetectorAtlas_7TeV()
     delete fResEnergyMuon_eta2; 
 
   if (fResEnergyMuon_eta3)
-    delete fResEnergyMuon_eta3; 
+    delete fResEnergyMuon_eta3;
+
+  if (fResEnergyMuon_eta4)
+    delete fResEnergyMuon_eta4; 
 
   if (fResEnergyPhoton_eta1)
     delete fResEnergyPhoton_eta1; 
@@ -160,7 +175,10 @@ KLFitter::DetectorAtlas_7TeV::~DetectorAtlas_7TeV()
     delete fResEnergyPhoton_eta2; 
 
   if (fResEnergyPhoton_eta3)
-    delete fResEnergyPhoton_eta3; 
+    delete fResEnergyPhoton_eta3;
+
+  if (fResEnergyPhoton_eta4)
+    delete fResEnergyPhoton_eta4; 
 
   if (fResEtaLightJet_eta1) 
     delete fResEtaLightJet_eta1; 
@@ -169,7 +187,10 @@ KLFitter::DetectorAtlas_7TeV::~DetectorAtlas_7TeV()
     delete fResEtaLightJet_eta2; 
 
   if (fResEtaLightJet_eta3) 
-    delete fResEtaLightJet_eta3; 
+    delete fResEtaLightJet_eta3;
+
+  if (fResEtaLightJet_eta4) 
+    delete fResEtaLightJet_eta4; 
         
   if (fResEtaBJet_eta1) 
     delete fResEtaBJet_eta1; 
@@ -178,7 +199,10 @@ KLFitter::DetectorAtlas_7TeV::~DetectorAtlas_7TeV()
     delete fResEtaBJet_eta2; 
 
   if (fResEtaBJet_eta3) 
-    delete fResEtaBJet_eta3; 
+    delete fResEtaBJet_eta3;
+
+  if (fResEtaBJet_eta4) 
+    delete fResEtaBJet_eta4; 
         
   if (fResPhiLightJet_eta1) 
     delete fResPhiLightJet_eta1; 
@@ -187,7 +211,10 @@ KLFitter::DetectorAtlas_7TeV::~DetectorAtlas_7TeV()
     delete fResPhiLightJet_eta2; 
 
   if (fResPhiLightJet_eta3) 
-    delete fResPhiLightJet_eta3; 
+    delete fResPhiLightJet_eta3;
+
+  if (fResPhiLightJet_eta4) 
+    delete fResPhiLightJet_eta4;  
 
   if (fResPhiBJet_eta1) 
     delete fResPhiBJet_eta1; 
@@ -196,7 +223,10 @@ KLFitter::DetectorAtlas_7TeV::~DetectorAtlas_7TeV()
     delete fResPhiBJet_eta2; 
 
   if (fResPhiBJet_eta3) 
-    delete fResPhiBJet_eta3; 
+    delete fResPhiBJet_eta3;
+
+  if (fResPhiBJet_eta4) 
+    delete fResPhiBJet_eta4;  
         
   if (fResMissingET)
     delete fResMissingET; 
@@ -379,7 +409,7 @@ KLFitter::ResolutionBase * KLFitter::DetectorAtlas_7TeV::ResPhiLightJet(double e
     fResPhiLightJet = fResPhiLightJet_eta4;
   else 
     {
-      std::cout << "KLFitter::DetectorAtlas_7TeV::ResPhiLightJet(). Phi range exceeded." << std::endl; 
+      std::cout << "KLFitter::DetectorAtlas_7TeV::ResPhiLightJet(). Eta range exceeded." << std::endl; 
       return 0; 
     }
 
@@ -399,7 +429,7 @@ KLFitter::ResolutionBase * KLFitter::DetectorAtlas_7TeV::ResPhiBJet(double eta)
     fResPhiLightJet = fResPhiLightJet_eta4;
   else 
     {
-      std::cout << "KLFitter::DetectorAtlas_7TeV::ResPhiBJet(). Phi range exceeded." << std::endl; 
+      std::cout << "KLFitter::DetectorAtlas_7TeV::ResPhiBJet(). Eta range exceeded." << std::endl; 
       return 0; 
     }
 
