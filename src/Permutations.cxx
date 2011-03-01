@@ -183,7 +183,7 @@ int KLFitter::Permutations::CreatePermutations()
                       particles->AddParticle(vect, (*fParticles)->DetEta(index, KLFitter::Particles::kPhoton),  KLFitter::Particles::kPhoton); 
 
                       // set permutation 
-                      permutation->at(npartons + nelectrons + i) = index; 
+                      permutation->at(npartons + nelectrons + nmuons + i) = index; 
                     }
 
                   // add particles to table 
