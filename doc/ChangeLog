@@ -1,4 +1,4 @@
-2011-03-01 Johannes Erdmann <johannes.erdmann@cern.ch>
+2011-03-02 Johannes Erdmann <johannes.erdmann@cern.ch>
 
 	* bug fix in Permutations class (photons only)
 	* Makefile update
