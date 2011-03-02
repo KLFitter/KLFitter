@@ -85,7 +85,7 @@ GARBAGE = $(CXXOBJS) $(LIBSO) $(DYLIB)
 
 # rule for shared library
 $(LIBSO) : $(CXXOBJS)
-	@if [ "$(MACHINE)" != "$(MAC)" ]; then $(CXX) $(SOFLAGS) $^ -o $(LIBSO); else $(CXX) $(CXXFLAGS) $(LIBS) $(SOFLAGS) $(CXXOBJS) -o $(LIBSO); fi
+	$(CXX) $(CXXFLAGS) $(LIBS) $(SOFLAGS) $(CXXOBJS) -o $(LIBSO)
 
 # rule for single class output files
 $(OBJDIR)/%.o : $(SRCDIR)/%.cxx $(INCLUDEDIR)/%.h $(PREPROCESSOR_H)
