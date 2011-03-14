@@ -1,6 +1,7 @@
 #include "PhysicsConstants.h" 
 #include <cmath>
 #include <iostream> 
+#include <cmath>
 
 // --------------------------------------------------------- 
 KLFitter::PhysicsConstants::PhysicsConstants()
@@ -12,7 +13,6 @@ KLFitter::PhysicsConstants::PhysicsConstants()
   fGammaTop   =   1.5; // top quark width
   fGF         =   1.16637e-5; // in GeV^{-2} 
   fAlphaS     =   0.118; 
-  fPi         =   3.14159265358979312; 
 }
 
 // --------------------------------------------------------- 
@@ -123,10 +123,10 @@ void KLFitter::PhysicsConstants::CalculateGammaTop()
   // ``Review of particle physics,''
   // Phys.\ Lett.\  B {\bf 667} (2008) 1.
 
-  double gamma = fGF * fMassTop * fMassTop * fMassTop / 8 / fPi / sqrt(2); 
+  double gamma = fGF * fMassTop * fMassTop * fMassTop / 8 / M_PI / sqrt(2); 
   gamma *= (1 - fMassW*fMassW/fMassTop/fMassTop) * (1 - fMassW*fMassW/fMassTop/fMassTop); 
   gamma *= (1 + 2 * fMassW * fMassW / fMassTop / fMassTop); 
-  gamma *= (1 - 2 * fAlphaS / 3 / fPi * (2*fPi*fPi/3 - 5./2.));
+  gamma *= (1 - 2 * fAlphaS / 3 / M_PI * (2*M_PI*M_PI/3 - 5./2.));
 
   SetGammaTop(gamma);
 }

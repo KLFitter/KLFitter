@@ -81,24 +81,10 @@ namespace KLFitter
      * Return the set of model particles. 
      * @return A pointer to the particles. 
      */ 
-    KLFitter::Particles* ParticlesModel()
+    virtual KLFitter::Particles* ParticlesModel()
       { return fParticlesModel; }; 
-    KLFitter::Particles** PParticlesModel()
+    virtual KLFitter::Particles** PParticlesModel()
       { return &fParticlesModel; }; 
-
-    /**
-     * Return model particles at some index. 
-     * @param index The particle index.
-     * @return A pointer to the TLorentzVector of the particle. 
-     */ 
-    TLorentzVector* ParticleModel(int index); 
-
-    /**
-     * Return model particles with a name.
-     * @param name The particle name. 
-     * @return A pointer to the TLorentzVector of the particle. 
-     */                 
-    TLorentzVector* ParticleModel(const char * name); 
 
     /**
      * Return the number of model particles. 

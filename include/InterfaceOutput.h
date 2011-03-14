@@ -316,6 +316,7 @@ namespace KLFitter
     std::vector<int> * fTreeVarBestPermutation; 
     std::vector<double> * fTreeVarLogLikelihood; 
     std::vector<double> * fTreeVarMinuitStatus; 
+    std::vector<unsigned int> * fTreeVarConvergenceStatus; 
     std::vector<double> * fTreeVarIntegral;
     std::vector<double> * fTreeVarEventProbability; 
 

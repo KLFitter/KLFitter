@@ -42,7 +42,7 @@ double KLFitter::ResDoubleGaussE_1::p(double x, double xmeas, bool &good)
   double dx = (x - xmeas) / x; 
  
   // calculate double-Gaussian 
-  double prob= 0.398942280401 / (p2 + p3 * p5) * ( exp( -(dx-p1)*(dx-p1)/(2 * p2*p2) ) + p3 * exp( -(dx-p4)*(dx-p4)/(2 * p5 * p5) ) );
+  double prob= 1./sqrt(2.*M_PI) / (p2 + p3 * p5) * ( exp( -(dx-p1)*(dx-p1)/(2 * p2*p2) ) + p3 * exp( -(dx-p4)*(dx-p4)/(2 * p5 * p5) ) );
 
   return prob; 
 }

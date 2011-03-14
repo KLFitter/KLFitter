@@ -32,6 +32,7 @@ KLFitter::InterfaceOutput::InterfaceOutput()
   fTreeVarIntegral = 0;
   fTreeVarEventProbability = 0; 
   fTreeVarMinuitStatus = 0; 
+  fTreeVarConvergenceStatus = 0; 
   fTreeVarEventNumber = 0; 
   fTreeVarParameters = new std::vector<std::vector<double> *>(0); 
   fTreeVarParameterErrors = new std::vector<std::vector<double> *>(0); 
@@ -78,6 +79,9 @@ KLFitter::InterfaceOutput::~InterfaceOutput()
 
   if (fTreeVarMinuitStatus)
     delete fTreeVarMinuitStatus; 
+
+  if (fTreeVarConvergenceStatus)
+    delete fTreeVarConvergenceStatus; 
 
   while (!fTreeVarParameters->empty())
     {
@@ -366,6 +370,7 @@ int KLFitter::InterfaceOutput::CreateTreeModel()
   fTreeVarIntegral = new std::vector<double>(0);
   fTreeVarEventProbability = new std::vector<double>(0);
   fTreeVarMinuitStatus = new std::vector<double>(0);
+  fTreeVarConvergenceStatus = new std::vector<unsigned int>(0);
 
   // set branches for event variables
   fTreeModel->Branch("EventNumber", &fTreeVarEventNumber, "EventNumber/I"); 
@@ -376,6 +381,7 @@ int KLFitter::InterfaceOutput::CreateTreeModel()
   fTreeModel->Branch("Integral", fTreeVarIntegral);
   fTreeModel->Branch("EventProbability", fTreeVarEventProbability);
   fTreeModel->Branch("MinuitStatus", fTreeVarMinuitStatus);
+  fTreeModel->Branch("ConvergenceStatusBit", fTreeVarConvergenceStatus);
 
   // loop over all parameters 
   for (int i = 0; i < fFitter->Likelihood()->NParameters(); ++i)
@@ -871,6 +877,9 @@ int KLFitter::InterfaceOutput::FillTreeModelPermutation()
   if (!fTreeModel) 
     this->CreateTreeModel(); 
 
+  // make sure that the model particles are being built in the likelihood
+  fParticlesModel = fFitter->Likelihood()->PParticlesModel(); 
+
   // initialize counter 
   int counter = 0; 
 
@@ -904,6 +913,9 @@ int KLFitter::InterfaceOutput::FillTreeModelPermutation()
       fTreeVarMinuitStatus->clear();
       fTreeVarMinuitStatus->assign(fTreeVarNPermutations, 0);
 
+      fTreeVarConvergenceStatus->clear();
+      fTreeVarConvergenceStatus->assign(fTreeVarNPermutations, 0);
+
       fTreeVarBestPermutation->clear(); 
       fTreeVarBestPermutation->assign(fTreeVarNPermutations, -1);
 
@@ -936,6 +948,7 @@ int KLFitter::InterfaceOutput::FillTreeModelPermutation()
         
   (*fTreeVarLogLikelihood)[pindex] = fFitter->Likelihood()->LogLikelihood( fFitter->Likelihood()->GetBestFitParameters() ); 
   (*fTreeVarMinuitStatus)[pindex] = fFitter->MinuitStatus(); 
+  (*fTreeVarConvergenceStatus)[pindex] = fFitter->ConvergenceStatus(); 
   (*fTreeVarIntegral)[pindex] = fFitter->Likelihood()->GetNormalization(); 
   (*fTreeVarEventProbability)[pindex] = exp( fFitter->Likelihood()->LogEventProbability() ); 
 

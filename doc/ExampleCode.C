@@ -31,8 +31,8 @@ if (!myFitter->SetDetector(myDetector))
 //
 KLFitter::LikelihoodTopLeptonJets * myLikelihood = new KLFitter::LikelihoodTopLeptonJets(); 
 // set the lepton type for the hypothesis to be tested by the fitter
-// 1 : electron, 2: muon
-myLikelihood->SetLeptonType(1);
+// kElectron or kMuon
+myLikelihood->SetLeptonType(Fitter::LikelihoodTopLeptonJets::kElectron);
 // if true: the top mass is constrained to the Breit-Wigner distribution around a fixed top mass value
 myLikelihood->SetFlagTopMassFixed(false);
 // set the central value for the fixed top mass for the case SetFlagTopMassFixed == true
@@ -67,14 +67,14 @@ myFitter->SetLikelihood(myLikelihood);
 // - for jets: an optional b-tagging weight
 KLFitter::Particles * myParticles = new KLFitter::Particles();
 // add all jets like this (|eta| may not exceed 2.5):
-myParticles->AddParticle(new TLorentzVector((*Jet_Px)[iJet], (*Jet_Py)[iJet], (*Jet_Pz)[iJet], (*Jet_E)[iJet]),
-                         (*Jet_DetEta)[iJet], KLFitter::Particles::kParton, "", (*Jet_SV0_Weight)[iJet]);
+TLorentzVector * vJet = new TLorentzVector((*Jet_Px)[iJet], (*Jet_Py)[iJet], (*Jet_Pz)[iJet], (*Jet_E)[iJet]));
+myParticles->AddParticle(vJet, (*Jet_DetEta)[iJet], KLFitter::Particles::kParton, "", (*Jet_SV0_Weight)[iJet]);
 // add all electrons like this (|eta| may not exceed 2.5):
-myParticles->AddParticle(new TLorentzVector((*Electron_Px)[iElectron], (*Electron_Py)[iElectron], (*Electron_Pz)[iElectron], (*Electron_E)[iElectron]),
-                         (*Electron_DetEta)[iElectron], KLFitter::Particles::kElectron);
+TLorentzVector * vElectron = new TLorentzVector((*Electron_Px)[iElectron], (*Electron_Py)[iElectron], (*Electron_Pz)[iElectron], (*Electron_E)[iElectron]));
+myParticles->AddParticle(vElectron, (*Electron_DetEta)[iElectron], KLFitter::Particles::kElectron);
 // add all muons like this (|eta| may not exceed 2.5):
-myParticles->AddParticle(new TLorentzVector((*Muon_Px)[iMuon], (*Muon_Py)[iMuon], (*Muon_Pz)[iMuon], (*Muon_E)[iMuon]),
-                         (*Muon_Eta)[iMuon], KLFitter::Particles::kMuon);
+TLorentzVector * vMuon = new TLorentzVector((*Muon_Px)[iMuon], (*Muon_Py)[iMuon], (*Muon_Pz)[iMuon], (*Muon_E)[iMuon]);
+myParticles->AddParticle(vMuon, (*Muon_Eta)[iMuon], KLFitter::Particles::kMuon);
 
 // check that there are at least 4 jets
 if (myParticles->NPartons() < 4)
@@ -100,14 +100,16 @@ for (int iPerm = 0, nPerms(myFitter->Permutations()->NPermutations()); iPerm < n
   // get the output from the fitter:
   // - the model particles
   KLFitter::Particles * myModelParticles = myFitter->Likelihood()->ParticlesModel();
-  // - the minuit status;
-  //   the meaning of the values is:
-  //   * 0 - fit converged
-  //   * 4 - fit did not converge (typically remove it)
-  //   * 500 || 501 - fit converged, but at least one parameter is at its allowed limit (typically keep it)
-  //   * 508 || 509 - fit returned NaN in minimization (typically remove it)
-  //   * 510 - problem in the use of the transfer functions (typically remove it)
-  int MinuitStatus = myFitter->MinuitStatus();
+  // a bit word with potential problems of the convergence of the fit
+  // - the bit masks are defined in the Fitter class:
+  //   * MinuitDidNotConvergeMask                 - Minuit fit did not converge
+  //   * FitAbortedDueToNaNMask                   - fit was aborted due to a not-a-number value during the fit (typically remove it)
+  //   * AtLeastOneFitParameterAtItsLimitMask     - fit converged, but at least one parameter is at its allowed limit (typically keep it)
+  //   * InvalidTransferFunctionAtConvergenceMask - invalid use of the transfer functions at the convergence point (typically remove it)
+  unsigned int ConvergenceStatusBitWord = myFitter->ConvergenceStatus();
+  // in order to check if a certain had a specific problem, just check the bit mask as in this example:
+  bool MinuitDidNotConverge = (ConvergenceStatusBitWord & Fitter->MinuitDidNotConvergeMask) == 0;
+  // etc.
   // get the log(likelihood) value from the fit
   double LogLikelihood = myFitter->Likelihood()->LogLikelihood(myFitter->Likelihood()->GetBestFitParameters());
   // get the event probability from the fit

@@ -91,6 +91,13 @@ namespace KLFitter
     int MinuitStatus()
     { return fMinuitStatus; }; 
 
+    /**
+     * Return the convergence status bit.
+     * @return The convergence status bit.
+     */
+    unsigned int ConvergenceStatus()
+    { return fConvergenceStatus; }
+
     /* @} */
     /** \name Member functions (Set)  */
     /* @{ */
@@ -152,6 +159,24 @@ namespace KLFitter
      */
     void TurnOffSA() { fTurnOffSA = true; };
 
+    /**
+     * Enumerator for convergence errors.
+     */
+    enum ConvergenceErrors {
+      MinuitDidNotConverge = 1,
+      FitAbortedDueToNaN = 2,
+      AtLeastOneFitParameterAtItsLimit = 3,
+      InvalidTransferFunctionAtConvergence = 4
+    };
+
+    /**
+     * Bit masks for convergence errors.
+     */
+    static const unsigned int MinuitDidNotConvergeMask = 0x1 << MinuitDidNotConverge;
+    static const unsigned int FitAbortedDueToNaNMask = 0x1 << FitAbortedDueToNaN;
+    static const unsigned int AtLeastOneFitParameterAtItsLimitMask = 0x1 << AtLeastOneFitParameterAtItsLimit;
+    static const unsigned int InvalidTransferFunctionAtConvergenceMask = 0x1 << InvalidTransferFunctionAtConvergence;
+
     /* @} */
                 
   private: 
@@ -191,6 +216,11 @@ namespace KLFitter
      * The TMinuit status
      */ 
     int fMinuitStatus; 
+
+    /**
+     * The convergence status bit
+     */ 
+    unsigned int fConvergenceStatus;
 
     /**
      * Flag for turning off simulated annealing.

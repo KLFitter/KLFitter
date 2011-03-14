@@ -170,10 +170,6 @@ namespace KLFitter
      */ 
     double fAlphaS; 
 
-    /** 
-     * Pi
-     */ 
-    double fPi; 
   }; 
 
 } // namespace KLFitter 

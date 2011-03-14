@@ -1,3 +1,16 @@
+2011-03-14 Johannes Erdmann <johannes.erdmann@cern.ch>
+
+	* merging back from KLFitter-00-03-42-branch
+	* optimize LikelihoodTopLeptonJets (possible by taking out eta and phi parameters for jets)
+	* add LikelihoodTopLeptonsJets_JetAngles (which is the old LikelihoodTopLeptonJets)
+	* introduce enumerators for lepton type
+	* introduce ConvergenceStatus bit word and masks
+	* update README
+	* clean-up Makefile
+	* some clean-up
+	* update ExampleCode.C and 
+	* tag KLFitter-00-03-43
+
 2011-03-02 Johannes Erdmann <johannes.erdmann@cern.ch>
 
 	* bug fix in Permutations class (photons only)

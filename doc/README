@@ -123,18 +123,36 @@ product of some parameterization of the energy resolution of the
 measured jets and leptons, and functions describing the physics
 process, such as Breit-Wigner functions, matrix elements, etc. 
 
+#In case of semileptonic ttbar events, the likelihood is the product of
+#four quark energy resolution functions, four quark eta/phi resolution 
+#functions one lepton energy resolution function, neutrino pT resolution 
+#function and the Breit-Wigner functions of the W boson masses. Optionally, 
+#the Breit-Wigner functions of the top quarks can be used either with a free
+#or a fixed top pole mass parameter. 
+
 In case of semileptonic ttbar events, the likelihood is the product of
-four quark energy resolution functions, four quark eta/phi resolution 
-functions one lepton energy resolution function, neutrino pT resolution 
-function and the Breit-Wigner functions of the W boson masses. Optionally, 
-the Breit-Wigner functions of the top quarks can be used either with a free
-or a fixed top pole mass parameter. 
+four quark energy resolution functions, one lepton energy resolution function,
+neutrino pT resolution function and the Breit-Wigner functions of the W boson
+masses. Optionally, the Breit-Wigner functions of the top quarks can be used
+either with a free or a fixed top pole mass parameter. 
 
 In this example, the parameters which are estimated are: 
-a) the energies and angular variables of the four jets
+a) the energies of the four jets
 b) the energy of the charged lepton
 c) the x,y,z-components of the neutrino momentum
 d) optionally, the top pole mass parameter
+
+This likelihood is implemented in the class LikelihoodTopLeptonJets.
+
+There is an extended version implemented in the class
+LikelihoodTopLeptonJets_JetAngles, which also fits the angular
+variables of the jets. Resolutions functions are multiplied to the
+likelihood for eta and phi of the jets and there are, hence, eight
+additional parameters which are estimated in the fit.
+Please note that this likelihood is about a factor of two slower
+compared to the simpler LikelihoodTopLeptonJets, because a lot of
+trignometric functions need to be evaluated in each call of the
+likelihood.
 
 Other parameters can easily be added. 
 
@@ -204,19 +222,19 @@ trees:
 The TreeModel contains the results from the fit. The most important
 stored variables are:
 
-* EventNumber                      | the event number.
-* N_permutations                   | the number of permutations.
-* best_permutation[N_permutations] | a list of indices ordered by the EventProbability. The 
-                                   | best permutation has the index best_permutation[0], etc. 
-* EventProbability[N_permutations] | the event probability for each permutation.
-* LogLikelihood[N_permutations]    | the log Likelihood for each permutation.
-* MinuitStatus[N_permutations]     | the Minuit convergence status for each permutation.
-* x_E[N_permutations], x_pt, ...   | x is a particle known in the model (i.e., initial state 
-                                   | or intermediate particle, etc.). The _E, ... describe
-                                   | the kinematics for each permutation. 
-* par_x[N_permutations]            | x is the best fit parameter for each permutation. 
-* parerr_x[N_permutations]         | x is the estimated uncertainty on the best fit 
-                                   | parameter for each permutation. 
+* EventNumber                          | the event number.
+* N_permutations                       | the number of permutations.
+* best_permutation[N_permutations]     | a list of indices ordered by the EventProbability. The 
+                                       | best permutation has the index best_permutation[0], etc. 
+* EventProbability[N_permutations]     | the event probability for each permutation.
+* LogLikelihood[N_permutations]        | the log Likelihood for each permutation.
+* ConvergenceStatusBit[N_permutations] | the convergence status bit word for each permutation.
+* x_E[N_permutations], x_pt, ...       | x is a particle known in the model (i.e., initial state 
+                                       | or intermediate particle, etc.). The _E, ... describe
+                                       | the kinematics for each permutation. 
+* par_x[N_permutations]                | x is the best fit parameter for each permutation. 
+* parerr_x[N_permutations]             | x is the estimated uncertainty on the best fit 
+                                       | parameter for each permutation. 
 
 6. How to run KLFitter - an example
 -----------------------------------

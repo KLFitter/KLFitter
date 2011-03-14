@@ -17,6 +17,7 @@ KLFitter::Fitter::Fitter()
   fParticlesPermuted = 0; 
   fPermutations = new KLFitter::Permutations(&fParticles, &fParticlesPermuted);         
   fMinuitStatus = 0; 
+  fConvergenceStatus = 0;
   fTurnOffSA = false;
 }
 
@@ -181,6 +182,10 @@ int KLFitter::Fitter::Fit(int index)
       fLikelihood->FindMode( fLikelihood->GetBestFitParameters() ); 
       fMinuitStatus = fLikelihood->GetMinuitErrorFlag(); 
     }   
+
+  fConvergenceStatus = 0;
+  if (fMinuitStatus == 4)
+    fConvergenceStatus |= MinuitDidNotConvergeMask;
         
   // check if any parameter is at its borders->set MINUIT flag to 501
   if ( fMinuitStatus == 0)
@@ -192,17 +197,21 @@ int KLFitter::Fitter::Fit(int index)
           if ( ParameterSet->at(iPar)->IsAtLimit(BestParameters.at(iPar)) )
             {
               fMinuitStatus = 501;
+              fConvergenceStatus |= AtLeastOneFitParameterAtItsLimitMask;
             }
         }
     }
   if(fLikelihood->GetFlagIsNan()==true)
     {
       fMinuitStatus=509;
+      fConvergenceStatus |= FitAbortedDueToNaNMask;
     }
   else {
     // check if TF problem
-    if (! fLikelihood->NoTFProblem(fLikelihood->GetBestFitParameters()))
+    if (! fLikelihood->NoTFProblem(fLikelihood->GetBestFitParameters())) {
       fMinuitStatus = 510;
+      fConvergenceStatus |= InvalidTransferFunctionAtConvergenceMask;
+    }
   }
 
   // check b-tagging and calculate probability
