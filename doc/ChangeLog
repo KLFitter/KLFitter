@@ -1,5 +1,12 @@
 2011-03-14 Johannes Erdmann <johannes.erdmann@cern.ch>
 
+	* remove include and src directories
+	* add enums to LikelihoodTopLeptonJets_JetAngles
+	* fix main Makefile
+	* tag KLFitter-00-04-01
+
+2011-03-14 Johannes Erdmann <johannes.erdmann@cern.ch>
+
 	* restructuring the package: making two libraries (library and extras)
 	* Makefile clean-up in example/top_ljets
 	* tag KLFitter-00-04-00

@@ -1,46 +1,33 @@
-MACHINE = $(shell uname -s)
-LINUX   = Linux
-MAC     = Darwin
+LN = ln -s
+RM = rm -rf
 
-INCDIR = include
-SRCDIR = src
-OBJDIR = obj
+LIB = libKLFitter.so
+LIBDIR = library
 
-CXX = g++
-MKDIR = mkdir -p
-RM = rm -f
+LIB_EXTRAS = libKLFitterExtras.so
+LIBDIR_EXTRAS = extras
 
-ROOTCFLAGS = $(shell root-config --cflags)
-ROOTLIBS   = $(shell root-config --libs) -lMinuit
+GARBAGE = $(LIB) $(LIB_EXTRAS)
 
-BATCFLAGS = -I$(BATINSTALLDIR)
-BATLIBS   = -L$(BATINSTALLDIR)/lib -lBAT
+library: $(LIB)
 
-SRC = $(wildcard $(SRCDIR)/*.cxx)
-OBJ = $(SRC:$(SRCDIR)/%.cxx=$(OBJDIR)/%.o)
-MAIN = $(wildcard *.c)
-ifneq ($(MACHINE), $(MAC))
-	LIBSO = libKLFitter.so
-	SOFLAGS = -shared
-else
-	LIBSO = libKLFitter.dylib
-	SOFLAGS = -dynamiclib
-endif
+extras: $(LIB_EXTRAS) $(LIB)
 
-GARBAGE = $(OBJ) $(LIBSO)
+$(LIB): $(LIBDIR)/$(LIB)
+	$(RM) $@
+	$(LN) $<
 
-CXXFLAGS = $(ROOTCFLAGS) $(BATCFLAGS) -I$/$(INCDIR) -Wall -Wno-deprecated -O2 -ggdb -g
-ifneq ($(MACHINE), $(MAC))
-	CXXFLAGS += -fPIC
-endif
-LIBS     = $(ROOTLIBS) $(BATLIBS)
+$(LIB_EXTRAS): $(LIBDIR_EXTRAS)/$(LIB_EXTRAS) $(LIB) 
+	$(RM) $@
+	$(LN) $<
 
-$(LIBSO) : $(OBJ)
-	$(CXX) $(CXXFLAGS) $(LIBS) $(SOFLAGS) $+ -o $@
+$(LIBDIR)/$(LIB):
+	cd $(LIBDIR) && $(MAKE)
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.cxx $(INCDIR)/%.h
-	@if [ ! -e $(OBJDIR) ]; then $(MKDIR) $(OBJDIR); fi
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+$(LIBDIR_EXTRAS)/$(LIB_EXTRAS):
+	cd $(LIBDIR_EXTRAS) && $(MAKE)
 
 clean:
 	$(RM) $(GARBAGE)
+	cd $(LIBDIR) && $(MAKE) clean
+	cd $(LIBDIR_EXTRAS) && $(MAKE) clean

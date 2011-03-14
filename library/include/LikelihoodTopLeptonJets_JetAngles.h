@@ -55,6 +55,11 @@ namespace KLFitter
     /* @{ */
 
     /**
+     * Enumerator for the lepton type.
+     */
+    enum LeptonType { kElectron, kMuon };
+
+    /**
      * Set the values for the missing ET x and y components.
      * @param etx missing ET x component.
      * @param ety missing ET y component.
@@ -72,6 +77,12 @@ namespace KLFitter
 
     void SetFlagUseJetMass(bool flag)
     { fFlagUseJetMass = flag; }; 
+
+    /**
+     * Set the type of lepton 
+     * @param leptontype The type of lepton: kElectron or kMuon
+     */ 
+    void SetLeptonType(LeptonType leptontype); 
 
     /**
      * Set the type of lepton 
@@ -209,7 +220,7 @@ namespace KLFitter
      * An index deciding if the event is electron (1) or muon (2) plus
      * jets.
      */ 
-    int fTypeLepton; 
+    LeptonType fTypeLepton; 
 
     /**
      * The value of pi stored here for CPU time reasons.
