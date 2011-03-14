@@ -13,12 +13,13 @@ BATLIBS   = -L$(BATINSTALLDIR)/lib -lBAT
 
 # KLFitter
 KLFITTERDIR     = ../..
-KLFITTERINCLUDE = $(KLFITTERDIR)/include
-KLFITTERLIBS    = -L$(KLFITTERDIR) -lKLFitter
+KLFITTERINCLUDE = $(KLFITTERDIR)/library/include
+KLFITTERINCLUDE_EXTRAS = $(KLFITTERDIR)/extras/include
+KLFITTERLIBS    = -L$(KLFITTERDIR) -lKLFitter -lKLFitterExtras
 ifneq ($(MACHINE), $(MAC))
-	KLFITTERLIBSO = $(KLFITTERDIR)/libKLFitter.so
+	KLFITTERLIBSO = $(KLFITTERDIR)/libKLFitter.so $(KLFITTERDIR)/libKLFitterExtras.so
 else
-	KLFITTERLIBSO = $(KLFITTERDIR)/libKLFitter.dylib
+	KLFITTERLIBSO = $(KLFITTERDIR)/libKLFitter.dylib $(KLFITTERDIR)/libKLFitterExtras.dylib
 endif
 
 # Programs
@@ -28,7 +29,7 @@ ECHO = echo
 LN   = ln -s
 
 # flags and libs
-CXXFLAGS += $(ROOTCFLAGS) $(BATCFLAGS) -I$(KLFITTERINCLUDE)
+CXXFLAGS += $(ROOTCFLAGS) $(BATCFLAGS) -I$(KLFITTERINCLUDE) -I$(KLFITTERINCLUDE_EXTRAS)
 CXXFLAGS += -Wall -Wno-deprecated -O2 -ggdb
 ifneq ($(MACHINE), $(MAC))
 	CXXFLAGS += -fPIC
@@ -41,9 +42,12 @@ CXXOBJS   = runKLFitter.exe
 GARBAGE   = $(CXXOBJS)
 ifeq ($(MACHINE), $(MAC))
 	LIBLINK = libKLFitter.dylib
+	LIBLINK = libKLFitterExtras.dylib
 endif
 
 $(CXXOBJS) : $(CXXSRCS) $(KLFITTERLIBSO)
+	cd $(KLFITTERDIR) && $(MAKE)
+	cd $(KLFITTERDIR) && $(MAKE) extras
 	$(CXX) $(CXXFLAGS) $(LIBS) $< -o $@
 	@if [ "$(MACHINE)" == "$(MAC)" ]; then if [ ! -e $(LIBLINK) ]; then $(LN) $(KLFITTERLIBSO) $(LIBLINK) ; fi; fi
 
@@ -51,13 +55,3 @@ $(KLFITTERLIBSO):
 
 clean :
 	$(RM) $(GARBAGE)
-
-print :
-	$(ECHO) compiler   : $(CXX)
-	$(ECHO) c++ srcs   : $(CXXSRCS)
-	$(ECHO) c++ objs   : $(CXXOBJS)
-	$(ECHO) c++ flags  : $(CXXFLAGS)
-	$(ECHO) libs       : $(LIBS)
-	$(ECHO) machine    : $(MACHINE)
-	$(ECHO) linux      : $(LINUX)
-	$(ECHO) mac        : $(MAC)

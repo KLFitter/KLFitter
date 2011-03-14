@@ -57,8 +57,12 @@ The installation procedure is simple:
   "svn co $SVNGRP/Institutes/Goettingen/KLFitter/KLFitter-<latest-tag> KLFitter"
 * Change to the KLFitter directory
 * Make sure that the environment variable $BATINSTALLDIR is correctly defined 
-* Compile the KLFitter library: 
+* Compile the KLFitter library - this will produce the *standard* library (classes in the
+  folder 'library') you can use in your analysis
 	"make"
+* Several additional classes are available from an additional library (classes in the
+  folder 'extras'), which you need in particular to run the provided examples:
+        "make extras"
 
 In order to run the ttbar lepton+jets example on a D3PD ntuple do the following:
 
@@ -209,7 +213,7 @@ int InvariantPartonPermutations(int index1, int index2, int index3 = -1).
 5.3 Output
 ----------
 
-The output comes in form of a ROOT file which contains the following
+The output in the provided examples comes in form of a ROOT file which contains the following
 trees: 
 
 * TreeMeasured | the measured particles.

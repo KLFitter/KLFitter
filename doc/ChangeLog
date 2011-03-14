@@ -1,5 +1,11 @@
 2011-03-14 Johannes Erdmann <johannes.erdmann@cern.ch>
 
+	* restructuring the package: making two libraries (library and extras)
+	* Makefile clean-up in example/top_ljets
+	* tag KLFitter-00-04-00
+
+2011-03-14 Johannes Erdmann <johannes.erdmann@cern.ch>
+
 	* merging back from KLFitter-00-03-42-branch
 	* optimize LikelihoodTopLeptonJets (possible by taking out eta and phi parameters for jets)
 	* add LikelihoodTopLeptonsJets_JetAngles (which is the old LikelihoodTopLeptonJets)
