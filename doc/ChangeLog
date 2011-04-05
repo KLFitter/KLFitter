@@ -1,7 +1,7 @@
 2011-04-05 Johannes Erdmann <johannes.erdmann@cern.ch>, Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
 
 	* extras/src/InterfaceRoot.cxx: Files in input.txt can also be separated by ',' which is very useful for grid usage
-	* Makefile
+	* Makefile : updates for more convenience
 
 2011-03-14 Johannes Erdmann <johannes.erdmann@cern.ch>
 

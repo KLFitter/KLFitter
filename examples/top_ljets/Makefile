@@ -46,11 +46,13 @@ ifeq ($(MACHINE), $(MAC))
 endif
 
 $(CXXOBJS) : $(CXXSRCS) $(KLFITTERLIBSO)
-	cd $(KLFITTERDIR) && $(MAKE) extras
 	$(CXX) $(CXXFLAGS) $(LIBS) $< -o $@
 	@if [ "$(MACHINE)" == "$(MAC)" ]; then if [ ! -e $(LIBLINK) ]; then $(LN) $(KLFITTERLIBSO) $(LIBLINK) ; fi; fi
 
-$(KLFITTERLIBSO):
+$(KLFITTERLIBSO): update-lib
+
+update-lib:
+	cd $(KLFITTERDIR) && $(MAKE) extras
 
 clean :
 	$(RM) $(GARBAGE)
