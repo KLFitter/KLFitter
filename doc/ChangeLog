@@ -2,7 +2,8 @@
 
 	* extras/src/InterfaceRoot.cxx: Files in input.txt can also be separated by ',' which is very useful for grid usage
 	* Makefile : updates for more convenience
-
+	* tag KLFitter-00-04-01
+	
 2011-03-14 Johannes Erdmann <johannes.erdmann@cern.ch>
 
 	* restructuring the package: making two libraries (library and extras)
