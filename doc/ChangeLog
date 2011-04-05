@@ -2,7 +2,14 @@
 
 	* extras/src/InterfaceRoot.cxx: Files in input.txt can also be separated by ',' which is very useful for grid usage
 	* Makefile : updates for more convenience
-	* tag KLFitter-00-04-01
+	* tag KLFitter-00-04-02
+
+2011-03-14 Johannes Erdmann <johannes.erdmann@cern.ch> 
+
+	* remove include and src directories 
+	* add enums to LikelihoodTopLeptonJets_JetAngles 
+	* fix main Makefile 
+	* tag KLFitter-00-04-01 
 	
 2011-03-14 Johannes Erdmann <johannes.erdmann@cern.ch>
 
