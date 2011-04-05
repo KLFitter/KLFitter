@@ -21,10 +21,14 @@ $(LIB_EXTRAS): $(LIBDIR_EXTRAS)/$(LIB_EXTRAS) $(LIB)
 	$(RM) $@
 	$(LN) $<
 
-$(LIBDIR)/$(LIB):
+$(LIBDIR)/$(LIB): update-lib
+
+$(LIBDIR_EXTRAS)/$(LIB_EXTRAS): update-extras
+
+update-lib:
 	cd $(LIBDIR) && $(MAKE)
 
-$(LIBDIR_EXTRAS)/$(LIB_EXTRAS):
+update-extras:
 	cd $(LIBDIR_EXTRAS) && $(MAKE)
 
 clean:
