@@ -85,18 +85,36 @@ std::vector<std::string> KLFitter::InterfaceRoot::ReadInputFiles(const char * fi
   // reset parameters 
   std::vector<std::string> filenameVec; 
   std::string name = "empty";
-	 
-  // read parameters 
-  //for (int i = 0; i < nfiles; ++i)
-  while(!inputfile.eof())
+	
+	// Read in, in case input files are separeted with "," 
+  // read a string via file since long string causes memory error in CINT when it is read via stdin
+  std::string argStr;
+  std::ifstream ifs(filename);
+  std::getline(ifs,argStr);
+
+	// split by ','
+  for (size_t i=0,n; i <= argStr.length(); i=n+1)
     {
-      name = ""; 
-      inputfile >> name;
-			if(name.size()==0)
-				break;
-      filenameVec.push_back(name); 
+      n = argStr.find_first_of(',',i);
+      if (n == std::string::npos && filenameVec.size()!=0) //end of file
+				n = argStr.length();
+			else if(n == std::string::npos) //either only one entry or separated by line
+        break;
+      std::string tmp = argStr.substr(i,n-i);
+      filenameVec.push_back(tmp);
     }
 	
+	//If there are no "," read in line by line
+	if(filenameVec.size() ==0){
+  	while(!inputfile.eof())
+    	{
+      	name = ""; 
+      	inputfile >> name;
+				if(name.size()==0)
+					break;
+      	filenameVec.push_back(name); 
+    	}
+	}	
 	// close file 
   inputfile.close();    
 
