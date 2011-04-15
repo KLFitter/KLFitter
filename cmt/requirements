@@ -1,0 +1,34 @@
+package KLFitter
+
+## authors of KLFitter
+author K. Kroeninger <Kevin.Alexander.Kroeninger@cern.ch>
+author J. Erdmann <johannes.erdmann@cern.ch>
+author O. Nackenhorst <olaf.nackenhorst@cern.ch>
+
+## author of cmt-based and stand-alone compilation
+author V. Kaushik <venkat.kaushik@cern.ch>
+
+##############################################################
+
+private
+apply_tag  ROOTBasicLibs
+apply_tag  ROOTMathLibs
+apply_tag  ROOTSTLDictLibs
+apply_tag  ROOTGraphicsLibs
+apply_tag  ROOTTableLibs
+end_private
+
+public
+use AtlasPolicy        AtlasPolicy-*
+use AtlasROOT          AtlasROOT-*      External
+use BAT                BAT-*            External
+
+
+###############################################################
+#  library: libKLFitter
+###############################################################
+library  KLFitter  $(lib_opts) "*.cxx"
+
+apply_pattern declare_runtime extras="../transferfunctions*"
+
+
