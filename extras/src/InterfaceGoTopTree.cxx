@@ -1,5 +1,5 @@
-#include "InterfaceGoTopTree.h" 
-#include "Particles.h"
+#include "../include/InterfaceGoTopTree.h" 
+#include "KLFitter/Particles.h"
 
 #include <TLorentzVector.h>
 

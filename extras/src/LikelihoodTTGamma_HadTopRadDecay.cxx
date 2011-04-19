@@ -1,5 +1,5 @@
-#include "LikelihoodTTGamma_HadTopRadDecay.h" 
-#include "LikelihoodTopLeptonJets.h" 
+#include "../include/LikelihoodTTGamma_HadTopRadDecay.h" 
+#include "KLFitter/LikelihoodTopLeptonJets.h" 
 
 // --------------------------------------------------------- 
 KLFitter::LikelihoodTTGamma_HadTopRadDecay::LikelihoodTTGamma_HadTopRadDecay()

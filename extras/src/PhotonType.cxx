@@ -1,5 +1,5 @@
-#include "PhotonType.h" 
-#include "Particles.h"
+#include "../include/PhotonType.h" 
+#include "KLFitter/Particles.h"
 
 #include <iostream>
 

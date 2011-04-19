@@ -18,7 +18,7 @@
 
 // --------------------------------------------------------- 
 
-#include "Particles.h"
+#include "KLFitter/Particles.h"
 
 #include <vector>
 

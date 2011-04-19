@@ -1,4 +1,4 @@
-#include "LikelihoodTTGamma_LepWRadDecay.h" 
+#include "../include/LikelihoodTTGamma_LepWRadDecay.h" 
 
 // --------------------------------------------------------- 
 KLFitter::LikelihoodTTGamma_LepWRadDecay::LikelihoodTTGamma_LepWRadDecay()

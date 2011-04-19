@@ -1,9 +1,9 @@
-#include "InterfaceOutput.h" 
-#include "LikelihoodBase.h"
-#include "Fitter.h" 
-#include "MatchingTool.h" 
-#include "SelectionTool.h" 
-#include "Permutations.h" 
+#include "../include/InterfaceOutput.h" 
+#include "KLFitter/LikelihoodBase.h"
+#include "KLFitter/Fitter.h" 
+#include "../include/MatchingTool.h" 
+#include "../include/SelectionTool.h" 
+#include "KLFitter/Permutations.h" 
 
 #include <TFile.h>
 #include <TTree.h> 

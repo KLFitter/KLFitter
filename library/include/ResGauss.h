@@ -15,7 +15,7 @@
 #ifndef RESGAUSS
 #define RESGAUSS
 
-#include "ResolutionBase.h" 
+#include "KLFitter/ResolutionBase.h" 
 
 // --------------------------------------------------------- 
 

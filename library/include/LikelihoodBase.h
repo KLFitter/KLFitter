@@ -13,8 +13,8 @@
 
 // --------------------------------------------------------- 
 
-#include "PREPROC.h"
-#include "Particles.h" 
+#include "KLFitter/PREPROC.h"
+#include "KLFitter/Particles.h" 
 
 #include "BAT/BCModel.h"
 

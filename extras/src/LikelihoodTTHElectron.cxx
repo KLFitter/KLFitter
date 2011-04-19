@@ -1,8 +1,8 @@
-#include "LikelihoodTTHElectron.h" 
-#include "ResolutionBase.h"
-#include "PhysicsConstants.h"
-#include "Permutations.h"
-#include "DetectorBase.h"
+#include "../include/LikelihoodTTHElectron.h" 
+#include "KLFitter/ResolutionBase.h"
+#include "KLFitter/PhysicsConstants.h"
+#include "KLFitter/Permutations.h"
+#include "KLFitter/DetectorBase.h"
 
 #include <iostream> 
 #include <BAT/BCMath.h> 

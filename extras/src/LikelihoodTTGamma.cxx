@@ -1,6 +1,6 @@
-#include "LikelihoodTTGamma.h" 
-#include "DetectorBase.h"
-#include "ResolutionBase.h"
+#include "../include/LikelihoodTTGamma.h" 
+#include "KLFitter/DetectorBase.h"
+#include "KLFitter/ResolutionBase.h"
 
 // --------------------------------------------------------- 
 KLFitter::LikelihoodTTGamma::LikelihoodTTGamma() : KLFitter::LikelihoodTopLeptonJets::LikelihoodTopLeptonJets()
