@@ -17,6 +17,7 @@ ROOTLIBS   = $(shell root-config --libs) -lMinuit
 
 BATCFLAGS = -I$(BATINSTALLDIR)
 BATLIBS   = -L$(BATINSTALLDIR)/lib -lBAT
+KLFITTERLIBS = -L.. -lKLFitter
 
 SRC = $(wildcard $(SRCDIR)/*.cxx)
 OBJ = $(SRC:$(SRCDIR)/%.cxx=$(OBJDIR)/%.o) $(wildcard ../libary/obj/*.o)
@@ -35,7 +36,7 @@ CXXFLAGS = $(ROOTCFLAGS) $(BATCFLAGS) -I$/$(INCDIR) -I$/$(BASEINCDIR) -Wall -Wno
 ifneq ($(MACHINE), $(MAC))
 	CXXFLAGS += -fPIC
 endif
-LIBS     = $(ROOTLIBS) $(BATLIBS)
+LIBS     = $(ROOTLIBS) $(BATLIBS) $(KLFITTERLIBS)
 
 # rule for shared library
 $(LIBSO) : $(OBJ)

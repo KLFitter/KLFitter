@@ -1,3 +1,8 @@
+2011-04-19 Johannes Erdmann <johannes.erdmann@cern.ch>
+
+	* Makefile updates for MAC
+	* 
+
 2011-04-05 Johannes Erdmann <johannes.erdmann@cern.ch>, Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
 
 	* extras/src/InterfaceRoot.cxx: Files in input.txt can also be separated by ',' which is very useful for grid usage

@@ -15,11 +15,13 @@ BATLIBS   = -L$(BATINSTALLDIR)/lib -lBAT
 KLFITTERDIR     = ../..
 KLFITTERINCLUDE = $(KLFITTERDIR)/library/include
 KLFITTERINCLUDE_EXTRAS = $(KLFITTERDIR)/extras/include
-KLFITTERLIBS    = -L$(KLFITTERDIR) -lKLFitter -lKLFitterExtras
+KLFITTERLIBS    = -L$(KLFITTERDIR) -lKLFitter -L$(KLFITTERDIR) -lKLFitterExtras
 ifneq ($(MACHINE), $(MAC))
-	KLFITTERLIBSO = $(KLFITTERDIR)/libKLFitter.so $(KLFITTERDIR)/libKLFitterExtras.so
+	KLFITTERLIBSO = $(KLFITTERDIR)/libKLFitter.so
+	KLFITTERLIBSO_EXTRAS = $(KLFITTERDIR)/libKLFitterExtras.so
 else
-	KLFITTERLIBSO = $(KLFITTERDIR)/libKLFitter.dylib $(KLFITTERDIR)/libKLFitterExtras.dylib
+	KLFITTERLIBSO = $(KLFITTERDIR)/libKLFitter.dylib
+	KLFITTERLIBSO_EXTRAS = $(KLFITTERDIR)/libKLFitterExtras.dylib
 endif
 
 # Programs
@@ -39,20 +41,23 @@ LIBS      = $(ROOTLIBS) $(BATLIBS) $(KLFITTERLIBS)
 # files
 CXXSRCS   = runKLFitter.c
 CXXOBJS   = runKLFitter.exe
-GARBAGE   = $(CXXOBJS)
 ifeq ($(MACHINE), $(MAC))
 	LIBLINK = libKLFitter.dylib
-	LIBLINK = libKLFitterExtras.dylib
+	LIBLINK_EXTRAS = libKLFitterExtras.dylib
 endif
+GARBAGE   = $(CXXOBJS) $(LIBLINK) $(LIBLINK_EXTRAS)
 
-$(CXXOBJS) : $(CXXSRCS) $(KLFITTERLIBSO)
+$(CXXOBJS) : $(CXXSRCS) $(KLFITTERLIBSO) $(KLFITTERLIBSO_EXTRAS)
 	$(CXX) $(CXXFLAGS) $(LIBS) $< -o $@
 	@if [ "$(MACHINE)" == "$(MAC)" ]; then if [ ! -e $(LIBLINK) ]; then $(LN) $(KLFITTERLIBSO) $(LIBLINK) ; fi; fi
+	@if [ "$(MACHINE)" == "$(MAC)" ]; then if [ ! -e $(LIBLINK_EXTRAS) ]; then $(LN) $(KLFITTERLIBSO_EXTRAS) $(LIBLINK_EXTRAS) ; fi; fi
 
-$(KLFITTERLIBSO): update-lib
+$(KLFITTERLIBSO) : $(KLFITTERLIBSO_EXTRAS)
+
+$(KLFITTERLIBSO_EXTRAS): update-lib
 
 update-lib:
-	cd $(KLFITTERDIR) && $(MAKE) extras
+	@cd $(KLFITTERDIR) && $(MAKE) extras
 
 clean :
 	$(RM) $(GARBAGE)

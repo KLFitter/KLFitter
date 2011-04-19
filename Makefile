@@ -1,17 +1,25 @@
+MACHINE = $(shell uname -s)
+LINUX   = Linux
+MAC     = Darwin
+
 LN = ln -s
 RM = rm -rf
 
-LIB = libKLFitter.so
+ifneq ($(MACHINE), $(MAC))
+	LIB = libKLFitterExtras.so
+	LIB_EXTRAS = libKLFitterExtras.so
+else
+	LIB = libKLFitter.dylib
+	LIB_EXTRAS = libKLFitterExtras.dylib
+endif
 LIBDIR = library
-
-LIB_EXTRAS = libKLFitterExtras.so
 LIBDIR_EXTRAS = extras
 
 GARBAGE = $(LIB) $(LIB_EXTRAS)
 
 library: $(LIB)
 
-extras: $(LIB_EXTRAS) $(LIB)
+extras: $(LIB) $(LIB_EXTRAS)
 
 $(LIB): $(LIBDIR)/$(LIB)
 	$(RM) $@
@@ -26,10 +34,10 @@ $(LIBDIR)/$(LIB): update-lib
 $(LIBDIR_EXTRAS)/$(LIB_EXTRAS): update-extras
 
 update-lib:
-	cd $(LIBDIR) && $(MAKE)
+	@cd $(LIBDIR) && $(MAKE)
 
 update-extras:
-	cd $(LIBDIR_EXTRAS) && $(MAKE)
+	@cd $(LIBDIR_EXTRAS) && $(MAKE)
 
 clean:
 	$(RM) $(GARBAGE)
