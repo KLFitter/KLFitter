@@ -27,7 +27,18 @@ use BAT                BAT-*            External
 ###############################################################
 #  library: libKLFitter
 ###############################################################
-library  KLFitter  $(lib_opts) "*.cxx"
+
+
+#
+# Set up the rules to use the stand-alone KLFitterCore library:
+#
+macro KLFitter_dir "../library"
+macro KLFitter_include_dir "$(KLFitter_dir)/include"
+
+include_path none
+include_dirs "$(KLFitter_include_dir)"
+
+library  KLFitter  "$(KLFitter_dir)/src/*.cxx"
 
 macro          KLFitter_shlibflags        "$($(ROOTSYS)/bin/root-config --libs)"
 macro_append   KLFitter_shlibflags        " -lBAT"
@@ -36,18 +47,20 @@ macro_append   KLFitter_shlibflags        " -L$(ROOTSYS)/lib -lTreePlayer -lMinu
 
 ###############################################################
 #  library: libKLFitterExtras
-###############################################################
+##############################################################
 
-library  KLFitterExtras "../extras/src/*.cxx"
+macro KLFitterExtras_dir "../extras"
+macro KLFitterExtras_include_dir "$(KLFitterExtras_dir)/include"
+
+include_path none
+include_dirs "$(KLFitterExtras_include_dir)"
+
+library  KLFitterExtras "$(KLFitterExtras_dir)/src/*.cxx"
 
 ## remove virtual function hidden by another warning
 macro_remove cppflags "-Woverloaded-virtual"
 
 macro          KLFitterExtras_shlibflags         $(KLFitter_shlibflags)
-
-#macro          KLFitterExtras_shlibflags        "$($(ROOTSYS)/bin/root-config --libs)"
-#macro_append   KLFitterExtras_shlibflags        " -lKLFitter -lBAT"
-#macro_append   KLFitterExtras_shlibflags        " -L$(ROOTSYS)/lib -lTreePlayer -lMinuit -lMinuit2 -lPhysics"
 
 ###############################################################
 #  application: runKLFitter.exe

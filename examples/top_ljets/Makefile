@@ -39,7 +39,7 @@ endif
 LIBS      = $(ROOTLIBS) $(BATLIBS) $(KLFITTERLIBS)
 
 # files
-CXXSRCS   = runKLFitter.c
+CXXSRCS   = runKLFitter.cxx
 CXXOBJS   = runKLFitter.exe
 ifeq ($(MACHINE), $(MAC))
 	LIBLINK = libKLFitter.dylib
