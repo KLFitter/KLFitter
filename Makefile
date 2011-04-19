@@ -6,7 +6,7 @@ LN = ln -s
 RM = rm -rf
 
 ifneq ($(MACHINE), $(MAC))
-	LIB = libKLFitterExtras.so
+	LIB = libKLFitter.so
 	LIB_EXTRAS = libKLFitterExtras.so
 else
 	LIB = libKLFitter.dylib
