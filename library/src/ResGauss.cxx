@@ -1,4 +1,4 @@
-#include "KLFitter/ResGauss.h" 
+#include "ResGauss.h" 
 #include <TMath.h>
 #include <iostream>
 

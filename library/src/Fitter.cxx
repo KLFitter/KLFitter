@@ -1,8 +1,8 @@
-#include "KLFitter/Fitter.h"
-#include "KLFitter/DetectorBase.h" 
-#include "KLFitter/LikelihoodBase.h" 
-#include "KLFitter/Permutations.h" 
-#include "KLFitter/Particles.h" 
+#include "Fitter.h"
+#include "DetectorBase.h" 
+#include "LikelihoodBase.h" 
+#include "Permutations.h" 
+#include "Particles.h" 
 
 #include <iostream> 
 

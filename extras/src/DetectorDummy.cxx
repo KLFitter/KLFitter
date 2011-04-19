@@ -1,6 +1,6 @@
-#include "../include/DetectorDummy.h" 
-#include "KLFitter/ResolutionBase.h"
-#include "KLFitter/ResGauss.h"
+#include "DetectorDummy.h" 
+#include "ResolutionBase.h"
+#include "ResGauss.h"
 
 // --------------------------------------------------------- 
 

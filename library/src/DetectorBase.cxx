@@ -1,5 +1,5 @@
-#include "KLFitter/DetectorBase.h" 
-#include "KLFitter/ResolutionBase.h"
+#include "DetectorBase.h" 
+#include "ResolutionBase.h"
 #include <iostream> 
 
 // --------------------------------------------------------- 

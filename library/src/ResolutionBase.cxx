@@ -1,4 +1,4 @@
-#include "KLFitter/ResolutionBase.h" 
+#include "ResolutionBase.h" 
 #include <iostream>
 #include <fstream>
 

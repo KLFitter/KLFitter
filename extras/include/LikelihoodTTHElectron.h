@@ -15,8 +15,8 @@
 
 // --------------------------------------------------------- 
 
-#include "KLFitter/PREPROC.h"
-#include "KLFitter/LikelihoodBase.h" 
+#include "PREPROC.h"
+#include "LikelihoodBase.h" 
 
 // --------------------------------------------------------- 
 

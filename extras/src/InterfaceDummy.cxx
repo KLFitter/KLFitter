@@ -1,4 +1,4 @@
-#include "../include/InterfaceDummy.h" 
+#include "InterfaceDummy.h" 
 #include <iostream> 
 
 // --------------------------------------------------------- 

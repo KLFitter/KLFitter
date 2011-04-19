@@ -15,10 +15,10 @@
 
 // --------------------------------------------------------- 
 
-#include "KLFitter/PREPROC.h"
-#include "KLFitter/LikelihoodBase.h" 
+#include "PREPROC.h"
+#include "LikelihoodBase.h" 
 #include "TLorentzVector.h"
-#include "KLFitter/ResolutionBase.h"
+#include "ResolutionBase.h"
 
 #include <iostream>
 

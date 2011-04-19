@@ -1,4 +1,4 @@
-#include "../include/LikelihoodTTGamma_RadTopProd.h" 
+#include "LikelihoodTTGamma_RadTopProd.h" 
 
 // --------------------------------------------------------- 
 KLFitter::LikelihoodTTGamma_RadTopProd::LikelihoodTTGamma_RadTopProd()

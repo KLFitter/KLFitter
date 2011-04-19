@@ -16,8 +16,8 @@
 
 // --------------------------------------------------------- 
 
-#include "../include/InterfaceRoot.h" 
-#include "KLFitter/Particles.h" 
+#include "InterfaceRoot.h" 
+#include "Particles.h" 
 
 #include <string>
 

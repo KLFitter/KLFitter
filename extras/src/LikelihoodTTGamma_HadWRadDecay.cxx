@@ -1,4 +1,4 @@
-#include "../include/LikelihoodTTGamma_HadWRadDecay.h" 
+#include "LikelihoodTTGamma_HadWRadDecay.h" 
 #include <vector>
 
 // --------------------------------------------------------- 

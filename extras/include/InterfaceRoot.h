@@ -15,8 +15,8 @@
 
 // --------------------------------------------------------- 
 
-#include "KLFitter/PREPROC.h"
-#include "../include/InterfaceBase.h" 
+#include "PREPROC.h"
+#include "InterfaceBase.h" 
 
 #include <TROOT.h>
 #include <fstream>

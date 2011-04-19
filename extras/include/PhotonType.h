@@ -15,7 +15,7 @@
 #ifndef PHOTONTYPE
 #define PHOTONTYPE
 
-#include "KLFitter/PhysicsConstants.h"
+#include "PhysicsConstants.h"
 #include <cmath>
 #include <TLorentzVector.h>
 

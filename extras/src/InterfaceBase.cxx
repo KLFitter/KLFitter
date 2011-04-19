@@ -1,5 +1,5 @@
-#include "../include/InterfaceBase.h" 
-#include "KLFitter/Particles.h" 
+#include "InterfaceBase.h" 
+#include "Particles.h" 
 
 // --------------------------------------------------------- 
 KLFitter::InterfaceBase::InterfaceBase() :

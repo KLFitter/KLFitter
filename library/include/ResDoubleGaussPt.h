@@ -16,7 +16,7 @@
 #define RESDOUBLEGAUSSPT
 
 #include <vector>
-#include "KLFitter/ResolutionBase.h" 
+#include "ResolutionBase.h" 
 
 // --------------------------------------------------------- 
 

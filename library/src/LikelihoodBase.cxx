@@ -1,7 +1,7 @@
-#include "KLFitter/LikelihoodBase.h" 
-#include "KLFitter/PhysicsConstants.h" 
-#include "KLFitter/Permutations.h" 
-#include "KLFitter/DetectorBase.h" 
+#include "LikelihoodBase.h" 
+#include "PhysicsConstants.h" 
+#include "Permutations.h" 
+#include "DetectorBase.h" 
 
 #include "BAT/BCLog.h" 
 

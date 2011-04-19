@@ -1,5 +1,5 @@
-#include "../include/InterfaceStructNtup.h" 
-#include "KLFitter/Particles.h"
+#include "InterfaceStructNtup.h" 
+#include "Particles.h"
 
 #include <TLorentzVector.h>
 

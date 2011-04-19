@@ -15,8 +15,8 @@
 
 // --------------------------------------------------------- 
 
-#include "KLFitter/PREPROC.h"
-#include "KLFitter/LikelihoodTopLeptonJets.h" 
+#include "PREPROC.h"
+#include "LikelihoodTopLeptonJets.h" 
 
 // --------------------------------------------------------- 
 

@@ -1,4 +1,4 @@
-#include "../include/ReadConfigFile.h" 
+#include "ReadConfigFile.h" 
 #include <iostream> 
 #include <cmath>
 #include <fstream>

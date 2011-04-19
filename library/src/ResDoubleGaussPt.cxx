@@ -1,5 +1,5 @@
-#include "KLFitter/ResDoubleGaussPt.h" 
-#include "KLFitter/ResDoubleGaussE_1.h"
+#include "ResDoubleGaussPt.h" 
+#include "ResDoubleGaussE_1.h"
 #include <iostream>
 #include <cmath>
 

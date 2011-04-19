@@ -1,10 +1,10 @@
-#include "../include/DetectorAtlas_10TeV.h" 
-#include "KLFitter/ResolutionBase.h" 
-#include "KLFitter/ResDoubleGaussPt.h" 
-#include "KLFitter/ResDoubleGaussE_1.h"
-#include "KLFitter/ResDoubleGaussE_2.h" 
-#include "KLFitter/ResDoubleGaussE_3.h" 
-#include "KLFitter/ResGauss.h"
+#include "DetectorAtlas_10TeV.h" 
+#include "ResolutionBase.h" 
+#include "ResDoubleGaussPt.h" 
+#include "ResDoubleGaussE_1.h"
+#include "ResDoubleGaussE_2.h" 
+#include "ResDoubleGaussE_3.h" 
+#include "ResGauss.h"
 
 #include "TString.h"
 

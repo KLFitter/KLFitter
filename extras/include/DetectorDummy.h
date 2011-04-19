@@ -13,7 +13,7 @@
 #ifndef DETECTORDUMMY
 #define DETECTORDUMMY
 
-#include "KLFitter/DetectorBase.h"
+#include "DetectorBase.h"
 #include <string>
 
 // --------------------------------------------------------- 

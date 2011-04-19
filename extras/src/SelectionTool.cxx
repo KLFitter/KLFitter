@@ -1,4 +1,4 @@
-#include "../include/SelectionTool.h" 
+#include "SelectionTool.h" 
 #include <iostream> 
 
 // --------------------------------------------------------- 
