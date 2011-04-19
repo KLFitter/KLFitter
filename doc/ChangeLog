@@ -1,7 +1,7 @@
 2011-04-19 Johannes Erdmann <johannes.erdmann@cern.ch>
 
 	* Makefile updates for MAC
-	* 
+	* Adding cmt directory and preparecmt.sh script
 
 2011-04-05 Johannes Erdmann <johannes.erdmann@cern.ch>, Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
 

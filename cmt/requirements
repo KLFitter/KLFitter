@@ -1,0 +1,66 @@
+package KLFitter
+
+## authors of KLFitter
+author K. Kroeninger <Kevin.Alexander.Kroeninger@cern.ch>
+author J. Erdmann <johannes.erdmann@cern.ch>
+author O. Nackenhorst <olaf.nackenhorst@cern.ch>
+
+## author of cmt-based compilation
+author V. Kaushik <venkat.kaushik@cern.ch>
+
+##############################################################
+
+private
+apply_tag  ROOTBasicLibs
+apply_tag  ROOTMathLibs
+apply_tag  ROOTSTLDictLibs
+apply_tag  ROOTGraphicsLibs
+apply_tag  ROOTTableLibs
+end_private
+
+public
+use AtlasPolicy        AtlasPolicy-*
+use AtlasROOT          AtlasROOT-*      External
+use BAT                BAT-*            External
+
+
+###############################################################
+#  library: libKLFitter
+###############################################################
+library  KLFitter  $(lib_opts) "*.cxx"
+
+macro          KLFitter_shlibflags        "$($(ROOTSYS)/bin/root-config --libs)"
+macro_append   KLFitter_shlibflags        " -lBAT"
+macro_append   KLFitter_shlibflags        " -L$(ROOTSYS)/lib -lTreePlayer -lMinuit -lMinuit2 -lPhysics"
+
+
+###############################################################
+#  library: libKLFitterExtras
+###############################################################
+
+library  KLFitterExtras "../extras/src/*.cxx"
+
+## remove virtual function hidden by another warning
+macro_remove cppflags "-Woverloaded-virtual"
+
+macro          KLFitterExtras_shlibflags         $(KLFitter_shlibflags)
+
+#macro          KLFitterExtras_shlibflags        "$($(ROOTSYS)/bin/root-config --libs)"
+#macro_append   KLFitterExtras_shlibflags        " -lKLFitter -lBAT"
+#macro_append   KLFitterExtras_shlibflags        " -L$(ROOTSYS)/lib -lTreePlayer -lMinuit -lMinuit2 -lPhysics"
+
+###############################################################
+#  application: runKLFitter.exe
+###############################################################
+
+application runKLFitter -no_prototypes "../examples/top_ljets/runKLFitter.cxx"
+
+
+macro       runKLFitterlinkopts      "$($(ROOTSYS)/bin/root-config --libs) \
+                                     -lm $(KLFitter_shlibflags) \
+                                     -lKLFitter -lKLFitterExtras "
+
+
+
+apply_pattern declare_runtime extras="../transferfunctions*"
+
