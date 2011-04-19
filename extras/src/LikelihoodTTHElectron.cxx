@@ -274,11 +274,11 @@ int KLFitter::LikelihoodTTHElectron::RemoveInvariantParticlePermutations()
   // remove the permutation from the muons
   ptype = KLFitter::Particles::kMuon;
   KLFitter::Particles * particles = (*fPermutations) -> Particles();
-  int indexArray_Muons[particles->NMuons()];
+  std::vector<int> indexArray_Muons(particles->NMuons(), 0);
   for (int iMuon = 0; iMuon < particles->NMuons(); iMuon++)
     indexArray_Muons[iMuon] = iMuon;
-  std::vector<int> indexVector_Muons(indexArray_Muons, indexArray_Muons + sizeof(indexArray_Muons)/sizeof(int));
-  err *= (*fPermutations) -> InvariantParticlePermutations(ptype, indexVector_Muons); 
+  //std::vector<int> indexVector_Muons(indexArray_Muons, indexArray_Muons + sizeof(indexArray_Muons)/sizeof(int));
+  err *= (*fPermutations) -> InvariantParticlePermutations(ptype, indexArray_Muons); 
 
   // return error code 
   return err; 
