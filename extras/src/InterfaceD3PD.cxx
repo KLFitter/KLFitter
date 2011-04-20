@@ -322,6 +322,8 @@ int KLFitter::InterfaceD3PD::FillParticles()
 	// fill jets
 	for (int i = 0; i < topJet_n; ++i){
 		if ( topJet_use->at(i) ){
+                  if (jet_E->at(topJet_index->at(i)) <= 0.)
+                    continue;
   		TLorentzVector * tmp = new TLorentzVector(0,0,0,0);
   		tmp->SetPtEtaPhiE(jet_pt ->at(topJet_index->at(i)) / 1000. , 
   										jet_eta->at(topJet_index->at(i)), 
@@ -336,6 +338,8 @@ int KLFitter::InterfaceD3PD::FillParticles()
 	//fill electrons
   for (int i = 0; i < topEl_n; ++i){
   	if ( topEl_use->at(i) && topEl_inTrigger->at(i) ){
+          if (el_E->at(topEl_index->at(i)) <= 0.)
+            continue;
       TLorentzVector * tmp = new TLorentzVector(0,0,0,0);
       tmp->SetPtEtaPhiE((el_E ->at(topEl_index->at(i)) / 1000.) / cosh(el_eta->at(topEl_index->at(i))),
                         el_eta->at(topEl_index->at(i)),
@@ -349,6 +353,8 @@ int KLFitter::InterfaceD3PD::FillParticles()
   // fill muons
   for (int i = 0; i < topMu_n; ++i){
   	if ( topMu_use->at(i)){ 
+          if (mu_E->at(topMu_index->at(i)) <= 0.)
+            continue;
       fParticles->AddParticle(new TLorentzVector(mu_px->at(topMu_index->at(i)) / 1000., 
                                                  mu_py->at(topMu_index->at(i)) / 1000., 
                                                  mu_pz->at(topMu_index->at(i)) / 1000., 
