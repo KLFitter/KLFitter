@@ -187,8 +187,8 @@ int main(int argc, char **argv)
       myInterfaceOutput -> FillTreeMap(); 
 
       if (firstevent) {
-        std::cout << "----------------------------------------------------------------------" << std::endl;
-        std::cout << "FIT RESULTS FOR THE FIRST EVENT" << std::endl;
+        printf("----------------------------------------------------------------------------------------------\n");
+				printf("--------------------------------FIT RESULTS FOR THE FIRST EVENT-------------------------------\n");
       }
 
       // loop over all permutations 
@@ -200,20 +200,36 @@ int main(int argc, char **argv)
           myInterfaceOutput -> FillTreeModelPermutation();
 
           if (firstevent) {
-            std::cout << "----------" << std::endl;
-            std::cout << "PERMUTATION NO. " << iperm << std::endl;
-            std::cout << "log(likelihood) ................................. : " << myFitter->Likelihood()->LogLikelihood(myFitter->Likelihood()->GetBestFitParameters()) << std::endl;
-            std::cout << "event probability (not normalized!).............. : " << exp(myFitter->Likelihood()->LogEventProbability()) << std::endl;
-            unsigned int ConvergenceStatusBitWord = myFitter->ConvergenceStatus();
-            std::cout << "convergence: MinuitDidNotConverge ............... : " << bool((ConvergenceStatusBitWord & KLFitter::Fitter::MinuitDidNotConvergeMask) != 0) << std::endl;
-            std::cout << "convergence: FitAbortedDueToNaN ................. : " << bool((ConvergenceStatusBitWord & KLFitter::Fitter::FitAbortedDueToNaNMask) != 0) << std::endl;
-            std::cout << "convergence: AtLeastOneFitParameterAtItsLimit ... : " << bool((ConvergenceStatusBitWord & KLFitter::Fitter::AtLeastOneFitParameterAtItsLimitMask) != 0) << std::endl;
-            std::cout << "convergence: InvalidTransferFunctionAtConvergence : " << bool((ConvergenceStatusBitWord & KLFitter::Fitter::InvalidTransferFunctionAtConvergenceMask) != 0) << std::endl;
-            std::vector<double> Parameters = myFitter->Likelihood()->GetBestFitParameters();
-            std::vector<double> ParameterErrors = myFitter->Likelihood()->GetBestFitParameterErrors();
-            std::cout << "fit parameter : central top mass value .......... : " << Parameters[KLFitter::LikelihoodTopLeptonJets::parTopM] << " +- " << ParameterErrors[KLFitter::LikelihoodTopLeptonJets::parTopM] << std::endl;
-            std::cout << "fit parameter : neutrino pz ..................... : " << Parameters[KLFitter::LikelihoodTopLeptonJets::parNuPz] << " +- " << ParameterErrors[KLFitter::LikelihoodTopLeptonJets::parNuPz]<< std::endl;
-          }
+						KLFitter::Particles * OutputParticles = myFitter->Likelihood()->ParticlesModel(); 
+  					KLFitter::Particles * InputParticles = *myFitter->Likelihood()->PParticlesPermuted();
+						std::vector<double> Par = myFitter->Likelihood()->GetBestFitParameters();
+            std::vector<double> ParErrors = myFitter->Likelihood()->GetBestFitParameterErrors();
+						unsigned int ConvergenceStatusBitWord = myFitter->ConvergenceStatus();
+						printf("----------------------------------------------------------------------------------------------\n");
+						printf("----------------------------------------Permutation %2i----------------------------------------\n",iperm);
+						printf("----------------------------------------------------------------------------------------------\n");
+						printf("                  | hadronic b quark | leptonic b quark  |  light quark 1   |  light quark 2  |\n");
+						printf("Input Energies    | %16.2f | %17.2f | %16.2f | %15.2f |\n",
+						InputParticles->Parton(0)->E(), InputParticles->Parton(1)->E(),
+						InputParticles->Parton(2)->E(), InputParticles->Parton(3)->E() );
+						printf("Output Energies   | %16.2f | %17.2f | %16.2f | %15.2f |\n",
+						OutputParticles->Parton(0)->E(), OutputParticles->Parton(1)->E(),
+						OutputParticles->Parton(2)->E(), OutputParticles->Parton(3)->E() );
+						printf("----------------------------------------------------------------------------------------------\n");
+						printf("                  |  Log(Likelihood) | Event Probability |   Top Pole Mass  |   Neutrino pz   |\n");
+						printf("Fitting Variables | %16.2f | %17.2f | %6.2f +- %6.2f | %5.2f +- %4.2f |\n",
+						myFitter->Likelihood()->LogLikelihood(myFitter->Likelihood()->GetBestFitParameters()),
+						exp(myFitter->Likelihood()->LogEventProbability()),
+						Par[KLFitter::LikelihoodTopLeptonJets::parTopM],ParErrors[KLFitter::LikelihoodTopLeptonJets::parTopM],
+						Par[KLFitter::LikelihoodTopLeptonJets::parNuPz],ParErrors[KLFitter::LikelihoodTopLeptonJets::parNuPz]);
+						printf("----------------------------------------------------------------------------------------------\n");
+						printf("                  | Minuit Not Conv. | Fit Aborted: NaN  | >=1 Par at Limit | Invalid TF@Conv.|\n");
+						printf("Status Code       | %16i | %17i | %16i | %15i |\n",
+						bool((ConvergenceStatusBitWord & KLFitter::Fitter::MinuitDidNotConvergeMask) != 0), 
+						bool((ConvergenceStatusBitWord & KLFitter::Fitter::FitAbortedDueToNaNMask) != 0),
+						bool((ConvergenceStatusBitWord & KLFitter::Fitter::AtLeastOneFitParameterAtItsLimitMask) != 0),
+						bool((ConvergenceStatusBitWord & KLFitter::Fitter::InvalidTransferFunctionAtConvergenceMask) != 0));
+				    }
            
         }
 
@@ -222,7 +238,7 @@ int main(int argc, char **argv)
 
       // do not print following events
       if (firstevent) {
-        std::cout << "----------------------------------------------------------------------" << std::endl;
+        printf("----------------------------------------------------------------------------------------------\n");
         firstevent = false;
       }
   }
