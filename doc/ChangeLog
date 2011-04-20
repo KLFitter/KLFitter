@@ -1,7 +1,8 @@
-2011-04-20 Johannes Erdmann <johannes.erdmann@cern.ch>
+2011-04-20 Johannes Erdmann <johannes.erdmann@cern.ch>, Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
 
 	* make minimization method in Fitter configurable
 	* changes for the example in top_ljets (print-out in first event)
+	* tag KLFitter-00-04-06
 	
 2011-04-20 Johannes Erdmann <johannes.erdmann@cern.ch>
 
