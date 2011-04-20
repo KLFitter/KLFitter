@@ -217,7 +217,7 @@ int main(int argc, char **argv)
 						OutputParticles->Parton(2)->E(), OutputParticles->Parton(3)->E() );
 						printf("----------------------------------------------------------------------------------------------\n");
 						printf("                  |  Log(Likelihood) | Event Probability |   Top Pole Mass  |   Neutrino pz   |\n");
-						printf("Fitting Variables | %16.2f | %17.2E | %6.2f +- %6.2f | %5.2f +- %4.2f |\n",
+						printf("Fitting Variables | %16.2f | %17.2E | %6.2f +- %6.2f | %6.2f +- %5.2f |\n",
 						myFitter->Likelihood()->LogLikelihood(myFitter->Likelihood()->GetBestFitParameters()),
 						exp(myFitter->Likelihood()->LogEventProbability()),
 						Par[KLFitter::LikelihoodTopLeptonJets::parTopM],ParErrors[KLFitter::LikelihoodTopLeptonJets::parTopM],
