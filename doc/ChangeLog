@@ -1,3 +1,10 @@
+2011-04-20 Stefan Guindon <stefan.guindon@cern.ch>
+
+	* updated b-tagging to make sure no tops in loop over partons
+	* made b-tagging now enum, selecting which option to use
+	* added b-tagging option for working point with changeable efficiency and rejection rates
+	* tag KLFitter-00-04-04
+
 2011-04-20 Johannes Erdmann <johannes.erdmann@cern.ch>
 
 	* Makefile updates for MAC
