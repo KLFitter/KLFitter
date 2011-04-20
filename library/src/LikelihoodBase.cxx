@@ -16,10 +16,11 @@ KLFitter::LikelihoodBase::LikelihoodBase(Particles** particles) : BCModel(),
                                                                   fPhysicsConstants(new KLFitter::PhysicsConstants()),  
                                                                   fDetector(0),
                                                                   fEventProbability(std::vector<double>(0)),
-                                                                  fFlagBTagging(0),  
                                                                   fCutBTag(1e4),
                                                                   fFlagIntegrate(0),
-                                                                  fFlagIsNan(false)
+                                                                  fFlagIsNan(false),
+								  fbtagRej(-1),
+								  fbtagEff(-1)
   
 {
   BCLog::SetLogLevel(BCLog::nothing);
@@ -146,23 +147,66 @@ double KLFitter::LikelihoodBase::LogEventProbability()
 {
   double logprob = 0; 
 
-  if (fFlagBTagging) {
+  if (Setbtagging != kNotag) {
     //                  double probbtag = BTaggingProbability();
     double probbtag = 1; 
     
-    // loop over all model particles.  calculate the overall b-tagging
-    // probability which is the product of all probabilities. 
-    for (int i = 0; i < fParticlesModel->NPartons(); ++i)
-      if (fParticlesModel->BTaggingProbability(i)==0 &&
-          fParticlesModel->FlavorTag(i)==1)
-        probbtag=0;
-    
-    if (probbtag > 0)
-      logprob += log(probbtag); 
-    else
-      return -1e99; 
+    if(Setbtagging == kVeto){
+
+      // loop over all model particles.  calculate the overall b-tagging
+      // probability which is the product of all probabilities. 
+      for (int i = 0; i < fParticlesModel->NPartons(); ++i){
+
+	// get index of corresponding measured particle. 
+	int index = fParticlesModel->JetIndex(i); 
+	
+	if (index<0) { 
+	  continue; 
+	}
+	if (fParticlesModel->BTaggingProbability(i)==0 &&
+	    fParticlesModel->FlavorTag(i)==1) probbtag=0;
+      }
+      
+      if (probbtag > 0)
+	logprob += log(probbtag); 
+      else
+	return -1e99; 
+    }
+    else if (Setbtagging == kWorkingPoint){
+      for (int i = 0; i < fParticlesModel->NPartons(); ++i){
+
+	// get index of corresponding measured particle. 
+	int index = fParticlesModel->JetIndex(i); 
+	
+	if (index<0) { 
+	  continue; 
+	}
+	
+	probbtag = -1;
+
+	if(fParticlesModel->BTaggingProbability(i)==0 &&
+	   fParticlesModel->FlavorTag(i)==1) probbtag = 0; // Light Tagged
+	else if(fParticlesModel->BTaggingProbability(i)==0 &&
+	   fParticlesModel->FlavorTag(i)==0) probbtag = 1; // Light Not tagged	
+	else if(fParticlesModel->BTaggingProbability(i)==1 &&
+	   fParticlesModel->FlavorTag(i)==1) probbtag = 2; // b Tagged
+	else if(fParticlesModel->BTaggingProbability(i)==1 &&
+	   fParticlesModel->FlavorTag(i)==0) probbtag = 3; // b Not tagged
+	else std::cout << " KLFitter::LikelihoodBase::LogEventProbability() : b-tagging association failed! " << std::endl;
+	  
+	if(fbtagRej == -1 || fbtagEff == -1){
+	  std::cout <<  " KLFitter::LikelihoodBase::LogEventProbability() : Your working points are not set properly! Returning 0 probability " << std::endl;
+	  return -1e99;
+	}
+
+	if(probbtag == 0) logprob += log(1./fbtagRej);
+	if(probbtag == 1) logprob += log(1 - 1./fbtagRej);
+	if(probbtag == 2) logprob += log(fbtagEff);
+	if(probbtag == 3) logprob += log(1 - fbtagEff);	
+      }            
+    }
   }
-  
+
   // use integrated value of LogLikelihood (default)
   if (fFlagIntegrate)
     logprob += log(GetNormalization()); 
@@ -184,6 +228,14 @@ double KLFitter::LikelihoodBase::BTaggingProbability()
   // of measured particle is the same as the index of the model
   // particle
   for (unsigned int i = 0; i < npartons; ++i) {
+
+    // get index of corresponding measured particle. 
+    int index = fParticlesModel->JetIndex(i); 
+    
+    if (index<0) { 
+      continue; 
+    }
+
     if (fParticlesModel->BTaggingProbability(i) > 0.5)
       prob *= (*fParticlesPermuted)->BTaggingProbability(i); 
     else

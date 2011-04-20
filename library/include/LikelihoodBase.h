@@ -37,6 +37,14 @@ namespace KLFitter
   {
                 
   public: 
+    /**
+     * Enumerate for b-tagging possibilities
+     */
+    enum fbtagging{
+      kNotag,
+      kVeto,
+      kWorkingPoint
+    };
                 
     /** \name Constructors and destructors */ 
     /* @{ */ 
@@ -114,10 +122,15 @@ namespace KLFitter
      */ 
     double ParMax(int index); 
 
+    /**
+     * Set flag to use b-tagging or not.
+     * @param flag The flag.
+     * @return An error flag. 
+     */ 
+    fbtagging GetBTagging() { return Setbtagging;} 
+
     double CutBTag()
     { return fCutBTag; }; 
-
-    bool FlagBTagging() { return fFlagBTagging; } 
 
     bool FlagIntegrate() { return fFlagIntegrate; } 
 
@@ -181,7 +194,7 @@ namespace KLFitter
      * @param flag The flag.
      * @return An error flag. 
      */ 
-    int SetFlagBTagging(bool flag) { fFlagBTagging = flag; return 1; } 
+    void SetBTagging(fbtagging fSetbtagging) { Setbtagging = fSetbtagging;} 
 
     /**
      * Set flag FlagIsNan. This Flag should be true if Minuit gave parameters with NaN values to LogLikelihood.
@@ -198,7 +211,10 @@ namespace KLFitter
 
     void SetCutBTag(double cut)
     { fCutBTag = cut; }; 
-
+    void SetbtagRej(double rej)
+    { fbtagRej = rej; }; 
+    void SetbtagEff(double eff)
+    { fbtagEff = eff; }; 
     /**
      * Set flag to integrate or not.
      * @param flag The flag. 
@@ -317,11 +333,6 @@ namespace KLFitter
     std::vector<double> fEventProbability; 
 
     /**
-     * A flag to use b-tagging or not 
-     */ 
-    bool fFlagBTagging; 
-
-    /**
      * Cut value for b-tagging. 
      */ 
     double fCutBTag; 
@@ -335,6 +346,18 @@ namespace KLFitter
      * A flag for knowing that Minuit gave parameters with NaN values to LogLikelihood
      */ 
     bool fFlagIsNan;
+
+    /**
+     * Name of btagging enum
+     */
+    fbtagging Setbtagging;
+
+    /**
+     * Working Points for b-tagging
+     */
+    double fbtagRej;
+    double fbtagEff;
+
 
   private: 
 
