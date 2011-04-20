@@ -20,6 +20,8 @@
 
 #include <TLorentzVector.h>
 
+#include <iostream>
+
 // --------------------------------------------------------- 
 
 /*!
@@ -190,11 +192,22 @@ namespace KLFitter
     int SetInitialParameters(std::vector<double> const& parameters); 
 
     /**
-     * Set flag to use b-tagging or not.
-     * @param flag The flag.
-     * @return An error flag. 
+     * Set which b-tagging you wish to use.
+     * @param fSetbtagging The enum of btagging case
      */ 
     void SetBTagging(fbtagging fSetbtagging) { Setbtagging = fSetbtagging;} 
+
+    /**
+     * THIS IS AN OUTDATED METHOD - JUST HERE FOR BACKWARD COMPATIBILITY.
+     * Set flag to use b-tagging or not.
+     * @param flag The flag.
+     * @return An error flag.
+     */ 
+    int SetFlagBTagging(bool flag) { 
+      std::cout << "LikelihoodBase::SetFlagBTagging(bool flag) is an outdated method - please use SetBTagging(fbtagging fSetbtagging)." << std::endl;
+      Setbtagging = flag ? kVeto : kNotag;
+      return 1;
+    } 
 
     /**
      * Set flag FlagIsNan. This Flag should be true if Minuit gave parameters with NaN values to LogLikelihood.

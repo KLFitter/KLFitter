@@ -1,3 +1,8 @@
+2011-04-20 Johannes Erdmann <johannes.erdmann@cern.ch>
+
+	* some small updates for the new b-tagging options
+	* tag KLFitter-00-04-05
+
 2011-04-20 Stefan Guindon <stefan.guindon@cern.ch>
 
 	* updated b-tagging to make sure no tops in loop over partons

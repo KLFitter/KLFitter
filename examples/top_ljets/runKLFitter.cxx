@@ -13,6 +13,7 @@
 #include "Particles.h" 
 #include "Permutations.h"
 #include "InterfaceOutput.h" 
+#include "LikelihoodBase.h" 
 #include "LikelihoodTopLeptonJets.h" 
 #include "MatchingTool.h" 
 #include "SelectionTool.h" 
@@ -37,7 +38,6 @@ int main(int argc, char **argv)
   double DO_ELECTRON = configReader->GetDO_ELECTRON();
   double DO_MUON     = configReader->GetDO_MUON();
   double DO_BATCH    = configReader->GetDO_BATCH();
-  //  bool FlagBTagging     = configReader->GetFlagBTagging();
   bool FlagIntegrate    = configReader->GetFlagIntegrate();
   bool FlagTopMassFixed = configReader->GetFlagTopMassFixed();
   bool FlagUseJetMass   = configReader->GetFlagUseJetMass();
@@ -81,7 +81,7 @@ int main(int argc, char **argv)
 
   myLikelihood -> PhysicsConstants() -> SetMassTop(MassTop); 
   // b-tagging settings: kNotag / kVeto / kWorkingPoint
-  myLikelihood -> SetBTagging(myLikelihood->LikelihoodBase::kWorkingPoint); 
+  myLikelihood -> SetBTagging(KLFitter::LikelihoodBase::kWorkingPoint); 
   // Make sure to set btag and efficiency if btagghing set to a working point!
   myLikelihood -> SetbtagEff(0.6); // between 0 and 1
   myLikelihood -> SetbtagRej(900.); // hopefully greater than 1

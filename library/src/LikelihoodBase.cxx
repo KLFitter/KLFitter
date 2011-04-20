@@ -19,6 +19,7 @@ KLFitter::LikelihoodBase::LikelihoodBase(Particles** particles) : BCModel(),
                                                                   fCutBTag(1e4),
                                                                   fFlagIntegrate(0),
                                                                   fFlagIsNan(false),
+                                                                  Setbtagging(kNotag),
 								  fbtagRej(-1),
 								  fbtagEff(-1)
   
