@@ -135,7 +135,7 @@ int main(int argc, char **argv)
   int nevents = myInterfaceRoot -> NEvents(); 
   int minEv = TString(argv[1]).Atoi();
   int maxEv = TString(argv[2]).Atoi();
-  if (maxEv>=nevents) {
+  if (maxEv>nevents) {
     maxEv = nevents;
     std::cout << "parameter warning: last event parameter reset to maximum event number available (" << nevents << ")" << std::endl;
   }
