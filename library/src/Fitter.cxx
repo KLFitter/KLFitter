@@ -19,6 +19,7 @@ KLFitter::Fitter::Fitter()
   fMinuitStatus = 0; 
   fConvergenceStatus = 0;
   fTurnOffSA = false;
+  fMinimizationMethod = kMinuit;
 }
 
 // --------------------------------------------------------- 
@@ -128,64 +129,69 @@ int KLFitter::Fitter::Fit(int index)
   }
 
   // perform fitting 
-  //    fLikelihood->MCMCSetFlagFillHistograms(false); 
-  //    fLikelihood->MCMCSetNChains(5); 
-  //    fLikelihood->MCMCSetNIterationsRun(2000); 
-  //    fLikelihood->MCMCSetNIterationsMax(1000); 
-  //    fLikelihood->MCMCSetNIterationsUpdate(100); 
-  //    fLikelihood->MarginalizeAll();
 
+  // Markov Chain MC
+  if (fMinimizationMethod == kMarkovChainMC) {
+    fLikelihood->MCMCSetFlagFillHistograms(false); 
+    fLikelihood->MCMCSetNChains(5); 
+    fLikelihood->MCMCSetNIterationsRun(2000); 
+    fLikelihood->MCMCSetNIterationsMax(1000); 
+    fLikelihood->MCMCSetNIterationsUpdate(100); 
+    fLikelihood->MarginalizeAll();
+  }
   // simulated annealing
-  //    fLikelihood->SetOptimizationMethod( BCIntegrate::kOptSA );
-  //    fLikelihood->SetSAT0(10);
-  //    fLikelihood->SetSATmin(0.001);
-        
-  //    fLikelihood->FindMode( fLikelihood->GetInitialParameters() );
+  else if (fMinimizationMethod == kSimulatedAnnealing) {
+    fLikelihood->SetOptimizationMethod( BCIntegrate::kOptSA );
+    fLikelihood->SetSAT0(10);
+    fLikelihood->SetSATmin(0.001);
+    fLikelihood->FindMode( fLikelihood->GetInitialParameters() );
+  }
+  // MINUIT
+  else if (fMinimizationMethod == kMinuit) {
+    fLikelihood->SetOptimizationMethod( BCIntegrate::kOptMinuit); 
+    fLikelihood->FindMode( fLikelihood->GetInitialParameters() );
+    //    fLikelihood->FindMode( fLikelihood->GetBestFitParameters() ); 
 
-  fLikelihood->SetOptimizationMethod( BCIntegrate::kOptMinuit); 
+    fMinuitStatus = fLikelihood->GetMinuitErrorFlag(); 
 
-  fLikelihood->FindMode( fLikelihood->GetInitialParameters() );
-  //    fLikelihood->FindMode( fLikelihood->GetBestFitParameters() ); 
-
-  fMinuitStatus = fLikelihood->GetMinuitErrorFlag(); 
-
-  // check if any parameter is at its borders->set MINUIT flag to 500
-  if ( fMinuitStatus == 0)
-    {
-      std::vector<double> BestParameters = fLikelihood->GetBestFitParameters();
-      BCParameterSet * ParameterSet = fLikelihood->GetParameterSet();
-      for (unsigned int iPar = 0; iPar < BestParameters.size(); iPar++)
-        {
-          if ( ParameterSet->at(iPar)->IsAtLimit(BestParameters.at(iPar)) )
-            {
-              fMinuitStatus = 500;
-            }
-        }
-    }
-  if(fLikelihood->GetFlagIsNan()==true)
-    {
-      fMinuitStatus=508;
-    }
-
-  // re-run if Minuit status bad 
-  if (fMinuitStatus != 0)
-    {
-      // print to screen
-      //        std::cout << "KLFitter::Fit(). Minuit did not find proper minimum. Rerun with Simulated Annealing."<<std::endl; 
-      if (!fTurnOffSA) {
-        fLikelihood->SetFlagIsNan(false);
-        fLikelihood->SetOptimizationMethod( BCIntegrate::kOptSA );
-        fLikelihood->FindMode( fLikelihood->GetInitialParameters() );
+    // check if any parameter is at its borders->set MINUIT flag to 500
+    if ( fMinuitStatus == 0)
+      {
+        std::vector<double> BestParameters = fLikelihood->GetBestFitParameters();
+        BCParameterSet * ParameterSet = fLikelihood->GetParameterSet();
+        for (unsigned int iPar = 0; iPar < BestParameters.size(); iPar++)
+          {
+            if ( ParameterSet->at(iPar)->IsAtLimit(BestParameters.at(iPar)) )
+              {
+                fMinuitStatus = 500;
+              }
+          }
       }
-                        
-      fLikelihood->SetOptimizationMethod( BCIntegrate::kOptMinuit); 
-      fLikelihood->FindMode( fLikelihood->GetBestFitParameters() ); 
-      fMinuitStatus = fLikelihood->GetMinuitErrorFlag(); 
-    }   
+    if(fLikelihood->GetFlagIsNan()==true)
+      {
+        fMinuitStatus=508;
+      }
 
-  fConvergenceStatus = 0;
-  if (fMinuitStatus == 4)
-    fConvergenceStatus |= MinuitDidNotConvergeMask;
+    // re-run if Minuit status bad 
+    if (fMinuitStatus != 0)
+      {
+        // print to screen
+        //        std::cout << "KLFitter::Fit(). Minuit did not find proper minimum. Rerun with Simulated Annealing."<<std::endl; 
+        if (!fTurnOffSA) {
+          fLikelihood->SetFlagIsNan(false);
+          fLikelihood->SetOptimizationMethod( BCIntegrate::kOptSA );
+          fLikelihood->FindMode( fLikelihood->GetInitialParameters() );
+        }
+                        
+        fLikelihood->SetOptimizationMethod( BCIntegrate::kOptMinuit); 
+        fLikelihood->FindMode( fLikelihood->GetBestFitParameters() ); 
+        fMinuitStatus = fLikelihood->GetMinuitErrorFlag(); 
+      }   
+
+    fConvergenceStatus = 0;
+    if (fMinuitStatus == 4)
+      fConvergenceStatus |= MinuitDidNotConvergeMask;
+  }
         
   // check if any parameter is at its borders->set MINUIT flag to 501
   if ( fMinuitStatus == 0)

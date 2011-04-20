@@ -1,5 +1,9 @@
 2011-04-20 Johannes Erdmann <johannes.erdmann@cern.ch>
 
+	* make minimization method in Fitter configurable
+
+2011-04-20 Johannes Erdmann <johannes.erdmann@cern.ch>
+
 	* some small updates for the new b-tagging options
 	* tag KLFitter-00-04-05
 

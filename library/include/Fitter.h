@@ -177,6 +177,17 @@ namespace KLFitter
     static const unsigned int AtLeastOneFitParameterAtItsLimitMask = 0x1 << AtLeastOneFitParameterAtItsLimit;
     static const unsigned int InvalidTransferFunctionAtConvergenceMask = 0x1 << InvalidTransferFunctionAtConvergence;
 
+    /**
+     * Enumerator for the minimization methods.
+     */
+    enum kMinimizationMethod { kMinuit, kSimulatedAnnealing, kMarkovChainMC };
+
+    /**
+     * Set the minimization method.
+     * @param method The minimization method.
+     */
+    void SetMinimizationMethod(kMinimizationMethod method) { fMinimizationMethod = method; }
+
     /* @} */
                 
   private: 
@@ -226,6 +237,11 @@ namespace KLFitter
      * Flag for turning off simulated annealing.
      */
     int fTurnOffSA;
+
+    /**
+     * The minimization method.
+     */
+    kMinimizationMethod fMinimizationMethod;
 
   }; 
 

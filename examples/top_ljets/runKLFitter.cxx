@@ -57,6 +57,8 @@ int main(int argc, char **argv)
   // create new fitter 
   KLFitter::Fitter * myFitter = new KLFitter::Fitter(); 
 
+  //  myFitter->SetMinimizationMethod(KLFitter::Fitter::kMinuit);
+
   // open Root file 
   KLFitter::InterfaceRoot * myInterfaceRoot = new KLFitter::InterfaceD3PD();
   std::vector<std::string> inputfiles = myInterfaceRoot->ReadInputFiles(input_file.c_str());
