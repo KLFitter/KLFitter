@@ -121,7 +121,7 @@ for (int iPerm = 0, nPerms(myFitter->Permutations()->NPermutations()); iPerm < n
   //   * InvalidTransferFunctionAtConvergenceMask - invalid use of the transfer functions at the convergence point (typically remove it)
   unsigned int ConvergenceStatusBitWord = myFitter->ConvergenceStatus();
   // in order to check if a certain had a specific problem, just check the bit mask as in this example:
-  bool MinuitDidNotConverge = (ConvergenceStatusBitWord & Fitter->MinuitDidNotConvergeMask) == 0;
+  bool MinuitDidNotConverge = (ConvergenceStatusBitWord & Fitter->MinuitDidNotConvergeMask) != 0;
   // etc.
   // get the log(likelihood) value from the fit
   double LogLikelihood = myFitter->Likelihood()->LogLikelihood(myFitter->Likelihood()->GetBestFitParameters());
