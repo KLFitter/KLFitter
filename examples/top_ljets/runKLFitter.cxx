@@ -81,7 +81,7 @@ int main(int argc, char **argv)
 
   myLikelihood -> PhysicsConstants() -> SetMassTop(MassTop); 
   // b-tagging settings: kNotag / kVeto / kWorkingPoint
-  myLikelihood -> SetBTagging(KLFitter::LikelihoodBase::kWorkingPoint); 
+  myLikelihood -> SetBTagging(KLFitter::LikelihoodBase::kNotag); 
   // Make sure to set btag and efficiency if btagghing set to a working point!
   myLikelihood -> SetbtagEff(0.6); // between 0 and 1
   myLikelihood -> SetbtagRej(900.); // hopefully greater than 1
