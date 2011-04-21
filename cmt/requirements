@@ -29,16 +29,24 @@ use BAT                BAT-*            External
 ###############################################################
 
 
-#
-# Set up the rules to use the stand-alone KLFitterCore library:
-#
-macro KLFitter_dir "../library"
+# Rules to use KLFitter library
+macro KLFitter_dir "$(KLFITTERROOT)/library"
 macro KLFitter_include_dir "$(KLFitter_dir)/include"
 
 include_path none
 include_dirs "$(KLFitter_include_dir)"
 
+
 library  KLFitter  "$(KLFitter_dir)/src/*.cxx"
+macro_append KLFitter_dependencies " SymLink_KLinc "
+
+action SymLink_KLinc "./SymLinkHeaders $(KLFITTERROOT)/library/include KLFitter"
+apply_pattern install_non_standard_includes name=KLFitter
+
+## copy action depends on install_*_includes
+## files need to be linked before installing them
+macro_prepend install_KLFitter_includes_dependencies " SymLink_KLinc "
+
 
 macro          KLFitter_shlibflags        "$($(ROOTSYS)/bin/root-config --libs)"
 macro_append   KLFitter_shlibflags        " -lBAT"
@@ -49,13 +57,20 @@ macro_append   KLFitter_shlibflags        " -L$(ROOTSYS)/lib -lTreePlayer -lMinu
 #  library: libKLFitterExtras
 ##############################################################
 
-macro KLFitterExtras_dir "../extras"
+
+macro KLFitterExtras_dir "$(KLFITTERROOT)/extras"
 macro KLFitterExtras_include_dir "$(KLFitterExtras_dir)/include"
 
 include_path none
 include_dirs "$(KLFitterExtras_include_dir)"
 
 library  KLFitterExtras "$(KLFitterExtras_dir)/src/*.cxx"
+macro_append KLFitterExtras_dependencies " SymLink_KLExtrasInc "
+
+action SymLink_KLExtrasInc "./SymLinkHeaders $(KLFITTERROOT)/extras/include KLFitterExtras"
+apply_pattern install_non_standard_includes name=KLFitterExtras
+
+macro_prepend install_KLFitterExtras_includes_dependencies " SymLink_KLExtrasInc "
 
 ## remove virtual function hidden by another warning
 macro_remove cppflags "-Woverloaded-virtual"
@@ -75,5 +90,9 @@ macro       runKLFitterlinkopts      "$($(ROOTSYS)/bin/root-config --libs) \
 
 
 
-apply_pattern declare_runtime extras="../transferfunctions*"
+###############################################################
+#  runtime extras
+###############################################################
+apply_pattern declare_runtime extras="../transferfunctions* ../examples/top_ljets/config.conf"
+
 
