@@ -3,6 +3,8 @@
 #include "Permutations.h" 
 #include "DetectorBase.h" 
 
+#include "TRandom3.h"
+
 #include "BAT/BCLog.h" 
 
 #include <iostream> 
@@ -25,6 +27,7 @@ KLFitter::LikelihoodBase::LikelihoodBase(Particles** particles) : BCModel(),
   
 {
   BCLog::SetLogLevel(BCLog::nothing);
+  MCMCGetTRandom3()->SetSeed(123456789);
 }
 
 // --------------------------------------------------------- 

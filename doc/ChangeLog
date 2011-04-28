@@ -1,4 +1,9 @@
-2011-04-21 Johannes Erdmann <johannes.erdmann@cern.ch>, Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+2011-04-28 Johannes Erdmann <johannes.erdmann@cern.ch>
+
+	* set BAT TRandom3 seed to a fixed value
+	* tag KLFitter-00-04-08
+
+2011-04-21 Johannes Erdmann <johannes.erdmann@cern.ch>
 
 	* Venkat's new requirements file
 	* tag KLFitter-00-04-07
