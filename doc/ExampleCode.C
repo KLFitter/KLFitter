@@ -126,7 +126,8 @@ for (int iPerm = 0, nPerms(myFitter->Permutations()->NPermutations()); iPerm < n
   // get the log(likelihood) value from the fit
   double LogLikelihood = myFitter->Likelihood()->LogLikelihood(myFitter->Likelihood()->GetBestFitParameters());
   // get the event probability from the fit
-  double EventProbability = exp(myFitter->Likelihood()->LogEventProbability());
+  // (it's NOT normalized, yet - you need to normalize it to unity as soon as all permutations have been fitted!)
+  double EventProbability = exp(myFitter->Likelihood()->LogEventProbability(myFitter->Likelihood()->GetBestFitParameters()));
   // get the fit parameters
   std::vector<double> Parameters = myFitter->Likelihood()->GetBestFitParameters();
   std::vector<double> ParameterErrors = myFitter->Likelihood()->GetBestFitParameterErrors();
