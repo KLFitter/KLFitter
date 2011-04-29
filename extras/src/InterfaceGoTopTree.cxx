@@ -455,32 +455,43 @@ int KLFitter::InterfaceGoTopTree::FillParticles()
   // fill jets
   for (int i = 0; i < Jet_N; ++i)
     {
-      if ((*Jet_IsTopInputs)[i])
-        fParticles->AddParticle(new TLorentzVector(Jet_Px->at(i), Jet_Py->at(i), Jet_Pz->at(i), Jet_E->at(i)), Jet_DetEta->at(i), KLFitter::Particles::kParton,"",Jet_SV0_Weight->at(i)); 
+      if ((*Jet_IsTopInputs)[i]){
+        TLorentzVector * tlv_tmp = new TLorentzVector(0,0,0,0);
+        tlv_tmp->SetPxPyPzE(Jet_Px->at(i), Jet_Py->at(i), Jet_Pz->at(i), Jet_E->at(i));
+        fParticles->AddParticle(tlv_tmp, Jet_DetEta->at(i), KLFitter::Particles::kParton,"",Jet_SV0_Weight->at(i));
+        delete tlv_tmp;
+      }
     }
   // fill electrons
   for (int i = 0; i < Electron_N; ++i)
     {
       if ((*Electron_IsTopInputs)[i]){
-        TLorentzVector * tmp = new TLorentzVector(0,0,0,0);
-        tmp->SetPtEtaPhiE(Electron_Pt->at(i), Electron_Eta->at(i), Electron_Phi->at(i), Electron_E->at(i));
-        fParticles->AddParticle(tmp, Electron_DetEta->at(i), KLFitter::Particles::kElectron); //Temporarily Eg variables
-        //fParticles->AddParticle(new TLorentzVector(Electron_Px->at(i), Electron_Py->at(i), Electron_Pz->at(i), Electron_E->at(i)), Electron_DetEta->at(i), KLFitter::Particles::kElectron);
+        TLorentzVector * tlv_tmp = new TLorentzVector(0,0,0,0);
+        tlv_tmp->SetPtEtaPhiE(Electron_Pt->at(i), Electron_Eta->at(i), Electron_Phi->at(i), Electron_E->at(i));
+        fParticles->AddParticle(tlv_tmp, Electron_DetEta->at(i), KLFitter::Particles::kElectron); 
+        delete tlv_tmp;
       } 
     }
 
   // fill muons
   for (int i = 0; i < Muon_N; ++i)
     {
-      if ((*Muon_IsTopInputs)[i])
-        fParticles->AddParticle(new TLorentzVector(Muon_Px->at(i), Muon_Py->at(i), Muon_Pz->at(i), Muon_E->at(i)), Muon_Eta->at(i), KLFitter::Particles::kMuon); 
+      if ((*Muon_IsTopInputs)[i]){
+        TLorentzVector * tlv_tmp = new TLorentzVector(0,0,0,0);
+        tlv_tmp->SetPxPyPzE(Muon_Px->at(i), Muon_Py->at(i), Muon_Pz->at(i), Muon_E->at(i));
+        fParticles->AddParticle(tlv_tmp, Muon_Eta->at(i), KLFitter::Particles::kMuon);
+        delete tlv_tmp;
+      }
     }
 
   // fill photons
   for (int i = 0; i < Photon_N; ++i)
     { 
-      if ((*Photon_IsTopInputs)[i])
-        fParticles->AddParticle(new TLorentzVector(Photon_Px->at(i), Photon_Py->at(i), Photon_Pz->at(i), Photon_E->at(i)), Photon_Eta->at(i), KLFitter::Particles::kPhoton); 
+      if ((*Photon_IsTopInputs)[i]){
+        TLorentzVector * tlv_tmp = new TLorentzVector(0,0,0,0);
+        tlv_tmp->SetPxPyPzE(Photon_Px->at(i), Photon_Py->at(i), Photon_Pz->at(i), Photon_E->at(i));
+        fParticles->AddParticle(tlv_tmp, Photon_Eta->at(i), KLFitter::Particles::kPhoton);
+      } 
     }
 
   // check if input is Signal MC
@@ -542,87 +553,79 @@ int KLFitter::InterfaceGoTopTree::FillParticles()
 
       index_photon = TruthIdx_photon;
     }
-  //std::cout << TruthPart_Px->size() << " : " << index_bhad << " : "<< index_blep << " : "<< index_q1<< " : " << index_q2<< " : " << index_l<< " : " << index_nu<< " : " << index_tophad<< " : " << index_toplep << std::endl;
-  // create Lorentz-vectors and add to list of particles 
-  fParticlesTruth->AddParticle(new TLorentzVector(TruthPart_Px->at(index_bhad), 
-                                                  TruthPart_Py->at(index_bhad), 
-                                                  TruthPart_Pz->at(index_bhad), 
-                                                  TruthPart_E->at(index_bhad)), 
-                               KLFitter::Particles::kParton, 
-                               "hadronic b quark"); 
-  fParticlesTruth->AddParticle(new TLorentzVector(TruthPart_Px->at(index_blep), 
-                                                  TruthPart_Py->at(index_blep), 
-                                                  TruthPart_Pz->at(index_blep), 
-                                                  TruthPart_E->at(index_blep)), 
-                               KLFitter::Particles::kParton, 
-                               "leptonic b quark"); 
-  fParticlesTruth->AddParticle(new TLorentzVector(TruthPart_Px->at(index_q1), 
-                                                  TruthPart_Py->at(index_q1), 
-                                                  TruthPart_Pz->at(index_q1), 
-                                                  TruthPart_E->at(index_q1)), 
-                               KLFitter::Particles::kParton, 
-                               "light quark 1"); 
-  fParticlesTruth->AddParticle(new TLorentzVector(TruthPart_Px->at(index_q2), 
-                                                  TruthPart_Py->at(index_q2), 
-                                                  TruthPart_Pz->at(index_q2), 
-                                                  TruthPart_E->at(index_q2)), 
-                               KLFitter::Particles::kParton, 
-                               "light quark 2"); 
+  TLorentzVector * tlv_tmp = new TLorentzVector(0,0,0,0);
+  tlv_tmp->SetPxPyPzE(TruthPart_Px->at(index_bhad),
+                      TruthPart_Py->at(index_bhad), 
+                      TruthPart_Pz->at(index_bhad), 
+                      TruthPart_E->at(index_bhad));
+  fParticlesTruth->AddParticle(tlv_tmp, KLFitter::Particles::kParton, "hadronic b quark");
+  tlv_tmp->SetPxPyPzE(TruthPart_Px->at(index_blep), 
+                      TruthPart_Py->at(index_blep), 
+                      TruthPart_Pz->at(index_blep), 
+                      TruthPart_E->at(index_blep));
+  fParticlesTruth->AddParticle(tlv_tmp, KLFitter::Particles::kParton, "leptonic b quark");
+  tlv_tmp->SetPxPyPzE(TruthPart_Px->at(index_q1), 
+                      TruthPart_Py->at(index_q1), 
+                      TruthPart_Pz->at(index_q1), 
+                      TruthPart_E->at(index_q1));
+  fParticlesTruth->AddParticle(tlv_tmp, KLFitter::Particles::kParton, "light quark 1");
+  tlv_tmp->SetPxPyPzE(TruthPart_Px->at(index_q2), 
+                      TruthPart_Py->at(index_q2), 
+                      TruthPart_Pz->at(index_q2), 
+                      TruthPart_E->at(index_q2));
+  fParticlesTruth->AddParticle(tlv_tmp, KLFitter::Particles::kParton, "light quark 2"); 
 
-  if (index_l!=-1 && abs(TruthPart_PDG->at(index_l)) == 11)
-    fParticlesTruth->AddParticle(new TLorentzVector(TruthPart_Px->at(index_l), 
-                                                    TruthPart_Py->at(index_l), 
-                                                    TruthPart_Pz->at(index_l), 
-                                                    TruthPart_E->at(index_l)),
-                                 KLFitter::Particles::kElectron, 
-                                 "electron"); 
-  else if (index_l!=-1 && abs(TruthPart_PDG->at(index_l)) == 13)
-    fParticlesTruth->AddParticle(new TLorentzVector(TruthPart_Px->at(index_l), 
-                                                    TruthPart_Py->at(index_l), 
-                                                    TruthPart_Pz->at(index_l), 
-                                                    TruthPart_E->at(index_l)),
-                                 KLFitter::Particles::kMuon, 
-                                 "muon"); 
-  else if (index_l!=-1 && abs(TruthPart_PDG->at(index_l)) == 15)
-    fParticlesTruth->AddParticle(new TLorentzVector(TruthPart_Px->at(index_l), 
-                                                    TruthPart_Py->at(index_l), 
-                                                    TruthPart_Pz->at(index_l), 
-                                                    TruthPart_E->at(index_l)),
-                                 KLFitter::Particles::kTau, 
-                                 "tau"); 
+  if (index_l!=-1 && abs(TruthPart_PDG->at(index_l)) == 11){
+    tlv_tmp->SetPxPyPzE(TruthPart_Px->at(index_l), 
+                        TruthPart_Py->at(index_l), 
+                        TruthPart_Pz->at(index_l), 
+                        TruthPart_E->at(index_l));
+    fParticlesTruth->AddParticle(tlv_tmp, KLFitter::Particles::kElectron, "electron");
+  } 
+  else if (index_l!=-1 && abs(TruthPart_PDG->at(index_l)) == 13){
+    tlv_tmp->SetPxPyPzE(TruthPart_Px->at(index_l),                                                                                             TruthPart_Py->at(index_l), 
+                        TruthPart_Pz->at(index_l), 
+                        TruthPart_E->at(index_l));
+    fParticlesTruth->AddParticle(tlv_tmp, KLFitter::Particles::kMuon, "muon");
+  } 
+  else if (index_l!=-1 && abs(TruthPart_PDG->at(index_l)) == 15){
+    tlv_tmp->SetPxPyPzE(TruthPart_Px->at(index_l), 
+                        TruthPart_Py->at(index_l), 
+                        TruthPart_Pz->at(index_l), 
+                        TruthPart_E->at(index_l));
+    fParticlesTruth->AddParticle(tlv_tmp, KLFitter::Particles::kTau, "tau");
+  } 
   if (index_photon >= 0) {
-    fParticlesTruth->AddParticle(new TLorentzVector(TruthPart_Px->at(index_photon), 
-                                                    TruthPart_Py->at(index_photon), 
-                                                    TruthPart_Pz->at(index_photon), 
-                                                    TruthPart_E->at(index_photon)),
-                                 KLFitter::Particles::kPhoton, 
-                                 "photon"); 
+    tlv_tmp->SetPxPyPzE(TruthPart_Px->at(index_photon), 
+                        TruthPart_Py->at(index_photon), 
+                        TruthPart_Pz->at(index_photon), 
+                        TruthPart_E->at(index_photon));
+    fParticlesTruth->AddParticle(tlv_tmp, KLFitter::Particles::kPhoton, "photon"); 
   }
   if (index_nu!=-1){
-  fParticlesTruth->AddParticle(new TLorentzVector(TruthPart_Px->at(index_nu), 
-                                                  TruthPart_Py->at(index_nu), 
-                                                  TruthPart_Pz->at(index_nu), 
-                                                  TruthPart_E->at(index_nu)), 
-                               KLFitter::Particles::kNeutrino, 
-                               "neutrino");
+    tlv_tmp->SetPxPyPzE(TruthPart_Px->at(index_nu), 
+                        TruthPart_Py->at(index_nu), 
+                        TruthPart_Pz->at(index_nu), 
+                        TruthPart_E->at(index_nu));
+    fParticlesTruth->AddParticle(tlv_tmp, KLFitter::Particles::kNeutrino, "neutrino");
   } 
   if (index_tophad >= 0) {
-    fParticlesTruth->AddParticle(new TLorentzVector(TruthPart_Px->at(index_tophad), 
-                                                    TruthPart_Py->at(index_tophad), 
-                                                    TruthPart_Pz->at(index_tophad), 
-                                                    TruthPart_E->at(index_tophad)), 
-                                 KLFitter::Particles::kParton, 
-                                 "hadronic top quark"); 
+    tlv_tmp->SetPxPyPzE(TruthPart_Px->at(index_tophad), 
+                        TruthPart_Py->at(index_tophad), 
+                        TruthPart_Pz->at(index_tophad), 
+                        TruthPart_E->at(index_tophad));
+    fParticlesTruth->AddParticle(tlv_tmp, KLFitter::Particles::kParton, "hadronic top quark"); 
   }
 
   if (index_toplep >= 0) {
-    fParticlesTruth->AddParticle(new TLorentzVector(TruthPart_Px->at(index_toplep), 
-                                                    TruthPart_Py->at(index_toplep), 
-                                                    TruthPart_Pz->at(index_toplep), 
-                                                    TruthPart_E->at(index_toplep)), 
-                                 KLFitter::Particles::kParton, 
-                                 "leptonic top quark"); 
+    tlv_tmp->SetPxPyPzE(TruthPart_Px->at(index_toplep), 
+                        TruthPart_Py->at(index_toplep), 
+                        TruthPart_Pz->at(index_toplep), 
+                        TruthPart_E->at(index_toplep));
+    fParticlesTruth->AddParticle(tlv_tmp, KLFitter::Particles::kParton, "leptonic top quark"); 
   }
+  //free memory
+  delete tlv_tmp;
 
   // no error 
   return 1;

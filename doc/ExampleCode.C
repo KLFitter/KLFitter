@@ -89,6 +89,11 @@ myParticles->AddParticle(vElectron, (*Electron_DetEta)[iElectron], KLFitter::Par
 TLorentzVector * vMuon = new TLorentzVector((*Muon_Px)[iMuon], (*Muon_Py)[iMuon], (*Muon_Pz)[iMuon], (*Muon_E)[iMuon]);
 myParticles->AddParticle(vMuon, (*Muon_Eta)[iMuon], KLFitter::Particles::kMuon);
 
+//Don't forget to free memory !!
+delete vJet;
+delete vElectron;
+delete vMuon;
+
 // check that there are at least 4 jets
 if (myParticles->NPartons() < 4)
   continue;

@@ -324,13 +324,14 @@ int KLFitter::InterfaceD3PD::FillParticles()
 		if ( topJet_use->at(i) ){
                   if (jet_E->at(topJet_index->at(i)) <= 0.)
                     continue;
-  		TLorentzVector * tmp = new TLorentzVector(0,0,0,0);
-  		tmp->SetPtEtaPhiE(jet_pt ->at(topJet_index->at(i)) / 1000. , 
+  		TLorentzVector * tlv_tmp = new TLorentzVector(0,0,0,0);
+  		tlv_tmp->SetPtEtaPhiE(jet_pt ->at(topJet_index->at(i)) / 1000. , 
   										jet_eta->at(topJet_index->at(i)), 
   										jet_phi->at(topJet_index->at(i)),
   										jet_E  ->at(topJet_index->at(i)) / 1000.);
 					
-	  	fParticles->AddParticle(tmp, jet_deteta->at(topJet_index->at(i)), KLFitter::Particles::kParton,"",jet_flavor_weight_SV0->at(topJet_index->at(i)));
+	  	fParticles->AddParticle(tlv_tmp, jet_deteta->at(topJet_index->at(i)), KLFitter::Particles::kParton,"",jet_flavor_weight_SV0->at(topJet_index->at(i)));
+      delete tlv_tmp;
 		}
 	}
 	std::sort(fParticles->ParticleContainer(KLFitter::Particles::kParton)->begin(),  fParticles->ParticleContainer(KLFitter::Particles::kParton)->end() , KLFitter::Particles::PtOrder);
@@ -340,12 +341,13 @@ int KLFitter::InterfaceD3PD::FillParticles()
   	if ( topEl_use->at(i) && topEl_inTrigger->at(i) ){
           if (el_E->at(topEl_index->at(i)) <= 0.)
             continue;
-      TLorentzVector * tmp = new TLorentzVector(0,0,0,0);
-      tmp->SetPtEtaPhiE((el_E ->at(topEl_index->at(i)) / 1000.) / cosh(el_eta->at(topEl_index->at(i))),
+      TLorentzVector * tlv_tmp = new TLorentzVector(0,0,0,0);
+      tlv_tmp->SetPtEtaPhiE((el_E ->at(topEl_index->at(i)) / 1000.) / cosh(el_eta->at(topEl_index->at(i))),
                         el_eta->at(topEl_index->at(i)),
                         el_phi->at(topEl_index->at(i)),
                         el_E  ->at(topEl_index->at(i)) / 1000.);
-      fParticles->AddParticle(tmp, el_deteta->at(topEl_index->at(i)), KLFitter::Particles::kElectron);
+      fParticles->AddParticle(tlv_tmp, el_deteta->at(topEl_index->at(i)), KLFitter::Particles::kElectron);
+      delete tlv_tmp;
 		}   																					 
 	}
 	std::sort(fParticles->ParticleContainer(KLFitter::Particles::kElectron)->begin(),  fParticles->ParticleContainer(KLFitter::Particles::kElectron)->end() , KLFitter::Particles::PtOrder);
@@ -355,12 +357,13 @@ int KLFitter::InterfaceD3PD::FillParticles()
   	if ( topMu_use->at(i)){ 
           if (mu_E->at(topMu_index->at(i)) <= 0.)
             continue;
-      fParticles->AddParticle(new TLorentzVector(mu_px->at(topMu_index->at(i)) / 1000., 
-                                                 mu_py->at(topMu_index->at(i)) / 1000., 
-                                                 mu_pz->at(topMu_index->at(i)) / 1000., 
-                                                 mu_E->at(topMu_index->at(i)) / 1000.), 
-                                                 mu_eta->at(topMu_index->at(i)),
-                                                 KLFitter::Particles::kMuon);     
+      TLorentzVector * tlv_tmp = new TLorentzVector(0,0,0,0);
+      tlv_tmp->SetPxPyPzE(mu_px->at(topMu_index->at(i)) / 1000., 
+                      mu_py->at(topMu_index->at(i)) / 1000., 
+                      mu_pz->at(topMu_index->at(i)) / 1000., 
+                      mu_E->at(topMu_index->at(i)) / 1000.);
+      fParticles->AddParticle(tlv_tmp, mu_eta->at(topMu_index->at(i)), KLFitter::Particles::kMuon);
+      delete tlv_tmp;
     }
 	}
 	std::sort(fParticles->ParticleContainer(KLFitter::Particles::kMuon)->begin(),  fParticles->ParticleContainer(KLFitter::Particles::kMuon)->end() , KLFitter::Particles::PtOrder);

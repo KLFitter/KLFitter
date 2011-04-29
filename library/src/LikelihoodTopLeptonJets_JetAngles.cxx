@@ -86,29 +86,31 @@ int KLFitter::LikelihoodTopLeptonJets_JetAngles::DefineModelParticles()
   // create the particles of the model 
   fParticlesModel = new KLFitter::Particles(); 
 
-  // add model particles 
-  fParticlesModel->AddParticle(new TLorentzVector(),    // 4-vector 
+  // add model particles
+  //create dummy TLorentzVector
+  TLorentzVector * dummy = new TLorentzVector(0,0,0,0); // 4-vector
+  fParticlesModel->AddParticle(dummy,    // 4-vector 
                                KLFitter::Particles::kParton, // type 
                                "hadronic b quark",           // name 
                                1.0,                          // b-jet (truth) 
                                0.0,                          // not tagged (meas)
                                0);                           // index of corresponding particle 
 
-  fParticlesModel->AddParticle(new TLorentzVector(),
+  fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kParton, 
                                "leptonic b quark",
                                1.0, 
                                0.0,                          // not tagged (meas)
                                1);                           // index of corresponding particle 
 
-  fParticlesModel->AddParticle(new TLorentzVector(),
+  fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kParton,
                                "light quark 1",
                                0.0,                          // light jet (truth)
                                0.0,                          // not tagged (meas)
                                2);                           // index of corresponding particle 
 
-  fParticlesModel->AddParticle(new TLorentzVector(),
+  fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kParton,
                                "light quark 2",
                                0.0, 
@@ -116,38 +118,40 @@ int KLFitter::LikelihoodTopLeptonJets_JetAngles::DefineModelParticles()
                                3);                           // index of corresponding particle
         
   if (fTypeLepton == kElectron) {
-    fParticlesModel->AddParticle(new TLorentzVector(),
+    fParticlesModel->AddParticle(dummy,
                                  KLFitter::Particles::kElectron,
                                  "electron"); 
   }
   else if (fTypeLepton == kMuon) {
-    fParticlesModel->AddParticle(new TLorentzVector(),
+    fParticlesModel->AddParticle(dummy,
                                  KLFitter::Particles::kMuon,
                                  "muon"); 
   }
 
-  fParticlesModel->AddParticle(new TLorentzVector(),
+  fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kNeutrino, 
                                "neutrino"); 
   
-  fParticlesModel->AddParticle(new TLorentzVector(),
+  fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kBoson, 
                                "hadronic W"); 
   
-  fParticlesModel->AddParticle(new TLorentzVector(),
+  fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kBoson,
                                "leptonic W"); 
 
-  fParticlesModel->AddParticle(new TLorentzVector(),
+  fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kParton,
                                "hadronic top",
                                2.0); 
 
-  fParticlesModel->AddParticle(new TLorentzVector(),
+  fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kParton,
                                "leptonic top",
                                2.0); 
-
+  //free memory
+  delete dummy;
+ 
   // no error 
   return 1;
 }

@@ -170,8 +170,10 @@ int KLFitter::Particles::AddParticle(TLorentzVector* particle, KLFitter::Particl
   // check if particle with name exists already 
   if (!FindParticle(name, vect, index, temptype)) {
 
-    // add particle 
-    container->push_back(particle); 
+    // add particle
+    // create pointer copy of particle content which is owend by Particles
+    TLorentzVector * cparticle = new TLorentzVector(particle->Px(), particle->Py(), particle->Pz(), particle->E());
+    container->push_back(cparticle); 
     ParticleNameContainer(ptype)->push_back(name); 
 
     if (ptype == KLFitter::Particles::kParton) {
@@ -225,7 +227,9 @@ int KLFitter::Particles::AddParticle(TLorentzVector* particle, double DetEta, KL
   if (!FindParticle(name, vect, index, temptype)) {
 
     // add particle 
-    container->push_back(particle); 
+    // create pointer copy of particle content which is owend by Particles
+    TLorentzVector * cparticle = new TLorentzVector(particle->Px(), particle->Py(), particle->Pz(), particle->E());
+    container->push_back(cparticle); 
     ParticleNameContainer(ptype)->push_back(name); 
 
     if (ptype == KLFitter::Particles::kParton) {
