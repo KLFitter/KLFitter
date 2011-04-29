@@ -145,61 +145,6 @@ KLFitter::Particles::~Particles()
   if (fPhotonDetEta)
     delete fPhotonDetEta;
 }
-// --------------------------------------------------------- 
-int KLFitter::Particles::AddParticle(TLorentzVector* particle, KLFitter::Particles::ParticleType ptype, std::string name, double btagprob, double flavortag, int measuredindex)
-{
-  // get particle container
-  std::vector <TLorentzVector *>* container = ParticleContainer(ptype); 
-
-  // check if container exists
-  if (!container)
-    {
-      std::cout << "KLFitter::Particles::AddParticle(). Container does not exist." << std::endl; 
-      return 0; 
-    }
-
-  // check name 
-  if (name == "")
-    name = Form("particle_%i", NParticles()); 
-
-  // get index and type 
-  TLorentzVector* vect = 0; 
-  int index = 0; 
-  KLFitter::Particles::ParticleType temptype = kParton; 
-
-  // check if particle with name exists already 
-  if (!FindParticle(name, vect, index, temptype)) {
-
-    // add particle
-    // create pointer copy of particle content which is owend by Particles
-    TLorentzVector * cparticle = new TLorentzVector(particle->Px(), particle->Py(), particle->Pz(), particle->E());
-    container->push_back(cparticle); 
-    ParticleNameContainer(ptype)->push_back(name); 
-
-    if (ptype == KLFitter::Particles::kParton) {
-      fBTaggingProbability->push_back(btagprob); 
-      fFlavorTag->push_back(flavortag); 
-      fJetIndex->push_back(measuredindex);      
-    }
-    else if (ptype == KLFitter::Particles::kElectron){ 
-      fElectronIndex->push_back(measuredindex);
-    }
-    else if (ptype == KLFitter::Particles::kMuon){ 
-      fMuonIndex->push_back(measuredindex);
-     } 
-    else if (ptype == KLFitter::Particles::kPhoton){
-      fPhotonIndex->push_back(measuredindex);
-     } 
-  }
-  else {
-    std::cout << "KLFitter::Particles::AddParticle(). Particle with the name " << name << " exists already." << std::endl; 
-    return 0; 
-  }
-
-  // no error
-  return 1;
-        
-}
 
 // --------------------------------------------------------- 
 int KLFitter::Particles::AddParticle(TLorentzVector* particle, double DetEta, KLFitter::Particles::ParticleType ptype, std::string name, double btagprob, double flavortag, int measuredindex)
@@ -260,8 +205,21 @@ int KLFitter::Particles::AddParticle(TLorentzVector* particle, double DetEta, KL
   return 1;
         
 }
+// --------------------------------------------------------- 
+int KLFitter::Particles::AddParticle(TLorentzVector* particle, KLFitter::Particles::ParticleType ptype, std::string name, double btagprob, double flavortag, int measuredindex)
+{
+  //set default DetEta
+  double DetEta=-999;
+
+  this->AddParticle(particle, DetEta, ptype, name,btagprob, flavortag, measuredindex);
+  
+  // no error
+  return 1;
+        
+}
 
 // --------------------------------------------------------- 
+
 int KLFitter::Particles::RemoveParticle(int index, KLFitter::Particles::ParticleType ptype)
 {
   // check container and index

@@ -1,3 +1,9 @@
+2011-02-11 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+	
+	* Particles.cxx: AddParticle makes copy of TLorentzVector which is owned by Particles, delete duplicated code
+	* InterfaceD3PD/GoTopTree/LikelihoodTopLeptonJets_JetAngle: Call AddParticle without creating new TLorentzVector
+	* tag KLFitter-00-04-09
+
 2011-04-28 Johannes Erdmann <johannes.erdmann@cern.ch>
 
 	* set BAT TRandom3 seed to a fixed value
