@@ -95,10 +95,18 @@ namespace KLFitter
     /* @{ */
     /**
      * Set a flag. If flag is true the input is Signal MC.
-     * Truth particle container is filled.
+     * @param flag If true, truth particle container is filled.
      */ 
     void SetFlagIsSignalMC(bool flag)
-    { fFlagIsSignalMC = flag; }; 
+    { fFlagIsSignalMC = flag; };
+
+    /**
+     * Set a flag. Needed for filling the truth particle container.
+     * @param flag If flag is true the input is Herwig MC.
+     */ 
+    void SetFlagIsHerwigMC(bool flag)
+    { fFlagIsHerwigMC = flag; };
+
     /* @} */
     /** \name Member functions (misc)  */
     /* @{ */
@@ -139,6 +147,12 @@ namespace KLFitter
      * A flag for using Signal MC as input.
      */ 
     bool fFlagIsSignalMC;
+
+    /**
+     * A flag for using Signal MC as input.
+     */ 
+    bool fFlagIsHerwigMC;
+
     /**
      * The Root file. 
      */ 

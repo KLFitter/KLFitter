@@ -1,7 +1,7 @@
 /*!
  * \class KLFitter::InterfaceD3PD
  * \brief A class for interfacing a Root file. 
- * \author Kevin Kr&ouml;ninger
+ * \author Olaf Nackenhorst
  * \version 1.3
  * \date 03.12.2009
  *
@@ -136,6 +136,23 @@ namespace KLFitter
      */ 
     int FillParticles(); 
 
+    /**
+     * Define indices of truth particles.
+     * @return An error code. 
+     */
+    int TruthMapper();
+
+    /**
+     * Checks whether particle originates from certain pdg id.
+     * @param truthIdx The index of the particle to check.
+     * @param pdg The pdg id which is under test.
+     * @return true if particle with index truthIdx originates directly from a particle with pdgid 'pdg'
+     */ 
+    bool OriginatesFromPDG(int truthIdx,long pdg);
+
+    // if you like: function for sanity checks
+    void testTruthMapper();
+
     /* @} */
 
   protected: 
@@ -173,10 +190,6 @@ namespace KLFitter
     std::vector<int> * topEl_use;
     std::vector<int> * topEl_inTrigger;     
     std::vector<float> * el_E;  
-    std::vector<float> * el_px;  
-    std::vector<float> * el_py;  
-    std::vector<float> * el_pz;  
-    std::vector<float> * el_pt;  
     std::vector<float> * el_eta;
     std::vector<float> * el_deteta;  
     std::vector<float> * el_phi;  
@@ -186,9 +199,6 @@ namespace KLFitter
     std::vector<int> * topJet_use;
     std::vector<int> * topJet_inTrigger;       
     std::vector<float> * jet_E;  
-    //std::vector<float> * jet_px;  
-    //std::vector<float> * jet_py;  
-    //std::vector<float> * jet_pz;  
     std::vector<float> * jet_pt;  
     std::vector<float> * jet_eta;
     std::vector<float> * jet_deteta;  
@@ -199,6 +209,37 @@ namespace KLFitter
     float topMET_phi; 
     float topMET_etx; 
     float topMET_ety; 
+    
+    // internal variables for the truth mapping
+    int TruthIdx_t;     //top quark
+    int TruthIdx_tbar;    //antitop quark
+    int TruthIdx_b;     // b quark
+    int TruthIdx_bbar;    // antib quark
+    int TruthIdx_Wplus;     // W+
+    int TruthIdx_Wminus;    // W-
+    int TruthIdx_QfromWplus;  // the quark from W+
+    int TruthIdx_QbarfromWplus;   // the antiquark from W+
+    int TruthIdx_QfromWminus;   // the quark from W-
+    int TruthIdx_QbarfromWminus;  // the antiquark from W-
+    int TruthIdx_lplus;     // the lepton (e, mu, tau) with positive charge 
+    int TruthIdx_lminus;    // the lepton (e, mu, tau) with positive charge
+    int TruthIdx_n;     // neutrino
+    int TruthIdx_nbar;    // antineutrino
+    bool Truth_WplusHad;    // true if W+ decayed hadronically
+    bool Truth_WminusHad;   // true if W- decayed hadronically
+
+    // Truth branch variables to read from D3PDs
+    std::vector<float> * mc_eta;
+    std::vector<float> * mc_phi;
+    std::vector<float> * mc_pt;
+    std::vector<int> * mc_pdgId;
+    std::vector<float> * mc_m;
+    std::vector<float> * mc_barcode;
+    std::vector<int> * mc_status;
+    std::vector<std::vector<int> > *mc_parent_index;
+    std::vector<std::vector<int> > *mc_child_index;
+    std::vector<std::vector<int> >* mc_parents;
+    std::vector<std::vector<int> > * mc_children;
 
     
     /* @} */
