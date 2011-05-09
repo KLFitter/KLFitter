@@ -473,74 +473,72 @@ int KLFitter::InterfaceD3PD::FillParticles()
     }
   TLorentzVector * tlv_tmp = new TLorentzVector(0,0,0,0);
 
-  tlv_tmp->SetPtEtaPhiM(mc_pt->at(index_bhad),
+  tlv_tmp->SetPtEtaPhiM(mc_pt->at(index_bhad) / 1000.,
                       mc_eta->at(index_bhad), 
                       mc_phi->at(index_bhad), 
-                      mc_m->at(index_bhad));
+                      mc_m->at(index_bhad) / 1000.);
   fParticlesTruth->AddParticle(tlv_tmp, KLFitter::Particles::kParton, "hadronic b quark");
-  tlv_tmp->SetPtEtaPhiM(mc_pt->at(index_blep), 
+  tlv_tmp->SetPtEtaPhiM(mc_pt->at(index_blep) / 1000., 
                       mc_eta->at(index_blep), 
                       mc_phi->at(index_blep), 
-                      mc_m->at(index_blep));
+                      mc_m->at(index_blep) / 1000.);
   fParticlesTruth->AddParticle(tlv_tmp, KLFitter::Particles::kParton, "leptonic b quark");
-  tlv_tmp->SetPtEtaPhiM(mc_pt->at(index_q1), 
+  tlv_tmp->SetPtEtaPhiM(mc_pt->at(index_q1) / 1000., 
                       mc_eta->at(index_q1), 
                       mc_phi->at(index_q1), 
-                      mc_m->at(index_q1));
+                      mc_m->at(index_q1) / 1000.);
   fParticlesTruth->AddParticle(tlv_tmp, KLFitter::Particles::kParton, "light quark 1");
-  tlv_tmp->SetPtEtaPhiM(mc_pt->at(index_q2), 
+  tlv_tmp->SetPtEtaPhiM(mc_pt->at(index_q2) / 1000., 
                       mc_eta->at(index_q2), 
                       mc_phi->at(index_q2), 
-                      mc_m->at(index_q2));
+                      mc_m->at(index_q2) / 1000.);
   fParticlesTruth->AddParticle(tlv_tmp, KLFitter::Particles::kParton, "light quark 2"); 
 
   if (index_l!=-1 && abs(mc_pdgId->at(index_l)) == 11){
-    tlv_tmp->SetPtEtaPhiM(mc_pt->at(index_l), 
+    tlv_tmp->SetPtEtaPhiM(mc_pt->at(index_l) / 1000., 
                         mc_eta->at(index_l), 
                         mc_phi->at(index_l), 
-                        mc_m->at(index_l));
+                        mc_m->at(index_l) / 1000.);
     fParticlesTruth->AddParticle(tlv_tmp, KLFitter::Particles::kElectron, "electron");
   } 
   else if (index_l!=-1 && abs(mc_pdgId->at(index_l)) == 13){
-    tlv_tmp->SetPtEtaPhiM(mc_pt->at(index_l),                                                                                                   mc_eta->at(index_l), 
+    tlv_tmp->SetPtEtaPhiM(mc_pt->at(index_l) / 1000.,                                                                                           mc_eta->at(index_l), 
                         mc_phi->at(index_l), 
-                        mc_m->at(index_l));
+                        mc_m->at(index_l) / 1000.);
     fParticlesTruth->AddParticle(tlv_tmp, KLFitter::Particles::kMuon, "muon");
   } 
   else if (index_l!=-1 && abs(mc_pdgId->at(index_l)) == 15){
-    tlv_tmp->SetPtEtaPhiM(mc_pt->at(index_l), 
+    tlv_tmp->SetPtEtaPhiM(mc_pt->at(index_l) / 1000., 
                         mc_eta->at(index_l), 
                         mc_phi->at(index_l), 
-                        mc_m->at(index_l));
+                        mc_m->at(index_l) / 1000.);
     fParticlesTruth->AddParticle(tlv_tmp, KLFitter::Particles::kTau, "tau");
   } 
   
   if (index_nu!=-1){
-    tlv_tmp->SetPtEtaPhiM(mc_pt->at(index_nu), 
+    tlv_tmp->SetPtEtaPhiM(mc_pt->at(index_nu) / 1000., 
                         mc_eta->at(index_nu), 
                         mc_phi->at(index_nu), 
-                        mc_m->at(index_nu));
+                        mc_m->at(index_nu) / 1000.);
     fParticlesTruth->AddParticle(tlv_tmp, KLFitter::Particles::kNeutrino, "neutrino");
   } 
   if (index_tophad >= 0) {
-    tlv_tmp->SetPtEtaPhiM(mc_pt->at(index_tophad), 
+    tlv_tmp->SetPtEtaPhiM(mc_pt->at(index_tophad) / 1000., 
                         mc_eta->at(index_tophad), 
                         mc_phi->at(index_tophad), 
-                        mc_m->at(index_tophad));
+                        mc_m->at(index_tophad) / 1000.);
     fParticlesTruth->AddParticle(tlv_tmp, KLFitter::Particles::kParton, "hadronic top quark"); 
   }
 
   if (index_toplep >= 0) {
-    tlv_tmp->SetPtEtaPhiM(mc_pt->at(index_toplep), 
+    tlv_tmp->SetPtEtaPhiM(mc_pt->at(index_toplep) / 1000., 
                         mc_eta->at(index_toplep), 
                         mc_phi->at(index_toplep), 
-                        mc_m->at(index_toplep));
+                        mc_m->at(index_toplep) / 1000.);
     fParticlesTruth->AddParticle(tlv_tmp, KLFitter::Particles::kParton, "leptonic top quark"); 
   }
   //free memory
   delete tlv_tmp;
-
-  this->testTruthMapper();
 
   // no error 
   return 1;
@@ -570,7 +568,6 @@ bool KLFitter::InterfaceD3PD::OriginatesFromPDG(int truthIdx,long pdg)
 // --------------------------------------------------------- 
 
 int KLFitter::InterfaceD3PD::TruthMapper(){
-  // the TruthMapper itself. Call it in your event selection  
 
    //counters for cross checks
    int Nt      = 0;
@@ -710,105 +707,4 @@ int KLFitter::InterfaceD3PD::TruthMapper(){
   return 1;
 }
 
-// --------------------------------------------------------- 
-
-void KLFitter::InterfaceD3PD::testTruthMapper()
-{
-  // if you like: some sanity checks, most of them commented out:
-
-std::cout<< "=======================" << std::endl;
-std::cout<< "TruthIdx_t " <<TruthIdx_t << std::endl;
-std::cout<< "TruthIdx_tbar "<< TruthIdx_tbar << std::endl; 
-std::cout<< "TruthIdx_b "<< TruthIdx_b<<std::endl; 
-std::cout<< "TruthIdx_bbar " <<TruthIdx_bbar <<std::endl; 
-std::cout<< "TruthIdx_Wplus " <<TruthIdx_Wplus <<std::endl; 
-std::cout<< "TruthIdx_Wminus " <<TruthIdx_Wminus<< std::endl; 
-std::cout<< "TruthIdx_QfromWplus " <<TruthIdx_QfromWplus <<std::endl; 
-std::cout<< "TruthIdx_QbarfromWplus  " <<TruthIdx_QbarfromWplus <<std::endl; 
-std::cout<< "TruthIdx_QfromWminus " << TruthIdx_QfromWminus<<std::endl; 
-std::cout<< "TruthIdx_QbarfromWminus " <<TruthIdx_QbarfromWminus <<std::endl; 
-std::cout<< "TruthIdx_lplus " << TruthIdx_lplus<<std::endl; 
-std::cout<< "TruthIdx_lminus " <<TruthIdx_lminus<< std::endl; 
-std::cout<< "TruthIdx_n " << TruthIdx_n<<std::endl; 
-std::cout<< "TruthIdx_nbar " << TruthIdx_nbar<<std::endl;
-std::cout<< "Truth_WplusHad " << Truth_WplusHad<<std::endl; 
-std::cout<< "Truth_WminusHad " << Truth_WminusHad<<std::endl;
-
-
-bool sane = (TruthIdx_t!=-1 && TruthIdx_tbar!=-1 && TruthIdx_b!=-1 && TruthIdx_bbar!=-1 && TruthIdx_Wplus!=-1 && TruthIdx_Wminus!=-1 && //ttbar->W+W-bbbar
-       ( (Truth_WplusHad && Truth_WminusHad && TruthIdx_QfromWplus!=-1 && TruthIdx_QbarfromWplus!=-1 && TruthIdx_QfromWminus!=-1 && TruthIdx_QbarfromWminus!=-1) || //alljets
-   (Truth_WplusHad && !Truth_WminusHad && TruthIdx_lminus!=-1 && TruthIdx_nbar!=-1 && TruthIdx_QfromWplus!=-1 && TruthIdx_QbarfromWplus!=-1) || //(l^+)+jets 
-   (Truth_WminusHad && !Truth_WplusHad && TruthIdx_lplus!=-1 && TruthIdx_n!=-1 && TruthIdx_QfromWminus!=-1 && TruthIdx_QbarfromWminus!=-1) || //(l^-)+jets
-   (!Truth_WplusHad && !Truth_WminusHad && TruthIdx_lminus!=-1 && TruthIdx_nbar!=-1 && TruthIdx_lplus!=-1 && TruthIdx_n!=-1)));
-
-std::cout<<  "Sanity check: " << sane << std::endl;
-/*
-if (TruthIdx_t!=-1) {
-  std::cout << "-------------"<< std::endl;
-  std::cout << "Checking top: "<< std::endl;
-  std::cout << "mass: "<< mc_m->at(TruthIdx_t)<<std::endl;
-  std::cout << "PDGid: "<< mc_pdgId->at(TruthIdx_t)<<std::endl;
-}
-
-if (TruthIdx_tbar!=-1) {
-  std::cout << "-------------"<< std::endl;
-  std::cout << "Checking antitop: "<< std::endl;
-  std::cout << "mass: "<< mc_m->at(TruthIdx_tbar)<<std::endl;
-  std::cout << "PDGid: "<< mc_pdgId->at(TruthIdx_tbar)<<std::endl;
-}
-
-if (TruthIdx_b!=-1) {
-  std::cout << "-------------"<< std::endl;
-  std::cout << "Checking b: "<< std::endl;
-  std::cout << "mass: "<< mc_m->at(TruthIdx_b)<<std::endl;
-  std::cout << "PDGid: "<< mc_pdgId->at(TruthIdx_b)<<std::endl;
-}
-
-if (TruthIdx_bbar!=-1) {
-  std::cout << "-------------"<< std::endl;
-  std::cout << "Checking bbar: "<< std::endl;
-  std::cout << "mass: "<< mc_m->at(TruthIdx_bbar)<<std::endl;
-  std::cout << "PDGid: "<< mc_pdgId->at(TruthIdx_bbar)<<std::endl;
-}
-
-if (TruthIdx_Wplus!=-1) {
-  std::cout << "-------------"<< std::endl;
-  std::cout << "Checking Wplus: "<< std::endl;
-  std::cout << "mass: "<< mc_m->at(TruthIdx_Wplus)<<std::endl;
-  std::cout << "PDGid: "<< mc_pdgId->at(TruthIdx_Wplus)<<std::endl;
-}
-
-if (TruthIdx_Wminus!=-1) {
-  std::cout << "-------------"<< std::endl;
-  std::cout << "Checking Wminus: "<< std::endl;
-  std::cout << "mass: "<< mc_m->at(TruthIdx_Wminus)<<std::endl;
-  std::cout << "PDGid: "<< mc_pdgId->at(TruthIdx_Wminus)<<std::endl;
-}
-*/
-/*
-if (TruthIdx_QfromWplus!=-1 && TruthIdx_QbarfromWplus!=-1) {
-  TLorentzVector truffiQ, truffiQbar, truffiW;
-  truffiQ.SetPtEtaPhiM((*mc_pt)[TruthIdx_QfromWplus]/1000, (*mc_eta)[TruthIdx_QfromWplus], (*mc_phi)[TruthIdx_QfromWplus], (*mc_m)[TruthIdx_QfromWplus]/1000);
-
-  truffiQbar.SetPtEtaPhiM((*mc_pt)[TruthIdx_QbarfromWplus]/1000, (*mc_eta)[TruthIdx_QbarfromWplus], (*mc_phi)[TruthIdx_QbarfromWplus], (*mc_m)[TruthIdx_QbarfromWplus]/1000);
-
-  truffiW = truffiQ + truffiQbar;
-
-  std::cout << "-------------"<< std::endl;
-  std::cout << "Wplus reco possible! Mass: "<< truffiW.M() <<std::endl;
-}
-
-if (TruthIdx_QfromWminus!=-1 && TruthIdx_QbarfromWminus!=-1) {
-  TLorentzVector truffiQ, truffiQbar, truffiW;
-  truffiQ.SetPtEtaPhiM((*mc_pt)[TruthIdx_QfromWminus]/1000, (*mc_eta)[TruthIdx_QfromWminus], (*mc_phi)[TruthIdx_QfromWminus], (*mc_m)[TruthIdx_QfromWminus]/1000);
-
-  truffiQbar.SetPtEtaPhiM((*mc_pt)[TruthIdx_QbarfromWminus]/1000, (*mc_eta)[TruthIdx_QbarfromWminus], (*mc_phi)[TruthIdx_QbarfromWminus], (*mc_m)[TruthIdx_QbarfromWminus]/1000);
-
-  truffiW = truffiQ + truffiQbar;
-
-  std::cout << "-------------"<< std::endl;
-  std::cout << "Wminus reco possible! Mass: "<< truffiW.M() <<std::endl;
-}
-*/
-}
 // --------------------------------------------------------- 

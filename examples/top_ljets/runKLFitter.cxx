@@ -1,25 +1,27 @@
-#include <iostream> 
+#include <iostream>
+#include <fstream>
 #include <vector>
 #include <set>
-#include <Fitter.h> 
-#include <PhysicsConstants.h> 
-#include <DetectorAtlas_7TeV.h> 
-#include <DetectorAtlas_10TeV.h> 
-#include <DetectorDummy.h> 
-#include <InterfaceRoot.h> 
-#include <InterfaceDummy.h> 
-#include <InterfaceD3PD.h> 
-#include <Particles.h> 
-#include <Permutations.h>
-#include <InterfaceOutput.h> 
-#include <LikelihoodTopLeptonJets.h> 
-#include <MatchingTool.h> 
-#include <SelectionTool.h> 
-#include <TString.h>
-#include <TSystem.h>  
-#include <ReadConfigFile.h>
+#include "Fitter.h" 
+#include "PhysicsConstants.h" 
+#include "DetectorAtlas_7TeV.h" 
+#include "DetectorAtlas_10TeV.h" 
+#include "DetectorDummy.h" 
+#include "InterfaceRoot.h" 
+#include "InterfaceDummy.h" 
+#include "InterfaceD3PD.h" 
+#include "Particles.h" 
+#include "Permutations.h"
+#include "InterfaceOutput.h" 
+#include "LikelihoodBase.h" 
+#include "LikelihoodTopLeptonJets.h" 
+#include "MatchingTool.h" 
+#include "SelectionTool.h" 
+#include "TString.h"
+#include "TSystem.h"  
+#include "ReadConfigFile.h"
 
-#include <TFile.h>
+#include "TFile.h"
 
 bool EventTruthSelection(KLFitter::Particles * particles, bool DO_ELECTRON, bool DO_MUON); 
 int GetCombinationNo(TString s);//int matchHadB, int matchLepB, int matchLJ1, int matchLJ2);
@@ -72,7 +74,7 @@ int main(int argc, char **argv)
   for(unsigned int i=0; i<inputfiles.size(); i++)
   	std::cout << inputfiles.at(i) << std::endl;
   myInterfaceRoot -> OpenRootFiles(inputfiles);
-  //myInterfaceRoot -> OpenRootFile(input_file.c_str());
+
 
   // create detector
   KLFitter::DetectorBase * myDetector;
@@ -244,7 +246,11 @@ int main(int argc, char **argv)
           myInterfaceOutput -> FillTreeTruth();
           myInterfaceOutput -> FillTreeMatching();
         }
-      myInterfaceOutput -> FillTreeMap(); 
+      myInterfaceOutput -> FillTreeMap();
+
+if (firstevent) {
+        printf("----------------------------------------------------------------------------------------------\n");
+				printf("--------------------------------FIT RESULTS FOR THE FIRST EVENT-------------------------------\n"); 
 
       // loop over all permutations 
       for (int iperm = 0; iperm < myFitter -> Permutations() -> NPermutations(); ++iperm)

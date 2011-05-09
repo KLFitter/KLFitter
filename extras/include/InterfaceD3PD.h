@@ -150,9 +150,6 @@ namespace KLFitter
      */ 
     bool OriginatesFromPDG(int truthIdx,long pdg);
 
-    // if you like: function for sanity checks
-    void testTruthMapper();
-
     /* @} */
 
   protected: 
