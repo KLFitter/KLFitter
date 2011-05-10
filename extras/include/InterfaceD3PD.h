@@ -150,6 +150,11 @@ namespace KLFitter
      */ 
     bool OriginatesFromPDG(int truthIdx,long pdg);
 
+    /**
+     * Checks whether event is proper and sane MC event.
+     * @return true if event is sane
+     */ 
+    bool IsProperMCEvent();
     /* @} */
 
   protected: 

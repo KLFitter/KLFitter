@@ -495,7 +495,7 @@ int KLFitter::InterfaceGoTopTree::FillParticles()
     }
 
   // check if input is Signal MC
-  if (!fFlagIsSignalMC)
+  if (!fFlagWriteSignalMCTruth)
     return 1; 
 
   // create truth particle container

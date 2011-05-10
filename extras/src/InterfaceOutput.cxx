@@ -860,7 +860,7 @@ int KLFitter::InterfaceOutput::CreateTrees()
   err *= this->CreateTreeModel(); 
 
   // create tree for matching informations
-  if (fMatchingTool)
+  if (fMatchingTool && fParticlesTruth)
     err *= this->CreateTreeMatching(); 
 
   if (fSelectionTool)

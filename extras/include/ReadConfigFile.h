@@ -95,10 +95,10 @@ namespace KLFitter
     bool GetFlagUseJetMass() { return FlagUseJetMass; }
 
     /**
-     * Return FlagIsSignalMC
+     * Return FlagWriteSignalMCTruth
      * @return The flag.
      */ 
-    bool GetFlagIsSignalMC() { return FlagIsSignalMC; }
+    bool GetFlagWriteSignalMCTruth() { return FlagWriteSignalMCTruth; }
 
     /**
      * Return FlagIsSignalMC
@@ -197,9 +197,9 @@ namespace KLFitter
     bool FlagUseJetMass;
 
     /**
-     * The FlagIsSignalMC.
+     * The FlagWriteSignalMCTruth.
      */ 
-    bool FlagIsSignalMC;
+    bool FlagWriteSignalMCTruth;
 
     /**
      * The top mass.

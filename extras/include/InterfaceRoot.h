@@ -97,8 +97,8 @@ namespace KLFitter
      * Set a flag. If flag is true the input is Signal MC.
      * @param flag If true, truth particle container is filled.
      */ 
-    void SetFlagIsSignalMC(bool flag)
-    { fFlagIsSignalMC = flag; };
+    void SetFlagWriteSignalMCTruth(bool flag)
+    { fFlagWriteSignalMCTruth = flag; };
 
     /**
      * Set a flag. Needed for filling the truth particle container.
@@ -146,7 +146,7 @@ namespace KLFitter
     /**
      * A flag for using Signal MC as input.
      */ 
-    bool fFlagIsSignalMC;
+    bool fFlagWriteSignalMCTruth;
 
     /**
      * A flag for using Signal MC as input.

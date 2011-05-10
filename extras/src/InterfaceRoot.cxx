@@ -8,7 +8,7 @@
 // --------------------------------------------------------- 
 KLFitter::InterfaceRoot::InterfaceRoot() : fRootFile(0) 
 {
-  fFlagIsSignalMC = false;
+  fFlagWriteSignalMCTruth = false;
   fFlagIsHerwigMC = true;
 }
 

@@ -46,7 +46,7 @@ int main(int argc, char **argv)
   bool FlagIntegrate    = configReader->GetFlagIntegrate();
   bool FlagTopMassFixed = configReader->GetFlagTopMassFixed();
   bool FlagUseJetMass   = configReader->GetFlagUseJetMass();
-  bool FlagIsSignalMC   = configReader->GetFlagIsSignalMC();
+  bool FlagWriteSignalMCTruth   = configReader->GetFlagWriteSignalMCTruth();
   bool FlagIs7TeV   = configReader->GetFlagIs7TeV();
   bool FlagIs10TeV   = configReader->GetFlagIs10TeV();
   double CutBTagging   = configReader->GetCutBTagging();
@@ -54,9 +54,8 @@ int main(int argc, char **argv)
   double MassTop = configReader->GetTopMass();
   std::string input_file=configReader->GetInputPath();
   std::string output_file=configReader->GetOutputPath();
-  bool IsBkg = configReader->GetIsBkg();
   bool FlagTruthSel = configReader->GetFlagTruthSel();
-  bool FlagAthenaComp = configReader->GetFlagAthenaComp();
+
   delete configReader;
   if(!valid){ return 0;}//std::cout<<"Error: InputPath=OutputPath. Will not overwrite InputFile!"<<std::endl;return 0;}
 
@@ -87,9 +86,6 @@ int main(int argc, char **argv)
   if (!myFitter -> SetDetector(myDetector))
     return 0; 
 
-  if (FlagAthenaComp)
-    myFitter->TurnOffSA();
-        
   // create likelihood for ttbar->e+jets channel 
   KLFitter::LikelihoodTopLeptonJets * myLikelihood = new KLFitter::LikelihoodTopLeptonJets(); 
 
@@ -103,7 +99,7 @@ int main(int argc, char **argv)
   myLikelihood -> SetFlagTopMassFixed(FlagTopMassFixed);
   myLikelihood -> SetFlagUseJetMass(FlagUseJetMass);
   myLikelihood -> SetCutBTag(CutBTagging);
-  myInterfaceRoot -> SetFlagIsSignalMC(FlagIsSignalMC);
+  myInterfaceRoot -> SetFlagWriteSignalMCTruth(FlagWriteSignalMCTruth);
   myInterfaceRoot -> SetFlagIsHerwigMC(true); //For Acer sample please switch to false
         
   if (DO_ELECTRON)
@@ -131,27 +127,23 @@ int main(int argc, char **argv)
   mySelectionTool -> SelectPhotonEta(2.5);
   mySelectionTool -> SelectJetEta(2.5);
   mySelectionTool -> RequireNJetsPt(25.0, 4, -1); 
-  //if (!FlagAthenaComp)
-    //mySelectionTool -> RequireNJetsPt(40.0, 3, -1); 
+
   mySelectionTool -> SetMaxNJetsForFit(4);
   if (DO_ELECTRON)
     mySelectionTool -> RequireNElectronsPt(20.0, 1); 
   if (DO_MUON)
     mySelectionTool -> RequireNMuonsPt(20.0, 1);
-  if (!FlagAthenaComp)
-    mySelectionTool -> RequireMET(20.); 
-  else
-    mySelectionTool -> RequireMET(20.); 
+  mySelectionTool -> RequireMET(20.); 
 
   // create matching tool
   KLFitter::MatchingTool * myMatchingTool = 0x0;
-  if (!IsBkg)
-    if (FlagTruthSel)
+  if (FlagWriteSignalMCTruth)
+    if (FlagTruthSel && FlagWriteSignalMCTruth)
       myMatchingTool = new KLFitter::MatchingTool( myFitter -> PParticles(), myInterfaceRoot -> PParticlesTruth() ); 
 
   // set fitter and truth particles 
   myInterfaceOutput -> SetFitter(myFitter); 
-  if (!IsBkg)
+  if (FlagWriteSignalMCTruth)
     myInterfaceOutput -> SetParticlesTruth( myInterfaceRoot -> PParticlesTruth() ); 
   myInterfaceOutput -> SetParticlesMeasured( myInterfaceRoot -> PParticles() ); 
   if (myMatchingTool)
@@ -192,11 +184,11 @@ int main(int argc, char **argv)
       // read single event from root file and get particles 
       KLFitter::Particles * measuredparticles = myInterfaceRoot -> Particles(); 
       KLFitter::Particles * truthparticles = 0x0;
-      if (!IsBkg)
+      if (FlagWriteSignalMCTruth)
         truthparticles = myInterfaceRoot -> ParticlesTruth(); 
 
       // truth event selection
-      if (!IsBkg)
+      if (FlagWriteSignalMCTruth)
         if (FlagTruthSel)
           if (!EventTruthSelection(truthparticles, DO_ELECTRON, DO_MUON))
             continue; 
@@ -241,17 +233,18 @@ int main(int argc, char **argv)
       myInterfaceOutput -> SetEventWeight(weight); 
       myInterfaceOutput -> FillTreeMeasured(); 
       myInterfaceOutput -> FillTreeSelected(); 
-      if (!IsBkg)
+      if (FlagWriteSignalMCTruth)
         {
           myInterfaceOutput -> FillTreeTruth();
           myInterfaceOutput -> FillTreeMatching();
         }
       myInterfaceOutput -> FillTreeMap();
 
-if (firstevent) {
+      if (firstevent) {
         printf("----------------------------------------------------------------------------------------------\n");
 				printf("--------------------------------FIT RESULTS FOR THE FIRST EVENT-------------------------------\n"); 
-
+      }
+  
       // loop over all permutations 
       for (int iperm = 0; iperm < myFitter -> Permutations() -> NPermutations(); ++iperm)
         {
@@ -358,7 +351,7 @@ if (firstevent) {
           countJMatch++;
         }
     }
-
+  
   // output cut flow 
   std::cout << " N (all)       : " << mySelectionTool -> CounterEvents() << std::endl;
   if (DO_ELECTRON)
@@ -367,7 +360,7 @@ if (firstevent) {
     std::cout << " N (muons  )   : " << mySelectionTool -> CounterMuons() << std::endl;
   std::cout << " N (jets)      : " << mySelectionTool -> CounterJets() << std::endl;
   std::cout << " N (MET)       : " << mySelectionTool -> CounterMET() << std::endl;
-  if (!IsBkg)
+  if (FlagWriteSignalMCTruth)
     {
       if (DO_ELECTRON)
         std::cout << " N (e  matched) : " << countLMatch << std::endl;

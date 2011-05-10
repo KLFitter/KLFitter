@@ -16,18 +16,19 @@ KLFitter::ReadConfigFile::ReadConfigFile(std::string filename)
   FlagIntegrate    = false;
   FlagTopMassFixed = false;
   FlagUseJetMass   = false;
-  FlagIsSignalMC   = true;
+  FlagWriteSignalMCTruth   = true;
   FlagIs7TeV	   = true;
   FlagIs10TeV	   = false;
-  FlagTruthSel     = true;
-  FlagAthenaComp   = false;
-
+  FlagTruthSel = false;
   MassTop = 172.5;
 
   input_path="input.root";
   output_path="output.root";
 
+  //Following variables are obsolete and not used anymore
   IsBkg = false;
+  FlagAthenaComp   = false;
+
 
   ReadConfig(filename);
 }
@@ -45,18 +46,19 @@ KLFitter::ReadConfigFile::ReadConfigFile(std::string filename, bool * validconfi
   FlagIntegrate    = false;
   FlagTopMassFixed = false;
   FlagUseJetMass   = false;
-  FlagIsSignalMC   = true;
+  FlagWriteSignalMCTruth   = true;
   FlagIs7TeV	   = true;
   FlagIs10TeV	   = false;
-  FlagTruthSel     = true;
-  FlagAthenaComp   = false;
+  FlagTruthSel = false;
 
   MassTop = 172.5;
 
   input_path="input.root";
   output_path="output.root";
 
+  //Following variables are obsolete and not used anymore
   IsBkg = false;
+  FlagAthenaComp   = false;
 
   if(ReadConfig(filename)!=-1){*validconfig=true;}
   else{*validconfig=false;}
@@ -273,7 +275,7 @@ int KLFitter::ReadConfigFile::ReadConfig(std::string filename)
 					    }
 					  else
 					    {
-					      found=line.find("FlagIsSignalMC");
+					      found=line.find("FlagWriteSignalMCTruth");
 					      if(found!=std::string::npos)
 						{
 						  found=line.find("=",found);
@@ -282,11 +284,11 @@ int KLFitter::ReadConfigFile::ReadConfig(std::string filename)
 						      tmp=GetTrueOrFalse(line,found);
 						      if(tmp!=-1)
 							{
-							  FlagIsSignalMC=(tmp==1);
+							  FlagWriteSignalMCTruth=(tmp==1);
 							}
 						      else
 							{
-							  std::cout<<"Warning: Error while reading value of FlagIsSignalMC, using standard value"<<std::endl;
+							  std::cout<<"Warning: Error while reading value of FlagWriteSignalMCTruth, using standard value"<<std::endl;
 							}
 						    }
 						}
@@ -484,7 +486,7 @@ int KLFitter::ReadConfigFile::ReadConfig(std::string filename)
   std::cout<< "FlagIntegrate = "<<FlagIntegrate<<std::endl;
   std::cout<< "FlagTopMassFixed = "<<FlagTopMassFixed<<std::endl;
   std::cout<< "FlagUseJetMass = "<<FlagUseJetMass<<std::endl;
-  std::cout<< "FlagIsSignalMC = "<<FlagIsSignalMC<<std::endl;
+  std::cout<< "FlagWriteSignalMCTruth = "<<FlagWriteSignalMCTruth<<std::endl;
   std::cout<< "FlagIs7TeV = "<<FlagIs7TeV<<std::endl;
   std::cout<< "FlagIs10TeV = "<<FlagIs10TeV<<std::endl;
   std::cout<< "MassTop = "<<MassTop<<std::endl;

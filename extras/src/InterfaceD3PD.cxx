@@ -69,24 +69,6 @@ KLFitter::InterfaceD3PD::InterfaceD3PD()
   mc_parent_index = 0;
   mc_child_index = 0;
   mc_children = 0;
-
-  //Init: No particles found yet
-  TruthIdx_t = -1;
-  TruthIdx_tbar = -1; 
-  TruthIdx_b = -1; 
-  TruthIdx_bbar = -1; 
-  TruthIdx_Wplus = -1; 
-  TruthIdx_Wminus = -1; 
-  TruthIdx_QfromWplus = -1; 
-  TruthIdx_QbarfromWplus = -1; 
-  TruthIdx_QfromWminus = -1; 
-  TruthIdx_QbarfromWminus = -1; 
-  TruthIdx_lplus = -1; 
-  TruthIdx_lminus = -1; 
-  TruthIdx_n = -1; 
-  TruthIdx_nbar = -1;
-  Truth_WplusHad = true;
-  Truth_WminusHad = true;
       
   // needed due to incomplete dictionaries in ROOT (reading vector<bool> from TTree won't work without)
   gROOT->ProcessLine("#include <vector>");
@@ -380,7 +362,7 @@ int KLFitter::InterfaceD3PD::FillParticles()
 
 	//fill electrons
   for (int i = 0; i < topEl_n; ++i){
-  	if ( topEl_use->at(i) && topEl_inTrigger->at(i) ){
+  	if ( topEl_use->at(i) ){
           if (el_E->at(topEl_index->at(i)) <= 0.)
             continue;
       TLorentzVector * tlv_tmp = new TLorentzVector(0,0,0,0);
@@ -411,7 +393,7 @@ int KLFitter::InterfaceD3PD::FillParticles()
 	std::sort(fParticles->ParticleContainer(KLFitter::Particles::kMuon)->begin(),  fParticles->ParticleContainer(KLFitter::Particles::kMuon)->end() , KLFitter::Particles::PtOrder);
 	
   // check if input is Signal MC
-  if (!fFlagIsSignalMC)
+  if (!fFlagWriteSignalMCTruth)
     return 1; 
 
   // create truth particle container
@@ -420,11 +402,10 @@ int KLFitter::InterfaceD3PD::FillParticles()
   //Find the correct truth particle indices
   this->TruthMapper();
 
-  /*
+  
   // check if event is proper ttbar event
-  if (!Truth_IsProperMCEvent)
+  if (!this->IsProperMCEvent())
     return 1;
-  */ 
 
   // do not fill mc information if di-leptonic
   if ( (Truth_WplusHad == false) && (Truth_WminusHad == false) )
@@ -440,7 +421,7 @@ int KLFitter::InterfaceD3PD::FillParticles()
   int index_q2 = -1; 
   int index_l = -1; 
   int index_nu = -1;
-
+  
   if (Truth_WplusHad) 
     {
       index_Whad = TruthIdx_Wplus; 
@@ -471,8 +452,8 @@ int KLFitter::InterfaceD3PD::FillParticles()
       index_bhad = TruthIdx_bbar; 
 
     }
+  //Create new temp TLorentzVector
   TLorentzVector * tlv_tmp = new TLorentzVector(0,0,0,0);
-
   tlv_tmp->SetPtEtaPhiM(mc_pt->at(index_bhad) / 1000.,
                       mc_eta->at(index_bhad), 
                       mc_phi->at(index_bhad), 
@@ -568,6 +549,24 @@ bool KLFitter::InterfaceD3PD::OriginatesFromPDG(int truthIdx,long pdg)
 // --------------------------------------------------------- 
 
 int KLFitter::InterfaceD3PD::TruthMapper(){
+
+  //Init: No particles found yet
+  TruthIdx_t = -1;
+  TruthIdx_tbar = -1; 
+  TruthIdx_b = -1; 
+  TruthIdx_bbar = -1; 
+  TruthIdx_Wplus = -1; 
+  TruthIdx_Wminus = -1; 
+  TruthIdx_QfromWplus = -1; 
+  TruthIdx_QbarfromWplus = -1; 
+  TruthIdx_QfromWminus = -1; 
+  TruthIdx_QbarfromWminus = -1; 
+  TruthIdx_lplus = -1; 
+  TruthIdx_lminus = -1; 
+  TruthIdx_n = -1; 
+  TruthIdx_nbar = -1;
+  Truth_WplusHad = true;
+  Truth_WminusHad = true;
 
    //counters for cross checks
    int Nt      = 0;
@@ -706,5 +705,107 @@ int KLFitter::InterfaceD3PD::TruthMapper(){
   //no error
   return 1;
 }
+// ---------------------------------------------------------
+ 
+bool KLFitter::InterfaceD3PD::IsProperMCEvent(){
+//some sanity checks, most of them commented out:
+/*
+std::cout<< "=======================" << std::endl;
+std::cout<< "TruthIdx_t " <<TruthIdx_t << std::endl;
+std::cout<< "TruthIdx_tbar "<< TruthIdx_tbar << std::endl; 
+std::cout<< "TruthIdx_b "<< TruthIdx_b<<std::endl; 
+std::cout<< "TruthIdx_bbar " <<TruthIdx_bbar <<std::endl; 
+std::cout<< "TruthIdx_Wplus " <<TruthIdx_Wplus <<std::endl; 
+std::cout<< "TruthIdx_Wminus " <<TruthIdx_Wminus<< std::endl; 
+std::cout<< "TruthIdx_QfromWplus " <<TruthIdx_QfromWplus <<std::endl; 
+std::cout<< "TruthIdx_QbarfromWplus  " <<TruthIdx_QbarfromWplus <<std::endl; 
+std::cout<< "TruthIdx_QfromWminus " << TruthIdx_QfromWminus<<std::endl; 
+std::cout<< "TruthIdx_QbarfromWminus " <<TruthIdx_QbarfromWminus <<std::endl; 
+std::cout<< "TruthIdx_lplus " << TruthIdx_lplus<<std::endl; 
+std::cout<< "TruthIdx_lminus " <<TruthIdx_lminus<< std::endl; 
+std::cout<< "TruthIdx_n " << TruthIdx_n<<std::endl; 
+std::cout<< "TruthIdx_nbar " << TruthIdx_nbar<<std::endl;
+std::cout<< "Truth_WplusHad " << Truth_WplusHad<<std::endl; 
+std::cout<< "Truth_WminusHad " << Truth_WminusHad<<std::endl;
+*/
 
+bool sane = (TruthIdx_t!=-1 && TruthIdx_tbar!=-1 && TruthIdx_b!=-1 && TruthIdx_bbar!=-1 && TruthIdx_Wplus!=-1 && TruthIdx_Wminus!=-1 && //ttbar->W+W-bbbar
+       ( (Truth_WplusHad && Truth_WminusHad && TruthIdx_QfromWplus!=-1 && TruthIdx_QbarfromWplus!=-1 && TruthIdx_QfromWminus!=-1 && TruthIdx_QbarfromWminus!=-1) || //alljets
+   (Truth_WplusHad && !Truth_WminusHad && TruthIdx_lminus!=-1 && TruthIdx_nbar!=-1 && TruthIdx_QfromWplus!=-1 && TruthIdx_QbarfromWplus!=-1) || //(l^+)+jets 
+   (Truth_WminusHad && !Truth_WplusHad && TruthIdx_lplus!=-1 && TruthIdx_n!=-1 && TruthIdx_QfromWminus!=-1 && TruthIdx_QbarfromWminus!=-1) || //(l^-)+jets
+   (!Truth_WplusHad && !Truth_WminusHad && TruthIdx_lminus!=-1 && TruthIdx_nbar!=-1 && TruthIdx_lplus!=-1 && TruthIdx_n!=-1)));
+
+//std::cout<<  "Sanity check: " << sane << std::endl;
+
+
+/*
+if (TruthIdx_t!=-1) {
+  std::cout << "-------------"<< std::endl;
+  std::cout << "Checking top: "<< std::endl;
+  std::cout << "mass: "<< mc_m->at(TruthIdx_t)<<std::endl;
+  std::cout << "PDGid: "<< mc_pdgId->at(TruthIdx_t)<<std::endl;
+}
+
+if (TruthIdx_tbar!=-1) {
+  std::cout << "-------------"<< std::endl;
+  std::cout << "Checking antitop: "<< std::endl;
+  std::cout << "mass: "<< mc_m->at(TruthIdx_tbar)<<std::endl;
+  std::cout << "PDGid: "<< mc_pdgId->at(TruthIdx_tbar)<<std::endl;
+}
+
+if (TruthIdx_b!=-1) {
+  std::cout << "-------------"<< std::endl;
+  std::cout << "Checking b: "<< std::endl;
+  std::cout << "mass: "<< mc_m->at(TruthIdx_b)<<std::endl;
+  std::cout << "PDGid: "<< mc_pdgId->at(TruthIdx_b)<<std::endl;
+}
+
+if (TruthIdx_bbar!=-1) {
+  std::cout << "-------------"<< std::endl;
+  std::cout << "Checking bbar: "<< std::endl;
+  std::cout << "mass: "<< mc_m->at(TruthIdx_bbar)<<std::endl;
+  std::cout << "PDGid: "<< mc_pdgId->at(TruthIdx_bbar)<<std::endl;
+}
+
+if (TruthIdx_Wplus!=-1) {
+  std::cout << "-------------"<< std::endl;
+  std::cout << "Checking Wplus: "<< std::endl;
+  std::cout << "mass: "<< mc_m->at(TruthIdx_Wplus)<<std::endl;
+  std::cout << "PDGid: "<< mc_pdgId->at(TruthIdx_Wplus)<<std::endl;
+}
+
+if (TruthIdx_Wminus!=-1) {
+  std::cout << "-------------"<< std::endl;
+  std::cout << "Checking Wminus: "<< std::endl;
+  std::cout << "mass: "<< mc_m->at(TruthIdx_Wminus)<<std::endl;
+  std::cout << "PDGid: "<< mc_pdgId->at(TruthIdx_Wminus)<<std::endl;
+}
+*/
+/*
+if (TruthIdx_QfromWplus!=-1 && TruthIdx_QbarfromWplus!=-1) {
+  TLorentzVector truffiQ, truffiQbar, truffiW;
+  truffiQ.SetPtEtaPhiM((*mc_pt)[TruthIdx_QfromWplus]/1000, (*mc_eta)[TruthIdx_QfromWplus], (*mc_phi)[TruthIdx_QfromWplus], (*mc_m)[TruthIdx_QfromWplus]/1000);
+
+  truffiQbar.SetPtEtaPhiM((*mc_pt)[TruthIdx_QbarfromWplus]/1000, (*mc_eta)[TruthIdx_QbarfromWplus], (*mc_phi)[TruthIdx_QbarfromWplus], (*mc_m)[TruthIdx_QbarfromWplus]/1000);
+
+  truffiW = truffiQ + truffiQbar;
+
+  std::cout << "-------------"<< std::endl;
+  std::cout << "Wplus reco possible! Mass: "<< truffiW.M() <<std::endl;
+}
+
+if (TruthIdx_QfromWminus!=-1 && TruthIdx_QbarfromWminus!=-1) {
+  TLorentzVector truffiQ, truffiQbar, truffiW;
+  truffiQ.SetPtEtaPhiM((*mc_pt)[TruthIdx_QfromWminus]/1000, (*mc_eta)[TruthIdx_QfromWminus], (*mc_phi)[TruthIdx_QfromWminus], (*mc_m)[TruthIdx_QfromWminus]/1000);
+
+  truffiQbar.SetPtEtaPhiM((*mc_pt)[TruthIdx_QbarfromWminus]/1000, (*mc_eta)[TruthIdx_QbarfromWminus], (*mc_phi)[TruthIdx_QbarfromWminus], (*mc_m)[TruthIdx_QbarfromWminus]/1000);
+
+  truffiW = truffiQ + truffiQbar;
+
+  std::cout << "-------------"<< std::endl;
+  std::cout << "Wminus reco possible! Mass: "<< truffiW.M() <<std::endl;
+}
+*/
+return sane;
+}
 // --------------------------------------------------------- 
