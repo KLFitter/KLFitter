@@ -1,4 +1,11 @@
-2011-02-11 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+2011-05-10 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+	
+	* InterfaceD3PD.cxx: Truth information for partons is now available
+	* runKLFitter.cxx: Truth info & matching
+	* several classes: Cleaning up flags, new FlagWriteSignalMCTruth
+	* tag KLFitter-00-04-10
+
+2011-04-29 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
 	
 	* Particles.cxx: AddParticle makes copy of TLorentzVector which is owned by Particles, delete duplicated code
 	* InterfaceD3PD/GoTopTree/LikelihoodTopLeptonJets_JetAngle: Call AddParticle without creating new TLorentzVector
