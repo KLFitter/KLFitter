@@ -17,6 +17,8 @@
 // --------------------------------------------------------- 
 
 #include <string>
+#include "DetectorBase.h" 
+#include "LikelihoodTopLeptonJets.h" 
 
 // --------------------------------------------------------- 
 
@@ -53,16 +55,10 @@ namespace KLFitter
     /* @{ */
 
     /**
-     * Return the DO_ELEcTRON flag
+     * Return the LeptonType flag
      * @return The flag.
      */ 
-    bool GetDO_ELECTRON() { return DO_ELECTRON; }
-
-    /**
-     * Return the DO_MUON flag
-     * @return The flag.
-     */ 
-    bool GetDO_MUON() { return DO_MUON; }
+    KLFitter::LikelihoodTopLeptonJets::LeptonType GetLeptonType() { return LeptonType; }
 
     /**
      * Return the DO_BATCH flag
@@ -71,10 +67,10 @@ namespace KLFitter
     bool GetDO_BATCH() { return DO_BATCH; }
 
     /**
-     * Return FlagBTagging
+     * Return BTaggingMethod
      * @return The flag.
      */ 
-    bool GetFlagBTagging() { return FlagBTagging; }
+    KLFitter::LikelihoodBase::BtaggingMethod GetBTaggingMethod() { return BTaggingMethod; }
 
     /**
      * Return FlagIntegrate
@@ -104,7 +100,7 @@ namespace KLFitter
      * Return FlagIsSignalMC
      * @return The flag.
      */ 
-    double GetTopMass() { return MassTop; }
+    double GetTopMass() { return TopPoleMass; }
 
     /**
      * Return Fthe BTagging cut value
@@ -131,16 +127,11 @@ namespace KLFitter
     bool GetIsBkg() { return IsBkg; }
 
     /**
-     * Return FlagIs7TeV
+     * Return BeamCMEnergy
      * @return The flag.
      */
-    bool GetFlagIs7TeV() { return FlagIs7TeV; }	
+    KLFitter::DetectorBase::BeamCMEnergy GetBeamCMEnergy() { return BeamEnergy; }	
 
-    /**
-     * Return FlagIs10TeV
-     * @return The flag.
-     */
-    bool GetFlagIs10TeV() { return FlagIs10TeV; }
 
     /**
      * Flag for using the truth selection.
@@ -162,14 +153,9 @@ namespace KLFitter
     bool CheckIOPath();
 
     /**
-     * The DO_ELECTRON flag.
+     * The LeptonType flag.
      */ 
-    bool DO_ELECTRON;
-
-    /**
-     * The DO_MUON flag.
-     */ 
-    bool DO_MUON;
+    KLFitter::LikelihoodTopLeptonJets::LeptonType LeptonType;
 
     /**
      * The DO_BATCH flag.
@@ -177,9 +163,9 @@ namespace KLFitter
     bool DO_BATCH;
 
     /**
-     * The FlagBTagging.
+     * The BTaggingMethod.
      */ 
-    bool FlagBTagging;
+    KLFitter::LikelihoodBase::BtaggingMethod BTaggingMethod;
 
     /**
      * The FlagIntegrate.
@@ -204,7 +190,7 @@ namespace KLFitter
     /**
      * The top mass.
      */ 
-    double MassTop;
+    double TopPoleMass;
     /**
      * The cut value.
      */ 
@@ -226,11 +212,7 @@ namespace KLFitter
     /**
      * Flag for using 7TeV transferfunctions
      */ 
-    bool FlagIs7TeV;
-    /**
-     * Flag for using 10TeV transferfunctions
-     */ 
-    bool FlagIs10TeV;
+    KLFitter::DetectorBase::BeamCMEnergy BeamEnergy;
 
     /**
      * Flag for using the truth selection.

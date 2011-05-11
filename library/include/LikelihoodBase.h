@@ -42,7 +42,7 @@ namespace KLFitter
     /**
      * Enumerate for b-tagging possibilities
      */
-    enum fbtagging{
+    enum BtaggingMethod{
       kNotag,
       kVeto,
       kWorkingPoint
@@ -129,7 +129,7 @@ namespace KLFitter
      * @param flag The flag.
      * @return An error flag. 
      */ 
-    fbtagging GetBTagging() { return Setbtagging;} 
+    BtaggingMethod GetBTagging() { return fBTagMethod;} 
 
     double CutBTag()
     { return fCutBTag; }; 
@@ -193,9 +193,14 @@ namespace KLFitter
 
     /**
      * Set which b-tagging you wish to use.
-     * @param fSetbtagging The enum of btagging case
+     * @param btagmethod The enum of btagging method.
+     * @param cutvalue The btagger cut value.
+     * @param btageff The btagging efficiency at this cut value.
+     * @param btagrej The btagging rejection at this cut value.
+     * @return An error flag. 
      */ 
-    void SetBTagging(fbtagging fSetbtagging) { Setbtagging = fSetbtagging;} 
+    int SetBTagging(BtaggingMethod btagmethod, double cutvalue=1e4, double btageff=-1, double btagrej=-1) 
+    { fBTagMethod = btagmethod; fCutBTag = cutvalue; fbtagEff = btageff; fbtagRej = btagrej; return 1;}; 
 
     /**
      * THIS IS AN OUTDATED METHOD - JUST HERE FOR BACKWARD COMPATIBILITY.
@@ -204,8 +209,8 @@ namespace KLFitter
      * @return An error flag.
      */ 
     int SetFlagBTagging(bool flag) { 
-      std::cout << "LikelihoodBase::SetFlagBTagging(bool flag) is an outdated method - please use SetBTagging(fbtagging fSetbtagging)." << std::endl;
-      Setbtagging = flag ? kVeto : kNotag;
+      std::cout << "LikelihoodBase::SetFlagBTagging(bool flag) is an outdated method - please use SetBTagging(BtaggingMethod btagmethod, double cutvalue, double btageff, double btagrej)." << std::endl;
+      fBTagMethod = flag ? kVeto : kNotag;
       return 1;
     } 
 
@@ -221,13 +226,16 @@ namespace KLFitter
      * @return The flag.
      */ 
     bool GetFlagIsNan(void) { return fFlagIsNan; }
-
+    /**
+    * THESE ARE OUTDATED METHODS - JUST HERE FOR BACKWARD COMPATIBILITY.
+    */
     void SetCutBTag(double cut)
-    { fCutBTag = cut; }; 
+    { std::cout << "LikelihoodBase::SetCutBTag(double cut) is an outdated method - please use void SetBTagging(BtaggingMethod btagmethod, double cutvalue, double btageff, double btagrej)." << std::endl; fCutBTag = cut; }; 
     void SetbtagRej(double rej)
-    { fbtagRej = rej; }; 
+    { std::cout << "LikelihoodBase::SetbtagRej(double rej)is an outdated method - please use void SetBTagging(BtaggingMethod btagmethod, double cutvalue, double btageff, double btagrej)." << std::endl; fbtagRej = rej; }; 
     void SetbtagEff(double eff)
-    { fbtagEff = eff; }; 
+    { std::cout << "LikelihoodBase::SetbtagEff(double eff) is an outdated method - please use void SetBTagging(BtaggingMethod btagmethod, double cutvalue, double btageff, double btagrej)." << std::endl; fbtagEff = eff; };
+ 
     /**
      * Set flag to integrate or not.
      * @param flag The flag. 
@@ -363,7 +371,7 @@ namespace KLFitter
     /**
      * Name of btagging enum
      */
-    fbtagging Setbtagging;
+    BtaggingMethod fBTagMethod;
 
     /**
      * Working Points for b-tagging

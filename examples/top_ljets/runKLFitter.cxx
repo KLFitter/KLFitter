@@ -23,7 +23,7 @@
 
 #include "TFile.h"
 
-bool EventTruthSelection(KLFitter::Particles * particles, bool DO_ELECTRON, bool DO_MUON); 
+bool EventTruthSelection(KLFitter::Particles * particles, KLFitter::LikelihoodTopLeptonJets::LeptonType Lepton); 
 int GetCombinationNo(TString s);//int matchHadB, int matchLepB, int matchLJ1, int matchLJ2);
 TString GetTrueCombinationString(std::vector<int> v0, std::vector<int> v1, std::vector<int> v2, std::vector<int> v3);
 
@@ -40,17 +40,13 @@ int main(int argc, char **argv)
   // read configurating
   //      KLFitter::ReadConfigFile * configReader = new KLFitter::ReadConfigFile("examples/top_ljets/config.conf");
   KLFitter::ReadConfigFile * configReader = new KLFitter::ReadConfigFile("config.conf", &valid);
-  double DO_ELECTRON = configReader->GetDO_ELECTRON();
-  double DO_MUON     = configReader->GetDO_MUON();
-  double DO_BATCH    = configReader->GetDO_BATCH();
+  KLFitter::LikelihoodTopLeptonJets::LeptonType Lepton = configReader->GetLeptonType();
   bool FlagIntegrate    = configReader->GetFlagIntegrate();
   bool FlagTopMassFixed = configReader->GetFlagTopMassFixed();
-  bool FlagUseJetMass   = configReader->GetFlagUseJetMass();
   bool FlagWriteSignalMCTruth   = configReader->GetFlagWriteSignalMCTruth();
-  bool FlagIs7TeV   = configReader->GetFlagIs7TeV();
-  bool FlagIs10TeV   = configReader->GetFlagIs10TeV();
+  KLFitter::DetectorBase::BeamCMEnergy BeamEnergy = configReader->GetBeamCMEnergy();
+  KLFitter::LikelihoodBase::BtaggingMethod Btagmethod = configReader->GetBTaggingMethod();
   double CutBTagging   = configReader->GetCutBTagging();
-
   double MassTop = configReader->GetTopMass();
   std::string input_file=configReader->GetInputPath();
   std::string output_file=configReader->GetOutputPath();
@@ -77,9 +73,9 @@ int main(int argc, char **argv)
 
   // create detector
   KLFitter::DetectorBase * myDetector;
-  if (FlagIs7TeV && !FlagIs10TeV)
+  if (BeamEnergy==KLFitter::DetectorBase::k7TeV)
     myDetector = new KLFitter::DetectorAtlas_7TeV("../../transferfunctions/ttbar"); 
-  else if (!FlagIs7TeV && FlagIs10TeV)
+  else if (BeamEnergy==KLFitter::DetectorBase::k10TeV)
     myDetector = new KLFitter::DetectorAtlas_10TeV("../../transferfunctions/ttbar");
   else{std::cout<<"Error: Detector could not be created, please check the transferfunction flags"<<std::endl;return 1;}
 
@@ -88,30 +84,21 @@ int main(int argc, char **argv)
 
   // create likelihood for ttbar->e+jets channel 
   KLFitter::LikelihoodTopLeptonJets * myLikelihood = new KLFitter::LikelihoodTopLeptonJets(); 
-
   myLikelihood -> PhysicsConstants() -> SetMassTop(MassTop); 
-	// b-tagging settings: kNotag / kVeto / kWorkingPoint
-  myLikelihood -> SetBTagging(KLFitter::LikelihoodBase::kNotag);
-  // Make sure to set btag and efficiency if btagging set to a working
-	myLikelihood -> SetbtagEff(0.6); // between 0 and 1 
-	myLikelihood -> SetbtagRej(900.); // hopefully greater than 1
+  // b-tagging settings: (kNotag/kVeto/kWorkingPoint, TaggerCutValue, efficiency[0,1], rejection[>1])
+  // Make sure to set btag rejection and efficiency if btagging set to a working
+  myLikelihood -> SetBTagging(Btagmethod, CutBTagging, 0.6, 900);
   myLikelihood -> SetFlagIntegrate(FlagIntegrate); 
   myLikelihood -> SetFlagTopMassFixed(FlagTopMassFixed);
-  myLikelihood -> SetFlagUseJetMass(FlagUseJetMass);
-  myLikelihood -> SetCutBTag(CutBTagging);
-  myInterfaceRoot -> SetFlagWriteSignalMCTruth(FlagWriteSignalMCTruth);
-  myInterfaceRoot -> SetFlagIsHerwigMC(true); //For Acer sample please switch to false
+  myInterfaceRoot -> WriteSignalMCTruth(FlagWriteSignalMCTruth, KLFitter::InterfaceRoot::kHerwig);
         
-  if (DO_ELECTRON)
+  if (Lepton==KLFitter::LikelihoodTopLeptonJets::kElectron)
     myLikelihood -> SetLeptonType(1); // set lepton type to electron 
-  if (DO_MUON)
+  if (Lepton==KLFitter::LikelihoodTopLeptonJets::kMuon)
     myLikelihood -> SetLeptonType(2); // set lepton type to muon
 
   if (!myFitter -> SetLikelihood(myLikelihood))
     return 0; 
-
-  if (DO_BATCH)
-    gSystem->Exec("cp /work/pcatlas07/erdmann/e+jets/input.root .");
 
   // create interface for output 
   KLFitter::InterfaceOutput * myInterfaceOutput = new KLFitter::InterfaceOutput(); 
@@ -129,9 +116,9 @@ int main(int argc, char **argv)
   mySelectionTool -> RequireNJetsPt(25.0, 4, -1); 
 
   mySelectionTool -> SetMaxNJetsForFit(4);
-  if (DO_ELECTRON)
+  if (Lepton==KLFitter::LikelihoodTopLeptonJets::kElectron)
     mySelectionTool -> RequireNElectronsPt(20.0, 1); 
-  if (DO_MUON)
+  if (Lepton==KLFitter::LikelihoodTopLeptonJets::kMuon)
     mySelectionTool -> RequireNMuonsPt(20.0, 1);
   mySelectionTool -> RequireMET(20.); 
 
@@ -190,7 +177,7 @@ int main(int argc, char **argv)
       // truth event selection
       if (FlagWriteSignalMCTruth)
         if (FlagTruthSel)
-          if (!EventTruthSelection(truthparticles, DO_ELECTRON, DO_MUON))
+          if (!EventTruthSelection(truthparticles, Lepton))
             continue; 
 
       // select event
@@ -212,9 +199,9 @@ int main(int argc, char **argv)
         {
           // perform matching
           myMatchingTool -> MatchTruthAll(KLFitter::Particles::kParton); 
-          if (DO_ELECTRON)
+          if (Lepton==KLFitter::LikelihoodTopLeptonJets::kElectron)
             myMatchingTool -> MatchTruthAll(KLFitter::Particles::kElectron); 
-          if (DO_MUON)
+          if (Lepton==KLFitter::LikelihoodTopLeptonJets::kMuon)
             myMatchingTool -> MatchTruthAll(KLFitter::Particles::kMuon);
                                         
           // identify true permutation
@@ -299,14 +286,14 @@ int main(int argc, char **argv)
       if (myMatchingTool)
         {
           bool leptonsMatched = true;
-          if (DO_ELECTRON) {
+          if (Lepton==KLFitter::LikelihoodTopLeptonJets::kElectron) {
             for (int iElec = 0; iElec < truthparticles -> NElectrons(); iElec++) {
               int nMatchedElectron = myMatchingTool -> NMatchedTruth(iElec, KLFitter::Particles::kElectron); 
               if (nMatchedElectron == 0)
                 leptonsMatched = false;
             }
           }
-          if (DO_MUON) {
+          if (Lepton==KLFitter::LikelihoodTopLeptonJets::kMuon) {
             for (int iMu = 0; iMu < truthparticles -> NMuons(); iMu++) {
               int nMatchedMuon = myMatchingTool -> NMatchedTruth(iMu, KLFitter::Particles::kMuon); 
               if (nMatchedMuon == 0)
@@ -354,17 +341,17 @@ int main(int argc, char **argv)
   
   // output cut flow 
   std::cout << " N (all)       : " << mySelectionTool -> CounterEvents() << std::endl;
-  if (DO_ELECTRON)
+  if (Lepton==KLFitter::LikelihoodTopLeptonJets::kElectron)
     std::cout << " N (electrons) : " << mySelectionTool -> CounterElectrons() << std::endl;
-  if (DO_MUON)
+  if (Lepton==KLFitter::LikelihoodTopLeptonJets::kMuon)
     std::cout << " N (muons  )   : " << mySelectionTool -> CounterMuons() << std::endl;
   std::cout << " N (jets)      : " << mySelectionTool -> CounterJets() << std::endl;
   std::cout << " N (MET)       : " << mySelectionTool -> CounterMET() << std::endl;
   if (FlagWriteSignalMCTruth)
     {
-      if (DO_ELECTRON)
+      if (Lepton==KLFitter::LikelihoodTopLeptonJets::kElectron)
         std::cout << " N (e  matched) : " << countLMatch << std::endl;
-      if (DO_MUON)
+      if (Lepton==KLFitter::LikelihoodTopLeptonJets::kMuon)
         std::cout << " N (mu matched) : " << countLMatch << std::endl;
       std::cout << " N (j matched) : " << countJMatch << std::endl;
     }
@@ -395,7 +382,7 @@ int main(int argc, char **argv)
 
 // -----------------------------------------------------------------------------------------------------------
 
-bool EventTruthSelection(KLFitter::Particles * particles, bool DO_ELECTRON, bool DO_MUON)
+bool EventTruthSelection(KLFitter::Particles * particles, KLFitter::LikelihoodTopLeptonJets::LeptonType Lepton)
 {
   // ---------------------------------------------------------
   // truth selection
@@ -406,7 +393,7 @@ bool EventTruthSelection(KLFitter::Particles * particles, bool DO_ELECTRON, bool
   int nTruthTaus = particles -> NTaus();
   int nTruthPartons = particles -> NPartons();
 
-  if (DO_ELECTRON) {
+  if (Lepton==KLFitter::LikelihoodTopLeptonJets::kElectron) {
     // require exactly 1 truth electron
     if (nTruthElectrons != 1)
       return false;
@@ -416,7 +403,7 @@ bool EventTruthSelection(KLFitter::Particles * particles, bool DO_ELECTRON, bool
     if (nTruthTaus != 0) return false;
   }
 
-  if (DO_MUON) {
+  if (Lepton==KLFitter::LikelihoodTopLeptonJets::kMuon) {
     // require exactly 1 truth muon
     if (nTruthMuons != 1)
       return false;

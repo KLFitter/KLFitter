@@ -34,7 +34,17 @@ namespace KLFitter
   class DetectorBase
   {
                 
-  public: 
+  public:
+    
+    /** \name Enumerators */
+    /* @{ */
+
+    /**
+     * Enumerate for beam centre-of-mass energy
+     */
+    enum BeamCMEnergy {k7TeV, k10TeV};
+
+    /* @} */  
                 
     /** \name Constructors and destructors */ 
     /* @{ */ 
@@ -194,12 +204,26 @@ namespace KLFitter
      */ 
     int SetResMissingET(KLFitter::ResolutionBase * res); 
 
+    /**
+     * Set the beam centre-of-mass energy in the current detector.
+     * @param beamenergy The beam energy. 
+     * @return An error code. 
+     */ 
+    int SetBeamCMEnergy(KLFitter::DetectorBase::BeamCMEnergy beamenergy) 
+    {fBeamCMEnergy = beamenergy; return 1;};
+
     /* @} */
     /** \name Member functions (misc)  */
     /* @{ */
 
     int Status(); 
 
+    /**
+     * Get the beam centre-of-mass energy in the current detector.
+     * @return An error code. 
+     */ 
+    KLFitter::DetectorBase::BeamCMEnergy GetBeamCMEnergy() 
+    {return fBeamCMEnergy;};
     /* @} */
 
   protected: 
@@ -258,6 +282,11 @@ namespace KLFitter
      * The phi resolution of b jets.
      */ 
     KLFitter::ResolutionBase * fResPhiBJet; 
+
+    /**
+     * The current beam centre-of-mass energy in the detector
+    */
+    KLFitter::DetectorBase::BeamCMEnergy fBeamCMEnergy; 
   }; 
 
 } // namespace KLFitter 

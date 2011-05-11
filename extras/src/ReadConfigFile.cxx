@@ -7,20 +7,16 @@
 // --------------------------------------------------------- 
 KLFitter::ReadConfigFile::ReadConfigFile(std::string filename)
 {
-  DO_ELECTRON = true;
-  DO_MUON     = false;
-  DO_BATCH    = false;
+  LeptonType = KLFitter::LikelihoodTopLeptonJets::kElectron;
 
-  FlagBTagging     = false;
+  BTaggingMethod     = KLFitter::LikelihoodBase::kNotag;
   CutBTagging      = 1.e4;
   FlagIntegrate    = false;
   FlagTopMassFixed = false;
-  FlagUseJetMass   = false;
   FlagWriteSignalMCTruth   = true;
-  FlagIs7TeV	   = true;
-  FlagIs10TeV	   = false;
+  BeamEnergy = KLFitter::DetectorBase::k7TeV;
   FlagTruthSel = false;
-  MassTop = 172.5;
+  TopPoleMass = 172.5;
 
   input_path="input.root";
   output_path="output.root";
@@ -28,6 +24,8 @@ KLFitter::ReadConfigFile::ReadConfigFile(std::string filename)
   //Following variables are obsolete and not used anymore
   IsBkg = false;
   FlagAthenaComp   = false;
+  DO_BATCH    = false;
+  FlagUseJetMass   = false;
 
 
   ReadConfig(filename);
@@ -37,21 +35,17 @@ KLFitter::ReadConfigFile::ReadConfigFile(std::string filename)
 // --------------------------------------------------------- 
 KLFitter::ReadConfigFile::ReadConfigFile(std::string filename, bool * validconfig)
 {
-  DO_ELECTRON = true;
-  DO_MUON     = false;
-  DO_BATCH    = false;
+  LeptonType = KLFitter::LikelihoodTopLeptonJets::kElectron;
 
-  FlagBTagging     = false;
+  BTaggingMethod     = KLFitter::LikelihoodBase::kNotag;
   CutBTagging      = 1.e4;
   FlagIntegrate    = false;
   FlagTopMassFixed = false;
-  FlagUseJetMass   = false;
   FlagWriteSignalMCTruth   = true;
-  FlagIs7TeV	   = true;
-  FlagIs10TeV	   = false;
+  BeamEnergy = KLFitter::DetectorBase::k7TeV;
   FlagTruthSel = false;
 
-  MassTop = 172.5;
+  TopPoleMass = 172.5;
 
   input_path="input.root";
   output_path="output.root";
@@ -59,6 +53,8 @@ KLFitter::ReadConfigFile::ReadConfigFile(std::string filename, bool * validconfi
   //Following variables are obsolete and not used anymore
   IsBkg = false;
   FlagAthenaComp   = false;
+  DO_BATCH    = false;
+  FlagUseJetMass   = false;
 
   if(ReadConfig(filename)!=-1){*validconfig=true;}
   else{*validconfig=false;}
@@ -125,42 +121,26 @@ int KLFitter::ReadConfigFile::ReadConfig(std::string filename)
 
           if(is_comment==false)
             {
-              found=line.find("DO_ELECTRON");
+              found=line.find("LeptonType");
               if(found!=std::string::npos)
                 {
                   found=line.find("=",found);
                   if(found!=std::string::npos)
                     {
-                      tmp=GetTrueOrFalse(line,found);
+                      tmp=GetPath(&tmpstr,line,found);
                       if(tmp!=-1)
-                        {
-                          DO_ELECTRON=(tmp==1);
-                        }
+                  {
+                    if(tmpstr == "electron")
+                      LeptonType=KLFitter::LikelihoodTopLeptonJets::kElectron;
+                    if(tmpstr == "muon")
+                      LeptonType=KLFitter::LikelihoodTopLeptonJets::kMuon;
+                  }
                       else
                         {
-                          std::cout<<"Warning: Error while reading value of DO_ELECTRON, using standard value"<<std::endl;
+                          std::cout<<"Warning: Error while reading value of LeptonType, using standard value"<<std::endl;
                         }
                     }
                 }
-              else
-                {
-                  found=line.find("DO_MUON");
-                  if(found!=std::string::npos)
-                    {
-                      found=line.find("=",found);
-                      if(found!=std::string::npos)
-                        {
-                          tmp=GetTrueOrFalse(line,found);
-                          if(tmp!=-1)
-                            {
-                              DO_MUON=(tmp==1);
-                            }
-                          else
-                            {
-                              std::cout<<"Warning: Error while reading value of DO_MUON, using standard value"<<std::endl;
-                            }
-                        }
-                    }
 		  else
 		    {
 		      found=line.find("CutBTagging");
@@ -172,7 +152,7 @@ int KLFitter::ReadConfigFile::ReadConfig(std::string filename)
 			      tmp=GetValue(&tmpdouble,line,found);
 				if(tmp!=-1)
 				  {
-				    CutBTagging=(tmp==1);
+				    CutBTagging=tmpdouble;
 				  }
 				else
 				  {
@@ -201,20 +181,26 @@ int KLFitter::ReadConfigFile::ReadConfig(std::string filename)
 			    }
 			  else
 			    {
-			      found=line.find("FlagBTagging");
+			      found=line.find("BTaggingMethod");
 			      if(found!=std::string::npos)
 				{
 				  found=line.find("=",found);
-				  if(found!=std::string::npos)
-				    {
-				      tmp=GetTrueOrFalse(line,found);
-				      if(tmp!=-1)
-					{
-					  FlagBTagging=(tmp==1);
-					}
+          if(found!=std::string::npos)
+          {
+          tmp=GetPath(&tmpstr,line,found);
+          if(tmp!=-1)
+          {
+          if(tmpstr == "Notag")
+            BTaggingMethod=KLFitter::LikelihoodBase::kNotag;
+          if(tmpstr == "Veto")
+            BTaggingMethod=KLFitter::LikelihoodBase::kVeto;
+          if(tmpstr == "WorkingPoint")
+            BTaggingMethod=KLFitter::LikelihoodBase::kWorkingPoint;
+                  }
+
 				      else
 					{
-					  std::cout<<"Warning: Error while reading value of FlagBTagging, using standard value"<<std::endl;
+					  std::cout<<"Warning: Error while reading value of BTaggingMethod, using standard value"<<std::endl;
 					}
 				    }
 				}
@@ -294,45 +280,29 @@ int KLFitter::ReadConfigFile::ReadConfig(std::string filename)
 						}
 					      else
 						{
-						  found=line.find("FlagIs7TeV");
-						  if(found!=std::string::npos)
-						    {
-						      found=line.find("=",found);
-						      if(found!=std::string::npos)
-							{
-							  tmp=GetTrueOrFalse(line,found);
-							  if(tmp!=-1)
-							    {
-							      FlagIs7TeV=(tmp==1);
-							    }
-							  else
-							    {
-							      std::cout<<"Warning: Error while reading value of FlagIs7TeV, using standard value"<<std::endl;
-							    }
-							}
-						    }
+						  found=line.find("BeamCMEnergy");
+              if(found!=std::string::npos)
+                  {
+                    found=line.find("=",found);
+                    if(found!=std::string::npos)
+                {
+                  tmp=GetValue(&tmpdouble,line,found);
+                  if(tmp!=-1)
+                    {
+                      if(tmpdouble==7)
+                        BeamEnergy=KLFitter::DetectorBase::k7TeV;
+                      if(tmpdouble==10)
+                        BeamEnergy=KLFitter::DetectorBase::k10TeV;
+                    }
+                  else
+                    {
+                      std::cout<<"Warning: Error while reading value of BeamCMEnergy, using standard value"<<std::endl;
+                    }
+                }
+                  }
 						  else
-						    {
-						      found=line.find("FlagIs10TeV");
-						      if(found!=std::string::npos)
 							{
-							  found=line.find("=",found);
-							  if(found!=std::string::npos)
-							    {
-							      tmp=GetTrueOrFalse(line,found);
-							      if(tmp!=-1)
-								{
-								  FlagIs10TeV=(tmp==1);
-								}
-							      else
-								{
-								  std::cout<<"Warning: Error while reading value of FlagIs10TeV, using standard value"<<std::endl;
-								}
-							    }
-							}
-						      else
-							{
-							  found=line.find("MassTop");
+							  found=line.find("TopPoleMass");
 							  if(found!=std::string::npos)
 							    {
 							      found=line.find("=",found);
@@ -341,11 +311,11 @@ int KLFitter::ReadConfigFile::ReadConfig(std::string filename)
 								  tmp=GetValue(&tmpdouble,line,found);
 								  if(tmp!=-1)
 								    {
-								      MassTop=tmpdouble;
+								      TopPoleMass=tmpdouble;
 								    }
 								  else
 								    {
-								      std::cout<<"Warning: Error while reading value of MassTop, using standard value"<<std::endl;
+								      std::cout<<"Warning: Error while reading value of TopPoleMass, using standard value"<<std::endl;
 								    }
 								}
 							    }
@@ -467,8 +437,7 @@ int KLFitter::ReadConfigFile::ReadConfig(std::string filename)
 			}
 		    }
 		}
-	    }
-	}
+
       configfile.close();
     }
   else
@@ -479,29 +448,32 @@ int KLFitter::ReadConfigFile::ReadConfig(std::string filename)
     }
   //Print Flag values
   std::cout<<"Flags are set as follows:"<<std::endl;
-  std::cout<<"DO_ELECTRON = "<<DO_ELECTRON<<std::endl;
-  std::cout<<"DO_MUON = "<<DO_MUON<<std::endl;
-  std::cout<< "DO_BATCH = "<<DO_BATCH<<std::endl;
-  std::cout<< "FlagBTagging = "<<FlagBTagging<<std::endl;
+  if (LeptonType==KLFitter::LikelihoodTopLeptonJets::kElectron)
+    std::cout<<"LeptonType = Electron"<<std::endl;
+  if (LeptonType==KLFitter::LikelihoodTopLeptonJets::kMuon)
+    std::cout<<"LeptonType = Muon"<<std::endl;
+  if(BTaggingMethod==KLFitter::LikelihoodBase::kNotag)
+    std::cout<< "BTaggingMethod = Notag"<<std::endl;
+  if(BTaggingMethod==KLFitter::LikelihoodBase::kVeto)
+    std::cout<< "BTaggingMethod = Veto"<<std::endl;
+  if(BTaggingMethod==KLFitter::LikelihoodBase::kWorkingPoint)
+    std::cout<< "BTaggingMethod = WorkingPoint"<<std::endl;
+  std::cout<< "CutBTagging = "<<CutBTagging<<std::endl;
   std::cout<< "FlagIntegrate = "<<FlagIntegrate<<std::endl;
   std::cout<< "FlagTopMassFixed = "<<FlagTopMassFixed<<std::endl;
+  std::cout<< "TopPoleMass = "<<TopPoleMass<<std::endl;
   std::cout<< "FlagUseJetMass = "<<FlagUseJetMass<<std::endl;
   std::cout<< "FlagWriteSignalMCTruth = "<<FlagWriteSignalMCTruth<<std::endl;
-  std::cout<< "FlagIs7TeV = "<<FlagIs7TeV<<std::endl;
-  std::cout<< "FlagIs10TeV = "<<FlagIs10TeV<<std::endl;
-  std::cout<< "MassTop = "<<MassTop<<std::endl;
+  std::cout << "FlagTruthSel = " << FlagTruthSel << std::endl;
+  if (BeamEnergy==KLFitter::DetectorBase::k7TeV)
+    std::cout<< "BeamCMEnergy = 7TeV" <<std::endl;
+  if (BeamEnergy==KLFitter::DetectorBase::k10TeV)
+    std::cout<< "BeamCMEnergy = 10TeV" <<std::endl;
   std::cout<< "PathToInputFile = " << input_path<<std::endl;
   std::cout<< "PathToOutputFile = " << output_path<<std::endl;
-  std::cout << "IsBkg = " << IsBkg << std::endl;
-  std::cout << "FlagTruthSel = " << FlagTruthSel << std::endl;
-  std::cout << "FlagAthenaComp = " << FlagAthenaComp << std::endl;
   std::cout << std::endl;
 
-  if(CheckIOPath()){ 
-	if(FlagIs7TeV && !FlagIs10TeV){ return 0;}
-  		else if(!FlagIs7TeV && FlagIs10TeV){ return 0;}
-  		else{std::cout<<"KLFitter::ReadConfigFile::ReadConfig(). Error: Ambiguities in the chosen centre-of-mass energy for using the correct transferfunctions! Exactly one flag has to be true!!!"<<std::endl;return -1;}
-	}
+  if(CheckIOPath()){return 0;}
   else{std::cout<<"KLFitter::ReadConfigFile::ReadConfig(). Error: PathToInputFile==PathToOutputFile! Will not overwrite input file!!!"<<std::endl;return -1;}
 
 }

@@ -1,3 +1,13 @@
+2011-05-11 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+
+	* LikelihoodBase: SetBTagging sets all neccessary values
+	* DetectorBase: enum for BeamCMEnergy, Setter&Getter
+	* InterfaceRoot/D3PD: WriteSignalMCTruth sets flag und MC generator of signal	
+	* several classes: Cleaning up flags, remove and rename to more intuitive
+	* config.conf + ReadConfigFile: Replace flags with enum read-in, only important config variables
+	* runKLFitter.cxx: Adjusting to all the changes
+	* tag KLFitter-00-04-11
+
 2011-05-10 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
 	
 	* InterfaceD3PD.cxx: Truth information for partons is now available

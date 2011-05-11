@@ -41,21 +41,14 @@ myLikelihood->SetFlagTopMassFixed(false);
 myLikelihood->PhysicsConstants()->SetMassTop(172.5);
 
 // use a b-tagging information to constrain the number of permutations
-// b-tagging settings:
+//  b-tagging settings: ( kNotag/kVeto/kWorkingPoint, TaggerCutValue, efficiency[0,1], rejection[>1])
 // - kNotag = don't use b-tagging information
 // - kVeto  = use the b-tagging veto
 // - kWorkingPoint = use the b-tagging probabilites from a given working point
-myLikelihood->SetBTagging(KLFitter::LikelihoodBase::kNotag);
-//myLikelihood->SetBTagging(KLFitter::LikelihoodBase::kVeto);
-//myLikelihood->SetBTagging(KLFitter::LikelihoodBase::kWorkingPoint);
-// set the b-tagging cut / working point value
-myLikelihood->SetCutBTag(5.85);
-// If you are using kWorkingPoint: Make sure to set btag and efficiency if btagghing set to a working point!
-myLikelihood->SetbtagEff(0.6);  // between 0 and 1
-myLikelihood->SetbtagRej(900.); // > 1
-
-// if true: use the jet mass instead of the quark mass
-myLikelihood->SetFlagUseJetMass(false);
+// - TaggerCutValue = set the b-tagging cut for veto / working point value
+// - efficiency = b-tagging efficiency at the working point (between 0 and 1)
+// - rejection = rejection of light jets at the working point (>1)
+myLikelihood -> SetBTagging(KLFitter::LikelihoodBase::kNotag, 5.85, 0.6, 900);
 
 // tell the fitter which likelihood to use
 myFitter->SetLikelihood(myLikelihood);

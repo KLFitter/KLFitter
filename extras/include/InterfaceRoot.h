@@ -35,7 +35,17 @@ namespace KLFitter
   class InterfaceRoot : public InterfaceBase
   {
                 
-  public: 
+  public:
+
+    /** \name Enumerators */
+    /* @{ */
+
+    /**
+     * Enumerate for signal MC generator
+     */
+    enum MCGenerator {kHerwig, kAcer};
+
+    /* @} */ 
                 
     /** \name Constructors and destructors */ 
     /* @{ */ 
@@ -53,7 +63,7 @@ namespace KLFitter
     /* @} */
     /** \name Member functions (Get)  */
     /* @{ */
-
+    
     /**
      * Fill measured particles with data from tree. 
      * @param index The event number. 
@@ -93,19 +103,15 @@ namespace KLFitter
     /* @} */
     /** \name Member functions (Set)  */
     /* @{ */
-    /**
-     * Set a flag. If flag is true the input is Signal MC.
-     * @param flag If true, truth particle container is filled.
-     */ 
-    void SetFlagWriteSignalMCTruth(bool flag)
-    { fFlagWriteSignalMCTruth = flag; };
 
     /**
-     * Set a flag. Needed for filling the truth particle container.
-     * @param flag If flag is true the input is Herwig MC.
+     * Set FlagWriteSignalMCTruth and chose the corresponding signal MC generator with default kHerwig.
+     * @param flag If true, truth particle container is filled.
+     * @param mcgen The current signal MC generator for TruthMapping.
+     * @return An error code.
      */ 
-    void SetFlagIsHerwigMC(bool flag)
-    { fFlagIsHerwigMC = flag; };
+    int WriteSignalMCTruth(bool flag, KLFitter::InterfaceRoot::MCGenerator mcgen = KLFitter::InterfaceRoot::kHerwig)
+    { fFlagWriteSignalMCTruth = flag; fSignalMCGen = mcgen; return 1; };
 
     /* @} */
     /** \name Member functions (misc)  */
@@ -138,21 +144,21 @@ namespace KLFitter
      * @param filename The name of the txt-file.
      * @return An error code. 
      */     
-    virtual std::vector<std::string> ReadInputFiles(const char * filename);	
+    virtual std::vector<std::string> ReadInputFiles(const char * filename);
+	
 
     /* @} */
 
   protected: 
     /**
-     * A flag for using Signal MC as input.
+     * A flag for writing Signal MC truth to output.
      */ 
     bool fFlagWriteSignalMCTruth;
-
+    
     /**
-     * A flag for using Signal MC as input.
+     * The current Signal MC generator for TruthMapping.
      */ 
-    bool fFlagIsHerwigMC;
-
+    KLFitter::InterfaceRoot::MCGenerator fSignalMCGen;
     /**
      * The Root file. 
      */ 

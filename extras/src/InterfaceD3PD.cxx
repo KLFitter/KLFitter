@@ -14,6 +14,9 @@
 // --------------------------------------------------------- 
 KLFitter::InterfaceD3PD::InterfaceD3PD()
 {
+  fFlagWriteSignalMCTruth = false;
+  fSignalMCGen = KLFitter::InterfaceRoot::kHerwig;
+
   fTree = 0; 
 
   EventNumber = 0;
@@ -568,139 +571,142 @@ int KLFitter::InterfaceD3PD::TruthMapper(){
   Truth_WplusHad = true;
   Truth_WminusHad = true;
 
-   //counters for cross checks
-   int Nt      = 0;
-   int Ntbar   = 0;
-   int Nb      = 0;
-   int Nbbar   = 0;
-   int NWplus  = 0;
-   int NWminus = 0;
-   int NQfromWminus    = 0;
-   int NQbarfromWminus = 0;
-   int NQfromWplus     = 0;
-   int NQbarfromWplus  = 0;
-   int Nlplus  = 0;
-   int Nlminus  = 0;
-   int Nn  = 0;
-   int Nnbar  = 0;
+  //counters for cross checks
+  int Nt      = 0;
+  int Ntbar   = 0;
+  int Nb      = 0;
+  int Nbbar   = 0;
+  int NWplus  = 0;
+  int NWminus = 0;
+  int NQfromWminus    = 0;
+  int NQbarfromWminus = 0;
+  int NQfromWplus     = 0;
+  int NQbarfromWplus  = 0;
+  int Nlplus  = 0;
+  int Nlminus  = 0;
+  int Nn  = 0;
+  int Nnbar  = 0;
 
-   bool TruthHERWIGFlag = fFlagIsHerwigMC;  // !!! Define this parameter in your config file/job option. Its crucial for a correct MC truth particle identification!
+  // !!! Define this parameter in your config file/job option. Its crucial for a correct MC truth particle identification!
+  bool TruthHERWIGFlag = false; 
+  if (fSignalMCGen = KLFitter::InterfaceRoot::kHerwig)
+    TruthHERWIGFlag = true;  
 
-   for (unsigned int i=0;i!=mc_pt->size();++i) {
-      int pdg = (*mc_pdgId)[i];
+  for (unsigned int i=0;i!=mc_pt->size();++i) {
+    int pdg = (*mc_pdgId)[i];
      
-       //TruthIdx
-       bool decays_in_itself=false;
-       if (mc_child_index->at(i).size()==1) {
-           decays_in_itself = (pdg==mc_pdgId->at(mc_child_index->at(i).at(0)));
-       }
+     //TruthIdx
+    bool decays_in_itself=false;
+    if (mc_child_index->at(i).size()==1) {
+      decays_in_itself = (pdg==mc_pdgId->at(mc_child_index->at(i).at(0)));
+    }
 
-       // according to Un-ki Yang <ukyang@hep.manchester.ac.uk> the particles with status code 123 or 124 are the ones to be used
+    // according to Un-ki Yang <ukyang@hep.manchester.ac.uk> the particles with status code 123 or 124 are the ones to be used
 
-       if ((TruthHERWIGFlag && (mc_status->at(i)==123 || mc_status->at(i)==124)) || (!TruthHERWIGFlag && !decays_in_itself)) {
+    if ((TruthHERWIGFlag && (mc_status->at(i)==123 || mc_status->at(i)==124)) || (!TruthHERWIGFlag && !decays_in_itself)) {
 
-         //-----------
-         // top branch
-         //-----------
-         if (pdg==6  && Nt==0) { //top (ok)
-             TruthIdx_t=i;
-             ++Nt;
+      //-----------
+      // top branch
+      //-----------
+      if (pdg==6  && Nt==0) { //top (ok)
+        TruthIdx_t=i;
+        ++Nt;
+      }
+      else if (pdg==5 && Nb==0 && TruthIdx_t!=-1  && OriginatesFromPDG(i,6)) { //bottom (ok)
+        TruthIdx_b=i;
+        ++Nb;
+      }
+      else if (pdg==24 && NWplus==0 && TruthIdx_t!=-1 && OriginatesFromPDG(i,6)) { //W+
+        TruthIdx_Wplus=i;
+        ++NWplus;
+        if (!TruthHERWIGFlag) {
+          for (unsigned int c=0;c < mc_child_index->at(i).size();++c) {
+            int WpChildIdx=mc_child_index->at(i).at(c);
+            long Wc_pdg=mc_pdgId->at(WpChildIdx);
+            if (abs(Wc_pdg)>10 && abs(Wc_pdg)<17) { //W+ decays in leptons
+              Truth_WplusHad=false;
+              break;
+            }
+          }
+        }
+      }         
+      else if (!TruthHERWIGFlag && !Truth_WplusHad && (pdg==-11 || pdg==-13 || pdg==-15) && Nlplus==0 &&  OriginatesFromPDG(i,24) ) { //lplus (!HERWIG)
+        TruthIdx_lplus=i;
+        ++Nlplus;
+      }
+      else if (TruthHERWIGFlag && (pdg==-11 || pdg==-13 || pdg==-15) && Nlplus==0) { //lplus (HERWIG)
+        TruthIdx_lplus=i;
+        Truth_WplusHad=false;
+        ++Nlplus;
+      }
+      else if (!TruthHERWIGFlag && !Truth_WplusHad && (pdg==12 || pdg==14 || pdg==16) && Nn==0 &&  OriginatesFromPDG(i,24)) { //neutrino (!HERWIG)
+        TruthIdx_n=i;
+        ++Nn;
          }
-         else if (pdg==5 && Nb==0 && TruthIdx_t!=-1  && OriginatesFromPDG(i,6)) { //bottom (ok)
-             TruthIdx_b=i;
-             ++Nb;
-         }
-         else if (pdg==24 && NWplus==0 && TruthIdx_t!=-1 && OriginatesFromPDG(i,6)) { //W+
-             TruthIdx_Wplus=i;
-             ++NWplus;
-             if (!TruthHERWIGFlag) {
-           for (unsigned int c=0;c < mc_child_index->at(i).size();++c) {
-               int WpChildIdx=mc_child_index->at(i).at(c);
-              long Wc_pdg=mc_pdgId->at(WpChildIdx);
-             if (abs(Wc_pdg)>10 && abs(Wc_pdg)<17) { //W+ decays in leptons
-                 Truth_WplusHad=false;
-                 break;
-             }
-           }
-             }
-         }         
-        else if (!TruthHERWIGFlag && !Truth_WplusHad && (pdg==-11 || pdg==-13 || pdg==-15) && Nlplus==0 &&  OriginatesFromPDG(i,24) ) { //lplus (!HERWIG)
-             TruthIdx_lplus=i;
-             ++Nlplus;
-         }
-         else if (TruthHERWIGFlag && (pdg==-11 || pdg==-13 || pdg==-15) && Nlplus==0) { //lplus (HERWIG)
-             TruthIdx_lplus=i;
-             Truth_WplusHad=false;
-             ++Nlplus;
-         }
-         else if (!TruthHERWIGFlag && !Truth_WplusHad && (pdg==12 || pdg==14 || pdg==16) && Nn==0 &&  OriginatesFromPDG(i,24)) { //neutrino (!HERWIG)
-             TruthIdx_n=i;
-             ++Nn;
-         }
-         else if (TruthHERWIGFlag && (pdg==12 || pdg==14 || pdg==16) && Nn==0 &&  OriginatesFromPDG(i,24)) { //neutrino (HERWIG)
-             TruthIdx_n=i;
-             ++Nn;
-         }
-         else if (Truth_WplusHad && NWplus==1 && NQfromWplus==0 && (pdg==2 || pdg==4) &&  OriginatesFromPDG(i,24)) { // up/charm from W+
-             TruthIdx_QfromWplus=i;
-             ++NQfromWplus;
-         }
-         else if (Truth_WplusHad && NWplus==1 && NQbarfromWplus==0 && (pdg==-1 || pdg==-3) &&  OriginatesFromPDG(i,24)) { // antidown/antistrange from W+
-             TruthIdx_QbarfromWplus=i;
-             ++NQbarfromWplus;
-         }
-           //----------------
-           // anti-top branch
-           //----------------
-         if (pdg==-6 && Ntbar==0 ) { //anti top (ok)
-             TruthIdx_tbar=i;
-             ++Ntbar;
-         }
-         else if (pdg==-5 && Nbbar==0 && TruthIdx_tbar!=-1  && OriginatesFromPDG(i,-6)) { //anti bottom (ok)
-             TruthIdx_bbar=i;
-             ++Nbbar;
-         }
-         else if (pdg==-24 && NWminus==0 && TruthIdx_tbar!=-1 && OriginatesFromPDG(i,-6)) { //W-
-             TruthIdx_Wminus=i;
-             ++NWminus;
-             if (!TruthHERWIGFlag) {
-           for (unsigned int c=0;c<mc_child_index->at(i).size();++c) {
-               int WmChildIdx=mc_child_index->at(i).at(c);
-             long Wc_pdg=mc_pdgId->at(WmChildIdx);
-             if (abs(Wc_pdg)>10 && abs(Wc_pdg)<17) { //W- decays in leptons
-                 Truth_WminusHad=false;
-                 break;
-             }
-           }
-             }
-         }         
-        else if (!TruthHERWIGFlag && !Truth_WminusHad && (pdg==11 || pdg==13 || pdg==15) && Nlminus==0 &&  OriginatesFromPDG(i,-24)) { //lminus (!HERWIG)
-             TruthIdx_lminus=i;
-             ++Nlminus;
-         }
-         else if (TruthHERWIGFlag && (pdg==11 || pdg==13 || pdg==15) && Nlminus==0) { //lminus (HERWIG)
-             Truth_WminusHad=false;
-             TruthIdx_lminus=i;
-             ++Nlminus;
-         }
-         else if (!TruthHERWIGFlag && !Truth_WminusHad && (pdg==-12 || pdg==-14 || pdg==-16) && Nnbar==0 &&  OriginatesFromPDG(i,-24)) { //anti neutrino (!HERWIG)
-             TruthIdx_nbar=i;
-             ++Nnbar;
-         }
-         else if (TruthHERWIGFlag && (pdg==-12 || pdg==-14 || pdg==-16) && Nnbar==0) { //anti neutrino (HERWIG)
-             TruthIdx_nbar=i;
-             ++Nnbar;
-         }
-         else if (Truth_WminusHad && NWminus==1 && NQfromWminus==0 && (pdg==1 || pdg==3) &&  OriginatesFromPDG(i,-24)) { // down/strange from W-
-             TruthIdx_QfromWminus=i;
-             ++NQfromWminus;
-         }
-         else if (Truth_WminusHad && NWminus==1 && NQbarfromWminus==0 && (pdg==-2 || pdg==-4) &&  OriginatesFromPDG(i,-24)) { // antiup/anticharm from W-
-             TruthIdx_QbarfromWminus=i;
-             ++NQbarfromWminus;
-         }
-       }
-   } //loop over all particles
+      else if (TruthHERWIGFlag && (pdg==12 || pdg==14 || pdg==16) && Nn==0 &&  OriginatesFromPDG(i,24)) { //neutrino (HERWIG)
+        TruthIdx_n=i;
+        ++Nn;
+      }
+      else if (Truth_WplusHad && NWplus==1 && NQfromWplus==0 && (pdg==2 || pdg==4) &&  OriginatesFromPDG(i,24)) { // up/charm from W+
+        TruthIdx_QfromWplus=i;
+        ++NQfromWplus;
+      }
+      else if (Truth_WplusHad && NWplus==1 && NQbarfromWplus==0 && (pdg==-1 || pdg==-3) &&  OriginatesFromPDG(i,24)) { // antidown/antistrange from W+
+        TruthIdx_QbarfromWplus=i;
+        ++NQbarfromWplus;
+      }
+      //----------------
+      // anti-top branch
+      //----------------
+      if (pdg==-6 && Ntbar==0 ) { //anti top (ok)
+        TruthIdx_tbar=i;
+        ++Ntbar;
+      }
+      else if (pdg==-5 && Nbbar==0 && TruthIdx_tbar!=-1  && OriginatesFromPDG(i,-6)) { //anti bottom (ok)
+        TruthIdx_bbar=i;
+        ++Nbbar;
+      }
+      else if (pdg==-24 && NWminus==0 && TruthIdx_tbar!=-1 && OriginatesFromPDG(i,-6)) { //W-
+        TruthIdx_Wminus=i;
+        ++NWminus;
+        if (!TruthHERWIGFlag) {
+          for (unsigned int c=0;c<mc_child_index->at(i).size();++c) {
+            int WmChildIdx=mc_child_index->at(i).at(c);
+            long Wc_pdg=mc_pdgId->at(WmChildIdx);
+            if (abs(Wc_pdg)>10 && abs(Wc_pdg)<17) { //W- decays in leptons
+              Truth_WminusHad=false;
+              break;
+            }
+          }
+        }
+      }         
+      else if (!TruthHERWIGFlag && !Truth_WminusHad && (pdg==11 || pdg==13 || pdg==15) && Nlminus==0 &&  OriginatesFromPDG(i,-24)) { //lminus (!HERWIG)
+        TruthIdx_lminus=i;
+        ++Nlminus;
+      }
+      else if (TruthHERWIGFlag && (pdg==11 || pdg==13 || pdg==15) && Nlminus==0) { //lminus (HERWIG)
+        Truth_WminusHad=false;
+        TruthIdx_lminus=i;
+        ++Nlminus;
+      }
+      else if (!TruthHERWIGFlag && !Truth_WminusHad && (pdg==-12 || pdg==-14 || pdg==-16) && Nnbar==0 &&  OriginatesFromPDG(i,-24)) { //anti neutrino (!HERWIG)
+        TruthIdx_nbar=i;
+        ++Nnbar;
+      }
+      else if (TruthHERWIGFlag && (pdg==-12 || pdg==-14 || pdg==-16) && Nnbar==0) { //anti neutrino (HERWIG)
+        TruthIdx_nbar=i;
+        ++Nnbar;
+      }
+      else if (Truth_WminusHad && NWminus==1 && NQfromWminus==0 && (pdg==1 || pdg==3) &&  OriginatesFromPDG(i,-24)) { // down/strange from W-
+        TruthIdx_QfromWminus=i;
+        ++NQfromWminus;
+      }
+      else if (Truth_WminusHad && NWminus==1 && NQbarfromWminus==0 && (pdg==-2 || pdg==-4) &&  OriginatesFromPDG(i,-24)) { // antiup/anticharm from W-
+        TruthIdx_QbarfromWminus=i;
+        ++NQbarfromWminus;
+      }
+    }
+  } //loop over all particles
   
   //no error
   return 1;

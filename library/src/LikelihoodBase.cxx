@@ -21,7 +21,7 @@ KLFitter::LikelihoodBase::LikelihoodBase(Particles** particles) : BCModel(),
                                                                   fCutBTag(1e4),
                                                                   fFlagIntegrate(0),
                                                                   fFlagIsNan(false),
-                                                                  Setbtagging(kNotag),
+                                                                  fBTagMethod(kNotag),
 								  fbtagRej(-1),
 								  fbtagEff(-1)
   
@@ -151,11 +151,11 @@ double KLFitter::LikelihoodBase::LogEventProbability()
 {
   double logprob = 0; 
 
-  if (Setbtagging != kNotag) {
+  if (fBTagMethod != kNotag) {
     //                  double probbtag = BTaggingProbability();
     double probbtag = 1; 
     
-    if(Setbtagging == kVeto){
+    if(fBTagMethod == kVeto){
 
       // loop over all model particles.  calculate the overall b-tagging
       // probability which is the product of all probabilities. 
@@ -176,7 +176,7 @@ double KLFitter::LikelihoodBase::LogEventProbability()
       else
 	return -1e99; 
     }
-    else if (Setbtagging == kWorkingPoint){
+    else if (fBTagMethod == kWorkingPoint){
       for (int i = 0; i < fParticlesModel->NPartons(); ++i){
 
 	// get index of corresponding measured particle. 
