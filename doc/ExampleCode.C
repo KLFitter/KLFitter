@@ -48,7 +48,7 @@ myLikelihood->PhysicsConstants()->SetMassTop(172.5);
 // - TaggerCutValue = set the b-tagging cut for veto / working point value
 // - efficiency = b-tagging efficiency at the working point (between 0 and 1)
 // - rejection = rejection of light jets at the working point (>1)
-myLikelihood -> SetBTagging(KLFitter::LikelihoodBase::kNotag, 5.85, 0.6, 900);
+myLikelihood -> SetBTagging(KLFitter::LikelihoodBase::kNotag, 5.85, 0.5, 271);
 
 // tell the fitter which likelihood to use
 myFitter->SetLikelihood(myLikelihood);
