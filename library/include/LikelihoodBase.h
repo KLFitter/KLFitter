@@ -293,12 +293,6 @@ namespace KLFitter
     double LogEventProbability(); 
 
     /**
-     * Return the combined b-tagging probability for all jets
-     * @return The probability. 
-     */ 
-    double BTaggingProbability();
-
-    /**
      * Remove invariant particle permutations.
      * @return An error code. 
      */ 

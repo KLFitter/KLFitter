@@ -220,11 +220,6 @@ int KLFitter::Fitter::Fit(int index)
     }
   }
 
-  // check b-tagging and calculate probability
-  if (fLikelihood->GetBTagging() != LikelihoodBase::kNotag) // && fLikelihood->FlagIntegrate())
-    if (fLikelihood->BTaggingProbability() == 0)
-      return 1; 
-
   // calculate integral 
   if (fLikelihood->FlagIntegrate())
     {

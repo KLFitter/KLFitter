@@ -152,7 +152,6 @@ double KLFitter::LikelihoodBase::LogEventProbability()
   double logprob = 0; 
 
   if (fBTagMethod != kNotag) {
-    //                  double probbtag = BTaggingProbability();
     double probbtag = 1; 
     
     if(fBTagMethod == kVeto){
@@ -218,36 +217,6 @@ double KLFitter::LikelihoodBase::LogEventProbability()
     logprob += LogLikelihood( GetBestFitParameters() ); 
   
   return logprob; 
-}
-
-// --------------------------------------------------------- 
-double KLFitter::LikelihoodBase::BTaggingProbability()
-{
-  double prob = 1.0; 
-
-  // get number of partons
-  unsigned int npartons = (*fParticlesPermuted)->NPartons();
-
-  // loop over all measured particles. important: assumes that index
-  // of measured particle is the same as the index of the model
-  // particle
-  for (unsigned int i = 0; i < npartons; ++i) {
-
-    // get index of corresponding measured particle. 
-    int index = fParticlesModel->JetIndex(i); 
-    
-    if (index<0) { 
-      continue; 
-    }
-
-    if (fParticlesModel->BTaggingProbability(i) > 0.5)
-      prob *= (*fParticlesPermuted)->BTaggingProbability(i); 
-    else
-      prob *= (1.0 - (*fParticlesPermuted)->BTaggingProbability(i)); 
-  }
-
-  // return log of probability 
-  return prob; 
 }
 
 // --------------------------------------------------------- 
