@@ -87,7 +87,7 @@ int main(int argc, char **argv)
   myLikelihood -> PhysicsConstants() -> SetMassTop(MassTop); 
   // b-tagging settings: (kNotag/kVeto/kWorkingPoint, TaggerCutValue, efficiency[0,1], rejection[>1])
   // Make sure to set btag rejection and efficiency if btagging set to a working
-  myLikelihood -> SetBTagging(Btagmethod, CutBTagging, 0.6, 900);
+  myLikelihood -> SetBTagging(Btagmethod, CutBTagging, 0.5, 271);
   myLikelihood -> SetFlagIntegrate(FlagIntegrate); 
   myLikelihood -> SetFlagTopMassFixed(FlagTopMassFixed);
   myInterfaceRoot -> WriteSignalMCTruth(FlagWriteSignalMCTruth, KLFitter::InterfaceRoot::kHerwig);
