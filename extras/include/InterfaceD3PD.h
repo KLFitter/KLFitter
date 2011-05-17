@@ -63,21 +63,21 @@ namespace KLFitter
      * @return The missing ET
      */ 
     double ET_miss()
-    { return topMET_et / 1000.; }; 
+    { return MET_RefFinal_em_et / 1000.; }; 
 
     /**
      * Return the measured missing transverse energy (x component). 
      * @return The missing ET (x component)
      */ 
     double ET_miss_x()
-    { return topMET_etx / 1000.; }; 
+    { return MET_RefFinal_em_etx / 1000.; }; 
 
     /**
      * Return the measured missing transverse energy (y component). 
      * @return The missing ET (y component)
      */ 
     double ET_miss_y()
-    { return topMET_ety / 1000.; }; 
+    { return MET_RefFinal_em_ety / 1000.; }; 
 
     /* @} */
     /** \name Member functions (Set)  */
@@ -175,31 +175,20 @@ namespace KLFitter
     UInt_t EventNumber; 
     std::vector<double> * mcevt_weight;  
     
-    int topMu_n;
-    std::vector<int> * topMu_index;
-    std::vector<int> * topMu_use;
-    std::vector<int> * topMu_inTrigger;   
+    int mu_n;
     std::vector<float> * mu_E;  
     std::vector<float> * mu_px;  
     std::vector<float> * mu_py;  
-    std::vector<float> * mu_pz;  
-    std::vector<float> * mu_pt;  
-    std::vector<float> * mu_eta;
-    std::vector<float> * mu_phi;  
+    std::vector<float> * mu_pz;
+    std::vector<float> * mu_eta;    
 
-    int topEl_n;
-    std::vector<int> * topEl_index;
-    std::vector<int> * topEl_use;
-    std::vector<int> * topEl_inTrigger;     
+    int el_n;
     std::vector<float> * el_E;  
     std::vector<float> * el_eta;
     std::vector<float> * el_deteta;  
     std::vector<float> * el_phi;  
 
-    int topJet_n;
-    std::vector<int> * topJet_index;
-    std::vector<int> * topJet_use;
-    std::vector<int> * topJet_inTrigger;       
+    int jet_n;
     std::vector<float> * jet_E;  
     std::vector<float> * jet_pt;  
     std::vector<float> * jet_eta;
@@ -207,10 +196,9 @@ namespace KLFitter
     std::vector<float> * jet_phi;  
     std::vector<double> * jet_flavor_weight_SV0; 
 
-    float topMET_et; 
-    float topMET_phi; 
-    float topMET_etx; 
-    float topMET_ety; 
+    float MET_RefFinal_em_et; 
+    float MET_RefFinal_em_etx; 
+    float MET_RefFinal_em_ety; 
     
     // internal variables for the truth mapping
     int TruthIdx_t;     //top quark

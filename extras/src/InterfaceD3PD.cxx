@@ -23,31 +23,20 @@ KLFitter::InterfaceD3PD::InterfaceD3PD()
 	if(mcevt_weight)
 		mcevt_weight = 0;
 
-	topMu_n = 0;
-	topMu_index = 0;
-	topMu_use = 0;
-	topMu_inTrigger = 0;    
+	mu_n = 0;
   mu_E = 0;  
   mu_px = 0;  
   mu_py = 0;  
-  mu_pz = 0;  
-  mu_pt = 0;  
-  mu_eta = 0;
-  mu_phi = 0;  
+  mu_pz = 0;
+  mu_eta = 0;  
 
-  topEl_n = 0;
-  topEl_index = 0;
-	topEl_use = 0;
-	topEl_inTrigger = 0;    
+  el_n = 0;  
   el_E = 0;  
   el_eta = 0;
   el_deteta = 0;  
   el_phi = 0;  
 
-  topJet_n = 0;
-  topJet_index = 0;
-	topJet_use = 0;
-	topJet_inTrigger = 0;   
+  jet_n = 0;
   jet_E = 0;  
   jet_pt = 0;  
   jet_eta = 0;
@@ -55,16 +44,14 @@ KLFitter::InterfaceD3PD::InterfaceD3PD()
   jet_phi = 0;  
   jet_flavor_weight_SV0 = 0;  
 
-  topMET_et = 0; 
-  topMET_phi = 0; 
-  topMET_etx = 0; 
-  topMET_ety = 0;
+  MET_RefFinal_em_et = 0; 
+  MET_RefFinal_em_etx = 0; 
+  MET_RefFinal_em_ety = 0;
 
   mc_eta = 0;
   mc_phi = 0;
   mc_pt = 0;
   mc_pdgId = 0;
-  mcevt_weight = 0;
   mc_m = 0;
   mc_barcode = 0;
   mc_status = 0;
@@ -163,34 +150,22 @@ int KLFitter::InterfaceD3PD::ConnectTree(TTree * fTree)
   if (!this->fTree) this->fTree = fTree;
   // set branch adresses
   fTree->SetBranchAddress("EventNumber",  &EventNumber); 
-  //fTree->SetBranchAddress("mcevt_weight", &fWeight);
   fTree->SetBranchAddress("mcevt_weight", &mcevt_weight);
 		
-  fTree->SetBranchAddress("topMu_n",  &topMu_n);
-  fTree->SetBranchAddress("topMu_index",  &topMu_index);
-  fTree->SetBranchAddress("topMu_use",  &topMu_use);
-  fTree->SetBranchAddress("topMu_inTrigger",  &topMu_inTrigger);  
+  fTree->SetBranchAddress("mu_n",  &mu_n);
   fTree->SetBranchAddress("mu_E",  &mu_E); 
   fTree->SetBranchAddress("mu_px", &mu_px); 
   fTree->SetBranchAddress("mu_py", &mu_py); 
-  fTree->SetBranchAddress("mu_pz", &mu_pz); 
-  fTree->SetBranchAddress("mu_pt", &mu_pt); 
-  fTree->SetBranchAddress("mu_eta", &mu_eta);
-  fTree->SetBranchAddress("mu_phi", &mu_phi); 
+  fTree->SetBranchAddress("mu_pz", &mu_pz);
+  fTree->SetBranchAddress("mu_eta", &mu_eta); 
  
-  fTree->SetBranchAddress("topEl_n",  &topEl_n); 
-  fTree->SetBranchAddress("topEl_index",  &topEl_index);
-  fTree->SetBranchAddress("topEl_use",  &topEl_use);
-  fTree->SetBranchAddress("topEl_inTrigger",  &topEl_inTrigger);
+  fTree->SetBranchAddress("el_n",  &el_n); 
   fTree->SetBranchAddress("el_cl_E",  &el_E); 
   fTree->SetBranchAddress("el_tracketa", &el_eta);
   fTree->SetBranchAddress("el_cl_eta", &el_deteta); 
   fTree->SetBranchAddress("el_trackphi", &el_phi); 
   
-  fTree->SetBranchAddress("topJet_n",   &topJet_n);
-  fTree->SetBranchAddress("topJet_index",   &topJet_index);
-  fTree->SetBranchAddress("topJet_use",  &topJet_use);
-  fTree->SetBranchAddress("topJet_inTrigger",  &topJet_inTrigger);  
+  fTree->SetBranchAddress("jet_n",   &jet_n);
   fTree->SetBranchAddress("jet_E",   &jet_E); 
   fTree->SetBranchAddress("jet_pt",  &jet_pt); 
   fTree->SetBranchAddress("jet_eta", &jet_eta);
@@ -198,10 +173,9 @@ int KLFitter::InterfaceD3PD::ConnectTree(TTree * fTree)
   fTree->SetBranchAddress("jet_phi", &jet_phi); 
   fTree->SetBranchAddress("jet_flavor_weight_SV0", &jet_flavor_weight_SV0); 
 
-  fTree->SetBranchAddress("topMET_et",  &topMET_et); 
-  fTree->SetBranchAddress("topMET_phi", &topMET_phi); 
-  fTree->SetBranchAddress("topMET_etx", &topMET_etx); 
-  fTree->SetBranchAddress("topMET_ety", &topMET_ety); 
+  fTree->SetBranchAddress("MET_RefFinal_em_et",  &MET_RefFinal_em_et); 
+  fTree->SetBranchAddress("MET_RefFinal_em_etx", &MET_RefFinal_em_etx); 
+  fTree->SetBranchAddress("MET_RefFinal_em_ety", &MET_RefFinal_em_ety); 
 
   //Truth Variables
   fTree->SetBranchAddress("mc_eta", &mc_eta );
@@ -226,34 +200,22 @@ int KLFitter::InterfaceD3PD::ConnectChain(TChain * fChain)
   if (!this->fChain) this->fChain = fChain;
   // set branch adresses
   fChain->SetBranchAddress("EventNumber",  &EventNumber); 
-  //fChain->SetBranchAddress("mcevt_weight", &fWeight);
   fChain->SetBranchAddress("mcevt_weight", &mcevt_weight);
 		
-  fChain->SetBranchAddress("topMu_n",  &topMu_n);
-  fChain->SetBranchAddress("topMu_index",  &topMu_index);
-  fChain->SetBranchAddress("topMu_use",  &topMu_use);
-  fChain->SetBranchAddress("topMu_inTrigger",  &topMu_inTrigger);  
+  fChain->SetBranchAddress("mu_n",  &mu_n);
   fChain->SetBranchAddress("mu_E",  &mu_E); 
   fChain->SetBranchAddress("mu_px", &mu_px); 
   fChain->SetBranchAddress("mu_py", &mu_py); 
-  fChain->SetBranchAddress("mu_pz", &mu_pz); 
-  fChain->SetBranchAddress("mu_pt", &mu_pt); 
-  fChain->SetBranchAddress("mu_eta", &mu_eta);
-  fChain->SetBranchAddress("mu_phi", &mu_phi); 
+  fChain->SetBranchAddress("mu_pz", &mu_pz);
+  fChain->SetBranchAddress("mu_eta", &mu_eta);  
  
-  fChain->SetBranchAddress("topEl_n",  &topEl_n); 
-  fChain->SetBranchAddress("topEl_index",  &topEl_index);
-  fChain->SetBranchAddress("topEl_use",  &topEl_use);
-  fChain->SetBranchAddress("topEl_inTrigger",  &topEl_inTrigger);
+  fChain->SetBranchAddress("el_n",  &el_n); 
   fChain->SetBranchAddress("el_cl_E",  &el_E); 
   fChain->SetBranchAddress("el_tracketa", &el_eta);  
   fChain->SetBranchAddress("el_cl_eta", &el_deteta); 
   fChain->SetBranchAddress("el_trackphi", &el_phi); 
   
-  fChain->SetBranchAddress("topJet_n",   &topJet_n);
-  fChain->SetBranchAddress("topJet_index",   &topJet_index);
-  fChain->SetBranchAddress("topJet_use",  &topJet_use);
-  fChain->SetBranchAddress("topJet_inTrigger",  &topJet_inTrigger);  
+  fChain->SetBranchAddress("jet_n",   &jet_n);
   fChain->SetBranchAddress("jet_E",   &jet_E); 
   fChain->SetBranchAddress("jet_pt",  &jet_pt); 
   fChain->SetBranchAddress("jet_eta", &jet_eta);
@@ -261,10 +223,9 @@ int KLFitter::InterfaceD3PD::ConnectChain(TChain * fChain)
   fChain->SetBranchAddress("jet_phi", &jet_phi); 
   fChain->SetBranchAddress("jet_flavor_weight_SV0", &jet_flavor_weight_SV0); 
 
-  fChain->SetBranchAddress("topMET_et",  &topMET_et); 
-  fChain->SetBranchAddress("topMET_phi", &topMET_phi); 
-  fChain->SetBranchAddress("topMET_etx", &topMET_etx); 
-  fChain->SetBranchAddress("topMET_ety", &topMET_ety); 
+  fChain->SetBranchAddress("MET_RefFinal_em_et",  &MET_RefFinal_em_et); 
+  fChain->SetBranchAddress("MET_RefFinal_em_etx", &MET_RefFinal_em_etx); 
+  fChain->SetBranchAddress("MET_RefFinal_em_ety", &MET_RefFinal_em_ety); 
 
   //Truth Variables
   fChain->SetBranchAddress("mc_eta", &mc_eta );
@@ -347,52 +308,30 @@ int KLFitter::InterfaceD3PD::FillParticles()
     }
   
 	// fill jets
-	for (int i = 0; i < topJet_n; ++i){
-		if ( topJet_use->at(i) ){
-                  if (jet_E->at(topJet_index->at(i)) <= 0.)
-                    continue;
-  		TLorentzVector * tlv_tmp = new TLorentzVector(0,0,0,0);
-  		tlv_tmp->SetPtEtaPhiE(jet_pt ->at(topJet_index->at(i)) / 1000. , 
-  										jet_eta->at(topJet_index->at(i)), 
-  										jet_phi->at(topJet_index->at(i)),
-  										jet_E  ->at(topJet_index->at(i)) / 1000.);
-					
-	  	fParticles->AddParticle(tlv_tmp, jet_deteta->at(topJet_index->at(i)), KLFitter::Particles::kParton,"",jet_flavor_weight_SV0->at(topJet_index->at(i)));
-      delete tlv_tmp;
-		}
+	for (int i = 0; i < jet_n; ++i){
+	  TLorentzVector * tlv_tmp = new TLorentzVector(0,0,0,0);
+  	tlv_tmp->SetPtEtaPhiE(jet_pt->at(i)/1000., jet_eta->at(i), jet_phi->at(i), jet_E->at(i)/1000.);
+    fParticles->AddParticle(tlv_tmp, jet_deteta->at(i), KLFitter::Particles::kParton,"",jet_flavor_weight_SV0->at(i));
+    delete tlv_tmp;
 	}
 	std::sort(fParticles->ParticleContainer(KLFitter::Particles::kParton)->begin(),  fParticles->ParticleContainer(KLFitter::Particles::kParton)->end() , KLFitter::Particles::PtOrder);
 
-	//fill electrons
-  for (int i = 0; i < topEl_n; ++i){
-  	if ( topEl_use->at(i) ){
-          if (el_E->at(topEl_index->at(i)) <= 0.)
-            continue;
-      TLorentzVector * tlv_tmp = new TLorentzVector(0,0,0,0);
-      tlv_tmp->SetPtEtaPhiE((el_E ->at(topEl_index->at(i)) / 1000.) / cosh(el_eta->at(topEl_index->at(i))),
-                        el_eta->at(topEl_index->at(i)),
-                        el_phi->at(topEl_index->at(i)),
-                        el_E  ->at(topEl_index->at(i)) / 1000.);
-      fParticles->AddParticle(tlv_tmp, el_deteta->at(topEl_index->at(i)), KLFitter::Particles::kElectron);
-      delete tlv_tmp;
-		}   																					 
+	//fill electrons  
+  for (int i = 0; i < el_n; ++i){
+    TLorentzVector * tlv_tmp = new TLorentzVector(0,0,0,0);
+    tlv_tmp->SetPtEtaPhiE((el_E->at(i)/1000.) / cosh(el_eta->at(i)), el_eta->at(i), el_phi->at(i), el_E->at(i)/1000.);
+    fParticles->AddParticle(tlv_tmp, el_deteta->at(i), KLFitter::Particles::kElectron);
+    delete tlv_tmp;
 	}
 	std::sort(fParticles->ParticleContainer(KLFitter::Particles::kElectron)->begin(),  fParticles->ParticleContainer(KLFitter::Particles::kElectron)->end() , KLFitter::Particles::PtOrder);
 
   // fill muons
-  for (int i = 0; i < topMu_n; ++i){
-  	if ( topMu_use->at(i)){ 
-          if (mu_E->at(topMu_index->at(i)) <= 0.)
-            continue;
-      TLorentzVector * tlv_tmp = new TLorentzVector(0,0,0,0);
-      tlv_tmp->SetPxPyPzE(mu_px->at(topMu_index->at(i)) / 1000., 
-                      mu_py->at(topMu_index->at(i)) / 1000., 
-                      mu_pz->at(topMu_index->at(i)) / 1000., 
-                      mu_E->at(topMu_index->at(i)) / 1000.);
-      fParticles->AddParticle(tlv_tmp, mu_eta->at(topMu_index->at(i)), KLFitter::Particles::kMuon);
-      delete tlv_tmp;
-    }
-	}
+  for (int i = 0; i < mu_n; ++i){
+    TLorentzVector * tlv_tmp = new TLorentzVector(0,0,0,0);
+    tlv_tmp->SetPxPyPzE(mu_px->at(i)/1000., mu_py->at(i)/1000., mu_pz->at(i)/1000., mu_E->at(i)/1000.);
+    fParticles->AddParticle(tlv_tmp, mu_eta->at(i), KLFitter::Particles::kMuon);
+    delete tlv_tmp;
+  }
 	std::sort(fParticles->ParticleContainer(KLFitter::Particles::kMuon)->begin(),  fParticles->ParticleContainer(KLFitter::Particles::kMuon)->end() , KLFitter::Particles::PtOrder);
 	
   // check if input is Signal MC
