@@ -309,6 +309,9 @@ int KLFitter::InterfaceD3PD::FillParticles()
   
 	// fill jets
 	for (int i = 0; i < jet_n; ++i){
+          if (jet_E->at(i) <= 0.)
+            continue;
+
 	  TLorentzVector * tlv_tmp = new TLorentzVector(0,0,0,0);
   	tlv_tmp->SetPtEtaPhiE(jet_pt->at(i)/1000., jet_eta->at(i), jet_phi->at(i), jet_E->at(i)/1000.);
     fParticles->AddParticle(tlv_tmp, jet_deteta->at(i), KLFitter::Particles::kParton,"",jet_flavor_weight_SV0->at(i));
@@ -318,6 +321,9 @@ int KLFitter::InterfaceD3PD::FillParticles()
 
 	//fill electrons  
   for (int i = 0; i < el_n; ++i){
+    if (el_E->at(i) <= 0.)
+      continue;
+
     TLorentzVector * tlv_tmp = new TLorentzVector(0,0,0,0);
     tlv_tmp->SetPtEtaPhiE((el_E->at(i)/1000.) / cosh(el_eta->at(i)), el_eta->at(i), el_phi->at(i), el_E->at(i)/1000.);
     fParticles->AddParticle(tlv_tmp, el_deteta->at(i), KLFitter::Particles::kElectron);
@@ -327,6 +333,9 @@ int KLFitter::InterfaceD3PD::FillParticles()
 
   // fill muons
   for (int i = 0; i < mu_n; ++i){
+    if (mu_E->at(i) <= 0.)
+      continue;
+
     TLorentzVector * tlv_tmp = new TLorentzVector(0,0,0,0);
     tlv_tmp->SetPxPyPzE(mu_px->at(i)/1000., mu_py->at(i)/1000., mu_pz->at(i)/1000., mu_E->at(i)/1000.);
     fParticles->AddParticle(tlv_tmp, mu_eta->at(i), KLFitter::Particles::kMuon);

@@ -1,7 +1,12 @@
+2011-05-18 Johannes Erdmann <johannes.erdmann@cern.ch>
+
+	* InterfaceD3PD: re-introduce fix for negative energies (disappeared in KLFitter-00-04-13)
+	* tag KLFitter-00-04-14
+
 2011-05-17 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
 
 	* InterfaceD3PD: bugfix for SignalMCGen, removing TopInputs variables, cleanup
-  * tag KLFitter-00-04-13
+	* tag KLFitter-00-04-13
 
 2011-05-13 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>, Stefan Guindon <stefan.guindon@cern.ch>, Johannes Erdmann <johannes.erdmann@cern.ch>
 
