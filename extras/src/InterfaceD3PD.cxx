@@ -536,9 +536,9 @@ int KLFitter::InterfaceD3PD::TruthMapper(){
   int Nnbar  = 0;
 
   // !!! Define this parameter in your config file/job option. Its crucial for a correct MC truth particle identification!
-  bool TruthHERWIGFlag = false; 
-  if (fSignalMCGen == KLFitter::InterfaceRoot::kHerwig)
-    TruthHERWIGFlag = true;  
+  bool TruthHERWIGFlag = true; 
+  if (fSignalMCGen == KLFitter::InterfaceRoot::kAcer)
+    TruthHERWIGFlag = false;  
 
   for (unsigned int i=0;i!=mc_pt->size();++i) {
     int pdg = (*mc_pdgId)[i];
