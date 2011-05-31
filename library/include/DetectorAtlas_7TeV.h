@@ -135,7 +135,8 @@ namespace KLFitter
     KLFitter::ResolutionBase * fResEnergyLightJet_eta1; 
     KLFitter::ResolutionBase * fResEnergyLightJet_eta2; 
     KLFitter::ResolutionBase * fResEnergyLightJet_eta3;
-    KLFitter::ResolutionBase * fResEnergyLightJet_eta4; 
+    KLFitter::ResolutionBase * fResEnergyLightJet_eta4;
+    KLFitter::ResolutionBase * fResEnergyLightJet_eta5; 
 
     /**
      * The energy resolution of b jets for different eta regions. 
@@ -143,7 +144,8 @@ namespace KLFitter
     KLFitter::ResolutionBase * fResEnergyBJet_eta1; 
     KLFitter::ResolutionBase * fResEnergyBJet_eta2; 
     KLFitter::ResolutionBase * fResEnergyBJet_eta3;
-    KLFitter::ResolutionBase * fResEnergyBJet_eta4; 
+    KLFitter::ResolutionBase * fResEnergyBJet_eta4;
+    KLFitter::ResolutionBase * fResEnergyBJet_eta5; 
 
     /**
      * The energy resolution of gluon jets for different eta regions.
@@ -167,7 +169,6 @@ namespace KLFitter
     KLFitter::ResolutionBase * fResEnergyMuon_eta1; 
     KLFitter::ResolutionBase * fResEnergyMuon_eta2; 
     KLFitter::ResolutionBase * fResEnergyMuon_eta3;
-    KLFitter::ResolutionBase * fResEnergyMuon_eta4; 
 
     /**
      * The energy resolution of photons for different eta regions.
@@ -216,6 +217,7 @@ namespace KLFitter
     double fJetEtaBin_2;
     double fJetEtaBin_3;
     double fJetEtaBin_4;
+    double fJetEtaBin_5;
 
     /**
      * The eta binning for electrons
@@ -231,7 +233,6 @@ namespace KLFitter
     double fMuonEtaBin_1;
     double fMuonEtaBin_2;
     double fMuonEtaBin_3;
-    double fMuonEtaBin_4;
 
     /**
      * The eta binning for muons
