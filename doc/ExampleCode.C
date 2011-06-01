@@ -20,7 +20,7 @@ KLFitter::Fitter * myFitter = new KLFitter::Fitter();
 
 // create an instance of the detector, which holds the information on the resolutions (transfer functions);
 // it takes as an argument the folder which contains the parameter files for the transfer functions
-KLFitter::DetectorBase * myDetector = new KLFitter::DetectorAtlas_7TeV("<path to transferfunctions/7TeV/ttbar/mc10a>"); 
+KLFitter::DetectorBase * myDetector = new KLFitter::DetectorAtlas_7TeV("<path to transferfunctions/7TeV/ttbar/mc10>"); 
 
 // tell the fitter which detector to use
 if (!myFitter->SetDetector(myDetector))

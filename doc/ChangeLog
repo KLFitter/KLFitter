@@ -1,10 +1,9 @@
 2011-05-18 Johannes Erdmann <johannes.erdmann@cern.ch>, Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
 
 	* Permutations, SelectionTool, InterfaceD3PD: bug fix for Particles::JetIndex
-	* mc10a TFs
-	* jet TFs up to eta 4.5
 	* InterfaceD3PD: default is Herwig
 	* clean-up
+	* tag KLFitter-00-04-16
 	* tag KLFitter-00-04-15
 
 2011-05-18 Johannes Erdmann <johannes.erdmann@cern.ch>
