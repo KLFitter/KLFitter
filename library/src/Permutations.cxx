@@ -126,13 +126,13 @@ int KLFitter::Permutations::CreatePermutations()
                       TLorentzVector * vect = new TLorentzVector( *(*fParticles)->Parton(index) ); 
 
                       // add parton 
-                      particles->AddParticle(vect, (*fParticles)->DetEta(index, KLFitter::Particles::kParton), KLFitter::Particles::kParton); 
-
-                      // set flavor tag
-                      particles->SetFlavorTag(i, (*fParticles)->FlavorTag(index));
-
-                      // set b-tagging probability 
-                      particles->SetBTaggingProbability(i, (*fParticles)->BTaggingProbability(index));
+                      particles->AddParticle(vect,
+                                             (*fParticles)->DetEta(index, KLFitter::Particles::kParton),
+                                             KLFitter::Particles::kParton,
+                                             (*fParticles)->NameParticle(index, KLFitter::Particles::kParton),
+                                             (*fParticles)->BTaggingProbability(index),
+                                             (*fParticles)->FlavorTag(index),
+                                             (*fParticles)->JetIndex(index));
 
                       // set permutation 
                       permutation->at(i) = index; 
@@ -148,7 +148,13 @@ int KLFitter::Permutations::CreatePermutations()
                       TLorentzVector * vect = new TLorentzVector( *(*fParticles)->Electron(index) ); 
 
                       // add electron 
-                      particles->AddParticle(vect, (*fParticles)->DetEta(index, KLFitter::Particles::kElectron),  KLFitter::Particles::kElectron); 
+                      particles->AddParticle(vect,
+                                             (*fParticles)->DetEta(index, KLFitter::Particles::kElectron),
+                                             KLFitter::Particles::kElectron,
+                                             (*fParticles)->NameParticle(index, KLFitter::Particles::kElectron),
+                                             0.,
+                                             0.,
+                                             (*fParticles)->ElectronIndex(index));
 
                       // set permutation 
                       permutation->at(npartons + i) = index; 
@@ -164,7 +170,13 @@ int KLFitter::Permutations::CreatePermutations()
                       TLorentzVector * vect = new TLorentzVector( *(*fParticles)->Muon(index) ); 
 
                       // add muon 
-                      particles->AddParticle(vect, (*fParticles)->DetEta(index, KLFitter::Particles::kMuon), KLFitter::Particles::kMuon); 
+                      particles->AddParticle(vect,
+                                             (*fParticles)->DetEta(index, KLFitter::Particles::kMuon),
+                                             KLFitter::Particles::kMuon,
+                                             (*fParticles)->NameParticle(index, KLFitter::Particles::kMuon),
+                                             0.,
+                                             0.,
+                                             (*fParticles)->MuonIndex(index));
 
                       // set permutation 
                       permutation->at(npartons + nelectrons + i) = index; 
@@ -180,7 +192,13 @@ int KLFitter::Permutations::CreatePermutations()
                       TLorentzVector * vect = new TLorentzVector( *(*fParticles)->Photon(index) ); 
 
                       // add photon 
-                      particles->AddParticle(vect, (*fParticles)->DetEta(index, KLFitter::Particles::kPhoton),  KLFitter::Particles::kPhoton); 
+                      particles->AddParticle(vect,
+                                             (*fParticles)->DetEta(index, KLFitter::Particles::kPhoton),
+                                             KLFitter::Particles::kPhoton,
+                                             (*fParticles)->NameParticle(index, KLFitter::Particles::kPhoton),
+                                             0.,
+                                             0.,
+                                             (*fParticles)->PhotonIndex(index));
 
                       // set permutation 
                       permutation->at(npartons + nelectrons + nmuons + i) = index; 

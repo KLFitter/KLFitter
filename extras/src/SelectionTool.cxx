@@ -66,12 +66,11 @@ int KLFitter::SelectionTool::SelectObjects(KLFitter::Particles * particles)
       fParticlesSelected->AddParticle( new TLorentzVector(*particles->Parton(i)),
                                        particles->DetEta(i, KLFitter::Particles::kParton),
                                        KLFitter::Particles::kParton, 
-                                       particles->NameParticle(i, KLFitter::Particles::kParton) ); 
-      // add flavor tag
-      fParticlesSelected->SetFlavorTag( fParticlesSelected->NPartons()-1, particles->FlavorTag(i)); 
+                                       particles->NameParticle(i, KLFitter::Particles::kParton),
+                                       particles->BTaggingProbability(i),
+                                       particles->FlavorTag(i),
+                                       particles->JetIndex(i));
 
-      // add b-tagging probability
-      fParticlesSelected->SetBTaggingProbability( fParticlesSelected->NPartons()-1, particles->BTaggingProbability(i)); 
       // add index to map 
       fMapJets.push_back(i); 
     }
@@ -93,7 +92,10 @@ int KLFitter::SelectionTool::SelectObjects(KLFitter::Particles * particles)
       fParticlesSelected->AddParticle( new TLorentzVector(*particles->Electron(i)),
                                        particles->DetEta(i, KLFitter::Particles::kElectron),
                                        KLFitter::Particles::kElectron, 
-                                       particles->NameParticle(i, KLFitter::Particles::kElectron) ); 
+                                       particles->NameParticle(i, KLFitter::Particles::kElectron),
+                                       0.,
+                                       0.,
+                                       particles->ElectronIndex(i));
       // add index to map 
       fMapElectrons.push_back(i); 
     }
@@ -115,7 +117,10 @@ int KLFitter::SelectionTool::SelectObjects(KLFitter::Particles * particles)
       fParticlesSelected->AddParticle( new TLorentzVector(*particles->Muon(i)),
                                        particles->DetEta(i, KLFitter::Particles::kMuon),
                                        KLFitter::Particles::kMuon, 
-                                       particles->NameParticle(i, KLFitter::Particles::kMuon) ); 
+                                       particles->NameParticle(i, KLFitter::Particles::kMuon),
+                                       0.,
+                                       0.,
+                                       particles->MuonIndex(i));
 
       // add index to map 
       fMapMuons.push_back(i); 
@@ -138,7 +143,10 @@ int KLFitter::SelectionTool::SelectObjects(KLFitter::Particles * particles)
       fParticlesSelected->AddParticle( new TLorentzVector(*particles->Photon(i)),
                                        particles->DetEta(i, KLFitter::Particles::kPhoton),
                                        KLFitter::Particles::kPhoton, 
-                                       particles->NameParticle(i, KLFitter::Particles::kPhoton) ); 
+                                       particles->NameParticle(i, KLFitter::Particles::kPhoton),
+                                       0.,
+                                       0.,
+                                       particles->PhotonIndex(i));
       
       // add index to map 
       fMapPhotons.push_back(i); 
