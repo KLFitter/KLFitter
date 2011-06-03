@@ -4,3 +4,13 @@ Update Fitter::Fit() to take care of
 - storing the output from all permutations
 - choosing the best permutation
 - normalizing the event probability accordingly
+
+2011-06-03
+LikelihoodTopLeptonJets
+- protection against vectors out of range:
+- example: model = e+jets, but the user didn't pass an electron
+
+2011-06-03
+Update InterfaceD3PD for mc10b:
+- mcevt_weight: vector<vector<double> >
+- jet_flavor_weight_SV0 : new type: vector<float>
