@@ -1,9 +1,20 @@
+2011-05-17 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+
+	* transferfunctions: fixed Electron TFs, bJet TFs in crack region still not good
+	* DetectorAtlas_7TeV.cxx: Temporary fix fuer bJets in crack region: Interpolating with other regions
+	* runKLFitter.cxx: Move to new mc10a Tfs
+	* tag KLFitter-00-04-17
+
+
 2011-05-18 Johannes Erdmann <johannes.erdmann@cern.ch>, Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
 
 	* Permutations, SelectionTool, InterfaceD3PD: bug fix for Particles::JetIndex
 	* InterfaceD3PD: default is Herwig
 	* clean-up
 	* tag KLFitter-00-04-16
+	* new structure in transferfunctions for mc10/a/b
+	* new mc10a transferfunctions: electrons with eta < 0.8 not valid yet
+	* DetectorAtlas_7TeV.cxx: extend eta range for jets to 4.5
 	* tag KLFitter-00-04-15
 
 2011-05-18 Johannes Erdmann <johannes.erdmann@cern.ch>
