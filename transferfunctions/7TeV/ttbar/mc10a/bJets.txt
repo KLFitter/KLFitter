@@ -6,7 +6,8 @@ B-jet transfer function
    Version: 4.0 - 7 TeV, R16
    Version: 4.5 - 7 TeV, R16v2, new binning
    Version: 5.0 - 7 TeV, MC10a
-last change: 30.05.2011 - Boris Lemmer
+   Version: 5.5 - 7 TeV, MC10a, higher stats as mT170 and mT180 samples were added
+last change: 07.06.2011 - Boris Lemmer
 
 
 The transfer function for b-jets is parametrized as:
@@ -28,62 +29,61 @@ p_5 = width2_0  + width2_1 E_truth
 The values are:
 
 0.00 < |eta| < 0.80:
-(0) Parameter "mean1_0":  0.2651;
-(1) Parameter "mean1_1":  -7.103e-05;
-(2) Parameter "width1_0": 0.9177;
-(3) Parameter "width1_1": 0.02773;
-(4) Parameter "scale_0":  2.573;
-(5) Parameter "scale_1":  0.0005476;
-(6) Parameter "mean2_0":  0.09361;
-(7) Parameter "mean2_1":  2.135e-05;
-(8) Parameter "width2_0": 0.2912;
-(9) Parameter "width2_1": -0.0002484;
+(0) Parameter "mean1_0":  0.2382; 
+(1) Parameter "mean1_1":  -5.098e-05;
+(2) Parameter "width1_0": 0.7682;
+(3) Parameter "width1_1": 0.03725;
+(4) Parameter "scale_0":  4.126;
+(5) Parameter "scale_1":  0.0004261;
+(6) Parameter "mean2_0":  0.1079;
+(7) Parameter "mean2_1":  0.0001196;
+(8) Parameter "width2_0": 0.2788;
+(9) Parameter "width2_1": -0.0001824;
 
 0.80 < |eta| < 1.37:
-(0) Parameter "mean1_0":  0.319;
-(1) Parameter "mean1_1":  -0.0001208;
-(2) Parameter "width1_0": 1.152;
-(3) Parameter "width1_1": 0.01171;
-(4) Parameter "scale_0":  4.565;
-(5) Parameter "scale_1":  -0.0001046;
-(6) Parameter "mean2_0":  0.08691;
-(7) Parameter "mean2_1":  5.285e-06;
-(8) Parameter "width2_0": 0.2985;
-(9) Parameter "width2_1": -0.0003224;
+(0) Parameter "mean1_0":  0.2463;
+(1) Parameter "mean1_1":  -7.291e-05;
+(2) Parameter "width1_0": 0.9253;
+(3) Parameter "width1_1": 0.02694;
+(4) Parameter "scale_0":  7.127;
+(5) Parameter "scale_1":  -0.0005512;
+(6) Parameter "mean2_0":  0.08738;
+(7) Parameter "mean2_1":  0.0001966;
+(8) Parameter "width2_0": 0.2709;
+(9) Parameter "width2_1": -0.0001337;
 
 1.37 < |eta| < 1.52:
-(0) Parameter "mean1_0":  0.6795;
-(1) Parameter "mean1_1":  -0.0001144;
-(2) Parameter "width1_0": 1.938;
-(3) Parameter "width1_1": -0.02779;
-(4) Parameter "scale_0":  1.824;
-(5) Parameter "scale_1":  0.0006355;
-(6) Parameter "mean2_0":  0.03926;
-(7) Parameter "mean2_1":  0.0003022;
-(8) Parameter "width2_0": 0.3863;
-(9) Parameter "width2_1": -0.0006279;
+(0) Parameter "mean1_0":  0.5291;
+(1) Parameter "mean1_1":  -7.106e-05;
+(2) Parameter "width1_0": 1.888;
+(3) Parameter "width1_1": -0.03435;
+(4) Parameter "scale_0":  6.311;
+(5) Parameter "scale_1":  -9.31e-05;
+(6) Parameter "mean2_0":  0.09036;
+(7) Parameter "mean2_1":  0.0001574;
+(8) Parameter "width2_0": 0.3042;
+(9) Parameter "width2_1": -0.000253;
 
 1.52 < |eta| < 2.50:
-(0) Parameter "mean1_0":  0.5702;
-(1) Parameter "mean1_1":  -5.151e-05;
-(2) Parameter "width1_0": 1.236;
-(3) Parameter "width1_1": 0.02261;
-(4) Parameter "scale_0":  9.13;
-(5) Parameter "scale_1":  -0.0006714;
-(6) Parameter "mean2_0":  0.06917;
-(7) Parameter "mean2_1":  0.0002459;
-(8) Parameter "width2_0": 0.2516;
-(9) Parameter "width2_1": -3.997e-05;
+(0) Parameter "mean1_0":  0.5038;
+(1) Parameter "mean1_1":  -3.182e-05;
+(2) Parameter "width1_0": 1.135;
+(3) Parameter "width1_1": 0.02625;
+(4) Parameter "scale_0":  11.54;
+(5) Parameter "scale_1":  -0.0008075;
+(6) Parameter "mean2_0":  0.07035;
+(7) Parameter "mean2_1":  0.0003326;
+(8) Parameter "width2_0": 0.2461;
+(9) Parameter "width2_1": -1.77e-05;
 
 2.50 < |eta| < 4.50:
-(0) Parameter "mean1_0":  1.631;
-(1) Parameter "mean1_1":  3.676e-05;
-(2) Parameter "width1_0": -1.349;
-(3) Parameter "width1_1": 0.249;
-(4) Parameter "scale_0":  6.2;
-(5) Parameter "scale_1":  -0.0006676;
-(6) Parameter "mean2_0":  -0.4373;
-(7) Parameter "mean2_1":  0.001746;
-(8) Parameter "width2_0": 0.1476;
-(9) Parameter "width2_1": 0.0005057;
-
+(0) Parameter "mean1_0":  
+(1) Parameter "mean1_1":  
+(2) Parameter "width1_0": 
+(3) Parameter "width1_1": 
+(4) Parameter "scale_0":  
+(5) Parameter "scale_1":  
+(6) Parameter "mean2_0":  
+(7) Parameter "mean2_1":  
+(8) Parameter "width2_0": 
+(9) Parameter "width2_1": 

@@ -1,10 +1,18 @@
-2011-05-17 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+2011-06-08 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+
+	* transferfunctions:
+    -mc10a: optimized TFs with higher statistics due to other top mass sample -> fixed bJet TFs in crack region
+    -mc10b: new TFs, including top mass samples and muon smearing
+	* DetectorAtlas_7TeV.cxx: re-introduce crack region for jets
+	* runKLFitter.cxx: Move to new mc10b TFs
+	* tag KLFitter-00-04-18
+
+2011-06-07 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
 
 	* transferfunctions: fixed Electron TFs, bJet TFs in crack region still not good
 	* DetectorAtlas_7TeV.cxx: Temporary fix fuer bJets in crack region: Interpolating with other regions
-	* runKLFitter.cxx: Move to new mc10a Tfs
+	* runKLFitter.cxx: Move to new mc10a TFs
 	* tag KLFitter-00-04-17
-
 
 2011-05-18 Johannes Erdmann <johannes.erdmann@cern.ch>, Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
 

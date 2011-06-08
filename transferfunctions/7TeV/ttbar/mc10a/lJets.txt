@@ -5,7 +5,8 @@ Version: 2.0 -- 7 TeV
 Version: 4.0 - 7 TeV, R16
    Version: 4.5 - 7 TeV, R16v2, new binning
    Version: 5.0 - 7 TeV, MC10a
-last change: 30.05.2011 - Boris Lemmer
+   Version: 5.5 - 7 TeV, MC10a, higher stats as mT170 and mT180 samples were added
+last change: 07.06.2011 - Boris Lemmer
 
 
 The transfer function for light jets is parametrized as:
@@ -27,62 +28,61 @@ p_5 = width2_0  + width2_1 E_truth
 The values are:
 
 0.00 < |eta| < 0.80:
-(0) Parameter "mean1_0":  -0.02517;
-(1) Parameter "mean1_1":  3.319e-05;
-(2) Parameter "width1_0": 1.008;
-(3) Parameter "width1_1": 0.03068;
-(4) Parameter "scale_0":  0.1949;
-(5) Parameter "scale_1":  -0.0002111;
-(6) Parameter "mean2_0":  -0.01185;
-(7) Parameter "mean2_1":  0.0002841;
-(8) Parameter "width2_0": 0.31;
-(9) Parameter "width2_1": -0.0002297;
+(0) Parameter "mean1_0":  -0.02529;
+(1) Parameter "mean1_1":  3.253e-05;
+(2) Parameter "width1_0": 1.02;
+(3) Parameter "width1_1": 0.03037;
+(4) Parameter "scale_0":  0.179;
+(5) Parameter "scale_1":  -0.0001694;
+(6) Parameter "mean2_0":  -0.00266;
+(7) Parameter "mean2_1":  0.0002296;
+(8) Parameter "width2_0": 0.3145;
+(9) Parameter "width2_1": -0.0002335;
 
 0.80 < |eta| < 1.37:
-(0) Parameter "mean1_0":  -0.03722;
-(1) Parameter "mean1_1":  4.899e-05;
-(2) Parameter "width1_0": 1.366;
-(3) Parameter "width1_1": 0.008841;
-(4) Parameter "scale_0":  0.2783;
-(5) Parameter "scale_1":  -0.0008472;
-(6) Parameter "mean2_0":  -0.08163;
-(7) Parameter "mean2_1":  0.0008821;
-(8) Parameter "width2_0": 0.313;
-(9) Parameter "width2_1": -0.0003188;
+(0) Parameter "mean1_0":  -0.03556;
+(1) Parameter "mean1_1":  4.021e-05;
+(2) Parameter "width1_0": 1.39;
+(3) Parameter "width1_1": 0.007603;
+(4) Parameter "scale_0":  0.2365;
+(5) Parameter "scale_1":  -0.0006657;
+(6) Parameter "mean2_0":  -0.07188;
+(7) Parameter "mean2_1":  0.0008066;
+(8) Parameter "width2_0": 0.3167;
+(9) Parameter "width2_1": -0.0002521;
 
 1.37 < |eta| < 1.52:
-(0) Parameter "mean1_0":  -0.01661;
-(1) Parameter "mean1_1":  2.272e-06;
-(2) Parameter "width1_0": 1.636;
-(3) Parameter "width1_1": -0.0004959;
-(4) Parameter "scale_0":  0.409;
-(5) Parameter "scale_1":  -0.001511;
-(6) Parameter "mean2_0":  -0.1654;
-(7) Parameter "mean2_1":  0.001398;
-(8) Parameter "width2_0": 0.3002;
-(9) Parameter "width2_1": -5.414e-05;
+(0) Parameter "mean1_0":  -0.02245;
+(1) Parameter "mean1_1":  3.924e-05;
+(2) Parameter "width1_0": 1.626;
+(3) Parameter "width1_1": 0.0007855;
+(4) Parameter "scale_0":  0.3526;
+(5) Parameter "scale_1":  -0.001081;
+(6) Parameter "mean2_0":  -0.1181;
+(7) Parameter "mean2_1":  0.0009568;
+(8) Parameter "width2_0": 0.3235;
+(9) Parameter "width2_1": -0.0002401;
 
 1.52 < |eta| < 2.50:
-(0) Parameter "mean1_0":  -0.01362;
-(1) Parameter "mean1_1":  3.095e-05;
-(2) Parameter "width1_0": 0.9684;
-(3) Parameter "width1_1": 0.04935;
-(4) Parameter "scale_0":  0.582;
-(5) Parameter "scale_1":  -0.001382;
-(6) Parameter "mean2_0":  -0.1457;
-(7) Parameter "mean2_1":  0.0009375;
-(8) Parameter "width2_0": 0.2785;
-(9) Parameter "width2_1": -0.0001512;
+(0) Parameter "mean1_0":  -0.0166;
+(1) Parameter "mean1_1":  4.045e-05;
+(2) Parameter "width1_0": 0.9553;
+(3) Parameter "width1_1": 0.0494;
+(4) Parameter "scale_0":  0.6343;
+(5) Parameter "scale_1":  -0.001519;
+(6) Parameter "mean2_0":  -0.1318;
+(7) Parameter "mean2_1":  0.0008725;
+(8) Parameter "width2_0": 0.2708;
+(9) Parameter "width2_1": -0.0001298;
 
 2.50 < |eta| < 4.50:
-(0) Parameter "mean1_0":  0.06382;
-(1) Parameter "mean1_1":  -5.787e-05;
-(2) Parameter "width1_0": -1.076;
-(3) Parameter "width1_1": 0.2142;
-(4) Parameter "scale_0":  1.198;
-(5) Parameter "scale_1":  -0.002959;
-(6) Parameter "mean2_0":  -0.3315;
-(7) Parameter "mean2_1":  0.001244;
-(8) Parameter "width2_0": 0.1402;
-(9) Parameter "width2_1": 0.0004003;
-
+(0) Parameter "mean1_0":  
+(1) Parameter "mean1_1":  
+(2) Parameter "width1_0": 
+(3) Parameter "width1_1": 
+(4) Parameter "scale_0":  
+(5) Parameter "scale_1":  
+(6) Parameter "mean2_0":  
+(7) Parameter "mean2_1":  
+(8) Parameter "width2_0": 
+(9) Parameter "width2_1": 

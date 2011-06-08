@@ -85,8 +85,8 @@ KLFitter::DetectorAtlas_7TeV::DetectorAtlas_7TeV(std::string folder) : DetectorB
 
   // Set eta binning for different objects starting with eta=0
   fJetEtaBin_1 = 0.8;
-  fJetEtaBin_2 = 1.45; //1.37 //Temporary fix: due to low stats in crack region// 
-  fJetEtaBin_3 = 1.45; //1.52
+  fJetEtaBin_2 = 1.37; 
+  fJetEtaBin_3 = 1.52;
   fJetEtaBin_4 = 2.5;
   fJetEtaBin_5 = 4.5;
 
