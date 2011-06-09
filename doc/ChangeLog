@@ -1,9 +1,14 @@
 2011-06-09 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
 
+	* InterfaceD3PD: bugfix for mcevt_weight
+	* tag KLFitter-00-04-20
+
+2011-06-09 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+
 	* InterfaceD3PD: changing var type for mc10b
     - mcevt_weight: vector<vector<double> >
     - jet_flavor_weight_SV0 : vector<float>
-	* tag KLFitter-00-04-19
+	* tag KLFitter-00-04-19: This tag is broken! Don't use it!
 
 2011-06-08 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
 

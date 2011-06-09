@@ -302,7 +302,7 @@ int KLFitter::InterfaceD3PD::FillParticles()
   
   //set weight
     if (mcevt_weight){
-      fWeight = mcevt_weight->at(0);
+      fWeight = mcevt_weight->at(0).at(0);
     } else {
     fWeight=1.0;
     }
