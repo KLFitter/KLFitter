@@ -173,7 +173,7 @@ namespace KLFitter
     /* @{ */
 
     UInt_t EventNumber; 
-    std::vector<double> * mcevt_weight;  
+    std::vector<std::vector<double> >* mcevt_weight;  
     
     int mu_n;
     std::vector<float> * mu_E;  
@@ -194,7 +194,7 @@ namespace KLFitter
     std::vector<float> * jet_eta;
     std::vector<float> * jet_deteta;  
     std::vector<float> * jet_phi;  
-    std::vector<double> * jet_flavor_weight_SV0; 
+    std::vector<float> * jet_flavor_weight_SV0; 
 
     float MET_RefFinal_em_et; 
     float MET_RefFinal_em_etx; 

@@ -1,3 +1,10 @@
+2011-06-09 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+
+	* InterfaceD3PD: changing var type for mc10b
+    - mcevt_weight: vector<vector<double> >
+    - jet_flavor_weight_SV0 : vector<float>
+	* tag KLFitter-00-04-19
+
 2011-06-08 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
 
 	* transferfunctions:
