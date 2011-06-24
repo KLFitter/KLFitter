@@ -10,3 +10,5 @@ LikelihoodTopLeptonJets
 - protection against vectors out of range:
 - example: model = e+jets, but the user didn't pass an electron
 
+2011-06-24
+- find and fix small memory leak
