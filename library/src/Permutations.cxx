@@ -122,11 +122,8 @@ int KLFitter::Permutations::CreatePermutations()
                       // get index 
                       int index = (fTablePartons->at(ipermparton))->at(i); 
 
-                      // get parton 
-                      TLorentzVector * vect = new TLorentzVector( *(*fParticles)->Parton(index) ); 
-
                       // add parton 
-                      particles->AddParticle(vect,
+                      particles->AddParticle((*fParticles)->Parton(index),
                                              (*fParticles)->DetEta(index, KLFitter::Particles::kParton),
                                              KLFitter::Particles::kParton,
                                              (*fParticles)->NameParticle(index, KLFitter::Particles::kParton),
@@ -144,11 +141,8 @@ int KLFitter::Permutations::CreatePermutations()
                       // get index 
                       int index = (fTableElectrons->at(ipermelectron))->at(i); 
 
-                      // get electron 
-                      TLorentzVector * vect = new TLorentzVector( *(*fParticles)->Electron(index) ); 
-
                       // add electron 
-                      particles->AddParticle(vect,
+                      particles->AddParticle((*fParticles)->Electron(index),
                                              (*fParticles)->DetEta(index, KLFitter::Particles::kElectron),
                                              KLFitter::Particles::kElectron,
                                              (*fParticles)->NameParticle(index, KLFitter::Particles::kElectron),
@@ -166,11 +160,8 @@ int KLFitter::Permutations::CreatePermutations()
                       // get index 
                       int index = (fTableMuons->at(ipermmuon))->at(i); 
 
-                      // get muon 
-                      TLorentzVector * vect = new TLorentzVector( *(*fParticles)->Muon(index) ); 
-
                       // add muon 
-                      particles->AddParticle(vect,
+                      particles->AddParticle((*fParticles)->Muon(index),
                                              (*fParticles)->DetEta(index, KLFitter::Particles::kMuon),
                                              KLFitter::Particles::kMuon,
                                              (*fParticles)->NameParticle(index, KLFitter::Particles::kMuon),
@@ -188,11 +179,8 @@ int KLFitter::Permutations::CreatePermutations()
                       // get index 
                       int index = (fTablePhotons->at(ipermphoton))->at(i); 
 
-                      // get photon 
-                      TLorentzVector * vect = new TLorentzVector( *(*fParticles)->Photon(index) ); 
-
                       // add photon 
-                      particles->AddParticle(vect,
+                      particles->AddParticle((*fParticles)->Photon(index),
                                              (*fParticles)->DetEta(index, KLFitter::Particles::kPhoton),
                                              KLFitter::Particles::kPhoton,
                                              (*fParticles)->NameParticle(index, KLFitter::Particles::kPhoton),
@@ -515,3 +503,4 @@ std::vector<std::vector<int>* > *KLFitter::Permutations::PermutationTable()
 }
 
 // --------------------------------------------------------- 
+
