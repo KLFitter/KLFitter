@@ -5,6 +5,7 @@
 #include "ResDoubleGaussE_2.h"
 #include "ResDoubleGaussE_3.h"  
 #include "ResGauss.h"
+#include "ResGauss_MET.h"
 
 #include "TString.h"
 
@@ -69,7 +70,7 @@ KLFitter::DetectorAtlas_7TeV::DetectorAtlas_7TeV(std::string folder) : DetectorB
   fResPhiBJet_eta4 = new KLFitter::ResGauss(Form("%s/par_phi_bJets_eta4.txt", folder.c_str()));
 
   // missing et resolution in x and y 
-  fResMissingET      = new KLFitter::ResGauss(Form("%s/par_misset.txt", folder.c_str())); 
+  fResMissingET      = new KLFitter::ResGauss_MET(Form("%s/par_misset.txt", folder.c_str())); 
 
   // default settings 
   fResEnergyLightJet = fResEnergyLightJet_eta1; 

@@ -68,12 +68,13 @@ namespace KLFitter
     enum Parameters { parBhadE, parBlepE, parLQ1E, parLQ2E, parLepE, parNuPx, parNuPy, parNuPz, parTopM };
 
     /**
-     * Set the values for the missing ET x and y components.
+     * Set the values for the missing ET x and y components and the SumET.
      * @param etx missing ET x component.
      * @param ety missing ET y component.
+     * @param sumet total scalar ET.
      * @return An error flag.
      */
-    int SetET_miss_XY(double etx, double ety);
+    int SetET_miss_XY_SumET(double etx, double ety, double sumet);
 
     /**
      * Set a flag. If flag is true the invariant top quark mass is
@@ -277,6 +278,11 @@ namespace KLFitter
      * The values of the y component of the missing ET.
      */
     double ETmiss_y;
+
+    /**
+     * The values of the total scalar ET.
+     */
+    double SumET;
 
     /**
      * An index deciding if the event is electron (1) or muon (2) plus

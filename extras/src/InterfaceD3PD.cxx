@@ -23,7 +23,7 @@ KLFitter::InterfaceD3PD::InterfaceD3PD()
 	if(mcevt_weight)
 		mcevt_weight = 0;
 
-	mu_n = 0;
+  mu_n = 0;
   mu_E = 0;  
   mu_px = 0;  
   mu_py = 0;  
@@ -44,9 +44,10 @@ KLFitter::InterfaceD3PD::InterfaceD3PD()
   jet_phi = 0;  
   jet_flavor_weight_SV0 = 0;  
 
-  MET_RefFinal_em_et = 0; 
-  MET_RefFinal_em_etx = 0; 
-  MET_RefFinal_em_ety = 0;
+  MET_RefFinal_em_tight_et = 0; 
+  MET_RefFinal_em_tight_etx = 0; 
+  MET_RefFinal_em_tight_ety = 0;
+  MET_RefFinal_em_tight_sumet = 0;
 
   mc_eta = 0;
   mc_phi = 0;
@@ -173,9 +174,10 @@ int KLFitter::InterfaceD3PD::ConnectTree(TTree * fTree)
   fTree->SetBranchAddress("jet_phi", &jet_phi); 
   fTree->SetBranchAddress("jet_flavor_weight_SV0", &jet_flavor_weight_SV0); 
 
-  fTree->SetBranchAddress("MET_RefFinal_em_et",  &MET_RefFinal_em_et); 
-  fTree->SetBranchAddress("MET_RefFinal_em_etx", &MET_RefFinal_em_etx); 
-  fTree->SetBranchAddress("MET_RefFinal_em_ety", &MET_RefFinal_em_ety); 
+  fTree->SetBranchAddress("MET_RefFinal_em_tight_et",  &MET_RefFinal_em_tight_et); 
+  fTree->SetBranchAddress("MET_RefFinal_em_tight_etx", &MET_RefFinal_em_tight_etx); 
+  fTree->SetBranchAddress("MET_RefFinal_em_tight_ety", &MET_RefFinal_em_tight_ety); 
+  fTree->SetBranchAddress("MET_RefFinal_em_tight_sumet", &MET_RefFinal_em_tight_sumet); 
 
   //Truth Variables
   fTree->SetBranchAddress("mc_eta", &mc_eta );
@@ -198,6 +200,14 @@ int KLFitter::InterfaceD3PD::ConnectTree(TTree * fTree)
 int KLFitter::InterfaceD3PD::ConnectChain(TChain * fChain)
 {
   if (!this->fChain) this->fChain = fChain;
+   fChain->SetBranchStatus("*", 0);
+
+		const char* branches[] =
+		{"EventNumber", "mcevt_weight","mu_n", "mu_E","mu_px","mu_py","mu_pz","mu_eta","el_n","el_cl_E","el_tracketa","el_cl_eta", "el_trackphi", "jet_n", "jet_E", "jet_pt","jet_eta", "jet_emscale_eta", "jet_phi", "jet_flavor_weight_SV0", "MET_RefFinal_em_tight_et", "MET_RefFinal_em_tight_etx", "MET_RefFinal_em_tight_ety", "MET_RefFinal_em_tight_sumet", "mc_eta", "mc_phi", "mc_pt", "mc_pdgId","mcevt_weight", "mc_m", "mc_barcode", "mc_status", "mc_parents", "mc_parent_index","mc_child_index",  "mc_children"};
+
+   for (unsigned int b = 0; b < sizeof(branches) / sizeof(const char*); b++)
+   fChain->SetBranchStatus(branches[b], 1);
+
   // set branch adresses
   fChain->SetBranchAddress("EventNumber",  &EventNumber); 
   fChain->SetBranchAddress("mcevt_weight", &mcevt_weight);
@@ -223,9 +233,10 @@ int KLFitter::InterfaceD3PD::ConnectChain(TChain * fChain)
   fChain->SetBranchAddress("jet_phi", &jet_phi); 
   fChain->SetBranchAddress("jet_flavor_weight_SV0", &jet_flavor_weight_SV0); 
 
-  fChain->SetBranchAddress("MET_RefFinal_em_et",  &MET_RefFinal_em_et); 
-  fChain->SetBranchAddress("MET_RefFinal_em_etx", &MET_RefFinal_em_etx); 
-  fChain->SetBranchAddress("MET_RefFinal_em_ety", &MET_RefFinal_em_ety); 
+  fChain->SetBranchAddress("MET_RefFinal_em_tight_et",  &MET_RefFinal_em_tight_et); 
+  fChain->SetBranchAddress("MET_RefFinal_em_tight_etx", &MET_RefFinal_em_tight_etx); 
+  fChain->SetBranchAddress("MET_RefFinal_em_tight_ety", &MET_RefFinal_em_tight_ety); 
+  fChain->SetBranchAddress("MET_RefFinal_em_tight_sumet", &MET_RefFinal_em_tight_sumet); 
 
   //Truth Variables
   fChain->SetBranchAddress("mc_eta", &mc_eta );
@@ -277,7 +288,7 @@ int KLFitter::InterfaceD3PD::Event(int index)
     // get event 
   	fChain->GetEntry(index);
   } 
-  
+ 
   // fill particles 
   if (!this->FillParticles())
     return 0; 
@@ -762,4 +773,7 @@ if (TruthIdx_QfromWminus!=-1 && TruthIdx_QbarfromWminus!=-1) {
 */
 return sane;
 }
+
+
 // --------------------------------------------------------- 
+

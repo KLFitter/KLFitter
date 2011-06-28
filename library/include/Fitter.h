@@ -122,7 +122,7 @@ namespace KLFitter
      * @param ety component of the missing ET.
      * @return An error flag.
      */
-    int SetET_miss_XY(double etx, double ety);
+    int SetET_miss_XY_SumET(double etx, double ety, double sumet);
 
     /**
      * Set the likelihood for the actual fit. 
@@ -203,10 +203,11 @@ namespace KLFitter
     KLFitter::Particles * fParticles; 
 
     /**
-     * The x and y component of the missing ET.
+     * The x and y component of the missing ET and the sumET.
      */
     double ETmiss_x;
     double ETmiss_y;
+    double SumET;
 
     /**
      * A pointer to the set of permuted particles. 

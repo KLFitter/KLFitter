@@ -57,12 +57,12 @@ int KLFitter::Fitter::SetParticles(KLFitter::Particles * particles)
 }
 
 // --------------------------------------------------------- 
-int KLFitter::Fitter::SetET_miss_XY(double etx, double ety)
+int KLFitter::Fitter::SetET_miss_XY_SumET(double etx, double ety, double sumet)
 {
-  // set missing ET x and y component
+  // set missing ET x and y component and sumET
   ETmiss_x = etx;
   ETmiss_y = ety;
-
+  SumET = sumet;
   // no error
   return 1;
 }
@@ -114,8 +114,8 @@ int KLFitter::Fitter::Fit(int index)
   // get new permutation 
   fParticlesPermuted = fPermutations->ParticlesPermuted(); 
 
-  // set missing ET x and y components
-  fLikelihood->SetET_miss_XY(ETmiss_x, ETmiss_y);
+  // set missing ET x and y components and the sumET
+  fLikelihood->SetET_miss_XY_SumET(ETmiss_x, ETmiss_y, SumET);
 
   // initialize likelihood (likelihood MUST be initialized after
   // setting the missing ET, because AdjustParameterRanges() might

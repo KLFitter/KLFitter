@@ -63,21 +63,28 @@ namespace KLFitter
      * @return The missing ET
      */ 
     double ET_miss()
-    { return MET_RefFinal_em_et / 1000.; }; 
+    { return MET_RefFinal_em_tight_et / 1000.; }; 
 
     /**
      * Return the measured missing transverse energy (x component). 
      * @return The missing ET (x component)
      */ 
     double ET_miss_x()
-    { return MET_RefFinal_em_etx / 1000.; }; 
+    { return MET_RefFinal_em_tight_etx / 1000.; }; 
 
     /**
      * Return the measured missing transverse energy (y component). 
      * @return The missing ET (y component)
      */ 
     double ET_miss_y()
-    { return MET_RefFinal_em_ety / 1000.; }; 
+    { return MET_RefFinal_em_tight_ety / 1000.; }; 
+
+    /**
+     * Return the measured scalar sum of transverse energy. 
+     * @return The summed ET
+     */ 
+    double Sum_ET()
+    { return MET_RefFinal_em_tight_sumet / 1000. ; }; 
 
     /* @} */
     /** \name Member functions (Set)  */
@@ -155,6 +162,8 @@ namespace KLFitter
      * @return true if event is sane
      */ 
     bool IsProperMCEvent();
+
+
     /* @} */
 
   protected: 
@@ -196,9 +205,10 @@ namespace KLFitter
     std::vector<float> * jet_phi;  
     std::vector<float> * jet_flavor_weight_SV0; 
 
-    float MET_RefFinal_em_et; 
-    float MET_RefFinal_em_etx; 
-    float MET_RefFinal_em_ety; 
+    float MET_RefFinal_em_tight_et; 
+    float MET_RefFinal_em_tight_etx; 
+    float MET_RefFinal_em_tight_ety; 
+    float MET_RefFinal_em_tight_sumet;
     
     // internal variables for the truth mapping
     int TruthIdx_t;     //top quark

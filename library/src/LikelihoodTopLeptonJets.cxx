@@ -16,6 +16,7 @@ KLFitter::LikelihoodTopLeptonJets::LikelihoodTopLeptonJets() : KLFitter::Likelih
                                                              , fFlagUseJetMass(false)
                                                              , ETmiss_x(0.)
                                                              , ETmiss_y(0.)
+                                                             , SumET(0.)
                                                              , fTypeLepton(kElectron)
                                                              , fTFgood(true)
 {
@@ -32,11 +33,12 @@ KLFitter::LikelihoodTopLeptonJets::~LikelihoodTopLeptonJets()
 }
 
 // --------------------------------------------------------- 
-int KLFitter::LikelihoodTopLeptonJets::SetET_miss_XY(double etx, double ety)
+int KLFitter::LikelihoodTopLeptonJets::SetET_miss_XY_SumET(double etx, double ety, double sumet)
 {
-  // set missing ET x and y component
+  // set missing ET x and y component and the SumET
   ETmiss_x = etx;
   ETmiss_y = ety;
+  SumET = sumet;
 
   // no error
   return 1;
@@ -416,10 +418,10 @@ double KLFitter::LikelihoodTopLeptonJets::LogLikelihood(std::vector<double> para
   if (!TFgoodTmp) fTFgood = false;
 
   // neutrino px and py
-  logprob += log( fResMET->p(nu_fit_px, ETmiss_x, TFgoodTmp) );
+  logprob += log( fResMET->p(nu_fit_px, ETmiss_x, TFgoodTmp, SumET) );
   if (!TFgoodTmp) fTFgood = false;
 
-  logprob += log( fResMET->p(nu_fit_py, ETmiss_y, TFgoodTmp) );
+  logprob += log( fResMET->p(nu_fit_py, ETmiss_y, TFgoodTmp, SumET) );
   if (!TFgoodTmp) fTFgood = false;
 
   // physics constants

@@ -100,6 +100,13 @@ namespace KLFitter
     virtual double ET_miss_y()
     { return 0; }; 
 
+    /**
+     * Return the measured total scalar transverse energy. 
+     * @return The total scalar ET
+     */ 
+    virtual double Sum_ET()
+    { return 0; }; 
+
     /* @} */
     /** \name Member functions (Set)  */
     /* @{ */

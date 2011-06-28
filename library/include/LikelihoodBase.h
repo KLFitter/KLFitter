@@ -162,12 +162,13 @@ namespace KLFitter
     int SetParticlesPermuted(KLFitter::Particles** particles); 
 
     /**
-     * Set the values for the missing ET x and y components.
+     * Set the values for the missing ET x and y components and the SumET.
      * @param etx missing ET x component.
      * @param ety missing ET y component.
+     * @param sumet total scalar ET.
      * @return An error flag.
      */
-    virtual int SetET_miss_XY(double KLFITTER_UNUSED(etx), double KLFITTER_UNUSED(ety)) { return 0; }
+    virtual int SetET_miss_XY_SumET(double KLFITTER_UNUSED(etx), double KLFITTER_UNUSED(ety), double KLFITTER_UNUSED(sumet)) { return 0; }
 
     /**
      * Set the permutation object.

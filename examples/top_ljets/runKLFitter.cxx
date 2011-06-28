@@ -190,9 +190,8 @@ int main(int argc, char **argv)
       // add particles to fitter 
       if (!myFitter -> SetParticles(particles))
         return 0;       
-
-      // add ETmiss to fitter
-      if (!myFitter -> SetET_miss_XY( myInterfaceRoot -> ET_miss_x(), myInterfaceRoot -> ET_miss_y() ) )
+      // add ETmiss and sumET to fitter
+      if (!myFitter -> SetET_miss_XY_SumET( myInterfaceRoot -> ET_miss_x(), myInterfaceRoot -> ET_miss_y(), myInterfaceRoot -> Sum_ET() ) )
         return 0;
 
       if (myMatchingTool)
