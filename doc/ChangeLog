@@ -1,3 +1,12 @@
+2011-06-30 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
+
+	* transferfunctions: changing TFs for MET. Now parametrized as function of SumET
+	* InterfaceD3PD: add SumET, switch to new MET variables, switch off input branches which are not needed
+	* DetectorAtlas_7TeV.cxx: new TFs for MET implemented (Gauss_MET)
+	* several classes: SumET added, needed as a MET TF parameter
+	* Permutations: small memory leak fixed
+	* tag KLFitter-00-04-21
+
 2011-06-09 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
 
 	* InterfaceD3PD: bugfix for mcevt_weight
@@ -22,7 +31,7 @@
 2011-06-07 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
 
 	* transferfunctions: fixed Electron TFs, bJet TFs in crack region still not good
-	* DetectorAtlas_7TeV.cxx: Temporary fix fuer bJets in crack region: Interpolating with other regions
+	* DetectorAtlas_7TeV.cxx: Temporary fix for bJets in crack region: Interpolating with other regions
 	* runKLFitter.cxx: Move to new mc10a TFs
 	* tag KLFitter-00-04-17
 
