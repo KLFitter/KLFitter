@@ -1,3 +1,8 @@
+2011-07-01 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
+
+	* ExampleCode.C: example of how to use myFitter->SetET_miss_XY_SumET(Etx, Ety, SumEt)
+	* tag KLFitter-00-04-22
+
 2011-06-30 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
 
 	* transferfunctions: changing TFs for MET. Now parametrized as function of SumET. Removed all old TFs. Only MC10b supported

@@ -99,8 +99,8 @@ if (myParticles->NElectrons() != 1 && myParticles->NMuons() != 0)
 if (!myFitter->SetParticles(myParticles))
   return 0;       
 
-// add the MET x and y components to the fitter
-if (!myFitter->SetET_miss_XY(MET_Etx, MET_Ety))
+// add the MET x and y components as well as the SumET to the fitter
+if (!myFitter->SetET_miss_XY_SumET(MET_Etx, MET_Ety, MET_SumEt))
   return 0;
 
 // loop over all permutations

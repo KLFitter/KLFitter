@@ -120,6 +120,7 @@ namespace KLFitter
      * Set x and y component of the missing ET.
      * @param etx component of the missing ET.
      * @param ety component of the missing ET.
+     * @param sumet The measured scalar sum of transverse energy. 
      * @return An error flag.
      */
     int SetET_miss_XY_SumET(double etx, double ety, double sumet);
