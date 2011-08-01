@@ -227,7 +227,7 @@ int KLFitter::Particles::RemoveParticle(int index, KLFitter::Particles::Particle
     return 0; 
         
   // remove particle 
-  TLorentzVector* lv = ParticleContainer(ptype)->at(index);
+  TLorentzVector* lv = (*ParticleContainer(ptype))[index];
   ParticleContainer(ptype)->erase( ParticleContainer(ptype)->begin() + index); 
   delete lv;
   ParticleNameContainer(ptype)->erase( ParticleNameContainer(ptype)->begin() + index); 
@@ -283,7 +283,7 @@ TLorentzVector* KLFitter::Particles::Particle(int index, KLFitter::Particles::Pa
   }
 
   // return pointer 
-  return container->at(index);  
+  return (*container)[index];  
 }
 
 // --------------------------------------------------------- 
@@ -293,8 +293,8 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
   // loop over all partons 
   unsigned int npartons = fNamePartons->size();
   for (unsigned int i = 0; i < npartons; ++i)
-    if (name == fNamePartons->at(i)) {
-      particle = fPartons->at(i); 
+    if (name == (*fNamePartons)[i]) {
+      particle = (*fPartons)[i]; 
       index = i; 
       ptype = KLFitter::Particles::kParton; 
       return 1; 
@@ -303,8 +303,8 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
   // loop over all electrons 
   unsigned int nelectrons = fNameElectrons->size();
   for (unsigned int i = 0; i < nelectrons; ++i)
-    if (name == fNameElectrons->at(i)) {
-      particle = fElectrons->at(i); 
+    if (name == (*fNameElectrons)[i]) {
+      particle = (*fElectrons)[i]; 
       index = i; 
       ptype = KLFitter::Particles::kElectron; 
       return 1;
@@ -313,8 +313,8 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
   // loop over all muons 
   unsigned int nmuons = fNameMuons->size();
   for (unsigned int i = 0; i < nmuons; ++i)
-    if (name == fNameMuons->at(i)) {
-      particle = fMuons->at(i); 
+    if (name == (*fNameMuons)[i]) {
+      particle = (*fMuons)[i]; 
       index = i; 
       ptype = KLFitter::Particles::kMuon; 
       return 1;
@@ -323,8 +323,8 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
   // loop over all taus 
   unsigned int ntaus = fNameTaus->size();
   for (unsigned int i = 0; i < ntaus; ++i)
-    if (name == fNameTaus->at(i)) {
-      particle = fTaus->at(i); 
+    if (name == (*fNameTaus)[i]) {
+      particle = (*fTaus)[i]; 
       index = i; 
       ptype = KLFitter::Particles::kTau; 
       return 1;
@@ -333,8 +333,8 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
   // loop over all neutrinos
   unsigned int nneutrinos = fNameNeutrinos->size(); 
   for (unsigned int i = 0; i < nneutrinos; ++i)
-    if (name == fNameNeutrinos->at(i)) {
-      particle = fNeutrinos->at(i); 
+    if (name == (*fNameNeutrinos)[i]) {
+      particle = (*fNeutrinos)[i]; 
       index = i; 
       ptype = KLFitter::Particles::kNeutrino; 
       return 1;
@@ -343,8 +343,8 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
   // loop over all bosons 
   unsigned int nbosons = fNameBosons->size();
   for (unsigned int i = 0; i < nbosons; ++i)
-    if (name == fNameBosons->at(i)) {
-      particle = fBosons->at(i); 
+    if (name == (*fNameBosons)[i]) {
+      particle = (*fBosons)[i]; 
       index = i; 
       ptype = KLFitter::Particles::kBoson; 
       return 1;
@@ -353,8 +353,8 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
   // loop over all photons 
   unsigned int nphotons = fNamePhotons->size();
   for (unsigned int i = 0; i < nphotons; ++i)
-    if (name == fNamePhotons->at(i)) {
-      particle = fPhotons->at(i); 
+    if (name == (*fNamePhotons)[i]) {
+      particle = (*fPhotons)[i]; 
       index = i; 
       ptype = KLFitter::Particles::kPhoton; 
       return 1;
@@ -368,7 +368,7 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
 TLorentzVector* KLFitter::Particles::Parton(int index)
 {
   // no check on index range for CPU-time reasons
-  return fPartons->at(index);
+  return (*fPartons)[index];
 
   /*
   // check index 
@@ -387,7 +387,7 @@ TLorentzVector* KLFitter::Particles::Parton(int index)
 TLorentzVector* KLFitter::Particles::Electron(int index)
 {
   // no check on index range for CPU-time reasons
-  return fElectrons->at(index);
+  return (*fElectrons)[index];
 
   /*
   // check index 
@@ -406,7 +406,7 @@ TLorentzVector* KLFitter::Particles::Electron(int index)
 TLorentzVector* KLFitter::Particles::Muon(int index)
 {
   // no check on index range for CPU-time reasons
-  return fMuons->at(index);
+  return (*fMuons)[index];
 
   /*
   // check index 
@@ -425,7 +425,7 @@ TLorentzVector* KLFitter::Particles::Muon(int index)
 TLorentzVector* KLFitter::Particles::Tau(int index)
 {
   // no check on index range for CPU-time reasons
-  return fTaus->at(index);
+  return (*fTaus)[index];
 
   /*
   // check index 
@@ -444,7 +444,7 @@ TLorentzVector* KLFitter::Particles::Tau(int index)
 TLorentzVector* KLFitter::Particles::Boson(int index)
 {
   // no check on index range for CPU-time reasons
-  return fBosons->at(index);
+  return (*fBosons)[index];
 
   /*
   // check index 
@@ -465,7 +465,7 @@ TLorentzVector* KLFitter::Particles::Boson(int index)
 TLorentzVector* KLFitter::Particles::Neutrino(int index)
 {
   // no check on index range for CPU-time reasons
-  return fNeutrinos->at(index);
+  return (*fNeutrinos)[index];
 
   /*
   // check index 
@@ -484,7 +484,7 @@ TLorentzVector* KLFitter::Particles::Neutrino(int index)
 TLorentzVector* KLFitter::Particles::Photon(int index)
 {
   // no check on index range for CPU-time reasons
-  return fPhotons->at(index);
+  return (*fPhotons)[index];
 
   /*
   // check index 
@@ -516,7 +516,7 @@ std::string KLFitter::Particles::NameParticle(int index, KLFitter::Particles::Pa
     return ""; 
 
   // return name 
-  return ParticleNameContainer(ptype)->at(index); 
+  return (*ParticleNameContainer(ptype))[index]; 
 
 }
 
@@ -612,7 +612,7 @@ std::vector <std::string>* KLFitter::Particles::ParticleNameContainer(KLFitter::
 double KLFitter::Particles::BTaggingProbability(int index)
 {
   // no check on index range for CPU-time reasons
-  return fBTaggingProbability->at(index); 
+  return (*fBTaggingProbability)[index]; 
 
   /*
   // check index 
@@ -631,7 +631,7 @@ double KLFitter::Particles::BTaggingProbability(int index)
 double KLFitter::Particles::FlavorTag(int index)
 {
   // no check on index range for CPU-time reasons
-  return fFlavorTag->at(index); 
+  return (*fFlavorTag)[index]; 
 
   /*
   // check index 
@@ -654,13 +654,13 @@ double KLFitter::Particles::DetEta(int index, KLFitter::Particles::ParticleType 
   }
 
   if (ptype == KLFitter::Particles::kParton)
-    return fJetDetEta->at(index);
+    return (*fJetDetEta)[index];
   else if (ptype == KLFitter::Particles::kElectron) 
-    return fElectronDetEta->at(index);
+    return (*fElectronDetEta)[index];
   else if (ptype == KLFitter::Particles::kMuon)
-    return fMuonDetEta->at(index);
+    return (*fMuonDetEta)[index];
   else if (ptype == KLFitter::Particles::kPhoton)
-    return fPhotonDetEta->at(index);
+    return (*fPhotonDetEta)[index];
 
   // return error value
   return -100;
@@ -669,7 +669,7 @@ double KLFitter::Particles::DetEta(int index, KLFitter::Particles::ParticleType 
 int KLFitter::Particles::JetIndex(int index)
 {
   // no check on index range for CPU-time reasons
-  return fJetIndex->at(index); 
+  return (*fJetIndex)[index]; 
 
   /*
   // check index 
@@ -688,7 +688,7 @@ int KLFitter::Particles::JetIndex(int index)
 int KLFitter::Particles::ElectronIndex(int index)
 {
   // no check on index range for CPU-time reasons
-  return fElectronIndex->at(index); 
+  return (*fElectronIndex)[index]; 
 
   /*
   // check index 
@@ -707,7 +707,7 @@ int KLFitter::Particles::ElectronIndex(int index)
 int KLFitter::Particles::MuonIndex(int index)
 {
   // no check on index range for CPU-time reasons
-  return fMuonIndex->at(index); 
+  return (*fMuonIndex)[index]; 
 
   /*
   // check index 
@@ -726,7 +726,7 @@ int KLFitter::Particles::MuonIndex(int index)
 int KLFitter::Particles::PhotonIndex(int index)
 {
   // no check on index range for CPU-time reasons
-  return fPhotonIndex->at(index); 
+  return (*fPhotonIndex)[index]; 
 
   /*
   // check index 
@@ -778,7 +778,7 @@ int KLFitter::Particles::NBTags()
   int sum = 0; 
 
   for (unsigned int i = 0; i < n; ++i) {
-    if (fFlavorTag->at(i) == 1)
+    if ((*fFlavorTag)[i] == 1)
       sum++; 
   }
 

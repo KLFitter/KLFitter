@@ -161,7 +161,7 @@ int KLFitter::Fitter::Fit(int index)
         BCParameterSet * ParameterSet = fLikelihood->GetParameterSet();
         for (unsigned int iPar = 0; iPar < BestParameters.size(); iPar++)
           {
-            if ( ParameterSet->at(iPar)->IsAtLimit(BestParameters.at(iPar)) )
+            if ( (*ParameterSet)[iPar]->IsAtLimit(BestParameters[iPar]) )
               {
                 fMinuitStatus = 500;
               }
@@ -200,7 +200,7 @@ int KLFitter::Fitter::Fit(int index)
       BCParameterSet * ParameterSet = fLikelihood->GetParameterSet();
       for (unsigned int iPar = 0; iPar < BestParameters.size(); iPar++)
         {
-          if ( ParameterSet->at(iPar)->IsAtLimit(BestParameters.at(iPar)) )
+          if ( (*ParameterSet)[iPar]->IsAtLimit(BestParameters[iPar]) )
             {
               fMinuitStatus = 501;
               fConvergenceStatus |= AtLeastOneFitParameterAtItsLimitMask;

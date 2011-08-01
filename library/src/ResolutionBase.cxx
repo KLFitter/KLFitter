@@ -24,7 +24,7 @@ KLFitter::ResolutionBase::ResolutionBase(std::vector <double> parameters)
 
   // copy values 
   for (int i = 0; i < fNParameters; ++i)
-    fParameters.push_back(parameters.at(i)); 
+    fParameters.push_back(parameters[i]); 
 }
 
 // --------------------------------------------------------- 
@@ -44,7 +44,7 @@ int KLFitter::ResolutionBase::Par(int index, double &par)
       return 0; 
     }
 
-  par = fParameters.at(index); 
+  par = fParameters[index]; 
 
   // no error 
   return 1; 
@@ -83,7 +83,7 @@ int KLFitter::ResolutionBase::SetPar(std::vector <double> parameters)
 
   // set parameters 
   for (int i = 0; i < fNParameters; ++i)
-    fParameters[i] = parameters.at(i); 
+    fParameters[i] = parameters[i]; 
 
   // no error 
   return 1; 

@@ -47,7 +47,7 @@ int KLFitter::Permutations::SetPermutation(int index)
     }
 
   // set permutation 
-  (*fParticlesPermuted) = fParticlesTable->at(index); 
+  (*fParticlesPermuted) = (*fParticlesTable)[index]; 
 
   // set permutation index
   fPermutationIndex = index;
