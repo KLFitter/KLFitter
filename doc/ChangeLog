@@ -1,5 +1,9 @@
 2011-08-01 Fabian Kohn <fabian.kohn@phys.uni-goettingen.de>
 
+	* LikelihoodTopLeptonJets.cxx: Major bugfix in CalculateLorentzVectors().
+
+2011-08-01 Fabian Kohn <fabian.kohn@phys.uni-goettingen.de>
+
 	* Fitter.cxx: Changed vector element access everywhere for consistency (at() -> []).
 	* Particles.cxx: Changed vector element access everywhere for consistency (at() -> []).
 	* Permutations.cxx: Changed vector element access everywhere for consistency (at() -> []).
