@@ -1,3 +1,12 @@
+2011-08-01 Fabian Kohn <fabian.kohn@phys.uni-goettingen.de>
+
+	* ResDoubleGaussE_1.h: Simplified CheckDoubleGaussianSanity() code (make better use of return value).
+	* LikelihoodTopLeptonJets.cxx: Major performance increase for CalculateLorentzVectors() by using static values and removal of unnecessary extra variable assignments.
+	* Permutations.cxx: Replaced ->at() methods with [] operator calls at most often called points to improve performance.
+	* ResDoubleGaussE_1.cxx: Removed unnecessary assignments and directly return calculation result.
+	* ResDoubleGaussE_2.cxx: Removed unnecessary assignments and directly return calculation result.
+	* ResDoubleGaussE_3.cxx: Removed unnecessary assignments and directly return calculation result.
+
 2011-07-01 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
 
 	* ExampleCode.C: example of how to use myFitter->SetET_miss_XY_SumET(Etx, Ety, SumEt)
