@@ -1,5 +1,13 @@
 2011-08-01 Fabian Kohn <fabian.kohn@phys.uni-goettingen.de>
 
+	* Fitter.cxx: Changed vector element access everywhere for consistency (at() -> []).
+	* Particles.cxx: Changed vector element access everywhere for consistency (at() -> []).
+	* Permutations.cxx: Changed vector element access everywhere for consistency (at() -> []).
+	* ResGauss.cxx: Changed vector element access everywhere for consistency (at() -> []).
+	* ResolutionBase.cxx: Changed vector element access everywhere for consistency (at() -> []).
+
+2011-08-01 Fabian Kohn <fabian.kohn@phys.uni-goettingen.de>
+
 	* ResDoubleGaussE_1.h: Simplified CheckDoubleGaussianSanity() code (make better use of return value).
 	* LikelihoodTopLeptonJets.cxx: Major performance increase for CalculateLorentzVectors() by using static values and removal of unnecessary extra variable assignments.
 	* Permutations.cxx: Replaced ->at() methods with [] operator calls at most often called points to improve performance.
