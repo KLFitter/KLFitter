@@ -73,10 +73,10 @@ namespace KLFitter
      * @param x The true value of x.
      * @param xmeas The measured value of x.
      * @param good False if problem with TF.
-     * @param par SumET as parameter for the MET TF.
+     * @param sumet SumET as parameter for the MET TF.
      * @return The probability. 
      */ 
-    virtual double p(double KLFITTER_UNUSED(x), double KLFITTER_UNUSED(xmeas), bool &good, double sumet)
+    virtual double p(double KLFITTER_UNUSED(x), double KLFITTER_UNUSED(xmeas), bool &good, double KLFITTER_UNUSED(sumet))
     { good = true; return 0; } 
 
     /**
