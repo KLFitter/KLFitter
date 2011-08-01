@@ -238,28 +238,28 @@ int KLFitter::LikelihoodTopLeptonJets::CalculateLorentzVectors(std::vector <doub
   whad_fit_px = lq1_fit_px+lq2_fit_px;
   whad_fit_py = lq1_fit_py+lq2_fit_py;
   whad_fit_pz = lq1_fit_pz+lq2_fit_pz;
-  whad_fit_m = sqrt(whad_fit_e*whad_fit_e - whad_fit_px*whad_fit_px + whad_fit_py*whad_fit_py + whad_fit_pz*whad_fit_pz);
-        
+  whad_fit_m = sqrt(whad_fit_e*whad_fit_e - (whad_fit_px*whad_fit_px + whad_fit_py*whad_fit_py + whad_fit_pz*whad_fit_pz));
+  
   // leptonic W 
   wlep_fit_e  = lep_fit_e +nu_fit_e;
   wlep_fit_px = lep_fit_px+nu_fit_px;
   wlep_fit_py = lep_fit_py+nu_fit_py;
   wlep_fit_pz = lep_fit_pz+nu_fit_pz;
-  wlep_fit_m = sqrt(wlep_fit_e*wlep_fit_e - wlep_fit_px*wlep_fit_px + wlep_fit_py*wlep_fit_py + wlep_fit_pz*wlep_fit_pz);
+  wlep_fit_m = sqrt(wlep_fit_e*wlep_fit_e - (wlep_fit_px*wlep_fit_px + wlep_fit_py*wlep_fit_py + wlep_fit_pz*wlep_fit_pz));
 
   // hadronic top 
   thad_fit_e = whad_fit_e+bhad_fit_e;
   thad_fit_px = whad_fit_px+bhad_fit_px;
   thad_fit_py = whad_fit_py+bhad_fit_py;
   thad_fit_pz = whad_fit_pz+bhad_fit_pz;
-  thad_fit_m = sqrt(thad_fit_e*thad_fit_e - thad_fit_px*thad_fit_px + thad_fit_py*thad_fit_py + thad_fit_pz*thad_fit_pz);
+  thad_fit_m = sqrt(thad_fit_e*thad_fit_e - (thad_fit_px*thad_fit_px + thad_fit_py*thad_fit_py + thad_fit_pz*thad_fit_pz));
 
   // leptonic top 
   tlep_fit_e = wlep_fit_e+blep_fit_e;
   tlep_fit_px = wlep_fit_px+blep_fit_px;
   tlep_fit_py = wlep_fit_py+blep_fit_py;
   tlep_fit_pz = wlep_fit_pz+blep_fit_pz;
-  tlep_fit_m = sqrt(tlep_fit_e*tlep_fit_e - tlep_fit_px*tlep_fit_px + tlep_fit_py*tlep_fit_py + tlep_fit_pz*tlep_fit_pz);
+  tlep_fit_m = sqrt(tlep_fit_e*tlep_fit_e - (tlep_fit_px*tlep_fit_px + tlep_fit_py*tlep_fit_py + tlep_fit_pz*tlep_fit_pz));
 
   // no error 
   return 1; 
