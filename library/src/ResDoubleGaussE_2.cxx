@@ -31,9 +31,10 @@ KLFitter::ResDoubleGaussE_2::~ResDoubleGaussE_2()
 // --------------------------------------------------------- 
 double KLFitter::ResDoubleGaussE_2::p(double x, double xmeas, bool &good)
 {
-  double p1 = fParameters[0] / sqrt(x) + fParameters[1] * x; 
-  double p2 = fParameters[2] / sqrt(x) + fParameters[3];
-  double p3 = fParameters[4] / sqrt(x) + fParameters[5] * x; 
+  double sqrt_x = sqrt(x);
+  double p1 = fParameters[0] / sqrt_x + fParameters[1] * x; 
+  double p2 = fParameters[2] / sqrt_x + fParameters[3];
+  double p3 = fParameters[4] / sqrt_x + fParameters[5] * x; 
   double p4 = fParameters[6] + fParameters[7] * x; 
   double p5 = fParameters[8] + fParameters[9] * x; 
 
@@ -43,9 +44,7 @@ double KLFitter::ResDoubleGaussE_2::p(double x, double xmeas, bool &good)
   double dx = (x - xmeas) / x; 
  
   // calculate double-Gaussian 
-  double prob= 1./sqrt(2.*M_PI) / (p2 + p3 * p5) * ( exp( -(dx-p1)*(dx-p1)/(2 * p2*p2) ) + p3 * exp( -(dx-p4)*(dx-p4)/(2 * p5 * p5) ) );
-
-  return prob; 
+  return 1./sqrt(2.*M_PI) / (p2 + p3 * p5) * ( exp( -(dx-p1)*(dx-p1)/(2 * p2*p2) ) + p3 * exp( -(dx-p4)*(dx-p4)/(2 * p5 * p5) ) ); 
 }
 
 // --------------------------------------------------------- 

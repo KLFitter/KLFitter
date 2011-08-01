@@ -84,14 +84,13 @@ namespace KLFitter
      * @return False if problem with TF.
      */
     inline static bool CheckDoubleGaussianSanity(double p2, double &p3, double p5) {
-      bool val(true);
+      if (p3 < 0.) p3 = 0.;      
       if (p2 < 0.) //std::cout << "KLFitter::ResDoubleGauss::CheckDoubleGaussianSanity() ERROR IN TRANSFERFUNCTIONS the sigma of the 1st Gaussian is < 0  -  FIT RESULT MAY NOT BE RELIABLE" << std::endl;
-        val = false;
+        return false;
       if (p5 < 0.) //std::cout << "KLFitter::ResDoubleGauss::CheckDoubleGaussianSanity() ERROR IN TRANSFERFUNCTIONS the sigma of the 2nd Gaussian is < 0  -  FIT RESULT MAY NOT BE RELIABLE" << std::endl;
-        val = false;
-      if (p3 < 0.) p3 = 0.;
+        return false;
 
-      return val;
+      return true;
     }
 
   private: 
