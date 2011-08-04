@@ -31,11 +31,11 @@ relpath=$reldir/$destdir
 ## prepare links to directory with header files
 if [ ! -d $relpath ]; then
   echo "#CMT---> Info: $destdir does not exist. Creating it."
-  ln -s $srcdir $relpath
+  ln -f $srcdir $relpath
 else
   echo "#CMT---> Info: $relpath already exists. Cleaning up."
   rm -f $relpath
-  ln -s $srcdir $relpath
+  ln -f $srcdir $relpath
 fi
 
 ## create a readme with timestamp
