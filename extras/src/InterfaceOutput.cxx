@@ -1067,51 +1067,84 @@ int KLFitter::InterfaceOutput::FillTreeModelPermutation()
 }
 
 // --------------------------------------------------------- 
-int KLFitter::InterfaceOutput::TreeModelDeleteAllButBestPermutation()
+int KLFitter::InterfaceOutput::TreeModelDeleteAllButNBestPermutations(unsigned int n)
 {
-  unsigned int bestPerm = (*fTreeVarBestPermutation)[0];
-
+  //Define tmp vectors for int, double
+  std::vector<int> vi_tmp;
+  std::vector<double> vd_tmp;
+  
+  //Copy every single vector to tmp and refill the vector in the order of the best permutation from temp and resize to n
   // fTreeVarEventNumber and fTreeVarBTags remain untouched
+  //LogLikelihood
+  vd_tmp.resize(fTreeVarLogLikelihood->size());
+  copy(fTreeVarLogLikelihood->begin(), fTreeVarLogLikelihood->end(), vd_tmp.begin()); 
+  for (unsigned int i=0; i<n; i++)
+    (*fTreeVarLogLikelihood)[i] = vd_tmp[(*fTreeVarBestPermutation)[i]];
+  fTreeVarLogLikelihood->resize(n);
+  //Integral
+  vd_tmp.resize(fTreeVarIntegral->size());
+  copy(fTreeVarIntegral->begin(), fTreeVarIntegral->end(), vd_tmp.begin()); 
+  for (unsigned int i=0; i<n; i++)
+    (*fTreeVarIntegral)[i] = vd_tmp[(*fTreeVarBestPermutation)[i]];
+  fTreeVarIntegral->resize(n);
+  //EventProbability
+  vd_tmp.resize(fTreeVarEventProbability->size());
+  copy(fTreeVarEventProbability->begin(), fTreeVarEventProbability->end(), vd_tmp.begin()); 
+  for (unsigned int i=0; i<n; i++)
+    (*fTreeVarEventProbability)[i] = vd_tmp[(*fTreeVarBestPermutation)[i]];
+  fTreeVarEventProbability->resize(n);
+  //MinuitStatus
+  vd_tmp.resize(fTreeVarMinuitStatus->size());
+  copy(fTreeVarMinuitStatus->begin(), fTreeVarMinuitStatus->end(), vd_tmp.begin()); 
+  for (unsigned int i=0; i<n; i++)
+    (*fTreeVarMinuitStatus)[i] = vd_tmp[(*fTreeVarBestPermutation)[i]];
+  fTreeVarMinuitStatus->resize(n);
+  //ConvergenceStatus
+  vi_tmp.resize(fTreeVarConvergenceStatus->size());
+  copy(fTreeVarConvergenceStatus->begin(), fTreeVarConvergenceStatus->end(), vi_tmp.begin()); 
+  for (unsigned int i=0; i<n; i++)
+    (*fTreeVarConvergenceStatus)[i] = vi_tmp[(*fTreeVarBestPermutation)[i]];
+  fTreeVarConvergenceStatus->resize(n);
 
-  (*fTreeVarBestPermutation)[0] = 0;
-  fTreeVarBestPermutation->resize(1);
-
-  fTreeVarNPermutations = 1;
-
-  (*fTreeVarLogLikelihood)[0] = (*fTreeVarLogLikelihood)[bestPerm];
-  fTreeVarLogLikelihood->resize(1);
-
-  (*fTreeVarMinuitStatus)[0] = (*fTreeVarMinuitStatus)[bestPerm];
-  fTreeVarMinuitStatus->resize(1);
-
-  (*fTreeVarConvergenceStatus)[0] = (*fTreeVarConvergenceStatus)[bestPerm];
-  fTreeVarConvergenceStatus->resize(1);
-
-  (*fTreeVarIntegral)[0] = (*fTreeVarIntegral)[bestPerm];
-  fTreeVarIntegral->resize(1);
-
-  (*fTreeVarEventProbability)[0] = (*fTreeVarEventProbability)[bestPerm];
-  fTreeVarEventProbability->resize(1);
-
+  //Parameters Vector
   for (unsigned int iPar(0), nPar(fTreeVarParameters->size()); iPar < nPar; ++iPar) {
-    (*(*fTreeVarParameters)[iPar])[0] = (*(*fTreeVarParameters)[iPar])[bestPerm];
-    (*fTreeVarParameters)[iPar]->resize(1);
+    vd_tmp.resize((*fTreeVarParameters)[iPar]->size());
+    copy((*fTreeVarParameters)[iPar]->begin(), (*fTreeVarParameters)[iPar]->end(), vd_tmp.begin()); 
+    for (unsigned int i=0; i<n; i++)
+      (*(*fTreeVarParameters)[iPar])[i] = vd_tmp[(*fTreeVarBestPermutation)[i]];
+    (*fTreeVarParameters)[iPar]->resize(n);
   }
-
+  //ParameterErrors Vector
   for (unsigned int iPar(0), nPar(fTreeVarParameterErrors->size()); iPar < nPar; ++iPar) {
-    (*(*fTreeVarParameterErrors)[iPar])[0] = (*(*fTreeVarParameterErrors)[iPar])[bestPerm];
-    (*fTreeVarParameterErrors)[iPar]->resize(1);
+    vd_tmp.resize((*fTreeVarParameterErrors)[iPar]->size());
+    copy((*fTreeVarParameterErrors)[iPar]->begin(), (*fTreeVarParameterErrors)[iPar]->end(), vd_tmp.begin()); 
+    for (unsigned int i=0; i<n; i++)
+      (*(*fTreeVarParameterErrors)[iPar])[i] = vd_tmp[(*fTreeVarBestPermutation)[i]];
+    (*fTreeVarParameterErrors)[iPar]->resize(n);
   }
-
+  //VarModel Vector
   for (unsigned int iPar(0), nPar(fTreeVarModel->size()); iPar < nPar; ++iPar) {
-    (*(*fTreeVarModel)[iPar])[0] = (*(*fTreeVarModel)[iPar])[bestPerm];
-    (*fTreeVarModel)[iPar]->resize(1);
+    vd_tmp.resize((*fTreeVarModel)[iPar]->size());
+    copy((*fTreeVarModel)[iPar]->begin(), (*fTreeVarModel)[iPar]->end(), vd_tmp.begin()); 
+    for (unsigned int i=0; i<n; i++)
+      (*(*fTreeVarModel)[iPar])[i] = vd_tmp[(*fTreeVarBestPermutation)[i]];
+    (*fTreeVarModel)[iPar]->resize(n);
+  }
+  //IntVarModel Vector
+  for (unsigned int iPar(0), nPar(fTreeIntVarModel->size()); iPar < nPar; ++iPar) {
+    vi_tmp.resize((*fTreeIntVarModel)[iPar]->size());
+    copy((*fTreeIntVarModel)[iPar]->begin(), (*fTreeIntVarModel)[iPar]->end(), vi_tmp.begin()); 
+    for (unsigned int i=0; i<n; i++)
+      (*(*fTreeIntVarModel)[iPar])[i] = vi_tmp[(*fTreeVarBestPermutation)[i]];
+    (*fTreeIntVarModel)[iPar]->resize(n);
   }
 
-  for (unsigned int iPar(0), nPar(fTreeIntVarModel->size()); iPar < nPar; ++iPar) {
-    (*(*fTreeIntVarModel)[iPar])[0] = (*(*fTreeIntVarModel)[iPar])[bestPerm];
-    (*fTreeIntVarModel)[iPar]->resize(1);
-  }
+  //BestPermutation -- NEEDS TO BE DONE LAST!
+  for (unsigned int i=0; i<n; i++)
+    (*fTreeVarBestPermutation)[i] = i;
+  fTreeVarBestPermutation->resize(n);
+  //NPermutations
+  fTreeVarNPermutations = n;
 
   // no error
   return 1;
