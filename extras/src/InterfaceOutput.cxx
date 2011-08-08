@@ -1069,6 +1069,12 @@ int KLFitter::InterfaceOutput::FillTreeModelPermutation()
 // --------------------------------------------------------- 
 int KLFitter::InterfaceOutput::TreeModelDeleteAllButNBestPermutations(unsigned int n)
 {
+  //Sanity check:
+  if(n>unsigned(fTreeVarNPermutations)){
+    std::cout<< "KLFitter::InterfaceOutput::TreeModelDeleteAllButNBestPermutations(). Number of permutations to be kept larger than total number of permutations!" << std::endl;
+    return 0;
+  }
+  
   //Define tmp vectors for int, double
   std::vector<int> vi_tmp;
   std::vector<double> vd_tmp;
