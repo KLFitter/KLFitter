@@ -167,6 +167,12 @@ namespace KLFitter
     int FillTreeModelPermutation();
 
     /**
+     * Deletes all but the best permutation from TreeModel.
+     * @return An error code. 
+     */ 
+    int TreeModelDeleteAllButBestPermutation();
+
+    /**
      * Fills copies of the measured particles into the tree variables.
      * @return An error code.
      */ 

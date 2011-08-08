@@ -1067,6 +1067,57 @@ int KLFitter::InterfaceOutput::FillTreeModelPermutation()
 }
 
 // --------------------------------------------------------- 
+int KLFitter::InterfaceOutput::TreeModelDeleteAllButBestPermutation()
+{
+  unsigned int bestPerm = (*fTreeVarBestPermutation)[0];
+
+  // fTreeVarEventNumber and fTreeVarBTags remain untouched
+
+  (*fTreeVarBestPermutation)[0] = 0;
+  fTreeVarBestPermutation->resize(1);
+
+  fTreeVarNPermutations = 1;
+
+  (*fTreeVarLogLikelihood)[0] = (*fTreeVarLogLikelihood)[bestPerm];
+  fTreeVarLogLikelihood->resize(1);
+
+  (*fTreeVarMinuitStatus)[0] = (*fTreeVarMinuitStatus)[bestPerm];
+  fTreeVarMinuitStatus->resize(1);
+
+  (*fTreeVarConvergenceStatus)[0] = (*fTreeVarConvergenceStatus)[bestPerm];
+  fTreeVarConvergenceStatus->resize(1);
+
+  (*fTreeVarIntegral)[0] = (*fTreeVarIntegral)[bestPerm];
+  fTreeVarIntegral->resize(1);
+
+  (*fTreeVarEventProbability)[0] = (*fTreeVarEventProbability)[bestPerm];
+  fTreeVarEventProbability->resize(1);
+
+  for (unsigned int iPar(0), nPar(fTreeVarParameters->size()); iPar < nPar; ++iPar) {
+    (*(*fTreeVarParameters)[iPar])[0] = (*(*fTreeVarParameters)[iPar])[bestPerm];
+    (*fTreeVarParameters)[iPar]->resize(1);
+  }
+
+  for (unsigned int iPar(0), nPar(fTreeVarParameterErrors->size()); iPar < nPar; ++iPar) {
+    (*(*fTreeVarParameterErrors)[iPar])[0] = (*(*fTreeVarParameterErrors)[iPar])[bestPerm];
+    (*fTreeVarParameterErrors)[iPar]->resize(1);
+  }
+
+  for (unsigned int iPar(0), nPar(fTreeVarModel->size()); iPar < nPar; ++iPar) {
+    (*(*fTreeVarModel)[iPar])[0] = (*(*fTreeVarModel)[iPar])[bestPerm];
+    (*fTreeVarModel)[iPar]->resize(1);
+  }
+
+  for (unsigned int iPar(0), nPar(fTreeIntVarModel->size()); iPar < nPar; ++iPar) {
+    (*(*fTreeIntVarModel)[iPar])[0] = (*(*fTreeIntVarModel)[iPar])[bestPerm];
+    (*fTreeIntVarModel)[iPar]->resize(1);
+  }
+
+  // no error
+  return 1;
+}
+
+// --------------------------------------------------------- 
 int KLFitter::InterfaceOutput::FillTreeMeasured()
 {
   // check tree
