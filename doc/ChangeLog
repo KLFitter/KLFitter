@@ -5,8 +5,6 @@
 	* cmt/SymLinkHeaders: Safety update as recommended by Venkat
 	* tag KLFitter-00-04-25
 
-method to delete all but the best permutation
-
 2011-08-08 Johannes Erdmann <johannes.erdmann@cern.ch>
 
 	* InterfaceOutput : adding method to delete all but the best permutation
