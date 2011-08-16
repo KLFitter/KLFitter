@@ -1,3 +1,9 @@
+2011-08-16 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
+
+	* InterfaceD3PD: Removed unused mc variables (mc_barcode, mc_children, mc_parents)
+	* tag KLFitter-00-04-26
+
+
 2011-08-09 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
 
 	* InterfaceOutput,TreeModelDeleteAllButNBestPermutations(unsigned int n):

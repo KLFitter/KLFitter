@@ -234,12 +234,9 @@ namespace KLFitter
     std::vector<float> * mc_pt;
     std::vector<int> * mc_pdgId;
     std::vector<float> * mc_m;
-    std::vector<float> * mc_barcode;
     std::vector<int> * mc_status;
     std::vector<std::vector<int> > *mc_parent_index;
     std::vector<std::vector<int> > *mc_child_index;
-    std::vector<std::vector<int> >* mc_parents;
-    std::vector<std::vector<int> > * mc_children;
 
     
     /* @} */

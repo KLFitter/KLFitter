@@ -54,12 +54,9 @@ KLFitter::InterfaceD3PD::InterfaceD3PD()
   mc_pt = 0;
   mc_pdgId = 0;
   mc_m = 0;
-  mc_barcode = 0;
   mc_status = 0;
-  mc_parents = 0;
   mc_parent_index = 0;
   mc_child_index = 0;
-  mc_children = 0;
       
   // needed due to incomplete dictionaries in ROOT (reading vector<bool> from TTree won't work without)
   gROOT->ProcessLine("#include <vector>");
@@ -186,12 +183,9 @@ int KLFitter::InterfaceD3PD::ConnectTree(TTree * fTree)
   fTree->SetBranchAddress("mc_pdgId", &mc_pdgId );
   fTree->SetBranchAddress("mcevt_weight", &mcevt_weight );
   fTree->SetBranchAddress("mc_m", &mc_m );
-  fTree->SetBranchAddress("mc_barcode", &mc_barcode );
   fTree->SetBranchAddress("mc_status", &mc_status );
-  fTree->SetBranchAddress("mc_parents", &mc_parents );
   fTree->SetBranchAddress("mc_parent_index", &mc_parent_index );
   fTree->SetBranchAddress("mc_child_index", &mc_child_index );
-  fTree->SetBranchAddress("mc_children", &mc_children );
 
   // no error     
   return 1;
@@ -203,7 +197,7 @@ int KLFitter::InterfaceD3PD::ConnectChain(TChain * fChain)
    fChain->SetBranchStatus("*", 0);
 
 		const char* branches[] =
-		{"EventNumber", "mcevt_weight","mu_n", "mu_E","mu_px","mu_py","mu_pz","mu_eta","el_n","el_cl_E","el_tracketa","el_cl_eta", "el_trackphi", "jet_n", "jet_E", "jet_pt","jet_eta", "jet_emscale_eta", "jet_phi", "jet_flavor_weight_SV0", "MET_RefFinal_em_tight_et", "MET_RefFinal_em_tight_etx", "MET_RefFinal_em_tight_ety", "MET_RefFinal_em_tight_sumet", "mc_eta", "mc_phi", "mc_pt", "mc_pdgId","mcevt_weight", "mc_m", "mc_barcode", "mc_status", "mc_parents", "mc_parent_index","mc_child_index",  "mc_children"};
+		{"EventNumber", "mcevt_weight","mu_n", "mu_E","mu_px","mu_py","mu_pz","mu_eta","el_n","el_cl_E","el_tracketa","el_cl_eta", "el_trackphi", "jet_n", "jet_E", "jet_pt","jet_eta", "jet_emscale_eta", "jet_phi", "jet_flavor_weight_SV0", "MET_RefFinal_em_tight_et", "MET_RefFinal_em_tight_etx", "MET_RefFinal_em_tight_ety", "MET_RefFinal_em_tight_sumet", "mc_eta", "mc_phi", "mc_pt", "mc_pdgId","mcevt_weight", "mc_m", "mc_status", "mc_parent_index","mc_child_index"};
 
    for (unsigned int b = 0; b < sizeof(branches) / sizeof(const char*); b++)
    fChain->SetBranchStatus(branches[b], 1);
@@ -245,12 +239,9 @@ int KLFitter::InterfaceD3PD::ConnectChain(TChain * fChain)
   fChain->SetBranchAddress("mc_pdgId", &mc_pdgId );
   fChain->SetBranchAddress("mcevt_weight", &mcevt_weight );
   fChain->SetBranchAddress("mc_m", &mc_m );
-  fChain->SetBranchAddress("mc_barcode", &mc_barcode );
   fChain->SetBranchAddress("mc_status", &mc_status );
-  fChain->SetBranchAddress("mc_parents", &mc_parents );
   fChain->SetBranchAddress("mc_parent_index", &mc_parent_index );
   fChain->SetBranchAddress("mc_child_index", &mc_child_index );
-  fChain->SetBranchAddress("mc_children", &mc_children );
 
   // no error     
   return 1;
