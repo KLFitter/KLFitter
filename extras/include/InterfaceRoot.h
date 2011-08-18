@@ -154,6 +154,11 @@ namespace KLFitter
     virtual std::vector<std::string> ReadInputFiles(const char * filename);
 	
 
+    /**
+     * Set the proper (global) b-tagging (SV0) cut-value, efficiencies and rejections.
+     */
+    void SetBtaggingInformation(double cut, double eff, double rej) { fBtagCut = cut; fBtagEff = eff; fBtagRej = rej; };
+
     /* @} */
 
   protected: 
@@ -170,6 +175,13 @@ namespace KLFitter
      * The Root file. 
      */ 
     TFile * fRootFile; 
+
+    /**
+     * B-tagging stuff
+     */
+    double fBtagCut;
+    double fBtagEff;
+    double fBtagRej;
   }; 
 
 } // namespace KLFitter 

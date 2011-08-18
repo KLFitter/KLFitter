@@ -92,30 +92,26 @@ int KLFitter::LikelihoodTopLeptonJets::DefineModelParticles()
   fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kParton, // type 
                                "hadronic b quark",           // name 
-                               1.0,                          // b-jet (truth) 
-                               0.0,                          // not tagged (meas)
-                               0);                           // index of corresponding particle 
+                               0,                            // index of corresponding particle 
+                               KLFitter::Particles::kB);     // b jet (truth)
 
   fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kParton, 
                                "leptonic b quark",
-                               1.0, 
-                               0.0,                          // not tagged (meas)
-                               1);                           // index of corresponding particle 
+                               1,                            // index of corresponding particle 
+                               KLFitter::Particles::kB);     // b jet (truth)
 
   fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kParton,
                                "light quark 1",
-                               0.0,                          // light jet (truth)
-                               0.0,                          // not tagged (meas)
-                               2);                           // index of corresponding particle 
+                               2,                            // index of corresponding particle 
+                               KLFitter::Particles::kLight); // light jet (truth)
 
   fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kParton,
                                "light quark 2",
-                               0.0, 
-                               0.0,                          // not tagged (meas)
-                               3);                           // index of corresponding particle
+                               3,                            // index of corresponding particle
+                               KLFitter::Particles::kLight); // light jet (truth)
         
   if (fTypeLepton == kElectron) {
     fParticlesModel->AddParticle(dummy,
@@ -142,13 +138,12 @@ int KLFitter::LikelihoodTopLeptonJets::DefineModelParticles()
 
   fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kParton,
-                               "hadronic top",
-                               2.0); 
+                               "hadronic top");
 
   fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kParton,
-                               "leptonic top",
-                               2.0);
+                               "leptonic top");
+
   //free memory
   delete dummy; 
 

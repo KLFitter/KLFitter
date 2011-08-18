@@ -125,7 +125,7 @@ int KLFitter::Fitter::Fit(int index)
 
   // set flavor tags if b-tagging is on
   if (fLikelihood->GetBTagging() != LikelihoodBase::kNotag) {
-    fLikelihood->CalculateFlavorTags(); // not to be written with "ou" 
+    fLikelihood->PropagateBTaggingInformation();
   }
 
   // perform fitting 

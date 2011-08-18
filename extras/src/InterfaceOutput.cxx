@@ -996,7 +996,7 @@ int KLFitter::InterfaceOutput::FillTreeModelPermutation()
     }
 	
 	int IntVarcounter = 0;	
-	
+
   // loop over all particle type 
   for (KLFitter::Particles::ParticleType itype = KLFitter::Particles::kParton; itype <= KLFitter::Particles::kPhoton; ++itype)
     {
@@ -1020,7 +1020,6 @@ int KLFitter::InterfaceOutput::FillTreeModelPermutation()
           std::vector<double>* eta = fTreeVarModel->at(++counter); 
           std::vector<double>* phi = fTreeVarModel->at(++counter); 
           std::vector<double>* btag = fTreeVarModel->at(++counter); 
-          
                                         
           // get four vector 
           TLorentzVector* lv = momcontainer->at(i); 
@@ -1035,15 +1034,15 @@ int KLFitter::InterfaceOutput::FillTreeModelPermutation()
           (*eta)[pindex] = lv->Eta(); 
           (*phi)[pindex] = lv->Phi(); 
           if (itype == KLFitter::Particles::kParton && (*fParticlesModel)->JetIndex(i)>=0) {
-            (*btag)[pindex] = (*fParticlesModel)->FlavorTag(i);
-            //std::cout << pindex << " : " << (fFitter->Permutations()->PermutationTable())->at(pindex)->at(i) << std::endl;	
-
-            //std::cout <<fParticles->NameParticle(0, KLFitter::Particles::kParton)	<< std::endl;
+            (*btag)[pindex] = (*fParticlesModel)->IsBTagged(i);
+//            //std::cout << pindex << " : " << (fFitter->Permutations()->PermutationTable())->at(pindex)->at(i) << std::endl;	
+//
+//            //std::cout <<fParticles->NameParticle(0, KLFitter::Particles::kParton)	<< std::endl;
             (*index)[pindex] = (fFitter->Permutations()->PermutationTable())->at(pindex)->at(i); //(*fParticlesModel)->JetIndex(i);
 
           	IntVarcounter++;  
           }
-          
+
           if (itype == KLFitter::Particles::kElectron) {
             (*index)[pindex] = (*fParticlesModel)->ElectronIndex(i);
             IntVarcounter++;
@@ -1056,7 +1055,7 @@ int KLFitter::InterfaceOutput::FillTreeModelPermutation()
             (*index)[pindex] = (*fParticlesModel)->PhotonIndex(i);
             IntVarcounter++;
           }
-				
+
           // increase counter
           counter++; 
         }
@@ -1302,7 +1301,7 @@ int KLFitter::InterfaceOutput::FillTreeSelected()
           vec_pt ->push_back( lv->Pt()  ); 
           vec_eta->push_back( lv->Eta() ); 
           vec_phi->push_back( lv->Phi() ); 
-          vec_btag->push_back( (*fParticlesSelected)->FlavorTag(i)  ); 
+          vec_btag->push_back( (*fParticlesSelected)->IsBTagged(i)  ); 
         }
     }
 

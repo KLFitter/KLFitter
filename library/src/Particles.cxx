@@ -25,8 +25,10 @@ KLFitter::Particles::Particles() :
   fMuonIndex(new std::vector <int>(0)),  
   fPhotonIndex(new std::vector <int>(0)),  
 
-  fBTaggingProbability(new std::vector <double>(0)),
-  fFlavorTag(new std::vector<double>(0)),
+  fTrueFlavor(new std::vector<TrueFlavorType>(0)),
+  fIsBTagged(new std::vector<bool>(0)),
+  fBTaggingEfficiency(new std::vector<double>(0)),
+  fBTaggingRejection(new std::vector<double>(0)),
 
   fElectronDetEta(new std::vector<double>(0)),
   fMuonDetEta(new std::vector<double>(0)),
@@ -127,11 +129,17 @@ KLFitter::Particles::~Particles()
   if (fPhotonIndex)
     delete fPhotonIndex;
 
-  if (fBTaggingProbability)
-    delete fBTaggingProbability; 
+  if (fTrueFlavor)
+    delete fTrueFlavor;
 
-  if (fFlavorTag)
-    delete fFlavorTag;
+  if (fIsBTagged)
+    delete fIsBTagged;
+
+  if (fBTaggingEfficiency)
+    delete fBTaggingEfficiency;
+
+  if (fBTaggingRejection)
+    delete fBTaggingRejection;
 
   if (fElectronDetEta)
     delete fElectronDetEta;
@@ -147,7 +155,7 @@ KLFitter::Particles::~Particles()
 }
 
 // --------------------------------------------------------- 
-int KLFitter::Particles::AddParticle(TLorentzVector* particle, double DetEta, KLFitter::Particles::ParticleType ptype, std::string name, double btagprob, double flavortag, int measuredindex)
+int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, TrueFlavorType trueflav)
 {
   // get particle container
   std::vector <TLorentzVector *>* container = ParticleContainer(ptype); 
@@ -178,8 +186,10 @@ int KLFitter::Particles::AddParticle(TLorentzVector* particle, double DetEta, KL
     ParticleNameContainer(ptype)->push_back(name); 
 
     if (ptype == KLFitter::Particles::kParton) {
-      fBTaggingProbability->push_back(btagprob); 
-      fFlavorTag->push_back(flavortag); 
+      fTrueFlavor->push_back(trueflav); 
+      fIsBTagged->push_back(isBtagged); 
+      fBTaggingEfficiency->push_back(bTagEff);
+      fBTaggingRejection->push_back(bTagRej);
       fJetIndex->push_back(measuredindex);
       fJetDetEta->push_back(DetEta); 
     }
@@ -203,19 +213,31 @@ int KLFitter::Particles::AddParticle(TLorentzVector* particle, double DetEta, KL
 
   // no error
   return 1;
-        
 }
+
 // --------------------------------------------------------- 
-int KLFitter::Particles::AddParticle(TLorentzVector* particle, KLFitter::Particles::ParticleType ptype, std::string name, double btagprob, double flavortag, int measuredindex)
+int KLFitter::Particles::AddParticle(TLorentzVector * particle, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, TrueFlavorType trueflav)
 {
   //set default DetEta
   double DetEta=-999;
 
-  this->AddParticle(particle, DetEta, ptype, name,btagprob, flavortag, measuredindex);
+  this->AddParticle(particle, DetEta, ptype, name, measuredindex, isBtagged, bTagEff, bTagRej, trueflav);
   
   // no error
   return 1;
         
+}
+
+// --------------------------------------------------------- 
+int KLFitter::Particles::AddParticle(TLorentzVector * particle, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, TrueFlavorType trueflav)
+{
+  //set default DetEta
+  double DetEta=-999;
+
+  this->AddParticle(particle, DetEta, ptype, name, measuredindex, false, -1., -1., trueflav);
+
+  // no error
+  return 1;
 }
 
 // --------------------------------------------------------- 
@@ -609,43 +631,6 @@ std::vector <std::string>* KLFitter::Particles::ParticleNameContainer(KLFitter::
 }
 
 // --------------------------------------------------------- 
-double KLFitter::Particles::BTaggingProbability(int index)
-{
-  // no check on index range for CPU-time reasons
-  return (*fBTaggingProbability)[index]; 
-
-  /*
-  // check index 
-  if (index < 0 || index >= NPartons())
-  {
-  std::cout << "KLFitter::Particles::BTaggingProbability(). Index out of range." << std::endl; 
-  return 0; 
-  }
-
-  // return b-tagging probability
-  return fBTaggingProbability->at(index); 
-  */
-}
-
-// --------------------------------------------------------- 
-double KLFitter::Particles::FlavorTag(int index)
-{
-  // no check on index range for CPU-time reasons
-  return (*fFlavorTag)[index]; 
-
-  /*
-  // check index 
-  if (index < 0 || index >= NPartons())
-  {
-  std::cout << "KLFitter::Particles::FlavorTag(). Index out of range." << std::endl; 
-  return 0; 
-  }
-
-  // return b-tagging probability
-  return fFlavorTag->at(index); 
-  */
-}
-// --------------------------------------------------------- 
 double KLFitter::Particles::DetEta(int index, KLFitter::Particles::ParticleType ptype)
 {
   if (index < 0 || index > NParticles(ptype)) {
@@ -742,31 +727,46 @@ int KLFitter::Particles::PhotonIndex(int index)
 }
 
 // --------------------------------------------------------- 
-int KLFitter::Particles::SetFlavorTag(int index, double tag)
+int KLFitter::Particles::SetIsBTagged(int index, bool isBTagged)
 {
   // check index
-  if (index < 0 || index >= int(fFlavorTag->size()))
+  if (index < 0 || index >= int(fIsBTagged->size()))
     {
-      std::cout << " KLFitter::Combinatorics::SetFlavorTag(). Index out of range." << std::endl; 
+      std::cout << " KLFitter::SetIsBTagged(). Index out of range." << std::endl; 
       return 0; 
     }
 
-  (*fFlavorTag)[index] = tag; 
+  (*fIsBTagged)[index] = isBTagged; 
 
   return 1; 
 }
 
 // --------------------------------------------------------- 
-int KLFitter::Particles::SetBTaggingProbability(int index, double prob)
+int KLFitter::Particles::SetBTaggingEfficiency(int index, double btagEff)
 {
   // check index
-  if (index < 0 || index >= int(fFlavorTag->size()))
+  if (index < 0 || index >= int(fBTaggingEfficiency->size()))
     {
-      std::cout << " KLFitter::Combinatorics::SetBTaggingProbability(). Index out of range." << std::endl; 
+      std::cout << " KLFitter::SetBTaggingEfficiency(). Index out of range." << std::endl; 
       return 0; 
     }
 
-  (*fBTaggingProbability)[index] = prob; 
+  (*fBTaggingEfficiency)[index] = btagEff; 
+
+  return 1; 
+}
+
+// --------------------------------------------------------- 
+int KLFitter::Particles::SetBTaggingRejection(int index, double btagRej)
+{
+  // check index
+  if (index < 0 || index >= int(fBTaggingRejection->size()))
+    {
+      std::cout << " KLFitter::SetBTaggingRejection(). Index out of range." << std::endl; 
+      return 0; 
+    }
+
+  (*fBTaggingRejection)[index] = btagRej; 
 
   return 1; 
 }
@@ -774,11 +774,11 @@ int KLFitter::Particles::SetBTaggingProbability(int index, double prob)
 // --------------------------------------------------------- 
 int KLFitter::Particles::NBTags()
 {
-  unsigned int n = fFlavorTag->size(); 
+  unsigned int n = fIsBTagged->size(); 
   int sum = 0; 
 
   for (unsigned int i = 0; i < n; ++i) {
-    if ((*fFlavorTag)[i] == 1)
+    if ((*fIsBTagged)[i])
       sum++; 
   }
 

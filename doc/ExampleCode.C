@@ -45,10 +45,7 @@ myLikelihood->PhysicsConstants()->SetMassTop(172.5);
 // - kNotag = don't use b-tagging information
 // - kVeto  = use the b-tagging veto
 // - kWorkingPoint = use the b-tagging probabilites from a given working point
-// - TaggerCutValue = set the b-tagging cut for veto / working point value
-// - efficiency = b-tagging efficiency at the working point (between 0 and 1)
-// - rejection = rejection of light jets at the working point (>1)
-myLikelihood -> SetBTagging(KLFitter::LikelihoodBase::kNotag, 5.85, 0.5, 271);
+myLikelihood -> SetBTagging(KLFitter::LikelihoodBase::kNotag);
 
 // tell the fitter which likelihood to use
 myFitter->SetLikelihood(myLikelihood);
@@ -69,18 +66,22 @@ myFitter->SetLikelihood(myLikelihood);
 // - TLorentzVector of the physics 4-momentum
 // - detector eta for the evaluation of the transfer functions (for muons: just use the physics eta)
 // - type of particle
-// - an optional name of the particle
-// - for jets: an optional b-tagging weight
+// - an optional name of the particle (pass empty string in case you don't want to give your particle a name)
+// - index of the particle in your original collection (for convenience)
+// - for jets:
+//   * bool isBtagged : mandatory only if you want to use b-tagging in the fit
+//   * double b-tagging efficiency for the given jet : mandatory only if you want to use the b-tagging option kWorkingPoint
+//   * double b-tagging rejection for the given jet : mandatory only if you want to use the b-tagging option kWorkingPoint
 KLFitter::Particles * myParticles = new KLFitter::Particles();
 // add all jets like this (|eta| may not exceed 2.5):
 TLorentzVector * vJet = new TLorentzVector((*Jet_Px)[iJet], (*Jet_Py)[iJet], (*Jet_Pz)[iJet], (*Jet_E)[iJet]));
-myParticles->AddParticle(vJet, (*Jet_DetEta)[iJet], KLFitter::Particles::kParton, "", (*Jet_SV0_Weight)[iJet]);
+myParticles->AddParticle(vJet, (*Jet_DetEta)[iJet], KLFitter::Particles::kParton, "", iJet, isBtagged, bTaggingEffiency, bTaggingRejection);
 // add all electrons like this (|eta| may not exceed 2.5):
 TLorentzVector * vElectron = new TLorentzVector((*Electron_Px)[iElectron], (*Electron_Py)[iElectron], (*Electron_Pz)[iElectron], (*Electron_E)[iElectron]));
-myParticles->AddParticle(vElectron, (*Electron_DetEta)[iElectron], KLFitter::Particles::kElectron);
+myParticles->AddParticle(vElectron, (*Electron_DetEta)[iElectron], KLFitter::Particles::kElectron, "", iElectron);
 // add all muons like this (|eta| may not exceed 2.5):
 TLorentzVector * vMuon = new TLorentzVector((*Muon_Px)[iMuon], (*Muon_Py)[iMuon], (*Muon_Pz)[iMuon], (*Muon_E)[iMuon]);
-myParticles->AddParticle(vMuon, (*Muon_Eta)[iMuon], KLFitter::Particles::kMuon);
+myParticles->AddParticle(vMuon, (*Muon_Eta)[iMuon], KLFitter::Particles::kMuon, "", iMuon);
 
 //Don't forget to free memory !!
 delete vJet;

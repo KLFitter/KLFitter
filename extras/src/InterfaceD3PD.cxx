@@ -20,8 +20,12 @@ KLFitter::InterfaceD3PD::InterfaceD3PD()
   fTree = 0; 
 
   EventNumber = 0;
-	if(mcevt_weight)
-		mcevt_weight = 0;
+  if(mcevt_weight)
+    mcevt_weight = 0;
+
+  fBtagCut = 5.85;
+  fBtagEff = 0.5;
+  fBtagRej = 271.;
 
   mu_n = 0;
   mu_E = 0;  
@@ -314,9 +318,11 @@ int KLFitter::InterfaceD3PD::FillParticles()
           if (jet_E->at(i) <= 0.)
             continue;
 
+          bool isTagged = jet_flavor_weight_SV0->at(i) > fBtagCut;
+
 	  TLorentzVector * tlv_tmp = new TLorentzVector(0,0,0,0);
   	tlv_tmp->SetPtEtaPhiE(jet_pt->at(i)/1000., jet_eta->at(i), jet_phi->at(i), jet_E->at(i)/1000.);
-        fParticles->AddParticle(tlv_tmp, jet_deteta->at(i), KLFitter::Particles::kParton,"",jet_flavor_weight_SV0->at(i), 0., i);
+        fParticles->AddParticle(tlv_tmp, jet_deteta->at(i), KLFitter::Particles::kParton, "", i, isTagged, fBtagEff, fBtagRej);
     delete tlv_tmp;
 	}
 	std::sort(fParticles->ParticleContainer(KLFitter::Particles::kParton)->begin(),  fParticles->ParticleContainer(KLFitter::Particles::kParton)->end() , KLFitter::Particles::PtOrder);
@@ -328,7 +334,7 @@ int KLFitter::InterfaceD3PD::FillParticles()
 
     TLorentzVector * tlv_tmp = new TLorentzVector(0,0,0,0);
     tlv_tmp->SetPtEtaPhiE((el_E->at(i)/1000.) / cosh(el_eta->at(i)), el_eta->at(i), el_phi->at(i), el_E->at(i)/1000.);
-    fParticles->AddParticle(tlv_tmp, el_deteta->at(i), KLFitter::Particles::kElectron, "", 0., 0., i);
+    fParticles->AddParticle(tlv_tmp, el_deteta->at(i), KLFitter::Particles::kElectron, "", i);
     delete tlv_tmp;
 	}
 	std::sort(fParticles->ParticleContainer(KLFitter::Particles::kElectron)->begin(),  fParticles->ParticleContainer(KLFitter::Particles::kElectron)->end() , KLFitter::Particles::PtOrder);
@@ -340,7 +346,7 @@ int KLFitter::InterfaceD3PD::FillParticles()
 
     TLorentzVector * tlv_tmp = new TLorentzVector(0,0,0,0);
     tlv_tmp->SetPxPyPzE(mu_px->at(i)/1000., mu_py->at(i)/1000., mu_pz->at(i)/1000., mu_E->at(i)/1000.);
-    fParticles->AddParticle(tlv_tmp, mu_eta->at(i), KLFitter::Particles::kMuon, "", 0., 0., i);
+    fParticles->AddParticle(tlv_tmp, mu_eta->at(i), KLFitter::Particles::kMuon, "", i);
     delete tlv_tmp;
   }
 	std::sort(fParticles->ParticleContainer(KLFitter::Particles::kMuon)->begin(),  fParticles->ParticleContainer(KLFitter::Particles::kMuon)->end() , KLFitter::Particles::PtOrder);

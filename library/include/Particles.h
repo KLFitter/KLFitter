@@ -44,6 +44,11 @@ namespace KLFitter
      */
     enum ParticleType { kParton, kElectron, kMuon, kTau, kNeutrino, kBoson, kPhoton };
 
+    /**
+     * An enumerator for the true jet flavor.
+     */
+    enum TrueFlavorType { kLight, kB, kNone };
+
     /* @} */
     /** \name Constructors and destructors */
     /* @{ */
@@ -263,22 +268,32 @@ namespace KLFitter
     int PhotonIndex(int index);
 
     /**
-     * Return the b-tagging probability of a parton.
-     * measured particles: measured b-tagging probability (or discriminant)\n
-     * model particles: true flavor (0: light, 1:b, 2:other).
+     * Return the true flavor of a parton.
      * @param index The parton index
-     * @return The b-tagging probability
+     * @return The parton true flavor.
      */
-    double BTaggingProbability(int index);
+    TrueFlavorType TrueFlavor(int index) { return (*fTrueFlavor)[index]; }
 
     /**
-     * Return the experimental flavor tag of a parton.
-     * 0: tagged as light jet\n
-     * 1: tagged as b-jet
+     * Return has the jet been b-tagged?
      * @param index The parton index
-     * @return The flavor tag
+     * @return The parton b-tagging boolean.
      */
-    double FlavorTag(int index);
+    bool IsBTagged(int index) { return (*fIsBTagged)[index]; }
+
+    /**
+     * Return the jet b-tagging efficiency.
+     * @param index The parton index
+     * @return The jet b-tagging efficiency.
+     */
+    double BTaggingEfficiency(int index) { return (*fBTaggingEfficiency)[index]; }
+
+    /**
+     * Return the jet b-tagging rejection.
+     * @param index The parton index
+     * @return The jet b-tagging rejection.
+     */
+    double BTaggingRejection(int index) { return (*fBTaggingRejection)[index]; }
 
     /**
      * Return the detector eta of a particle with some index and type.
@@ -298,36 +313,32 @@ namespace KLFitter
     /* @{ */
 
     /**
-     * Set the flavor tag
-     * @param index The parton index.
-     * @param prob The flavor tag.
+     * Set has the jet been b-tagged?
+     * @param index The parton index
+     * @param isBtagged The parton b-tagging boolean.
      * @return An error flag.
      */
-    int SetFlavorTag(int index, double tag);
+    int SetIsBTagged(int index, bool isBTagged);
 
     /**
-     * Set the b-tagging probability.
-     * @param index The parton index.
-     * @param prob The b-tagging probability.
+     * Set the jet b-tagging efficiency.
+     * @param index The parton index
+     * @param btagEff The b-tagging efficiency.
      * @return An error flag.
      */
-    int SetBTaggingProbability(int index, double prob);
+    int SetBTaggingEfficiency(int index, double btagEff);
+
+    /**
+     * Set the jet b-tagging rejection.
+     * @param index The parton index
+     * @param btagRej The b-tagging probability.
+     * @return The jet b-tagging rejection.
+     */
+    int SetBTaggingRejection(int index, double btagRej);
 
     /* @} */
     /** \name Member functions (misc)  */
     /* @{ */
-
-/**
-     * Add a particle to a list of particles.
-     * @param particle A pointer to the particle.
-     * @param ptype The type of particle.
-     * @param name The name of the particle.
-     * @param btagprob The b-tagging probability.
-     * @param flavortag The flavor-tag
-     * @param measuredindex The index of the associated measured particle.
-     * @return An error code.
-     */
-    int AddParticle(TLorentzVector * particle, KLFitter::Particles::ParticleType ptype, std::string name = "", double btagprob = 0, double flavortag = 0, int measuredindex = -1);
 
     /**
      * Add a particle to a list of particles.
@@ -335,12 +346,39 @@ namespace KLFitter
      * @param DetEta The Detector Eta of the particle.
      * @param ptype The type of particle.
      * @param name The name of the particle.
-     * @param btagprob The b-tagging probability.
-     * @param flavortag The flavor-tag
      * @param measuredindex The index of the associated measured particle.
+     * @param isBtagged Has the particle been b-tagged?
+     * @param bTagEff B-tagging efficiency of the particle.
+     * @param bTagRej B-tagging rejection of the particle.
+     * @param trueflav The true flavor (only for model particles).
      * @return An error code.
      */
-    int AddParticle(TLorentzVector * particle, double DetEta, KLFitter::Particles::ParticleType ptype, std::string name = "", double btagprob = 0, double flavortag = 0, int measuredindex = -1);
+    int AddParticle(TLorentzVector * particle, double DetEta, KLFitter::Particles::ParticleType ptype, std::string name = "", int measuredindex = -1, bool isBtagged = false, double bTagEff = -1., double bTagRej = -1., TrueFlavorType trueflav = kNone);
+
+    /**
+     * Add a particle to a list of particles.
+     * @param particle A pointer to the particle.
+     * @param ptype The type of particle.
+     * @param name The name of the particle.
+     * @param isBtagged Has the particle been b-tagged?
+     * @param bTagEff B-tagging efficiency of the particle.
+     * @param bTagRej B-tagging rejection of the particle.
+     * @param measuredindex The index of the associated measured particle.
+     * @param trueflav The true flavor (only for model particles).
+     * @return An error code.
+     */
+    int AddParticle(TLorentzVector * particle, KLFitter::Particles::ParticleType ptype, std::string name = "", int measuredindex = -1, bool isBtagged = false, double bTagEff = -1., double bTagRej = -1., TrueFlavorType trueflav = kNone);
+
+    /**
+     * Add a particle to a list of particles (especially for model particles).
+     * @param particle A pointer to the particle.
+     * @param ptype The type of particle.
+     * @param name The name of the particle.
+     * @param measuredindex The index of the associated measured particle.
+     * @param trueflav The true flavor (only for model particles).
+     * @return An error code.
+     */
+    int AddParticle(TLorentzVector * particle, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, TrueFlavorType trueflav);
 
     /**
      * Removes a particle from a list of particles.
@@ -486,18 +524,24 @@ namespace KLFitter
     std::vector <int> * fPhotonIndex;
 
     /**
-     * Vector containing the b-tagging probability.
-     * measured particles: measured b-tagging probability (or discriminant)\n
-     * model particles: true flavor (0: light, 1:b, 2:other).
+     * Vector containing the true flavor.
      */
-    std::vector <double> * fBTaggingProbability;
+    std::vector<TrueFlavorType> * fTrueFlavor;
 
     /**
-     * Vector containing the experimental flavor tag.
-     * 0: tagged as light jet\n
-     * 1: tagged as b-jet
+     * Vector containing a boolean for the b-tagging.
      */
-    std::vector <double> * fFlavorTag;
+    std::vector<bool> * fIsBTagged;
+
+    /**
+     * Vector containing the b-tagging efficiencies for the jets.
+     */
+    std::vector<double> * fBTaggingEfficiency;
+
+    /**
+     * Vector containing the b-tagging rejection for the jets.
+     */
+    std::vector<double> * fBTaggingRejection;
 
     /**
      * Vector containing the detector eta of electrons.

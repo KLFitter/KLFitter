@@ -131,9 +131,6 @@ namespace KLFitter
      */ 
     BtaggingMethod GetBTagging() { return fBTagMethod;} 
 
-    double CutBTag()
-    { return fCutBTag; }; 
-
     bool FlagIntegrate() { return fFlagIntegrate; } 
 
     /* @} */
@@ -200,8 +197,7 @@ namespace KLFitter
      * @param btagrej The btagging rejection at this cut value.
      * @return An error flag. 
      */ 
-    int SetBTagging(BtaggingMethod btagmethod, double cutvalue=1e4, double btageff=-1, double btagrej=-1) 
-    { fBTagMethod = btagmethod; fCutBTag = cutvalue; fbtagEff = btageff; fbtagRej = btagrej; return 1;}; 
+    int SetBTagging(BtaggingMethod btagmethod) { fBTagMethod = btagmethod; return 1; };
 
     /**
      * THIS IS AN OUTDATED METHOD - JUST HERE FOR BACKWARD COMPATIBILITY.
@@ -227,15 +223,6 @@ namespace KLFitter
      * @return The flag.
      */ 
     bool GetFlagIsNan(void) { return fFlagIsNan; }
-    /**
-    * THESE ARE OUTDATED METHODS - JUST HERE FOR BACKWARD COMPATIBILITY.
-    */
-    void SetCutBTag(double cut)
-    { std::cout << "LikelihoodBase::SetCutBTag(double cut) is an outdated method - please use void SetBTagging(BtaggingMethod btagmethod, double cutvalue, double btageff, double btagrej)." << std::endl; fCutBTag = cut; }; 
-    void SetbtagRej(double rej)
-    { std::cout << "LikelihoodBase::SetbtagRej(double rej)is an outdated method - please use void SetBTagging(BtaggingMethod btagmethod, double cutvalue, double btageff, double btagrej)." << std::endl; fbtagRej = rej; }; 
-    void SetbtagEff(double eff)
-    { std::cout << "LikelihoodBase::SetbtagEff(double eff) is an outdated method - please use void SetBTagging(BtaggingMethod btagmethod, double cutvalue, double btageff, double btagrej)." << std::endl; fbtagEff = eff; };
  
     /**
      * Set flag to integrate or not.
@@ -256,9 +243,9 @@ namespace KLFitter
     { return 1; }; 
 
     /**
-     * Sets the flavor tag based on the b-tagging probability.
+     * Propagate the b-tagging information from the permuted (measured) particles to the model particles.
      */ 
-    void CalculateFlavorTags(); 
+    void PropagateBTaggingInformation();
 
     /* @} */
     /** \name Member functions (BAT)  */
@@ -349,11 +336,6 @@ namespace KLFitter
     std::vector<double> fEventProbability; 
 
     /**
-     * Cut value for b-tagging. 
-     */ 
-    double fCutBTag; 
-
-    /**
      * A flag to integrate over the likelihood or not 
      */ 
     bool fFlagIntegrate; 
@@ -367,13 +349,6 @@ namespace KLFitter
      * Name of btagging enum
      */
     BtaggingMethod fBTagMethod;
-
-    /**
-     * Working Points for b-tagging
-     */
-    double fbtagRej;
-    double fbtagEff;
-
 
   private: 
 

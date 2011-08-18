@@ -69,7 +69,7 @@ int main(int argc, char **argv)
   for(unsigned int i=0; i<inputfiles.size(); i++)
   	std::cout << inputfiles.at(i) << std::endl;
   myInterfaceRoot -> OpenRootFiles(inputfiles);
-
+  myInterfaceRoot -> SetBtaggingInformation(CutBTagging, 0.5, 271.);
 
   // create detector
   KLFitter::DetectorBase * myDetector;
@@ -87,11 +87,11 @@ int main(int argc, char **argv)
   myLikelihood -> PhysicsConstants() -> SetMassTop(MassTop); 
   // b-tagging settings: (kNotag/kVeto/kWorkingPoint, TaggerCutValue, efficiency[0,1], rejection[>1])
   // Make sure to set btag rejection and efficiency if btagging set to a working
-  myLikelihood -> SetBTagging(Btagmethod, CutBTagging, 0.5, 271);
+  myLikelihood -> SetBTagging(Btagmethod);
   myLikelihood -> SetFlagIntegrate(FlagIntegrate); 
   myLikelihood -> SetFlagTopMassFixed(FlagTopMassFixed);
   myInterfaceRoot -> WriteSignalMCTruth(FlagWriteSignalMCTruth, KLFitter::InterfaceRoot::kHerwig);
-        
+
   if (Lepton==KLFitter::LikelihoodTopLeptonJets::kElectron)
     myLikelihood -> SetLeptonType(1); // set lepton type to electron 
   if (Lepton==KLFitter::LikelihoodTopLeptonJets::kMuon)
@@ -230,13 +230,14 @@ int main(int argc, char **argv)
         printf("----------------------------------------------------------------------------------------------\n");
 				printf("--------------------------------FIT RESULTS FOR THE FIRST EVENT-------------------------------\n"); 
       }
-  
+
       // loop over all permutations 
       for (int iperm = 0; iperm < myFitter -> Permutations() -> NPermutations(); ++iperm)
         {
           // fit the first permutation
           myFitter -> Fit(iperm); 
           // copy information into output class
+
           myInterfaceOutput -> FillTreeModelPermutation(); 
 
           if (firstevent) {

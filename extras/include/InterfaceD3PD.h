@@ -163,7 +163,6 @@ namespace KLFitter
      */ 
     bool IsProperMCEvent();
 
-
     /* @} */
 
   protected: 
@@ -238,7 +237,6 @@ namespace KLFitter
     std::vector<std::vector<int> > *mc_parent_index;
     std::vector<std::vector<int> > *mc_child_index;
 
-    
     /* @} */
   }; 
 

@@ -128,9 +128,11 @@ int KLFitter::Permutations::CreatePermutations()
                                              (*fParticles)->DetEta(index, KLFitter::Particles::kParton),
                                              KLFitter::Particles::kParton,
                                              (*fParticles)->NameParticle(index, KLFitter::Particles::kParton),
-                                             (*fParticles)->BTaggingProbability(index),
-                                             (*fParticles)->FlavorTag(index),
-                                             (*fParticles)->JetIndex(index));
+                                             (*fParticles)->JetIndex(index),
+                                             (*fParticles)->IsBTagged(index),
+                                             (*fParticles)->BTaggingEfficiency(index),
+                                             (*fParticles)->BTaggingRejection(index),
+                                             (*fParticles)->TrueFlavor(index));
 
                       // set permutation 
                       (*permutation)[i] = index;
@@ -147,8 +149,6 @@ int KLFitter::Permutations::CreatePermutations()
                                              (*fParticles)->DetEta(index, KLFitter::Particles::kElectron),
                                              KLFitter::Particles::kElectron,
                                              (*fParticles)->NameParticle(index, KLFitter::Particles::kElectron),
-                                             0.,
-                                             0.,
                                              (*fParticles)->ElectronIndex(index));
 
                       // set permutation 
@@ -166,8 +166,6 @@ int KLFitter::Permutations::CreatePermutations()
                                              (*fParticles)->DetEta(index, KLFitter::Particles::kMuon),
                                              KLFitter::Particles::kMuon,
                                              (*fParticles)->NameParticle(index, KLFitter::Particles::kMuon),
-                                             0.,
-                                             0.,
                                              (*fParticles)->MuonIndex(index));
 
                       // set permutation 
@@ -185,8 +183,6 @@ int KLFitter::Permutations::CreatePermutations()
                                              (*fParticles)->DetEta(index, KLFitter::Particles::kPhoton),
                                              KLFitter::Particles::kPhoton,
                                              (*fParticles)->NameParticle(index, KLFitter::Particles::kPhoton),
-                                             0.,
-                                             0.,
                                              (*fParticles)->PhotonIndex(index));
 
                       // set permutation 
