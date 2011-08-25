@@ -1,3 +1,10 @@
+2011-08-25 Johannes Erdmann <johannes.erdmann@cern.ch>
+
+	* major internal clean-up for the handling of b-tagging
+	* changing from global b-tagging working points to per-jet efficiencies and rejections
+	* needed to adopt Particles::AddParticle(...)
+	* tag KLFitter-00-05-00
+
 2011-08-16 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
 
 	* InterfaceD3PD: Removed unused mc variables (mc_barcode, mc_children, mc_parents)
