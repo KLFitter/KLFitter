@@ -1,3 +1,7 @@
+2011-09-16 Johannes Erdmann <johannes.erdmann@cern.ch>
+
+	* Particles : check that particles masses are positive (not smaller than -1 MeV)
+
 2011-08-25 Johannes Erdmann <johannes.erdmann@cern.ch>
 
 	* major internal clean-up for the handling of b-tagging
