@@ -71,7 +71,8 @@ int KLFitter::SelectionTool::SelectObjects(KLFitter::Particles * particles)
                                        particles->IsBTagged(i),
                                        particles->BTaggingEfficiency(i),
                                        particles->BTaggingRejection(i),
-                                       particles->TrueFlavor(i));
+                                       particles->TrueFlavor(i),
+                                       particles->BTagWeight(i));
 
 
 

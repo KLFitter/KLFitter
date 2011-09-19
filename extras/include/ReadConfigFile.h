@@ -19,6 +19,7 @@
 #include <string>
 #include "DetectorBase.h" 
 #include "LikelihoodTopLeptonJets.h" 
+#include "LikelihoodTopLeptonJetsUDSep.h" 
 
 // --------------------------------------------------------- 
 
@@ -139,6 +140,11 @@ namespace KLFitter
     bool GetFlagTruthSel() { return FlagTruthSel; }
 
     /**
+     * Flag for using the light quark permutation.
+     */
+    KLFitter::LikelihoodTopLeptonJetsUDSep::LJetSeparationMethod GetLJetSeparationMethod() { return LJetSeparationMethod; }
+
+    /**
      * Flag for doing the comparison to TopKLFitter.
      */
     bool GetFlagAthenaComp() { return FlagAthenaComp; }
@@ -218,6 +224,11 @@ namespace KLFitter
      * Flag for using the truth selection.
      */
     bool FlagTruthSel;
+
+    /**
+     * Flag for using the light quark (and b Quark) reweighting.
+     */
+    KLFitter::LikelihoodTopLeptonJetsUDSep::LJetSeparationMethod LJetSeparationMethod;
 
     /**
      * Flag for doing the comparison to TopKLFitter.

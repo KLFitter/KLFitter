@@ -132,7 +132,8 @@ int KLFitter::Permutations::CreatePermutations()
                                              (*fParticles)->IsBTagged(index),
                                              (*fParticles)->BTaggingEfficiency(index),
                                              (*fParticles)->BTaggingRejection(index),
-                                             (*fParticles)->TrueFlavor(index));
+                                             (*fParticles)->TrueFlavor(index),
+                                             (*fParticles)->BTagWeight(index));
 
                       // set permutation 
                       (*permutation)[i] = index;

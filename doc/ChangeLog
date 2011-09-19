@@ -1,3 +1,12 @@
+2011-09-19 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
+
+	* EventProbability structure changed (outsourcing of sub parts)
+	* New Likelihood: LikelihoodTopLeptonJetsUDSep with the ability to separate u and d type quarks from the W (uses 24 permutations, consumes more runtime)
+	* New Likelihood needs and additional flag in the config file (LJetSeparationMethod)
+	* An example for the usage of LikelihoodTopLeptonJetsUDSep is in ./examples/top_ljets_udsep/
+	* An example of the needed input histograms can be found at ./doc/udhistos.root (Not to be used for analyses! Testing only!)
+	* tag KLFitter-00-05-01
+
 2011-09-16 Johannes Erdmann <johannes.erdmann@cern.ch>
 
 	* Particles : check that particles masses are positive (not smaller than -1 MeV)

@@ -14,6 +14,7 @@ KLFitter::Fitter::Fitter()
   fParticles = 0; 
   ETmiss_x = 0.;
   ETmiss_y = 0.;
+  SumET = 0.;
   fParticlesPermuted = 0; 
   fPermutations = new KLFitter::Permutations(&fParticles, &fParticlesPermuted);         
   fMinuitStatus = 0; 

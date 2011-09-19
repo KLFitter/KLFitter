@@ -21,10 +21,10 @@ KLFitter::LikelihoodTopLeptonJets::LikelihoodTopLeptonJets() : KLFitter::Likelih
                                                              , fTFgood(true)
 {
   // define model particles 
-  DefineModelParticles(); 
+  this->DefineModelParticles(); 
 
   // define parameters 
-  DefineParameters(); 
+  this->DefineParameters(); 
 }
 
 // --------------------------------------------------------- 

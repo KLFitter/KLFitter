@@ -30,6 +30,9 @@ KLFitter::Particles::Particles() :
   fBTaggingEfficiency(new std::vector<double>(0)),
   fBTaggingRejection(new std::vector<double>(0)),
 
+  fBTagWeight(new std::vector<double>(0)),
+  fBTagWeightSet(new std::vector<bool>(0)),
+
   fElectronDetEta(new std::vector<double>(0)),
   fMuonDetEta(new std::vector<double>(0)),
   fJetDetEta(new std::vector<double>(0)),
@@ -141,6 +144,12 @@ KLFitter::Particles::~Particles()
   if (fBTaggingRejection)
     delete fBTaggingRejection;
 
+  if (fBTagWeight)
+    delete fBTagWeight;
+
+  if (fBTagWeightSet)
+    delete fBTagWeightSet;
+
   if (fElectronDetEta)
     delete fElectronDetEta;
 
@@ -155,7 +164,7 @@ KLFitter::Particles::~Particles()
 }
 
 // --------------------------------------------------------- 
-int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, TrueFlavorType trueflav)
+int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, TrueFlavorType trueflav, double btagweight)
 {
   // get particle container
   std::vector <TLorentzVector *>* container = ParticleContainer(ptype); 
@@ -184,7 +193,6 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, K
     TLorentzVector * cparticle = new TLorentzVector(particle->Px(), particle->Py(), particle->Pz(), particle->E());
     container->push_back(cparticle); 
     ParticleNameContainer(ptype)->push_back(name); 
-
     if (ptype == KLFitter::Particles::kParton) {
       fTrueFlavor->push_back(trueflav); 
       fIsBTagged->push_back(isBtagged); 
@@ -192,6 +200,13 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, K
       fBTaggingRejection->push_back(bTagRej);
       fJetIndex->push_back(measuredindex);
       fJetDetEta->push_back(DetEta); 
+      fBTagWeight->push_back(btagweight);
+      if (btagweight != 999) {
+	fBTagWeightSet->push_back(true);
+	}
+	else {
+		fBTagWeightSet->push_back(false);
+	}
     }
     else if (ptype == KLFitter::Particles::kElectron){ 
       fElectronIndex->push_back(measuredindex);
@@ -220,13 +235,14 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, K
   return 1;
 }
 
+
 // --------------------------------------------------------- 
-int KLFitter::Particles::AddParticle(TLorentzVector * particle, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, TrueFlavorType trueflav)
+int KLFitter::Particles::AddParticle(TLorentzVector * particle, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, TrueFlavorType trueflav, double btagweight)
 {
   //set default DetEta
   double DetEta=-999;
 
-  this->AddParticle(particle, DetEta, ptype, name, measuredindex, isBtagged, bTagEff, bTagRej, trueflav);
+  this->AddParticle(particle, DetEta, ptype, name, measuredindex, isBtagged, bTagEff, bTagRej, trueflav, btagweight);
   
   // no error
   return 1;
@@ -234,12 +250,12 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, KLFitter::Partic
 }
 
 // --------------------------------------------------------- 
-int KLFitter::Particles::AddParticle(TLorentzVector * particle, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, TrueFlavorType trueflav)
+int KLFitter::Particles::AddParticle(TLorentzVector * particle, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, TrueFlavorType trueflav, double btagweight)
 {
   //set default DetEta
   double DetEta=-999;
 
-  this->AddParticle(particle, DetEta, ptype, name, measuredindex, false, -1., -1., trueflav);
+  this->AddParticle(particle, DetEta, ptype, name, measuredindex, false, -1., -1., trueflav, btagweight);
 
   // no error
   return 1;
@@ -742,6 +758,37 @@ int KLFitter::Particles::SetIsBTagged(int index, bool isBTagged)
     }
 
   (*fIsBTagged)[index] = isBTagged; 
+
+  return 1; 
+}
+
+// --------------------------------------------------------- 
+int KLFitter::Particles::SetBTagWeight(int index, double btagweight)
+{
+  // check index
+  if (index < 0 || index >= int(fBTagWeight->size()))
+    {
+      std::cout << " KLFitter::SetBTagWeight(). Index out of range." << std::endl; 
+      return 0; 
+    }
+
+  (*fBTagWeight)[index] = btagweight; 
+  SetBTagWeightSet(index, true);
+
+  return 1; 
+}
+
+// --------------------------------------------------------- 
+int KLFitter::Particles::SetBTagWeightSet(int index, bool btagweightset)
+{
+  // check index
+  if (index < 0 || index >= int(fBTagWeightSet->size()))
+    {
+      std::cout << " KLFitter::SetBTagWeightSet(). Index out of range." << std::endl; 
+      return 0; 
+    }
+
+  (*fBTagWeightSet)[index] = btagweightset; 
 
   return 1; 
 }

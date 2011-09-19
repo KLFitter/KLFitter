@@ -16,6 +16,7 @@ KLFitter::ReadConfigFile::ReadConfigFile(std::string filename)
   FlagWriteSignalMCTruth   = true;
   BeamEnergy = KLFitter::DetectorBase::k7TeV;
   FlagTruthSel = false;
+  LJetSeparationMethod = KLFitter::LikelihoodTopLeptonJetsUDSep::kNone;
   TopPoleMass = 172.5;
 
   input_path="input.root";
@@ -44,6 +45,7 @@ KLFitter::ReadConfigFile::ReadConfigFile(std::string filename, bool * validconfi
   FlagWriteSignalMCTruth   = true;
   BeamEnergy = KLFitter::DetectorBase::k7TeV;
   FlagTruthSel = false;
+  LJetSeparationMethod = KLFitter::LikelihoodTopLeptonJetsUDSep::kNone;
 
   TopPoleMass = 172.5;
 
@@ -397,30 +399,53 @@ int KLFitter::ReadConfigFile::ReadConfig(std::string filename)
                                                                             }
                                                                           else
                                                                             {
-                                                                              found=line.find("FlagAthenaComp");
+                                                                              found=line.find("LJetSeparationMethod");
                                                                               if(found!=std::string::npos)
                                                                                 {
                                                                                   found=line.find("=",found);
                                                                                   if(found!=std::string::npos)
                                                                                     {
-                                                                                      tmp=GetTrueOrFalse(line,found);
+                                                                                      tmp=GetPath(&tmpstr,line,found);
                                                                                       if(tmp!=-1)
                                                                                         {
-                                                                                          FlagAthenaComp=(tmp==1);
+                                                                                          if(tmpstr == "None")
+											  LJetSeparationMethod=KLFitter::LikelihoodTopLeptonJetsUDSep::kNone;
+										          if(tmpstr == "PermReweight")
+											  LJetSeparationMethod=KLFitter::LikelihoodTopLeptonJetsUDSep::kPermReweight;
                                                                                         }
                                                                                       else
                                                                                         {
-                                                                                          std::cout<<"Warning: Error while reading value of FlagAthenaComp, using standard value"<<std::endl;
+                                                                                          std::cout<<"Warning: Error while reading value of LJetSeparationMethod, using standard value"<<std::endl;
                                                                                         }
                                                                                     }
-                                                                                }
+                                                                                }  
                                                                               else
-                                                                                {
-                                                                                  if(is_whitespace==false)
-                                                                                    {
-                                                                                      std::cout<<"Warning: the line \""<<line.c_str()<<"\" does not match any variable. It is ignored."<<std::endl;
-                                                                                    }
-                                                                                }
+                                                                              {
+                                                                                 found=line.find("FlagAthenaComp");
+                                                                                 if(found!=std::string::npos)
+                                                                                   {
+                                                                                     found=line.find("=",found);
+                                                                                     if(found!=std::string::npos)
+                                                                                       {
+                                                                                         tmp=GetTrueOrFalse(line,found);
+                                                                                         if(tmp!=-1)
+                                                                                           {
+                                                                                             FlagAthenaComp=(tmp==1);
+                                                                                           }
+                                                                                         else
+                                                                                           {
+                                                                                             std::cout<<"Warning: Error while reading value of FlagAthenaComp, using standard value"<<std::endl;
+                                                                                           }
+                                                                                       }
+                                                                                   }
+                                                                                 else
+                                                                                   {
+                                                                                     if(is_whitespace==false)
+                                                                                       {
+                                                                                         std::cout<<"Warning: the line \""<<line.c_str()<<"\" does not match any variable. It is ignored."<<std::endl;
+                                                                                       }
+                                                                                   }
+										}
                                                                             }
 									}
 								    }
@@ -465,6 +490,10 @@ int KLFitter::ReadConfigFile::ReadConfig(std::string filename)
   std::cout<< "FlagUseJetMass = "<<FlagUseJetMass<<std::endl;
   std::cout<< "FlagWriteSignalMCTruth = "<<FlagWriteSignalMCTruth<<std::endl;
   std::cout << "FlagTruthSel = " << FlagTruthSel << std::endl;
+  if(LJetSeparationMethod==KLFitter::LikelihoodTopLeptonJetsUDSep::kNone)
+    std::cout << "LJetSeparationMethod = None" << std::endl;
+  if(LJetSeparationMethod==KLFitter::LikelihoodTopLeptonJetsUDSep::kPermReweight)
+    std::cout << "LJetSeparationMethod = PermReweight" << std::endl;
   if (BeamEnergy==KLFitter::DetectorBase::k7TeV)
     std::cout<< "BeamCMEnergy = 7TeV" <<std::endl;
   if (BeamEnergy==KLFitter::DetectorBase::k10TeV)

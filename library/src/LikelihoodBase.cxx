@@ -148,6 +148,27 @@ double KLFitter::LikelihoodBase::LogEventProbability()
   double logprob = 0; 
 
   if (fBTagMethod != kNotag) {
+    double logprobbtag = LogEventProbabilityBTag();
+    if (logprobbtag <= -1e99) return -1e99;
+    logprob += logprobbtag;
+  }
+
+  // use integrated value of LogLikelihood (default)
+  if (fFlagIntegrate)
+    logprob += log(GetNormalization()); 
+  else
+    logprob += LogLikelihood( GetBestFitParameters() ); 
+  
+  return logprob; 
+}
+
+
+
+// --------------------------------------------------------- 
+double KLFitter::LikelihoodBase::LogEventProbabilityBTag()
+{
+  double logprob = 0; 
+
     double probbtag = 1; 
     
     if(fBTagMethod == kVeto){
@@ -198,14 +219,7 @@ double KLFitter::LikelihoodBase::LogEventProbability()
           std::cout << " KLFitter::LikelihoodBase::LogEventProbability() : b-tagging association failed! " << std::endl;
       }            
     }
-  }
 
-  // use integrated value of LogLikelihood (default)
-  if (fFlagIntegrate)
-    logprob += log(GetNormalization()); 
-  else
-    logprob += LogLikelihood( GetBestFitParameters() ); 
-  
   return logprob; 
 }
 
@@ -230,3 +244,4 @@ void KLFitter::LikelihoodBase::PropagateBTaggingInformation()
       fParticlesModel->SetBTaggingRejection( index, (*fParticlesPermuted)->BTaggingRejection(index));
     }
 }
+

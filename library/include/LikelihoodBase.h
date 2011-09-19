@@ -231,6 +231,8 @@ namespace KLFitter
      */ 
     int SetFlagIntegrate(bool flag) { fFlagIntegrate = flag; return 1; } 
 
+
+
     /* @} */
     /** \name Member functions (misc)  */
     /* @{ */
@@ -246,6 +248,8 @@ namespace KLFitter
      * Propagate the b-tagging information from the permuted (measured) particles to the model particles.
      */ 
     void PropagateBTaggingInformation();
+
+
 
     /* @} */
     /** \name Member functions (BAT)  */
@@ -278,7 +282,15 @@ namespace KLFitter
      * combination
      * @return The event probability 
      */ 
-    double LogEventProbability(); 
+    virtual double LogEventProbability(); 
+
+    /**
+     * Return the contribution from b tagging to the log of the 
+     * event probability for the current combination
+     * @return The event probability contribution
+     */ 
+    virtual double LogEventProbabilityBTag(); 
+
 
     /**
      * Remove invariant particle permutations.
@@ -300,6 +312,7 @@ namespace KLFitter
      */
     virtual bool NoTFProblem(std::vector<double> KLFITTER_UNUSED(parameters))
     { return true; };
+
 
     /* @} */
 

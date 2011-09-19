@@ -47,7 +47,7 @@ namespace KLFitter
     /**
      * An enumerator for the true jet flavor.
      */
-    enum TrueFlavorType { kLight, kB, kNone };
+    enum TrueFlavorType { kLight, kB, kLightUp, kLightDown, kNone };
 
     /* @} */
     /** \name Constructors and destructors */
@@ -296,6 +296,20 @@ namespace KLFitter
     double BTaggingRejection(int index) { return (*fBTaggingRejection)[index]; }
 
     /**
+     * Return the jet b-tagging weight.
+     * @param index The parton index
+     * @return The jet b-tagging weight.
+     */
+    double BTagWeight(int index) { return (*fBTagWeight)[index]; }
+
+    /**
+     * Return the bool of a set tagging weight.
+     * @param index The parton index
+     * @return The bool of a set tagging weight
+     */
+    bool BTagWeightSet(int index) { return (*fBTagWeightSet)[index]; }
+
+    /**
      * Return the detector eta of a particle with some index and type.
      * @param index The index of the particle
      * @param ptype The particle type.
@@ -336,6 +350,22 @@ namespace KLFitter
      */
     int SetBTaggingRejection(int index, double btagRej);
 
+    /**
+     * Set the jet b-tagging weight.
+     * @param index The parton index
+     * @param btagRej The b-tagging weight.
+     * @return An error flag.
+     */
+    int SetBTagWeight(int index, double btagweight);
+
+    /**
+     * Set bool for set jet b-tagging weight.
+     * @param index The parton index
+     * @param btagRej The b-tagging probability.
+     * @return An error flag.
+     */
+    int SetBTagWeightSet(int index, bool btagweightset);
+
     /* @} */
     /** \name Member functions (misc)  */
     /* @{ */
@@ -351,9 +381,10 @@ namespace KLFitter
      * @param bTagEff B-tagging efficiency of the particle.
      * @param bTagRej B-tagging rejection of the particle.
      * @param trueflav The true flavor (only for model particles).
+     * @param btagweight The b tagger weight).
      * @return An error code.
      */
-    int AddParticle(TLorentzVector * particle, double DetEta, KLFitter::Particles::ParticleType ptype, std::string name = "", int measuredindex = -1, bool isBtagged = false, double bTagEff = -1., double bTagRej = -1., TrueFlavorType trueflav = kNone);
+    int AddParticle(TLorentzVector * particle, double DetEta, KLFitter::Particles::ParticleType ptype, std::string name = "", int measuredindex = -1, bool isBtagged = false, double bTagEff = -1., double bTagRej = -1., TrueFlavorType trueflav = kNone, double btagweight = 999);
 
     /**
      * Add a particle to a list of particles.
@@ -365,9 +396,10 @@ namespace KLFitter
      * @param bTagRej B-tagging rejection of the particle.
      * @param measuredindex The index of the associated measured particle.
      * @param trueflav The true flavor (only for model particles).
+     * @param btagweight The b tagger weight).
      * @return An error code.
      */
-    int AddParticle(TLorentzVector * particle, KLFitter::Particles::ParticleType ptype, std::string name = "", int measuredindex = -1, bool isBtagged = false, double bTagEff = -1., double bTagRej = -1., TrueFlavorType trueflav = kNone);
+    int AddParticle(TLorentzVector * particle, KLFitter::Particles::ParticleType ptype, std::string name = "", int measuredindex = -1, bool isBtagged = false, double bTagEff = -1., double bTagRej = -1., TrueFlavorType trueflav = kNone, double btagweight = 999);
 
     /**
      * Add a particle to a list of particles (especially for model particles).
@@ -376,9 +408,10 @@ namespace KLFitter
      * @param name The name of the particle.
      * @param measuredindex The index of the associated measured particle.
      * @param trueflav The true flavor (only for model particles).
+     * @param btagweight The b tagger weight).
      * @return An error code.
      */
-    int AddParticle(TLorentzVector * particle, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, TrueFlavorType trueflav);
+    int AddParticle(TLorentzVector * particle, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, TrueFlavorType trueflav, double btagweight = 999);
 
     /**
      * Removes a particle from a list of particles.
@@ -542,6 +575,16 @@ namespace KLFitter
      * Vector containing the b-tagging rejection for the jets.
      */
     std::vector<double> * fBTaggingRejection;
+
+    /**
+     * Vector containing the b-tagging weights for the jets.
+     */
+    std::vector<double> * fBTagWeight;
+
+    /**
+     * Vector containing the bool if b-tagging weights for the jets were set.
+     */
+    std::vector<bool> * fBTagWeightSet;
 
     /**
      * Vector containing the detector eta of electrons.
