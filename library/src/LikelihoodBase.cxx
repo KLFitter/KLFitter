@@ -10,6 +10,8 @@
 #include <iostream> 
 #include <string> 
 
+
+
 // --------------------------------------------------------- 
 KLFitter::LikelihoodBase::LikelihoodBase(Particles** particles) : BCModel(), 
                                                                   fParticlesPermuted(particles), 
@@ -21,7 +23,9 @@ KLFitter::LikelihoodBase::LikelihoodBase(Particles** particles) : BCModel(),
                                                                   fFlagIntegrate(0),
                                                                   fFlagIsNan(false),
                                                                   fBTagMethod(kNotag)
+
 {
+
   BCLog::SetLogLevel(BCLog::nothing);
   MCMCGetTRandom3()->SetSeed(123456789);
 }
@@ -34,6 +38,7 @@ KLFitter::LikelihoodBase::~LikelihoodBase()
 
 	if (fPhysicsConstants)
 		delete fPhysicsConstants;
+
 }
 
 // --------------------------------------------------------- 
@@ -244,4 +249,143 @@ void KLFitter::LikelihoodBase::PropagateBTaggingInformation()
       fParticlesModel->SetBTaggingRejection( index, (*fParticlesPermuted)->BTaggingRejection(index));
     }
 }
+// ---------------------------------------------------------.
 
+ std::vector <double> KLFitter::LikelihoodBase::GetBestFitParameters()
+{
+if (fCachedParameters.size() > 0) {
+	return fCachedParameters;
+} 
+else return BCModel::GetBestFitParameters();
+
+}
+
+
+
+// ---------------------------------------------------------.
+
+ std::vector <double> KLFitter::LikelihoodBase::GetBestFitParameterErrors()
+{
+
+if (fCachedParameterErrors.size() > 0) {
+	return fCachedParameterErrors;
+}
+else return BCModel::GetBestFitParameterErrors();
+
+}
+
+// ---------------------------------------------------------
+
+int KLFitter::LikelihoodBase::SetParametersToCache(int iperm, int nperms)
+{
+//set correct size of cachevector
+if (iperm==0) {
+	fCachedParametersVector.clear();
+	fCachedParametersVector.assign(nperms, std::vector<double>(NParameters(), 0));
+
+	fCachedParameterErrorsVector.clear();
+	fCachedParameterErrorsVector.assign(nperms, std::vector<double>(NParameters(), 0));
+
+	fCachedNormalizationVector.clear();
+	fCachedNormalizationVector.assign(nperms, 0.);
+}	
+
+if ((iperm>fCachedParametersVector.size())||(iperm>fCachedParameterErrorsVector.size())) {
+	std::cout<<"KLFitter::LikelihoodBase::SetParametersToCache: iperm > size of fCachedParametersVector or fCachedParameterErrorsVector!"<<std::endl;
+	return 0;
+}
+fCachedParametersVector.at(iperm) = BCModel::GetBestFitParameters();
+fCachedParameterErrorsVector.at(iperm) = BCModel::GetBestFitParameterErrors();
+fCachedNormalizationVector.at(iperm) = BCModel::GetNormalization();
+
+int switchpar1 = -1;
+int switchpar2 = -1;
+double switchcache = 0;
+int partner = LHInvariantPermutationPartner(iperm, nperms, switchpar1, switchpar2);
+
+if (partner > iperm) {
+
+	if ((fCachedParametersVector.size() > partner)&&(fCachedParameterErrorsVector.size() > partner)){
+		fCachedParametersVector.at(partner) = BCModel::GetBestFitParameters();
+		switchcache = fCachedParametersVector.at(partner).at(switchpar1);
+		fCachedParametersVector.at(partner).at(switchpar1) = fCachedParametersVector.at(partner).at(switchpar2);
+		fCachedParametersVector.at(partner).at(switchpar2) = switchcache;
+
+		fCachedParameterErrorsVector.at(partner) = BCModel::GetBestFitParameterErrors();
+		switchcache = fCachedParameterErrorsVector.at(partner).at(switchpar1);
+		fCachedParameterErrorsVector.at(partner).at(switchpar1) = fCachedParameterErrorsVector.at(partner).at(switchpar2);
+		fCachedParameterErrorsVector.at(partner).at(switchpar2) = switchcache;
+
+		fCachedNormalizationVector.at(partner) = BCModel::GetNormalization();
+
+
+	} else {
+		std::cout<<"KLFitter::LikelihoodBase::SetParametersToCache: size of fCachedParametersVector too small!"<<std::endl;
+	}	
+}
+GetParametersFromCache(iperm);
+
+return 1;
+}
+// ---------------------------------------------------------
+
+int KLFitter::LikelihoodBase::GetParametersFromCache(int iperm)
+{
+
+	if ((fCachedParametersVector.size() > iperm)&&(fCachedParameterErrorsVector.size() > iperm)) {
+		fCachedParameters = fCachedParametersVector.at(iperm);
+		fCachedParameterErrors = fCachedParameterErrorsVector.at(iperm);
+		fCachedNormalization = fCachedNormalizationVector.at(iperm);
+	} else {
+		std::cout<<"KLFitter::LikelihoodBase::GetParametersFromCache: size of fCachedParametersVector,  fCachedParameterErrorsVector or fCachedNormalizationVector too small!"<<std::endl;
+	}
+return 1;
+}
+
+// ---------------------------------------------------------.
+
+ double KLFitter::LikelihoodBase::GetNormalization()
+{
+
+if (fCachedNormalizationVector.size() > 0) {
+	return fCachedNormalization;
+}
+else {
+return BCModel::GetNormalization();
+}
+}
+// ---------------------------------------------------------.
+
+ int KLFitter::LikelihoodBase::ResetCache()
+{
+fCachedParameters.clear();
+fCachedParameterErrors.clear();
+
+fCachedNormalization = 0.;
+
+return 1;
+}
+// ---------------------------------------------------------.
+
+ double KLFitter::LikelihoodBase::GetBestFitParameter(unsigned int index)
+{
+if (fCachedParameters.size() > 0) {
+	return fCachedParameters.at(index);
+}
+else return BCModel::GetBestFitParameter(index);
+
+}
+
+
+
+// ---------------------------------------------------------.
+
+ double KLFitter::LikelihoodBase::GetBestFitParameterError(unsigned int index)
+{
+
+if (fCachedParameterErrors.size() > 0) {
+	return fCachedParameterErrors.at(index);
+}
+else return BCModel::GetBestFitParameterError(index);
+
+}

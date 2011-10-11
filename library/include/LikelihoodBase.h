@@ -313,6 +313,85 @@ namespace KLFitter
     virtual bool NoTFProblem(std::vector<double> KLFITTER_UNUSED(parameters))
     { return true; };
 
+    /**
+     * Returns the best fit parameters, overloaded from BCModel
+     * @return The best fit parameters */
+    std::vector <double> GetBestFitParameters();
+
+    /**
+     * Returns the best fit parameters from the BCModel class
+     * @return The best fit parameters */
+    using BCModel::GetBestFitParameters;
+
+    /**
+     * Returns the errors of the best fit parameters, overloaded from BCModel
+     * @return The errors of the best fit parameters */
+    std::vector <double> GetBestFitParameterErrors();
+
+    /**
+     * Returns the errors of the best fit parameters from the BCModel class
+     * @return The errors of the best fit parameters */
+    using BCModel::GetBestFitParameterErrors;
+//
+    /**
+     * Returns the best fit parameters, overloaded from BCModel
+     * @return The best fit parameters */
+    double GetBestFitParameter(unsigned int index);
+
+    /**
+     * Returns the best fit parameter at position (i) from the BCModel class
+     * @return The best fit parameter at position (i) */
+    using BCModel::GetBestFitParameter;
+
+    /**
+     * Returns the errors of the best fit parameter i, overloaded from BCModel
+     * @return The errors of the best fit parameters */
+    double GetBestFitParameterError(unsigned int index);
+
+    /**
+     * Returns the errors of the best fit parameter i from the BCModel class
+     * @return The errors of the best fit parameters */
+    using BCModel::GetBestFitParameterError;
+//
+    /**
+     * Check if the permutation is LH invariant.
+     * @param iperm Current permutation
+     * @param nperms Total number of permutations
+     * @return Permutation of the invariant partner, -1 if there is no one. 
+     */
+    virtual int LHInvariantPermutationPartner(int iperm, int nperms, int &switchpar1, int &switchpar2)
+    { return -1; };
+
+    /**
+     * Write parameters from fCachedParametersVector.at(iperm) to fCachedParameters
+     * @param iperm Current permutation
+     * @return An error code. 
+     */
+   int GetParametersFromCache(int iperm);
+
+    /**
+     * Write parameters to fCachedParametersVector.at(iperm) from GetBestFitParameter()
+     * @param iperm Current permutation
+     * @return An error code. 
+     */
+    int SetParametersToCache(int iperm, int nperms);
+
+    /**
+     * @return The normalization factor of the probability, overloaded from BCModel */
+    double GetNormalization();
+
+    /**
+     * @return The normalization factor of the probability from the BCModel class */
+    using  BCModel::GetNormalization;
+
+    /**
+     * Resets the values of all parameter cache vectors
+     * @return An error code. 
+     */
+     int ResetCache();
+    
+
+
 
     /* @} */
 
@@ -362,6 +441,36 @@ namespace KLFitter
      * Name of btagging enum
      */
     BtaggingMethod fBTagMethod;
+
+    /**
+     * The cached parameters used for the current permutation
+     */ 
+    std::vector<double>  fCachedParameters; 
+
+    /**
+     * The cached parameter errors used for the current permutation
+     */ 
+    std::vector<double>  fCachedParameterErrors; 
+
+    /**
+     * A vector of cached parameters, one for each permutation. Has to be set via fitter.
+     */ 
+    std::vector<std::vector<double> >  fCachedParametersVector; 
+
+    /**
+     * A vector of cached parameter errors, one for each permutation. Has to be set via fitter.
+     */ 
+    std::vector<std::vector<double> >  fCachedParameterErrorsVector; 
+
+    /**
+     * The cached normalization, needed for the overloaded BCModel::GetNormalization
+     */ 
+    double  fCachedNormalization; 
+
+    /**
+     * A vector of cached parameters, one for each permutation. Has to be set via fitter.
+     */ 
+    std::vector<double>  fCachedNormalizationVector; 
 
   private: 
 

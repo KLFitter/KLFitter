@@ -12,3 +12,6 @@ LikelihoodTopLeptonJets
 
 2011-06-24
 - find and fix small memory leak
+
+2011-10-10
+- check BuildModelParticles() for non LikelihoodTopLeptonJets likelihoods

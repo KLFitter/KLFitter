@@ -171,6 +171,13 @@ namespace KLFitter
     void SetLJetSeparationMethod(KLFitter::LikelihoodTopLeptonJetsUDSep::LJetSeparationMethod flag)
     { fLJetSeparationMethod = flag; }; 
 
+    /**
+     * Check if the permutation is LH invariant.
+     * @return Permutation of the invariant partner, -1 if there is no one. 
+     */
+    int LHInvariantPermutationPartner(int iperm, int nperms, int &switchpar1, int &switchpar2);
+
+
   protected: 
 
     /** \name Member functions (misc)  */
@@ -224,7 +231,6 @@ namespace KLFitter
      * A pointer to the histogram of the up b tag weight distribution. 
      */ 
     TH1F* fBJetTagWeightHisto; 
-
 
 
     /* @} */

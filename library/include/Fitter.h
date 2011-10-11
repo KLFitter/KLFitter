@@ -14,6 +14,8 @@
 #ifndef FITTER
 #define FITTER
 
+#include <vector>
+
 // --------------------------------------------------------- 
 
 /*!
@@ -189,6 +191,24 @@ namespace KLFitter
      */
     void SetMinimizationMethod(kMinimizationMethod method) { fMinimizationMethod = method; }
 
+    /**
+     * Write fCachedMinuitStatus and fCachedConvergenceStatus to 
+     * fCachedMinuitStatusVector.at(iperm) 
+     * and fCachedConvergenceStatusVector.at(iperm)
+     * @param iperm Current permutation
+     * @return An error code. 
+     */
+   int SetFitStatusToCache(int iperm, int nperms);
+
+    /**
+     * Write parameters from fCachedMinuitStatusVector.at(iperm) 
+     * and fCachedConvergenceStatusVector.at(iperm) to fCachedMinuitStatus
+     * and fCachedConvergenceStatus
+     * @param iperm Current permutation
+     * @return An error code. 
+     */
+   int GetFitStatusFromCache(int iperm);
+
     /* @} */
                 
   private: 
@@ -244,6 +264,22 @@ namespace KLFitter
      * The minimization method.
      */
     kMinimizationMethod fMinimizationMethod;
+
+    /**
+     * A vector of cached Minuit status
+     */ 
+    std::vector<int>  fCachedMinuitStatusVector; 
+
+    /**
+     * A vector of cached convergence status
+     */ 
+    std::vector<unsigned int>  fCachedConvergenceStatusVector; 
+
+    /**
+     * Resets the values of all parameter cache vectors
+     * @return An error code. 
+     */
+     int ResetCache();
 
   }; 
 

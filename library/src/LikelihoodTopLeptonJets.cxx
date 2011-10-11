@@ -20,6 +20,8 @@ KLFitter::LikelihoodTopLeptonJets::LikelihoodTopLeptonJets() : KLFitter::Likelih
                                                              , fTypeLepton(kElectron)
                                                              , fTFgood(true)
 {
+
+
   // define model particles 
   this->DefineModelParticles(); 
 
@@ -661,7 +663,8 @@ int KLFitter::LikelihoodTopLeptonJets::SaveResolutionFunctions() {
 }
 // --------------------------------------------------------- 
 
-int KLFitter::LikelihoodTopLeptonJets::BuildModelParticles() {
+int KLFitter::LikelihoodTopLeptonJets::BuildModelParticles() {	
+CalculateLorentzVectors(GetBestFitParameters());
 
   TLorentzVector * bhad = fParticlesModel->Parton(0);
   TLorentzVector * blep = fParticlesModel->Parton(1);

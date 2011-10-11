@@ -11,9 +11,11 @@
 #include <BAT/BCMath.h> 
 
 // --------------------------------------------------------- 
-KLFitter::LikelihoodTopLeptonJetsUDSep::LikelihoodTopLeptonJetsUDSep() : KLFitter::LikelihoodTopLeptonJets::LikelihoodTopLeptonJets()
-								, fLJetSeparationMethod(KLFitter::LikelihoodTopLeptonJetsUDSep::kNone)
+KLFitter::LikelihoodTopLeptonJetsUDSep::LikelihoodTopLeptonJetsUDSep() : KLFitter::LikelihoodTopLeptonJets::LikelihoodTopLeptonJets(),
+	fLJetSeparationMethod(KLFitter::LikelihoodTopLeptonJetsUDSep::kNone)
+
 {
+
   // define model particles 
   this->DefineModelParticles(); 
 
@@ -307,4 +309,25 @@ return fDownJetTagWeightHisto->GetBinContent(fDownJetTagWeightHisto->GetXaxis()-
 double KLFitter::LikelihoodTopLeptonJetsUDSep::BJetTagWeight(double tagweight)
 {
 return fBJetTagWeightHisto->GetBinContent(fBJetTagWeightHisto->GetXaxis()->FindBin(tagweight));
+}
+
+// --------------------------------------------------------- 
+int KLFitter::LikelihoodTopLeptonJetsUDSep::LHInvariantPermutationPartner(int iperm, int nperms, int &switchpar1, int &switchpar2)
+{
+  int partnerid = -1;
+  switch (nperms)
+  {
+  case 24: 	
+	if ((iperm)%2) {
+		partnerid = (iperm -1);
+	} else {
+		partnerid = (iperm+1);
+	}
+  	break;
+	
+  default: partnerid = -1;
+  }
+switchpar1 = 2;
+switchpar2 = 3;
+return partnerid;
 }

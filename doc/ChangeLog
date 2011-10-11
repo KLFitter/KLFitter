@@ -1,3 +1,10 @@
+2011-10-11 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
+
+	* Runtime for u/d separation likelihood decreased by 50%.
+	* Introduced the possibility to cache likelihood values.
+	* InterfaceD3PD.cxx automatically corrects negative particle masses to 0.
+	* tag KLFitter-00-05-02
+
 2011-09-19 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
 
 	* EventProbability structure changed (outsourcing of sub parts)

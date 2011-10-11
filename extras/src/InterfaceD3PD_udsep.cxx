@@ -322,6 +322,11 @@ int KLFitter::InterfaceD3PD_udsep::FillParticles()
 
 	  TLorentzVector * tlv_tmp = new TLorentzVector(0,0,0,0);
   	tlv_tmp->SetPtEtaPhiE(jet_pt->at(i)/1000., jet_eta->at(i), jet_phi->at(i), jet_E->at(i)/1000.);
+	//If mass is negative, manually correct it to 0.
+	if (tlv_tmp->M() < 0){
+	std::cout << "KLFitter::InterfaceD3PD_udsep::FillParticles(). Jet mass was negative and corrected to 0." << std::endl;
+	tlv_tmp->SetPtEtaPhiM(tlv_tmp->Pt(), tlv_tmp->Eta(), tlv_tmp->Phi(), 0); 
+	} 
         fParticles->AddParticle(tlv_tmp, jet_deteta->at(i), KLFitter::Particles::kParton, "", i, isTagged, fBtagEff, fBtagRej, KLFitter::Particles::kNone, jet_flavor_weight_JetFitterCombNN->at(i));
     delete tlv_tmp;
 	}
@@ -334,6 +339,11 @@ int KLFitter::InterfaceD3PD_udsep::FillParticles()
 
     TLorentzVector * tlv_tmp = new TLorentzVector(0,0,0,0);
     tlv_tmp->SetPtEtaPhiE((el_E->at(i)/1000.) / cosh(el_eta->at(i)), el_eta->at(i), el_phi->at(i), el_E->at(i)/1000.);
+	//If mass is negative, manually correct it to 0.
+	if (tlv_tmp->M() < 0){
+	std::cout << "KLFitter::InterfaceD3PD_udsep::FillParticles(). Electron mass was negative and corrected to 0." << std::endl;
+	tlv_tmp->SetPtEtaPhiM(tlv_tmp->Pt(), tlv_tmp->Eta(), tlv_tmp->Phi(), 0); 
+	} 
     fParticles->AddParticle(tlv_tmp, el_deteta->at(i), KLFitter::Particles::kElectron, "", i);
     delete tlv_tmp;
 	}
@@ -346,6 +356,11 @@ int KLFitter::InterfaceD3PD_udsep::FillParticles()
 
     TLorentzVector * tlv_tmp = new TLorentzVector(0,0,0,0);
     tlv_tmp->SetPxPyPzE(mu_px->at(i)/1000., mu_py->at(i)/1000., mu_pz->at(i)/1000., mu_E->at(i)/1000.);
+	//If mass is negative, manually correct it to 0.
+	if (tlv_tmp->M() < 0){
+	std::cout << "KLFitter::InterfaceD3PD_udsep::FillParticles(). Muon mass was negative and corrected to 0." << std::endl;
+	tlv_tmp->SetPtEtaPhiM(tlv_tmp->Pt(), tlv_tmp->Eta(), tlv_tmp->Phi(), 0); 
+	} 
     fParticles->AddParticle(tlv_tmp, mu_eta->at(i), KLFitter::Particles::kMuon, "", i);
     delete tlv_tmp;
   }

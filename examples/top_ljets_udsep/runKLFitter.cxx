@@ -24,6 +24,8 @@
 #include "TFile.h"
 #include "TH1F.h"
 
+
+
 bool EventTruthSelection(KLFitter::Particles * particles, KLFitter::LikelihoodTopLeptonJets::LeptonType Lepton); 
 int GetCombinationNo(TString s);//int matchHadB, int matchLepB, int matchLJ1, int matchLJ2);
 TString GetTrueCombinationString(std::vector<int> v0, std::vector<int> v1, std::vector<int> v2, std::vector<int> v3);
@@ -31,6 +33,9 @@ TString GetTrueCombinationString(std::vector<int> v0, std::vector<int> v1, std::
 
 int main(int argc, char **argv) 
 {
+
+
+
   bool valid=false;
   // parameters (1st: 'first event', 2nd: 'last event - 1', 3rd: output file
   if (argc!=4) { // i.e. 2 parameters ...
@@ -257,11 +262,12 @@ int main(int argc, char **argv)
         {
           // fit the first permutation
           myFitter -> Fit(iperm); 
-          // copy information into output class
 
+          // copy information into output class
           myInterfaceOutput -> FillTreeModelPermutation(); 
 
-          if (firstevent) {
+
+      if (firstevent) {
 						KLFitter::Particles * OutputParticles = myFitter->Likelihood()->ParticlesModel(); 
   					KLFitter::Particles * InputParticles = *myFitter->Likelihood()->PParticlesPermuted();
 						std::vector<double> Par = myFitter->Likelihood()->GetBestFitParameters();
@@ -291,11 +297,15 @@ int main(int argc, char **argv)
 						bool((ConvergenceStatusBitWord & KLFitter::Fitter::FitAbortedDueToNaNMask) != 0),
 						bool((ConvergenceStatusBitWord & KLFitter::Fitter::AtLeastOneFitParameterAtItsLimitMask) != 0),
 						bool((ConvergenceStatusBitWord & KLFitter::Fitter::InvalidTransferFunctionAtConvergenceMask) != 0));
+
+
 				    }
+
         }
 
       // fill tree
       myInterfaceOutput -> FillTrees(); 
+
 
       // do not print following events
       if (firstevent) {
@@ -397,6 +407,8 @@ int main(int argc, char **argv)
     delete udhistos;
   if (myMatchingTool)
     delete myMatchingTool;
+
+
 
   // no error 
   return 1; 
