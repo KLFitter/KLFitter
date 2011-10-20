@@ -290,7 +290,7 @@ if (iperm==0) {
 	fCachedNormalizationVector.assign(nperms, 0.);
 }	
 
-if ((iperm>fCachedParametersVector.size())||(iperm>fCachedParameterErrorsVector.size())) {
+if ((iperm>(int)fCachedParametersVector.size())||(iperm>(int)fCachedParameterErrorsVector.size())) {
 	std::cout<<"KLFitter::LikelihoodBase::SetParametersToCache: iperm > size of fCachedParametersVector or fCachedParameterErrorsVector!"<<std::endl;
 	return 0;
 }
@@ -305,7 +305,7 @@ int partner = LHInvariantPermutationPartner(iperm, nperms, switchpar1, switchpar
 
 if (partner > iperm) {
 
-	if ((fCachedParametersVector.size() > partner)&&(fCachedParameterErrorsVector.size() > partner)){
+	if (((int)fCachedParametersVector.size() > partner)&&((int)fCachedParameterErrorsVector.size() > partner)){
 		fCachedParametersVector.at(partner) = BCModel::GetBestFitParameters();
 		switchcache = fCachedParametersVector.at(partner).at(switchpar1);
 		fCachedParametersVector.at(partner).at(switchpar1) = fCachedParametersVector.at(partner).at(switchpar2);
@@ -332,7 +332,7 @@ return 1;
 int KLFitter::LikelihoodBase::GetParametersFromCache(int iperm)
 {
 
-	if ((fCachedParametersVector.size() > iperm)&&(fCachedParameterErrorsVector.size() > iperm)) {
+	if (((int)fCachedParametersVector.size() > iperm)&&((int)fCachedParameterErrorsVector.size() > iperm)) {
 		fCachedParameters = fCachedParametersVector.at(iperm);
 		fCachedParameterErrors = fCachedParameterErrorsVector.at(iperm);
 		fCachedNormalization = fCachedNormalizationVector.at(iperm);
