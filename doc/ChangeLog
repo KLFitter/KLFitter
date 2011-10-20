@@ -1,3 +1,10 @@
+2011-10-20 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
+
+	* Non-critical bug in LikelihoodTopLeptonJets::BuildModelParticles(), leading to crashes with 
+	  certain gcc/ROOT combinations, was removed.
+	* Compiler warnings removed.
+	* tag KLFitter-00-05-03
+
 2011-10-11 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
 
 	* Runtime for u/d separation likelihood decreased by 50%.
