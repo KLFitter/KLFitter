@@ -23,9 +23,9 @@ KLFitter::InterfaceD3PD_udsep::InterfaceD3PD_udsep()
   if(mcevt_weight)
     mcevt_weight = 0;
 
-  fBtagCut = 3.00;
-  fBtagEff = 0.497;
-  fBtagRej = 988.;
+  fBtagCut = 2.20;
+  fBtagEff = 0.564;
+  fBtagRej = 624.;
 
   mu_n = 0;
   mu_E = 0;  

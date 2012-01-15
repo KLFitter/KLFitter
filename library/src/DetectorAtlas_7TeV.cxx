@@ -16,6 +16,40 @@
 
 KLFitter::DetectorAtlas_7TeV::DetectorAtlas_7TeV(std::string folder) : DetectorBase() 
 {
+  //check: MC11b? New parametrization!
+  if (strstr(folder.c_str(), "mc11b")){
+  // energy resolution 
+  fResEnergyLightJet_eta1 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_lJets_eta1.txt", folder.c_str())); 
+  fResEnergyBJet_eta1     = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_bJets_eta1.txt", folder.c_str())); 
+  fResEnergyGluonJet_eta1 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_gluon_eta1.txt", folder.c_str())); 
+  fResEnergyElectron_eta1 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_Electrons_eta1.txt", folder.c_str())); 
+  fResEnergyMuon_eta1     = new KLFitter::ResDoubleGaussPt(Form("%s/par_energy_Muons_eta1.txt", folder.c_str())); 
+  fResEnergyPhoton_eta1   = new KLFitter::ResGauss(Form("%s/par_energy_photon_eta1.txt", folder.c_str())); 
+
+  fResEnergyLightJet_eta2 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_lJets_eta2.txt", folder.c_str())); 
+  fResEnergyBJet_eta2     = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_bJets_eta2.txt", folder.c_str())); 
+  fResEnergyGluonJet_eta2 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_gluon_eta2.txt", folder.c_str())); 
+  fResEnergyElectron_eta2 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_Electrons_eta2.txt", folder.c_str())); 
+  fResEnergyMuon_eta2     = new KLFitter::ResDoubleGaussPt(Form("%s/par_energy_Muons_eta2.txt", folder.c_str())); 
+  fResEnergyPhoton_eta2   = new KLFitter::ResGauss(Form("%s/par_energy_photon_eta2.txt", folder.c_str())); 
+
+  fResEnergyLightJet_eta3 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_lJets_eta3.txt", folder.c_str())); 
+  fResEnergyBJet_eta3     = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_bJets_eta3.txt", folder.c_str())); 
+  fResEnergyGluonJet_eta3 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_gluon_eta3.txt", folder.c_str())); 
+  fResEnergyElectron_eta3 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_Electrons_eta3.txt", folder.c_str())); 
+  fResEnergyMuon_eta3     = new KLFitter::ResDoubleGaussPt(Form("%s/par_energy_Muons_eta3.txt", folder.c_str())); 
+  fResEnergyPhoton_eta3   = new KLFitter::ResGauss(Form("%s/par_energy_photon_eta3.txt", folder.c_str())); 
+
+  fResEnergyLightJet_eta4 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_lJets_eta4.txt", folder.c_str())); 
+  fResEnergyBJet_eta4     = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_bJets_eta4.txt", folder.c_str())); 
+  fResEnergyGluonJet_eta4 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_gluon_eta4.txt", folder.c_str())); 
+  fResEnergyElectron_eta4 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_Electrons_eta4.txt", folder.c_str())); 
+  fResEnergyPhoton_eta4   = new KLFitter::ResGauss(Form("%s/par_energy_photon_eta4.txt", folder.c_str()));
+
+  fResEnergyLightJet_eta5 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_lJets_eta5.txt", folder.c_str())); 
+  fResEnergyBJet_eta5     = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_bJets_eta5.txt", folder.c_str()));
+  } else  {
+std::cout<<"DEBUG! NOT MC11b"<<std::endl;
   // energy resolution 
   fResEnergyLightJet_eta1 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_lJets_eta1.txt", folder.c_str())); 
   fResEnergyBJet_eta1     = new KLFitter::ResDoubleGaussE_2(Form("%s/par_energy_bJets_eta1.txt", folder.c_str())); 
@@ -45,7 +79,8 @@ KLFitter::DetectorAtlas_7TeV::DetectorAtlas_7TeV(std::string folder) : DetectorB
   fResEnergyPhoton_eta4   = new KLFitter::ResGauss(Form("%s/par_energy_photon_eta4.txt", folder.c_str()));
 
   fResEnergyLightJet_eta5 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_lJets_eta5.txt", folder.c_str())); 
-  fResEnergyBJet_eta5     = new KLFitter::ResDoubleGaussE_2(Form("%s/par_energy_bJets_eta5.txt", folder.c_str()));  
+  fResEnergyBJet_eta5     = new KLFitter::ResDoubleGaussE_2(Form("%s/par_energy_bJets_eta5.txt", folder.c_str()));
+  }  
 
   // eta resolution 
   fResEtaLightJet_eta1 = new KLFitter::ResGauss(Form("%s/par_eta_lJets_eta1.txt", folder.c_str())); 
