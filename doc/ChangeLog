@@ -1,3 +1,9 @@
+2012-01-16 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
+
+	* Included MC11b transfer functions (new parametrization for bJets!)
+	* DetectorAtlas_7TeV.cxx checks for "mc11b" string in TF path to switch to new parametrization
+	* tag KLFitter-00-05-04
+
 2011-10-20 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
 
 	* Non-critical bug in LikelihoodTopLeptonJets::BuildModelParticles(), leading to crashes with 
