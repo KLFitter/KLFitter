@@ -315,6 +315,7 @@ return fBJetTagWeightHisto->GetBinContent(fBJetTagWeightHisto->GetXaxis()->FindB
 int KLFitter::LikelihoodTopLeptonJetsUDSep::LHInvariantPermutationPartner(int iperm, int nperms, int &switchpar1, int &switchpar2)
 {
   int partnerid = -1;
+  int cache = iperm%6;
   switch (nperms)
   {
   case 24: 	
@@ -323,7 +324,15 @@ int KLFitter::LikelihoodTopLeptonJetsUDSep::LHInvariantPermutationPartner(int ip
 	} else {
 		partnerid = (iperm+1);
 	}
-  	break;
+  break;
+
+  case 120:
+	if (cache > 2) {
+		partnerid = (iperm -3);
+	} else {
+		partnerid = (iperm+3);
+	}
+  break;
 	
   default: partnerid = -1;
   }
@@ -331,3 +340,4 @@ switchpar1 = 2;
 switchpar2 = 3;
 return partnerid;
 }
+
