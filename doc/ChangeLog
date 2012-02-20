@@ -1,3 +1,8 @@
+2012-02-20 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
+
+	* LikelihoodTopLeptonJetsUDSep: Runtime decreased by 50% now also in case of 5 jet fits.
+	* tag KLFitter-00-05-05
+
 2012-01-16 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
 
 	* Included MC11b transfer functions (new parametrization for bJets!)
