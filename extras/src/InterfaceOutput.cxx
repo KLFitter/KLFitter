@@ -29,6 +29,18 @@ KLFitter::InterfaceOutput::InterfaceOutput()
   fTreeMap = 0; 
   fTreeVarBestPermutation = 0; 
   fTreeVarLogLikelihood = 0; 
+  fTreeVarLogLikelihoodComp_TF_bhad = 0; 
+  fTreeVarLogLikelihoodComp_TF_blep = 0; 
+  fTreeVarLogLikelihoodComp_TF_lq1 = 0; 
+  fTreeVarLogLikelihoodComp_TF_lq2 = 0; 
+  fTreeVarLogLikelihoodComp_TF_lep = 0;
+  fTreeVarLogLikelihoodComp_TF_METx = 0;
+  fTreeVarLogLikelihoodComp_TF_METy = 0;
+  fTreeVarLogLikelihoodComp_BW_Whad = 0;
+  fTreeVarLogLikelihoodComp_BW_Wlep = 0;
+  fTreeVarLogLikelihoodComp_BW_Thad = 0;
+  fTreeVarLogLikelihoodComp_BW_Tlep = 0;
+//  fTreeVarLogLikelihoodComponents = 0;
   fTreeVarIntegral = 0;
   fTreeVarEventProbability = 0; 
   fTreeVarMinuitStatus = 0; 
@@ -70,6 +82,42 @@ KLFitter::InterfaceOutput::~InterfaceOutput()
 
   if (fTreeVarLogLikelihood)
     delete fTreeVarLogLikelihood; 
+
+  if(fTreeVarLogLikelihoodComp_TF_bhad) 
+    delete fTreeVarLogLikelihoodComp_TF_bhad;
+
+  if(fTreeVarLogLikelihoodComp_TF_blep) 
+    delete fTreeVarLogLikelihoodComp_TF_blep;
+
+  if(fTreeVarLogLikelihoodComp_TF_lq1) 
+    delete fTreeVarLogLikelihoodComp_TF_lq1;
+
+  if(fTreeVarLogLikelihoodComp_TF_lq2) 
+    delete fTreeVarLogLikelihoodComp_TF_lq2;
+
+  if(fTreeVarLogLikelihoodComp_TF_lep)
+    delete fTreeVarLogLikelihoodComp_TF_lep;
+
+  if(fTreeVarLogLikelihoodComp_TF_METx)
+    delete fTreeVarLogLikelihoodComp_TF_METx;
+
+  if(fTreeVarLogLikelihoodComp_TF_METy)
+    delete fTreeVarLogLikelihoodComp_TF_METy;
+
+  if(fTreeVarLogLikelihoodComp_BW_Whad)
+    delete fTreeVarLogLikelihoodComp_BW_Whad;
+
+  if(fTreeVarLogLikelihoodComp_BW_Wlep)
+    delete fTreeVarLogLikelihoodComp_BW_Wlep;
+
+  if(fTreeVarLogLikelihoodComp_BW_Thad)
+    delete fTreeVarLogLikelihoodComp_BW_Thad;
+
+  if(fTreeVarLogLikelihoodComp_BW_Tlep)
+    delete fTreeVarLogLikelihoodComp_BW_Tlep;
+
+//  if (fTreeVarLogLikelihoodComponents)
+//    delete fTreeVarLogLikelihoodComponents; 
 
   if (fTreeVarIntegral)
     delete fTreeVarIntegral; 
@@ -367,6 +415,18 @@ int KLFitter::InterfaceOutput::CreateTreeModel()
   fTreeVarNBTags=0;
   fTreeVarBestPermutation = new std::vector<int>(0);
   fTreeVarLogLikelihood = new std::vector<double>(0);
+  fTreeVarLogLikelihoodComp_TF_bhad = new std::vector<double>(0); 
+  fTreeVarLogLikelihoodComp_TF_blep = new std::vector<double>(0); 
+  fTreeVarLogLikelihoodComp_TF_lq1 = new std::vector<double>(0); 
+  fTreeVarLogLikelihoodComp_TF_lq2 = new std::vector<double>(0); 
+  fTreeVarLogLikelihoodComp_TF_lep = new std::vector<double>(0);
+  fTreeVarLogLikelihoodComp_TF_METx = new std::vector<double>(0);
+  fTreeVarLogLikelihoodComp_TF_METy = new std::vector<double>(0);
+  fTreeVarLogLikelihoodComp_BW_Whad = new std::vector<double>(0);
+  fTreeVarLogLikelihoodComp_BW_Wlep = new std::vector<double>(0);
+  fTreeVarLogLikelihoodComp_BW_Thad = new std::vector<double>(0);
+  fTreeVarLogLikelihoodComp_BW_Tlep = new std::vector<double>(0);
+//  fTreeVarLogLikelihoodComponents = new std::vector<std::vector<double> >(0);
   fTreeVarIntegral = new std::vector<double>(0);
   fTreeVarEventProbability = new std::vector<double>(0);
   fTreeVarMinuitStatus = new std::vector<double>(0);
@@ -378,6 +438,18 @@ int KLFitter::InterfaceOutput::CreateTreeModel()
   fTreeModel->Branch("N_btags", &fTreeVarNBTags, "N_btags/I"); 
   fTreeModel->Branch("best_permutation", fTreeVarBestPermutation);
   fTreeModel->Branch("LogLikelihood", fTreeVarLogLikelihood);
+  fTreeModel->Branch("LogLikelihoodComp_TF_bhad",  fTreeVarLogLikelihoodComp_TF_bhad);
+  fTreeModel->Branch("LogLikelihoodComp_TF_blep",  fTreeVarLogLikelihoodComp_TF_blep);
+  fTreeModel->Branch("LogLikelihoodComp_TF_lq1",  fTreeVarLogLikelihoodComp_TF_lq1);
+  fTreeModel->Branch("LogLikelihoodComp_TF_lq2",  fTreeVarLogLikelihoodComp_TF_lq2);
+  fTreeModel->Branch("LogLikelihoodComp_TF_lep",  fTreeVarLogLikelihoodComp_TF_lep);
+  fTreeModel->Branch("LogLikelihoodComp_TF_METx",  fTreeVarLogLikelihoodComp_TF_METx);
+  fTreeModel->Branch("LogLikelihoodComp_TF_METy",  fTreeVarLogLikelihoodComp_TF_METy);
+  fTreeModel->Branch("LogLikelihoodComp_BW_Whad",  fTreeVarLogLikelihoodComp_BW_Whad);
+  fTreeModel->Branch("LogLikelihoodComp_BW_Wlep",  fTreeVarLogLikelihoodComp_BW_Wlep);
+  fTreeModel->Branch("LogLikelihoodComp_BW_Thad",  fTreeVarLogLikelihoodComp_BW_Thad);
+  fTreeModel->Branch("LogLikelihoodComp_BW_Tlep",  fTreeVarLogLikelihoodComp_BW_Tlep);
+//  fTreeModel->Branch("LogLikelihoodComponents", fTreeVarLogLikelihoodComponents);
   fTreeModel->Branch("Integral", fTreeVarIntegral);
   fTreeModel->Branch("EventProbability", fTreeVarEventProbability);
   fTreeModel->Branch("MinuitStatus", fTreeVarMinuitStatus);
@@ -904,6 +976,43 @@ int KLFitter::InterfaceOutput::FillTreeModelPermutation()
       fTreeVarLogLikelihood->clear();
       fTreeVarLogLikelihood->assign(fTreeVarNPermutations, 1.e99);
 
+      fTreeVarLogLikelihoodComp_TF_bhad->clear();
+      fTreeVarLogLikelihoodComp_TF_bhad->assign(fTreeVarNPermutations, 1.e99);
+
+      fTreeVarLogLikelihoodComp_TF_blep->clear();
+      fTreeVarLogLikelihoodComp_TF_blep->assign(fTreeVarNPermutations, 1.e99);
+
+      fTreeVarLogLikelihoodComp_TF_lq1->clear();
+      fTreeVarLogLikelihoodComp_TF_lq1->assign(fTreeVarNPermutations, 1.e99);
+
+      fTreeVarLogLikelihoodComp_TF_lq2->clear();
+      fTreeVarLogLikelihoodComp_TF_lq2->assign(fTreeVarNPermutations, 1.e99);
+
+      fTreeVarLogLikelihoodComp_TF_lep->clear();
+      fTreeVarLogLikelihoodComp_TF_lep->assign(fTreeVarNPermutations, 1.e99);
+
+      fTreeVarLogLikelihoodComp_TF_METx->clear();
+      fTreeVarLogLikelihoodComp_TF_METx->assign(fTreeVarNPermutations, 1.e99);
+
+      fTreeVarLogLikelihoodComp_TF_METy->clear();
+      fTreeVarLogLikelihoodComp_TF_METy->assign(fTreeVarNPermutations, 1.e99);
+
+      fTreeVarLogLikelihoodComp_BW_Whad->clear();
+      fTreeVarLogLikelihoodComp_BW_Whad->assign(fTreeVarNPermutations, 1.e99);
+
+      fTreeVarLogLikelihoodComp_BW_Wlep->clear();
+      fTreeVarLogLikelihoodComp_BW_Wlep->assign(fTreeVarNPermutations, 1.e99);
+
+      fTreeVarLogLikelihoodComp_BW_Thad->clear();
+      fTreeVarLogLikelihoodComp_BW_Thad->assign(fTreeVarNPermutations, 1.e99);
+
+      fTreeVarLogLikelihoodComp_BW_Tlep->clear();
+      fTreeVarLogLikelihoodComp_BW_Tlep->assign(fTreeVarNPermutations, 1.e99);
+
+//      fTreeVarLogLikelihoodComponents->clear();
+//      std::vector<double> tempvec(3, 0.0);
+//      fTreeVarLogLikelihoodComponents->assign(fTreeVarNPermutations, tempvec);
+
       fTreeVarIntegral->clear();
       fTreeVarIntegral->assign(fTreeVarNPermutations, -1.);
 
@@ -947,6 +1056,22 @@ int KLFitter::InterfaceOutput::FillTreeModelPermutation()
     }
         
   (*fTreeVarLogLikelihood)[pindex] = fFitter->Likelihood()->LogLikelihood( fFitter->Likelihood()->GetBestFitParameters() ); 
+
+//  (*fTreeVarLogLikelihoodComponents)[pindex] = fFitter->Likelihood()->LogLikelihoodComponents( fFitter->Likelihood()->GetBestFitParameters() ); 
+
+  (*fTreeVarLogLikelihoodComp_TF_bhad)[pindex] = fFitter->Likelihood()->LogLikelihoodComponents( fFitter->Likelihood()->GetBestFitParameters() ).at(0);  
+  (*fTreeVarLogLikelihoodComp_TF_blep)[pindex] = fFitter->Likelihood()->LogLikelihoodComponents( fFitter->Likelihood()->GetBestFitParameters() ).at(1);  
+  (*fTreeVarLogLikelihoodComp_TF_lq1)[pindex] = fFitter->Likelihood()->LogLikelihoodComponents( fFitter->Likelihood()->GetBestFitParameters() ).at(2);  
+  (*fTreeVarLogLikelihoodComp_TF_lq2)[pindex] = fFitter->Likelihood()->LogLikelihoodComponents( fFitter->Likelihood()->GetBestFitParameters() ).at(3);  
+  (*fTreeVarLogLikelihoodComp_TF_lep)[pindex] = fFitter->Likelihood()->LogLikelihoodComponents( fFitter->Likelihood()->GetBestFitParameters() ).at(4); 
+  (*fTreeVarLogLikelihoodComp_TF_METx)[pindex] = fFitter->Likelihood()->LogLikelihoodComponents( fFitter->Likelihood()->GetBestFitParameters() ).at(5); 
+  (*fTreeVarLogLikelihoodComp_TF_METy)[pindex] = fFitter->Likelihood()->LogLikelihoodComponents( fFitter->Likelihood()->GetBestFitParameters() ).at(6); 
+  (*fTreeVarLogLikelihoodComp_BW_Whad)[pindex] = fFitter->Likelihood()->LogLikelihoodComponents( fFitter->Likelihood()->GetBestFitParameters() ).at(7); 
+  (*fTreeVarLogLikelihoodComp_BW_Wlep)[pindex] = fFitter->Likelihood()->LogLikelihoodComponents( fFitter->Likelihood()->GetBestFitParameters() ).at(8); 
+  (*fTreeVarLogLikelihoodComp_BW_Thad)[pindex] = fFitter->Likelihood()->LogLikelihoodComponents( fFitter->Likelihood()->GetBestFitParameters() ).at(9); 
+  (*fTreeVarLogLikelihoodComp_BW_Tlep)[pindex] = fFitter->Likelihood()->LogLikelihoodComponents( fFitter->Likelihood()->GetBestFitParameters() ).at(10); 
+
+
   (*fTreeVarMinuitStatus)[pindex] = fFitter->MinuitStatus(); 
   (*fTreeVarConvergenceStatus)[pindex] = fFitter->ConvergenceStatus(); 
   (*fTreeVarIntegral)[pindex] = fFitter->Likelihood()->GetNormalization(); 

@@ -697,3 +697,68 @@ if (GetBestFitParameters().size() > 0) CalculateLorentzVectors(GetBestFitParamet
   return 1;
 }
 // --------------------------------------------------------- 
+
+// --------------------------------------------------------- 
+std::vector<double> KLFitter::LikelihoodTopLeptonJets::LogLikelihoodComponents(std::vector<double> parameters)
+{
+std::vector<double> vecci;
+
+  // calculate 4-vectors 
+  CalculateLorentzVectors(parameters); 
+
+
+  // temporary flag for a safe use of the transfer functions
+  bool TFgoodTmp(true);
+
+  // jet energy resolution terms 
+  vecci.push_back(log( fResEnergyBhad->p(bhad_fit_e, bhad_meas_e, TFgoodTmp) )); //comp0
+  if (!TFgoodTmp) fTFgood = false;
+
+  vecci.push_back(log( fResEnergyBlep->p(blep_fit_e, blep_meas_e, TFgoodTmp) )); //comp1
+  if (!TFgoodTmp) fTFgood = false;
+
+  vecci.push_back(log( fResEnergyLQ1->p(lq1_fit_e, lq1_meas_e, TFgoodTmp) ));  //comp2
+  if (!TFgoodTmp) fTFgood = false;
+
+  vecci.push_back(log( fResEnergyLQ2->p(lq2_fit_e, lq2_meas_e, TFgoodTmp) ));  //comp3
+  if (!TFgoodTmp) fTFgood = false;
+
+  // lepton energy resolution terms 
+  if (fTypeLepton == kElectron){
+  vecci.push_back(log( fResLepton->p(lep_fit_e, lep_meas_e, TFgoodTmp) )); //comp4
+  }
+  else if (fTypeLepton == kMuon)
+  vecci.push_back(log( fResLepton->p(lep_fit_e* lep_meas_sintheta, lep_meas_pt, TFgoodTmp) )); //comp4
+  if (!TFgoodTmp) fTFgood = false;
+
+  // neutrino px and py
+  vecci.push_back(log( fResMET->p(nu_fit_px, ETmiss_x, TFgoodTmp, SumET) )); //comp5
+  if (!TFgoodTmp) fTFgood = false;
+
+  vecci.push_back(log( fResMET->p(nu_fit_py, ETmiss_y, TFgoodTmp, SumET) )); //comp6
+  if (!TFgoodTmp) fTFgood = false;
+
+  // physics constants
+  double massW = fPhysicsConstants->MassW();
+  double gammaW = fPhysicsConstants->GammaW();
+  // note: top mass width should be made DEPENDENT on the top mass at a certain point
+  //    fPhysicsConstants->SetMassTop(parameters[parTopM]);
+  // (this will also set the correct width for the top)
+  double gammaTop = fPhysicsConstants->GammaTop();
+
+  // Breit-Wigner of hadronically decaying W-boson
+  vecci.push_back(BCMath::LogBreitWignerRel(whad_fit_m, massW, gammaW)); //comp7
+
+  // Breit-Wigner of leptonically decaying W-boson
+  vecci.push_back(BCMath::LogBreitWignerRel(wlep_fit_m, massW, gammaW)); //comp8
+
+  // Breit-Wigner of hadronically decaying top quark
+  vecci.push_back(BCMath::LogBreitWignerRel(thad_fit_m, parameters[parTopM], gammaTop)); //comp9 
+        
+  // Breit-Wigner of leptonically decaying top quark
+  vecci.push_back(BCMath::LogBreitWignerRel(tlep_fit_m, parameters[parTopM], gammaTop)); //comp10
+
+  // return log of likelihood 
+  return vecci; 
+}
+

@@ -127,6 +127,24 @@ namespace KLFitter
      */
     virtual double LogLikelihood(std::vector <double> parameters); 
 
+    /** 
+     * The posterior probability definition, overloaded from BCModel. Split up into several subcomponents 
+     * @param parameters A vector of parameters (double values). 
+     * @return A vector with the components of the logarithm of the prior probability. Its components are:
+     * 0:  TF_bhad
+     * 1:  TF_blep
+     * 2:  TF_lq1
+     * 3:  TF_lq2
+     * 4:  TF_lep
+     * 5:  TF_METx
+     * 6:  TF_METy
+     * 7:  BW_Whad
+     * 8:  BW_Wlep
+     * 9:  BW_Thad
+     * 10: BW_Tlep
+     */
+    virtual std::vector<double> LogLikelihoodComponents(std::vector <double> parameters); 
+
     /**
      * Get initial values for the parameters.
      * @return vector of initial values.

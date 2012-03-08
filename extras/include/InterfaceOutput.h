@@ -322,6 +322,19 @@ namespace KLFitter
     int fTreeVarNBTags;
     std::vector<int> * fTreeVarBestPermutation; 
     std::vector<double> * fTreeVarLogLikelihood; 
+//    std::vector<std::vector<double> > * fTreeVarLogLikelihoodComponents; 
+    std::vector<double> * fTreeVarLogLikelihoodComp_TF_bhad; 
+    std::vector<double> * fTreeVarLogLikelihoodComp_TF_blep; 
+    std::vector<double> * fTreeVarLogLikelihoodComp_TF_lq1; 
+    std::vector<double> * fTreeVarLogLikelihoodComp_TF_lq2; 
+    std::vector<double> * fTreeVarLogLikelihoodComp_TF_lep;
+    std::vector<double> * fTreeVarLogLikelihoodComp_TF_METx;
+    std::vector<double> * fTreeVarLogLikelihoodComp_TF_METy;
+    std::vector<double> * fTreeVarLogLikelihoodComp_BW_Whad;
+    std::vector<double> * fTreeVarLogLikelihoodComp_BW_Wlep;
+    std::vector<double> * fTreeVarLogLikelihoodComp_BW_Thad;
+    std::vector<double> * fTreeVarLogLikelihoodComp_BW_Tlep;
+
     std::vector<double> * fTreeVarMinuitStatus; 
     std::vector<unsigned int> * fTreeVarConvergenceStatus; 
     std::vector<double> * fTreeVarIntegral;
