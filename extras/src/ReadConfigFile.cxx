@@ -23,6 +23,7 @@ KLFitter::ReadConfigFile::ReadConfigFile(std::string filename)
   output_path="output.root";
 
   //Following variables are obsolete and not used anymore
+  //Following variables are obsolete and not used anymore
   IsBkg = false;
   FlagAthenaComp   = false;
   DO_BATCH    = false;
