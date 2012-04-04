@@ -136,6 +136,17 @@ namespace KLFitter
      * @return An error code. 
      */ 
     int InvariantParticlePermutations(KLFitter::Particles::ParticleType ptype, std::vector<int> indexVector);
+    
+     /**
+     * Remove permutations in which a certain particles is in a certain position.
+     * This is useful to reduce the number of permutations if for example
+     * a b-tagged jet is forbidden in the position of a light jet.
+     * @param ptype The type of the particle.
+     * @param index The index of the particle.
+     * @param position The position in which it is forbidden.
+     * @return An error code. 
+     */ 
+    int RemoveParticlePermutations(KLFitter::Particles::ParticleType ptype, int index, int position);     
 
     /**
      * Reset Permutations. 

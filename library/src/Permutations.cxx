@@ -451,6 +451,56 @@ int KLFitter::Permutations::InvariantParticlePermutations(KLFitter::Particles::P
 }
 
 // --------------------------------------------------------- 
+
+int KLFitter::Permutations::RemoveParticlePermutations(KLFitter::Particles::ParticleType ptype, int index, int position) {
+  // check if particles are defined
+  if (!CheckParticles())
+    return 0; 
+
+  // check index
+  if (index < 0 || index >= (*fParticles)->NParticles(ptype)) {
+    std::cout << "KLFitter::Permutations::RemoveParticlePermutations(). Index out of range." << std::endl; 
+    return 0; 
+  }
+
+  // check particles table 
+  if (!fParticlesTable) {
+    std::cout << "KLFitter::Permutations::RemoveParticlePermutations(). Table does not exist yet." << std::endl; 
+    return 0; 
+  }
+ 
+  // check permutation table
+  if (!fPermutationTable) {
+      std::cout << "KLFitter::Permutations::RemoveParticlePermutations(). Table of parton permutations does not exist." << std::endl; 
+      return 0; 
+  }
+ 
+  // get offset for the particle type
+  int offset = 0;
+  for (KLFitter::Particles::ParticleType itype = KLFitter::Particles::kParton; itype < ptype; ++itype)
+    offset += (*fParticles)->NParticles(itype);
+  position += offset;
+
+  // loop over all permutations
+  for (int iPerm(NPermutations()-1); iPerm >= 0; --iPerm) {
+    std::vector<int> * permutation = (*fPermutationTable)[iPerm]; 
+
+    if ((*permutation)[position] == index) {
+      std::vector<int> * pt = (*fPermutationTable)[iPerm];
+      fPermutationTable->erase(fPermutationTable->begin() + iPerm);
+      delete pt;
+
+      KLFitter::Particles * p = (*fParticlesTable)[iPerm];
+      fParticlesTable->erase(fParticlesTable->begin() + iPerm);
+      delete p;
+    }
+  }
+
+  // return error code;
+  return 1;
+}
+
+// --------------------------------------------------------- 
 int KLFitter::Permutations::CheckParticles()
 {
   // check if particles are defined

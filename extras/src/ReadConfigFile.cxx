@@ -23,7 +23,6 @@ KLFitter::ReadConfigFile::ReadConfigFile(std::string filename)
   output_path="output.root";
 
   //Following variables are obsolete and not used anymore
-  //Following variables are obsolete and not used anymore
   IsBkg = false;
   FlagAthenaComp   = false;
   DO_BATCH    = false;
@@ -197,6 +196,8 @@ int KLFitter::ReadConfigFile::ReadConfig(std::string filename)
             BTaggingMethod=KLFitter::LikelihoodBase::kNotag;
           if(tmpstr == "Veto")
             BTaggingMethod=KLFitter::LikelihoodBase::kVeto;
+          if(tmpstr == "VetoNoFit")
+            BTaggingMethod=KLFitter::LikelihoodBase::kVetoNoFit;		  
           if(tmpstr == "WorkingPoint")
             BTaggingMethod=KLFitter::LikelihoodBase::kWorkingPoint;
                   }
@@ -482,6 +483,8 @@ int KLFitter::ReadConfigFile::ReadConfig(std::string filename)
     std::cout<< "BTaggingMethod = Notag"<<std::endl;
   if(BTaggingMethod==KLFitter::LikelihoodBase::kVeto)
     std::cout<< "BTaggingMethod = Veto"<<std::endl;
+  if(BTaggingMethod==KLFitter::LikelihoodBase::kVetoNoFit)
+    std::cout<< "BTaggingMethod = VetoNoFit"<<std::endl;  
   if(BTaggingMethod==KLFitter::LikelihoodBase::kWorkingPoint)
     std::cout<< "BTaggingMethod = WorkingPoint"<<std::endl;
   std::cout<< "CutBTagging = "<<CutBTagging<<std::endl;

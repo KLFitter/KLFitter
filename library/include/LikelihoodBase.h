@@ -45,6 +45,7 @@ namespace KLFitter
     enum BtaggingMethod{
       kNotag,
       kVeto,
+      kVetoNoFit,        
       kWorkingPoint
     };
                 
@@ -306,6 +307,13 @@ namespace KLFitter
      */ 
     virtual int RemoveInvariantParticlePermutations()
     { return 1; }; 
+    
+      /**
+     * Remove forbidden particle permutations.
+     * @return An error code. 
+     */ 
+    virtual int RemoveForbiddenParticlePermutations()
+    { return 1; };      
 
     /**
      * Get initial values for the parameters.

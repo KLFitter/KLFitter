@@ -351,6 +351,41 @@ int KLFitter::LikelihoodTopLeptonJets_JetAngles::RemoveInvariantParticlePermutat
 }
 
 // --------------------------------------------------------- 
+int KLFitter::LikelihoodTopLeptonJets_JetAngles::RemoveForbiddenParticlePermutations()
+{
+  // error code 
+  int err = 1; 
+
+  // only in b-tagging type kVetoNoFit
+  if (fBTagMethod != kVetoNoFit)
+    return err;
+
+  // remove all permutations where a b-tagged jet is in the position of a model light quark
+  KLFitter::Particles * particles = (*fPermutations)->Particles();
+  int nPartons = particles->NPartons();
+
+  KLFitter::Particles * particlesModel = fParticlesModel;
+  int nPartonsModel = particlesModel->NPartons();
+
+  for (int iParton(0); iParton < nPartons; ++iParton) {
+    bool isBtagged = particles->IsBTagged(iParton);
+    if (!isBtagged)
+      continue;
+
+    for (int iPartonModel(0); iPartonModel < nPartonsModel; ++iPartonModel) {
+      KLFitter::Particles::TrueFlavorType trueFlavor = particlesModel->TrueFlavor(iPartonModel);
+      if (trueFlavor != KLFitter::Particles::kLight)
+        continue;
+
+      err *= (*fPermutations)->RemoveParticlePermutations(KLFitter::Particles::kParton, iParton, iPartonModel);
+    }
+  }
+        
+  // return error code 
+  return err; 
+}
+
+// --------------------------------------------------------- 
 int KLFitter::LikelihoodTopLeptonJets_JetAngles::AdjustParameterRanges()
 {
   // adjust limits 

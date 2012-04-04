@@ -45,7 +45,11 @@ int KLFitter::Fitter::SetParticles(KLFitter::Particles * particles)
   // remove invariant permutations if likelihood exists 
   if (fLikelihood)
     fLikelihood->RemoveInvariantParticlePermutations();
-
+  
+  // remove forbidden permutations
+  if (fLikelihood)
+    fLikelihood->RemoveForbiddenParticlePermutations(); 
+  
   // set first permutation 
   if (!fPermutations->SetPermutation(0))
     return 0; 
