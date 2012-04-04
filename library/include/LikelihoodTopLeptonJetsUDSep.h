@@ -196,6 +196,13 @@ namespace KLFitter
      */ 
     int RemoveInvariantParticlePermutations(); 
 
+     /**
+     * Remove forbidden particle permutations.
+     * @return An error code. 
+     */ 
+    int RemoveForbiddenParticlePermutations()
+    { return 1; }; 
+
 
     /**
      * A flag for using an additional reweighting of the permutations with the pT and tag weight probability (default: false);
