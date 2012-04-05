@@ -1,3 +1,9 @@
+2012-04-05 Stefanie Adomeit <stefanie.adomeit@cern.ch>
+
+	* added b-tagging method kVetoNoFit to remove permutations with b-tagged jets in the position of a W-decay parton
+	* added RemoveForbiddenParticlePermutations() method to likelihood classes (needed for kVetoNoFit)
+	* tag KLFitter-00-05-06
+
 2012-02-20 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
 
 	* LikelihoodTopLeptonJetsUDSep: Runtime decreased by 50% now also in case of 5 jet fits.
