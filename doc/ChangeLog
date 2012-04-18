@@ -1,3 +1,8 @@
+2012-04-18 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
+
+	* ResDoubleGaussE_1: Implemented a protection against unstable KLFitter states caused by jets with energies far off the TF validation range.
+	* tag KLFitter-00-05-08
+
 2012-04-05 Stefanie Adomeit <stefanie.adomeit@cern.ch>
 
 	* added b-tagging method kVetoNoFit to remove permutations with b-tagged jets in the position of a W-decay parton
