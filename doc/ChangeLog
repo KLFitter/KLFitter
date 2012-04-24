@@ -1,3 +1,8 @@
+2012-04-24 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
+
+	* ResDoubleGaussE_1: Removed warnings.
+	* tag KLFitter-00-05-09
+
 2012-04-18 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
 
 	* ResDoubleGaussE_1: Implemented a protection against unstable KLFitter states caused by jets with energies far off the TF validation range.
