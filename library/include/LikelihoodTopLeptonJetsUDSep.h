@@ -20,6 +20,7 @@
 #include "TLorentzVector.h"
 #include "ResolutionBase.h"
 #include "TH1F.h"
+#include "TH2F.h"
 
 #include <iostream>
 
@@ -42,7 +43,8 @@ namespace KLFitter
      */
     enum LJetSeparationMethod{
       kNone,
-      kPermReweight
+      kPermReweight,
+      kPermReweight2D
     };
                 
     /** \name Constructors and destructors */ 
@@ -121,6 +123,25 @@ namespace KLFitter
      * @return The probability.
      */ 
     double BJetTagWeight(double tagweight); 
+//
+    /**
+     * Returns the probability of a jet to have the tag weight and pT of an up type jet.
+     * @return The probability.
+     */ 
+    double UpJetProb(double tagweight, double pt); 
+
+    /**
+     * Returns the probability of a jet to have the tag weight and pT of an down type jet.
+     * @return The probability.
+     */ 
+    double DownJetProb(double tagweight, double pt); 
+
+    /**
+     * Returns the probability of a jet to have the tag weight and pT of an b type jet.
+     * @return The probability.
+     */ 
+    double BJetProb(double tagweight, double pt); 
+//
 
     /**
      * Set histogram for pT distribution of up jets (reco level).
@@ -176,6 +197,27 @@ namespace KLFitter
      * @return Permutation of the invariant partner, -1 if there is no one. 
      */
     int LHInvariantPermutationPartner(int iperm, int nperms, int &switchpar1, int &switchpar2);
+
+    /**
+     * Set histogram for tag weight distribution of up type jets.
+     * @param hist Pointer to histogram. 
+     * @return An error flag.
+     */ 
+    int SetUpJet2DWeightHisto(TH2F* hist) { fUpJet2DWeightHisto = hist; return 1; } 
+
+    /**
+     * Set histogram for tag weight distribution of down type jets.
+     * @param hist Pointer to histogram. 
+     * @return An error flag.
+     */ 
+    int SetDownJet2DWeightHisto(TH2F* hist) { fDownJet2DWeightHisto = hist; return 1; } 
+
+    /**
+     * Set histogram for tag weight distribution of b jets.
+     * @param hist Pointer to histogram. 
+     * @return An error flag.
+     */ 
+    int SetBJet2DWeightHisto(TH2F* hist) { fBJet2DWeightHisto = hist; return 1; }
 
 
   protected: 
@@ -238,6 +280,21 @@ namespace KLFitter
      * A pointer to the histogram of the up b tag weight distribution. 
      */ 
     TH1F* fBJetTagWeightHisto; 
+
+    /**
+     * A pointer to the 2d histogram "tag weight vs. pT for upQuarks"
+     */ 
+    TH2F* fUpJet2DWeightHisto; 
+
+    /**
+     * A pointer to the 2d histogram "tag weight vs. pT for downQuarks"
+     */ 
+    TH2F* fDownJet2DWeightHisto; 
+
+    /**
+     * A pointer to the 2d histogram "tag weight vs. pT for bQuarks"
+     */ 
+    TH2F* fBJet2DWeightHisto; 
 
 
     /* @} */

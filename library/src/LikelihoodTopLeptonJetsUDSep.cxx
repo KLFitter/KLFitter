@@ -176,13 +176,17 @@ double KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbability()
 // --------------------------------------------------------- 
 double KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityLJetReweight()
 {
+//	  std::cout <<  " KDEBUG! Extraweight " << std::endl;
+  double logprob = 0; 
+switch (fLJetSeparationMethod){
+
+case kPermReweight:
 
   if (!(fUpJetPtHisto && fDownJetPtHisto&& fBJetPtHisto && fUpJetTagWeightHisto && fDownJetTagWeightHisto && fBJetTagWeightHisto)) {
     std::cout <<  " KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityLJetReweight() : Histograms were not set properly! " << std::endl;
     return -1e99; 
   }
 
-  double logprob = 0; 
 
     for (int i = 0; i < fParticlesModel->NPartons(); ++i){
       // get index of corresponding measured particle. 
@@ -200,18 +204,66 @@ double KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityLJetReweight()
       if(trueFlavor==KLFitter::Particles::kB) {
   	logprob += log(BJetPt((*fParticlesPermuted)->Parton(index)->Pt())); 	  
   	logprob += log(BJetTagWeight((*fParticlesPermuted)->BTagWeight(index))); 
+//std::cout<<"DEBUG! adding pT weight for b: "<<BJetPt((*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
+//std::cout<<"DEBUG! adding tag weight for b: "<<BJetTagWeight((*fParticlesPermuted)->BTagWeight(index))<<std::endl;
       }
       if(trueFlavor==KLFitter::Particles::kLightUp) {
   	logprob += log(UpJetPt((*fParticlesPermuted)->Parton(index)->Pt())); 	  
   	logprob += log(UpJetTagWeight((*fParticlesPermuted)->BTagWeight(index))); 
+//std::cout<<"DEBUG! adding pT weight for b: "<<UpJetPt((*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
+//std::cout<<"DEBUG! adding tag weight for b: "<<UpJetTagWeight((*fParticlesPermuted)->BTagWeight(index))<<std::endl;
       }
       if(trueFlavor==KLFitter::Particles::kLightDown) {
   	logprob += log(DownJetPt((*fParticlesPermuted)->Parton(index)->Pt())); 
  	logprob += log(DownJetTagWeight((*fParticlesPermuted)->BTagWeight(index))); 
+//std::cout<<"DEBUG! adding pT weight for b: "<<DownJetPt((*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
+//std::cout<<"DEBUG! adding tag weight for b: "<<DownJetTagWeight((*fParticlesPermuted)->BTagWeight(index))<<std::endl;
       }
     }
-
   return logprob; 
+break;
+//////////////////////////////////////////
+case kPermReweight2D:
+  if (!(fUpJet2DWeightHisto && fDownJet2DWeightHisto && fBJet2DWeightHisto)) {
+    std::cout <<  " KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityLJetReweight() : 2D Histograms were not set properly! " << std::endl;
+    return -1e99; 
+  }
+
+    for (int i = 0; i < fParticlesModel->NPartons(); ++i){
+      // get index of corresponding measured particle. 
+
+      int index = fParticlesModel->JetIndex(i); 
+
+	if (index<0) { 
+	  continue; 
+	}
+        if (!((*fParticlesPermuted)->BTagWeightSet(index))){
+	  std::cout <<  " KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityLJetReweight() : bTag weight for particle was not set ! " << std::endl;
+	  return -1e99;
+        }
+      KLFitter::Particles::TrueFlavorType trueFlavor = fParticlesModel->TrueFlavor(i);
+      if(trueFlavor==KLFitter::Particles::kB) {
+	logprob += log(BJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt()));
+//std::cout<<"DEBUG! adding prob weight for b: "<<BJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
+
+      }
+      if(trueFlavor==KLFitter::Particles::kLightUp) {
+	logprob += log(UpJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt()));
+//std::cout<<"DEBUG! adding prob weight for up: "<<UpJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
+      }
+      if(trueFlavor==KLFitter::Particles::kLightDown) {
+	logprob += log(DownJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt()));
+//std::cout<<"DEBUG! adding prob weight for down: "<<DownJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
+      }
+    }
+  return logprob; 
+break;
+
+default:
+  return logprob; 
+break;
+
+}
 }
 
 // --------------------------------------------------------- 
@@ -312,10 +364,28 @@ return fBJetTagWeightHisto->GetBinContent(fBJetTagWeightHisto->GetXaxis()->FindB
 }
 
 // --------------------------------------------------------- 
+double KLFitter::LikelihoodTopLeptonJetsUDSep::UpJetProb(double tagweight, double pt)
+{
+return fUpJet2DWeightHisto->GetBinContent(fUpJet2DWeightHisto->GetXaxis()->FindBin(tagweight), fUpJet2DWeightHisto->GetYaxis()->FindBin(pt));
+}
+
+// --------------------------------------------------------- 
+double KLFitter::LikelihoodTopLeptonJetsUDSep::DownJetProb(double tagweight, double pt)
+{
+return fDownJet2DWeightHisto->GetBinContent(fDownJet2DWeightHisto->GetXaxis()->FindBin(tagweight), fDownJet2DWeightHisto->GetYaxis()->FindBin(pt));
+}
+
+// --------------------------------------------------------- 
+double KLFitter::LikelihoodTopLeptonJetsUDSep::BJetProb(double tagweight, double pt)
+{
+return fBJet2DWeightHisto->GetBinContent(fBJet2DWeightHisto->GetXaxis()->FindBin(tagweight), fBJet2DWeightHisto->GetYaxis()->FindBin(pt));
+}
+
+// --------------------------------------------------------- 
 int KLFitter::LikelihoodTopLeptonJetsUDSep::LHInvariantPermutationPartner(int iperm, int nperms, int &switchpar1, int &switchpar2)
 {
   int partnerid = -1;
-  int cache = iperm%6;
+  int cache = iperm%6; 	
   switch (nperms)
   {
   case 24: 	
@@ -340,4 +410,3 @@ switchpar1 = 2;
 switchpar2 = 3;
 return partnerid;
 }
-
