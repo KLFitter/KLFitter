@@ -4,6 +4,8 @@
  * \author Kevin Kr&ouml;ninger
  * \version 1.3
  * \date 03.12.2009
+ * \added ttH constants: Leonid Serkin
+ * \date 01.12.2011
  *
  * This class contains physics constants. 
  */
@@ -68,6 +70,13 @@ namespace KLFitter
     { return fMassTop; }; 
 
     /**
+     * Return the msas of the Higgs boson in GeV/c2
+     * @return The mass of the particle in GeV/c2. 
+     */ 
+    double MassHiggs()
+    { return fMassHiggs; }; 
+
+    /**
      * Return the width of the W boson in GeV/c2. 
      * @return The width of the particle in GeV/c2. 
      */ 
@@ -80,6 +89,15 @@ namespace KLFitter
      */ 
     double GammaTop()
     { return fGammaTop; }; 
+
+
+    /**
+     * Return the width of the Higgs boson in GeV/c2
+     * @return The width of the particle in GeV/c2. 
+     */ 
+    double GammaHiggs()
+    { return fGammaHiggs; }; 
+
 
     /* @} */
     /** \name Member functions (Set)  */
@@ -98,6 +116,13 @@ namespace KLFitter
      * @return An error code. 
      */ 
     int SetMassTop(double mass); 
+
+    /**
+     * Set the mass of the Higgs boson in GeV/c2. 
+     * @param mass The mass of the particle in GeV/c2. 
+     * @return An error code. 
+     */ 
+    int SetMassHiggs(double mass); 
 
     /**
      * Set the mass of the W boson in GeV/c2. 
@@ -120,6 +145,14 @@ namespace KLFitter
      */ 
     int SetGammaTop(double gamma); 
 
+
+    /**
+     * Set the width of the Higgs boson in GeV/c2.
+     * @param gamma The width of the particle in GeV/c2. 
+     * @return An error code. 
+     */ 
+    int SetGammaHiggs(double gamma); 
+
     /* @} */
     /** \name Member functions (misc)  */
     /* @{ */
@@ -128,6 +161,12 @@ namespace KLFitter
      * Calculates the top width at NLO. 
      */ 
     void CalculateGammaTop(); 
+
+
+    /**
+     * Calculates the Higgs width using HDECAY. 
+     */ 
+    void CalculateGammaHiggs(); 
 
     /* @} */
 
@@ -149,7 +188,12 @@ namespace KLFitter
      * The top quark pole mass in GeV/c2.
      */ 
     double fMassTop;
-
+ 
+    /**
+     * The Higgs boson mass in GeV/c2.
+     */ 
+    double fMassHiggs;
+    
     /**
      * The W boson width in GeV/c2.
      */ 
@@ -159,6 +203,11 @@ namespace KLFitter
      * The top quark width in GeV/c2.
      */ 
     double fGammaTop;
+
+    /**
+     * The Higgs boson width in GeV/c2.
+     */ 
+    double fGammaHiggs;
 
     /**
      * The Fermi constant. 

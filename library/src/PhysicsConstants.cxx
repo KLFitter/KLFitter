@@ -13,6 +13,11 @@ KLFitter::PhysicsConstants::PhysicsConstants()
   fGammaTop   =   1.5; // top quark width
   fGF         =   1.16637e-5; // in GeV^{-2} 
   fAlphaS     =   0.118; 
+ 
+  //++++++++++++++++//
+  fMassHiggs    = 120.0; // Higgs mass in GeV/c^{2}
+  fGammaHiggs   = 0.003512; // Higgs width
+
 }
 
 // --------------------------------------------------------- 
@@ -58,6 +63,28 @@ int KLFitter::PhysicsConstants::SetMassTop(double mass)
   // no error 
   return 1;
 }
+
+// --------------------------------------------------------- 
+int KLFitter::PhysicsConstants::SetMassHiggs(double mass)
+{
+  // check argument 
+  if (mass < 0)
+    {
+      std::cout << "KLFitter::PhysicsConstants::SetMassHiggs(). Mass cannot be negative. Set mass to zero." << std::endl; 
+      fMassHiggs = 0.; 
+      return 0; 
+    }
+
+  //set mass 
+  fMassHiggs = mass; 
+
+  // calculate top width
+  CalculateGammaHiggs(); 
+
+  // no error 
+  return 1;
+}
+
 
 // --------------------------------------------------------- 
 int KLFitter::PhysicsConstants::SetMassW(double mass)
@@ -114,6 +141,25 @@ int KLFitter::PhysicsConstants::SetGammaTop(double gamma)
 }
 
 // --------------------------------------------------------- 
+int KLFitter::PhysicsConstants::SetGammaHiggs(double gamma)
+{
+  // check argument 
+  if (gamma < 0)
+    {
+      std::cout << "KLFitter::PhysicsConstants::SetGammaHiggs(). Width cannot be negative. Set width to zero." << std::endl; 
+      fGammaHiggs = 0.; 
+      return 0; 
+    }
+
+  //set gamma 
+  fGammaHiggs = gamma; 
+
+  // no error 
+  return 1;
+}
+
+
+// --------------------------------------------------------- 
 void KLFitter::PhysicsConstants::CalculateGammaTop()
 {
   // use formula used in: 
@@ -130,5 +176,48 @@ void KLFitter::PhysicsConstants::CalculateGammaTop()
 
   SetGammaTop(gamma);
 }
+
+// --------------------------------------------------------- 
+
+void KLFitter::PhysicsConstants::CalculateGammaHiggs()
+{
+  // numbers calculated by HDECAY
+  // A.Djouadi, J.Kalinowski and M.Spira, 
+  // Comp. Phys. Commun. 108 C (1998) 56, hep-ph/9704448. 
+  // 
+  //   MHSM(GeV)     WIDTH(GeV/c2)
+  //   __________________________
+  //
+  //    110.000       0.2849E-02	
+  //    115.000	      0.3124E-02
+  //    120.000       0.3512E-02
+  //    125.000       0.4078E-02
+  //    130.000       0.4920E-02
+  //    140.000	      0.8196E-02
+  
+  double gamma = 0.0;
+
+  if ( fMassHiggs < 111.0)
+    gamma = 0.002849;
+  if ( fMassHiggs > 114.0 && fMassHiggs < 116.0)
+    gamma = 0.003124;
+  if ( fMassHiggs > 119.0 && fMassHiggs < 121.0)
+    gamma = 0.003512;
+  if ( fMassHiggs > 124.0 && fMassHiggs < 126.0)
+    gamma = 0.004078;
+  if ( fMassHiggs > 129.0 && fMassHiggs < 131.0)
+    gamma = 0.004920;
+  if ( fMassHiggs > 139.0  )
+    gamma = 0.008196;
+
+  SetGammaHiggs(gamma);
+}
+
+
+
+
+
+
+
 
 // --------------------------------------------------------- 
