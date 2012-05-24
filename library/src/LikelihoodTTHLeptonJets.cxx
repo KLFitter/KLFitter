@@ -2,7 +2,6 @@
 #include "ResolutionBase.h"
 #include "Particles.h"
 #include "Permutations.h"
-#include "PhysicsConstantsHiggs.h"
 #include "PhysicsConstants.h"
 #include "DetectorBase.h"
 
