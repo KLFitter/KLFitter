@@ -17,7 +17,8 @@
 KLFitter::DetectorAtlas_7TeV::DetectorAtlas_7TeV(std::string folder) : DetectorBase() 
 {
   //check: MC11b? New parametrization!
-  if (strstr(folder.c_str(), "mc11b")){
+  if ((strstr(folder.c_str(), "mc11b"))||(strstr(folder.c_str(), "mc11c"))){
+std::cout<<"Using TF from MC11b or later..."<<std::endl;
   // energy resolution 
   fResEnergyLightJet_eta1 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_lJets_eta1.txt", folder.c_str())); 
   fResEnergyBJet_eta1     = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_bJets_eta1.txt", folder.c_str())); 
@@ -49,7 +50,7 @@ KLFitter::DetectorAtlas_7TeV::DetectorAtlas_7TeV(std::string folder) : DetectorB
   fResEnergyLightJet_eta5 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_lJets_eta5.txt", folder.c_str())); 
   fResEnergyBJet_eta5     = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_bJets_eta5.txt", folder.c_str()));
   } else  {
-std::cout<<"DEBUG! NOT MC11b"<<std::endl;
+std::cout<<"Using TF from MC11a or earlier..."<<std::endl;
   // energy resolution 
   fResEnergyLightJet_eta1 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_lJets_eta1.txt", folder.c_str())); 
   fResEnergyBJet_eta1     = new KLFitter::ResDoubleGaussE_2(Form("%s/par_energy_bJets_eta1.txt", folder.c_str())); 
