@@ -1,3 +1,13 @@
+2012-06-05 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
+
+	* Included transfer functions for MC11c
+	* tag KLFitter-00-05-11
+
+2012-05-25 Leonid Serkin <lserkin@cern.ch>
+
+	* Added LikelihoodTTHLeptonJets
+	* tag KLFitter-00-05-10
+
 2012-04-24 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
 
 	* ResDoubleGaussE_1: Removed warnings.

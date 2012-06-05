@@ -1,4 +1,3 @@
- What changed in MC11b?
--Switched from R16 to R17
--Much higher statistics. TFs fittet up to 600 GeV (instead of 300 GeV)
--New parametrizations of the TFs
+ What changed in MC11c?
+-jet recalibration
+-Much higher statistics (added 117200 sample). TFs fittet up to 1000 GeV (instead of 600 GeV)
