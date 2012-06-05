@@ -1,5 +1,13 @@
 2012-06-05 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
 
+	* Changed interfaces to be ready for BAT-0.9
+	* WARNING: version is incompatible with BAT versions earlier than 0.9!
+	* Likelihood*.cxx/.h: parameter vector is now passed as constant reference.
+	* LikelihoodTopLeptonJets_JetAngles.cxx: Copy of parameters that need to be modified.
+	* tag KLFitter-00-05-12
+
+2012-06-05 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
+
 	* Included transfer functions for MC11c
 	* tag KLFitter-00-05-11
 
