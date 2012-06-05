@@ -117,7 +117,7 @@ namespace KLFitter
      * @param parameters A vector of parameters (double values). 
      * @return The logarithm of the prior probability. 
      */
-    virtual double LogAPrioriProbability(std::vector <double> KLFITTER_UNUSED(parameters))
+    virtual double LogAPrioriProbability(const std::vector <double> & KLFITTER_UNUSED(parameters))
     { return 0; }; 
                 
     /** 
@@ -125,7 +125,7 @@ namespace KLFitter
      * @param parameters A vector of parameters (double values). 
      * @return The logarithm of the prior probability. 
      */
-    virtual double LogLikelihood(std::vector <double> parameters); 
+    virtual double LogLikelihood(const std::vector <double> & parameters); 
 
     /** 
      * The posterior probability definition, overloaded from BCModel. Split up into several subcomponents 

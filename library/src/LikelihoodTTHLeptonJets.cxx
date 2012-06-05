@@ -523,7 +523,7 @@ int KLFitter::LikelihoodTTHLeptonJets::AdjustParameterRanges()
 }
 
 // --------------------------------------------------------- 
-double KLFitter::LikelihoodTTHLeptonJets::LogLikelihood(std::vector<double> parameters)
+double KLFitter::LikelihoodTTHLeptonJets::LogLikelihood(const std::vector<double> & parameters)
 {
   // calculate 4-vectors 
   CalculateLorentzVectors(parameters); 

@@ -511,7 +511,7 @@ int KLFitter::LikelihoodTopLeptonJets_JetAngles::AdjustParameterRanges()
 }
 
 // --------------------------------------------------------- 
-double KLFitter::LikelihoodTopLeptonJets_JetAngles::LogLikelihood(std::vector<double> parameters)
+double KLFitter::LikelihoodTopLeptonJets_JetAngles::LogLikelihood(const std::vector<double> & parameters)
 {
   //    // check if W mass is within range
   //    TLorentzVector Whad; 
@@ -578,32 +578,40 @@ double KLFitter::LikelihoodTopLeptonJets_JetAngles::LogLikelihood(std::vector<do
   logprob += log( (*fDetector)->ResEtaLightJet((*fParticlesPermuted)->DetEta(2, KLFitter::Particles::kParton))->p(parameters[10], parton2->Eta(), TFgoodTmp) ); if (!TFgoodTmp) fTFgood = false;
   logprob += log( (*fDetector)->ResEtaLightJet((*fParticlesPermuted)->DetEta(3, KLFitter::Particles::kParton))->p(parameters[11], parton3->Eta(), TFgoodTmp) ); if (!TFgoodTmp) fTFgood = false;
 
+  double temp_phi_angles[4];
+
+  temp_phi_angles[0] = parameters[12];
+  temp_phi_angles[1] = parameters[13];
+  temp_phi_angles[2] = parameters[14];
+  temp_phi_angles[3] = parameters[15];
+
+
   // check phi variable
-  if (parameters[12] < -fPi)
-    parameters[12] += fTwoPi; 
-  if (parameters[12] > fPi)
-    parameters[12] -= fTwoPi; 
+  if (temp_phi_angles[0] < -fPi)
+    temp_phi_angles[0] += fTwoPi; 
+  if (temp_phi_angles[0] > fPi)
+    temp_phi_angles[0] -= fTwoPi; 
 
-  if (parameters[13] < -fPi)
-    parameters[13] += fTwoPi; 
-  if (parameters[13] > fPi)
-    parameters[13] -= fTwoPi; 
+  if (temp_phi_angles[1] < -fPi)
+    temp_phi_angles[1] += fTwoPi; 
+  if (temp_phi_angles[1] > fPi)
+    temp_phi_angles[1] -= fTwoPi; 
 
-  if (parameters[14] < -fPi)
-    parameters[14] += fTwoPi; 
-  if (parameters[14] > fPi)
-    parameters[14] -= fTwoPi; 
+  if (temp_phi_angles[2] < -fPi)
+    temp_phi_angles[2] += fTwoPi; 
+  if (temp_phi_angles[2] > fPi)
+    temp_phi_angles[2] -= fTwoPi; 
 
-  if (parameters[15] < -fPi)
-    parameters[15] += fTwoPi; 
-  if (parameters[15] > fPi)
-    parameters[15] -= fTwoPi; 
+  if (temp_phi_angles[3] < -fPi)
+    temp_phi_angles[3] += fTwoPi; 
+  if (temp_phi_angles[3] > fPi)
+    temp_phi_angles[3] -= fTwoPi; 
         
   // phi resolution (this implementation assumes a symmetric phi resolution function
-  double diff0 = fabs(parameters[12]-parton0->Phi());
-  double diff1 = fabs(parameters[13]-parton1->Phi());
-  double diff2 = fabs(parameters[14]-parton2->Phi());
-  double diff3 = fabs(parameters[15]-parton3->Phi());
+  double diff0 = fabs(temp_phi_angles[0]-parton0->Phi());
+  double diff1 = fabs(temp_phi_angles[1]-parton1->Phi());
+  double diff2 = fabs(temp_phi_angles[2]-parton2->Phi());
+  double diff3 = fabs(temp_phi_angles[3]-parton3->Phi());
 
   if (diff0>fPi)
     diff0 -= fTwoPi;
