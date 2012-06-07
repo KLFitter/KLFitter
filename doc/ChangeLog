@@ -1,3 +1,10 @@
+2012-06-07 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+
+	* included and adapted LikelihoodSgTopWtLJ class as developed by Thomas Loddenkoetter
+      library/src/LikelihoodSgTopWtLJ.cxx
+      library/include/LikelihoodSgTopWtLJ.h
+	* tag KLFitter-00-05-13
+
 2012-06-05 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
 
 	* Changed interfaces to be ready for BAT-0.9
