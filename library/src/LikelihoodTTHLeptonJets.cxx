@@ -593,7 +593,7 @@ double KLFitter::LikelihoodTTHLeptonJets::LogLikelihood(const std::vector<double
 
   //++++++++++++++++//
   // Breit-Wigner of Higgs decaying into 2 b-quark
-  logprob += BCMath::LogBreitWignerRel(Higgs_fit_m, parameters[parHiggsM], gammaHiggs); 
+  if (fFlagHiggsMassFixed) logprob += BCMath::LogBreitWignerRel(Higgs_fit_m, parameters[parHiggsM], gammaHiggs); 
 
   //++++++++++++++++//
 

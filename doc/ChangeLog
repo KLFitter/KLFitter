@@ -1,3 +1,8 @@
+2012-06-18 Olaf Nackenhorst, Boris lemmer <olaf.nackenhorst@phys.uni-goettingen.de boris.lemmer@phys.uni-goettingen.de>
+
+	* LikelihoodTTHLeptonJets: turn off mass term in LH if using fixed higgs mass
+	* tag KLFitter-00-05-14
+
 2012-06-07 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
 
 	* included and adapted LikelihoodSgTopWtLJ class as developed by Thomas Loddenkoetter
