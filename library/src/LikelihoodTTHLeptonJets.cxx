@@ -186,7 +186,7 @@ void KLFitter::LikelihoodTTHLeptonJets::DefineParameters()
   AddParameter("top mass",              100.0, 1000.0);                             // parTopM
   AddParameter("energy Higgs b quark 1",  fPhysicsConstants->MassBottom(), 1000.0); // parBHiggs1E
   AddParameter("energy Higgs b quark 2",  fPhysicsConstants->MassBottom(), 1000.0); // parBHiggs2E
-  AddParameter("Higgs mass",              100.0, 1000.0);                             // parHiggsM
+  if (fFlagTopMassFixed)  AddParameter("Higgs mass",              100.0, 1000.0);   // parHiggsM
   //++++++++++++++++//
 }
 
@@ -665,12 +665,14 @@ std::vector<double> KLFitter::LikelihoodTTHLeptonJets::GetInitialParametersWoNeu
 
   //++++++++++++++++//
   // Higgs mass
-  double mhiggs = ( *(*fParticlesPermuted)->Parton(4) + *(*fParticlesPermuted)->Parton(5)).M(); 
-  if (mhiggs < GetParameter(parHiggsM)->GetLowerLimit())
-    mhiggs = GetParameter(parHiggsM)->GetLowerLimit(); 
-  else if (mhiggs > GetParameter(parHiggsM)->GetUpperLimit())
-    mhiggs = GetParameter(parHiggsM)->GetUpperLimit(); 
-  values[parHiggsM] = mhiggs;
+  if (fFlagHiggsMassFixed){
+	double mhiggs = ( *(*fParticlesPermuted)->Parton(4) + *(*fParticlesPermuted)->Parton(5)).M(); 
+	if (mhiggs < GetParameter(parHiggsM)->GetLowerLimit())
+	mhiggs = GetParameter(parHiggsM)->GetLowerLimit(); 
+	else if (mhiggs > GetParameter(parHiggsM)->GetUpperLimit())
+	mhiggs = GetParameter(parHiggsM)->GetUpperLimit(); 
+	values[parHiggsM] = mhiggs;
+  }
   //++++++++++++++++//
 
 
@@ -969,7 +971,7 @@ std::vector<double> vecci;
   vecci.push_back(BCMath::LogBreitWignerRel(tlep_fit_m, parameters[parTopM], gammaTop)); //comp12
 
   // Breit-Wigner of Higgs decaying into 2 b-quark
-  vecci.push_back(BCMath::LogBreitWignerRel(Higgs_fit_m, parameters[parHiggsM], gammaHiggs)); //comp13
+  if (fFlagHiggsMassFixed)  vecci.push_back(BCMath::LogBreitWignerRel(Higgs_fit_m, parameters[parHiggsM], gammaHiggs)); //comp13
 
   // return log of likelihood 
   return vecci; 
