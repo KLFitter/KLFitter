@@ -1,6 +1,11 @@
+2012-06-18 Boris lemmer <boris.lemmer@phys.uni-goettingen.de>
+
+	* LikelihoodTTHLeptonJets: Remove higgs mass parameter if no fixed higgs mass is used.
+	* tag KLFitter-00-05-15
+
 2012-06-18 Olaf Nackenhorst, Boris lemmer <olaf.nackenhorst@phys.uni-goettingen.de boris.lemmer@phys.uni-goettingen.de>
 
-	* LikelihoodTTHLeptonJets: turn off mass term in LH if using fixed higgs mass
+	* LikelihoodTTHLeptonJets: turn off mass term in LH if not using fixed higgs mass
 	* tag KLFitter-00-05-14
 
 2012-06-07 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
