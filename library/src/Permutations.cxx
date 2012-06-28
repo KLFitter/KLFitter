@@ -449,7 +449,135 @@ int KLFitter::Permutations::InvariantParticlePermutations(KLFitter::Particles::P
   // return error code 
   return err; 
 }
+// --------------------------------------------------------- 
+int KLFitter::Permutations::InvariantParticleGroupPermutations(KLFitter::Particles::ParticleType ptype, std::vector<int> indexVectorPosition1,  std::vector<int> indexVectorPosition2)
+{
+  // check if particles are defined
+  if (!CheckParticles())
+    return 0; 
+  
+  // check if index vectors have the same size
+  if (indexVectorPosition1.size()!=indexVectorPosition2.size())
+    {
+      std::cout << "KLFitter::Permutations::InvariantParticleGroupPermutations(). Index Vectors need to have the same size." << std::endl; 
+      return 0; 
+    }
+ 
+  // check indices 
+  std::set<int> indexSetPosition1;
+  std::set<int> indexSetPosition2;  
+  for (unsigned int i = 0, I = indexVectorPosition1.size(); i < I; i++)
+    {
+      if (indexSetPosition1.find(indexVectorPosition1[i]) != indexSetPosition1.end())
+        {
+          std::cout << "KLFitter::Permutations::InvariantParticleGroupPermutations(). Indices within same index vector have to be different." << std::endl; 
+          return 0; 
+        }
+      else if (indexSetPosition2.find(indexVectorPosition2[i]) != indexSetPosition2.end())
+        {
+          std::cout << "KLFitter::Permutations::InvariantParticleGroupPermutations(). Indices within same index vector have to be different." << std::endl; 
+          return 0; 
+        }
+      else if (indexVectorPosition1[i] == indexVectorPosition2[i])
+        {
+          std::cout << "KLFitter::Permutations::InvariantParticleGroupPermutations(). Indices have to be different." << std::endl; 
+          return 0; 	
+        }
+     else
+        {
+	  indexSetPosition1.insert(indexVectorPosition1[i]);
+          indexSetPosition2.insert(indexVectorPosition2[i]);
+        }
+    }
 
+  for (unsigned int i = 0, I = indexVectorPosition1.size(); i < I; i++)
+    {
+      int index1 = indexVectorPosition1[i];     
+      if (index1 < 0 || index1 >= (*fParticles)->NParticles(ptype))
+        {
+          std::cout << "KLFitter::Permutations::InvariantParticleGroupPermutations(). Index out of range." << index1 << " " << (*fParticles)->NParticles(ptype) << std::endl; 
+          return 0; 
+        }
+      int index2 = indexVectorPosition2[i]; 
+      if (index2 < 0 || index2 >= (*fParticles)->NParticles(ptype))
+        {
+          std::cout << "KLFitter::Permutations::InvariantParticleGroupPermutations(). Index out of range." << index2 << " " << (*fParticles)->NParticles(ptype) << std::endl; 
+          return 0; 
+        }      
+    }
+
+  // swap indices 
+  indexVectorPosition1.clear();
+  std::set<int>::iterator it_indexSetPosition1Begin = indexSetPosition1.begin();
+  std::set<int>::iterator it_indexSetPosition1End   = indexSetPosition1.end();
+  for (; it_indexSetPosition1Begin != it_indexSetPosition1End; it_indexSetPosition1Begin++)
+    indexVectorPosition1.push_back(*it_indexSetPosition1Begin);
+
+  // check particles table 
+  if (!fParticlesTable)
+    {
+      std::cout << "KLFitter::Permutations::InvariantParticleGroupPermutations(). Table does not exist yet." << std::endl; 
+      return 0; 
+    }
+ 
+  // check permutation table
+  if (!fPermutationTable)
+    {
+      std::cout << "KLFitter::Permutations::InvariantParticleGroupPermutations(). Table of parton permutations doesn ot exist." << std::endl; 
+      return 0; 
+    }
+ 
+  // no error 
+  int err = 1; 
+
+  // loop over all permutations
+  // get number of permutations 
+  int nperm = NPermutations(); 
+
+  for (int iperm1 = nperm-1; iperm1 >= 1; --iperm1)
+    {
+      int offset = 0;
+      for (KLFitter::Particles::ParticleType itype = KLFitter::Particles::kParton; itype < ptype; ++itype)
+        offset += (*fParticles)->NParticles(itype);
+	  
+      // get permutation 
+      std::vector<int> * permutation1 = (*fPermutationTable)[iperm1]; 
+	  
+      for(int iperm2 = iperm1-1; iperm2 >= 0; --iperm2)
+        {
+          // get second permutation 
+          std::vector<int> * permutation2 = (*fPermutationTable)[iperm2]; 
+	    
+	  // loop over index vectors
+	     
+	  unsigned int numberOfInvariantMatches(0);
+	      
+          for (unsigned int i = 0, I = indexVectorPosition1.size(); i < I; i++)	    
+	    {
+	      int indexPosition1 = indexVectorPosition1[i] + offset;
+              int indexPosition2 = indexVectorPosition2[i] + offset;
+		      
+              // check indices 
+	      if ((*permutation1)[indexPosition1] == (*permutation2)[indexPosition2] && (*permutation1)[indexPosition2] == (*permutation2)[indexPosition1])
+		numberOfInvariantMatches ++;
+	    }
+		
+	    if (numberOfInvariantMatches == indexVectorPosition1.size())
+	      {
+	        std::vector <int> * pt = (*fPermutationTable)[iperm2]; 
+                fPermutationTable->erase( fPermutationTable->begin() + iperm2 ); 
+	        delete pt; 
+
+                KLFitter::Particles * p = (*fParticlesTable)[iperm2]; 
+	        fParticlesTable->erase( fParticlesTable->begin() + iperm2 ); 
+	        delete p;
+	      }
+        } // second permutation     
+    } // first permutation
+
+  // return error code 
+  return err; 
+}
 // --------------------------------------------------------- 
 
 int KLFitter::Permutations::RemoveParticlePermutations(KLFitter::Particles::ParticleType ptype, int index, int position) {

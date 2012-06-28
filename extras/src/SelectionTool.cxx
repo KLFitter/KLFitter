@@ -51,6 +51,7 @@ int KLFitter::SelectionTool::SelectObjects(KLFitter::Particles * particles)
 
   // jet selection
   int npartons = particles->NPartons(); 
+ 
 
   for (int i = 0; i < npartons; ++i)
     {
@@ -63,7 +64,9 @@ int KLFitter::SelectionTool::SelectObjects(KLFitter::Particles * particles)
         continue; 
 
       // add jet 
-      fParticlesSelected->AddParticle( new TLorentzVector(*particles->Parton(i)),
+      TLorentzVector * tlv_tmp = new TLorentzVector(*particles->Parton(i));
+      fParticlesSelected->AddParticle( tlv_tmp,
+//				       new TLorentzVector(*particles->Parton(i)),
                                        particles->DetEta(i, KLFitter::Particles::kParton),
                                        KLFitter::Particles::kParton, 
                                        particles->NameParticle(i, KLFitter::Particles::kParton),
@@ -78,7 +81,11 @@ int KLFitter::SelectionTool::SelectObjects(KLFitter::Particles * particles)
 
       // add index to map 
       fMapJets.push_back(i); 
+      delete tlv_tmp;
     }
+
+
+
 
   // electron selection 
   int nelectrons = particles->NElectrons(); 
@@ -92,15 +99,17 @@ int KLFitter::SelectionTool::SelectObjects(KLFitter::Particles * particles)
       // check pT 
       if (particles->Electron(i)->Pt() < fElectronPt)
         continue; 
-
+      TLorentzVector * tlv_tmp = new TLorentzVector(*particles->Electron(i));
       // add electron 
-      fParticlesSelected->AddParticle( new TLorentzVector(*particles->Electron(i)),
+      fParticlesSelected->AddParticle( tlv_tmp, 
+//				       new TLorentzVector(*particles->Electron(i)),
                                        particles->DetEta(i, KLFitter::Particles::kElectron),
                                        KLFitter::Particles::kElectron, 
                                        particles->NameParticle(i, KLFitter::Particles::kElectron),
                                        particles->ElectronIndex(i));
       // add index to map 
       fMapElectrons.push_back(i); 
+      delete tlv_tmp;
     }
 
   // muon selection 
@@ -115,9 +124,10 @@ int KLFitter::SelectionTool::SelectObjects(KLFitter::Particles * particles)
       // check pT 
       if (particles->Muon(i)->Pt() < fMuonPt)
         continue; 
-
+      TLorentzVector * tlv_tmp = new TLorentzVector(*particles->Muon(i));
       // add muon 
-      fParticlesSelected->AddParticle( new TLorentzVector(*particles->Muon(i)),
+      fParticlesSelected->AddParticle( tlv_tmp,  
+//				       new TLorentzVector(*particles->Muon(i)),
                                        particles->DetEta(i, KLFitter::Particles::kMuon),
                                        KLFitter::Particles::kMuon, 
                                        particles->NameParticle(i, KLFitter::Particles::kMuon),
@@ -125,6 +135,7 @@ int KLFitter::SelectionTool::SelectObjects(KLFitter::Particles * particles)
 
       // add index to map 
       fMapMuons.push_back(i); 
+      delete tlv_tmp;
     }
 
   // photon selection 
@@ -139,9 +150,10 @@ int KLFitter::SelectionTool::SelectObjects(KLFitter::Particles * particles)
       // check pT 
       if (particles->Photon(i)->Pt() < fPhotonPt)
         continue; 
-
+      TLorentzVector * tlv_tmp = new TLorentzVector(*particles->Photon(i));
       // add photon 
-      fParticlesSelected->AddParticle( new TLorentzVector(*particles->Photon(i)),
+      fParticlesSelected->AddParticle( tlv_tmp,   
+//				       new TLorentzVector(*particles->Photon(i)),
                                        particles->DetEta(i, KLFitter::Particles::kPhoton),
                                        KLFitter::Particles::kPhoton, 
                                        particles->NameParticle(i, KLFitter::Particles::kPhoton),
@@ -149,7 +161,10 @@ int KLFitter::SelectionTool::SelectObjects(KLFitter::Particles * particles)
       
       // add index to map 
       fMapPhotons.push_back(i); 
+      delete tlv_tmp;
     }
+
+
 
   // no error 
   return 1; 
@@ -163,6 +178,7 @@ int KLFitter::SelectionTool::SelectEvent(KLFitter::Particles * particles, double
   fMuonPt = ObjectPtCut(fNMuonsPt);
   fJetPt = ObjectPtCut(fNJetsPt);
   fPhotonPt = ObjectPtCut(fNPhotonsPt);
+  
 
   // select objects
   if (!this->SelectObjects(particles))
@@ -213,6 +229,7 @@ int KLFitter::SelectionTool::SelectEvent(KLFitter::Particles * particles, double
   // increase counter 
   fCounterElectrons++; 
   
+  
   // --------------
   // muon selection 
   // --------------
@@ -247,6 +264,7 @@ int KLFitter::SelectionTool::SelectEvent(KLFitter::Particles * particles, double
 
   // increase counter 
   fCounterMuons++; 
+  
                         
   //------------
   // jet selection 
@@ -256,8 +274,7 @@ int KLFitter::SelectionTool::SelectEvent(KLFitter::Particles * particles, double
     {
       // counting variables
       int njets = fParticlesSelected->NPartons(); 
-      int njetcuts = int(fNJetsPt.size()); 
-                        
+      int njetcuts = int(fNJetsPt.size()); 	   
       std::vector<int> njetspt; 
       njetspt.assign(njetcuts, 0); 
                         
@@ -265,8 +282,7 @@ int KLFitter::SelectionTool::SelectEvent(KLFitter::Particles * particles, double
       for (int i = 0; i < njets; ++i)
         {
           // get pt of jet
-          double pt = fParticlesSelected->Parton(i)->Pt(); 
-                                        
+          double pt = fParticlesSelected->Parton(i)->Pt();                                       
           // loop over all cuts and count
           for (int j = 0; j < njetcuts; ++j)
             {
@@ -290,6 +306,7 @@ int KLFitter::SelectionTool::SelectEvent(KLFitter::Particles * particles, double
 
   // increase counter 
   fCounterJets++; 
+  
         
   // --------------
   // photon selection 

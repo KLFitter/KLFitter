@@ -137,6 +137,19 @@ namespace KLFitter
      */ 
     int InvariantParticlePermutations(KLFitter::Particles::ParticleType ptype, std::vector<int> indexVector);
     
+    /**
+     * Remove permutations in which all indices in the vector indexVectorPosition1 are exchanged with the corresponding indices in indexVectorPosition2
+     * for the given particle type.
+     * This is useful to reduce the number of permutations if
+     * interchanging a whole set of particles doesn't have any effect, e.g.,
+     * the particles coming from the two hadronic top quarks in the fully hadronic channel.
+     * @param ptype The type of the particle.
+     * @param indexVectorPosition1 Vector of indices of first set of particle.
+     * @param indexVectorPosition2 Vector of corresponding indices for second set of particle.
+     * @return An error code. 
+     */     
+    int InvariantParticleGroupPermutations(KLFitter::Particles::ParticleType ptype, std::vector<int> indexVectorPosition1,  std::vector<int> indexVectorPosition2);       
+    
      /**
      * Remove permutations in which a certain particles is in a certain position.
      * This is useful to reduce the number of permutations if for example
