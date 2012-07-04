@@ -1,9 +1,6 @@
 /*!
- * \class KLFitter::InterfaceOutput
- * \brief An output interface
- * \author Kevin Kr&ouml;ninger
- * \version 1.3
- * \date 03.12.2009
+ * \class KLFitter::InterfaceOutput_Allhadronic
+ * \brief An output interface 
  *
  * This class is an interface for output data. The data will be
  * written to a Root tree. 
