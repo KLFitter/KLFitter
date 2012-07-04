@@ -1,3 +1,11 @@
+2012-07-04 Stefanie Adomeit <stefanie.adomeit@cern.ch>
+
+	* Added LikelihoodTopAllHadronic + InterfaceOutput_Allhadronic, InterfaceD3PD_Allhadronic 
+	* Added allhadronic example code in examples/top_allhadronic
+	* Permutations.cxx/.h: additional method to remove invariant top1<->top2 permutations for allhadronic likelihood
+	* tag KLFitter-00-05-16
+
+
 2012-06-18 Boris lemmer <boris.lemmer@phys.uni-goettingen.de>
 
 	* LikelihoodTTHLeptonJets: Remove higgs mass parameter if no fixed higgs mass is used.
