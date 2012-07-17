@@ -1,6 +1,7 @@
 /*!
  * \class KLFitter::LikelihoodTopAllHadronic
  * \brief A class implementing a likelihood for the ttbar allhadronic channel. 
+ * \author Stefanie Adomeit
  *
  * This class represents a likelihood for the ttbar allhadronic channel.
  */
