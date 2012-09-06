@@ -330,7 +330,6 @@ int KLFitter::InterfaceD3PD_udsep::FillParticles()
         fParticles->AddParticle(tlv_tmp, jet_deteta->at(i), KLFitter::Particles::kParton, "", i, isTagged, fBtagEff, fBtagRej, KLFitter::Particles::kNone, jet_flavor_weight_JetFitterCombNN->at(i));
     delete tlv_tmp;
 	}
-	std::sort(fParticles->ParticleContainer(KLFitter::Particles::kParton)->begin(),  fParticles->ParticleContainer(KLFitter::Particles::kParton)->end() , KLFitter::Particles::PtOrder);
 
 	//fill electrons  
   for (int i = 0; i < el_n; ++i){
@@ -347,7 +346,6 @@ int KLFitter::InterfaceD3PD_udsep::FillParticles()
     fParticles->AddParticle(tlv_tmp, el_deteta->at(i), KLFitter::Particles::kElectron, "", i);
     delete tlv_tmp;
 	}
-	std::sort(fParticles->ParticleContainer(KLFitter::Particles::kElectron)->begin(),  fParticles->ParticleContainer(KLFitter::Particles::kElectron)->end() , KLFitter::Particles::PtOrder);
 
   // fill muons
   for (int i = 0; i < mu_n; ++i){
@@ -364,7 +362,6 @@ int KLFitter::InterfaceD3PD_udsep::FillParticles()
     fParticles->AddParticle(tlv_tmp, mu_eta->at(i), KLFitter::Particles::kMuon, "", i);
     delete tlv_tmp;
   }
-	std::sort(fParticles->ParticleContainer(KLFitter::Particles::kMuon)->begin(),  fParticles->ParticleContainer(KLFitter::Particles::kMuon)->end() , KLFitter::Particles::PtOrder);
 	
   // check if input is Signal MC
   if (!fFlagWriteSignalMCTruth)

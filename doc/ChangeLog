@@ -1,3 +1,8 @@
+2012-09-06 Boris lemmer <boris.lemmer@phys.uni-goettingen.de>
+
+	* Removed sorting of particle containers in Interface*.
+	* tag KLFitter-00-05-17
+
 2012-07-04 Stefanie Adomeit <stefanie.adomeit@cern.ch>
 
 	* Added LikelihoodTopAllHadronic + InterfaceOutput_Allhadronic, InterfaceD3PD_Allhadronic 
