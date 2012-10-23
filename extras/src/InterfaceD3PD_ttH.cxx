@@ -338,7 +338,7 @@ int KLFitter::InterfaceD3PD_ttH::FillParticles()
 	std::cout << "KLFitter::InterfaceD3PD_ttH::FillParticles(). Jet mass was negative and corrected to 0." << std::endl;
 	tlv_tmp->SetPtEtaPhiM(tlv_tmp->Pt(), tlv_tmp->Eta(), tlv_tmp->Phi(), 0); 
 	} 
-        fParticles->AddParticle(tlv_tmp, jet_deteta->at(i), KLFitter::Particles::kParton, "", i, isTagged, fBtagEff, fBtagRej);
+	fParticles->AddParticle(tlv_tmp, jet_deteta->at(i), KLFitter::Particles::kParton, "", i, isTagged, fBtagEff, fBtagRej, KLFitter::Particles::kNone, jet_MV1->at(i));
     delete tlv_tmp;
 	}
 

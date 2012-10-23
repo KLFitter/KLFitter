@@ -291,14 +291,16 @@ int KLFitter::SelectionTool::SelectEvent(KLFitter::Particles * particles, double
         {
           // get pt of jet
           double pt = fParticlesSelected->Parton(i)->Pt();                                       
-					int tag = fParticlesSelected->IsBTagged(i);
+					double tag = fParticlesSelected->BTagWeight(i);
           // loop over all cuts and count
           for (int j = 0; j < njetcuts; ++j)
             {
               // increase counter if pt larger than cut value 
               if ( pt > fNJetsPt.at(j).value) {
                 njetspt[j]++; 
-								if (tag)
+								// debugKK
+								std::cout << tag << std::endl;
+								if (tag > fNBJets.at(j).value)
 									nbjets++;
 							}
             }
@@ -405,11 +407,11 @@ int KLFitter::SelectionTool::SelectEvent(KLFitter::Particles * particles, double
 }
 
 // --------------------------------------------------------- 
-int KLFitter::SelectionTool::RequireNBJets(int n, int dn){
+int KLFitter::SelectionTool::RequireNBJets(double weight, int n, int dn){
 
   // add cut to set of cuts
   KLFitter::SelectionTool::Cut cut; 
-  cut.value = 0.; 
+  cut.value = weight; 
   cut.n = n; 
   cut.dn = dn; 
 	fNBJets.push_back(cut);

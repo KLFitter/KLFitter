@@ -148,12 +148,12 @@ namespace KLFitter
 
     /**
      * Add a cut on the number of jets.
-     * @param pt The pt. 
+     * @param weight The b-tag weight. 
      * @param n The number. 
      * @param dn Tolerance. 
      * @return An error flag. 
      */ 
-    int RequireNBJets(int n, int dn = -1); 
+    int RequireNBJets(double weight, int n, int dn = -1); 
 
     /**
      * Add a cut on the number of jets.
