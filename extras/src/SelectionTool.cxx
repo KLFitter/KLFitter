@@ -298,8 +298,6 @@ int KLFitter::SelectionTool::SelectEvent(KLFitter::Particles * particles, double
               // increase counter if pt larger than cut value 
               if ( pt > fNJetsPt.at(j).value) {
                 njetspt[j]++; 
-								// debugKK
-								std::cout << tag << std::endl;
 								if (tag > fNBJets.at(j).value)
 									nbjets++;
 							}
