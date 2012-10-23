@@ -87,6 +87,13 @@ namespace KLFitter
     { return 0; }; 
 
     /**
+     * Return the transverse mass of the W boson
+     * @return The MWT
+     */ 
+    virtual double MWT()
+    { return 0; }; 
+
+    /**
      * Return the measured missing transverse energy (x component). 
      * @return The missing ET (x component)
      */ 

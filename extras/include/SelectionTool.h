@@ -117,6 +117,18 @@ namespace KLFitter
      * Return the counter variables for missing ET. */ 
     int CounterMET() { return fCounterMET; }; 
 
+    /** 
+     * Return the counter variables for MWT. */ 
+    int CounterMWT() { return fCounterMWT; }; 
+
+    /** 
+     * Return the counter variables for triangular cut. */ 
+    int CounterTriangular() { return fCounterTriangular; }; 
+
+    /** 
+     * Return the counter variables for the selection. */ 
+    int CounterSelected() { return fCounterSelected; }; 
+
     /* @} */
     /** \name Member functions (Set)  */
     /* @{ */
@@ -159,6 +171,18 @@ namespace KLFitter
     int RequireMET(double met); 
 
     /**
+     * Add a cut on the MWT. 
+     * @param met The MWT.
+     * @return An error flag. */ 
+    int RequireMWT(double met); 
+
+    /**
+     * Add a triangular cut MET+MWT
+     * @param met The sum of missing ET and MWT.
+     * @return An error flag. */ 
+    int RequireTriangular(double met); 
+
+    /**
      * Set jet eta cut. 
      * @param eta The eta region (|eta|<x).  . 
      */ 
@@ -196,9 +220,10 @@ namespace KLFitter
      * Select the events.
      * @param particles The set of particles. 
      * @param MET The missing ET.
+     * @param MWT The MWT.
      * @return event either passed the selection (1) or not (0) 
      */ 
-    int SelectEvent(KLFitter::Particles * particles, double MET = 0.); 
+    int SelectEvent(KLFitter::Particles * particles, double MET = 0., double MWT = 0.); 
 
     /**
      * Number of jets to consider in the fit.
@@ -286,6 +311,18 @@ namespace KLFitter
     double fMET; 
 
     /**
+     * Event selection criteria for MWT.
+     */ 
+
+    double fMWT; 
+
+    /**
+     * Event selection criteria for triangular cut.
+     */ 
+
+    double fMET_plus_MWT; 
+
+    /**
      * Counter variables: events
      */ 
     int fCounterEvents; 
@@ -314,6 +351,21 @@ namespace KLFitter
      * Counter variables: missing ET
      */ 
     int fCounterMET; 
+
+    /**
+     * Counter variables: MWT
+     */ 
+    int fCounterMWT; 
+
+    /**
+     * Counter variables: Triangular
+     */ 
+    int fCounterTriangular; 
+
+   /**
+     * Counter variables: all after selection
+     */ 
+    int fCounterSelected; 
 
     /**
      * Maps : jets 

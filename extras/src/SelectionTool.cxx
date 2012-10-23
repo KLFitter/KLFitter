@@ -13,12 +13,17 @@ KLFitter::SelectionTool::SelectionTool() :
   fPhotonPt(0.0),
   fPhotonEta(2.5),
   fMET(0), 
+  fMWT(0), 
+	fMET_plus_MWT(0),
   fCounterEvents(0),  
   fCounterJets(0),  
   fCounterElectrons(0),  
   fCounterMuons(0),  
   fCounterPhotons(0),  
   fCounterMET(0),
+  fCounterMWT(0),
+  fCounterTriangular(0),
+  fCounterSelected(0),
   fMaxNJetsForFit(4)
 {
 }
@@ -171,7 +176,7 @@ int KLFitter::SelectionTool::SelectObjects(KLFitter::Particles * particles)
 }
 
 // --------------------------------------------------------- 
-int KLFitter::SelectionTool::SelectEvent(KLFitter::Particles * particles, double MET)
+int KLFitter::SelectionTool::SelectEvent(KLFitter::Particles * particles, double MET, double MWT)
 {
   // get the object selection pt cuts from the event cuts
   fElectronPt = ObjectPtCut(fNElectronsPt);
@@ -354,6 +359,23 @@ int KLFitter::SelectionTool::SelectEvent(KLFitter::Particles * particles, double
   // increase counter 
   fCounterMET++; 
         
+  // MWT selection
+  if (MWT < fMWT)
+    return 0; 
+        
+  // increase counter 
+  fCounterMWT++; 
+        
+	// triangular cut
+	if ( (MWT+MET) < fMET_plus_MWT)
+		return 0;
+
+  // increase counter 
+  fCounterTriangular++; 
+
+  // increase counter 
+  fCounterSelected++;         
+        
   // event passed
   return 1;
 }
@@ -478,6 +500,36 @@ int KLFitter::SelectionTool::RequireMET(double met)
 }
 
 // --------------------------------------------------------- 
+int KLFitter::SelectionTool::RequireMWT(double mwt)
+{
+  if (mwt < 0)
+    {
+      std::cout << "KLFitter::SelectionTool::RequireMWT. MWT < 0 does not make sense." << std::endl; 
+      return 0; 
+    }
+
+  fMWT = mwt; 
+
+  // no errors
+  return 1; 
+}
+
+// --------------------------------------------------------- 
+int KLFitter::SelectionTool::RequireTriangular(double met_plus_mwt)
+{
+  if (met_plus_mwt < 0)
+    {
+      std::cout << "KLFitter::SelectionTool::RequireTriangular. MET+MWT < 0 does not make sense." << std::endl; 
+      return 0; 
+    }
+
+  fMET_plus_MWT = met_plus_mwt; 
+
+  // no errors
+  return 1; 
+}
+
+// --------------------------------------------------------- 
 void KLFitter::SelectionTool::ResetMaps()
 {
   fMapJets.clear(); 
@@ -495,6 +547,9 @@ void KLFitter::SelectionTool::ResetCounter()
   fCounterMuons = 0; 
   fCounterPhotons = 0; 
   fCounterMET = 0;      
+  fCounterMWT = 0;      
+  fCounterTriangular = 0;      
+  fCounterSelected = 0;      
 }
 
 // --------------------------------------------------------- 
