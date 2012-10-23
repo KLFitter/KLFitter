@@ -212,6 +212,7 @@ namespace KLFitter
     std::vector<float> * jet_deteta;  
     std::vector<float> * jet_phi;  
     std::vector<float> * jet_MV1; 
+    std::vector<float> * jet_jvf; 
 
     float mwt; 
     float met_et; 

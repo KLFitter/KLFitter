@@ -102,6 +102,10 @@ namespace KLFitter
     int CounterJets() { return fCounterJets; }; 
 
     /** 
+     * Return the counter variables for b-jets. */ 
+    int CounterBJets() { return fCounterBJets; }; 
+
+    /** 
      * Return the counter variables for electrons. */ 
     int CounterElectrons() { return fCounterElectrons; }; 
 
@@ -141,6 +145,24 @@ namespace KLFitter
      * @return An error flag. 
      */ 
     int RequireNJetsPt(double pt, int n, int dn = -1); 
+
+    /**
+     * Add a cut on the number of jets.
+     * @param pt The pt. 
+     * @param n The number. 
+     * @param dn Tolerance. 
+     * @return An error flag. 
+     */ 
+    int RequireNBJets(int n, int dn = -1); 
+
+    /**
+     * Add a cut on the number of jets.
+     * @param pt The pt. 
+     * @param n The number. 
+     * @param dn Tolerance. 
+     * @return An error flag. 
+     */ 
+    int RequireNBJetsPt(double pt, int n, int dn = -1); 
 
     /**
      * Add a cut on the number of electrons.
@@ -206,6 +228,12 @@ namespace KLFitter
      */ 
     void SelectPhotonEta(double eta) { fPhotonEta = eta; }; 
 
+    /**
+     * Set jet jvf cut. 
+     * @param eta The cut value
+     */ 
+    void SelectJetJVF(double jvf) { fJetJVF = jvf; }; 
+
     /* @} */
     /** \name Member functions (misc)  */
     /* @{ */
@@ -255,6 +283,11 @@ namespace KLFitter
     double fJetEta; 
 
     /**
+     * The jet selection criteria: jvf.
+     */ 
+    double fJetJVF; 
+
+    /**
      * The electron selection criteria: pT.
      */ 
     double fElectronPt; 
@@ -288,6 +321,11 @@ namespace KLFitter
      * Event selection criteria for jets.
      */ 
     std::vector <Cut> fNJetsPt; 
+
+    /**
+     * Event selection criteria for jets.
+     */ 
+    std::vector <Cut> fNBJets; 
 
     /**
      * Event selection criteria for electrons.
@@ -331,6 +369,11 @@ namespace KLFitter
      * Counter variables: jets
      */ 
     int fCounterJets; 
+
+    /**
+     * Counter variables: b-jets
+     */ 
+    int fCounterBJets; 
 
     /**
      * Counter variables: electrons

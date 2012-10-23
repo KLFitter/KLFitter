@@ -23,9 +23,9 @@ KLFitter::InterfaceD3PD_ttH::InterfaceD3PD_ttH()
   if(eventWeight_SF)
     eventWeight_SF = 0;
 
-  fBtagCut = 5.85;
-  fBtagEff = 0.5;
-  fBtagRej = 271.;
+  fBtagCut = 0.601713;
+  fBtagEff = 0.696;
+  fBtagRej = 134.;
 
   mu_n = 0;
   mu_E = 0;  
@@ -46,6 +46,7 @@ KLFitter::InterfaceD3PD_ttH::InterfaceD3PD_ttH()
   jet_deteta = 0;  
   jet_phi = 0;  
   jet_MV1 = 0;  
+  jet_jvf = 0;  
 
   mwt = 0; 
   met_et = 0; 
@@ -179,6 +180,7 @@ int KLFitter::InterfaceD3PD_ttH::ConnectTree(TTree * fTree)
   fTree->SetBranchAddress("jet_det_eta", &jet_deteta);  
   fTree->SetBranchAddress("jet_phi", &jet_phi); 
   fTree->SetBranchAddress("jet_MV1", &jet_MV1); 
+  fTree->SetBranchAddress("jet_jvf", &jet_jvf); 
 
   fTree->SetBranchAddress("mwt",    &mwt); 
   fTree->SetBranchAddress("met_et", &met_et); 
@@ -207,7 +209,7 @@ int KLFitter::InterfaceD3PD_ttH::ConnectChain(TChain * fChain)
    fChain->SetBranchStatus("*", 0);
 
 		const char* branches[] =
-			{"eventNumber", "eventWeight_SF", "mu_E","mu_pt", "mu_phi", "mu_eta","el_cl_E","el_pt","el_track_eta","el_cl_eta","el_cl_eta", "el_phi", "jet_n", "jet_E", "jet_pt","jet_eta", "jet_det_eta", "jet_phi", "jet_MV1", "mwt", "met_et", "met_x", "met_y", "met_sumet", "mc_eta", "mc_phi", "mc_pt", "mc_pdgId","eventWeight_SF", "mc_m", "mc_status", "mc_parent_index","mc_child_index"};
+			{"eventNumber", "eventWeight_SF", "mu_E","mu_pt", "mu_phi", "mu_eta","el_cl_E","el_pt","el_track_eta","el_cl_eta","el_cl_eta", "el_phi", "jet_n", "jet_E", "jet_pt","jet_eta", "jet_det_eta", "jet_phi", "jet_MV1", "jet_jvf", "mwt", "met_et", "met_x", "met_y", "met_sumet", "mc_eta", "mc_phi", "mc_pt", "mc_pdgId","eventWeight_SF", "mc_m", "mc_status", "mc_parent_index","mc_child_index"};
 
    for (unsigned int b = 0; b < sizeof(branches) / sizeof(const char*); b++)
    fChain->SetBranchStatus(branches[b], 1);
@@ -236,6 +238,7 @@ int KLFitter::InterfaceD3PD_ttH::ConnectChain(TChain * fChain)
   fChain->SetBranchAddress("jet_det_eta", &jet_deteta); 
   fChain->SetBranchAddress("jet_phi", &jet_phi); 
   fChain->SetBranchAddress("jet_MV1", &jet_MV1); 
+  fChain->SetBranchAddress("jet_jvf", &jet_jvf); 
 
   fChain->SetBranchAddress("mwt",    &mwt); 
   fChain->SetBranchAddress("met_et", &met_et); 

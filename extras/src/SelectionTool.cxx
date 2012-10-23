@@ -6,6 +6,7 @@ KLFitter::SelectionTool::SelectionTool() :
   fParticlesSelected(0),
   fJetPt(0.0), 
   fJetEta(2.5),
+  fJetJVF(0.75),
   fElectronPt(0.0),
   fElectronEta(2.5), 
   fMuonPt(0.0),
@@ -17,6 +18,7 @@ KLFitter::SelectionTool::SelectionTool() :
 	fMET_plus_MWT(0),
   fCounterEvents(0),  
   fCounterJets(0),  
+  fCounterBJets(0),  
   fCounterElectrons(0),  
   fCounterMuons(0),  
   fCounterPhotons(0),  
@@ -57,7 +59,6 @@ int KLFitter::SelectionTool::SelectObjects(KLFitter::Particles * particles)
   // jet selection
   int npartons = particles->NPartons(); 
  
-
   for (int i = 0; i < npartons; ++i)
     {
       // check eta region 
@@ -275,6 +276,8 @@ int KLFitter::SelectionTool::SelectEvent(KLFitter::Particles * particles, double
   // jet selection 
   //------------
 
+	int nbjets = 0;
+
   if (int(fNJetsPt.size()) > 0)
     {
       // counting variables
@@ -282,18 +285,22 @@ int KLFitter::SelectionTool::SelectEvent(KLFitter::Particles * particles, double
       int njetcuts = int(fNJetsPt.size()); 	   
       std::vector<int> njetspt; 
       njetspt.assign(njetcuts, 0); 
-                        
+
       // loop over jets
       for (int i = 0; i < njets; ++i)
         {
           // get pt of jet
           double pt = fParticlesSelected->Parton(i)->Pt();                                       
+					int tag = fParticlesSelected->IsBTagged(i);
           // loop over all cuts and count
           for (int j = 0; j < njetcuts; ++j)
             {
               // increase counter if pt larger than cut value 
-              if ( pt > fNJetsPt.at(j).value)
+              if ( pt > fNJetsPt.at(j).value) {
                 njetspt[j]++; 
+								if (tag)
+									nbjets++;
+							}
             }
         }
                         
@@ -306,12 +313,16 @@ int KLFitter::SelectionTool::SelectEvent(KLFitter::Particles * particles, double
           if (fNJetsPt.at(i).dn >= 0 && njetspt.at(i) - fNJetsPt.at(i).n  > fNJetsPt.at(i).dn)
             return 0;
         }
-      RemoveAdditionalParticles(int(fMaxNJetsForFit), KLFitter::Particles::kParton);
-    }
 
-  // increase counter 
-  fCounterJets++; 
-  
+      RemoveAdditionalParticles(int(fMaxNJetsForFit), KLFitter::Particles::kParton);
+			
+			// increase counter 
+			fCounterJets++; 
+		}
+	else {
+		// increase counter 
+		fCounterJets++; 
+	}
         
   // --------------
   // photon selection 
@@ -373,11 +384,38 @@ int KLFitter::SelectionTool::SelectEvent(KLFitter::Particles * particles, double
   // increase counter 
   fCounterTriangular++; 
 
+	// check jet cuts
+	if (fNBJets.size()>0) {
+		
+		if (nbjets < fNBJets.at(0).n)
+			return 0;
+		
+		if (fNBJets.at(0).dn >= 0 && nbjets - fNBJets.at(0).n  > fNBJets.at(0).dn)
+			return 0;
+	}
+	
+	// increase counter 
+	fCounterBJets++; 
+
   // increase counter 
   fCounterSelected++;         
         
   // event passed
   return 1;
+}
+
+// --------------------------------------------------------- 
+int KLFitter::SelectionTool::RequireNBJets(int n, int dn){
+
+  // add cut to set of cuts
+  KLFitter::SelectionTool::Cut cut; 
+  cut.value = 0.; 
+  cut.n = n; 
+  cut.dn = dn; 
+	fNBJets.push_back(cut);
+
+  // no errors 
+  return 1; 
 }
 
 // --------------------------------------------------------- 
