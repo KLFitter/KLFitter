@@ -58,9 +58,56 @@ int KLFitter::SelectionTool::SelectObjects(KLFitter::Particles * particles)
 
   // jet selection
   int npartons = particles->NPartons(); 
+
+	// debugKK
+	// re-order such that b-tagged jets come first
  
+	if (fNBJets.size() > 0) {
+		// run over b-jets first
+		for (int i = 0; i < npartons; ++i) {
+			// check b-tag
+			if (particles->BTagWeight(i) < fNBJets.at(0).value) 
+				continue;
+
+      // check eta region 
+      if (TMath::Abs( particles->DetEta(i, KLFitter::Particles::kParton) ) > fJetEta) 
+        continue; 
+
+      // check pT 
+      if (particles->Parton(i)->Pt() < fJetPt)
+        continue; 
+
+      // add jet 
+      TLorentzVector * tlv_tmp = new TLorentzVector(*particles->Parton(i));
+      fParticlesSelected->AddParticle( tlv_tmp,
+																			 //				       new TLorentzVector(*particles->Parton(i)),
+                                       particles->DetEta(i, KLFitter::Particles::kParton),
+                                       KLFitter::Particles::kParton, 
+                                       particles->NameParticle(i, KLFitter::Particles::kParton),
+                                       particles->JetIndex(i),
+                                       particles->IsBTagged(i),
+                                       particles->BTaggingEfficiency(i),
+                                       particles->BTaggingRejection(i),
+                                       particles->TrueFlavor(i),
+                                       particles->BTagWeight(i));
+
+
+
+      // add index to map 
+      fMapJets.push_back(i); 
+      delete tlv_tmp;
+    }
+	}
+
+	// run of non-b-tag jets
   for (int i = 0; i < npartons; ++i)
     {
+			if (fNBJets.size() > 0) {
+			// check non-b-tag
+			if (particles->BTagWeight(i) > fNBJets.at(0).value) 
+				continue;
+			}
+
       // check eta region 
       if (TMath::Abs( particles->DetEta(i, KLFitter::Particles::kParton) ) > fJetEta) 
         continue; 
@@ -298,8 +345,10 @@ int KLFitter::SelectionTool::SelectEvent(KLFitter::Particles * particles, double
               // increase counter if pt larger than cut value 
               if ( pt > fNJetsPt.at(j).value) {
                 njetspt[j]++; 
-								if (tag > fNBJets.at(j).value)
-									nbjets++;
+								if (fNBJets.size()>0) {
+									if (tag > fNBJets.at(j).value)
+										nbjets++;
+								}
 							}
             }
         }
