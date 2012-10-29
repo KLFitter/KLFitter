@@ -196,8 +196,16 @@ int KLFitter::ReadConfigFile::ReadConfig(std::string filename)
             BTaggingMethod=KLFitter::LikelihoodBase::kNotag;
           if(tmpstr == "Veto")
             BTaggingMethod=KLFitter::LikelihoodBase::kVeto;
+          if(tmpstr == "VetoLight")
+            BTaggingMethod=KLFitter::LikelihoodBase::kVetoLight;
+          if(tmpstr == "VetoBoth")
+            BTaggingMethod=KLFitter::LikelihoodBase::kVetoBoth;
           if(tmpstr == "VetoNoFit")
-            BTaggingMethod=KLFitter::LikelihoodBase::kVetoNoFit;		  
+            BTaggingMethod=KLFitter::LikelihoodBase::kVetoNoFit;		
+          if(tmpstr == "VetoNoFitLight")
+            BTaggingMethod=KLFitter::LikelihoodBase::kVetoNoFitLight;	
+          if(tmpstr == "VetoNoFitBoth")
+            BTaggingMethod=KLFitter::LikelihoodBase::kVetoNoFitBoth;	  
           if(tmpstr == "WorkingPoint")
             BTaggingMethod=KLFitter::LikelihoodBase::kWorkingPoint;
                   }

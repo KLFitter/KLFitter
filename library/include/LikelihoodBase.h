@@ -46,6 +46,8 @@ namespace KLFitter
       kNotag,
       kVeto,
       kVetoNoFit,        
+      kVetoNoFitLight,  
+      kVetoNoFitBoth,  
       kWorkingPoint,
       kVetoLight,
       kVetoBoth

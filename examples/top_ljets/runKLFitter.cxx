@@ -114,6 +114,8 @@ int main(int argc, char **argv)
   mySelectionTool -> SelectPhotonEta(2.5);
   mySelectionTool -> SelectJetEta(2.5);
   mySelectionTool -> RequireNJetsPt(25.0, 4, -1); 
+//  mySelectionTool -> RequireNBJets(0.601713, 2, -1); 
+
 
   mySelectionTool -> SetMaxNJetsForFit(4);
   if (Lepton==KLFitter::LikelihoodTopLeptonJets::kElectron)
@@ -347,6 +349,7 @@ int main(int argc, char **argv)
     std::cout << " N (muons  )   : " << mySelectionTool -> CounterMuons() << std::endl;
   std::cout << " N (jets)      : " << mySelectionTool -> CounterJets() << std::endl;
   std::cout << " N (MET)       : " << mySelectionTool -> CounterMET() << std::endl;
+  std::cout << " N (selected)  : " << mySelectionTool -> CounterSelected() << std::endl;
   if (FlagWriteSignalMCTruth)
     {
       if (Lepton==KLFitter::LikelihoodTopLeptonJets::kElectron)

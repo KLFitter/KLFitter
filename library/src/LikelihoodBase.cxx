@@ -196,6 +196,48 @@ double KLFitter::LikelihoodBase::LogEventProbabilityBTag()
       else
 	return -1e99; 
     }
+    else if(fBTagMethod == kVetoLight){
+      // loop over all model particles.  calculate the overall b-tagging
+      // probability which is the product of all probabilities. 
+      for (int i = 0; i < fParticlesModel->NPartons(); ++i){
+        // get index of corresponding measured particle.                                                                   
+        int index = fParticlesModel->JetIndex(i);
+        if (index < 0)
+          continue;
+
+        KLFitter::Particles::TrueFlavorType trueFlavor = fParticlesModel->TrueFlavor(i);
+        bool isBTagged = fParticlesModel->IsBTagged(i);
+	if (trueFlavor == KLFitter::Particles::kB && isBTagged == false)
+          probbtag = 0.;
+      }
+      
+      if (probbtag > 0)
+	logprob += log(probbtag); 
+      else
+	return -1e99; 
+    }
+    else if(fBTagMethod == kVetoBoth){
+      // loop over all model particles.  calculate the overall b-tagging
+      // probability which is the product of all probabilities. 
+      for (int i = 0; i < fParticlesModel->NPartons(); ++i){
+        // get index of corresponding measured particle.                                                                   
+        int index = fParticlesModel->JetIndex(i);
+        if (index < 0)
+          continue;
+
+        KLFitter::Particles::TrueFlavorType trueFlavor = fParticlesModel->TrueFlavor(i);
+        bool isBTagged = fParticlesModel->IsBTagged(i);
+	if (trueFlavor == KLFitter::Particles::kLight && isBTagged == true)
+          probbtag = 0.;
+	if (trueFlavor == KLFitter::Particles::kB && isBTagged == false)
+          probbtag = 0.;
+      }
+      
+      if (probbtag > 0)
+	logprob += log(probbtag); 
+      else
+	return -1e99; 
+    }
     else if (fBTagMethod == kWorkingPoint){
       for (int i = 0; i < fParticlesModel->NPartons(); ++i){
         // get index of corresponding measured particle.                                                                   
