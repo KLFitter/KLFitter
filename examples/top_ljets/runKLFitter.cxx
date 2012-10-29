@@ -9,7 +9,7 @@
 #include "DetectorDummy.h" 
 #include "InterfaceRoot.h" 
 #include "InterfaceDummy.h" 
-#include "InterfaceD3PD.h" 
+#include "InterfaceD3PD_ljets.h" 
 #include "Particles.h" 
 #include "Permutations.h"
 #include "InterfaceOutput.h" 
@@ -63,13 +63,13 @@ int main(int argc, char **argv)
   KLFitter::Fitter * myFitter = new KLFitter::Fitter(); 
 
 	// open Root file 
-  KLFitter::InterfaceRoot * myInterfaceRoot = new KLFitter::InterfaceD3PD();
+  KLFitter::InterfaceRoot * myInterfaceRoot = new KLFitter::InterfaceD3PD_ljets();
   std::vector<std::string> inputfiles = myInterfaceRoot->ReadInputFiles(input_file.c_str());
   std::cout << "Input Files: " << std::endl;
   for(unsigned int i=0; i<inputfiles.size(); i++)
   	std::cout << inputfiles.at(i) << std::endl;
   myInterfaceRoot -> OpenRootFiles(inputfiles);
-  myInterfaceRoot -> SetBtaggingInformation(CutBTagging, 0.5, 271.);
+  myInterfaceRoot -> SetBtaggingInformation(CutBTagging, 0.696, 134.);
 
   // create detector
   KLFitter::DetectorBase * myDetector;

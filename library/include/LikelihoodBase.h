@@ -46,7 +46,9 @@ namespace KLFitter
       kNotag,
       kVeto,
       kVetoNoFit,        
-      kWorkingPoint
+      kWorkingPoint,
+      kVetoLight,
+      kVetoBoth
     };
                 
     /** \name Constructors and destructors */ 
