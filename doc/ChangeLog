@@ -1,4 +1,4 @@
-2012-10-29 Boris lemmer <boris.lemmer@phys.uni-goettingen.de>
+2012-10-29 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>, Stefanie Adomeit <stefanie.adomeit@cern.ch>
 
 	* Extended kVetoNoFit: 
 		"kVetoNoFit" removes permutations with tagged jets on positions of light model particles
@@ -8,11 +8,11 @@
 	* Updated RemoveForbiddenParticlePermutations() in LikelihoodTopLeptonJets, LikelihoodTopLeptonJets_JetAngles and LikelihoodTTHLeptonJets
 	* SelectionTool is now capable to do btag cuts properly (feature was off since the explicit btag weight was no longer passed to jets) and can be used with something like mySelectionTool -> RequireNBJets(0.601713, 2, 0) to require exactly 2 btagged jets. The cut value is arbitrary and only needs to be larger than 0. You can use this together with the top lepton+jets example to test the new kVetoNoFit methods on the new default sample.
 
-2012-10-29 Boris lemmer <boris.lemmer@phys.uni-goettingen.de>
+2012-10-29 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
 
 	* Fixed L+Jets example (new files with default l+jets ttbar selection and net interface) 
 
-2012-09-06 Boris lemmer <boris.lemmer@phys.uni-goettingen.de>
+2012-09-06 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
 
 	* Removed sorting of particle containers in Interface*.
 	* tag KLFitter-00-05-17
@@ -25,7 +25,7 @@
 	* tag KLFitter-00-05-16
 
 
-2012-06-18 Boris lemmer <boris.lemmer@phys.uni-goettingen.de>
+2012-06-18 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
 
 	* LikelihoodTTHLeptonJets: Remove higgs mass parameter if no fixed higgs mass is used.
 	* tag KLFitter-00-05-15
