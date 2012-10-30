@@ -338,7 +338,7 @@ int KLFitter::SelectionTool::SelectEvent(KLFitter::Particles * particles, double
         {
           // get pt of jet
           double pt = fParticlesSelected->Parton(i)->Pt();                                       
-					double tag = fParticlesSelected->IsBTagged(i);
+					double tag = fParticlesSelected->BTagWeight(i);
           // loop over all cuts and count
           for (int j = 0; j < njetcuts; ++j)
             {
