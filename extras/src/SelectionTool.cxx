@@ -446,6 +446,7 @@ int KLFitter::SelectionTool::SelectEvent(KLFitter::Particles * particles, double
 	// increase counter 
 	fCounterBJets++; 
 
+
   // increase counter 
   fCounterSelected++;         
         
