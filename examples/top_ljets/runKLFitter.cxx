@@ -114,7 +114,7 @@ int main(int argc, char **argv)
   mySelectionTool -> SelectPhotonEta(2.5);
   mySelectionTool -> SelectJetEta(2.5);
   mySelectionTool -> RequireNJetsPt(25.0, 4, -1); 
-//  mySelectionTool -> RequireNBJets(0.601713, 2, -1); 
+//  mySelectionTool -> RequireNBJets(0.601713, 2, 0); 
 
 
   mySelectionTool -> SetMaxNJetsForFit(4);

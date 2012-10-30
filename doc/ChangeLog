@@ -1,11 +1,7 @@
 2012-10-30 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
 
-	* Extended kVetoNoFit: 
-		"kVetoNoFit" removes permutations with tagged jets on positions of light model particles
-		"kVetoNoFitLight" removes permutations with untagged jets on positions of bjet model particles
-		"kVetoNoFitBoth" removes permutations with untagged jets on positions of bjet model particles AND tagged jets on positions of light model particles
-	* Veto,VetoLight,VetoBoth were also added. Here, the forbidden permutations won't be removed but just weighted with 0 for the EventProbability.
-	* Updated RemoveForbiddenParticlePermutations() in LikelihoodTopLeptonJets, LikelihoodTopLeptonJets_JetAngles and LikelihoodTTHLeptonJets
+	* Rollback of a bug introduced in the SelectionTool in KLFitter-00-05-18
+	* InterfaceD3PD_ljets.cxx: Now passing btag weight as well to allow for cuts via selection tool
 	* tag KLFitter-00-05-19
 
 2012-10-29 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>, Stefanie Adomeit <stefanie.adomeit@cern.ch>
@@ -21,6 +17,13 @@
 2012-10-29 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
 
 	* Fixed L+Jets example (new files with default l+jets ttbar selection and net interface) 
+
+2012-10-23 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+
+	* Added ttH example with interface and example file
+	* Modified SelectionTool:
+		- Counter for selected events added
+		- Added possibility to cut on MWT, JVF, nBJets
 
 2012-09-06 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
 
