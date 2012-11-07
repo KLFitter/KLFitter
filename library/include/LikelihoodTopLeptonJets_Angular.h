@@ -418,6 +418,11 @@ namespace KLFitter
     double wlep_fit_py;
     double wlep_fit_pz;
 
+    double whad_fit_e;
+    double whad_fit_px;
+    double whad_fit_py;
+    double whad_fit_pz;
+
     double whad_fit_m;
     double wlep_fit_m;
     double thad_fit_m;
