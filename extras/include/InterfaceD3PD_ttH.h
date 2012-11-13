@@ -163,6 +163,10 @@ namespace KLFitter
      * @return true if particle with index truthIdx originates directly from a particle with pdgid 'pdg'
      */ 
     bool OriginatesFromPDG(int truthIdx,long pdg);
+ 
+    void CheckTauChildren(int);
+  
+    bool DecaysIntoItself(int);
 
     /**
      * Checks whether event is proper and sane MC event.
@@ -228,6 +232,8 @@ namespace KLFitter
     int TruthIdx_tbar;    //antitop quark
     int TruthIdx_bfromt;     // b quark
     int TruthIdx_bbarfromtbar;    // antib quark
+    int TruthIdx_bhad;     // b quark
+    int TruthIdx_blep;    // antib quark
     int TruthIdx_Wplus;     // W+
     int TruthIdx_Wminus;    // W-
     int TruthIdx_QfromWplus;  // the quark from W+
@@ -240,7 +246,7 @@ namespace KLFitter
     int TruthIdx_nbar;    // antineutrino
     bool Truth_WplusHad;    // true if W+ decayed hadronically
     bool Truth_WminusHad;   // true if W- decayed hadronically
-
+    bool HadronicTauDecay;
     // Truth branch variables to read from D3PDs
     std::vector<float> * mc_eta;
     std::vector<float> * mc_phi;

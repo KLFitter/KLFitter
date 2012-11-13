@@ -86,6 +86,12 @@ namespace KLFitter
     bool GetFlagTopMassFixed() { return FlagTopMassFixed; }
 
     /**
+     * Return FlagHiggsMassFixed
+     * @return The flag.
+     */ 
+    bool GetFlagHiggsMassFixed() { return FlagHiggsMassFixed; }
+
+    /**
      * Return FlagUseJetMass
      * @return The flag.
      */ 
@@ -102,6 +108,12 @@ namespace KLFitter
      * @return The flag.
      */ 
     double GetTopMass() { return TopPoleMass; }
+    
+    /**
+     * Return FlagIsSignalMC
+     * @return The flag.
+     */ 
+    double GetHiggsMass() { return HiggsMass; }
 
     /**
      * Return Fthe BTagging cut value
@@ -184,6 +196,11 @@ namespace KLFitter
     bool FlagTopMassFixed;
 
     /**
+     * The FlagHiggsMassFixed.
+     */ 
+    bool FlagHiggsMassFixed;
+    
+    /**
      * The FlagUseJetMass.
      */ 
     bool FlagUseJetMass;
@@ -197,6 +214,12 @@ namespace KLFitter
      * The top mass.
      */ 
     double TopPoleMass;
+
+    /**
+     * The Higgs mass.
+     */ 
+    double HiggsMass;
+    
     /**
      * The cut value.
      */ 

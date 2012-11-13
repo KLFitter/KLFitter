@@ -94,10 +94,10 @@ int KLFitter::InterfaceD3PD_ttH::OpenRootFile(const char* filename, Option_t* op
   err *= KLFitter::InterfaceRoot::OpenRootFile(filename, opt); 
 
   // connect Root tree 
-	// debugKK
-	//  err *= this ->ConnectTree("physics"); 
-	err *= this ->ConnectTree("GoeTree"); 
-
+  // debugKK
+  //  err *= this ->ConnectTree("physics"); 
+  err *= this ->ConnectTree("GoeTree"); 
+  
   // return error code 
   return err; 
 }
@@ -106,20 +106,20 @@ int KLFitter::InterfaceD3PD_ttH::OpenRootFiles(std::vector<std::string> filename
 {
   // define error code 
   int err = 1; 
-
-	// debugKK
-	//	fChain =  new TChain("physics");
-	fChain =  new TChain("GoeTree");
-
+  
+  // debugKK
+  //	fChain =  new TChain("physics");
+  fChain =  new TChain("GoeTree");
+  
   // open files
   for(unsigned int i=0; i<filenames.size(); i++){ 
-  	err *= KLFitter::InterfaceRoot::OpenRootFile(filenames.at(i).c_str(), opt);
-  	fChain->Add(filenames.at(i).c_str());
+    err *= KLFitter::InterfaceRoot::OpenRootFile(filenames.at(i).c_str(), opt);
+    fChain->Add(filenames.at(i).c_str());
   }	 
-		
+  
   // connect Root tree 
   err *= this ->ConnectChain(fChain); 
-
+  
   // return error code 
   return err; 
 }
@@ -133,7 +133,7 @@ int KLFitter::InterfaceD3PD_ttH::ConnectTree(const char* treename)
       std::cout << "KLFitter::InterfaceD3PD_ttH::ConnectTree(). No Root file defined." << std::endl; 
       return 0; 
     } 
-
+  
   // check if file is open 
   if (!fRootFile->IsOpen())
     { 
@@ -160,13 +160,13 @@ int KLFitter::InterfaceD3PD_ttH::ConnectTree(TTree * fTree)
   fTree->SetBranchAddress("eventNumber",  &EventNumber); 
   fTree->SetBranchAddress("eventWeight_SF", &eventWeight_SF);
 		
-	//  fTree->SetBranchAddress("mu_n",  &mu_n);
+  //  fTree->SetBranchAddress("mu_n",  &mu_n);
   fTree->SetBranchAddress("mu_E",  &mu_E); 
-	fTree->SetBranchAddress("mu_pt", &mu_pt); 
-	fTree->SetBranchAddress("mu_phi", &mu_phi); 
+  fTree->SetBranchAddress("mu_pt", &mu_pt); 
+  fTree->SetBranchAddress("mu_phi", &mu_phi); 
   fTree->SetBranchAddress("mu_eta", &mu_eta); 
- 
-	//  fTree->SetBranchAddress("el_n",  &el_n); 
+  
+  //  fTree->SetBranchAddress("el_n",  &el_n); 
   fTree->SetBranchAddress("el_cl_E",  &el_E); 
   fTree->SetBranchAddress("el_pt", &el_pt);
   fTree->SetBranchAddress("el_track_eta", &el_track_eta);
@@ -206,25 +206,25 @@ int KLFitter::InterfaceD3PD_ttH::ConnectTree(TTree * fTree)
 int KLFitter::InterfaceD3PD_ttH::ConnectChain(TChain * fChain)
 {
   if (!this->fChain) this->fChain = fChain;
-   fChain->SetBranchStatus("*", 0);
-
-		const char* branches[] =
-			{"eventNumber", "eventWeight_SF", "mu_E","mu_pt", "mu_phi", "mu_eta","el_cl_E","el_pt","el_track_eta","el_cl_eta","el_cl_eta", "el_phi", "jet_n", "jet_E", "jet_pt","jet_eta", "jet_det_eta", "jet_phi", "jet_MV1", "jet_jvf", "mwt", "met_et", "met_x", "met_y", "met_sumet", "mc_eta", "mc_phi", "mc_pt", "mc_pdgId","eventWeight_SF", "mc_m", "mc_status", "mc_parent_index","mc_child_index"};
-
-   for (unsigned int b = 0; b < sizeof(branches) / sizeof(const char*); b++)
-   fChain->SetBranchStatus(branches[b], 1);
-
+  fChain->SetBranchStatus("*", 0);
+  
+  const char* branches[] =
+    {"eventNumber", "eventWeight_SF", "mu_E","mu_pt", "mu_phi", "mu_eta","el_cl_E","el_pt","el_track_eta","el_cl_eta","el_cl_eta", "el_phi", "jet_n", "jet_E", "jet_pt","jet_eta", "jet_det_eta", "jet_phi", "jet_MV1", "jet_jvf", "mwt", "met_et", "met_x", "met_y", "met_sumet", "mc_eta", "mc_phi", "mc_pt", "mc_pdgId","eventWeight_SF", "mc_m", "mc_status", "mc_parent_index","mc_child_index"};
+  
+  for (unsigned int b = 0; b < sizeof(branches) / sizeof(const char*); b++)
+    fChain->SetBranchStatus(branches[b], 1);
+  
   // set branch adresses
   fChain->SetBranchAddress("eventNumber",  &EventNumber); 
   fChain->SetBranchAddress("eventWeight_SF", &eventWeight_SF);
-		
-	//  fChain->SetBranchAddress("mu_n",  &mu_n);
+  
+  //  fChain->SetBranchAddress("mu_n",  &mu_n);
   fChain->SetBranchAddress("mu_E",  &mu_E); 
-	fChain->SetBranchAddress("mu_pt", &mu_pt); 
-	fChain->SetBranchAddress("mu_phi", &mu_phi); 
+  fChain->SetBranchAddress("mu_pt", &mu_pt); 
+  fChain->SetBranchAddress("mu_phi", &mu_phi); 
   fChain->SetBranchAddress("mu_eta", &mu_eta);  
- 
-	//  fChain->SetBranchAddress("el_n",  &el_n); 
+  
+  //  fChain->SetBranchAddress("el_n",  &el_n); 
   fChain->SetBranchAddress("el_cl_E",  &el_E); 
   fChain->SetBranchAddress("el_pt", &el_pt);  
   fChain->SetBranchAddress("el_track_eta", &el_track_eta);  
@@ -271,33 +271,33 @@ int KLFitter::InterfaceD3PD_ttH::Event(int index)
       std::cout << "KLFitter::InterfaceD3PD_ttH::GetEvent(). Tree or Chain not defined." << std::endl; 
       return 0; 
     } 
-
+  
   if(fTree){
-  	// check event number
-  	if (index < 0 || index >= fTree->GetEntries())
-    	{
+    // check event number
+    if (index < 0 || index >= fTree->GetEntries())
+      {
       	std::cout << "KLFitter::InterfaceD3PD_ttH::GetEvent(). Event number negative or too large." << std::endl; 
       	return 0; 
-    	} 
-   	// get event 
-  	fTree->GetEntry(index);
+      } 
+    // get event 
+    fTree->GetEntry(index);
   }
   
   if(fChain){
-  	// check event number
-  	if (index < 0 || index >= fChain->GetEntries())
-    	{
+    // check event number
+    if (index < 0 || index >= fChain->GetEntries())
+      {
       	std::cout << "KLFitter::InterfaceD3PD_ttH::GetEvent(). Event number negative or too large." << std::endl; 
       	return 0; 
-    	} 
+      } 
     // get event 
-  	fChain->GetEntry(index);
+    fChain->GetEntry(index);
   } 
- 
+  
   // fill particles 
   if (!this->FillParticles())
     return 0; 
-
+  
   // no error 
   return 1; 
 }
@@ -312,75 +312,75 @@ int KLFitter::InterfaceD3PD_ttH::FillParticles()
   // delete old truth particles container
   if (fParticlesTruth) 
     delete fParticlesTruth; 
-
+  
   // create new particle container
   fParticles = new KLFitter::Particles(); 
   
   //set weight
-    if (eventWeight_SF){
-
-      fWeight = eventWeight_SF;
-    } else {
+  if (eventWeight_SF){
+    
+    fWeight = eventWeight_SF;
+  } else {
     fWeight=1.0;
-    }
+  }
   
-	// fill jets
-	for (int i = 0; i < jet_n; ++i){
-          if (jet_E->at(i) <= 0.)
-            continue;
-
-          bool isTagged = jet_MV1->at(i) > fBtagCut;
-
-	  TLorentzVector * tlv_tmp = new TLorentzVector(0,0,0,0);
-  	tlv_tmp->SetPtEtaPhiE(jet_pt->at(i), jet_eta->at(i), jet_phi->at(i), jet_E->at(i));
-	//If mass is negative, manually correct it to 0.
-	if (tlv_tmp->M() < 0){
-	std::cout << "KLFitter::InterfaceD3PD_ttH::FillParticles(). Jet mass was negative and corrected to 0." << std::endl;
-	tlv_tmp->SetPtEtaPhiM(tlv_tmp->Pt(), tlv_tmp->Eta(), tlv_tmp->Phi(), 0); 
-	} 
-	fParticles->AddParticle(tlv_tmp, jet_deteta->at(i), KLFitter::Particles::kParton, "", i, isTagged, fBtagEff, fBtagRej, KLFitter::Particles::kNone, jet_MV1->at(i));
+  // fill jets
+  for (int i = 0; i < jet_n; ++i){
+    if (jet_E->at(i) <= 0.)
+      continue;
+    
+    bool isTagged = jet_MV1->at(i) > fBtagCut;
+    
+    TLorentzVector * tlv_tmp = new TLorentzVector(0,0,0,0);
+    tlv_tmp->SetPtEtaPhiE(jet_pt->at(i), jet_eta->at(i), jet_phi->at(i), jet_E->at(i));
+    //If mass is negative, manually correct it to 0.
+    if (tlv_tmp->M() < 0){
+      std::cout << "KLFitter::InterfaceD3PD_ttH::FillParticles(). Jet mass was negative and corrected to 0." << std::endl;
+      tlv_tmp->SetPtEtaPhiM(tlv_tmp->Pt(), tlv_tmp->Eta(), tlv_tmp->Phi(), 0); 
+    } 
+    fParticles->AddParticle(tlv_tmp, jet_deteta->at(i), KLFitter::Particles::kParton, "", i, isTagged, fBtagEff, fBtagRej, KLFitter::Particles::kNone, jet_MV1->at(i));
     delete tlv_tmp;
-	}
-
-	//fill electrons  
-	if (el_track_eta) {
-		el_n = el_track_eta->size();
-		for (int i = 0; i < el_n; ++i){
-			if (el_E->at(i) <= 0.)
-				continue;
-			
-			TLorentzVector * tlv_tmp = new TLorentzVector(0,0,0,0);
-			tlv_tmp->SetPtEtaPhiE((el_E->at(i)) / cosh(el_track_eta->at(i)), el_track_eta->at(i), el_phi->at(i), el_E->at(i));
-			//If mass is negative, manually correct it to 0.
-			if (tlv_tmp->M() < 0){
-				std::cout << "KLFitter::InterfaceD3PD_ttH::FillParticles(). Electron mass was negative and corrected to 0." << std::endl;
-				tlv_tmp->SetPtEtaPhiM(tlv_tmp->Pt(), tlv_tmp->Eta(), tlv_tmp->Phi(), 0); 
-			} 
-			fParticles->AddParticle(tlv_tmp, el_cl_eta->at(i), KLFitter::Particles::kElectron, "", i);
-			delete tlv_tmp;
-		}
-	}
-
+  }
+  
+  //fill electrons  
+  if (el_track_eta) {
+    el_n = el_track_eta->size();
+    for (int i = 0; i < el_n; ++i){
+      if (el_E->at(i) <= 0.)
+	continue;
+      
+      TLorentzVector * tlv_tmp = new TLorentzVector(0,0,0,0);
+      tlv_tmp->SetPtEtaPhiE((el_E->at(i)) / cosh(el_track_eta->at(i)), el_track_eta->at(i), el_phi->at(i), el_E->at(i));
+      //If mass is negative, manually correct it to 0.
+      if (tlv_tmp->M() < 0){
+	//std::cout << "KLFitter::InterfaceD3PD_ttH::FillParticles(). Electron mass was negative and corrected to 0." << std::endl;
+	tlv_tmp->SetPtEtaPhiM(tlv_tmp->Pt(), tlv_tmp->Eta(), tlv_tmp->Phi(), 0); 
+      } 
+      fParticles->AddParticle(tlv_tmp, el_cl_eta->at(i), KLFitter::Particles::kElectron, "", i);
+      delete tlv_tmp;
+    }
+  }
+  
   // fill muons
-	if (mu_eta) {
-		mu_n = mu_eta->size();
-		for (int i = 0; i < mu_n; ++i){
-			if (mu_E->at(i) <= 0.)
-				continue;
-			
-			TLorentzVector * tlv_tmp = new TLorentzVector(0,0,0,0);
-			//    tlv_tmp->SetPxPyPzE(mu_px->at(i)/1000., mu_py->at(i)/1000., mu_pz->at(i)/1000., mu_E->at(i)/1000.);
-			tlv_tmp->SetPtEtaPhiE(mu_pt->at(i), mu_eta->at(i), mu_phi->at(i), mu_E->at(i));
-			//If mass is negative, manually correct it to 0.
-			if (tlv_tmp->M() < 0){
-				std::cout << "KLFitter::InterfaceD3PD_ttH::FillParticles(). Muon mass was negative and corrected to 0." << std::endl;
-				tlv_tmp->SetPtEtaPhiM(tlv_tmp->Pt(), tlv_tmp->Eta(), tlv_tmp->Phi(), 0); 
-			} 
-			fParticles->AddParticle(tlv_tmp, mu_eta->at(i), KLFitter::Particles::kMuon, "", i);
-			delete tlv_tmp;
-		}
-	}
-
+  if (mu_eta) {
+    mu_n = mu_eta->size();
+    for (int i = 0; i < mu_n; ++i){
+      if (mu_E->at(i) <= 0.)
+	continue;
+      
+      TLorentzVector * tlv_tmp = new TLorentzVector(0,0,0,0);
+      //    tlv_tmp->SetPxPyPzE(mu_px->at(i)/1000., mu_py->at(i)/1000., mu_pz->at(i)/1000., mu_E->at(i)/1000.);
+      tlv_tmp->SetPtEtaPhiE(mu_pt->at(i), mu_eta->at(i), mu_phi->at(i), mu_E->at(i));
+      //If mass is negative, manually correct it to 0.
+      if (tlv_tmp->M() < 0){
+	std::cout << "KLFitter::InterfaceD3PD_ttH::FillParticles(). Muon mass was negative and corrected to 0." << std::endl;
+	tlv_tmp->SetPtEtaPhiM(tlv_tmp->Pt(), tlv_tmp->Eta(), tlv_tmp->Phi(), 0); 
+      } 
+      fParticles->AddParticle(tlv_tmp, mu_eta->at(i), KLFitter::Particles::kMuon, "", i);
+      delete tlv_tmp;
+    }
+  }
+  
   // check if input is Signal MC
   if (!fFlagWriteSignalMCTruth)
     return 1; 
@@ -400,9 +400,9 @@ int KLFitter::InterfaceD3PD_ttH::FillParticles()
   if ( (Truth_WplusHad == false) && (Truth_WminusHad == false) )
     return 1; 
 
-	int index_H = -1;
-	int index_bfromH = -1;
-	int index_bbarfromH = -1;
+  int index_H = -1;
+  int index_bfromH = -1;
+  int index_bbarfromH = -1;
   int index_Whad = -1;
   int index_Wlep = -1;
   int index_tophad = -1; 
@@ -414,16 +414,16 @@ int KLFitter::InterfaceD3PD_ttH::FillParticles()
   int index_l = -1; 
   int index_nu = -1;
   
-	index_H = TruthIdx_H;
-	index_bfromH = TruthIdx_bfromH;
-	index_bbarfromH = TruthIdx_bbarfromH;
-
+  index_H = TruthIdx_H;
+  index_bfromH = TruthIdx_bfromH;
+  index_bbarfromH = TruthIdx_bbarfromH;
+  
   if (Truth_WplusHad) 
     {
       index_Whad = TruthIdx_Wplus; 
       index_tophad = TruthIdx_t; 
       index_bhad = TruthIdx_bfromt; 
-
+      
       index_Wlep = TruthIdx_Wminus; 
       index_toplep = TruthIdx_tbar; 
       index_blep = TruthIdx_bbarfromtbar; 
@@ -431,7 +431,7 @@ int KLFitter::InterfaceD3PD_ttH::FillParticles()
       index_nu = TruthIdx_nbar; 
       index_q1 = TruthIdx_QfromWplus; 
       index_q2 = TruthIdx_QbarfromWplus; 
-
+      
     }
   else
     {
@@ -453,90 +453,91 @@ int KLFitter::InterfaceD3PD_ttH::FillParticles()
 
   tlv_tmp->SetPtEtaPhiM(mc_pt->at(index_bfromH),
                       mc_eta->at(index_bfromH), 
-                      mc_phi->at(index_bfromH), 
-                      mc_m->at(index_bfromH));
+			mc_phi->at(index_bfromH), 
+			mc_m->at(index_bfromH));
   fParticlesTruth->AddParticle(tlv_tmp, KLFitter::Particles::kParton, "b from H");
-
+  
   tlv_tmp->SetPtEtaPhiM(mc_pt->at(index_bbarfromH),
-                      mc_eta->at(index_bbarfromH), 
-                      mc_phi->at(index_bbarfromH), 
-                      mc_m->at(index_bbarfromH));
+			mc_eta->at(index_bbarfromH), 
+			mc_phi->at(index_bbarfromH), 
+			mc_m->at(index_bbarfromH));
   fParticlesTruth->AddParticle(tlv_tmp, KLFitter::Particles::kParton, "bbar from H");
-
+  
   tlv_tmp->SetPtEtaPhiM(mc_pt->at(index_bhad),
-                      mc_eta->at(index_bhad), 
-                      mc_phi->at(index_bhad), 
-                      mc_m->at(index_bhad));
+			mc_eta->at(index_bhad), 
+			mc_phi->at(index_bhad), 
+			mc_m->at(index_bhad));
   fParticlesTruth->AddParticle(tlv_tmp, KLFitter::Particles::kParton, "hadronic b quark");
   tlv_tmp->SetPtEtaPhiM(mc_pt->at(index_blep), 
-                      mc_eta->at(index_blep), 
-                      mc_phi->at(index_blep), 
-                      mc_m->at(index_blep));
+			mc_eta->at(index_blep), 
+			mc_phi->at(index_blep), 
+			mc_m->at(index_blep));
   fParticlesTruth->AddParticle(tlv_tmp, KLFitter::Particles::kParton, "leptonic b quark");
   tlv_tmp->SetPtEtaPhiM(mc_pt->at(index_q1), 
-                      mc_eta->at(index_q1), 
-                      mc_phi->at(index_q1), 
-                      mc_m->at(index_q1));
+			mc_eta->at(index_q1), 
+			mc_phi->at(index_q1), 
+			mc_m->at(index_q1));
   fParticlesTruth->AddParticle(tlv_tmp, KLFitter::Particles::kParton, "light quark 1");
   tlv_tmp->SetPtEtaPhiM(mc_pt->at(index_q2), 
-                      mc_eta->at(index_q2), 
-                      mc_phi->at(index_q2), 
-                      mc_m->at(index_q2));
+			mc_eta->at(index_q2), 
+			mc_phi->at(index_q2), 
+			mc_m->at(index_q2));
   fParticlesTruth->AddParticle(tlv_tmp, KLFitter::Particles::kParton, "light quark 2"); 
-
+  
   if (index_l!=-1 && abs(mc_pdgId->at(index_l)) == 11){
     tlv_tmp->SetPtEtaPhiM(mc_pt->at(index_l), 
-                        mc_eta->at(index_l), 
-                        mc_phi->at(index_l), 
-                        mc_m->at(index_l));
+			  mc_eta->at(index_l), 
+			  mc_phi->at(index_l), 
+			  mc_m->at(index_l));
     fParticlesTruth->AddParticle(tlv_tmp, KLFitter::Particles::kElectron, "electron");
   } 
   else if (index_l!=-1 && abs(mc_pdgId->at(index_l)) == 13){
-    tlv_tmp->SetPtEtaPhiM(mc_pt->at(index_l),                                                                                           mc_eta->at(index_l), 
-                        mc_phi->at(index_l), 
-                        mc_m->at(index_l));
+    tlv_tmp->SetPtEtaPhiM(mc_pt->at(index_l),               
+			  mc_eta->at(index_l), 
+			  mc_phi->at(index_l), 
+			  mc_m->at(index_l));
     fParticlesTruth->AddParticle(tlv_tmp, KLFitter::Particles::kMuon, "muon");
   } 
   else if (index_l!=-1 && abs(mc_pdgId->at(index_l)) == 15){
     tlv_tmp->SetPtEtaPhiM(mc_pt->at(index_l), 
-                        mc_eta->at(index_l), 
-                        mc_phi->at(index_l), 
-                        mc_m->at(index_l));
+			  mc_eta->at(index_l), 
+			  mc_phi->at(index_l), 
+			  mc_m->at(index_l));
     fParticlesTruth->AddParticle(tlv_tmp, KLFitter::Particles::kTau, "tau");
   } 
   
   if (index_nu!=-1){
     tlv_tmp->SetPtEtaPhiM(mc_pt->at(index_nu), 
-                        mc_eta->at(index_nu), 
-                        mc_phi->at(index_nu), 
-                        mc_m->at(index_nu));
+			  mc_eta->at(index_nu), 
+			  mc_phi->at(index_nu), 
+			  mc_m->at(index_nu));
     fParticlesTruth->AddParticle(tlv_tmp, KLFitter::Particles::kNeutrino, "neutrino");
   } 
   if (index_tophad >= 0) {
     tlv_tmp->SetPtEtaPhiM(mc_pt->at(index_tophad), 
-                        mc_eta->at(index_tophad), 
-                        mc_phi->at(index_tophad), 
-                        mc_m->at(index_tophad));
+			  mc_eta->at(index_tophad), 
+			  mc_phi->at(index_tophad), 
+			  mc_m->at(index_tophad));
     fParticlesTruth->AddParticle(tlv_tmp, KLFitter::Particles::kParton, "hadronic top quark"); 
   }
-
+  
   if (index_toplep >= 0) {
     tlv_tmp->SetPtEtaPhiM(mc_pt->at(index_toplep), 
-                        mc_eta->at(index_toplep), 
-                        mc_phi->at(index_toplep), 
-                        mc_m->at(index_toplep));
+			  mc_eta->at(index_toplep), 
+			  mc_phi->at(index_toplep), 
+			  mc_m->at(index_toplep));
     fParticlesTruth->AddParticle(tlv_tmp, KLFitter::Particles::kParton, "leptonic top quark"); 
   }
-
+  
   tlv_tmp->SetPtEtaPhiM(mc_pt->at(index_H),
-                      mc_eta->at(index_H), 
-                      mc_phi->at(index_H), 
-                      mc_m->at(index_H));
+			mc_eta->at(index_H), 
+			mc_phi->at(index_H), 
+			mc_m->at(index_H));
   fParticlesTruth->AddParticle(tlv_tmp, KLFitter::Particles::kParton, "Higgs");
-
+  
   //free memory
   delete tlv_tmp;
-
+  
   // no error 
   return 1;
 }
@@ -562,8 +563,84 @@ bool KLFitter::InterfaceD3PD_ttH::OriginatesFromPDG(int truthIdx,long pdg)
   return false;
 }
 
-// --------------------------------------------------------- 
 
+// --------------------------------------------------------- 
+bool KLFitter::InterfaceD3PD_ttH::DecaysIntoItself(int iEntry)
+{
+
+  if ((mc_child_index)->at(iEntry).size()==1){
+    if(mc_pdgId->at(iEntry) == mc_pdgId->at((mc_child_index)->at(iEntry).at(0)))
+      return true;
+  }
+
+  return false;
+  
+}
+
+// --------------------------------------------------------- 
+void KLFitter::InterfaceD3PD_ttH::CheckTauChildren(int truthIdx)
+{
+
+  bool TauHasHadronicChild = false;
+
+  long ppdg=mc_pdgId->at(truthIdx);
+
+  bool TruthHERWIGFlag = true; 
+  if (fSignalMCGen == KLFitter::InterfaceRoot::kAcer)
+    TruthHERWIGFlag = false;  
+  
+  if(TruthHERWIGFlag){
+
+    int NChildren = (mc_child_index)->at(truthIdx).size();
+
+    for(int fChild = 0; fChild < NChildren; ++fChild){
+      int  truthChildrenIdx = (mc_child_index) -> at(truthIdx).at(fChild);
+      long ChildPDG         =  mc_pdgId         -> at(truthChildrenIdx);
+
+      if (fabs(ChildPDG) < 5) TauHasHadronicChild = true;
+
+    }
+  }
+  else{
+  
+    for(unsigned int i = 0; i != mc_pdgId -> size(); ++i){
+      
+      // check if you find another tau which decays
+      if(mc_status->at(i) != 3 && ppdg == mc_pdgId->at(i)){
+	
+	int NParents=(mc_parent_index)->at(truthIdx).size();
+	
+	long ParentPDG = -1;
+	
+	if (NParents>0) {
+	  int  truthMotherIdx = (mc_parent_index) -> at(truthIdx).at(0);
+	  ParentPDG      =  mc_pdgId         -> at(truthMotherIdx);
+	}
+	
+	// check if this tau has a W mother
+	if (fabs(ParentPDG) != 24)  continue;
+	
+	int NChildren = (mc_child_index)->at(truthIdx).size();
+	
+	for(int fChild = 0; fChild < NChildren; ++fChild){
+	  int  truthChildrenIdx = (mc_child_index) -> at(truthIdx).at(fChild);
+	  long ChildPDG         =  mc_pdgId         -> at(truthChildrenIdx);
+	  
+	  if (fabs(ChildPDG) < 5) TauHasHadronicChild = true;
+	  
+	}
+      }
+      
+    }
+   
+  } 
+   
+  HadronicTauDecay = TauHasHadronicChild;
+    
+}
+
+
+// --------------------------------------------------------- 
 int KLFitter::InterfaceD3PD_ttH::TruthMapper(){
 
   //Init: No particles found yet
@@ -588,55 +665,53 @@ int KLFitter::InterfaceD3PD_ttH::TruthMapper(){
   Truth_WminusHad = true;
 
   //counters for cross checks
-  int NH      = 0;
+  int NH           = 0;
   int NbfromH      = 0;
   int NbbarfromH   = 0;
-  int Nt      = 0;
-  int Ntbar   = 0;
+  int Nt           = 0;
+  int Ntbar        = 0;
   int Nbfromt      = 0;
-  int Nbbarfromtbar   = 0;
-  int NWplus  = 0;
-  int NWminus = 0;
-  int NQfromWminus    = 0;
+  int Nbbarfromtbar= 0;
+  int NWplus       = 0;
+  int NWminus      = 0;
+  int NQfromWminus = 0;
   int NQbarfromWminus = 0;
   int NQfromWplus     = 0;
   int NQbarfromWplus  = 0;
-  int Nlplus  = 0;
-  int Nlminus  = 0;
-  int Nn  = 0;
-  int Nnbar  = 0;
+  int Nlplus       = 0;
+  int Nlminus      = 0;
+  int Nn           = 0;
+  int Nnbar        = 0;
 
   // !!! Define this parameter in your config file/job option. Its crucial for a correct MC truth particle identification!
   bool TruthHERWIGFlag = true; 
   if (fSignalMCGen == KLFitter::InterfaceRoot::kAcer)
     TruthHERWIGFlag = false;  
-
+  
   for (unsigned int i=0;i!=mc_pt->size();++i) {
     int pdg = (*mc_pdgId)[i];
      
      //TruthIdx
-    bool decays_in_itself=false;
-    if (mc_child_index->at(i).size()==1) {
-      decays_in_itself = (pdg==mc_pdgId->at(mc_child_index->at(i).at(0)));
-    }
-
+    bool decays_into_itself= DecaysIntoItself(i);
+   
     // according to Un-ki Yang <ukyang@hep.manchester.ac.uk> the particles with status code 123 or 124 are the ones to be used
+  
+    // if sample is showered with Herwig or Pythia
+    if (  (TruthHERWIGFlag && ((mc_status->at(i)==123) || (mc_status->at(i)==124) || (fabs(pdg) == 6 && mc_status->at(i) == 155))) || (!TruthHERWIGFlag &&  mc_status->at(i)==3 ) )  {
+      
+      //-------------
+      // Higgs branch
+      //-------------
 
-    if ((TruthHERWIGFlag && (mc_status->at(i)==123 || mc_status->at(i)==124)) || (!TruthHERWIGFlag && !decays_in_itself)) {
-
-			//-------------
-			// Higgs branch
-			//-------------
-
-			if (pdg==25  && NH==0) { //top (ok)
+      if (pdg==25  && NH==0) { // Higgs (ok)
         TruthIdx_H=i;
         ++NH;
       }
-      else if (pdg==5 && NbfromH==0 && TruthIdx_H!=-1  && OriginatesFromPDG(i,25)) { //bottom (ok)
+      else if (pdg==5 && NbfromH==0 && TruthIdx_H!=-1  && OriginatesFromPDG(i,25)) { //b from Higgs (ok)
         TruthIdx_bfromH=i;
         ++NbfromH;
       }
-      else if (pdg==-5 && NbbarfromH==0 && TruthIdx_H!=-1  && OriginatesFromPDG(i,25)) { //bottom (ok)
+      else if (pdg==-5 && NbbarfromH==0 && TruthIdx_H!=-1  && OriginatesFromPDG(i,25)) { //bbar from Higgs (ok)
         TruthIdx_bbarfromH=i;
         ++NbbarfromH;
       }
@@ -644,144 +719,139 @@ int KLFitter::InterfaceD3PD_ttH::TruthMapper(){
       //-----------
       // top branch
       //-----------
-      if (pdg==6  && Nt==0) { //top (ok)
-        TruthIdx_t=i;
-        ++Nt;
+      if (pdg==6  && Nt==0 && ( (TruthHERWIGFlag && mc_status->at(i) == 155) || (!TruthHERWIGFlag && mc_status->at(i) == 3) ) ) { //top (ok)
+	TruthIdx_t=i;
+	++Nt;
       }
-      else if (pdg==5 && Nbfromt==0 && TruthIdx_t!=-1  && OriginatesFromPDG(i,6)) { //bottom (ok)
-        TruthIdx_bfromt=i;
-        ++Nbfromt;
+      else if ((pdg==5 || pdg==3 || pdg == 1) && Nbfromt==0 && TruthIdx_t!=-1  && OriginatesFromPDG(i,6)) { //bottom (ok)
+	TruthIdx_bfromt=i;
+	++Nbfromt;
       }
       else if (pdg==24 && NWplus==0 && TruthIdx_t!=-1 && OriginatesFromPDG(i,6)) { //W+
-        TruthIdx_Wplus=i;
-        ++NWplus;
-        if (!TruthHERWIGFlag) {
-          for (unsigned int c=0;c < mc_child_index->at(i).size();++c) {
-            int WpChildIdx=mc_child_index->at(i).at(c);
-            long Wc_pdg=mc_pdgId->at(WpChildIdx);
-            if (abs(Wc_pdg)>10 && abs(Wc_pdg)<17) { //W+ decays in leptons
-              Truth_WplusHad=false;
-              break;
-            }
-          }
-        }
-      }         
-      else if (!TruthHERWIGFlag && !Truth_WplusHad && (pdg==-11 || pdg==-13 || pdg==-15) && Nlplus==0 &&  OriginatesFromPDG(i,24) ) { //lplus (!HERWIG)
-        TruthIdx_lplus=i;
-        ++Nlplus;
-      }
-      else if (TruthHERWIGFlag && (pdg==-11 || pdg==-13 || pdg==-15) && Nlplus==0) { //lplus (HERWIG)
-        TruthIdx_lplus=i;
-        Truth_WplusHad=false;
-        ++Nlplus;
-      }
-      else if (!TruthHERWIGFlag && !Truth_WplusHad && (pdg==12 || pdg==14 || pdg==16) && Nn==0 &&  OriginatesFromPDG(i,24)) { //neutrino (!HERWIG)
-        TruthIdx_n=i;
-        ++Nn;
+	TruthIdx_Wplus=i;
+	++NWplus;
+       }
+       else if ((pdg==-11 || pdg==-13 || pdg==-15) && Nlplus==0 && OriginatesFromPDG(i,24)) { //lplus (HERWIG)
+	 
+	 if(pdg == -15 && decays_into_itself){
+	   
+	   int ChildIndex = (mc_child_index -> at(i)).at(0);
+	   
+	   CheckTauChildren(ChildIndex);
+	   
+	 }
+	 
+	 TruthIdx_lplus=i;
+	 Truth_WplusHad=false;
+	 ++Nlplus;
+	 TruthIdx_blep = TruthIdx_bfromt;
+       }
+       else if ((pdg==12 || pdg==14 || pdg==16) && Nn==0 &&  OriginatesFromPDG(i,24)) { //neutrino (HERWIG)
+	 TruthIdx_n=i;
+	 ++Nn;
+       }
+       else if (Truth_WplusHad && NWplus==1 && NQfromWplus==0 && (pdg==2 || pdg==4) &&  OriginatesFromPDG(i,24)) { // up/charm from W+
+	 TruthIdx_QfromWplus=i;
+	 ++NQfromWplus;
+	 TruthIdx_bhad = TruthIdx_bfromt;
+       }
+       else if (Truth_WplusHad && NWplus==1 && NQbarfromWplus==0 && (pdg==-1 || pdg==-3 || pdg == -5) &&  OriginatesFromPDG(i,24)) { // antidown/antistrange from W+
+	 TruthIdx_QbarfromWplus=i;
+	 ++NQbarfromWplus;
+       }
+       //----------------
+       // anti-top branch
+       //----------------
+       if (pdg==-6 && Ntbar==0 && ( (TruthHERWIGFlag && mc_status->at(i) == 155) || (!TruthHERWIGFlag && mc_status->at(i) == 3) ) ) { //antitop (ok)
+	 
+	 TruthIdx_tbar=i;
+	 ++Ntbar;
+       }
+       else if ((pdg==-5 || pdg==-3 || pdg==-1) && Nbbarfromtbar==0 && TruthIdx_tbar!=-1  && OriginatesFromPDG(i,-6)) { //anti bottom (ok)
+	 TruthIdx_bbarfromtbar=i;
+	 ++Nbbarfromtbar;
+       }
+       else if (pdg==-24 && NWminus==0 && TruthIdx_tbar!=-1 && OriginatesFromPDG(i,-6)) { //W-
+	 TruthIdx_Wminus=i;
+	 ++NWminus;
+       }				 
+       else if ((pdg==11 || pdg==13 || pdg==15) && Nlminus==0 && OriginatesFromPDG(i,-24)) { //lminus (HERWIG)
+
+	 if(pdg == 15 && decays_into_itself){
+	   
+           int ChildIndex = (mc_child_index -> at(i)).at(0);
+	   
+           CheckTauChildren(ChildIndex);
+	   
          }
-      else if (TruthHERWIGFlag && (pdg==12 || pdg==14 || pdg==16) && Nn==0 &&  OriginatesFromPDG(i,24)) { //neutrino (HERWIG)
-        TruthIdx_n=i;
-        ++Nn;
-      }
-      else if (Truth_WplusHad && NWplus==1 && NQfromWplus==0 && (pdg==2 || pdg==4) &&  OriginatesFromPDG(i,24)) { // up/charm from W+
-        TruthIdx_QfromWplus=i;
-        ++NQfromWplus;
-      }
-      else if (Truth_WplusHad && NWplus==1 && NQbarfromWplus==0 && (pdg==-1 || pdg==-3) &&  OriginatesFromPDG(i,24)) { // antidown/antistrange from W+
-        TruthIdx_QbarfromWplus=i;
-        ++NQbarfromWplus;
-      }
-      //----------------
-      // anti-top branch
-      //----------------
-      if (pdg==-6 && Ntbar==0 ) { //anti top (ok)
-        TruthIdx_tbar=i;
-        ++Ntbar;
-      }
-      else if (pdg==-5 && Nbbarfromtbar==0 && TruthIdx_tbar!=-1  && OriginatesFromPDG(i,-6)) { //anti bottom (ok)
-        TruthIdx_bbarfromtbar=i;
-        ++Nbbarfromtbar;
-      }
-      else if (pdg==-24 && NWminus==0 && TruthIdx_tbar!=-1 && OriginatesFromPDG(i,-6)) { //W-
-        TruthIdx_Wminus=i;
-        ++NWminus;
-        if (!TruthHERWIGFlag) {
-          for (unsigned int c=0;c<mc_child_index->at(i).size();++c) {
-            int WmChildIdx=mc_child_index->at(i).at(c);
-            long Wc_pdg=mc_pdgId->at(WmChildIdx);
-            if (abs(Wc_pdg)>10 && abs(Wc_pdg)<17) { //W- decays in leptons
-              Truth_WminusHad=false;
-              break;
-            }
-          }
-        }
-      }         
-      else if (!TruthHERWIGFlag && !Truth_WminusHad && (pdg==11 || pdg==13 || pdg==15) && Nlminus==0 &&  OriginatesFromPDG(i,-24)) { //lminus (!HERWIG)
-        TruthIdx_lminus=i;
-        ++Nlminus;
-      }
-      else if (TruthHERWIGFlag && (pdg==11 || pdg==13 || pdg==15) && Nlminus==0) { //lminus (HERWIG)
-        Truth_WminusHad=false;
-        TruthIdx_lminus=i;
-        ++Nlminus;
-      }
-      else if (!TruthHERWIGFlag && !Truth_WminusHad && (pdg==-12 || pdg==-14 || pdg==-16) && Nnbar==0 &&  OriginatesFromPDG(i,-24)) { //anti neutrino (!HERWIG)
-        TruthIdx_nbar=i;
-        ++Nnbar;
-      }
-      else if (TruthHERWIGFlag && (pdg==-12 || pdg==-14 || pdg==-16) && Nnbar==0) { //anti neutrino (HERWIG)
-        TruthIdx_nbar=i;
-        ++Nnbar;
-      }
-      else if (Truth_WminusHad && NWminus==1 && NQfromWminus==0 && (pdg==1 || pdg==3) &&  OriginatesFromPDG(i,-24)) { // down/strange from W-
-        TruthIdx_QfromWminus=i;
-        ++NQfromWminus;
-      }
-      else if (Truth_WminusHad && NWminus==1 && NQbarfromWminus==0 && (pdg==-2 || pdg==-4) &&  OriginatesFromPDG(i,-24)) { // antiup/anticharm from W-
-        TruthIdx_QbarfromWminus=i;
-        ++NQbarfromWminus;
-      }
+	 
+	 Truth_WminusHad=false;
+	 TruthIdx_lminus=i;
+	 ++Nlminus;
+	 TruthIdx_blep = TruthIdx_bbarfromtbar;
+       }
+       else if ((pdg==-12 || pdg==-14 || pdg==-16) && Nnbar==0 && OriginatesFromPDG(i,-24)) { //anti neutrino (HERWIG)
+	 TruthIdx_nbar=i;
+	 ++Nnbar;
+       }
+       else if (Truth_WminusHad && NWminus==1 && NQfromWminus==0 && (pdg==1 || pdg==3 || pdg==5) &&  OriginatesFromPDG(i,-24)) { // down/strange from W-
+	 TruthIdx_QfromWminus=i;
+	 ++NQfromWminus;
+	 TruthIdx_bhad = TruthIdx_bbarfromtbar;
+       }
+       else if (Truth_WminusHad && NWminus==1 && NQbarfromWminus==0 && (pdg==-2 || pdg==-4) &&  OriginatesFromPDG(i,-24)) { // antiup/anticharm from W-
+	 TruthIdx_QbarfromWminus=i;
+	 ++NQbarfromWminus;
+       }
+     
+       
     }
   } //loop over all particles
   
   //no error
   return 1;
 }
+
 // ---------------------------------------------------------
  
 bool KLFitter::InterfaceD3PD_ttH::IsProperMCEvent(){
 //some sanity checks, most of them commented out:
-/*
-std::cout<< "=======================" << std::endl;
-std::cout<< "TruthIdx_H " <<TruthIdx_H << std::endl;
-std::cout<< "TruthIdx_bfromH "<< TruthIdx_bfromH<<std::endl; 
-std::cout<< "TruthIdx_bbarfromtbar " <<TruthIdx_bbarfromtbar <<std::endl; 
-std::cout<< "TruthIdx_t " <<TruthIdx_t << std::endl;
-std::cout<< "TruthIdx_tbar "<< TruthIdx_tbar << std::endl; 
-std::cout<< "TruthIdx_bfromt "<< TruthIdx_bfromt<<std::endl; 
-std::cout<< "TruthIdx_bbarfromtbar " <<TruthIdx_bbarfromtbar <<std::endl; 
-std::cout<< "TruthIdx_Wplus " <<TruthIdx_Wplus <<std::endl; 
-std::cout<< "TruthIdx_Wminus " <<TruthIdx_Wminus<< std::endl; 
-std::cout<< "TruthIdx_QfromWplus " <<TruthIdx_QfromWplus <<std::endl; 
-std::cout<< "TruthIdx_QbarfromWplus  " <<TruthIdx_QbarfromWplus <<std::endl; 
-std::cout<< "TruthIdx_QfromWminus " << TruthIdx_QfromWminus<<std::endl; 
-std::cout<< "TruthIdx_QbarfromWminus " <<TruthIdx_QbarfromWminus <<std::endl; 
-std::cout<< "TruthIdx_lplus " << TruthIdx_lplus<<std::endl; 
-std::cout<< "TruthIdx_lminus " <<TruthIdx_lminus<< std::endl; 
-std::cout<< "TruthIdx_n " << TruthIdx_n<<std::endl; 
-std::cout<< "TruthIdx_nbar " << TruthIdx_nbar<<std::endl;
-std::cout<< "Truth_WplusHad " << Truth_WplusHad<<std::endl; 
-std::cout<< "Truth_WminusHad " << Truth_WminusHad<<std::endl;
-*/
 
-bool sane = (TruthIdx_t!=-1 && TruthIdx_tbar!=-1 && TruthIdx_bfromt!=-1 && TruthIdx_bbarfromtbar!=-1 && TruthIdx_Wplus!=-1 && TruthIdx_Wminus!=-1 && //ttbar->W+W-bbbar
-       ( (Truth_WplusHad && Truth_WminusHad && TruthIdx_QfromWplus!=-1 && TruthIdx_QbarfromWplus!=-1 && TruthIdx_QfromWminus!=-1 && TruthIdx_QbarfromWminus!=-1) || //alljets
-   (Truth_WplusHad && !Truth_WminusHad && TruthIdx_lminus!=-1 && TruthIdx_nbar!=-1 && TruthIdx_QfromWplus!=-1 && TruthIdx_QbarfromWplus!=-1) || //(l^+)+jets 
-   (Truth_WminusHad && !Truth_WplusHad && TruthIdx_lplus!=-1 && TruthIdx_n!=-1 && TruthIdx_QfromWminus!=-1 && TruthIdx_QbarfromWminus!=-1) || //(l^-)+jets
-   (!Truth_WplusHad && !Truth_WminusHad && TruthIdx_lminus!=-1 && TruthIdx_nbar!=-1 && TruthIdx_lplus!=-1 && TruthIdx_n!=-1)));
+// std::cout<< "=======================" << std::endl;
+// std::cout<< "TruthIdx_H " <<TruthIdx_H << std::endl;
+// std::cout<< "TruthIdx_bfromH "<< TruthIdx_bfromH<<std::endl;
+// std::cout<< "TruthIdx_bbarfromH "<< TruthIdx_bbarfromH<<std::endl;
 
-//std::cout<<  "Sanity check: " << sane << std::endl;
+// std::cout<< "TruthIdx_t " <<TruthIdx_t << std::endl;
+// std::cout<< "TruthIdx_tbar "<< TruthIdx_tbar << std::endl; 
+// std::cout<< "TruthIdx_bfromt "<< TruthIdx_bfromt<<std::endl; 
+// std::cout<< "TruthIdx_bbarfromtbar " <<TruthIdx_bbarfromtbar <<std::endl; 
 
+// std::cout<< "TruthIdx_Wplus " <<TruthIdx_Wplus <<std::endl; 
+// std::cout<< "TruthIdx_Wminus " <<TruthIdx_Wminus<< std::endl; 
+// std::cout<< "TruthIdx_QfromWplus " <<TruthIdx_QfromWplus <<std::endl; 
+// std::cout<< "TruthIdx_QbarfromWplus  " <<TruthIdx_QbarfromWplus <<std::endl; 
+// std::cout<< "TruthIdx_QfromWminus " << TruthIdx_QfromWminus<<std::endl; 
+// std::cout<< "TruthIdx_QbarfromWminus " <<TruthIdx_QbarfromWminus <<std::endl; 
+
+// std::cout<< "TruthIdx_lplus " << TruthIdx_lplus<<std::endl; 
+// std::cout<< "TruthIdx_lminus " <<TruthIdx_lminus<< std::endl; 
+
+// std::cout<< "TruthIdx_n " << TruthIdx_n<<std::endl; 
+// std::cout<< "TruthIdx_nbar " << TruthIdx_nbar<<std::endl;
+
+// std::cout<< "Truth_WplusHad " << Truth_WplusHad<<std::endl; 
+// std::cout<< "Truth_WminusHad " << Truth_WminusHad<<std::endl;
+
+
+  bool sane = (TruthIdx_t!=-1 && TruthIdx_tbar!=-1 && TruthIdx_bfromt!=-1 && TruthIdx_bbarfromtbar!=-1 && TruthIdx_Wplus!=-1 && TruthIdx_Wminus!=-1 &&  TruthIdx_H!=-1 && TruthIdx_bfromH!=-1 && TruthIdx_bbarfromH!=-1//ttbarH->W+W-bbbarbbbar
+	     &&  ( (Truth_WplusHad && Truth_WminusHad && TruthIdx_QfromWplus!=-1 && TruthIdx_QbarfromWplus!=-1 && TruthIdx_QfromWminus!=-1 && TruthIdx_QbarfromWminus!=-1) || //alljets
+		   (Truth_WplusHad && !Truth_WminusHad && TruthIdx_lminus!=-1 && TruthIdx_nbar!=-1 && TruthIdx_QfromWplus!=-1 && TruthIdx_QbarfromWplus!=-1) || //(l^+)+jets 
+		   (Truth_WminusHad && !Truth_WplusHad && TruthIdx_lplus!=-1 && TruthIdx_n!=-1 && TruthIdx_QfromWminus!=-1 && TruthIdx_QbarfromWminus!=-1) || //(l^-)+jets
+		   (!Truth_WplusHad && !Truth_WminusHad && TruthIdx_lminus!=-1 && TruthIdx_nbar!=-1 && TruthIdx_lplus!=-1 && TruthIdx_n!=-1)));
+ 
+  //std::cout<<  "Sanity check: " << sane << std::endl;
+ 
 /*
 if (TruthIdx_H!=-1) {
   std::cout << "-------------"<< std::endl;

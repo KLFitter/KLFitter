@@ -13,12 +13,14 @@ KLFitter::ReadConfigFile::ReadConfigFile(std::string filename)
   CutBTagging      = 1.e4;
   FlagIntegrate    = false;
   FlagTopMassFixed = false;
+  FlagHiggsMassFixed = false;
   FlagWriteSignalMCTruth   = true;
   BeamEnergy = KLFitter::DetectorBase::k7TeV;
   FlagTruthSel = false;
   LJetSeparationMethod = KLFitter::LikelihoodTopLeptonJetsUDSep::kNone;
   TopPoleMass = 172.5;
-
+  HiggsMass = 120.0;
+  
   input_path="input.root";
   output_path="output.root";
 
@@ -42,12 +44,14 @@ KLFitter::ReadConfigFile::ReadConfigFile(std::string filename, bool * validconfi
   CutBTagging      = 1.e4;
   FlagIntegrate    = false;
   FlagTopMassFixed = false;
+  FlagHiggsMassFixed = false;
   FlagWriteSignalMCTruth   = true;
   BeamEnergy = KLFitter::DetectorBase::k7TeV;
   FlagTruthSel = false;
   LJetSeparationMethod = KLFitter::LikelihoodTopLeptonJetsUDSep::kNone;
 
   TopPoleMass = 172.5;
+  HiggsMass = 120.0;
 
   input_path="input.root";
   output_path="output.root";
@@ -236,6 +240,24 @@ int KLFitter::ReadConfigFile::ReadConfig(std::string filename)
 				    }
 				  else
 				    {
+				      found=line.find("FlagHiggsMassFixed");
+				      if(found!=std::string::npos)
+					{
+					  found=line.find("=",found);
+					  if(found!=std::string::npos)
+					    {
+					      tmp=GetTrueOrFalse(line,found);
+					      if(tmp!=-1){
+						FlagHiggsMassFixed=(tmp==1);
+					      }
+					      else
+						{
+						  std::cout<<"Warning: Error while reading value of FlagHiggsMassFixed, using standard value"<<std::endl;
+						}
+					    }
+					}
+				      else
+				    {
 				      found=line.find("FlagIntegrate");
 				      if(found!=std::string::npos)
 					{
@@ -333,8 +355,27 @@ int KLFitter::ReadConfigFile::ReadConfig(std::string filename)
 							    }
 							  else
 							    {
-							      found=line.find("PathToInputFile");
+							      found=line.find("HiggsMass");
 							      if(found!=std::string::npos)
+								{
+								  found=line.find("=",found);
+								  if(found!=std::string::npos)
+								    {
+								      tmp=GetValue(&tmpdouble,line,found);
+								      if(tmp!=-1)
+									{
+									  HiggsMass=tmpdouble;
+									}
+								      else
+									{
+									  std::cout<<"Warning: Error while reading value of HiggsMass, using standard value"<<std::endl;
+									}
+								    }
+								}
+							      else
+								{
+								  found=line.find("PathToInputFile");
+								  if(found!=std::string::npos)
 								{
 								  found=line.find("=",found);
 								  if(found!=std::string::npos)
@@ -472,7 +513,8 @@ int KLFitter::ReadConfigFile::ReadConfig(std::string filename)
 			}
 		    }
 		}
-
+	    }
+	}
       configfile.close();
     }
   else
@@ -498,7 +540,9 @@ int KLFitter::ReadConfigFile::ReadConfig(std::string filename)
   std::cout<< "CutBTagging = "<<CutBTagging<<std::endl;
   std::cout<< "FlagIntegrate = "<<FlagIntegrate<<std::endl;
   std::cout<< "FlagTopMassFixed = "<<FlagTopMassFixed<<std::endl;
+  std::cout<< "FlagHiggsMassFixed = "<<FlagHiggsMassFixed<<std::endl;
   std::cout<< "TopPoleMass = "<<TopPoleMass<<std::endl;
+  std::cout<< "HiggsMass = "<<HiggsMass<<std::endl;
   std::cout<< "FlagUseJetMass = "<<FlagUseJetMass<<std::endl;
   std::cout<< "FlagWriteSignalMCTruth = "<<FlagWriteSignalMCTruth<<std::endl;
   std::cout << "FlagTruthSel = " << FlagTruthSel << std::endl;

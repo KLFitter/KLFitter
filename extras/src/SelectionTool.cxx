@@ -46,41 +46,41 @@ int KLFitter::SelectionTool::SelectObjects(KLFitter::Particles * particles)
       std::cout << "KLFitter::SelectionTool::SelectObjects. Particles do not exist." << std::endl; 
       return 0; 
     }
-
+  
   // clear events
   if (fParticlesSelected) 
     delete fParticlesSelected; 
-
+  
   fParticlesSelected = new KLFitter::Particles(); 
-
+  
   // reset maps 
   this->ResetMaps(); 
-
+  
   // jet selection
   int npartons = particles->NPartons(); 
-
-	// debugKK
-	// re-order such that b-tagged jets come first
- 
-	if (fNBJets.size() > 0) {
-		// run over b-jets first
-		for (int i = 0; i < npartons; ++i) {
-			// check b-tag
-			if (particles->BTagWeight(i) < fNBJets.at(0).value) 
-				continue;
-
+  
+  // debugKK
+  // re-order such that b-tagged jets come first
+  
+  if (fNBJets.size() > 0) {
+    // run over b-jets first
+    for (int i = 0; i < npartons; ++i) {
+      // check b-tag
+      if (particles->BTagWeight(i) < fNBJets.at(0).value) 
+	continue;
+      
       // check eta region 
       if (TMath::Abs( particles->DetEta(i, KLFitter::Particles::kParton) ) > fJetEta) 
         continue; 
-
+      
       // check pT 
       if (particles->Parton(i)->Pt() < fJetPt)
         continue; 
-
+      
       // add jet 
       TLorentzVector * tlv_tmp = new TLorentzVector(*particles->Parton(i));
       fParticlesSelected->AddParticle( tlv_tmp,
-																			 //				       new TLorentzVector(*particles->Parton(i)),
+				       //				       new TLorentzVector(*particles->Parton(i)),
                                        particles->DetEta(i, KLFitter::Particles::kParton),
                                        KLFitter::Particles::kParton, 
                                        particles->NameParticle(i, KLFitter::Particles::kParton),
@@ -90,36 +90,36 @@ int KLFitter::SelectionTool::SelectObjects(KLFitter::Particles * particles)
                                        particles->BTaggingRejection(i),
                                        particles->TrueFlavor(i),
                                        particles->BTagWeight(i));
-
-
-
+      
+      
+      
       // add index to map 
       fMapJets.push_back(i); 
       delete tlv_tmp;
     }
-	}
-
-	// run of non-b-tag jets
+  }
+  
+  // run of non-b-tag jets
   for (int i = 0; i < npartons; ++i)
     {
-			if (fNBJets.size() > 0) {
-			// check non-b-tag
-			if (particles->BTagWeight(i) > fNBJets.at(0).value) 
-				continue;
-			}
-
+      if (fNBJets.size() > 0) {
+	// check non-b-tag
+	if (particles->BTagWeight(i) > fNBJets.at(0).value) 
+	  continue;
+      }
+      
       // check eta region 
       if (TMath::Abs( particles->DetEta(i, KLFitter::Particles::kParton) ) > fJetEta) 
         continue; 
-
+      
       // check pT 
       if (particles->Parton(i)->Pt() < fJetPt)
         continue; 
-
+      
       // add jet 
       TLorentzVector * tlv_tmp = new TLorentzVector(*particles->Parton(i));
       fParticlesSelected->AddParticle( tlv_tmp,
-//				       new TLorentzVector(*particles->Parton(i)),
+				       //				       new TLorentzVector(*particles->Parton(i)),
                                        particles->DetEta(i, KLFitter::Particles::kParton),
                                        KLFitter::Particles::kParton, 
                                        particles->NameParticle(i, KLFitter::Particles::kParton),
@@ -129,33 +129,31 @@ int KLFitter::SelectionTool::SelectObjects(KLFitter::Particles * particles)
                                        particles->BTaggingRejection(i),
                                        particles->TrueFlavor(i),
                                        particles->BTagWeight(i));
-
-
-
+      
       // add index to map 
       fMapJets.push_back(i); 
       delete tlv_tmp;
     }
-
-
-
-
+  
+  
+  
+  
   // electron selection 
   int nelectrons = particles->NElectrons(); 
-
+  
   for (int i = 0; i < nelectrons; ++i)
     {
       // check eta region 
       if (TMath::Abs(particles->DetEta(i, KLFitter::Particles::kElectron)) > fElectronEta) 
         continue; 
-
+      
       // check pT 
       if (particles->Electron(i)->Pt() < fElectronPt)
         continue; 
       TLorentzVector * tlv_tmp = new TLorentzVector(*particles->Electron(i));
       // add electron 
       fParticlesSelected->AddParticle( tlv_tmp, 
-//				       new TLorentzVector(*particles->Electron(i)),
+				       //				       new TLorentzVector(*particles->Electron(i)),
                                        particles->DetEta(i, KLFitter::Particles::kElectron),
                                        KLFitter::Particles::kElectron, 
                                        particles->NameParticle(i, KLFitter::Particles::kElectron),
@@ -164,36 +162,36 @@ int KLFitter::SelectionTool::SelectObjects(KLFitter::Particles * particles)
       fMapElectrons.push_back(i); 
       delete tlv_tmp;
     }
-
+  
   // muon selection 
   int nmuons = particles->NMuons(); 
-
+  
   for (int i = 0; i < nmuons; ++i)
     {
       // check eta region 
       if (TMath::Abs(particles->DetEta(i, KLFitter::Particles::kMuon)) > fMuonEta) 
         continue; 
-
+      
       // check pT 
       if (particles->Muon(i)->Pt() < fMuonPt)
         continue; 
       TLorentzVector * tlv_tmp = new TLorentzVector(*particles->Muon(i));
       // add muon 
       fParticlesSelected->AddParticle( tlv_tmp,  
-//				       new TLorentzVector(*particles->Muon(i)),
+				       //				       new TLorentzVector(*particles->Muon(i)),
                                        particles->DetEta(i, KLFitter::Particles::kMuon),
                                        KLFitter::Particles::kMuon, 
                                        particles->NameParticle(i, KLFitter::Particles::kMuon),
                                        particles->MuonIndex(i));
-
+      
       // add index to map 
       fMapMuons.push_back(i); 
       delete tlv_tmp;
     }
-
+  
   // photon selection 
   int nphotons = particles->NPhotons(); 
-
+  
   for (int i = 0; i < nphotons; ++i)
     {
       // check eta region 
@@ -206,7 +204,7 @@ int KLFitter::SelectionTool::SelectObjects(KLFitter::Particles * particles)
       TLorentzVector * tlv_tmp = new TLorentzVector(*particles->Photon(i));
       // add photon 
       fParticlesSelected->AddParticle( tlv_tmp,   
-//				       new TLorentzVector(*particles->Photon(i)),
+				       //				       new TLorentzVector(*particles->Photon(i)),
                                        particles->DetEta(i, KLFitter::Particles::kPhoton),
                                        KLFitter::Particles::kPhoton, 
                                        particles->NameParticle(i, KLFitter::Particles::kPhoton),
@@ -232,11 +230,11 @@ int KLFitter::SelectionTool::SelectEvent(KLFitter::Particles * particles, double
   fJetPt = ObjectPtCut(fNJetsPt);
   fPhotonPt = ObjectPtCut(fNPhotonsPt);
   
-
+  
   // select objects
   if (!this->SelectObjects(particles))
     return 0; 
-
+  
   // check if particles exist
   if (!fParticlesSelected)
     {
@@ -318,13 +316,13 @@ int KLFitter::SelectionTool::SelectEvent(KLFitter::Particles * particles, double
   // increase counter 
   fCounterMuons++; 
   
-                        
+  
   //------------
   // jet selection 
   //------------
-
-	int nbjets = 0;
-
+  
+  int nbjets = 0;
+  
   if (int(fNJetsPt.size()) > 0)
     {
       // counting variables
@@ -332,33 +330,33 @@ int KLFitter::SelectionTool::SelectEvent(KLFitter::Particles * particles, double
       int njetcuts = int(fNJetsPt.size()); 	   
       std::vector<int> njetspt; 
       njetspt.assign(njetcuts, 0); 
-
+      
       // loop over jets
       for (int i = 0; i < njets; ++i)
         {
           // get pt of jet
           double pt = fParticlesSelected->Parton(i)->Pt();                                       
-					double tag = fParticlesSelected->BTagWeight(i);
+	  double tag = fParticlesSelected->BTagWeight(i);
           // loop over all cuts and count
           for (int j = 0; j < njetcuts; ++j)
             {
               // increase counter if pt larger than cut value 
               if ( pt > fNJetsPt.at(j).value) {
                 njetspt[j]++; 
-								if (fNBJets.size()>0) {
-									if (tag > fNBJets.at(j).value)
-										nbjets++;
-								}
-							}
+		if (fNBJets.size()>0) {
+		  if (tag > fNBJets.at(j).value)
+		    nbjets++;
+		}
+	      }
             }
         }
-                        
+      
       // check jet cuts
       for (int i = 0; i < njetcuts; ++i)
         {
           if (njetspt.at(i) < fNJetsPt.at(i).n)
             return 0;
-
+	  
           if (fNJetsPt.at(i).dn >= 0 && njetspt.at(i) - fNJetsPt.at(i).n  > fNJetsPt.at(i).dn)
             return 0;
         }
@@ -366,13 +364,13 @@ int KLFitter::SelectionTool::SelectEvent(KLFitter::Particles * particles, double
       RemoveAdditionalParticles(int(fMaxNJetsForFit), KLFitter::Particles::kParton);
 			
 			// increase counter 
-			fCounterJets++; 
-		}
-	else {
-		// increase counter 
-		fCounterJets++; 
-	}
-        
+      fCounterJets++; 
+    }
+  else {
+    // increase counter 
+    fCounterJets++; 
+  }
+  
   // --------------
   // photon selection 
   // --------------
@@ -400,7 +398,7 @@ int KLFitter::SelectionTool::SelectEvent(KLFitter::Particles * particles, double
                 nphotonspt[j]++; 
             }
         }
-                        
+      
       // check photon cuts
       for (int i = 0; i < nphotoncuts; ++i)
         {
@@ -418,38 +416,38 @@ int KLFitter::SelectionTool::SelectEvent(KLFitter::Particles * particles, double
         
   // increase counter 
   fCounterMET++; 
-        
+  
   // MWT selection
   if (MWT < fMWT)
     return 0; 
-        
+  
   // increase counter 
   fCounterMWT++; 
-        
-	// triangular cut
-	if ( (MWT+MET) < fMET_plus_MWT)
-		return 0;
-
+  
+  // triangular cut
+  if ( (MWT+MET) < fMET_plus_MWT)
+    return 0;
+  
   // increase counter 
   fCounterTriangular++; 
-
-	// check jet cuts
-	if (fNBJets.size()>0) {
-		
-		if (nbjets < fNBJets.at(0).n)
-			return 0;
-		
-		if (fNBJets.at(0).dn >= 0 && nbjets - fNBJets.at(0).n  > fNBJets.at(0).dn)
-			return 0;
-	}
-	
-	// increase counter 
-	fCounterBJets++; 
-
-
+  
+  // check jet cuts
+  if (fNBJets.size()>0) {
+    
+    if (nbjets < fNBJets.at(0).n)
+      return 0;
+    
+    if (fNBJets.at(0).dn >= 0 && nbjets - fNBJets.at(0).n  > fNBJets.at(0).dn)
+      return 0;
+  }
+  
+  // increase counter 
+  fCounterBJets++; 
+  
+  
   // increase counter 
   fCounterSelected++;         
-        
+  
   // event passed
   return 1;
 }
@@ -462,8 +460,8 @@ int KLFitter::SelectionTool::RequireNBJets(double weight, int n, int dn){
   cut.value = weight; 
   cut.n = n; 
   cut.dn = dn; 
-	fNBJets.push_back(cut);
-
+  fNBJets.push_back(cut);
+  
   // no errors 
   return 1; 
 }
@@ -476,7 +474,7 @@ int KLFitter::SelectionTool::RequireNJetsPt(double pt, int n, int dn)
       std::cout << "KLFitter::SelectionTool::RequireNJetsPt. Pt < 0 does not make sense." << std::endl; 
       return 0; 
     }
-
+  
   if (n < 0)
     {
       std::cout << "KLFitter::SelectionTool::RequireNJetsPt. n < 0 does not make sense." << std::endl; 
@@ -489,7 +487,7 @@ int KLFitter::SelectionTool::RequireNJetsPt(double pt, int n, int dn)
   cut.n = n; 
   cut.dn = dn; 
   fNJetsPt.push_back(cut); 
-
+  
   // no errors 
   return 1; 
 }
