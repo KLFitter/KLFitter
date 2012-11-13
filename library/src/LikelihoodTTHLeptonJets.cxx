@@ -27,7 +27,7 @@ KLFitter::LikelihoodTTHLeptonJets::LikelihoodTTHLeptonJets() : KLFitter::Likelih
   this->DefineModelParticles(); 
 
   // define parameters 
-  this->DefineParameters(); 
+  // this->DefineParameters(); 
 }
 
 // --------------------------------------------------------- 
@@ -334,6 +334,8 @@ int KLFitter::LikelihoodTTHLeptonJets::Initialize()
   // save the corresponding resolution functions
   err *= SaveResolutionFunctions();
 
+  this->DefineParameters(); 
+
   // adjust parameter ranges 
   err *= AdjustParameterRanges(); 
 
@@ -517,7 +519,7 @@ int KLFitter::LikelihoodTTHLeptonJets::AdjustParameterRanges()
 
   //++++++++++++++++//
   if (fFlagHiggsMassFixed)
-    SetParameterRange(parHiggsM, fPhysicsConstants->MassHiggs(), fPhysicsConstants->MassHiggs()); 
+    SetParameterRange(parHiggsM, fPhysicsConstants->MassHiggs(), fPhysicsConstants->MassHiggs());
   //++++++++++++++++//
 
   // no error 
