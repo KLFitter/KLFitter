@@ -63,28 +63,28 @@ namespace KLFitter
      * @return The missing ET
      */ 
     double ET_miss()
-    { return MET_RefFinal_em_tight_et / 1000.; }; 
+    { return met_et ; }; 
 
     /**
      * Return the measured missing transverse energy (x component). 
      * @return The missing ET (x component)
      */ 
     double ET_miss_x()
-    { return MET_RefFinal_em_tight_etx / 1000.; }; 
+    { return met_x ; }; 
 
     /**
      * Return the measured missing transverse energy (y component). 
      * @return The missing ET (y component)
      */ 
     double ET_miss_y()
-    { return MET_RefFinal_em_tight_ety / 1000.; }; 
+    { return met_y ; }; 
 
     /**
      * Return the measured scalar sum of transverse energy. 
      * @return The summed ET
      */ 
     double Sum_ET()
-    { return MET_RefFinal_em_tight_sumet / 1000. ; }; 
+    { return met_sumet  ; }; 
 
     /* @} */
     /** \name Member functions (Set)  */
@@ -180,17 +180,14 @@ namespace KLFitter
     /** \name Tree variables  */
     /* @{ */
 
-    UInt_t EventNumber; 
-    std::vector<std::vector<double> >* mcevt_weight;  
+    UInt_t eventNumber; 
+    Float_t eventWeight;  
     
-    int mu_n;
     std::vector<float> * mu_E;  
-    std::vector<float> * mu_px;  
-    std::vector<float> * mu_py;  
-    std::vector<float> * mu_pz;
-    std::vector<float> * mu_eta;    
+    std::vector<float> * mu_eta;  
+    std::vector<float> * mu_phi;  
+    std::vector<float> * mu_pt;
 
-    int el_n;
     std::vector<float> * el_E;  
     std::vector<float> * el_eta;
     std::vector<float> * el_deteta;  
@@ -200,14 +197,14 @@ namespace KLFitter
     std::vector<float> * jet_E;  
     std::vector<float> * jet_pt;  
     std::vector<float> * jet_eta;
-    std::vector<float> * jet_deteta;  
+    std::vector<float> * jet_det_eta;  
     std::vector<float> * jet_phi;  
-    std::vector<float> * jet_flavor_weight_JetFitterCombNN; 
+    std::vector<float> * jet_MV1; 
 
-    float MET_RefFinal_em_tight_et; 
-    float MET_RefFinal_em_tight_etx; 
-    float MET_RefFinal_em_tight_ety; 
-    float MET_RefFinal_em_tight_sumet;
+    float met_et; 
+    float met_x; 
+    float met_y; 
+    float met_sumet;
     
     // internal variables for the truth mapping
     int TruthIdx_t;     //top quark

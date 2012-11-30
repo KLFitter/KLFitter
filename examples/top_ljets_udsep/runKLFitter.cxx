@@ -79,12 +79,12 @@ int main(int argc, char **argv)
   for(unsigned int i=0; i<inputfiles.size(); i++)
   	std::cout << inputfiles.at(i) << std::endl;
   myInterfaceRoot -> OpenRootFiles(inputfiles);
-  myInterfaceRoot -> SetBtaggingInformation(CutBTagging, 0.497, 988.);
+  myInterfaceRoot -> SetBtaggingInformation(CutBTagging, 0.696, 134.);
 
   // create detector
   KLFitter::DetectorBase * myDetector;
   if (BeamEnergy==KLFitter::DetectorBase::k7TeV)
-    myDetector = new KLFitter::DetectorAtlas_7TeV("../../transferfunctions/7TeV/ttbar/mc10b"); 
+    myDetector = new KLFitter::DetectorAtlas_7TeV("../../transferfunctions/7TeV/ttbar/mc11b"); 
   else if (BeamEnergy==KLFitter::DetectorBase::k10TeV)
     myDetector = new KLFitter::DetectorAtlas_10TeV("../../transferfunctions/10TeV/ttbar");
   else{std::cout<<"Error: Detector could not be created, please check the transferfunction flags"<<std::endl;return 1;}
@@ -105,10 +105,10 @@ int main(int argc, char **argv)
 	gDirectory->pwd();
 	myLikelihood -> SetUpJetPtHisto((TH1F*)udhistos->Get("up_pt")->Clone());
 	myLikelihood -> SetDownJetPtHisto((TH1F*)udhistos->Get("down_pt")->Clone());
-	myLikelihood -> SetUpJetTagWeightHisto((TH1F*)udhistos->Get("up_combnn")->Clone());
-	myLikelihood -> SetDownJetTagWeightHisto((TH1F*)udhistos->Get("down_combnn")->Clone());
+	myLikelihood -> SetUpJetTagWeightHisto((TH1F*)udhistos->Get("up_MV1")->Clone());
+	myLikelihood -> SetDownJetTagWeightHisto((TH1F*)udhistos->Get("down_MV1")->Clone());
 	myLikelihood -> SetBJetPtHisto((TH1F*)udhistos->Get("b_pt")->Clone());
-	myLikelihood -> SetBJetTagWeightHisto((TH1F*)udhistos->Get("b_combnn")->Clone());
+	myLikelihood -> SetBJetTagWeightHisto((TH1F*)udhistos->Get("b_MV1")->Clone());
   }
 
   // b-tagging settings: (kNotag/kVeto/kWorkingPoint, TaggerCutValue, efficiency[0,1], rejection[>1])
@@ -262,7 +262,6 @@ int main(int argc, char **argv)
         {
           // fit the first permutation
           myFitter -> Fit(iperm); 
-
           // copy information into output class
           myInterfaceOutput -> FillTreeModelPermutation(); 
 

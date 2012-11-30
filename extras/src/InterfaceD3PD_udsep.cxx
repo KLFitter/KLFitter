@@ -19,22 +19,19 @@ KLFitter::InterfaceD3PD_udsep::InterfaceD3PD_udsep()
 
   fTree = 0; 
 
-  EventNumber = 0;
-  if(mcevt_weight)
-    mcevt_weight = 0;
+  eventNumber = 0;
+  if(eventWeight)
+    eventWeight = 0;
 
-  fBtagCut = 2.20;
-  fBtagEff = 0.564;
-  fBtagRej = 624.;
+  fBtagCut = 0.601713;
+  fBtagEff = 0.696;
+  fBtagRej = 134;
 
-  mu_n = 0;
   mu_E = 0;  
-  mu_px = 0;  
-  mu_py = 0;  
-  mu_pz = 0;
+  mu_pt = 0;  
   mu_eta = 0;  
+  mu_phi = 0;
 
-  el_n = 0;  
   el_E = 0;  
   el_eta = 0;
   el_deteta = 0;  
@@ -44,14 +41,14 @@ KLFitter::InterfaceD3PD_udsep::InterfaceD3PD_udsep()
   jet_E = 0;  
   jet_pt = 0;  
   jet_eta = 0;
-  jet_deteta = 0;  
+  jet_det_eta = 0;  
   jet_phi = 0;  
-  jet_flavor_weight_JetFitterCombNN = 0;  
+  jet_MV1 = 0;  
 
-  MET_RefFinal_em_tight_et = 0; 
-  MET_RefFinal_em_tight_etx = 0; 
-  MET_RefFinal_em_tight_ety = 0;
-  MET_RefFinal_em_tight_sumet = 0;
+  met_et = 0; 
+  met_x = 0; 
+  met_y = 0;
+  met_sumet = 0;
 
   mc_eta = 0;
   mc_phi = 0;
@@ -93,7 +90,7 @@ int KLFitter::InterfaceD3PD_udsep::OpenRootFile(const char* filename, Option_t* 
   err *= KLFitter::InterfaceRoot::OpenRootFile(filename, opt); 
 
   // connect Root tree 
-  err *= this ->ConnectTree("physics"); 
+  err *= this ->ConnectTree("GoeTree"); 
 
   // return error code 
   return err; 
@@ -104,7 +101,7 @@ int KLFitter::InterfaceD3PD_udsep::OpenRootFiles(std::vector<std::string> filena
   // define error code 
   int err = 1; 
 	
-	fChain =  new TChain("physics");
+	fChain =  new TChain("GoeTree");
   // open files
   for(unsigned int i=0; i<filenames.size(); i++){ 
   	err *= KLFitter::InterfaceRoot::OpenRootFile(filenames.at(i).c_str(), opt);
@@ -151,41 +148,38 @@ int KLFitter::InterfaceD3PD_udsep::ConnectTree(TTree * fTree)
 {
   if (!this->fTree) this->fTree = fTree;
   // set branch adresses
-  fTree->SetBranchAddress("EventNumber",  &EventNumber); 
-  fTree->SetBranchAddress("mcevt_weight", &mcevt_weight);
+  fTree->SetBranchAddress("eventNumber",  &eventNumber); 
+  fTree->SetBranchAddress("eventWeight", &eventWeight);
 		
-  fTree->SetBranchAddress("mu_n",  &mu_n);
   fTree->SetBranchAddress("mu_E",  &mu_E); 
-  fTree->SetBranchAddress("mu_px", &mu_px); 
-  fTree->SetBranchAddress("mu_py", &mu_py); 
-  fTree->SetBranchAddress("mu_pz", &mu_pz);
+  fTree->SetBranchAddress("mu_pt", &mu_pt); 
   fTree->SetBranchAddress("mu_eta", &mu_eta); 
+  fTree->SetBranchAddress("mu_phi", &mu_phi);
  
-  fTree->SetBranchAddress("el_n",  &el_n); 
   fTree->SetBranchAddress("el_cl_E",  &el_E); 
-  fTree->SetBranchAddress("el_tracketa", &el_eta);
+  fTree->SetBranchAddress("el_eta", &el_eta);
   fTree->SetBranchAddress("el_cl_eta", &el_deteta); 
-  fTree->SetBranchAddress("el_trackphi", &el_phi); 
+  fTree->SetBranchAddress("el_phi", &el_phi); 
   
   fTree->SetBranchAddress("jet_n",   &jet_n);
   fTree->SetBranchAddress("jet_E",   &jet_E); 
   fTree->SetBranchAddress("jet_pt",  &jet_pt); 
   fTree->SetBranchAddress("jet_eta", &jet_eta);
-  fTree->SetBranchAddress("jet_emscale_eta", &jet_deteta);  
+  fTree->SetBranchAddress("jet_det_eta", &jet_det_eta);  
   fTree->SetBranchAddress("jet_phi", &jet_phi); 
-  fTree->SetBranchAddress("jet_flavor_weight_JetFitterCombNN", &jet_flavor_weight_JetFitterCombNN); 
+  fTree->SetBranchAddress("jet_MV1", &jet_MV1); 
 
-  fTree->SetBranchAddress("MET_RefFinal_em_tight_et",  &MET_RefFinal_em_tight_et); 
-  fTree->SetBranchAddress("MET_RefFinal_em_tight_etx", &MET_RefFinal_em_tight_etx); 
-  fTree->SetBranchAddress("MET_RefFinal_em_tight_ety", &MET_RefFinal_em_tight_ety); 
-  fTree->SetBranchAddress("MET_RefFinal_em_tight_sumet", &MET_RefFinal_em_tight_sumet); 
+  fTree->SetBranchAddress("met_et",  &met_et); 
+  fTree->SetBranchAddress("met_x", &met_x); 
+  fTree->SetBranchAddress("met_y", &met_y); 
+  fTree->SetBranchAddress("met_sumet", &met_sumet); 
 
   //Truth Variables
   fTree->SetBranchAddress("mc_eta", &mc_eta );
   fTree->SetBranchAddress("mc_phi", &mc_phi );
   fTree->SetBranchAddress("mc_pt",  &mc_pt );
   fTree->SetBranchAddress("mc_pdgId", &mc_pdgId );
-  fTree->SetBranchAddress("mcevt_weight", &mcevt_weight );
+  fTree->SetBranchAddress("eventWeight", &eventWeight );
   fTree->SetBranchAddress("mc_m", &mc_m );
   fTree->SetBranchAddress("mc_status", &mc_status );
   fTree->SetBranchAddress("mc_parent_index", &mc_parent_index );
@@ -201,47 +195,44 @@ int KLFitter::InterfaceD3PD_udsep::ConnectChain(TChain * fChain)
    fChain->SetBranchStatus("*", 0);
 
 		const char* branches[] =
-		{"EventNumber", "mcevt_weight","mu_n", "mu_E","mu_px","mu_py","mu_pz","mu_eta","el_n","el_cl_E","el_tracketa","el_cl_eta", "el_trackphi", "jet_n", "jet_E", "jet_pt","jet_eta", "jet_emscale_eta", "jet_phi", "jet_flavor_weight_JetFitterCombNN", "MET_RefFinal_em_tight_et", "MET_RefFinal_em_tight_etx", "MET_RefFinal_em_tight_ety", "MET_RefFinal_em_tight_sumet", "mc_eta", "mc_phi", "mc_pt", "mc_pdgId","mcevt_weight", "mc_m", "mc_status", "mc_parent_index","mc_child_index"};
+		{"eventNumber", "eventWeight", "mu_E","mu_pt","mu_eta","mu_phi","el_cl_E","el_eta","el_cl_eta", "el_phi", "jet_n", "jet_E", "jet_pt","jet_eta", "jet_det_eta", "jet_phi", "jet_MV1", "met_et", "met_x", "met_y", "met_sumet", "mc_eta", "mc_phi", "mc_pt", "mc_pdgId","eventWeight", "mc_m", "mc_status", "mc_parent_index","mc_child_index"};
 
    for (unsigned int b = 0; b < sizeof(branches) / sizeof(const char*); b++)
    fChain->SetBranchStatus(branches[b], 1);
 
   // set branch adresses
-  fChain->SetBranchAddress("EventNumber",  &EventNumber); 
-  fChain->SetBranchAddress("mcevt_weight", &mcevt_weight);
+  fChain->SetBranchAddress("eventNumber",  &eventNumber); 
+  fChain->SetBranchAddress("eventWeight", &eventWeight);
 		
-  fChain->SetBranchAddress("mu_n",  &mu_n);
   fChain->SetBranchAddress("mu_E",  &mu_E); 
-  fChain->SetBranchAddress("mu_px", &mu_px); 
-  fChain->SetBranchAddress("mu_py", &mu_py); 
-  fChain->SetBranchAddress("mu_pz", &mu_pz);
+  fChain->SetBranchAddress("mu_pt", &mu_pt); 
+  fChain->SetBranchAddress("mu_phi", &mu_phi); 
   fChain->SetBranchAddress("mu_eta", &mu_eta);  
  
-  fChain->SetBranchAddress("el_n",  &el_n); 
   fChain->SetBranchAddress("el_cl_E",  &el_E); 
-  fChain->SetBranchAddress("el_tracketa", &el_eta);  
+  fChain->SetBranchAddress("el_eta", &el_eta);  
   fChain->SetBranchAddress("el_cl_eta", &el_deteta); 
-  fChain->SetBranchAddress("el_trackphi", &el_phi); 
+  fChain->SetBranchAddress("el_phi", &el_phi); 
   
   fChain->SetBranchAddress("jet_n",   &jet_n);
   fChain->SetBranchAddress("jet_E",   &jet_E); 
   fChain->SetBranchAddress("jet_pt",  &jet_pt); 
   fChain->SetBranchAddress("jet_eta", &jet_eta);
-  fChain->SetBranchAddress("jet_emscale_eta", &jet_deteta); 
+  fChain->SetBranchAddress("jet_det_eta", &jet_det_eta); 
   fChain->SetBranchAddress("jet_phi", &jet_phi); 
-  fChain->SetBranchAddress("jet_flavor_weight_JetFitterCombNN", &jet_flavor_weight_JetFitterCombNN); 
+  fChain->SetBranchAddress("jet_MV1", &jet_MV1); 
 
-  fChain->SetBranchAddress("MET_RefFinal_em_tight_et",  &MET_RefFinal_em_tight_et); 
-  fChain->SetBranchAddress("MET_RefFinal_em_tight_etx", &MET_RefFinal_em_tight_etx); 
-  fChain->SetBranchAddress("MET_RefFinal_em_tight_ety", &MET_RefFinal_em_tight_ety); 
-  fChain->SetBranchAddress("MET_RefFinal_em_tight_sumet", &MET_RefFinal_em_tight_sumet); 
+  fChain->SetBranchAddress("met_et",  &met_et); 
+  fChain->SetBranchAddress("met_x", &met_x); 
+  fChain->SetBranchAddress("met_y", &met_y); 
+  fChain->SetBranchAddress("met_sumet", &met_sumet); 
 
   //Truth Variables
   fChain->SetBranchAddress("mc_eta", &mc_eta );
   fChain->SetBranchAddress("mc_phi", &mc_phi );
   fChain->SetBranchAddress("mc_pt",  &mc_pt );
   fChain->SetBranchAddress("mc_pdgId", &mc_pdgId );
-  fChain->SetBranchAddress("mcevt_weight", &mcevt_weight );
+  fChain->SetBranchAddress("eventWeight", &eventWeight );
   fChain->SetBranchAddress("mc_m", &mc_m );
   fChain->SetBranchAddress("mc_status", &mc_status );
   fChain->SetBranchAddress("mc_parent_index", &mc_parent_index );
@@ -307,8 +298,8 @@ int KLFitter::InterfaceD3PD_udsep::FillParticles()
   fParticles = new KLFitter::Particles(); 
   
   //set weight
-    if (mcevt_weight){
-      fWeight = mcevt_weight->at(0).at(0);
+    if (eventWeight){
+      fWeight = eventWeight;
     } else {
     fWeight=1.0;
     }
@@ -318,26 +309,26 @@ int KLFitter::InterfaceD3PD_udsep::FillParticles()
           if (jet_E->at(i) <= 0.)
             continue;
 
-          bool isTagged = jet_flavor_weight_JetFitterCombNN->at(i) > fBtagCut;
+          bool isTagged = jet_MV1->at(i) > fBtagCut;
 
 	  TLorentzVector * tlv_tmp = new TLorentzVector(0,0,0,0);
-  	tlv_tmp->SetPtEtaPhiE(jet_pt->at(i)/1000., jet_eta->at(i), jet_phi->at(i), jet_E->at(i)/1000.);
+  	tlv_tmp->SetPtEtaPhiE(jet_pt->at(i), jet_eta->at(i), jet_phi->at(i), jet_E->at(i));
 	//If mass is negative, manually correct it to 0.
 	if (tlv_tmp->M() < 0){
 	std::cout << "KLFitter::InterfaceD3PD_udsep::FillParticles(). Jet mass was negative and corrected to 0." << std::endl;
 	tlv_tmp->SetPtEtaPhiM(tlv_tmp->Pt(), tlv_tmp->Eta(), tlv_tmp->Phi(), 0); 
 	} 
-        fParticles->AddParticle(tlv_tmp, jet_deteta->at(i), KLFitter::Particles::kParton, "", i, isTagged, fBtagEff, fBtagRej, KLFitter::Particles::kNone, jet_flavor_weight_JetFitterCombNN->at(i));
+        fParticles->AddParticle(tlv_tmp, jet_det_eta->at(i), KLFitter::Particles::kParton, "", i, isTagged, fBtagEff, fBtagRej, KLFitter::Particles::kNone, jet_MV1->at(i));
     delete tlv_tmp;
 	}
 
 	//fill electrons  
-  for (int i = 0; i < el_n; ++i){
+  for (int i = 0; i < el_E->size(); ++i){
     if (el_E->at(i) <= 0.)
       continue;
 
     TLorentzVector * tlv_tmp = new TLorentzVector(0,0,0,0);
-    tlv_tmp->SetPtEtaPhiE((el_E->at(i)/1000.) / cosh(el_eta->at(i)), el_eta->at(i), el_phi->at(i), el_E->at(i)/1000.);
+    tlv_tmp->SetPtEtaPhiE((el_E->at(i)) / cosh(el_eta->at(i)), el_eta->at(i), el_phi->at(i), el_E->at(i));
 	//If mass is negative, manually correct it to 0.
 	if (tlv_tmp->M() < 0){
 	std::cout << "KLFitter::InterfaceD3PD_udsep::FillParticles(). Electron mass was negative and corrected to 0." << std::endl;
@@ -348,12 +339,12 @@ int KLFitter::InterfaceD3PD_udsep::FillParticles()
 	}
 
   // fill muons
-  for (int i = 0; i < mu_n; ++i){
+  for (int i = 0; i < mu_E->size(); ++i){
     if (mu_E->at(i) <= 0.)
       continue;
 
     TLorentzVector * tlv_tmp = new TLorentzVector(0,0,0,0);
-    tlv_tmp->SetPxPyPzE(mu_px->at(i)/1000., mu_py->at(i)/1000., mu_pz->at(i)/1000., mu_E->at(i)/1000.);
+    tlv_tmp->SetPtEtaPhiE(mu_pt->at(i), mu_eta->at(i), mu_phi->at(i), mu_E->at(i));
 	//If mass is negative, manually correct it to 0.
 	if (tlv_tmp->M() < 0){
 	std::cout << "KLFitter::InterfaceD3PD_udsep::FillParticles(). Muon mass was negative and corrected to 0." << std::endl;
