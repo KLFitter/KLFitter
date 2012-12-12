@@ -38,7 +38,7 @@ int main(int argc, char **argv)
   char* paramfile = argv[1];
   // parameters (1st: config_file, 2nd: 'first event', 3rd: 'last event - 1'
   if (argc!=4) { // i.e. 3 parameters ...
-    std::cout << "number of parameters is unequal 3" << std::endl;
+    std::cout << "number of parameters is unequal 3. Usage: ./runKLFitter.exe [config] [first-event] [last-event]" << std::endl;
     return 1;
   }
 
