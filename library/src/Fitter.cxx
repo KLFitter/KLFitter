@@ -16,6 +16,7 @@ KLFitter::Fitter::Fitter()
   ETmiss_y = 0.;
   SumET = 0.;
   fParticlesPermuted = 0; 
+  fMyParticlesTruth = 0;
   fPermutations = new KLFitter::Permutations(&fParticles, &fParticlesPermuted);         
   fMinuitStatus = 0; 
   fConvergenceStatus = 0;
@@ -60,7 +61,20 @@ int KLFitter::Fitter::SetParticles(KLFitter::Particles * particles)
   // no error 
   return 1; 
 }
+// --------------------------------------------------------- 
+int KLFitter::Fitter::SetMyParticlesTruth(KLFitter::Particles * particles)
+{
+  fMyParticlesTruth = particles;
 
+  // set pointer to truth particles 
+  
+  fLikelihood->SetMyParticlesTruth(&fMyParticlesTruth); 
+  
+  //std:: cout << "fMyParticlesTruth set in Fitter!!!!!" << std::endl;
+
+  // no error
+  return 1;
+}
 // --------------------------------------------------------- 
 int KLFitter::Fitter::SetET_miss_XY_SumET(double etx, double ety, double sumet)
 {
@@ -97,6 +111,8 @@ int KLFitter::Fitter::SetLikelihood(KLFitter::LikelihoodBase * likelihood)
   // set pointer to permuted particles 
   fLikelihood->SetParticlesPermuted(&fParticlesPermuted); 
 
+  
+  
   // remove invariant permutations if particles are defined alreday
   if (fParticles)
     fLikelihood->RemoveInvariantParticlePermutations(); 
@@ -152,12 +168,17 @@ int KLFitter::Fitter::Fit(int index)
 
     // Markov Chain MC
     if (fMinimizationMethod == kMarkovChainMC) {
-      fLikelihood->MCMCSetFlagFillHistograms(false); 
+      // comment out BCLog lines if interested in more BAT details
+      //BCLog * log = new BCLog();
+      //log->OpenLog("help.txt",BCLog::detail,BCLog::detail);
+      fLikelihood->MCMCSetFlagFillHistograms(true); 
       fLikelihood->MCMCSetNChains(5); 
-      fLikelihood->MCMCSetNIterationsRun(2000); 
-      fLikelihood->MCMCSetNIterationsMax(1000); 
+      fLikelihood->MCMCSetNIterationsRun(20000); 
+      fLikelihood->MCMCSetNIterationsMax(1000000); 
       fLikelihood->MCMCSetNIterationsUpdate(100); 
       fLikelihood->MarginalizeAll();
+      //log->CloseLog();
+      //delete log;
     }
     // simulated annealing
     else if (fMinimizationMethod == kSimulatedAnnealing) {

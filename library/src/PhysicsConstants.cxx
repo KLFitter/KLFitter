@@ -13,7 +13,7 @@ KLFitter::PhysicsConstants::PhysicsConstants()
   fGammaTop   =   1.5; // top quark width
   fGF         =   1.16637e-5; // in GeV^{-2} 
   fAlphaS     =   0.118; 
- 
+  fMassTopUnc =   1.4; // top quark LHC uncertainty
   //++++++++++++++++//
   fMassHiggs    = 120.0; // Higgs mass in GeV/c^{2}
   fGammaHiggs   = 0.003512; // Higgs width

@@ -99,6 +99,10 @@ namespace KLFitter
     { return fGammaHiggs; }; 
 
 
+    double MassTopUnc()
+    { return fMassTopUnc; };
+
+
     /* @} */
     /** \name Member functions (Set)  */
     /* @{ */
@@ -218,6 +222,11 @@ namespace KLFitter
      * alpha_S at m_Z
      */ 
     double fAlphaS; 
+
+    /**
+     * The top quark mass LHC uncertainty in GeV/c2.
+     */ 
+    double fMassTopUnc;
 
   }; 
 

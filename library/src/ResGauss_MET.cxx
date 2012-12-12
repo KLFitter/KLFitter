@@ -40,3 +40,9 @@ double KLFitter::ResGauss_MET::p(double x, double xmeas, bool &good, double par)
 
 // --------------------------------------------------------- 
 
+double KLFitter::ResGauss_MET::GetSigma(double par){
+
+  double sigma = fParameters[0]+fParameters[1]/(1+exp(-fParameters[2]*(par-fParameters[3])));
+  return sigma;
+
+}

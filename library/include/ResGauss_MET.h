@@ -77,6 +77,8 @@ namespace KLFitter
     void SetSigma(double sigma)
     { if (sigma < 0) sigma = - sigma; this -> SetPar(0, sigma); }; 
 
+    double GetSigma(double par);
+
     /* @} */
 
   private: 

@@ -317,6 +317,14 @@ namespace KLFitter
      */
     double DetEta(int index, KLFitter::Particles::ParticleType ptype);
 
+     /**
+     * Return the charge of the lepton with some index and type.
+     * @param index The index of the particle
+     * @param ptype The particle type.
+     * @return The charge of the lepton.
+     */
+    float LeptonCharge(int index, KLFitter::Particles::ParticleType ptype);
+
     /**
      * Return the number of b-tags.
      */
@@ -374,6 +382,23 @@ namespace KLFitter
      * Add a particle to a list of particles.
      * @param particle A pointer to the particle.
      * @param DetEta The Detector Eta of the particle.
+     * @param LepEta The Charge of the particle.
+     * @param ptype The type of particle.
+     * @param name The name of the particle.
+     * @param measuredindex The index of the associated measured particle.
+     * @param isBtagged Has the particle been b-tagged?
+     * @param bTagEff B-tagging efficiency of the particle.
+     * @param bTagRej B-tagging rejection of the particle.
+     * @param trueflav The true flavor (only for model particles).
+     * @param btagweight The b tagger weight).
+     * @return An error code.
+     */
+    int AddParticle(TLorentzVector * particle, double DetEta, float LepCharge, KLFitter::Particles::ParticleType ptype, std::string name = "", int measuredindex = -1);
+
+    /**
+     * Add a particle to a list of particles.
+     * @param particle A pointer to the particle.
+     * @param DetEta The Detector Eta of the particle.
      * @param ptype The type of particle.
      * @param name The name of the particle.
      * @param measuredindex The index of the associated measured particle.
@@ -385,6 +410,7 @@ namespace KLFitter
      * @return An error code.
      */
     int AddParticle(TLorentzVector * particle, double DetEta, KLFitter::Particles::ParticleType ptype, std::string name = "", int measuredindex = -1, bool isBtagged = false, double bTagEff = -1., double bTagRej = -1., TrueFlavorType trueflav = kNone, double btagweight = 999);
+
 
     /**
      * Add a particle to a list of particles.
@@ -449,7 +475,6 @@ namespace KLFitter
      * @return An error flag.
      */
     int CheckIndex(std::vector <TLorentzVector *> * container, int index);
-
 
     /* @} */
 
@@ -595,6 +620,14 @@ namespace KLFitter
      * Vector containing the detector eta of photons.
      */
     std::vector <double> * fPhotonDetEta;
+   /**
+     * Vector containing the charge of electrons.
+     */
+    std::vector <float> * fElectronCharge;
+    /**
+     * Vector containing the charge of muons.
+     */
+    std::vector <float> * fMuonCharge;
 
   };
 

@@ -119,6 +119,13 @@ namespace KLFitter
     int SetParticles(KLFitter::Particles * particles); 
 
     /**
+     * Set truth particles. 
+     * @param particles A pointer to a set of particles. 
+     * @return An error flag. 
+     */ 
+    int SetMyParticlesTruth(KLFitter::Particles * particles); 
+
+    /**
      * Set x and y component of the missing ET.
      * @param etx component of the missing ET.
      * @param ety component of the missing ET.
@@ -234,6 +241,11 @@ namespace KLFitter
      * A pointer to the set of permuted particles. 
      */ 
     KLFitter::Particles * fParticlesPermuted; 
+
+    /**
+     * A pointer to the set of truth particles. 
+     */ 
+    KLFitter::Particles * fMyParticlesTruth;
 
     /**
      * A pointer to the likelihood. 

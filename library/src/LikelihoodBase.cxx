@@ -17,6 +17,7 @@ KLFitter::LikelihoodBase::LikelihoodBase(Particles** particles) : BCModel(),
                                                                   fParticlesPermuted(particles), 
                                                                   fPermutations(0),
                                                                   fParticlesModel(0),
+								  fMyParticlesTruth(0),
                                                                   fPhysicsConstants(new KLFitter::PhysicsConstants()),  
                                                                   fDetector(0),
                                                                   fEventProbability(std::vector<double>(0)),
@@ -68,6 +69,31 @@ int KLFitter::LikelihoodBase::SetInitialParameters(std::vector<double> const& pa
 }
 
 // --------------------------------------------------------- 
+int KLFitter::LikelihoodBase::SetInitialParametersNChains(std::vector<double> const& parameters, uint nchains)
+{
+  // check number of parameters 
+  if (int(parameters.size()) != NParameters())
+    {
+      std::cout << "KLFitter::SetInitialPosition(). Length of vector does not equal the number of parameters." << std::endl; 
+      return 0; 
+    }
+  
+  // set starting point for MCMC 
+  std::vector< std::vector<double> > par(0.);
+
+  for(uint i=0; i< nchains; ++i) {
+    par.push_back(parameters);
+  }
+
+  MCMCSetInitialPositions(par);
+
+  MCMCSetFlagInitialPosition(2);
+
+  // no error 
+  return 1; 
+}
+
+// --------------------------------------------------------- 
 int KLFitter::LikelihoodBase::SetParameterRange(int index, double parmin, double parmax)
 {
   // check index
@@ -106,7 +132,17 @@ int KLFitter::LikelihoodBase::SetParticlesPermuted(KLFitter::Particles** particl
   // no error
   return 1;
 }
+// --------------------------------------------------------- 
+int KLFitter::LikelihoodBase::SetMyParticlesTruth(KLFitter::Particles** particles)
+{
+  // set pointer to pointer of truth particles
+  fMyParticlesTruth  = particles; 
 
+  //std::cout << "set particlestruth inside likelihoodbase!" << std::endl;
+
+  // no error
+  return 1;
+}
 // --------------------------------------------------------- 
 int KLFitter::LikelihoodBase::SetPermutations(KLFitter::Permutations** permutations)
 {

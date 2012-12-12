@@ -16,6 +16,7 @@
 #include "PREPROC.h"
 #include "Particles.h" 
 
+#include "BAT/BCLog.h"
 #include "BAT/BCModel.h"
 
 #include <TLorentzVector.h>
@@ -162,6 +163,14 @@ namespace KLFitter
      * @return An error flag. 
      */ 
     int SetParticlesPermuted(KLFitter::Particles** particles); 
+    
+    /**
+     * Set the truth particles. 
+     * @param particles The truth particles. 
+     * @return An error flag. 
+     */ 
+    int SetMyParticlesTruth(KLFitter::Particles** particles); 
+
 
     /**
      * Set the values for the missing ET x and y components and the SumET.
@@ -193,6 +202,13 @@ namespace KLFitter
      * @return An error flag. 
      */ 
     int SetInitialParameters(std::vector<double> const& parameters); 
+
+    /**
+     * Set the initial values for the minimization, etc. for each chain
+     * @param parameters The initial values.
+     * @return An error flag. 
+     */ 
+    int SetInitialParametersNChains(std::vector<double> const& parameters, uint nchains); 
 
     /**
      * Set which b-tagging you wish to use.
@@ -289,6 +305,17 @@ namespace KLFitter
      */
     virtual std::vector<double> LogLikelihoodComponents(std::vector <double> KLFITTER_UNUSED(parameters))
     { return std::vector<double>(0); } 
+
+    /** 
+     * Return BCH1D histograms calculated inside 
+     * LikelihoodTopDilepton::MCMCIterationsInterface per event
+     */
+    virtual BCH1D * GetHistMttbar() { BCH1D * h(0); return h; }
+    virtual BCH1D * GetHistCosTheta() { BCH1D * h(0); return h; }
+    virtual BCH1D * GetHistdRTop() { BCH1D * h(0); return h; }
+    virtual BCH1D * GetHistdRAntiTop() { BCH1D * h(0); return h; }
+    virtual BCH1D * GetHistdRNu() { BCH1D * h(0); return h; }
+    virtual BCH1D * GetHistdRAntiNu() { BCH1D * h(0); return h; }
 
     /**
      * Return the log of the event probability fof the current
@@ -431,6 +458,11 @@ namespace KLFitter
      * A pointer to the model particles. 
      */ 
     KLFitter::Particles* fParticlesModel; 
+    
+    /**
+     * A pointer to the measured particles. 
+     */ 
+    KLFitter::Particles** fMyParticlesTruth; 
 
     /**
      * A pointer to the table of physics constants 

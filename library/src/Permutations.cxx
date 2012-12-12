@@ -79,6 +79,16 @@ int KLFitter::Permutations::CreatePermutations()
   int nmuons     = (*fParticles)->NMuons(); 
   int nphotons     = (*fParticles)->NPhotons(); 
 
+  bool isDilepton(false);
+
+  if(nelectrons!=0 && (*fParticles)->LeptonCharge(0, KLFitter::Particles::kElectron)!=-9)
+    isDilepton=true;
+
+  if(nmuons!=0 && (*fParticles)->LeptonCharge(0, KLFitter::Particles::kMuon)!=-9)
+    isDilepton=true;
+
+  //std::cout << "isDilepton? " << isDilepton  << std::endl;
+
   // create table for parton, electron, muon and photons permutations 
   fTablePartons = new std::vector < std::vector<int> * >(0); 
   CreateSubTable(npartons, fTablePartons); 
@@ -144,14 +154,27 @@ int KLFitter::Permutations::CreatePermutations()
                     {
                       // get index 
                       int index = (*(*fTableElectrons)[ipermelectron])[i];
-
-                      // add electron 
-                      particles->AddParticle((*fParticles)->Electron(index),
-                                             (*fParticles)->DetEta(index, KLFitter::Particles::kElectron),
-                                             KLFitter::Particles::kElectron,
-                                             (*fParticles)->NameParticle(index, KLFitter::Particles::kElectron),
-                                             (*fParticles)->ElectronIndex(index));
-
+		      
+		      // if isDilepton include charge of the lepton
+		      if (isDilepton){
+			
+			// add electron 
+			particles->AddParticle((*fParticles)->Electron(index),
+					       (*fParticles)->DetEta(index, KLFitter::Particles::kElectron),
+					       (*fParticles)->LeptonCharge(index, KLFitter::Particles::kElectron),
+					       KLFitter::Particles::kElectron,
+					       (*fParticles)->NameParticle(index, KLFitter::Particles::kElectron),
+					       (*fParticles)->ElectronIndex(index));
+		      }
+		      else{
+			// add electron 
+			particles->AddParticle((*fParticles)->Electron(index),
+					       (*fParticles)->DetEta(index, KLFitter::Particles::kElectron),
+					       KLFitter::Particles::kElectron,
+					       (*fParticles)->NameParticle(index, KLFitter::Particles::kElectron),
+					       (*fParticles)->ElectronIndex(index));
+		      }
+		      
                       // set permutation 
                       (*permutation)[npartons + i] = index;
                     }
@@ -162,12 +185,26 @@ int KLFitter::Permutations::CreatePermutations()
                       // get index 
                       int index = (*(*fTableMuons)[ipermmuon])[i]; 
 
-                      // add muon 
-                      particles->AddParticle((*fParticles)->Muon(index),
-                                             (*fParticles)->DetEta(index, KLFitter::Particles::kMuon),
-                                             KLFitter::Particles::kMuon,
-                                             (*fParticles)->NameParticle(index, KLFitter::Particles::kMuon),
-                                             (*fParticles)->MuonIndex(index));
+		      // if isDilepton include charge of the lepton
+		      if (isDilepton){
+			
+			// add muon 
+			particles->AddParticle((*fParticles)->Muon(index),
+					       (*fParticles)->DetEta(index, KLFitter::Particles::kMuon),
+					       (*fParticles)->LeptonCharge(index, KLFitter::Particles::kMuon),
+					       KLFitter::Particles::kMuon,
+					       (*fParticles)->NameParticle(index, KLFitter::Particles::kMuon),
+					       (*fParticles)->MuonIndex(index));
+		      }
+		      else{
+			// add muon 
+			particles->AddParticle((*fParticles)->Muon(index),
+					       (*fParticles)->DetEta(index, KLFitter::Particles::kMuon),
+					       KLFitter::Particles::kMuon,
+					       (*fParticles)->NameParticle(index, KLFitter::Particles::kMuon),
+					       (*fParticles)->MuonIndex(index));
+			
+		      }
 
                       // set permutation 
                       (*permutation)[npartons + nelectrons + i] = index; 

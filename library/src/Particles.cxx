@@ -36,7 +36,9 @@ KLFitter::Particles::Particles() :
   fElectronDetEta(new std::vector<double>(0)),
   fMuonDetEta(new std::vector<double>(0)),
   fJetDetEta(new std::vector<double>(0)),
-  fPhotonDetEta(new std::vector<double>(0))
+  fPhotonDetEta(new std::vector<double>(0)),
+  fElectronCharge(new std::vector<float>(0)),
+  fMuonCharge(new std::vector<float>(0))
 {
 }
 
@@ -161,6 +163,74 @@ KLFitter::Particles::~Particles()
 
   if (fPhotonDetEta)
     delete fPhotonDetEta;
+
+  if (fElectronCharge)
+    delete fElectronCharge;
+
+  if (fMuonCharge)
+    delete fMuonCharge;
+}
+
+// --------------------------------------------------------- 
+int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, float LepCharge, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex)
+{
+  // get particle container
+  std::vector <TLorentzVector *>* container = ParticleContainer(ptype); 
+
+  //std::string name = "";
+  //int measuredindex = -1;
+
+  // check if container exists
+  if (!container)
+    {
+      std::cout << "KLFitter::Particles::AddParticle(). Container does not exist." << std::endl; 
+      return 0; 
+    }
+
+  // check name 
+  if (name == "")
+    name = Form("particle_%i", NParticles()); 
+
+  // get index and type 
+  TLorentzVector* vect = 0; 
+  int index = 0; 
+  KLFitter::Particles::ParticleType temptype = kParton; 
+
+  // check if particle with name exists already 
+  if (!FindParticle(name, vect, index, temptype)) {
+
+    // add particle 
+    // create pointer copy of particle content which is owend by Particles
+    TLorentzVector * cparticle = new TLorentzVector(particle->Px(), particle->Py(), particle->Pz(), particle->E());
+    container->push_back(cparticle); 
+    ParticleNameContainer(ptype)->push_back(name); 
+    if (ptype == KLFitter::Particles::kElectron){ 
+      fElectronIndex->push_back(measuredindex);
+      fElectronDetEta->push_back(DetEta);
+      fElectronCharge->push_back(LepCharge);
+    }
+    else if (ptype == KLFitter::Particles::kMuon){ 
+      fMuonIndex->push_back(measuredindex);
+      fMuonDetEta->push_back(DetEta);
+      fMuonCharge->push_back(LepCharge);
+    } 
+    else if (ptype == KLFitter::Particles::kPhoton){
+      fPhotonIndex->push_back(measuredindex);
+      fPhotonDetEta->push_back(DetEta);
+    } 
+  }
+  else {
+    std::cout << "KLFitter::Particles::AddParticle(). Particle with the name " << name << " exists already." << std::endl; 
+    return 0; 
+  }
+
+  if (particle->M() < -1.e-3) {
+    std::cout << "KLFitter::Particles::AddParticle(). WARNING : A particle with negative mass " << particle->M() << " of type " << ptype << " was added." << std::endl;
+    return 1;
+  }
+
+  // no error
+  return 1;
 }
 
 // --------------------------------------------------------- 
@@ -236,12 +306,13 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, K
 }
 
 
+
 // --------------------------------------------------------- 
 int KLFitter::Particles::AddParticle(TLorentzVector * particle, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, TrueFlavorType trueflav, double btagweight)
 {
   //set default DetEta
   double DetEta=-999;
-
+ 
   this->AddParticle(particle, DetEta, ptype, name, measuredindex, isBtagged, bTagEff, bTagRej, trueflav, btagweight);
   
   // no error
@@ -254,7 +325,7 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, KLFitter::Partic
 {
   //set default DetEta
   double DetEta=-999;
-
+ 
   this->AddParticle(particle, DetEta, ptype, name, measuredindex, false, -1., -1., trueflav, btagweight);
 
   // no error
@@ -670,6 +741,33 @@ double KLFitter::Particles::DetEta(int index, KLFitter::Particles::ParticleType 
 
   // return error value
   return -100;
+}
+// --------------------------------------------------------- 
+float KLFitter::Particles::LeptonCharge(int index, KLFitter::Particles::ParticleType ptype)
+{
+  if (index < 0 || index > NParticles(ptype)) {
+    std::cout << "KLFitter::Particles::LepCharge(). Index out of range." << std::endl; 
+    return 0; 
+  }
+
+  
+  if (ptype == KLFitter::Particles::kElectron){
+    if (fElectronCharge->size()==0)
+      return -9;
+    else
+      return (*fElectronCharge)[index];
+  }
+  else if (ptype == KLFitter::Particles::kMuon){
+    if (fMuonCharge->size()==0)
+      return -9;
+    else
+      return (*fMuonCharge)[index];
+  }
+  else
+    std::cout << "KLFitter::Particles::LepCharge NO LEPTON TYPE!" << std::endl;
+  
+  // return error value
+  return -9;
 }
 // --------------------------------------------------------- 
 int KLFitter::Particles::JetIndex(int index)

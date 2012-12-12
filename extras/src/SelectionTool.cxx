@@ -50,7 +50,9 @@ int KLFitter::SelectionTool::SelectObjects(KLFitter::Particles * particles)
   // clear events
   if (fParticlesSelected) 
     delete fParticlesSelected; 
-  
+
+  bool isDilepton(false);
+
   fParticlesSelected = new KLFitter::Particles(); 
   
   // reset maps 
@@ -140,6 +142,11 @@ int KLFitter::SelectionTool::SelectObjects(KLFitter::Particles * particles)
   
   // electron selection 
   int nelectrons = particles->NElectrons(); 
+
+  if(nelectrons!=0 && particles->LeptonCharge(0, KLFitter::Particles::kElectron)!=-9)
+    isDilepton=true;
+
+  //std::cout << "isDilepton? " << isDilepton  << std::endl;
   
   for (int i = 0; i < nelectrons; ++i)
     {
@@ -151,13 +158,28 @@ int KLFitter::SelectionTool::SelectObjects(KLFitter::Particles * particles)
       if (particles->Electron(i)->Pt() < fElectronPt)
         continue; 
       TLorentzVector * tlv_tmp = new TLorentzVector(*particles->Electron(i));
-      // add electron 
-      fParticlesSelected->AddParticle( tlv_tmp, 
-				       //				       new TLorentzVector(*particles->Electron(i)),
-                                       particles->DetEta(i, KLFitter::Particles::kElectron),
-                                       KLFitter::Particles::kElectron, 
-                                       particles->NameParticle(i, KLFitter::Particles::kElectron),
-                                       particles->ElectronIndex(i));
+
+      if (isDilepton){
+	// add electron 
+	fParticlesSelected->AddParticle( tlv_tmp, 
+					 //				       new TLorentzVector(*particles->Electron(i)),
+					 particles->DetEta(i, KLFitter::Particles::kElectron),
+					 particles->LeptonCharge(i, KLFitter::Particles::kElectron),
+					 KLFitter::Particles::kElectron, 
+					 particles->NameParticle(i, KLFitter::Particles::kElectron),
+					 particles->ElectronIndex(i));
+      }
+      else {
+	// add electron 
+	fParticlesSelected->AddParticle( tlv_tmp, 
+					 //				       new TLorentzVector(*particles->Electron(i)),
+					 particles->DetEta(i, KLFitter::Particles::kElectron),
+					 KLFitter::Particles::kElectron, 
+					 particles->NameParticle(i, KLFitter::Particles::kElectron),
+					 particles->ElectronIndex(i));
+      }
+
+
       // add index to map 
       fMapElectrons.push_back(i); 
       delete tlv_tmp;
@@ -165,6 +187,11 @@ int KLFitter::SelectionTool::SelectObjects(KLFitter::Particles * particles)
   
   // muon selection 
   int nmuons = particles->NMuons(); 
+
+  if(nmuons!=0 && particles->LeptonCharge(0, KLFitter::Particles::kMuon)!=-9)
+    isDilepton=true;
+
+  //std::cout << "isDilepton? " << isDilepton  << std::endl;
   
   for (int i = 0; i < nmuons; ++i)
     {
@@ -176,14 +203,28 @@ int KLFitter::SelectionTool::SelectObjects(KLFitter::Particles * particles)
       if (particles->Muon(i)->Pt() < fMuonPt)
         continue; 
       TLorentzVector * tlv_tmp = new TLorentzVector(*particles->Muon(i));
-      // add muon 
-      fParticlesSelected->AddParticle( tlv_tmp,  
-				       //				       new TLorentzVector(*particles->Muon(i)),
-                                       particles->DetEta(i, KLFitter::Particles::kMuon),
-                                       KLFitter::Particles::kMuon, 
-                                       particles->NameParticle(i, KLFitter::Particles::kMuon),
-                                       particles->MuonIndex(i));
-      
+
+      if (isDilepton) {
+	// add muon 
+	fParticlesSelected->AddParticle( tlv_tmp,  
+					 //				       new TLorentzVector(*particles->Muon(i)),
+					 particles->DetEta(i, KLFitter::Particles::kMuon),
+					 particles->LeptonCharge(i, KLFitter::Particles::kMuon),
+					 KLFitter::Particles::kMuon, 
+					 particles->NameParticle(i, KLFitter::Particles::kMuon),
+					 particles->MuonIndex(i));
+      }
+      else {
+	// add muon 
+	fParticlesSelected->AddParticle( tlv_tmp,  
+					 //				       new TLorentzVector(*particles->Muon(i)),
+					 particles->DetEta(i, KLFitter::Particles::kMuon),
+					 KLFitter::Particles::kMuon, 
+					 particles->NameParticle(i, KLFitter::Particles::kMuon),
+					 particles->MuonIndex(i));
+      }
+
+
       // add index to map 
       fMapMuons.push_back(i); 
       delete tlv_tmp;
@@ -244,7 +285,7 @@ int KLFitter::SelectionTool::SelectEvent(KLFitter::Particles * particles, double
 
   // increase coutner 
   fCounterEvents++; 
-
+  
   // ------------------
   // electron selection 
   // ------------------
@@ -279,8 +320,7 @@ int KLFitter::SelectionTool::SelectEvent(KLFitter::Particles * particles, double
   
   // increase counter 
   fCounterElectrons++; 
-  
-  
+    
   // --------------
   // muon selection 
   // --------------
@@ -365,6 +405,7 @@ int KLFitter::SelectionTool::SelectEvent(KLFitter::Particles * particles, double
 			
 			// increase counter 
       fCounterJets++; 
+      
     }
   else {
     // increase counter 
@@ -446,8 +487,8 @@ int KLFitter::SelectionTool::SelectEvent(KLFitter::Particles * particles, double
   
   
   // increase counter 
-  fCounterSelected++;         
-  
+  fCounterSelected++; 
+    
   // event passed
   return 1;
 }

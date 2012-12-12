@@ -79,6 +79,10 @@ namespace KLFitter
     virtual double p(double KLFITTER_UNUSED(x), double KLFITTER_UNUSED(xmeas), bool &good, double KLFITTER_UNUSED(sumet))
     { good = true; return 0; } 
 
+    virtual double GetSigma(double KLFITTER_UNUSED(sumet))
+    { return 0; } 
+
+
     /**
      * Return a parameter of the parameterization. 
      * @param index The parameter index. 
