@@ -312,11 +312,7 @@ namespace KLFitter
      */
     virtual BCH1D * GetHistMttbar() { BCH1D * h(0); return h; }
     virtual BCH1D * GetHistCosTheta() { BCH1D * h(0); return h; }
-    virtual BCH1D * GetHistdRTop() { BCH1D * h(0); return h; }
-    virtual BCH1D * GetHistdRAntiTop() { BCH1D * h(0); return h; }
-    virtual BCH1D * GetHistdRNu() { BCH1D * h(0); return h; }
-    virtual BCH1D * GetHistdRAntiNu() { BCH1D * h(0); return h; }
-
+ 
     /**
      * Return the log of the event probability fof the current
      * combination
