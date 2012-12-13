@@ -252,12 +252,7 @@ namespace KLFitter
      */ 
     TH1D *  hist_mttbar;
     TH1D *  hist_costheta;
-    TH1D *  hist_drtop;
-    TH1D *  hist_drantitop;
-    TH1D *  hist_drnu;
-    TH1D *  hist_drantinu;
-
-
+   
     /* @} */
 
   protected: 
@@ -324,36 +319,9 @@ namespace KLFitter
     BCH1D * GetHistCosTheta() {	return fHistCosTheta;  }
     
     /**
-     * Get BAT BCH1D histograms of dR (truth top, fit top)
-     * @return BCH1D histograms
-     */
-    BCH1D * GetHistdRTop()         {	return fHistdRTop;  }
-    /**
-     * Get BAT BCH1D histograms of dR (truth antitop, fit antitop)
-     * @return BCH1D histograms
-     */
-    BCH1D * GetHistdRAntiTop()     {    return fHistdRAntiTop;  }
-    /**
-     * Get BAT BCH1D histograms of dR (truth nu, fit nu)
-     * @return BCH1D histograms
-     */
-    BCH1D * GetHistdRNu()          {	return fHistdRNu;  }
-    /**
-     * Get BAT BCH1D histograms of dR (truth antinu, fit antinu)
-     * @return BCH1D histograms
-     */
-    BCH1D * GetHistdRAntiNu()      {	return fHistdRAntiNu;  }
-
-
-    /**
      * calculate cos(theta*) for both top and antitop
      */
     std::pair<float, float> CalculateCosTheta(std::vector <TLorentzVector> *particles);
-
-    /**
-     * calculate deltaR between two TLorentzVectors
-     */
-    double DeltaR(TLorentzVector * vect1, TLorentzVector * vect2);
 
     /* @} */
 

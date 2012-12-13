@@ -27,16 +27,8 @@ KLFitter::LikelihoodTopDilepton::LikelihoodTopDilepton() : KLFitter::LikelihoodB
                                                              , fTFgood(true)
 							     , hist_mttbar(new TH1D())
 							     , hist_costheta(new TH1D())
-							     , hist_drtop(new TH1D())
-							     , hist_drantitop(new TH1D())
-							     , hist_drnu(new TH1D())
-							     , hist_drantinu(new TH1D())
 							     , fHistMttbar(new BCH1D())
                                                              , fHistCosTheta(new BCH1D())
-							     , fHistdRTop(new BCH1D())
-							     , fHistdRAntiTop(new BCH1D())
-							     , fHistdRNu(new BCH1D())
-						             , fHistdRAntiNu(new BCH1D())
 {  
 
 
@@ -56,18 +48,7 @@ KLFitter::LikelihoodTopDilepton::~LikelihoodTopDilepton()
 {
   delete fHistMttbar;
   delete fHistCosTheta;
-  delete fHistdRTop;
-  delete fHistdRAntiTop;
-  delete fHistdRNu;
-  delete fHistdRAntiNu;
-
-//   delete hist_mttbar;
-//   delete hist_costheta;
-//   delete hist_drtop;
-//   delete hist_drantitop;
-//   delete hist_drnu;
-//   delete hist_drantinu;
-
+ 
 }
 
 // --------------------------------------------------------- 
@@ -236,19 +217,6 @@ void KLFitter::LikelihoodTopDilepton::DefineHistograms()
   hist_costheta = new TH1D(TString::Format("hist_costheta_%s", channel), "", 100, 0., 1.);
   fHistCosTheta->SetHistogram(hist_costheta);
   
-  // create a new ROOT and BAT histogram for dr_top and dr_antitop
-  hist_drtop = new TH1D(TString::Format("hist_drtop_%s", channel), "", 100, 0., 5.);
-  fHistdRTop->SetHistogram(hist_drtop);
-  
-  hist_drantitop = new TH1D(TString::Format("hist_drantitop_%s", channel), "", 100, 0., 5.);
-  fHistdRAntiTop->SetHistogram(hist_drantitop);
-
-  hist_drnu = new TH1D(TString::Format("hist_drnu_%s", channel), "", 100, 0., 5.);
-  fHistdRNu->SetHistogram(hist_drnu);
-
-  hist_drantinu = new TH1D(TString::Format("hist_drantinu_%s", channel), "", 100, 0., 5.);
-  fHistdRAntiNu->SetHistogram(hist_drantinu);
-
 }
 
 // --------------------------------------------------------- 
@@ -912,7 +880,7 @@ KLFitter::NuSolutions KLFitter::LikelihoodTopDilepton::SolveForNuMom(TLorentzVec
     ret.nu2.SetPxPyPzE(px2,py2,pz2,E2);
     
   }
-  if (ret.NSolutions==1) std::cout<<"weighter::SolveForNuMom  NSolutions==1 !!!!!!!!!!!!!!!!!"<<std::endl;
+  if (ret.NSolutions==1) std::cout<<"KLFitter::LikelihoodTopDilepton::SolveForNuMom  NSolutions==1 !!!!!!!!!!!!!!!!!"<<std::endl;
 
   return ret;
 }
@@ -1207,8 +1175,6 @@ std::vector<double> KLFitter::LikelihoodTopDilepton::LogLikelihoodComponents(std
 
 void KLFitter::LikelihoodTopDilepton::MCMCIterationInterface()
 {
-  float fHelpWeight = -50;
-  
   TLorentzVector  MCMC_b1(0.);
   TLorentzVector  MCMC_b2(0.);
   TLorentzVector  MCMC_lep1(0.);
@@ -1234,24 +1200,6 @@ void KLFitter::LikelihoodTopDilepton::MCMCIterationInterface()
   std::pair<float, float> costheta(0.,0.);
   std::vector <TLorentzVector> * help_ParticleVector  = new std::vector<TLorentzVector>(0);
 
-  // for dR top matching
-  TLorentzVector *  MCMC_top  = new TLorentzVector();
-  TLorentzVector *  MCMC_antitop  = new TLorentzVector();
-  
-  double dR_top(-50.);
-  double dR_antitop(-50.);
-  double dR_nu(-50.);
-  double dR_antinu(-50.);
-   
-  double top_px(0.);
-  double top_py(0.);
-  double top_pz(0.);
-  double top_E(0.);
-  double antitop_px(0.);
-  double antitop_py(0.);
-  double antitop_pz(0.);
-  double antitop_E(0.);
-
   // get number of chains
   int nchains = MCMCGetNChains();
 
@@ -1260,7 +1208,6 @@ void KLFitter::LikelihoodTopDilepton::MCMCIterationInterface()
 
   // loop over all chains and fill histogram
   for (int i = 0; i < nchains; ++i) {
-    fHelpWeight = -50;
     // get the current values of the KLFitter parameters. These are
     // stored in fMCMCx.
     double mtop = fMCMCx.at(i * npar + 0);
@@ -1313,10 +1260,7 @@ void KLFitter::LikelihoodTopDilepton::MCMCIterationInterface()
     
 
     if (nus.NSolutions > 0 && nubars.NSolutions > 0) { // 1 nu 1 nubar
-      float fTestWeight = neutrino_weight(nus.nu1,nubars.nu1);
-      //std::cout << "fTestWeight: " << fTestWeight << std::endl;
-      //std::cout << "fHelpWeight: " << fHelpWeight << std::endl;
-
+      
       if (nus.nu1.M() >= 0 && nubars.nu1.M() >= 0) {
 	//mttbar
 	mttbar = (MCMC_b1 + MCMC_b2 + MCMC_lep1 + MCMC_lep2 + nus.nu1 + nubars.nu1).M();
@@ -1336,122 +1280,45 @@ void KLFitter::LikelihoodTopDilepton::MCMCIterationInterface()
 	//std::cout << "costheta: " << costheta.first << std::endl;
       }
 
-      if (fTestWeight > fHelpWeight) {
-	//std::cout << "nus.nu1.M(): " << nus.nu1.M() << std::endl;
-	//std::cout << "nubars.nu1.M(): " << nubars.nu1.M() << std::endl;
-	if (nus.nu1.M() >= 0 && nubars.nu1.M() >= 0 && fMyParticlesTruth!=0) {
-	  fHelpWeight = fTestWeight;
-	  
-	  //top
-	  top_px = (MCMC_antilep + MCMC_b1 + nus.nu1).Px();
-	  top_py = (MCMC_antilep + MCMC_b1 + nus.nu1).Py();
-	  top_pz = (MCMC_antilep + MCMC_b1 + nus.nu1).Pz();
-	  top_E  = (MCMC_antilep + MCMC_b1 + nus.nu1).E();
-	  
-	  MCMC_top    ->SetPxPyPzE(top_px,top_py,top_pz,top_E);
-	  dR_top     = DeltaR(MCMC_top, (*fMyParticlesTruth)->Particle("top quark"));
-	  //std::cout << "dr top: " << dR_top << std::endl;
-	  	  
-	  dR_nu     = DeltaR(&nus.nu1, (*fMyParticlesTruth)->Particle("neutrino"));  
-	  //std::cout << "dR_nu: " << dR_nu << std::endl;
-	  
-	  //antitop
-	  antitop_px = (MCMC_lep + MCMC_b2 + nubars.nu1).Px();
-	  antitop_py = (MCMC_lep + MCMC_b2 + nubars.nu1).Py();
-	  antitop_pz = (MCMC_lep + MCMC_b2 + nubars.nu1).Pz();
-	  antitop_E  = (MCMC_lep + MCMC_b2 + nubars.nu1).E();
-	  
-	  MCMC_antitop->SetPxPyPzE(antitop_px,antitop_py,antitop_pz,antitop_E);
-	  dR_antitop = DeltaR(MCMC_antitop, (*fMyParticlesTruth)->Particle("antitop quark"));
-	  //std::cout << "dr antitop: " << dR_antitop << std::endl;
-	  	  
-	  dR_antinu     = DeltaR(&nubars.nu1, (*fMyParticlesTruth)->Particle("antineutrino"));  
-	  //std::cout << "dR_antinu: " << dR_antinu << std::endl;
-	}
-      }//passed-weight
       if (nus.NSolutions == 1 && nubars.NSolutions == 2) { // 1 nu 2 nubar
-	fTestWeight = neutrino_weight(nus.nu1,nubars.nu2);
-	//std::cout << "fTestWeight: " << fTestWeight << std::endl;
-	//std::cout << "fHelpWeight: " << fHelpWeight << std::endl;
-
 	if (nus.nu1.M() >= 0 && nubars.nu2.M() >= 0) {
 	  //mttbar
 	  mttbar = (MCMC_b1 + MCMC_b2 + MCMC_lep1 + MCMC_lep2 + nus.nu1 + nubars.nu2).M();
 	  //std::cout << "2 mttbar: " << mttbar << std::endl;
 	  fHistMttbar->GetHistogram()->Fill(mttbar);
+	  //costheta
+	  help_ParticleVector->clear();
+	  help_ParticleVector -> push_back(MCMC_lep);
+	  help_ParticleVector -> push_back(MCMC_antilep);
+	  help_ParticleVector -> push_back(nus.nu1);
+	  help_ParticleVector -> push_back(nubars.nu2);
+	  help_ParticleVector -> push_back(MCMC_b1);
+	  help_ParticleVector -> push_back(MCMC_b2);
+	  costheta = CalculateCosTheta( help_ParticleVector );
+	  fHistCosTheta->GetHistogram()->Fill(costheta.first);
+	  fHistCosTheta->GetHistogram()->Fill(costheta.second);
+	  //std::cout << "costheta: " << costheta.first << std::endl;
 	}	
-	
-	if (fTestWeight > fHelpWeight) {
-	  if (nus.nu1.M() >= 0 && nubars.nu2.M() >= 0 && fMyParticlesTruth!=0) {
-	    fHelpWeight = fTestWeight;
-	    //top
-	    top_px = (MCMC_antilep + MCMC_b1 + nus.nu1).Px();
-	    top_py = (MCMC_antilep + MCMC_b1 + nus.nu1).Py();
-	    top_pz = (MCMC_antilep + MCMC_b1 + nus.nu1).Pz();
-	    top_E  = (MCMC_antilep + MCMC_b1 + nus.nu1).E();
-	    
-	    MCMC_top    ->SetPxPyPzE(top_px,top_py,top_pz,top_E);
-	    dR_top     = DeltaR(MCMC_top, (*fMyParticlesTruth)->Particle("top quark"));
-	    //std::cout << "dr top: " << dR_top << std::endl;
-	  	    
-	    dR_nu     = DeltaR(&nus.nu1, (*fMyParticlesTruth)->Particle("neutrino"));  
-	    //std::cout << "dR_nu: " << dR_nu << std::endl;
-	  	  
-	    //antitop
-	    antitop_px = (MCMC_lep + MCMC_b2 + nubars.nu2).Px();
-	    antitop_py = (MCMC_lep + MCMC_b2 + nubars.nu2).Py();
-	    antitop_pz = (MCMC_lep + MCMC_b2 + nubars.nu2).Pz();
-	    antitop_E  = (MCMC_lep + MCMC_b2 + nubars.nu2).E();
-	    
-	    MCMC_antitop->SetPxPyPzE(antitop_px,antitop_py,antitop_pz,antitop_E);
-	    dR_antitop = DeltaR(MCMC_antitop, (*fMyParticlesTruth)->Particle("antitop quark"));
-	    //std::cout << "dr antitop: " << dR_antitop << std::endl;
-	   	    
-	    dR_antinu     = DeltaR(&nubars.nu2, (*fMyParticlesTruth)->Particle("antineutrino"));  
-	  }
-	}//passed-weight
       }// 1 nu 2 nubar
       else if (nus.NSolutions == 2 && nubars.NSolutions == 1){  // 2 nu 1 nubar
-	fTestWeight = neutrino_weight(nus.nu2,nubars.nu1);
-	//std::cout << "fTestWeight: " << fTestWeight << std::endl;
-	//std::cout << "fHelpWeight: " << fHelpWeight << std::endl;
-
 	if (nus.nu2.M() >= 0 && nubars.nu1.M() >= 0) {
 	  //mttbar
 	  mttbar = (MCMC_b1 + MCMC_b2 + MCMC_lep1 + MCMC_lep2 + nus.nu2 + nubars.nu1).M();
 	  //std::cout << "3 mttbar: " << mttbar << std::endl;
 	  fHistMttbar->GetHistogram()->Fill(mttbar);
+	  //costheta
+	  help_ParticleVector->clear();
+	  help_ParticleVector -> push_back(MCMC_lep);
+	  help_ParticleVector -> push_back(MCMC_antilep);
+	  help_ParticleVector -> push_back(nus.nu2);
+	  help_ParticleVector -> push_back(nubars.nu1);
+	  help_ParticleVector -> push_back(MCMC_b1);
+	  help_ParticleVector -> push_back(MCMC_b2);
+	  costheta = CalculateCosTheta( help_ParticleVector );
+	  fHistCosTheta->GetHistogram()->Fill(costheta.first);
+	  fHistCosTheta->GetHistogram()->Fill(costheta.second);
+	  //std::cout << "costheta: " << costheta.first << std::endl;
 	}
-
-	if (fTestWeight > fHelpWeight) {
-	  if (nus.nu2.M() >= 0 && nubars.nu1.M() >= 0 && fMyParticlesTruth!=0) {
-	    fHelpWeight = fTestWeight;
-	    //top
-	    top_px = (MCMC_antilep + MCMC_b1 + nus.nu2).Px();
-	    top_py = (MCMC_antilep + MCMC_b1 + nus.nu2).Py();
-	    top_pz = (MCMC_antilep + MCMC_b1 + nus.nu2).Pz();
-	    top_E  = (MCMC_antilep + MCMC_b1 + nus.nu2).E();
-	    
-	    MCMC_top    ->SetPxPyPzE(top_px,top_py,top_pz,top_E);
-	    dR_top = DeltaR(MCMC_top, (*fMyParticlesTruth)->Particle("top quark"));
-	    //std::cout << "dr top: " << dR_top << std::endl;
-	    	    
-	    dR_nu     = DeltaR(&nus.nu2, (*fMyParticlesTruth)->Particle("neutrino"));  
-	    	  
-	    //antitop
-	    antitop_px = (MCMC_lep + MCMC_b2 + nubars.nu1).Px();
-	    antitop_py = (MCMC_lep + MCMC_b2 + nubars.nu1).Py();
-	    antitop_pz = (MCMC_lep + MCMC_b2 + nubars.nu1).Pz();
-	    antitop_E  = (MCMC_lep + MCMC_b2 + nubars.nu1).E();
-	    
-	    MCMC_antitop->SetPxPyPzE(antitop_px,antitop_py,antitop_pz,antitop_E);
-	    dR_antitop = DeltaR(MCMC_antitop, (*fMyParticlesTruth)->Particle("antitop quark"));
-	    //std::cout << "dr antitop: " << dR_antitop << std::endl;
-	    	    
-	    dR_antinu     = DeltaR(&nubars.nu1, (*fMyParticlesTruth)->Particle("antineutrino"));  
-	    //std::cout << "dR_antinu: " << dR_antinu << std::endl;
-	  }
-	}//passed-weight
       }// 2 nu 1 nubar
       else if (nus.NSolutions == 2 && nubars.NSolutions == 2){  // 2 nu 2 nubar
 	
@@ -1460,14 +1327,37 @@ void KLFitter::LikelihoodTopDilepton::MCMCIterationInterface()
 	  mttbar = (MCMC_b1 + MCMC_b2 + MCMC_lep1 + MCMC_lep2 + nus.nu1 + nubars.nu2).M();
 	  //std::cout << "4a mttbar: " << mttbar << std::endl;
 	  fHistMttbar->GetHistogram()->Fill(mttbar);
+	  //costheta
+	  help_ParticleVector->clear();
+	  help_ParticleVector -> push_back(MCMC_lep);
+	  help_ParticleVector -> push_back(MCMC_antilep);
+	  help_ParticleVector -> push_back(nus.nu1);
+	  help_ParticleVector -> push_back(nubars.nu2);
+	  help_ParticleVector -> push_back(MCMC_b1);
+	  help_ParticleVector -> push_back(MCMC_b2);
+	  costheta = CalculateCosTheta( help_ParticleVector );
+	  fHistCosTheta->GetHistogram()->Fill(costheta.first);
+	  fHistCosTheta->GetHistogram()->Fill(costheta.second);
+	  //std::cout << "costheta: " << costheta.first << std::endl;
 	}
-
 
 	if (nus.nu2.M() >= 0 && nubars.nu1.M() >= 0) {
 	  //mttbar
 	  mttbar = (MCMC_b1 + MCMC_b2 + MCMC_lep1 + MCMC_lep2 + nus.nu2 + nubars.nu1).M();
 	  //	std::cout << "4b mttbar: " << mttbar << std::endl;
 	  fHistMttbar->GetHistogram()->Fill(mttbar);
+	  //costheta
+	  help_ParticleVector->clear();
+	  help_ParticleVector -> push_back(MCMC_lep);
+	  help_ParticleVector -> push_back(MCMC_antilep);
+	  help_ParticleVector -> push_back(nus.nu2);
+	  help_ParticleVector -> push_back(nubars.nu1);
+	  help_ParticleVector -> push_back(MCMC_b1);
+	  help_ParticleVector -> push_back(MCMC_b2);
+	  costheta = CalculateCosTheta( help_ParticleVector );
+	  fHistCosTheta->GetHistogram()->Fill(costheta.first);
+	  fHistCosTheta->GetHistogram()->Fill(costheta.second);
+	  //std::cout << "costheta: " << costheta.first << std::endl;
 	}
 
 	if (nus.nu2.M() >= 0 && nubars.nu2.M() >= 0) {
@@ -1475,147 +1365,24 @@ void KLFitter::LikelihoodTopDilepton::MCMCIterationInterface()
 	  mttbar = (MCMC_b1 + MCMC_b2 + MCMC_lep1 + MCMC_lep2 + nus.nu2 + nubars.nu2).M();
 	  //std::cout << "4c mttbar: " << mttbar << std::endl;
 	  fHistMttbar->GetHistogram()->Fill(mttbar);
+	  //costheta
+	  help_ParticleVector->clear();
+	  help_ParticleVector -> push_back(MCMC_lep);
+	  help_ParticleVector -> push_back(MCMC_antilep);
+	  help_ParticleVector -> push_back(nus.nu2);
+	  help_ParticleVector -> push_back(nubars.nu2);
+	  help_ParticleVector -> push_back(MCMC_b1);
+	  help_ParticleVector -> push_back(MCMC_b2);
+	  costheta = CalculateCosTheta( help_ParticleVector );
+	  fHistCosTheta->GetHistogram()->Fill(costheta.first);
+	  fHistCosTheta->GetHistogram()->Fill(costheta.second);
+	  //std::cout << "costheta: " << costheta.first << std::endl;
 	}
-
-	fTestWeight = neutrino_weight(nus.nu1,nubars.nu2);
-	//std::cout << "nu1, nubar2, fTestWeight: " << fTestWeight << std::endl;
-	//std::cout << "nu1, nubar2, fHelpWeight: " << fHelpWeight << std::endl;
-	if (fTestWeight > fHelpWeight) {
-	  //std::cout << "nus.nu1.M(): " << nus.nu1.M() << std::endl;
-	  //std::cout << "nubars.nu2.M(): " << nubars.nu2.M() << std::endl;
-	  if (nus.nu1.M() >= 0 && nubars.nu2.M() >= 0 && fMyParticlesTruth!=0) {
-	    fHelpWeight = fTestWeight;
-	    //top
-	    top_px = (MCMC_antilep + MCMC_b1 + nus.nu1).Px();
-	    top_py = (MCMC_antilep + MCMC_b1 + nus.nu1).Py();
-	    top_pz = (MCMC_antilep + MCMC_b1 + nus.nu1).Pz();
-	    top_E  = (MCMC_antilep + MCMC_b1 + nus.nu1).E();
-	    
-	    MCMC_top    ->SetPxPyPzE(top_px,top_py,top_pz,top_E);
-	    dR_top     = DeltaR(MCMC_top, (*fMyParticlesTruth)->Particle("top quark"));
-	    //std::cout << "dr top: " << dR_top << std::endl;
-	   	    
-	    dR_nu     = DeltaR(&nus.nu1, (*fMyParticlesTruth)->Particle("neutrino"));  
-	    //std::cout << "dR_nu: " << dR_nu << std::endl;
-	   
-	    //antitop
-	    antitop_px = (MCMC_lep + MCMC_b2 + nubars.nu2).Px();
-	    antitop_py = (MCMC_lep + MCMC_b2 + nubars.nu2).Py();
-	    antitop_pz = (MCMC_lep + MCMC_b2 + nubars.nu2).Pz();
-	    antitop_E  = (MCMC_lep + MCMC_b2 + nubars.nu2).E();
-	    
-	    MCMC_antitop->SetPxPyPzE(antitop_px,antitop_py,antitop_pz,antitop_E);
-	    dR_antitop = DeltaR(MCMC_antitop, (*fMyParticlesTruth)->Particle("antitop quark"));
-	    //std::cout << "dr antitop: " << dR_antitop << std::endl;
-	    	    
-	    dR_antinu     = DeltaR(&nubars.nu2, (*fMyParticlesTruth)->Particle("antineutrino"));  
-	    //std::cout << "dR_antinu: " << dR_antinu << std::endl;
-	  }
-	}//passed-weight
-
-
-	fTestWeight = neutrino_weight(nus.nu2,nubars.nu1);
-	//std::cout << "nu2, nubar1, fTestWeight: " << fTestWeight << std::endl;
-	//std::cout << "nu2, nubar1, fHelpWeight: " << fHelpWeight << std::endl;
-	if (fTestWeight > fHelpWeight) {
-	  //std::cout << "nus.nu2.M(): " << nus.nu2.M() << std::endl;
-	  //std::cout << "nubars.nu1.M(): " << nubars.nu1.M() << std::endl;
-	  if (nus.nu2.M() >= 0 && nubars.nu1.M() >= 0 && fMyParticlesTruth!=0) {
-	    fHelpWeight = fTestWeight;
-	    //top
-	    top_px = (MCMC_antilep + MCMC_b1 + nus.nu2).Px();
-	    top_py = (MCMC_antilep + MCMC_b1 + nus.nu2).Py();
-	    top_pz = (MCMC_antilep + MCMC_b1 + nus.nu2).Pz();
-	    top_E  = (MCMC_antilep + MCMC_b1 + nus.nu2).E();
-	    
-	    MCMC_top    ->SetPxPyPzE(top_px,top_py,top_pz,top_E);
-	    dR_top = DeltaR(MCMC_top, (*fMyParticlesTruth)->Particle("top quark"));
-	    //std::cout << "dr top: " << dR_top << std::endl;
-	    
-	    dR_nu     = DeltaR(&nus.nu2, (*fMyParticlesTruth)->Particle("neutrino"));  
-	    //std::cout << "dR_nu: " << dR_nu << std::endl;
-	    	  
-	    //antitop
-	    antitop_px = (MCMC_lep + MCMC_b2 + nubars.nu1).Px();
-	    antitop_py = (MCMC_lep + MCMC_b2 + nubars.nu1).Py();
-	    antitop_pz = (MCMC_lep + MCMC_b2 + nubars.nu1).Pz();
-	    antitop_E  = (MCMC_lep + MCMC_b2 + nubars.nu1).E();
-	    
-	    MCMC_antitop->SetPxPyPzE(antitop_px,antitop_py,antitop_pz,antitop_E);
-	    dR_antitop = DeltaR(MCMC_antitop, (*fMyParticlesTruth)->Particle("antitop quark"));
-	    //std::cout << "dr antitop: " << dR_antitop << std::endl;
-	    	    
-	    dR_antinu     = DeltaR(&nubars.nu1, (*fMyParticlesTruth)->Particle("antineutrino"));  
-	    //std::cout << "dR_antinu: " << dR_antinu << std::endl;
-	  }
-	}//passed-weight
-
-
-	fTestWeight = neutrino_weight(nus.nu2,nubars.nu2);
-	//std::cout << "nu2, nubar2, fTestWeight: " << fTestWeight << std::endl;
-	//std::cout << "nu2, nubar2, fHelpWeight: " << fHelpWeight << std::endl;
-
-	if (fTestWeight > fHelpWeight) {
-	  //std::cout << "nus.nu2.M(): " << nus.nu2.M() << std::endl;
-	  //std::cout << "nubars.nu2.M(): " << nubars.nu2.M() << std::endl;
-	  if (nus.nu2.M() >= 0 && nubars.nu2.M() >= 0 && fMyParticlesTruth!=0) {
-	    fHelpWeight = fTestWeight;
-	    
-	    //top
-	    top_px = (MCMC_antilep + MCMC_b1 + nus.nu2).Px();
-	    top_py = (MCMC_antilep + MCMC_b1 + nus.nu2).Py();
-	    top_pz = (MCMC_antilep + MCMC_b1 + nus.nu2).Pz();
-	    top_E  = (MCMC_antilep + MCMC_b1 + nus.nu2).E();
-	    MCMC_top    ->SetPxPyPzE(top_px,top_py,top_pz,top_E);
-	    dR_top = DeltaR(MCMC_top, (*fMyParticlesTruth)->Particle("top quark"));
-	    //std::cout << "dr top: " << dR_top << std::endl;
-	   
-	    dR_nu     = DeltaR(&nus.nu2, (*fMyParticlesTruth)->Particle("neutrino"));
-	    //std::cout << "dR_nu: " << dR_nu << std::endl;
-	    	    
-	    //antitop
-	    antitop_px = (MCMC_lep + MCMC_b2 + nubars.nu2).Px();
-	    antitop_py = (MCMC_lep + MCMC_b2 + nubars.nu2).Py();
-	    antitop_pz = (MCMC_lep + MCMC_b2 + nubars.nu2).Pz();
-	    antitop_E  = (MCMC_lep + MCMC_b2 + nubars.nu2).E();
-	    MCMC_antitop->SetPxPyPzE(antitop_px,antitop_py,antitop_pz,antitop_E);
-	    dR_antitop = DeltaR(MCMC_antitop, (*fMyParticlesTruth)->Particle("antitop quark"));
-	    //std::cout << "dr antitop: " << dR_antitop << std::endl;
-	   	    
-	    dR_antinu     = DeltaR(&nubars.nu2, (*fMyParticlesTruth)->Particle("antineutrino"));  
-	    //std::cout << "dR_antinu: " << dR_antinu << std::endl;
-	  }
-	}//passed-weight
       }// 2 nu 2 nubar
-      
-      
-	//std::cout << "select dr top: " << dR_top << std::endl;
-	//std::cout << "select dr antitop: " << dR_antitop << std::endl;
-	//std::cout << "select dR_nu: " << dR_nu << std::endl;
-	//std::cout << "select dR_antinu: " << dR_antinu << std::endl;
-      if(dR_top >= 0) 
-	fHistdRTop->GetHistogram()->Fill(dR_top);
-      //else
-      //std::cout << "dR_top negative!" << std::endl;
-      if(dR_antitop >= 0)
-	fHistdRAntiTop->GetHistogram()->Fill(dR_antitop);
-      //else
-      //std::cout << "dR_antitop negative!" << std::endl;
-      if(dR_nu >= 0) 
-	fHistdRNu->GetHistogram()->Fill(dR_nu);
-      //else
-      //std::cout << "dR_nu negative!" << std::endl;
-      if(dR_antinu >= 0) 
-	fHistdRAntiNu->GetHistogram()->Fill(dR_antinu);
-      //else
-      //	std::cout << "dR_antinu negative!" << std::endl;
-      
     }//Nsol
-    
+
   }//Nchains
   delete help_ParticleVector;
-  delete MCMC_top;
-  delete MCMC_antitop;
 }
 
 // ---------------------------------------------------------
@@ -1693,29 +1460,5 @@ std::pair<float, float> KLFitter::LikelihoodTopDilepton::CalculateCosTheta(std::
 
   return cos;
 
-}
-// ---------------------------------------------------------
-double KLFitter::LikelihoodTopDilepton::DeltaR(TLorentzVector * vect1, TLorentzVector * vect2)
-{
-  // get eta and phi for the objects
-  double recophi = 0.;
-  double recoeta = 0.;
-  recophi = vect1->Phi();
-  recoeta = vect1->Eta();
-  double truephi = 0.;
-  double trueeta = 0.;
-  truephi = vect2->Phi();
-  trueeta = vect2->Eta();
-  
-  // calculate deltaR and make sure about boundaries
-  double dEta = recoeta - trueeta;
-  double dPhi = recophi - truephi; 
-  const double dPi = 3.1415926535897932384626433832795;
-  while (dPhi > dPi) {dPhi -= 2*dPi;}
-  while (dPhi < -dPi) {dPhi += 2*dPi;}
-  
-  double dR = sqrt(dEta*dEta + dPhi*dPhi);  
-
-  return dR;
 }
 // ---------------------------------------------------------
