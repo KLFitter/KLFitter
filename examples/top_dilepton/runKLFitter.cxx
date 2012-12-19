@@ -121,7 +121,7 @@ int main(int argc, char **argv)
   KLFitter::Fitter * myFitter = new KLFitter::Fitter(); 
 
   // set minimization method to MCMC
-  myFitter->SetMinimizationMethod(KLFitter::Fitter::kMarkovChainMC);
+  myFitter->SetMinimizationMethod(KLFitter::Fitter::kSimulatedAnnealing);
 
   // open Root file 
   KLFitter::InterfaceRoot * myInterfaceRoot = new KLFitter::InterfaceD3PD_dilepton();
@@ -135,7 +135,7 @@ int main(int argc, char **argv)
   // create detector
   KLFitter::DetectorBase * myDetector;
   if (BeamEnergy==KLFitter::DetectorBase::k7TeV)
-    myDetector = new KLFitter::DetectorAtlas_7TeV("../../transferfunctions/7TeV/ttbar/mc10b"); 
+    myDetector = new KLFitter::DetectorAtlas_7TeV("../../transferfunctions/7TeV/ttbar/mc11c"); 
   else if (BeamEnergy==KLFitter::DetectorBase::k10TeV)
     myDetector = new KLFitter::DetectorAtlas_10TeV("../../transferfunctions/10TeV/ttbar");
   else{std::cout<<"Error: Detector could not be created, please check the transferfunction flags"<<std::endl;return 1;}
@@ -402,11 +402,8 @@ int main(int argc, char **argv)
 						printf("Fitting Variables | %16.2f | %16.2f | %16.2f |\n",
 						       Par[KLFitter::LikelihoodTopDilepton::parTopM],Par[KLFitter::LikelihoodTopDilepton::parNuEta],Par[KLFitter::LikelihoodTopDilepton::parAntiNuEta]);
 						printf("----------------------------------------------------------------------------------------------\n");
-						printf("                  | MCMC Not Conv.   |\n");
-						printf("Status Code       | %16i |\n",
-						       bool(!(myFitter->Likelihood()->MCMCGetNIterationsConvergenceGlobal() > 0) && myFitter->Likelihood()->MCMCGetFlagRun()));
-	 
-						 std::vector<double> LHCompVec = myFitter->Likelihood()->LogLikelihoodComponents( myFitter->Likelihood()->GetBestFitParameters() );
+						 
+						std::vector<double> LHCompVec = myFitter->Likelihood()->LogLikelihoodComponents( myFitter->Likelihood()->GetBestFitParameters() );
 						
 						std::cout << "LHComp(0)= " << LHCompVec.at(0) << " LHComp(1)= " << LHCompVec.at(1)  << " LHComp(2)= " << LHCompVec.at(2)  <<
 						  " LHComp(3)= " <<  LHCompVec.at(3) << " LHComp(4)= " <<  LHCompVec.at(4) << std::endl;
@@ -414,14 +411,14 @@ int main(int argc, char **argv)
 						
 	  }
 
-	  // example: get marginalized histogram wrt Par(0)==mtop
-	  BCParameter * a = myFitter->Likelihood()->GetParameter(0);
+	  // // example: get marginalized histogram wrt Par(0)==mtop if using kMarkovChainMC!!
+// 	  BCParameter * a = myFitter->Likelihood()->GetParameter(0);
 	
-	  if(myFitter->Likelihood()->GetMarginalized(a)){
-	    if(myFitter->Likelihood()->GetMarginalized(a)->GetHistogram()->Integral() > 0){
-	      TH1D* h_mtop_marginalized = (TH1D *)myFitter->Likelihood()->GetMarginalized(a)->GetHistogram();
-	    }
-	  }//get marginalized
+// 	  if(myFitter->Likelihood()->GetMarginalized(a)){
+// 	    if(myFitter->Likelihood()->GetMarginalized(a)->GetHistogram()->Integral() > 0){
+// 	      TH1D* h_mtop_marginalized = (TH1D *)myFitter->Likelihood()->GetMarginalized(a)->GetHistogram();
+// 	    }
+// 	  }//get marginalized
 	  
         }
 

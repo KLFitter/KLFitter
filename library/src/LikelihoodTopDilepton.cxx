@@ -619,6 +619,7 @@ double KLFitter::LikelihoodTopDilepton::LogLikelihood(const std::vector<double> 
 double KLFitter::LikelihoodTopDilepton::CalculateMLepJet(const std::vector<double> & parameters){
 
  double sumMinv=0.;
+ double norm=1.;
 
  // tuning factor alpha
  double alpha=-2.;
@@ -638,7 +639,13 @@ double KLFitter::LikelihoodTopDilepton::CalculateMLepJet(const std::vector<doubl
  // include parB1E, parB2E
  j1.SetPxPyPzE(b1_fit_px, b1_fit_py, b1_fit_pz, b1_fit_e);
  j2.SetPxPyPzE(b2_fit_px, b2_fit_py, b2_fit_pz, b2_fit_e);
- 
+
+ // normalized to the sum of all combinations of (lep,jet)
+ if ((pow((l1+j1).M() + (l2+j2).M(),alpha) + pow((l2+j1).M() + (l1+j2).M(),alpha))!=0.)
+   norm = 1/(pow((l1+j1).M() + (l2+j2).M(),alpha) + pow((l2+j1).M() + (l1+j2).M(),alpha));
+ else
+   std::cout << "Error LikelihoodTopDilepton::CalculateMLepJet: normalization is inf!" << std::endl;
+
  // ensure correctly (lepton, nu) pair according to lepton charge
  if (lep1_meas_charge == 1 && lep2_meas_charge == -1){
    //std::cout << "opt1: lep1_meas_charge: " << lep1_meas_charge << " and lep2_meas_charge: " << lep2_meas_charge  << std::endl;
@@ -653,7 +660,7 @@ double KLFitter::LikelihoodTopDilepton::CalculateMLepJet(const std::vector<doubl
  
  //  std::cout << "sumMinv: " << sumMinv << " pow(sumMinv," << alpha << "): " << pow(sumMinv,alpha) << std::endl;
  
- return pow(sumMinv,alpha);
+ return norm*pow(sumMinv,alpha);
 }
 
 
