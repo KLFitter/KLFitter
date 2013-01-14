@@ -1,5 +1,6 @@
 2013-01-14 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
 	* Added TFs for 8 TeV ttbar (LCJets, only for |eta|<2.5!)
+	* New detector class for 8 TeV / MC12: DetectorAtlas_8TeV.cxx (MUST BE USED FOR NEW TFs!!!)
 	* Updated ttbar l+jets example (mc11c TFs as default, full 105200 sample via AFS)
 	* tag KLFitter-00-05-21
 
