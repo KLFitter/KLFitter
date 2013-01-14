@@ -74,7 +74,7 @@ int main(int argc, char **argv)
   // create detector
   KLFitter::DetectorBase * myDetector;
   if (BeamEnergy==KLFitter::DetectorBase::k7TeV)
-    myDetector = new KLFitter::DetectorAtlas_7TeV("../../transferfunctions/7TeV/ttbar/mc10b"); 
+    myDetector = new KLFitter::DetectorAtlas_7TeV("../../transferfunctions/7TeV/ttbar/mc11c"); 
   else if (BeamEnergy==KLFitter::DetectorBase::k10TeV)
     myDetector = new KLFitter::DetectorAtlas_10TeV("../../transferfunctions/10TeV/ttbar");
   else{std::cout<<"Error: Detector could not be created, please check the transferfunction flags"<<std::endl;return 1;}

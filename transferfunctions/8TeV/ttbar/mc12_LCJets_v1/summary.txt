@@ -1,0 +1,5 @@
+MC12
+used
+mc12_8TeV.105200.McAtNloJimmy_CT10_ttbar_LeptonFilter.merge.NTUP_TOP.e1193_s1469_s1470_r3542_r3549_p1269/
+with
+TopRootCoreRelease-12-01-06
