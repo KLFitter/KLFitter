@@ -42,7 +42,7 @@ namespace KLFitter
     /**
      * Enumerate for beam centre-of-mass energy
      */
-    enum BeamCMEnergy {k7TeV, k10TeV};
+    enum BeamCMEnergy {k7TeV,k8TeV, k10TeV};
 
     /* @} */  
                 

@@ -325,6 +325,8 @@ int KLFitter::ReadConfigFile::ReadConfig(std::string filename)
                     {
                       if(tmpdouble==7)
                         BeamEnergy=KLFitter::DetectorBase::k7TeV;
+                      if(tmpdouble==8)
+                        BeamEnergy=KLFitter::DetectorBase::k8TeV;
                       if(tmpdouble==10)
                         BeamEnergy=KLFitter::DetectorBase::k10TeV;
                     }
