@@ -1,3 +1,8 @@
+2013-01-14 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
+	* Added TFs for 8 TeV ttbar (LCJets, only for |eta|<2.5!)
+	* Updated ttbar l+jets example (mc11c TFs as default, full 105200 sample via AFS)
+	* tag KLFitter-00-05-21
+
 2012-12-12 Tamara Vazquez Schroeder <tamara.vazquez.schroeder@cern.ch>
 	* Added LikelihoodTopDilepton + InterfaceD3PD_dilepton + InterfaceOutput_dilepton  
 	* Added dilepton example code in examples/top_dilepton
@@ -24,7 +29,7 @@
 
 2012-10-29 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
 
-	* Fixed L+Jets example (new files with default l+jets ttbar selection and net interface) 
+	* Fixed L+Jets example (new files with default l+jets ttbar selection and new interface) 
 
 2012-10-23 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
 
