@@ -2,6 +2,11 @@
 	* Added TFs for 8 TeV ttbar (LCJets, only for |eta|<2.5!)
 	* New detector class for 8 TeV / MC12: DetectorAtlas_8TeV.cxx (MUST BE USED FOR NEW TFs!!!)
 	* Updated ttbar l+jets example (mc11c TFs as default, full 105200 sample via AFS)
+	* tag KLFitter-00-05-22
+
+2012-12-20 Tamara Vazquez Schroeder <tamara.vazquez.schroeder@cern.ch>
+	* Modified normalization Minv LogLikelihoodDilepton term
+	* Update TFs version, correct config.conf and set minimization method to SA as default in dilepton example
 	* tag KLFitter-00-05-21
 
 2012-12-12 Tamara Vazquez Schroeder <tamara.vazquez.schroeder@cern.ch>
