@@ -16,10 +16,10 @@ dE = (E_truth - E_measured) / E_truth
 
 The parameters pi themselves depend on E_truth:
 
-p_1 = mean1_0 E_truth + mean1_1 /sqrt(E_truth)
-p_2 = width1_0  + width1_1 / sqrt(E_truth)
-p_3 = scale_0 * E_truth + scale_1 /sqrt(E_truth)
-p_4 = mean2_0  + mean2_1 E_truth
+p_1 = mean1_0  + mean1_1 / E_truth
+p_2 = width1_0 + width1_1 / sqrt(E_truth)
+p_3 = scale_0  + scale_1 / E_truth
+p_4 = mean2_0  + mean2_1 / sqrt(E_truth)
 p_5 = width2_0  + width2_1 E_truth 
 
 
