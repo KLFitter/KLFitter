@@ -11,11 +11,17 @@
 
 #include <cmath>
 #include <iostream>
+#include <stdlib.h>
 
 // --------------------------------------------------------- 
 
 KLFitter::DetectorAtlas_7TeV::DetectorAtlas_7TeV(std::string folder) : DetectorBase() 
 {
+  //check: powheg sample with 7TeV? Must use 8!
+  if (strstr(folder.c_str(), "mc11c_powheg")) {
+std::cout<<"ERROR! Don't use PowHeg TFs with the 7TeV Detector class!!! Exiting..."<<std::endl;
+  exit(1);
+  }
   //check: MC11b? New parametrization!
   if ((strstr(folder.c_str(), "mc11b"))||(strstr(folder.c_str(), "mc11c"))){
 std::cout<<"Using TF from MC11b or later..."<<std::endl;
