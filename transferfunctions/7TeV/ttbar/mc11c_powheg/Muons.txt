@@ -1,0 +1,64 @@
+Muon transfer function
+======================
+
+
+   Version: 9.0 - 7 TeV, MC11c, PowHeg+Pythia, 8TeV parametrization
+last change: 25.02.2013 - Boris Lemmer
+
+
+
+The transfer function for muons is parametrized as:
+
+W(dE)=1/(sqrt(2 pi)(p2 + p3 p5)) * ( exp( -(dE - p1)(dE - p1)/(2 p2 p2) ) + p3 exp( -(dE - p4)(dE - p4)/(2 p5 p5) ) )
+
+with
+
+dE = (p_T_truth - p_T_measured) / p_T_truth 
+
+The parameters pi themselves depend on p_T_truth:
+
+p_1 = mean1_0  + mean1_1 p_T_truth
+p_2 = width1_0 + width1_1 p_T_truth
+p_3 = scale_0  + scale_1 p_T_truth
+p_4 = mean2_0  + mean2_1 p_T_truth
+p_5 = width2_0  + width2_1 p_T_truth 
+
+The values are:
+
+0.00 < |eta| < 1.11:
+  (0) Parameter "mean1_0": 0.00195192
+  (1) Parameter "mean1_1": 0.000151532
+  (2) Parameter "width1_0": 0.0187574
+  (3) Parameter "width1_1": 0.000156252
+  (4) Parameter "scale_0": 0.05798
+  (5) Parameter "scale_1": -6.6911e-05
+  (6) Parameter "mean2_0": 0.0228021
+  (7) Parameter "mean2_1": 0.000762403
+  (8) Parameter "width2_0": 0.0713199
+  (9) Parameter "width2_1": 0.000281388
+
+1.11 < |eta| < 1.25:
+  (0) Parameter "mean1_0": 0.0043261 
+  (1) Parameter "mean1_1": 0.00016834 
+  (2) Parameter "width1_0": 0.019748 
+  (3) Parameter "width1_1": 0.000271 
+  (4) Parameter "scale_0": 0.0483587 
+  (5) Parameter "scale_1": -4.83071e-05
+  (6) Parameter "mean2_0": 0.0113318 
+  (7) Parameter "mean2_1": 0.00137318 
+  (8) Parameter "width2_0": 0.0730483 
+  (9) Parameter "width2_1": 0.000535101
+
+
+1.25 < |eta| < 2.50:
+  (0) Parameter "mean1_0": 0.00462121
+  (1) Parameter "mean1_1": 0.000122126
+  (2) Parameter "width1_0": 0.0272559
+  (3) Parameter "width1_1": 0.000184604
+  (4) Parameter "scale_0": 0.0474345
+  (5) Parameter "scale_1": 0.00011473
+  (6) Parameter "mean2_0": 0.0698657
+  (7) Parameter "mean2_1": 0.000293695
+  (8) Parameter "width2_0": 0.0990379
+  (9) Parameter "width2_1": 0.000397836
+
