@@ -1,3 +1,6 @@
+2013-03-04 Stefanie Adomeit  <stefanie.adomeit@cern.ch>
+	* Added kVetoNoFit methods (see 2012-10-29) to allhadronic likelihood class (sorry, forgot about that!!!)
+
 2013-01-14 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
 	* Added TFs for 7 TeV ttbar PowHeg+Pythia. !!! YOU MUST USE 8TeV parametrization and detector class (DetectorAtlas_8TeV.cxx)!!!
 
