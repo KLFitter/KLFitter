@@ -57,6 +57,15 @@ namespace KLFitter
     /* @{ */
 
     /**
+     * Return the (approximate) width of the TF depending on the relevant parameter 
+     * (mostly xmeas, but sumET in case of ResGauss_MET).
+     * Use to adjust the range of the fit parameter that correspond to the TF.
+     * @param par Parameter on which the width depends
+     * @return The width. 
+     */ 
+    virtual double GetSigma(double KLFITTER_UNUSED(par)) = 0;
+
+    /**
      * Return the probability of the true value of x given the
      * measured value, xmeas.
      * @param x The true value of x.
@@ -73,15 +82,11 @@ namespace KLFitter
      * @param x The true value of x.
      * @param xmeas The measured value of x.
      * @param good False if problem with TF.
-     * @param sumet SumET as parameter for the MET TF.
+     * @param par Optional additional parameter (SumET in case of MET TF).
      * @return The probability. 
      */ 
-    virtual double p(double KLFITTER_UNUSED(x), double KLFITTER_UNUSED(xmeas), bool &good, double KLFITTER_UNUSED(sumet))
+    virtual double p(double KLFITTER_UNUSED(x), double KLFITTER_UNUSED(xmeas), bool &good, double KLFITTER_UNUSED(par))
     { good = true; return 0; } 
-
-    virtual double GetSigma(double KLFITTER_UNUSED(sumet))
-    { return 0; } 
-
 
     /**
      * Return a parameter of the parameterization. 

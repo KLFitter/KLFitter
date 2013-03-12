@@ -56,6 +56,14 @@ namespace KLFitter
     /* @{ */
 
     /**
+     * Return the approximate width of the TF depending on the measured value of x.
+     * Used to adjust the range of the fit parameter that correspond to the TF.
+     * @param xmeas The measured value of x.
+     * @return The width. 
+     */ 
+    virtual double GetSigma(double xmeas);
+
+    /**
      * Return the probability of the true value of x given the
      * measured value, xmeas.
      * @param x The true value of x.

@@ -23,6 +23,11 @@ KLFitter::ResGauss::~ResGauss()
 }
 
 // --------------------------------------------------------- 
+double KLFitter::ResGauss::GetSigma(double dummy){
+  return fParameters[0];
+}
+
+// --------------------------------------------------------- 
 double KLFitter::ResGauss::p(double x, double xmeas, bool &good)
 {
   good = true;

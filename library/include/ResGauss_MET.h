@@ -54,6 +54,13 @@ namespace KLFitter
     /** \name Member functions (Get)  */
     /* @{ */
 
+    /**
+     * Return the width of the TF depending on the value of sumET.
+     * Used to adjust the range of the fit parameter that correspond to the TF.
+     * @param sumet SumET as parameter for the MET TF.
+     * @return The width. 
+     */ 
+    virtual double GetSigma(double sumet);
 
     /**
      * Return the probability of the true value of x given the
@@ -61,10 +68,10 @@ namespace KLFitter
      * @param x The true value of x.
      * @param xmeas The measured value of x.
      * @param good False if problem with TF.
-     * @param par Optional additional parameter (SumET in case of MET TF).
+     * @param sumet SumET, as the width of the TF depends on this.
      * @return The probability. 
      */ 
-    double p(double x, double xmeas, bool &good, double par);
+    double p(double x, double xmeas, bool &good, double sumet);
 
     /* @} */
     /** \name Member functions (Set)  */
@@ -76,8 +83,6 @@ namespace KLFitter
      */ 
     void SetSigma(double sigma)
     { if (sigma < 0) sigma = - sigma; this -> SetPar(0, sigma); }; 
-
-    double GetSigma(double par);
 
     /* @} */
 

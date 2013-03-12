@@ -26,23 +26,18 @@ KLFitter::ResGauss_MET::~ResGauss_MET()
 
 }
 
+// --------------------------------------------------------- 
+double KLFitter::ResGauss_MET::GetSigma(double sumet){
+  return fParameters[0]+fParameters[1]/(1+exp(-fParameters[2]*(sumet-fParameters[3])));
+}
 
 // --------------------------------------------------------- 
-double KLFitter::ResGauss_MET::p(double x, double xmeas, bool &good, double par)
+double KLFitter::ResGauss_MET::p(double x, double xmeas, bool &good, double sumet)
 {
   good = true;
 	// calculate MET TF with 4 parameters (MC10b or later)
-	double sigma = fParameters[0]+fParameters[1]/(1+exp(-fParameters[2]*(par-fParameters[3])));
+	double sigma = GetSigma(sumet);
 	return TMath::Gaus(xmeas, x, sigma, true); 
-
-
 }
 
 // --------------------------------------------------------- 
-
-double KLFitter::ResGauss_MET::GetSigma(double par){
-
-  double sigma = fParameters[0]+fParameters[1]/(1+exp(-fParameters[2]*(par-fParameters[3])));
-  return sigma;
-
-}

@@ -16,7 +16,7 @@
 #define RESDOUBLEGAUSSE_3
 
 #include <vector>
-#include "ResolutionBase.h" 
+#include "ResDoubleGaussBase.h" 
 
 // --------------------------------------------------------- 
 
@@ -27,7 +27,7 @@
 namespace KLFitter
 {
 
-  class ResDoubleGaussE_3 : public ResolutionBase
+  class ResDoubleGaussE_3 : public ResDoubleGaussBase
   {
                 
   public: 
@@ -56,14 +56,39 @@ namespace KLFitter
     /* @{ */
 
     /**
-     * Return the probability of the true value of x given the
-     * measured value, xmeas.
-     * @param x The true value of x.
-     * @param xmeas The measured value of x.
-     * @param good False if problem with TF.
-     * @return The probability. 
+     * Calculate the mean of the first Gaussian from the TF parameters and the value of x.
+     * @param x The value of x.
+     * @return The width. 
      */ 
-    double p(double x, double xmeas, bool &good); 
+    virtual double GetMean1(double x);
+
+    /**
+     * Calculate the width of the first Gaussian from the TF parameters and the value of x.
+     * @param x The value of x.
+     * @return The width. 
+     */ 
+    virtual double GetSigma1(double x);
+
+    /**
+     * Calculate the amplitude of the second Gaussian from the TF parameters and the value of x.
+     * @param x The value of x.
+     * @return The width. 
+     */ 
+    virtual double GetAmplitude2(double x);
+
+    /**
+     * Calculate the mean of the second Gaussian from the TF parameters and the value of x.
+     * @param x The value of x.
+     * @return The width. 
+     */ 
+    virtual double GetMean2(double x);
+
+    /**
+     * Calculate the width of the sedcond Gaussian from the TF parameters and the value of x.
+     * @param x The value of x.
+     * @return The width. 
+     */ 
+    virtual double GetSigma2(double x);
 
     /* @} */
     /** \name Member functions (Set)  */
@@ -74,9 +99,6 @@ namespace KLFitter
     /* @{ */
                 
     /* @} */
-
-  private: 
-
   }; 
         
 } // namespace KLFitter 

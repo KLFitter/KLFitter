@@ -16,7 +16,7 @@
 #define RESDOUBLEGAUSSE_1
 
 #include <vector>
-#include "ResolutionBase.h" 
+#include "ResDoubleGaussBase.h" 
 #include <iostream>
 
 // --------------------------------------------------------- 
@@ -28,7 +28,7 @@
 namespace KLFitter
 {
 
-  class ResDoubleGaussE_1 : public ResolutionBase
+  class ResDoubleGaussE_1 : public ResDoubleGaussBase
   {
                 
   public: 
@@ -57,14 +57,39 @@ namespace KLFitter
     /* @{ */
 
     /**
-     * Return the probability of the true value of x given the
-     * measured value, xmeas.
-     * @param x The true value of x.
-     * @param xmeas The measured value of x.
-     * @param good False if problem with TF.
-     * @return The probability. 
+     * Calculate the mean of the first Gaussian from the TF parameters and the value of x.
+     * @param x The value of x.
+     * @return The width. 
      */ 
-    double p(double x, double xmeas, bool &good); 
+    virtual double GetMean1(double x);
+
+    /**
+     * Calculate the width of the first Gaussian from the TF parameters and the value of x.
+     * @param x The value of x.
+     * @return The width. 
+     */ 
+    virtual double GetSigma1(double x);
+
+    /**
+     * Calculate the amplitude of the second Gaussian from the TF parameters and the value of x.
+     * @param x The value of x.
+     * @return The width. 
+     */ 
+    virtual double GetAmplitude2(double x);
+
+    /**
+     * Calculate the mean of the second Gaussian from the TF parameters and the value of x.
+     * @param x The value of x.
+     * @return The width. 
+     */ 
+    virtual double GetMean2(double x);
+
+    /**
+     * Calculate the width of the sedcond Gaussian from the TF parameters and the value of x.
+     * @param x The value of x.
+     * @return The width. 
+     */ 
+    virtual double GetSigma2(double x);
 
     /* @} */
     /** \name Member functions (Set)  */
@@ -75,33 +100,6 @@ namespace KLFitter
     /* @{ */
                 
     /* @} */
-
-    /**
-     * Sanity check for double gaussian parameters p2, p3 and p5 (1st sigma, scale and 2nd sigma).
-     * @param p2 (the 1st sigma).
-     * @param p3 (the scale parameter).
-     * @param p5 (the 2nd sigma).
-     * @return False if problem with TF.
-     */
-    inline static bool CheckDoubleGaussianSanity(double &p2, double &p3, double &p5) {
-      if (p3 < 0.) p3 = 0.;      
-      if (p2 < 0.) {
-//	std::cout << "KLFitter::ResDoubleGauss::CheckDoubleGaussianSanity() ERROR IN TRANSFERFUNCTIONS the sigma of the 1st Gaussian is < 0  -  FIT RESULT MAY NOT BE RELIABLE" << std::endl;
-//	std::cout << "--> Fitter is in a bad condition! Please check your input files (E out of validation scope?)." << std::endl;
-	p2 = 0.00000001;
-        return false;
-	}
-      if (p5 < 0.) {
-//	std::cout << "KLFitter::ResDoubleGauss::CheckDoubleGaussianSanity() ERROR IN TRANSFERFUNCTIONS the sigma of the 2nd Gaussian is < 0  -  FIT RESULT MAY NOT BE RELIABLE" << std::endl;
-//	std::cout << "--> Fitter is in a bad condition! Please check your input files (E out of validation scope?)." << std::endl;
-	p5 = 0.000000001;
-        return false;
-	}
-
-      return true;
-    }
-
-  private: 
 
   }; 
         

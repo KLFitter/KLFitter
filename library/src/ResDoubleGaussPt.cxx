@@ -28,6 +28,18 @@ KLFitter::ResDoubleGaussPt::~ResDoubleGaussPt()
 }
 
 // --------------------------------------------------------- 
+double KLFitter::ResDoubleGaussPt::GetSigma(double xmeas){
+  /* Calculate mean width of both gaussians; weight the width of the 2nd one with its amplitude */
+  double sigma1 = fParameters[2] + xmeas * fParameters[3];
+  double sigma2 = fParameters[8] + xmeas * fParameters[9];
+  double amplitude2 = fParameters[4] + xmeas * fParameters[5];
+  double sigma = (sigma1 + amplitude2*sigma2) / (1+amplitude2);
+
+  /* sigma estimates the fractional resolution, but we want absolute */
+  return sigma*xmeas;
+}
+
+// --------------------------------------------------------- 
 double KLFitter::ResDoubleGaussPt::p(double x, double xmeas, bool &good)
 {
   double p1 = fParameters[0] + x * fParameters[1];
