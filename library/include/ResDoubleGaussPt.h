@@ -16,7 +16,7 @@
 #define RESDOUBLEGAUSSPT
 
 #include <vector>
-#include "ResolutionBase.h" 
+#include "ResDoubleGaussBase.h" 
 
 // --------------------------------------------------------- 
 
@@ -27,7 +27,7 @@
 namespace KLFitter
 {
 
-  class ResDoubleGaussPt : public ResolutionBase
+  class ResDoubleGaussPt : public ResDoubleGaussBase
   {
                 
   public: 
@@ -56,22 +56,39 @@ namespace KLFitter
     /* @{ */
 
     /**
-     * Return the approximate width of the TF depending on the measured value of x.
-     * Used to adjust the range of the fit parameter that correspond to the TF.
-     * @param xmeas The measured value of x.
+     * Calculate the mean of the first Gaussian from the TF parameters and the value of x.
+     * @param x The value of x.
      * @return The width. 
      */ 
-    virtual double GetSigma(double xmeas);
+    virtual double GetMean1(double x);
 
     /**
-     * Return the probability of the true value of x given the
-     * measured value, xmeas.
-     * @param x The true value of x.
-     * @param xmeas The measured value of x.
-     * @param good False if problem with TF.
-     * @return The probability. 
+     * Calculate the width of the first Gaussian from the TF parameters and the value of x.
+     * @param x The value of x.
+     * @return The width. 
      */ 
-    double p(double x, double xmeas, bool &good); 
+    virtual double GetSigma1(double x);
+
+    /**
+     * Calculate the amplitude of the second Gaussian from the TF parameters and the value of x.
+     * @param x The value of x.
+     * @return The width. 
+     */ 
+    virtual double GetAmplitude2(double x);
+
+    /**
+     * Calculate the mean of the second Gaussian from the TF parameters and the value of x.
+     * @param x The value of x.
+     * @return The width. 
+     */ 
+    virtual double GetMean2(double x);
+
+    /**
+     * Calculate the width of the sedcond Gaussian from the TF parameters and the value of x.
+     * @param x The value of x.
+     * @return The width. 
+     */ 
+    virtual double GetSigma2(double x);
 
     /* @} */
     /** \name Member functions (Set)  */
