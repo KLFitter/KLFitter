@@ -14,6 +14,7 @@
 KLFitter::LikelihoodTopLeptonJets::LikelihoodTopLeptonJets() : KLFitter::LikelihoodBase::LikelihoodBase()
                                                              , fFlagTopMassFixed(false)
                                                              , fFlagUseJetMass(false)
+                                                             , fFlagGetParSigmasFromTFs(false)
                                                              , ETmiss_x(0.)
                                                              , ETmiss_y(0.)
                                                              , SumET(0.)
@@ -368,52 +369,59 @@ int KLFitter::LikelihoodTopLeptonJets::RemoveForbiddenParticlePermutations()
 int KLFitter::LikelihoodTopLeptonJets::AdjustParameterRanges()
 {
   // adjust limits 
-  double nsigmas_jet = 7.0; 
-  double nsigmas_lepton = 2.0; 
+  double nsigmas_jet    = fFlagGetParSigmasFromTFs ? 10 : 7; 
+  double nsigmas_lepton = fFlagGetParSigmasFromTFs ? 10 : 2; 
+  double nsigmas_met    = fFlagGetParSigmasFromTFs ? 10 : 1; 
 
   double E = (*fParticlesPermuted)->Parton(0)->E(); 
   double m = fPhysicsConstants->MassBottom(); 
   if (fFlagUseJetMass)
     m = std::max(0.0, (*fParticlesPermuted)->Parton(0)->M()); 
-  double Emin = std::max(m, E - nsigmas_jet* sqrt(E)); 
-  double Emax  = E + nsigmas_jet* sqrt(E); 
+  double sigma = fFlagGetParSigmasFromTFs ? fResEnergyBhad->GetSigma(E) : sqrt(E);
+  double Emin = std::max(m, E - nsigmas_jet* sigma); 
+  double Emax  = E + nsigmas_jet* sigma;
   SetParameterRange(parBhadE, Emin, Emax); 
 
   E = (*fParticlesPermuted)->Parton(1)->E(); 
   m = fPhysicsConstants->MassBottom(); 
   if (fFlagUseJetMass)
     m = std::max(0.0, (*fParticlesPermuted)->Parton(1)->M()); 
-  Emin = std::max(m, E - nsigmas_jet* sqrt(E)); 
-  Emax  = E + nsigmas_jet* sqrt(E); 
+  sigma = fFlagGetParSigmasFromTFs ? fResEnergyBlep->GetSigma(E) : sqrt(E);
+  Emin = std::max(m, E - nsigmas_jet* sigma); 
+  Emax  = E + nsigmas_jet* sigma; 
   SetParameterRange(parBlepE, Emin, Emax); 
 
   E = (*fParticlesPermuted)->Parton(2)->E(); 
   m = 0.001;
   if (fFlagUseJetMass)
     m = std::max(0.0, (*fParticlesPermuted)->Parton(2)->M()); 
-  Emin = std::max(m, E - nsigmas_jet* sqrt(E)); 
-  Emax  = E + nsigmas_jet* sqrt(E); 
+  sigma = fFlagGetParSigmasFromTFs ? fResEnergyLQ1->GetSigma(E) : sqrt(E);
+  Emin = std::max(m, E - nsigmas_jet* sigma); 
+  Emax  = E + nsigmas_jet* sigma; 
   SetParameterRange(parLQ1E, Emin, Emax); 
 
   E = (*fParticlesPermuted)->Parton(3)->E(); 
   m = 0.001;
   if (fFlagUseJetMass)
     m = std::max(0.0, (*fParticlesPermuted)->Parton(3)->M()); 
-  Emin = std::max(m, E - nsigmas_jet* sqrt(E)); 
-  Emax  = E + nsigmas_jet* sqrt(E); 
+  sigma = fFlagGetParSigmasFromTFs ? fResEnergyLQ2->GetSigma(E) : sqrt(E);
+  Emin = std::max(m, E - nsigmas_jet* sigma); 
+  Emax  = E + nsigmas_jet* sigma; 
   SetParameterRange(parLQ2E, Emin, Emax); 
 
   if (fTypeLepton == kElectron)
     {
       E = (*fParticlesPermuted)->Electron(0)->E();
-      Emin = std::max(0.001, E - nsigmas_lepton* sqrt(E)); 
-      Emax  = E + nsigmas_lepton* sqrt(E);  
+      sigma = fFlagGetParSigmasFromTFs ? fResLepton->GetSigma(E) : sqrt(E);
+      Emin = std::max(0.001, E - nsigmas_lepton* sigma); 
+      Emax  = E + nsigmas_lepton* sigma;  
     }
   else if (fTypeLepton == kMuon)
     {
       E = (*fParticlesPermuted)->Muon(0)->E(); 
       double sintheta= sin((*fParticlesPermuted)->Muon(0)->Theta());
-      double sigrange=nsigmas_lepton* (E*E*sintheta);
+      sigma = fFlagGetParSigmasFromTFs ? fResLepton->GetSigma(E*sintheta)/sintheta : E*E*sintheta;
+      double sigrange=nsigmas_lepton* sigma;
       Emin=std::max(0.001,E -sigrange);
       Emax=E +sigrange;
     }
@@ -421,8 +429,10 @@ int KLFitter::LikelihoodTopLeptonJets::AdjustParameterRanges()
 
   // note: this is hard-coded in the momement 
 
-  SetParameterRange(parNuPx, ETmiss_x-100.0, ETmiss_x+100);
-  SetParameterRange(parNuPy, ETmiss_y-100.0, ETmiss_y+100);
+  sigma = fFlagGetParSigmasFromTFs ? fResMET->GetSigma(SumET) : 100;
+  double sigrange = nsigmas_met*sigma;
+  SetParameterRange(parNuPx, ETmiss_x-sigrange, ETmiss_x+sigrange);
+  SetParameterRange(parNuPy, ETmiss_y-sigrange, ETmiss_y+sigrange);
 
   if (fFlagTopMassFixed)
     SetParameterRange(parTopM, fPhysicsConstants->MassTop(), fPhysicsConstants->MassTop()); 

@@ -87,6 +87,9 @@ namespace KLFitter
     void SetFlagUseJetMass(bool flag)
     { fFlagUseJetMass = flag; }; 
 
+    void SetFlagGetParSigmasFromTFs(bool flag)
+    { fFlagGetParSigmasFromTFs = flag; }; 
+
     /**
      * Set the type of lepton 
      * @param leptontype The type of lepton: kElectron or kMuon
@@ -239,6 +242,11 @@ namespace KLFitter
      * parton masses (false);
      */ 
     bool fFlagUseJetMass; 
+
+    /**
+     *  Flag for using ResolutionBase::GetSigma() to retrieve the parameter ranges
+     */
+    bool fFlagGetParSigmasFromTFs;
 
     /**
      * Return the neutrino pz solutions from the measured values

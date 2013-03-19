@@ -73,7 +73,8 @@ namespace KLFitter
     void SetFlagUseJetMass(bool flag)
     { fFlagUseJetMass = flag; }; 
 
-
+    void SetFlagGetParSigmasFromTFs(bool flag)
+    { fFlagGetParSigmasFromTFs = flag; }; 
 
     /* @} */
     /** \name Member functions (misc)  */
@@ -215,6 +216,10 @@ namespace KLFitter
      */ 
     bool fFlagUseJetMass; 
 
+    /**
+     *  Flag for using ResolutionBase::GetSigma() to retrieve the parameter ranges
+     */
+    bool fFlagGetParSigmasFromTFs;
 
     /**
      * Save permuted particles.
