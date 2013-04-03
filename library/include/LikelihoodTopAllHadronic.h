@@ -94,7 +94,7 @@ namespace KLFitter
      * @param parameters A vector of parameters (double values). 
      * @return The logarithm of the prior probability. 
      */
-    virtual double LogAPrioriProbability(std::vector <double> KLFITTER_UNUSED(parameters))
+    virtual double LogAPrioriProbability(std::vector <double> & KLFITTER_UNUSED(parameters))
     { return 0; }; 
                 
     /** 
