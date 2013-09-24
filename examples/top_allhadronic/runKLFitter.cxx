@@ -2,24 +2,24 @@
 #include <fstream>
 #include <vector>
 #include <set>
-#include "Fitter.h" 
-#include "PhysicsConstants.h" 
-#include "DetectorAtlas_7TeV.h" 
-#include "DetectorAtlas_10TeV.h" 
-#include "DetectorDummy.h" 
-#include "InterfaceRoot.h" 
-#include "InterfaceDummy.h" 
-#include "InterfaceD3PD_Allhadronic.h" 
-#include "Particles.h" 
-#include "Permutations.h"
-#include "InterfaceOutput_Allhadronic.h" 
-#include "LikelihoodBase.h" 
-#include "LikelihoodTopAllHadronic.h" 
-#include "MatchingTool.h" 
-#include "SelectionTool.h" 
+#include "KLFitter/Fitter.h" 
+#include "KLFitter/PhysicsConstants.h" 
+#include "KLFitter/DetectorAtlas_7TeV.h" 
+#include "KLFitterExtras/DetectorAtlas_10TeV.h" 
+#include "KLFitterExtras/DetectorDummy.h" 
+#include "KLFitterExtras/InterfaceRoot.h" 
+#include "KLFitterExtras/InterfaceDummy.h" 
+#include "KLFitterExtras/InterfaceD3PD_Allhadronic.h" 
+#include "KLFitter/Particles.h" 
+#include "KLFitter/Permutations.h"
+#include "KLFitterExtras/InterfaceOutput_Allhadronic.h" 
+#include "KLFitter/LikelihoodBase.h" 
+#include "KLFitter/LikelihoodTopAllHadronic.h" 
+#include "KLFitterExtras/MatchingTool.h" 
+#include "KLFitterExtras/SelectionTool.h" 
 #include "TString.h"
 #include "TSystem.h"  
-#include "ReadConfigFile.h"
+#include "KLFitterExtras/ReadConfigFile.h"
 
 #include "TFile.h"
 
@@ -69,9 +69,9 @@ int main(int argc, char **argv)
   // create detector
   KLFitter::DetectorBase * myDetector;
   if (BeamEnergy==KLFitter::DetectorBase::k7TeV)
-    myDetector = new KLFitter::DetectorAtlas_7TeV("../../transferfunctions/7TeV/ttbar/mc11c"); 
+    myDetector = new KLFitter::DetectorAtlas_7TeV("../../data/transferfunctions/7TeV/ttbar/mc11c"); 
   else if (BeamEnergy==KLFitter::DetectorBase::k10TeV)
-    myDetector = new KLFitter::DetectorAtlas_10TeV("../../transferfunctions/10TeV/ttbar");
+    myDetector = new KLFitter::DetectorAtlas_10TeV("../../data/transferfunctions/10TeV/ttbar");
   else{std::cout<<"Error: Detector could not be created, please check the transferfunction flags"<<std::endl;return 1;}
 
   if (!myFitter -> SetDetector(myDetector))
