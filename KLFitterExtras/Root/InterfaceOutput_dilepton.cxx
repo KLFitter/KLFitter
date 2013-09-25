@@ -1650,7 +1650,7 @@ int KLFitter::InterfaceOutput_dilepton::SetEventWeight(double weight)
 }
 
 // --------------------------------------------------------- 
-int KLFitter::InterfaceOutput_dilepton::SetPhotonType(bool isNotClassified, bool isRadTopProd, bool isHadTopRadDecay, bool isLepTopRadDecay, bool isHadWRadDecay, bool isLepWRadDecay)
+int KLFitter::InterfaceOutput_dilepton::SetPhotonType(bool isNotClassified, bool /*isRadTopProd*/, bool /*isHadTopRadDecay*/, bool /*isLepTopRadDecay*/, bool /*isHadWRadDecay*/, bool /*isLepWRadDecay*/)
 {
   fIsNotClassified  = isNotClassified;
  

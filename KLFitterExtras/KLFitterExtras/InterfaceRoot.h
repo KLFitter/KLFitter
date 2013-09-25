@@ -15,7 +15,6 @@
 
 // --------------------------------------------------------- 
 
-#include "KLFitter/PREPROC.h"
 #include "KLFitterExtras/InterfaceBase.h" 
 
 #include <TROOT.h>
@@ -69,7 +68,7 @@ namespace KLFitter
      * @param index The event number. 
      * @return An error code.
      */
-    virtual int Event(int KLFITTER_UNUSED(index))
+    virtual int Event(int /*index*/)
     { return 0; };  
 
     /**
@@ -145,8 +144,8 @@ namespace KLFitter
      * @param opt Options.
      * @return An error code.
      */ 
-              virtual int OpenRootFiles(std::vector<std::string> filenames, Option_t * opt= "READ")
-		{ return 1; }; 
+    virtual int OpenRootFiles(std::vector<std::string> /*filenames*/, Option_t * /*opt*/= "READ")
+    { return 1; }; 
 		
     /**
      * Close Root file. 

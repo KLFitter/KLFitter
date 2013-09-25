@@ -13,7 +13,6 @@
 
 // --------------------------------------------------------- 
 
-#include "PREPROC.h"
 #include "LikelihoodBase.h" 
 #include "TLorentzVector.h"
 #include "ResolutionBase.h"
@@ -147,7 +146,7 @@ namespace KLFitter
      * @return The logarithm of the prior probability. 
      */
     
-    virtual double LogAPrioriProbability(const std::vector <double> & KLFITTER_UNUSED(parameters))
+    virtual double LogAPrioriProbability(const std::vector <double> & /*parameters*/)
     { return 0; }; 
                 
     /** 

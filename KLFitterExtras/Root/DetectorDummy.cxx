@@ -4,7 +4,7 @@
 
 // --------------------------------------------------------- 
 
-KLFitter::DetectorDummy::DetectorDummy(std::string folder) : DetectorBase() 
+KLFitter::DetectorDummy::DetectorDummy(std::string /*folder*/) : DetectorBase() 
 {
   fResEnergyLightJet = new KLFitter::ResGauss(1.0); 
   fResEnergyBJet     = new KLFitter::ResGauss(1.0); 
