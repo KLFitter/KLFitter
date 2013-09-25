@@ -72,6 +72,18 @@ namespace KLFitter
      */ 
     double p(double x, double xmeas, bool &good);
 
+    /**
+     * Return the probability of the true value of x given the
+     * measured value, xmeas.
+     * @param x The true value of x.
+     * @param xmeas The measured value of x.
+     * @param good False if problem with TF.
+     * @param par Optional additional parameter (SumET in case of MET TF).
+     * @return The probability. 
+     */ 
+    virtual double p(double /*x*/, double /*xmeas*/, bool &good, double /*par*/)
+    { good = true; return 0; } 
+
     /* @} */
     /** \name Member functions (Set)  */
     /* @{ */

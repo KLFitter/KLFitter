@@ -65,7 +65,7 @@ int KLFitter::LikelihoodTTGamma::AdjustParameterRanges()
 }
 
 // --------------------------------------------------------- 
-int KLFitter::LikelihoodTTGamma::CalculateLorentzVectors(std::vector <double> parameters)
+int KLFitter::LikelihoodTTGamma::CalculateLorentzVectors(std::vector <double> const& parameters)
 {
   KLFitter::LikelihoodTopLeptonJets::CalculateLorentzVectors(parameters);
 
@@ -83,7 +83,7 @@ int KLFitter::LikelihoodTTGamma::CalculateLorentzVectors(std::vector <double> pa
 }
 
 // --------------------------------------------------------- 
-double KLFitter::LikelihoodTTGamma::LogLikelihood(std::vector <double> parameters)
+double KLFitter::LikelihoodTTGamma::LogLikelihood(const std::vector <double> &parameters)
 {
   // calculate 4-vectors 
   this->CalculateLorentzVectors(parameters); 

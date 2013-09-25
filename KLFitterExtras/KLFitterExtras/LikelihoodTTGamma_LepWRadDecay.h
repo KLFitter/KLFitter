@@ -47,7 +47,7 @@ namespace KLFitter
      * Update 4-vectors of model particles. 
      * @return An error flag.
      */ 
-    virtual int CalculateLorentzVectors(std::vector <double> parameters); 
+    virtual int CalculateLorentzVectors(std::vector <double> const& parameters); 
 
     /**
      * Calculates the neutrino pz solutions from the measured values

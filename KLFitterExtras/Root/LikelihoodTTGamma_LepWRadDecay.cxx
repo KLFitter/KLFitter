@@ -13,7 +13,7 @@ KLFitter::LikelihoodTTGamma_LepWRadDecay::~LikelihoodTTGamma_LepWRadDecay()
 }
 
 // --------------------------------------------------------- 
-int KLFitter::LikelihoodTTGamma_LepWRadDecay::CalculateLorentzVectors(std::vector <double> parameters)
+int KLFitter::LikelihoodTTGamma_LepWRadDecay::CalculateLorentzVectors(std::vector <double> const& parameters)
 {
   KLFitter::LikelihoodTTGamma::CalculateLorentzVectors(parameters);
 

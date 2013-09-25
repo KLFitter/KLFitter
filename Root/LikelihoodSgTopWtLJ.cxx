@@ -517,7 +517,7 @@ std::vector<double> KLFitter::LikelihoodSgTopWtLJ::GetNeutrinoPzSolutions()
 }
 
 // ---------------------------------------------------------
-bool KLFitter::LikelihoodSgTopWtLJ::NoTFProblem(const std::vector<double> & parameters) {
+bool KLFitter::LikelihoodSgTopWtLJ::NoTFProblem(std::vector<double> parameters) {
   fTFgood = true;
   this->LogLikelihood(parameters);
   return fTFgood;

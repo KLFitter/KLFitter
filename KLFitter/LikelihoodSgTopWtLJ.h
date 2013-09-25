@@ -131,7 +131,7 @@ namespace KLFitter
      * @param parameters A vector of parameters (double values). 
      * @return The logarithm of the prior probability. 
      */
-    virtual double LogAPrioriProbability(std::vector <double> /*parameters*/)
+    virtual double LogAPrioriProbability(const std::vector <double> & /*parameters*/)
     { return 0; }; 
     
     /** 
@@ -151,7 +151,7 @@ namespace KLFitter
      * Check if there are TF problems.
      * @return Return false if TF problem.
      */
-    virtual bool NoTFProblem(const std::vector<double> & parameters);
+    virtual bool NoTFProblem(std::vector<double> parameters);
 
     /**
      * Return the set of model particles.
