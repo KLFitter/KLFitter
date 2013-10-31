@@ -114,9 +114,10 @@ namespace KLFitter
     /**
      * Set the particles. 
      * @param particles A pointer to a set of particles. 
+     * @param nPartonsInPermutations The number of partons per permutation (can be smaller than the number of added partons).
      * @return An error flag. 
      */ 
-    int SetParticles(KLFitter::Particles * particles); 
+    int SetParticles(KLFitter::Particles * particles, int nPartonsInPermutations = -1); 
 
     /**
      * Set truth particles. 

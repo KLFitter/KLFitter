@@ -121,9 +121,10 @@ namespace KLFitter
     /* @{ */
 
     /**
-     * Create all possible permutations of jets and leptons. 
+     * Create all possible permutations of jets and leptons.
+     * However, make permutations with exactly nPartonsInPermutations.
      */ 
-    int CreatePermutations(); 
+    int CreatePermutations(int nPartonsInPermutations = -1);
 
     /**
      * Remove permutations in which all indices in the vector indexVector are exchanged
@@ -170,7 +171,7 @@ namespace KLFitter
     /**
      * Creates table of permutations. 
      */ 
-    int CreateSubTable(int Nobj,  std::vector<std::vector<int>*>* table); 
+    int CreateSubTable(int Nobj,  std::vector<std::vector<int>*>* table, int Nmax = -1); 
 
     /* @} */
 
@@ -182,6 +183,16 @@ namespace KLFitter
     int CheckParticles(); 
                 
   protected: 
+
+  private:
+
+    /**
+     * Helper functions to efficienctly create permutations of N particles of only M selected particles.
+     */
+    
+    std::vector<int> Get_int_vector(int i);
+    std::vector<int> Get_int_plus_vector(int i, std::vector<int> v);
+    std::vector<std::vector<int> > Get_M_from_N(unsigned int N, unsigned int M, unsigned int start = 0);
 
   private: 
 

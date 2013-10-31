@@ -57,7 +57,7 @@ int KLFitter::Permutations::SetPermutation(int index)
 }
 
 // --------------------------------------------------------- 
-int KLFitter::Permutations::CreatePermutations()
+int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations)
 {
   // reset existing particle and permuation tables
   Reset(); 
@@ -91,7 +91,7 @@ int KLFitter::Permutations::CreatePermutations()
 
   // create table for parton, electron, muon and photons permutations 
   fTablePartons = new std::vector < std::vector<int> * >(0); 
-  CreateSubTable(npartons, fTablePartons); 
+  CreateSubTable(npartons, fTablePartons, nPartonsInPermutations); 
 
   fTableElectrons = new std::vector < std::vector<int> * >(0); 
   CreateSubTable(nelectrons, fTableElectrons); 
@@ -102,13 +102,17 @@ int KLFitter::Permutations::CreatePermutations()
   fTablePhotons = new std::vector < std::vector<int> * >(0); 
   CreateSubTable(nphotons, fTablePhotons); 
 
+  int npartonsPerm = npartons;
+  if (nPartonsInPermutations >= 0)
+    npartonsPerm = nPartonsInPermutations;
+
   // get number of possible permutations for each category 
   int npermpartons   = fTablePartons->size() <= 0 ? 1 : fTablePartons->size(); 
   int npermelectrons = fTableElectrons->size() <= 0 ? 1 : fTableElectrons->size(); 
   int npermmuons     = fTableMuons->size() <= 0 ? 1 : fTableMuons->size(); 
   int npermphotons     = fTablePhotons->size() <= 0 ? 1 : fTablePhotons->size(); 
-  int npermoverall   = npartons + nelectrons + nmuons + nphotons;
-  
+  int npermoverall   = npartonsPerm + nelectrons + nmuons + nphotons;
+
   // loop over all parton permutations
   for (int ipermparton = 0; ipermparton < npermpartons; ++ipermparton)
     {
@@ -128,7 +132,7 @@ int KLFitter::Permutations::CreatePermutations()
                   std::vector <int> * permutation = new std::vector <int>(npermoverall); 
 
                   // loop over all partons 
-                  for (int i = 0; i < npartons; ++i)
+                  for (int i = 0; i < npartonsPerm; ++i)
                     {
                       // get index 
                       int index = (*(*fTablePartons)[ipermparton])[i];
@@ -176,7 +180,7 @@ int KLFitter::Permutations::CreatePermutations()
 		      }
 		      
                       // set permutation 
-                      (*permutation)[npartons + i] = index;
+                      (*permutation)[npartonsPerm + i] = index;
                     }
                                                         
                   // loop over all muons 
@@ -207,7 +211,7 @@ int KLFitter::Permutations::CreatePermutations()
 		      }
 
                       // set permutation 
-                      (*permutation)[npartons + nelectrons + i] = index; 
+                      (*permutation)[npartonsPerm + nelectrons + i] = index; 
                     }
 
                   // loop over all photons 
@@ -224,7 +228,7 @@ int KLFitter::Permutations::CreatePermutations()
                                              (*fParticles)->PhotonIndex(index));
 
                       // set permutation 
-                      (*permutation)[npartons + nelectrons + nmuons + i] = index; 
+                      (*permutation)[npartonsPerm + nelectrons + nmuons + i] = index; 
                     }
 
                   // add particles to table 
@@ -326,56 +330,28 @@ int KLFitter::Permutations::Reset()
 
 
 // --------------------------------------------------------- 
-int KLFitter::Permutations::CreateSubTable(int Nobj, std::vector < std::vector<int> * > * table)
+int KLFitter::Permutations::CreateSubTable(int Nobj, std::vector < std::vector<int> * > * table, int Nmax)
 {
-  // initialize permutations (original and temp) 
-  std::vector<int> op(Nobj, -1); 
-  std::vector<int> tp(Nobj+1, -1); 
+  if (Nmax < 0) {
+    std::vector<int> vidx;
+    for (int i(0); i < Nobj; ++i)
+      vidx.push_back(i);
 
-  // calculate number of permutations
-  int Nperm = 1; 
-  for (int i = Nobj; i > 0; --i)
-    Nperm *= i; 
-        
-  // fill permutations
-  for (int i = 0; i < Nobj; ++i)
-    {
-      op[i] = i; 
-      tp[i] = i; 
+    do table->push_back(new std::vector<int>(vidx));
+    while (next_permutation(vidx.begin(), vidx.end()));
+  }
+
+  else {
+
+    std::vector<std::vector<int> > v = Get_M_from_N(Nobj, Nmax);
+
+    for (unsigned int i(0), n(v.size()); i < n; ++i) {
+      std::vector<int> vidx = v[i];
+      do table->push_back(new std::vector<int>(vidx));
+      while (next_permutation(vidx.begin(), vidx.end()));
     }
-  tp[Nobj] = Nobj; 
 
-  // add original permutation to table 
-  std::vector<int> * tempp = new std::vector<int>(0); 
-  *tempp = op; 
-  table->push_back(tempp); 
-
-  int i, j, temp; 
-  i = 1; 
-  while (i < Nobj)
-    {
-      (tp[i])--; 
-      j = (Nobj-1) - i % 2 * tp[i]; 
-      i = (Nobj-1) - i; 
-
-      // swap elements i and j 
-      temp = op[j]; 
-      op[j] = op[i]; 
-      op[i] = temp; 
-
-      // add new permutation 
-      tempp = new std::vector<int>(Nobj, -1);
-      for (int k = 0; k < Nobj; ++k)
-        (*tempp)[k] = op[k]; 
-      table->push_back(tempp); 
-
-      i = 1; 
-      while (!tp[i])
-        {
-          tp[i] = i; 
-          i++;
-        }
-    }
+  }
 
   // no error 
   return 1; 
@@ -709,7 +685,40 @@ std::vector<std::vector<int>* > *KLFitter::Permutations::PermutationTable()
   // return copy
   return permutationTable;
   */
+
 }
 
 // --------------------------------------------------------- 
 
+std::vector<int> KLFitter::Permutations::Get_int_vector(int i) {
+  std::vector<int> vtmp;
+  vtmp.push_back(i);
+  return vtmp;
+}
+
+// --------------------------------------------------------- 
+
+std::vector<int> KLFitter::Permutations::Get_int_plus_vector(int i, std::vector<int> v) {
+  std::vector<int> vtmp = Get_int_vector(i);
+  for (unsigned int j(0), jend(v.size()); j < jend; ++j)
+    vtmp.push_back(v[j]);
+  return vtmp;
+}
+
+// --------------------------------------------------------- 
+
+std::vector<std::vector<int> > KLFitter::Permutations::Get_M_from_N(unsigned int N, unsigned int M, unsigned int start) {
+  std::vector<std::vector<int> > v(0);
+  for (unsigned int i(start); i < N-(M-1); ++i) {
+    if (M == 1)
+      v.push_back(Get_int_vector(i));
+    else {
+      std::vector<std::vector<int> > vnext = Get_M_from_N(N, M-1, i+1);
+      for (unsigned int j(0), jend(vnext.size()); j < jend; ++j)
+        v.push_back(Get_int_plus_vector(i, vnext[j]));
+    }
+  }
+  return v;
+}
+
+// --------------------------------------------------------- 

@@ -32,7 +32,7 @@ KLFitter::Fitter::~Fitter()
 }
 
 // --------------------------------------------------------- 
-int KLFitter::Fitter::SetParticles(KLFitter::Particles * particles)
+int KLFitter::Fitter::SetParticles(KLFitter::Particles * particles, int nPartonsInPermutations)
 {
   fParticles = particles; 
 
@@ -41,7 +41,7 @@ int KLFitter::Fitter::SetParticles(KLFitter::Particles * particles)
     fPermutations->Reset(); 
 
   // create table of permutations 
-  fPermutations->CreatePermutations();  
+  fPermutations->CreatePermutations(nPartonsInPermutations);  
 
   // remove invariant permutations if likelihood exists 
   if (fLikelihood)
