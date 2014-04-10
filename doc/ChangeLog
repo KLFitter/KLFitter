@@ -1,3 +1,7 @@
+2014-04-10 Johannes Erdmann <johannes.erdmann@cern.ch>
+	* Fixing issue with TLorentzVector initialization in dilepton likelihood
+	* KLFitter-00-06-02
+
 2013-11-02 Johannes Erdmann <johannes.erdmann@cern.ch>
 	* Added algorithm for more efficient calculation of permutations for large jet multiplicities
 	* KLFitter-00-06-01

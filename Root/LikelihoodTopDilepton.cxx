@@ -625,16 +625,16 @@ double KLFitter::LikelihoodTopDilepton::CalculateMLepJet(const std::vector<doubl
  double alpha=-2.;
  
  //charged leptons
- TLorentzVector l1(0.);
- TLorentzVector l2(0.);
+ TLorentzVector l1(0., 0., 0., 0.);
+ TLorentzVector l2(0., 0., 0., 0.);
  
  // include parLep1E, parLep2E
  l1.SetPxPyPzE(lep1_fit_px,  lep1_fit_py,  lep1_fit_pz,  lep1_fit_e);
  l2.SetPxPyPzE(lep2_fit_px,  lep2_fit_py,  lep2_fit_pz,  lep2_fit_e);
  
  // jet1 and jet2:
- TLorentzVector j1(0.);
- TLorentzVector j2(0.);
+ TLorentzVector j1(0., 0., 0., 0.);
+ TLorentzVector j2(0., 0., 0., 0.);
  
  // include parB1E, parB2E
  j1.SetPxPyPzE(b1_fit_px, b1_fit_py, b1_fit_pz, b1_fit_e);
@@ -1182,15 +1182,15 @@ std::vector<double> KLFitter::LikelihoodTopDilepton::LogLikelihoodComponents(std
 
 void KLFitter::LikelihoodTopDilepton::MCMCIterationInterface()
 {
-  TLorentzVector  MCMC_b1(0.);
-  TLorentzVector  MCMC_b2(0.);
-  TLorentzVector  MCMC_lep1(0.);
-  TLorentzVector  MCMC_lep2(0.);
-  TLorentzVector  MCMC_nu1(0.);
-  TLorentzVector  MCMC_nu2(0.);
+  TLorentzVector  MCMC_b1(0., 0., 0., 0.);
+  TLorentzVector  MCMC_b2(0., 0., 0., 0.);
+  TLorentzVector  MCMC_lep1(0., 0., 0., 0.);
+  TLorentzVector  MCMC_lep2(0., 0., 0., 0.);
+  TLorentzVector  MCMC_nu1(0., 0., 0., 0.);
+  TLorentzVector  MCMC_nu2(0., 0., 0., 0.);
 
-  TLorentzVector  MCMC_lep(0.);
-  TLorentzVector  MCMC_antilep(0.);
+  TLorentzVector  MCMC_lep(0., 0., 0., 0.);
+  TLorentzVector  MCMC_antilep(0., 0., 0., 0.);
 
   double scale_b1(0.);
   double scale_b2(0.);
