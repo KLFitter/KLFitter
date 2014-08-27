@@ -1,3 +1,7 @@
+2014-08-27 Boris Lemmer <boris.lemmer@cern.ch>
+	* Modify Makefile for usage of Asg_BAT 
+	* KLFitter-00-07-00
+
 2014-04-10 Johannes Erdmann <johannes.erdmann@cern.ch>
 	* Fixing issue with TLorentzVector initialization in dilepton likelihood
 	* KLFitter-00-06-02
