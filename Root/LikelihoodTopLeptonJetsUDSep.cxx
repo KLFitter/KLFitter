@@ -9,6 +9,7 @@
 #include <algorithm> 
 
 #include <BAT/BCMath.h> 
+#include "BAT/BCParameter.h"
 
 // --------------------------------------------------------- 
 KLFitter::LikelihoodTopLeptonJetsUDSep::LikelihoodTopLeptonJetsUDSep() : KLFitter::LikelihoodTopLeptonJets::LikelihoodTopLeptonJets(),

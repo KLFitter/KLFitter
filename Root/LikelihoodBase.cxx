@@ -6,6 +6,7 @@
 #include "TRandom3.h"
 
 #include "BAT/BCLog.h" 
+#include "BAT/BCParameter.h"
 
 #include <iostream> 
 #include <string> 

@@ -9,6 +9,7 @@
 #include <algorithm> 
 
 #include <BAT/BCMath.h> 
+#include "BAT/BCParameter.h"
 
 // --------------------------------------------------------- 
 KLFitter::LikelihoodTopLeptonJets_Angular::LikelihoodTopLeptonJets_Angular() : KLFitter::LikelihoodBase::LikelihoodBase()

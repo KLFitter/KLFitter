@@ -1,0 +1,6 @@
+2015-03-05 Simon Head <simon@cern.ch>
+	* Adding Changelog
+	* Adding includes for BAT-0.9.4.1 - needed for Root6 in AnalysisTop
+	* Removing obj directory
+	* Still seeing some problems compiling -  no members matching ‘BCModel::GetNormalization’ in ‘class BCModel’
+

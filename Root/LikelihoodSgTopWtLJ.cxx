@@ -8,6 +8,8 @@
 #include <iostream> 
 
 #include <BAT/BCMath.h>
+#include "BAT/BCParameter.h"
+
 #include <cmath>
 
 // --------------------------------------------------------- 

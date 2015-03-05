@@ -6,6 +6,8 @@
 
 #include <iostream> 
 
+#include "BAT/BCParameter.h"
+
 // --------------------------------------------------------- 
 KLFitter::Fitter::Fitter()
 {

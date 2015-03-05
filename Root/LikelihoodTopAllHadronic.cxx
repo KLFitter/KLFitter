@@ -10,6 +10,7 @@
 #include <set>
 
 #include <BAT/BCMath.h> 
+#include "BAT/BCParameter.h"
 
 // --------------------------------------------------------- 
 KLFitter::LikelihoodTopAllHadronic::LikelihoodTopAllHadronic() : KLFitter::LikelihoodBase::LikelihoodBase()
