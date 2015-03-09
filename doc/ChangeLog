@@ -1,3 +1,12 @@
+2015-03-09 Johannes Erdmann <johannes.erdmann@cern.ch>
+	* Adding back obj directory for stand-alone compilation
+	* Merging new with old ChangeLog
+2015-03-05 Simon Head <simon@cern.ch>
+	* Adding Changelog
+	* Adding includes for BAT-0.9.4.1 - needed for Root6 in AnalysisTop
+	* Removing obj directory
+	* Still seeing some problems compiling -  no members matching BCModel::GetNormalization in class BCModel
+
 2014-08-27 Boris Lemmer <boris.lemmer@cern.ch>
 	* Modify Makefile for usage of Asg_BAT 
 	* KLFitter-00-07-00
