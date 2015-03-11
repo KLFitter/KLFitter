@@ -168,7 +168,7 @@ double KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbability()
 
   // use integrated value of LogLikelihood (default)
   if (fFlagIntegrate)
-    logprob += log(GetNormalization()); 
+    logprob += log(GetIntegral()); 
   else
     logprob += LogLikelihood( GetBestFitParameters() ); 
   return logprob; 

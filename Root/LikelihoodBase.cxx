@@ -29,7 +29,7 @@ KLFitter::LikelihoodBase::LikelihoodBase(Particles** particles) : BCModel(),
 {
 
   BCLog::SetLogLevel(BCLog::nothing);
-  MCMCGetTRandom3()->SetSeed(123456789);
+  MCMCSetRandomSeed(123456789);
 }
 
 // --------------------------------------------------------- 
@@ -107,8 +107,6 @@ int KLFitter::LikelihoodBase::SetParameterRange(int index, double parmin, double
   // set parameter ranges in BAT 
   GetParameter(index)->SetLowerLimit(parmin); 
   GetParameter(index)->SetUpperLimit(parmax); 
-  fMCMCBoundaryMin[index] = parmin; 
-  fMCMCBoundaryMax[index] = parmax; 
 
   // no error 
   return 1; 
@@ -197,7 +195,7 @@ double KLFitter::LikelihoodBase::LogEventProbability()
 
   // use integrated value of LogLikelihood (default)
   if (fFlagIntegrate)
-    logprob += log(GetNormalization()); 
+    logprob += log(GetIntegral()); 
   else
     logprob += LogLikelihood( GetBestFitParameters() ); 
   
@@ -375,7 +373,7 @@ if ((iperm>(int)fCachedParametersVector.size())||(iperm>(int)fCachedParameterErr
 }
 fCachedParametersVector.at(iperm) = BCModel::GetBestFitParameters();
 fCachedParameterErrorsVector.at(iperm) = BCModel::GetBestFitParameterErrors();
-fCachedNormalizationVector.at(iperm) = BCModel::GetNormalization();
+fCachedNormalizationVector.at(iperm) = BCIntegrate::GetIntegral();
 
 int switchpar1 = -1;
 int switchpar2 = -1;
@@ -395,7 +393,7 @@ if (partner > iperm) {
 		fCachedParameterErrorsVector.at(partner).at(switchpar1) = fCachedParameterErrorsVector.at(partner).at(switchpar2);
 		fCachedParameterErrorsVector.at(partner).at(switchpar2) = switchcache;
 
-		fCachedNormalizationVector.at(partner) = BCModel::GetNormalization();
+		fCachedNormalizationVector.at(partner) = BCIntegrate::GetIntegral();
 
 
 	} else {
@@ -423,14 +421,14 @@ return 1;
 
 // ---------------------------------------------------------.
 
- double KLFitter::LikelihoodBase::GetNormalization()
+ double KLFitter::LikelihoodBase::GetIntegral()
 {
 
 if (fCachedNormalizationVector.size() > 0) {
 	return fCachedNormalization;
 }
 else {
-return BCModel::GetNormalization();
+return BCIntegrate::GetIntegral();
 }
 }
 // ---------------------------------------------------------.

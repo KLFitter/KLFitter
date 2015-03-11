@@ -1011,7 +1011,7 @@ int KLFitter::InterfaceOutput_dilepton::FillTreeModelPermutation()
 
   //(*fTreeVarMinuitStatus)[pindex] = fFitter->MinuitStatus(); 
   //(*fTreeVarConvergenceStatus)[pindex] = fFitter->ConvergenceStatus(); 
-  (*fTreeVarIntegral)[pindex] = fFitter->Likelihood()->GetNormalization(); 
+  (*fTreeVarIntegral)[pindex] = fFitter->Likelihood()->GetIntegral();
   (*fTreeVarEventProbability)[pindex] = exp( fFitter->Likelihood()->LogEventProbability() ); 
 
   // check event probability for NaN

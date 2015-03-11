@@ -31,10 +31,6 @@ KLFitter::LikelihoodSgTopWtLJ::LikelihoodSgTopWtLJ(): KLFitter::LikelihoodBase::
 
 // --------------------------------------------------------- 
 KLFitter::LikelihoodSgTopWtLJ::~LikelihoodSgTopWtLJ(){
-  while(!fParameterSet->empty()){
-    delete fParameterSet->back();
-    fParameterSet->pop_back();
-  }
 }
 
 // ---------------------------------------------------------
@@ -241,7 +237,7 @@ int KLFitter::LikelihoodSgTopWtLJ::Initialize()
   // error code 
   int err = 1;
 
-  err *= ResetResults();
+  ResetResults(); // since BAT-0.9.3 no error code produced by this method anymore
 
   // save the current permuted particles
   err *= SavePermutedParticles();

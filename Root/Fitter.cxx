@@ -184,7 +184,7 @@ int KLFitter::Fitter::Fit(int index)
     }
     // simulated annealing
     else if (fMinimizationMethod == kSimulatedAnnealing) {
-      fLikelihood->SetOptimizationMethod( BCIntegrate::kOptSA );
+      fLikelihood->SetOptimizationMethod( BCIntegrate::kOptSimAnn );
       fLikelihood->SetSAT0(10);
       fLikelihood->SetSATmin(0.001);
       fLikelihood->FindMode( fLikelihood->GetInitialParameters() );
@@ -201,10 +201,9 @@ int KLFitter::Fitter::Fit(int index)
       if ( fMinuitStatus == 0)
         {
           std::vector<double> BestParameters = fLikelihood->GetBestFitParameters();
-          BCParameterSet * ParameterSet = fLikelihood->GetParameterSet();
-          for (unsigned int iPar = 0; iPar < BestParameters.size(); iPar++)
+          for (unsigned int iPar = 0; iPar < fLikelihood->GetNParameters(); iPar++)
             {
-              if ( (*ParameterSet)[iPar]->IsAtLimit(BestParameters[iPar]) )
+              if ( fLikelihood->GetParameter(0)->IsAtLimit(BestParameters[iPar]) )
                 {
                   fMinuitStatus = 500;
                 }
@@ -223,7 +222,7 @@ int KLFitter::Fitter::Fit(int index)
           //        std::cout << "KLFitter::Fit(). Minuit did not find proper minimum. Rerun with Simulated Annealing."<<std::endl; 
           if (!fTurnOffSA) {
             fLikelihood->SetFlagIsNan(false);
-            fLikelihood->SetOptimizationMethod( BCIntegrate::kOptSA );
+            fLikelihood->SetOptimizationMethod( BCIntegrate::kOptSimAnn );
             fLikelihood->FindMode( fLikelihood->GetInitialParameters() );
           }
                           
@@ -242,10 +241,9 @@ int KLFitter::Fitter::Fit(int index)
     if ( fMinuitStatus == 0)
       {
         std::vector<double> BestParameters = fLikelihood->GetBestFitParameters();
-        BCParameterSet * ParameterSet = fLikelihood->GetParameterSet();
-        for (unsigned int iPar = 0; iPar < BestParameters.size(); iPar++)
+        for (unsigned int iPar = 0; iPar < fLikelihood->GetNParameters(); iPar++)
           {
-            if ( (*ParameterSet)[iPar]->IsAtLimit(BestParameters[iPar]) )
+            if ( fLikelihood->GetParameter(0)->IsAtLimit(BestParameters[iPar]) )
               {
                 fMinuitStatus = 501;
                 fConvergenceStatus |= AtLeastOneFitParameterAtItsLimitMask;
@@ -311,7 +309,7 @@ int KLFitter::Fitter::Fit()
       fLikelihood->MCMCSetNIterationsMax(1000);
       fLikelihood->MCMCSetNIterationsUpdate(100);                       
       fLikelihood->MarginalizeAll();
-      fLikelihood->FindModeMinuit(fLikelihood->GetBestFitParameters(), -1); 
+      fLikelihood->FindMode(BCIntegrate::kOptMinuit, fLikelihood->GetBestFitParameters());
       fMinuitStatus = fLikelihood->GetMinuitErrorFlag(); 
     }
 

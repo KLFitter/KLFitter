@@ -1,6 +1,7 @@
-2015-03-09 Johannes Erdmann <johannes.erdmann@cern.ch>
-	* Adding back obj directory for stand-alone compilation
+2015-03-11 Johannes Erdmann <johannes.erdmann@cern.ch>
 	* Merging new with old ChangeLog
+	* Fixing for interface changes in BAT-0.9.4.1 (changes happened in 0.9.3)
+
 2015-03-05 Simon Head <simon@cern.ch>
 	* Adding Changelog
 	* Adding includes for BAT-0.9.4.1 - needed for Root6 in AnalysisTop

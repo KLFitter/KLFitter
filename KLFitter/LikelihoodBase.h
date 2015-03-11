@@ -420,11 +420,11 @@ namespace KLFitter
 
     /**
      * @return The normalization factor of the probability, overloaded from BCModel */
-    double GetNormalization();
+    double GetIntegral();
 
     /**
      * @return The normalization factor of the probability from the BCModel class */
-    using  BCModel::GetNormalization;
+    using  BCIntegrate::GetIntegral;
 
     /**
      * Resets the values of all parameter cache vectors
@@ -510,7 +510,7 @@ namespace KLFitter
     std::vector<std::vector<double> >  fCachedParameterErrorsVector; 
 
     /**
-     * The cached normalization, needed for the overloaded BCModel::GetNormalization
+     * The cached normalization, needed for the overloaded BCIntegrate::GetIntegral
      */ 
     double  fCachedNormalization; 
 
