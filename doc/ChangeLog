@@ -1,6 +1,7 @@
 2015-04-23 Johannes Erdmann <johannes.erdmann@cern.ch>
 	* Bug fix for changes in BAT-0.9.4.1 (changes happened in 0.9.3)
 	* KLFitter-00-07-02
+	* KLFitter-00-07-03
 	
 2015-03-11 Johannes Erdmann <johannes.erdmann@cern.ch>
 	* Merging new with old ChangeLog

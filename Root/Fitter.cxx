@@ -127,7 +127,7 @@ int KLFitter::Fitter::SetLikelihood(KLFitter::LikelihoodBase * likelihood)
 int KLFitter::Fitter::Fit(int index)
 {
   fLikelihood->ResetCache();
-  fLikelihood->ResetResults()
+  fLikelihood->ResetResults();
   ResetCache();
 
   // check status
