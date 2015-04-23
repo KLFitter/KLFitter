@@ -127,6 +127,7 @@ int KLFitter::Fitter::SetLikelihood(KLFitter::LikelihoodBase * likelihood)
 int KLFitter::Fitter::Fit(int index)
 {
   fLikelihood->ResetCache();
+  fLikelihood->ResetResults()
   ResetCache();
 
   // check status
@@ -218,6 +219,7 @@ int KLFitter::Fitter::Fit(int index)
       if (fMinuitStatus != 0)
         {
 	  fLikelihood->ResetCache();
+          fLikelihood->ResetResults();
           // print to screen
           //        std::cout << "KLFitter::Fit(). Minuit did not find proper minimum. Rerun with Simulated Annealing."<<std::endl; 
           if (!fTurnOffSA) {
