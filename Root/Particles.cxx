@@ -224,7 +224,7 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, f
     return 0; 
   }
 
-  if (particle->M() < -1.e-3) {
+  if (fabs(particle->P()/particle->E()-1) > 1.e-6 && particle->M() < 0) { // No Warning if P differs less than 1e-6 from E
     std::cout << "KLFitter::Particles::AddParticle(). WARNING : A particle with negative mass " << particle->M() << " of type " << ptype << " was added." << std::endl;
     return 1;
   }
@@ -296,7 +296,7 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, K
     return 0; 
   }
 
-  if (particle->M() < -1.e-3) {
+  if (fabs(particle->P()/particle->E()-1) > 1.e-6 && particle->M() < 0) { // No Warning if P differs less than 1e-6 from E
     std::cout << "KLFitter::Particles::AddParticle(). WARNING : A particle with negative mass " << particle->M() << " of type " << ptype << " was added." << std::endl;
     return 1;
   }
