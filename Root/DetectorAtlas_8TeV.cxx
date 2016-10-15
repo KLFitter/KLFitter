@@ -92,17 +92,17 @@ std::cout<<"Using TF from MC12 ..."<<std::endl;
   fJetEtaBin_1 = 0.8;
   fJetEtaBin_2 = 1.37; 
   fJetEtaBin_3 = 1.52;
-  fJetEtaBin_4 = 2.5;
+  fJetEtaBin_4 = 2.50001;
 //  fJetEtaBin_5 = 4.5;
 
   fElectronEtaBin_1 = 0.8;
   fElectronEtaBin_2 = 1.37;
   fElectronEtaBin_3 = 1.52;
-  fElectronEtaBin_4 = 2.5;
+  fElectronEtaBin_4 = 2.50001;
 
   fMuonEtaBin_1 = 1.11;
   fMuonEtaBin_2 = 1.25;
-  fMuonEtaBin_3 = 2.5;
+  fMuonEtaBin_3 = 2.50001;
 
   fPhotonEtaBin_1 = 1.11;
   fPhotonEtaBin_2 = 1.25;
@@ -279,6 +279,7 @@ KLFitter::ResolutionBase * KLFitter::DetectorAtlas_8TeV::ResEnergyBJet(double et
 //    fResEnergyBJet = fResEnergyBJet_eta5;
   else 
     {
+
       std::cout << "KLFitter::DetectorAtlas_8TeV::ResEnergyBJet(). Eta range exceeded." << std::endl; 
       return 0; 
     }
