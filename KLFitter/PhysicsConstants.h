@@ -63,6 +63,13 @@ namespace KLFitter
     { return fMassW; }; 
 
     /**
+     * Return the mass of the Z boson in GeV/c2.
+     * @return The mass of the particle in GeV/c2.
+     */
+    double MassZ()
+    { return fMassZ; };
+
+    /**
      * Return the msas of the top quark in GeV/c2
      * @return The mass of the particle in GeV/c2. 
      */ 
@@ -82,6 +89,13 @@ namespace KLFitter
      */ 
     double GammaW()
     { return fGammaW; }; 
+
+    /**
+     * Return the width of the Z boson in GeV/c2.
+     * @return The width of the particle in GeV/c2.
+     */
+    double GammaZ()
+    { return fGammaZ; };
 
     /**
      * Return the width of the top quark in GeV/c2
@@ -136,11 +150,25 @@ namespace KLFitter
     int SetMassW(double mass); 
 
     /**
+     * Set the mass of the Z boson in GeV/c2.
+     * @param mass The mass of the particle in GeV/c2.
+     * @return An error code.
+     */
+    int SetMassZ(double mass);
+
+    /**
      * Set the width of the W boson in GeV/c2. 
      * @param gamma The width of the particle in GeV/c2. 
      * @return An error code. 
      */ 
     int SetGammaW(double gamma); 
+
+    /**
+     * Set the width of the Z boson in GeV/c2.
+     * @param gamma The width of the particle in GeV/c2.
+     * @return An error code.
+     */
+    int SetGammaZ(double gamma);
 
     /**
      * Set the width of the top quark in GeV/c2.
@@ -189,6 +217,11 @@ namespace KLFitter
     double fMassW;
 
     /**
+     * The Z boson pole mass in GeV/c2.
+     */
+    double fMassZ;
+
+    /**
      * The top quark pole mass in GeV/c2.
      */ 
     double fMassTop;
@@ -202,6 +235,11 @@ namespace KLFitter
      * The W boson width in GeV/c2.
      */ 
     double fGammaW;
+
+    /**
+     * The Z boson width in GeV/c2.
+     */
+    double fGammaZ;
 
     /**
      * The top quark width in GeV/c2.
