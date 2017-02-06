@@ -1,3 +1,7 @@
+2017-02-06 Knut Zoch <johannes.erdmann@cern.ch>
+	* Added likelihood for ttZ (3l channel) reconstruction
+	* KLFitter-00-07-05
+
 2015-04-23 Johannes Erdmann <johannes.erdmann@cern.ch>
 	* Bug fix for changes in BAT-0.9.4.1 (changes happened in 0.9.3)
 	* KLFitter-00-07-02
