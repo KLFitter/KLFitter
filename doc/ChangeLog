@@ -1,4 +1,8 @@
-2017-02-06 Knut Zoch <johannes.erdmann@cern.ch>
+2017-03-04 Johannes Erdmann <johannes.erdmann@cern.ch>
+	* Added likelihood for boosted W-boson reconstruction (on behalf of Bjoern Wendland)
+	* trunk
+
+2017-02-06 Knut Zoch <knut.zoch@cern.ch>
 	* Added likelihood for ttZ (3l channel) reconstruction
 	* KLFitter-00-07-05
 
