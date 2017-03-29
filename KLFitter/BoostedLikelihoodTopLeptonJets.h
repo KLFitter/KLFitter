@@ -10,8 +10,8 @@
 
 // --------------------------------------------------------- 
 
-#ifndef MYLIKELIHOODTOPLEPTONJETS
-#define MYLIKELIHOODTOPLEPTONJETS
+#ifndef BOOSTEDLIKELIHOODTOPLEPTONJETS
+#define BOOSTEDLIKELIHOODTOPLEPTONJETS
 
 // --------------------------------------------------------- 
 
@@ -135,15 +135,13 @@ namespace KLFitter
      * @return A vector with the components of the logarithm of the prior probability. Its components are:
      * 0:  TF_bhad
      * 1:  TF_blep
-     * 2:  TF_lq1
-     * 3:  TF_lq2
-     * 4:  TF_lep
-     * 5:  TF_METx
-     * 6:  TF_METy
-     * 7:  BW_Whad
-     * 8:  BW_Wlep
-     * 9:  BW_Thad
-     * 10: BW_Tlep
+     * 2:  TF_lq
+     * 3:  TF_lep
+     * 4:  TF_METx
+     * 5:  TF_METy
+     * 6:  BW_Wlep
+     * 7:  BW_Thad
+     * 8: BW_Tlep
      */
     virtual std::vector<double> LogLikelihoodComponents(std::vector <double> parameters); 
 
@@ -394,8 +392,6 @@ namespace KLFitter
     double lq_fit_py;
     double lq_fit_pz;
 
-   
-
     double lep_fit_e;
     double lep_fit_px;
     double lep_fit_py;
@@ -418,4 +414,3 @@ namespace KLFitter
 // --------------------------------------------------------- 
 
 #endif 
-
