@@ -7,8 +7,11 @@ atlas_subdir( KLFitter None )
 #find_package( ROOT REQUIRED COMPONENTS Core Gpad Tree Hist RIO Math MathMore MathCore Graf Physics )
 find_package( ROOT REQUIRED  COMPONENTS Core RIO Net Hist Graf Graf3d Gpad Tree Rint Postscript Matrix Physics MathCore Thread Minuit )
 MESSAGE( STATUS "CMAKE_MODULE_PATH : " ${CMAKE_MODULE_PATH} )
-find_package( Asg_BAT REQUIRED )
-
+MESSAGE( STATUS "Issue with find_package and Asg_BAT." )
+find_package( Asg_BAT REQUIRED COMPONENTS BAT BATmodels BATmtf BATmvc)
+MESSAGE( STATUS "Temporary fix by running find_package twice." )
+find_package( Asg_BAT REQUIRED COMPONENTS BAT BATmodels BATmtf BATmvc)
+MESSAGE( STATUS "BAT_LIBRARIES used in KLFitter : " ${BAT_LIBRARIES} )
 
 # Build a library that other components can link against:
 atlas_add_library( KLFitter Root/*.cxx Root/*.h Root/*.icc
