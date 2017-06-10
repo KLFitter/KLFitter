@@ -1,3 +1,7 @@
+2017-06-10 Johannes Erdmann <johannes.erdmann@cern.ch>
+	* Revived the TopLeptonJets_JetAngles likelihood
+	* trunk
+
 2017-03-29 Johannes Erdmann <johannes.erdmann@cern.ch>
 	* Added likelihood for boosted W-boson reconstruction (on behalf of Bjoern Wendland)
 	* trunk
