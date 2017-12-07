@@ -1,0 +1,49 @@
+#!/bin/bash
+
+################################################################
+# Goal  : Copy header files from library/include to KLFitter
+# Syntax: SymLinkHeaders $KLFITTERROOT/library/include KLFitter
+# Author: <Venkat.Kaushik@cern.ch>
+# Date  : 2011 Apr. 20
+#################################################################
+
+E_NOARGS=85
+declare -a args
+
+## need exactly two arguments (source and destination)
+if [ "$#" -ne 2 ]; then
+  echo "#CMT---> Error: `basename $0`: Nothing copied. Wrong number of arguments."
+  exit $E_NOARGS;
+fi
+
+## store args in array
+for comp in $@; do
+  args=( ${args[@]-} $(echo "$comp") )
+done
+
+## assign source and destination dirs
+srcdir=${args[0]}
+destdir=${args[1]}
+reldir=../
+relpath=$reldir/$destdir
+
+
+## prepare links to directory with header files
+if [ ! -d $relpath ]; then
+  echo "#CMT---> Info: $destdir does not exist. Creating it."
+  ln -f -s $srcdir $relpath
+else
+  echo "#CMT---> Info: $relpath already exists. Cleaning up."
+  rm -f $relpath
+  ln -f -s $srcdir $relpath
+fi
+
+## create a readme with timestamp
+readme=$reldir/README.`basename $destdir`
+if [ -f $readme ]; then
+  rm -f $readme
+fi
+echo -e "$srcdir is linked as ${destdir}\nCreated on `date`" > $readme
+echo "#CMT---> Info: Done with document `basename $0`"
+
+##########################################################################

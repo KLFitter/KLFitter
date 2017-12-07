@@ -1,0 +1,98 @@
+package KLFitter
+
+## authors of KLFitter
+author K. Kroeninger <Kevin.Alexander.Kroeninger@cern.ch>
+author J. Erdmann <johannes.erdmann@cern.ch>
+author O. Nackenhorst <olaf.nackenhorst@cern.ch>
+
+## author of cmt-based compilation
+author V. Kaushik <venkat.kaushik@cern.ch>
+
+##############################################################
+
+private
+apply_tag  ROOTBasicLibs
+apply_tag  ROOTMathLibs
+apply_tag  ROOTSTLDictLibs
+apply_tag  ROOTGraphicsLibs
+apply_tag  ROOTTableLibs
+end_private
+
+public
+use AtlasPolicy        AtlasPolicy-*
+use AtlasROOT          AtlasROOT-*      External
+use BAT                BAT-*            External
+
+
+###############################################################
+#  library: libKLFitter
+###############################################################
+
+
+# Rules to use KLFitter library
+macro KLFitter_dir "$(KLFITTERROOT)/library"
+macro KLFitter_include_dir "$(KLFitter_dir)/include"
+
+include_path none
+include_dirs "$(KLFitter_include_dir)"
+
+
+library  KLFitter  "$(KLFitter_dir)/src/*.cxx"
+macro_append KLFitter_dependencies " SymLink_KLinc "
+
+action SymLink_KLinc "./SymLinkHeaders $(KLFITTERROOT)/library/include KLFitter"
+apply_pattern install_non_standard_includes name=KLFitter
+
+## copy action depends on install_*_includes
+## files need to be linked before installing them
+macro_prepend install_KLFitter_includes_dependencies " SymLink_KLinc "
+
+
+macro          KLFitter_shlibflags        "$($(ROOTSYS)/bin/root-config --libs)"
+macro_append   KLFitter_shlibflags        " -lBAT"
+macro_append   KLFitter_shlibflags        " -L$(ROOTSYS)/lib -lTreePlayer -lMinuit -lMinuit2 -lPhysics"
+
+
+###############################################################
+#  library: libKLFitterExtras
+##############################################################
+
+
+macro KLFitterExtras_dir "$(KLFITTERROOT)/extras"
+macro KLFitterExtras_include_dir "$(KLFitterExtras_dir)/include"
+
+include_path none
+include_dirs "$(KLFitterExtras_include_dir)"
+
+library  KLFitterExtras "$(KLFitterExtras_dir)/src/*.cxx"
+macro_append KLFitterExtras_dependencies " SymLink_KLExtrasInc "
+
+action SymLink_KLExtrasInc "./SymLinkHeaders $(KLFITTERROOT)/extras/include KLFitterExtras"
+apply_pattern install_non_standard_includes name=KLFitterExtras
+
+macro_prepend install_KLFitterExtras_includes_dependencies " SymLink_KLExtrasInc "
+
+## remove virtual function hidden by another warning
+macro_remove cppflags "-Woverloaded-virtual"
+
+macro          KLFitterExtras_shlibflags         $(KLFitter_shlibflags)
+
+###############################################################
+#  application: runKLFitter.exe
+###############################################################
+
+application runKLFitter -no_prototypes "../examples/top_ljets/runKLFitter.cxx"
+
+
+macro       runKLFitterlinkopts      "$($(ROOTSYS)/bin/root-config --libs) \
+                                     -lm $(KLFitter_shlibflags) \
+                                     -lKLFitter -lKLFitterExtras "
+
+
+
+###############################################################
+#  runtime extras
+###############################################################
+apply_pattern declare_runtime extras="../transferfunctions* ../examples/top_ljets/config.conf"
+
+

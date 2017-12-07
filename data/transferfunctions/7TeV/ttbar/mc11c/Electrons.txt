@@ -1,0 +1,81 @@
+Electron transfer function
+======================
+
+Version: 2.0 - 7 TeV
+Version: 4.0 - 7 TeV, R16   
+   Version: 4.5 - 7 TeV, R16v2, new binning
+   Version: 5.0 - 7 TeV, MC10a
+   Version: 6.0 - 7 TeV, MC10b
+   Version: 7.0 - 7 TeV, MC11b
+   Version: 8.0 - 7 TeV, MC11c
+last change: 05.06.2012 - Boris Lemmer
+
+
+The transfer function for electrons is parametrized as:
+
+W(dE)=1/(sqrt(2 pi)(p2 + p3 p5)) * ( exp( -(dE - p1)(dE - p1)/(2 p2 p2) ) + p3 exp( -(dE - p4)(dE - p4)/(2 p5 p5) ) )
+
+with
+
+dE = (E_truth - E_measured) / E_truth 
+
+The parameters pi themselves depend on E_truth:
+
+p_1 = mean1_0  + mean1_1 E_truth
+p_2 = width1_0 / sqrt(E_truth) + width1_1 
+p_3 = scale_0  + scale_1 E_truth
+p_4 = mean2_0  + mean2_1 E_truth
+p_5 = width2_0  + width2_1 E_truth 
+
+The values are:
+
+0.00 < |eta| < 0.80:
+  (0) Parameter "mean1_0": 0.0047708
+  (1) Parameter "mean1_1": -8.31776e-06
+  (2) Parameter "width1_0": 0.0551261
+  (3) Parameter "width1_1": 0.0135272
+  (4) Parameter "scale_0": 0.0344012
+  (5) Parameter "scale_1": 8.1357e-05
+  (6) Parameter "mean2_0": 0.0546478
+  (7) Parameter "mean2_1": -0.000101212
+  (8) Parameter "width2_0": 0.0591536
+  (9) Parameter "width2_1": 5.04773e-05
+
+0.80 < |eta| < 1.37:
+  (0) Parameter "mean1_0": 0.00536575
+  (1) Parameter "mean1_1": -1.88884e-05
+  (2) Parameter "width1_0": 0.189046
+  (3) Parameter "width1_1": 0.00544177
+  (4) Parameter "scale_0": 0.0815538
+  (5) Parameter "scale_1": -0.00027581
+  (6) Parameter "mean2_0": 0.0924624
+  (7) Parameter "mean2_1": -0.000230478
+  (8) Parameter "width2_0": 0.0722181
+  (9) Parameter "width2_1": -0.000139391
+
+
+
+1.37 < |eta| < 1.52:
+(0) Parameter "mean1_0":   ---
+(1) Parameter "mean1_1":   ---
+(2) Parameter "width1_0":  ---
+(3) Parameter "width1_1":  ---
+(4) Parameter "scale_0":   ---
+(5) Parameter "scale_1":   ---
+(6) Parameter "mean2_0":   ---
+(7) Parameter "mean2_1":   ---
+(8) Parameter "width2_0":  ---
+(9) Parameter "width2_1":  ---
+
+1.52 < |eta| < 2.50:
+  (0) Parameter "mean1_0": 0.00716482
+  (1) Parameter "mean1_1": -1.22758e-06
+  (2) Parameter "width1_0": 0.255181
+  (3) Parameter "width1_1": 0.00864985
+  (4) Parameter "scale_0": 0.201649
+  (5) Parameter "scale_1": -0.000517387
+  (6) Parameter "mean2_0": 0.0994971
+  (7) Parameter "mean2_1": -0.000285629
+  (8) Parameter "width2_0": 0.110927
+  (9) Parameter "width2_1": -8.87397e-05
+

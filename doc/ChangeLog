@@ -1,3 +1,738 @@
+2017-06-10 Johannes Erdmann <johannes.erdmann@cern.ch>
+	* Revived the TopLeptonJets_JetAngles likelihood
+	* trunk
+
+2017-03-29 Johannes Erdmann <johannes.erdmann@cern.ch>
+	* Added likelihood for boosted W-boson reconstruction (on behalf of Bjoern Wendland)
+	* trunk
+
+2017-02-06 Knut Zoch <knut.zoch@cern.ch>
+	* Added likelihood for ttZ (3l channel) reconstruction
+	* KLFitter-00-07-05
+
+2015-04-23 Johannes Erdmann <johannes.erdmann@cern.ch>
+	* Bug fix for changes in BAT-0.9.4.1 (changes happened in 0.9.3)
+	* KLFitter-00-07-02
+	* KLFitter-00-07-03
+	
+2015-03-11 Johannes Erdmann <johannes.erdmann@cern.ch>
+	* Merging new with old ChangeLog
+	* Fixing for interface changes in BAT-0.9.4.1 (changes happened in 0.9.3)
+	* KLFitter-00-07-01
+
+2015-03-05 Simon Head <simon@cern.ch>
+	* Adding Changelog
+	* Adding includes for BAT-0.9.4.1 - needed for Root6 in AnalysisTop
+	* Removing obj directory
+	* Still seeing some problems compiling -  no members matching BCModel::GetNormalization in class BCModel
+
+2014-08-27 Boris Lemmer <boris.lemmer@cern.ch>
+	* Modify Makefile for usage of Asg_BAT 
+	* KLFitter-00-07-00
+
+2014-04-10 Johannes Erdmann <johannes.erdmann@cern.ch>
+	* Fixing issue with TLorentzVector initialization in dilepton likelihood
+	* KLFitter-00-06-02
+
+2013-11-02 Johannes Erdmann <johannes.erdmann@cern.ch>
+	* Added algorithm for more efficient calculation of permutations for large jet multiplicities
+	* KLFitter-00-06-01
+
+2013-09-15 Johannes Erdmann <johannes.erdmann@cern.ch>
+	* Restructure package for RootCore compatibility
+	* tag KLFitter-00-06-00
+
+2013-03-04 Stefanie Adomeit  <stefanie.adomeit@cern.ch>
+	* Added kVetoNoFit methods (see 2012-10-29) to allhadronic likelihood class (sorry, forgot about that!!!)
+        * tag KLFitter-00-05-23
+	
+2013-01-14 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
+	* Added TFs for 7 TeV ttbar PowHeg+Pythia. !!! YOU MUST USE 8TeV parametrization and detector class (DetectorAtlas_8TeV.cxx)!!!
+
+2013-01-14 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
+	* Added TFs for 8 TeV ttbar (LCJets, only for |eta|<2.5!)
+	* New detector class for 8 TeV / MC12: DetectorAtlas_8TeV.cxx (MUST BE USED FOR NEW TFs!!!)
+	* Updated ttbar l+jets example (mc11c TFs as default, full 105200 sample via AFS)
+	* tag KLFitter-00-05-22
+
+2012-12-20 Tamara Vazquez Schroeder <tamara.vazquez.schroeder@cern.ch>
+	* Modified normalization Minv LogLikelihoodDilepton term
+	* Update TFs version, correct config.conf and set minimization method to SA as default in dilepton example
+	* tag KLFitter-00-05-21
+
+2012-12-12 Tamara Vazquez Schroeder <tamara.vazquez.schroeder@cern.ch>
+	* Added LikelihoodTopDilepton + InterfaceD3PD_dilepton + InterfaceOutput_dilepton  
+	* Added dilepton example code in examples/top_dilepton
+	* Added in extras/ a new code to read the config file of the example (readparameters)
+	* Modified SelectionTool, Fitter, LikelihoodBase, Particles, PhysicsConstant, ResGauss_MET, ResolutionBase and Permutations
+	  including new functions/variables needed in the dilepton likelihood
+	* tag KLFitter-00-05-20
+
+2012-10-30 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
+
+	* Rollback of a bug introduced in the SelectionTool in KLFitter-00-05-18
+	* InterfaceD3PD_ljets.cxx: Now passing btag weight as well to allow for cuts via selection tool
+	* tag KLFitter-00-05-19
+
+2012-10-29 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>, Stefanie Adomeit <stefanie.adomeit@cern.ch>
+
+	* Extended kVetoNoFit: 
+		"kVetoNoFit" removes permutations with tagged jets on positions of light model particles
+		"kVetoNoFitLight" removes permutations with untagged jets on positions of bjet model particles
+		"kVetoNoFitBoth" removes permutations with untagged jets on positions of bjet model particles AND tagged jets on positions of light model particles
+	* Veto,VetoLight,VetoBoth were also added. Here, the forbidden permutations won't be removed but just weighted with 0 for the EventProbability.
+	* Updated RemoveForbiddenParticlePermutations() in LikelihoodTopLeptonJets, LikelihoodTopLeptonJets_JetAngles and LikelihoodTTHLeptonJets
+	* tag KLFitter-00-05-18
+
+2012-10-29 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
+
+	* Fixed L+Jets example (new files with default l+jets ttbar selection and new interface) 
+
+2012-10-23 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+
+	* Added ttH example with interface and example file
+	* Modified SelectionTool:
+		- Counter for selected events added
+		- Added possibility to cut on MWT, JVF, nBJets
+
+2012-09-06 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
+
+	* Removed sorting of particle containers in Interface*.
+	* tag KLFitter-00-05-17
+
+2012-07-04 Stefanie Adomeit <stefanie.adomeit@cern.ch>
+
+	* Added LikelihoodTopAllHadronic + InterfaceOutput_Allhadronic, InterfaceD3PD_Allhadronic 
+	* Added allhadronic example code in examples/top_allhadronic
+	* Permutations.cxx/.h: additional method to remove invariant top1<->top2 permutations for allhadronic likelihood
+	* tag KLFitter-00-05-16
+
+
+2012-06-18 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
+
+	* LikelihoodTTHLeptonJets: Remove higgs mass parameter if no fixed higgs mass is used.
+	* tag KLFitter-00-05-15
+
+2012-06-18 Olaf Nackenhorst, Boris lemmer <olaf.nackenhorst@phys.uni-goettingen.de boris.lemmer@phys.uni-goettingen.de>
+
+	* LikelihoodTTHLeptonJets: turn off mass term in LH if not using fixed higgs mass
+	* tag KLFitter-00-05-14
+
+2012-06-07 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+
+	* included and adapted LikelihoodSgTopWtLJ class as developed by Thomas Loddenkoetter
+      library/src/LikelihoodSgTopWtLJ.cxx
+      library/include/LikelihoodSgTopWtLJ.h
+	* tag KLFitter-00-05-13
+
+2012-06-05 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
+
+	* Changed interfaces to be ready for BAT-0.9
+	* WARNING: version is incompatible with BAT versions earlier than 0.9!
+	* Likelihood*.cxx/.h: parameter vector is now passed as constant reference.
+	* LikelihoodTopLeptonJets_JetAngles.cxx: Copy of parameters that need to be modified.
+	* tag KLFitter-00-05-12
+
+2012-06-05 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
+
+	* Included transfer functions for MC11c
+	* tag KLFitter-00-05-11
+
+2012-05-25 Leonid Serkin <lserkin@cern.ch>
+
+	* Added LikelihoodTTHLeptonJets
+	* tag KLFitter-00-05-10
+
+2012-04-24 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
+
+	* ResDoubleGaussE_1: Removed warnings.
+	* tag KLFitter-00-05-09
+
+2012-04-18 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
+
+	* ResDoubleGaussE_1: Implemented a protection against unstable KLFitter states caused by jets with energies far off the TF validation range.
+	* tag KLFitter-00-05-08
+
+2012-04-05 Stefanie Adomeit <stefanie.adomeit@cern.ch>
+
+	* added b-tagging method kVetoNoFit to remove permutations with b-tagged jets in the position of a W-decay parton
+	* added RemoveForbiddenParticlePermutations() method to likelihood classes (needed for kVetoNoFit)
+	* tag KLFitter-00-05-07
+
+2012-02-20 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
+
+	* LikelihoodTopLeptonJetsUDSep: Runtime decreased by 50% now also in case of 5 jet fits.
+	* tag KLFitter-00-05-05
+
+2012-01-16 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
+
+	* Included MC11b transfer functions (new parametrization for bJets!)
+	* DetectorAtlas_7TeV.cxx checks for "mc11b" string in TF path to switch to new parametrization
+	* tag KLFitter-00-05-04
+
+2011-10-20 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
+
+	* Non-critical bug in LikelihoodTopLeptonJets::BuildModelParticles(), leading to crashes with 
+	  certain gcc/ROOT combinations, was removed.
+	* Compiler warnings removed.
+	* tag KLFitter-00-05-03
+
+2011-10-11 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
+
+	* Runtime for u/d separation likelihood decreased by 50%.
+	* Introduced the possibility to cache likelihood values.
+	* InterfaceD3PD.cxx automatically corrects negative particle masses to 0.
+	* tag KLFitter-00-05-02
+
+2011-09-19 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
+
+	* EventProbability structure changed (outsourcing of sub parts)
+	* New Likelihood: LikelihoodTopLeptonJetsUDSep with the ability to separate u and d type quarks from the W (uses 24 permutations, consumes more runtime)
+	* New Likelihood needs and additional flag in the config file (LJetSeparationMethod)
+	* An example for the usage of LikelihoodTopLeptonJetsUDSep is in ./examples/top_ljets_udsep/
+	* An example of the needed input histograms can be found at ./doc/udhistos.root (Not to be used for analyses! Testing only!)
+	* tag KLFitter-00-05-01
+
+2011-09-16 Johannes Erdmann <johannes.erdmann@cern.ch>
+
+	* Particles : check that particles masses are positive (not smaller than -1 MeV)
+
+2011-08-25 Johannes Erdmann <johannes.erdmann@cern.ch>
+
+	* major internal clean-up for the handling of b-tagging
+	* changing from global b-tagging working points to per-jet efficiencies and rejections
+	* needed to adopt Particles::AddParticle(...)
+	* tag KLFitter-00-05-00
+
+2011-08-16 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
+
+	* InterfaceD3PD: Removed unused mc variables (mc_barcode, mc_children, mc_parents)
+	* tag KLFitter-00-04-26
+
+
+2011-08-09 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+
+	* InterfaceOutput,TreeModelDeleteAllButNBestPermutations(unsigned int n):
+    Method rewritten to delete all but the N best permutations 
+	* cmt/SymLinkHeaders: Safety update as recommended by Venkat
+	* tag KLFitter-00-04-25
+
+2011-08-08 Johannes Erdmann <johannes.erdmann@cern.ch>
+
+	* InterfaceOutput : adding method to delete all but the best permutation
+
+2011-08-01 Fabian Kohn <fabian.kohn@phys.uni-goettingen.de>
+
+	* LikelihoodTopLeptonJets.cxx: Major bugfix in CalculateLorentzVectors().
+	* tag KLFitter-00-04-24
+
+2011-08-01 Fabian Kohn <fabian.kohn@phys.uni-goettingen.de>
+
+	* Fitter.cxx: Changed vector element access everywhere for consistency (at() -> []).
+	* Particles.cxx: Changed vector element access everywhere for consistency (at() -> []).
+	* Permutations.cxx: Changed vector element access everywhere for consistency (at() -> []).
+	* ResGauss.cxx: Changed vector element access everywhere for consistency (at() -> []).
+	* ResolutionBase.cxx: Changed vector element access everywhere for consistency (at() -> []).
+
+2011-08-01 Fabian Kohn <fabian.kohn@phys.uni-goettingen.de>
+
+	* ResDoubleGaussE_1.h: Simplified CheckDoubleGaussianSanity() code (make better use of return value).
+	* LikelihoodTopLeptonJets.cxx: Major performance increase for CalculateLorentzVectors() by using static values and removal of unnecessary extra variable assignments.
+	* Permutations.cxx: Replaced ->at() methods with [] operator calls at most often called points to improve performance.
+	* ResDoubleGaussE_1.cxx: Removed unnecessary assignments and directly return calculation result.
+	* ResDoubleGaussE_2.cxx: Removed unnecessary assignments and directly return calculation result.
+	* ResDoubleGaussE_3.cxx: Removed unnecessary assignments and directly return calculation result.
+	* tag KLFitter-00-04-23
+
+2011-07-01 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
+
+	* ExampleCode.C: example of how to use myFitter->SetET_miss_XY_SumET(Etx, Ety, SumEt)
+	* tag KLFitter-00-04-22
+
+2011-06-30 Boris Lemmer <boris.lemmer@phys.uni-goettingen.de>
+
+	* transferfunctions: changing TFs for MET. Now parametrized as function of SumET. Removed all old TFs. Only MC10b supported
+	* InterfaceD3PD: add SumET, switch to new MET variables, switch off input branches which are not needed
+	* DetectorAtlas_7TeV.cxx: new TFs for MET implemented (Gauss_MET)
+	* several classes: SumET added, needed as a MET TF parameter
+	* Permutations: small memory leak fixed
+	* tag KLFitter-00-04-21
+
+2011-06-09 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+
+	* InterfaceD3PD: bugfix for mcevt_weight
+	* tag KLFitter-00-04-20
+
+2011-06-09 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+
+	* InterfaceD3PD: changing var type for mc10b
+    - mcevt_weight: vector<vector<double> >
+    - jet_flavor_weight_SV0 : vector<float>
+	* tag KLFitter-00-04-19: This tag is broken! Don't use it!
+
+2011-06-08 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+
+	* transferfunctions:
+    -mc10a: optimized TFs with higher statistics due to other top mass sample -> fixed bJet TFs in crack region
+    -mc10b: new TFs, including top mass samples and muon smearing
+	* DetectorAtlas_7TeV.cxx: re-introduce crack region for jets
+	* runKLFitter.cxx: Move to new mc10b TFs
+	* tag KLFitter-00-04-18
+
+2011-06-07 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+
+	* transferfunctions: fixed Electron TFs, bJet TFs in crack region still not good
+	* DetectorAtlas_7TeV.cxx: Temporary fix for bJets in crack region: Interpolating with other regions
+	* runKLFitter.cxx: Move to new mc10a TFs
+	* tag KLFitter-00-04-17
+
+2011-05-18 Johannes Erdmann <johannes.erdmann@cern.ch>, Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+
+	* Permutations, SelectionTool, InterfaceD3PD: bug fix for Particles::JetIndex
+	* InterfaceD3PD: default is Herwig
+	* clean-up
+	* tag KLFitter-00-04-16
+	* new structure in transferfunctions for mc10/a/b
+	* new mc10a transferfunctions: electrons with eta < 0.8 not valid yet
+	* DetectorAtlas_7TeV.cxx: extend eta range for jets to 4.5
+	* tag KLFitter-00-04-15
+
+2011-05-18 Johannes Erdmann <johannes.erdmann@cern.ch>
+
+	* InterfaceD3PD: re-introduce fix for negative energies (disappeared in KLFitter-00-04-13)
+	* tag KLFitter-00-04-14
+
+2011-05-17 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+
+	* InterfaceD3PD: bugfix for SignalMCGen, removing TopInputs variables, cleanup
+	* tag KLFitter-00-04-13
+
+2011-05-13 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>, Stefan Guindon <stefan.guindon@cern.ch>, Johannes Erdmann <johannes.erdmann@cern.ch>
+
+	* bug fix - erased obsolete (and buggy) LikelioodBase::BTaggingProbability()
+	* tag KLFitter-00-04-12
+
+2011-05-11 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+
+	* LikelihoodBase: SetBTagging sets all neccessary values
+	* DetectorBase: enum for BeamCMEnergy, Setter&Getter
+	* InterfaceRoot/D3PD: WriteSignalMCTruth sets flag und MC generator of signal	
+	* several classes: Cleaning up flags, remove and rename to more intuitive
+	* config.conf + ReadConfigFile: Replace flags with enum read-in, only important config variables
+	* runKLFitter.cxx: Adjusting to all the changes
+	* tag KLFitter-00-04-11
+
+2011-05-10 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+	
+	* InterfaceD3PD.cxx: Truth information for partons is now available
+	* runKLFitter.cxx: Truth info & matching
+	* several classes: Cleaning up flags, new FlagWriteSignalMCTruth
+	* tag KLFitter-00-04-10
+
+2011-04-29 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+	
+	* Particles.cxx: AddParticle makes copy of TLorentzVector which is owned by Particles, delete duplicated code
+	* InterfaceD3PD/GoTopTree/LikelihoodTopLeptonJets_JetAngle: Call AddParticle without creating new TLorentzVector
+	* tag KLFitter-00-04-09
+
+2011-04-28 Johannes Erdmann <johannes.erdmann@cern.ch>
+
+	* set BAT TRandom3 seed to a fixed value
+	* tag KLFitter-00-04-08
+
+2011-04-21 Johannes Erdmann <johannes.erdmann@cern.ch>
+
+	* Venkat's new requirements file
+	* tag KLFitter-00-04-07
+
+2011-04-20 Johannes Erdmann <johannes.erdmann@cern.ch>, Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+
+	* make minimization method in Fitter configurable
+	* changes for the example in top_ljets (print-out in first event)
+	* tag KLFitter-00-04-06
+	
+2011-04-20 Johannes Erdmann <johannes.erdmann@cern.ch>
+
+	* some small updates for the new b-tagging options
+	* tag KLFitter-00-04-05
+
+2011-04-20 Stefan Guindon <stefan.guindon@cern.ch>
+
+	* updated b-tagging to make sure no tops in loop over partons
+	* made b-tagging now enum, selecting which option to use
+	* added b-tagging option for working point with changeable efficiency and rejection rates
+	* tag KLFitter-00-04-04
+
+2011-04-20 Johannes Erdmann <johannes.erdmann@cern.ch>
+
+	* Makefile updates for MAC
+	* Adding cmt directory and preparecmt.sh script
+	* tag KLFitter-00-04-03
+	
+2011-04-05 Johannes Erdmann <johannes.erdmann@cern.ch>, Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+
+	* extras/src/InterfaceRoot.cxx: Files in input.txt can also be separated by ',' which is very useful for grid usage
+	* Makefile : updates for more convenience
+	* tag KLFitter-00-04-02
+
+2011-03-14 Johannes Erdmann <johannes.erdmann@cern.ch> 
+
+	* remove include and src directories 
+	* add enums to LikelihoodTopLeptonJets_JetAngles 
+	* fix main Makefile 
+	* tag KLFitter-00-04-01 
+	
+2011-03-14 Johannes Erdmann <johannes.erdmann@cern.ch>
+
+	* restructuring the package: making two libraries (library and extras)
+	* Makefile clean-up in example/top_ljets
+	* tag KLFitter-00-04-00
+
+2011-03-14 Johannes Erdmann <johannes.erdmann@cern.ch>
+
+	* merging back from KLFitter-00-03-42-branch
+	* optimize LikelihoodTopLeptonJets (possible by taking out eta and phi parameters for jets)
+	* add LikelihoodTopLeptonsJets_JetAngles (which is the old LikelihoodTopLeptonJets)
+	* introduce enumerators for lepton type
+	* introduce ConvergenceStatus bit word and masks
+	* update README
+	* clean-up Makefile
+	* some clean-up
+	* update ExampleCode.C and 
+	* tag KLFitter-00-03-43
+
+2011-03-02 Johannes Erdmann <johannes.erdmann@cern.ch>
+
+	* bug fix in Permutations class (photons only)
+	* Makefile update
+	* tag KLFitter-00-03-42
+
+2011-02-24 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>, Johannes Erdmann <johannes.erdmann@cern.ch>
+
+	* update of README
+	* addition of ExampleCode.C
+	* change runKLFitter.c to work with D3PDs
+	* re-name the GTT example to runKLFitter_GTT.c
+	* some clean-up
+	* minor bug fixes
+	* tag KLFitter-00-03-41
+
+2011-02-11 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+
+	* InterfaceD3PD/GoTopTree: minor bugfixes
+	* tag KLFitter-00-03-40
+
+2011-01-31 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+
+	* InterfaceD3PD: replace Muon_DetEta by Muon_Eta
+	                 electron variables: cluster for E, track for eta/phi
+	* tag KLFitter-00-03-39
+
+2011-01-29 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
+	* update muon TFs (minor fix)
+	* tag KLFitter-00-03-38
+
+2011-01-29 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
+	* replace Muon_DetEta by Muon_Eta
+	* tag KLFitter-00-03-37
+
+2011-01-28 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+	
+	* InterfaceGoTopTree: detector eta of objects is read in and passed to particles,
+	                      Electron_Eg is used temporarily
+	* InterfaceD3PD: detector eta of objects is read in and passed to particles
+	* Particles: particles can have DetEta as an attribute, can be called with DetEta(index, ptype)
+	* Permutations: DetEta as attribute of particlespermuted
+	* SelectionTool: DetEta as attribute of selected particles, selection according to DetEta
+	* LikelihoodTopLetonJets: bugfix: TFs are chosen according to DetEta,
+	                          eta/phi parameter for jets are frozen to measured value
+	* DetectorAtlas_7TeV: four object dependent eta bins for TFs
+	* transferfunctions/ttbar: new energy transferfunctions for bjets, ljets, electron, muon
+	* tag KLFitter-00-03-36
+
+2010-12-15 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+	
+	* InterfaceRoot/GoTopTree/D3PD: multiple input files can be read in defined in input.txt,
+	                                trees are collected in a chain
+	* runKLFitter*.c: changed according to the different read in  																
+	* tag KLFitter-00-03-35
+	
+2010-12-09 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+	
+	* InterfaceOutput.cxx, InterfaceOutput.h: indices are now int
+	* tag KLFitter-00-03-34
+
+2010-12-08 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+	
+	* InterfaceD3PD.cxx, Particles.h: pT order for objects and bugfix
+	* tag KLFitter-00-03-33
+
+2010-11-30 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
+	* Minor change for minuit status codes
+	* tag KLFitter-00-03-32
+
+2010-11-30 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
+	* Fix compiler warnings.
+	* tag KLFitter-00-03-31
+
+2010-11-30 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
+	* Fix bug in muon TF.
+	* Replace TF warnings by StatusCode 510.
+	* tag KLFitter-00-03-30
+
+2010-11-22 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
+	* ResDoubleGauss classes : check for the TF parameters -> only warning if sigma < 0
+	* tag KLFitter-00-03-19
+
+2010-11-18 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
+	* fix in Fitter.cxx for (non-used) b-tagging weighting method
+	* tag KLFitter-00-03-18
+
+2010-11-18 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
+	* runKLFitter.c : clean up flags
+	* tag KLFitter-00-03-17
+
+2010-11-18 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
+	* Refining comments.
+	* tag KLFitter-00-03-16
+
+2010-11-18 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
+	* ResDoubleGauss classes : implement a check for the TF parameters
+	* tag KLFitter-00-03-15
+
+2010-11-17 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
+	* DetectorBase : fix compiler warning for unused variable
+	* tag KLFitter-00-03-14
+
+2010-11-09 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+	
+	* minor changes in InterfaceD3PD.cxx, InterfaceD3PD.h: overload ConnectTree
+	* tag KLFitter-00-03-13
+
+2010-11-08 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+	
+	* bugfix in InterfaceD3PD.cxx, InterfaceD3PD.h: MC weight
+	* tag KLFitter-00-03-12
+
+2010-11-03 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+	
+	* add InterfaceD3PD.cxx, InterfaceD3PD.h, InterfaceStructNtup.cxx, InterfaceStructNtup.h: Interfaces for TopInputsD3PD and NIKHEF StructNtuples
+	* add runKLFitter_D3PD.c: example file for running on a different ntuple without truth information  
+	* tag KLFitter-00-03-11
+
+2010-10-06 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
+	* add flag for the athena comparison (different selection + no SimAnn)
+	* add flag for truth selection (default : false)
+	* tag KLFitter-00-03-10
+
+2010-10-06 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
+	* InterfaceGoTopTree.cxx : require IsTopInputs; remove obsolte isolation (was not used anyway)
+	* tag KLFitter-00-03-09
+
+2010-10-05 Stefan Guindon <stefan.guindon@cern.ch>
+	
+	* LikelihoodBase.h: back to SetCutBTag - Consistency with TopKLFitter
+	* tag KLFitter-00-03-08
+
+2010-10-05 Stefan Guindon <stefan.guindon@cern.ch>
+	
+	* InterfaceGoTopTree.cxx: Include b-tagging weights
+	* Fitter.cxx: Run b-tagging with FlagIntegrate
+	* ReadConfigFile: Add cut btagging
+	* runKLFitter.c : Include addition of config file b-tag cut value to Likelihood class
+	* tag KLFitter-00-03-07
+
+2010-10-04 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+	
+	* InterfaceOutput.cxx: bug fix: matching information is again written out correctly 
+	* tag KLFitter-00-03-06
+
+2010-10-03 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
+	* remove DetectorAtlas, Detector, ResDoubleGaussE
+	* tag KLFitter-00-03-05
+
+2010-10-03 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
+	* change default constructor for DetectorBase and derived classes
+	* tag KLFitter-00-03-04
+
+2010-10-01 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
+	* just a follow up tag on the changes already documented by Olaf
+	* tag KLFitter-00-03-03
+
+2010-10-01 Olaf Nackenhorst <olaf.nackenhorst@phys.uni-goettingen.de>
+	
+	* implementation of the new TF for 7TeV ttbar:
+		-distinguish: DetectorAtlas_7TeV / DetectorAtlas_10TeV
+		-new ResDoubleGaussE_1: ljets/e @7TeV, ResDoubleGaussE_2: bjets @7TeV,
+		 ResDoubleGaussE_3: ljets/bjets/e @10TeV
+		-TF for muons is @7TeV ResDoubleGaussPt instead of single Gaussian
+		-ASCII files with the parameters of the TF are now in transferfunctions/ttbar
+	* 7TeV and 10TeV TF for ttbar can be chosen with two flags in config.conf: FlagIs7TeV / FlagIs10TeV
+	* Note: 
+		-This is not the final solution, because this is not general enough for all kinds 
+		 of topologies and object definitions
+		-There has been a bug introduced in the interface during the major code clean-up,
+		 so no matching information for the jets is available. This bug has not yet been fixed.
+	* tag: KLFitter-00-03-02
+
+2010-09-20 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
+	* minor change to default configuration in the top_ljets example
+	* tag: KLFitter-00-03-01
+
+2010-09-20 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
+	* all changes from 2010-04-22 until 2010-09-20 have been commited to the Goettingen CVS
+	* migrating finally back to SVN
+	* tag: KLFitter-00-03-00
+
+2010-09-20 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
+	* removing CVS directories
+	* tag: KLFitter-00-02-03
+
+2010-09-20 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
+	* pay attention: tag KLFitter2-00-01-19 broken (!)
+	* replaced all tabs by spaces
+	* tag : KLFitter2-00-01-20
+
+2010-08-13 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+	
+	* Major code clean-up in all classes. Sorry, I forgot to fill out
+	  the ChangeLog. See commit messages for some details.
+	
+2010-08-02 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+	
+	* InterfaceOutput.cxx: free memory, commented out the creation of tables which were not needed.
+	* InterfaceGoTopTree.cxx: added flag to include photons or not
+	* InterfaceRoot.cxx: free memory
+	* Permutations.cxx: return the fPermutationTable instead of creating a copy and wasting memory.
+	* examples/top_ljets/runKLFitter.c: free memory.
+	* Will continue to find the memory leaks.
+
+2010-07-30 Kevin Kroeninger <kevin.kroeninger@phys.uni-goettingen.de>
+	
+	* LikelihoodTopLeptonJets.cxx: initialized variables in constructor before calling methods.
+
+2010-07-20 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
+	* DetectorAtlas.cxx: bug fix for jet phi resolution
+	* tag: KLFitter2-00-01-18
+
+2010-05-11 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
+	* Modified examples/top_ljets/runKLFitter.c, so that it may run now over background events, too (w/o truth info)
+	* runKLFitter_bg.c is not deprecated !
+	* tag: KLFitter2-00-01-17
+
+2010-05-10 Johannes Erdmann <johannes.erdmann@cern.ch>
+	
+	* Changed back to old transfer functions (KLFitter2-00-01-11):
+	* Gaussian for muons
+	* Old parametrization for electrons and jets
+	* To be kept until new transfer functions are fully understood
+	* Remove obsolete ResDoubleGauss class
+	* tag: KLFitter2-00-01-16
+
+2010-05-03 Sven Ebert <sven.ebert@stud.uni-goettingen.de>
+	
+	* MatchingTool.cxx::ListMatchedTruth expanded for muon and photon support. This bug fix repairs the problem that one had just -1 entries in TreeMatching->Matches_Muon.
+	* few cosmetic changes
+	* tag: KLFitter2-00-01-15
+
+2010-05-02 Sven Ebert <sven.ebert@stud.uni-goettingen.de>
+	
+	* Update of par_energy_muon_eta*.txt
+	* Because of this: Two different DoubleGauss.h/.cxx, called DoubleGaussE and DoubleGaussPt. The second is used for muon energy TF the other for the rest	* ReadConfigFile-class updated. Now you can use PathToInputFile and PathToOutputFile in the config.conf -> Thus no recompiling necessary if you want to fit different root-files
+	* tag: KLFitter2-00-01-14
+
+2010-04-29 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+	
+	* InterfaceOutput: bug fix in TreeModel
+	* tag: KLFitter2-00-01-13
+
+2010-04-26 Sven Ebert <sven.ebert@stud.uni-goettingen.de>
+	
+	* Implemented new parametrization of DoubleGaussian transferfunctions in ResDoubleGauss.cxx
+	* Updated par_energy_electron_eta*.txt, par_energy_ljet_eta*.txt, par_energy_bjet_eta*.txt
+	* tag: KLFitter2-00-01-12
+
+2010-04-23 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+	
+	* InterfaceOutput: is now able to cope with number of jets changing in every event (resizing vectors)
+	* tag: KLFitter2-00-01-11
+
+2010-04-23 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+	
+	* Change on behalf of Sven Ebert:
+	* Introduce config class and config file for reading parameters for runKLFitter
+	* tag: KLFitter2-00-01-10
+
+2010-04-23 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+	
+	* InterfaceGoTopTree: bug fix for samples w/o photons + more initializations in the constructor
+	* tag: KLFitter2-00-01-09
+
+2010-04-23 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+	
+	* USE KLFitter2-00-01-09 INSTEAD (BUG FIX)
+	* Changes on behalf of Sven Ebert
+	* InterfaceGoTopTree: read isolations for electrons and muons from ntuple
+	* LikelihoodBase, Fitter, LikelihoodTopLeptonjets: NaN flag for Minuit output -> stop fit, run with SA and re-run with Minuit
+	* LikelihoodTopLeptonJets: take correct dependence of pT uncertainty in muons
+	* LikelihoodTopLeptonJets: remove 'phi = eta' issue
+	* examples/top_ljets/runKLFitter.c: generalize for muons
+	* tag: KLFitter2-00-01-08
+
+2010-04-22 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+	
+	* InterfaceGoTopTree: fix for reading std::vector<bool> from TTree
+	* InterfaceGoTopTree: initialize all variables in the constructor
+	* InterfaceBase: initialize all variables in the constructor
+	* LikelihoodTopLeptonJets: generalize RemoveInveriantParticlePermutations for electrons and muons
+	* SelectionTool: removed possibility to choose object cuts independent of event selection
+	*    -> object pt cut is now defined by lowest (in pt) event selection cut on the object
+	* SelectionTool: remove tolerances (dn) for electrons, muons and photons
+	* SelectionTool: set default tolerance (dn) to "-1" for jets, meaning "infinity"
+	* SelectionTool: introduce flag for maximal number of jets to be used within in the fitter
+	* SelectionTool: remove all jets (start with lowest in pt) that are "too much" according to this flag
+	* runKLFitter.c: object selection -> made eta cut explitcit (|eta| < 2.5)
+	* InterfaceOutput: replace arrays by vectors
+	* tag: KLFitter2-00-01-07
+
+2010-03-09 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+	
+	* fix: add setup.sh to example directories
+	* fix: add photon transfer function parametrisation to all example directories
+	* tag: KLFitter-00-02-02
+
+2010-03-09 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+	
+	* fix: add Makefiles
+	* tag: KLFitter-00-02-01
+
+2010-03-09 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
+	
+	* migrate to SVN
+	* tag: KLFitter-00-02-00
+
 2010-03-09 Johannes Erdmann <johannes.erdmann@phys.uni-goettingen.de>
 	
 	* fix: re-introduce truth info that was lost due to Whizard issues

@@ -1,0 +1,5 @@
+ What changed in MC10b?
+-Nominal sample with 50% more stats than MC10a.
+-Added mTop170 and mTop180 samples -> gained 20% stats
+-used muon smearing-> muons broader
+-crack regions more stable

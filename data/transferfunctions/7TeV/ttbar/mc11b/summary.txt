@@ -1,0 +1,4 @@
+ What changed in MC11b?
+-Switched from R16 to R17
+-Much higher statistics. TFs fittet up to 600 GeV (instead of 300 GeV)
+-New parametrizations of the TFs

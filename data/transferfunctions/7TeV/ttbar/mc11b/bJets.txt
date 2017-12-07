@@ -1,0 +1,90 @@
+B-jet transfer function
+======================
+
+// Version: 2.0 - major change in the parametrization functions !!
+// Version: 3.0 - 7 TeV
+   Version: 4.0 - 7 TeV, R16
+   Version: 4.5 - 7 TeV, R16v2, new binning
+   Version: 5.0 - 7 TeV, MC10a
+   Version: 6.0 - 7 TeV, MC10b
+   Version: 7.0 - 7 TeV, MC11b, new parametrization!
+last change: 15.01.2012 - Boris Lemmer
+
+
+The transfer function for b-jets is parametrized as:
+
+W(dE)=1/(sqrt(2 pi)(p2 + p3 p5)) * ( exp( -(dE - p1)(dE - p1)/(2 p2 p2) ) + p3 exp( -(dE - p4)(dE - p4)/(2 p5 p5) ) )
+
+with
+
+dE = (E_truth - E_measured) / E_truth 
+
+The parameters pi themselves depend on E_truth:
+
+p_1 = mean1_0  + mean1_1 E_truth
+p_2 = width1_0 / sqrt(E_truth) + width1_1 
+p_3 = scale_0  + scale_1 E_truth
+p_4 = mean2_0  + mean2_1 E_truth
+p_5 = width2_0  + width2_1 E_truth 
+
+The values are:
+
+0.00 < |eta| < 0.80:
+(0) Parameter "mean1_0":  -0.007493 
+(1) Parameter "mean1_1":  5.659e-05
+(2) Parameter "width1_0": 0.6261
+(3) Parameter "width1_1": 0.04685
+(4) Parameter "scale_0":  1.04
+(5) Parameter "scale_1":  -0.001719
+(6) Parameter "mean2_0":  0.1358
+(7) Parameter "mean2_1":  -1.298e-05
+(8) Parameter "width2_0": 0.2177
+(9) Parameter "width2_1": -2.177e-05
+
+0.80 < |eta| < 1.37:
+(0) Parameter "mean1_0":  0.03921
+(1) Parameter "mean1_1":  -0.0001368
+(2) Parameter "width1_0": 0.8042
+(3) Parameter "width1_1": 0.04099
+(4) Parameter "scale_0":  0.7681
+(5) Parameter "scale_1":  -0.001605
+(6) Parameter "mean2_0":  0.04706
+(7) Parameter "mean2_1":  0.0005555
+(8) Parameter "width2_0": 0.2495
+(9) Parameter "width2_1": -0.0001016
+
+1.37 < |eta| < 1.52:
+(0) Parameter "mean1_0":  0.0611
+(1) Parameter "mean1_1":  -0.0001108
+(2) Parameter "width1_0": 0.5579
+(3) Parameter "width1_1": 0.06884
+(4) Parameter "scale_0":  1.207
+(5) Parameter "scale_1":  -0.002966
+(6) Parameter "mean2_0":  -0.0181
+(7) Parameter "mean2_1":  0.0008641
+(8) Parameter "width2_0": 0.2223
+(9) Parameter "width2_1": 4.552e-05
+
+1.52 < |eta| < 2.50:
+(0) Parameter "mean1_0":  0.03515
+(1) Parameter "mean1_1":  -4.026e-05
+(2) Parameter "width1_0": 1.353
+(3) Parameter "width1_1": 0.01158
+(4) Parameter "scale_0":  0.9683
+(5) Parameter "scale_1":  -0.001252
+(6) Parameter "mean2_0":  0.07473
+(7) Parameter "mean2_1":  0.000223
+(8) Parameter "width2_0": 0.2218
+(9) Parameter "width2_1": -3.485e-05
+
+2.50 < |eta| < 4.50:
+(0) Parameter "mean1_0":  -0.01541
+(1) Parameter "mean1_1":  0.0001958
+(2) Parameter "width1_0": 2.63
+(3) Parameter "width1_1": -0.004764
+(4) Parameter "scale_0":  -0.2686
+(5) Parameter "scale_1":  0.001606
+(6) Parameter "mean2_0":  0.06686
+(7) Parameter "mean2_1":  0.0001294
+(8) Parameter "width2_0": 0.3242
+(9) Parameter "width2_1": -0.0001992
