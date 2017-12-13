@@ -16,6 +16,10 @@ ROOTLIBS   = $(shell root-config --libs) -lMinuit
 BATCFLAGS = -I$(BATINSTALLDIR)/include
 BATLIBS   = -L$(BATINSTALLDIR)/lib -lBAT
 
+ifndef BATINSTALLDIR
+$(warning 'Warning: variable BATINSTALLDIR not set')
+endif
+
 SRC = $(wildcard $(SRCDIR)/*.cxx)
 OBJ = $(SRC:$(SRCDIR)/%.cxx=$(OBJDIR)/%.o)
 MAIN = $(wildcard *.c)
