@@ -13,7 +13,7 @@ RM = rm -f
 ROOTCFLAGS = $(shell root-config --cflags)
 ROOTLIBS   = $(shell root-config --libs) -lMinuit
 
-BATCFLAGS = -I$(BATINSTALLDIR)
+BATCFLAGS = -I$(BATINSTALLDIR)/include
 BATLIBS   = -L$(BATINSTALLDIR)/lib -lBAT
 
 SRC = $(wildcard $(SRCDIR)/*.cxx)
@@ -27,8 +27,6 @@ else
 	SOFLAGS = -dynamiclib
 endif
 
-GARBAGE = $(OBJ) $(LIBSO)
-
 CXXFLAGS = $(ROOTCFLAGS) $(BATCFLAGS) -I$/$(INCDIR) -Wall -Wno-deprecated -O2 -ggdb -g
 ifneq ($(MACHINE), $(MAC))
 	CXXFLAGS += -fPIC
@@ -36,7 +34,7 @@ endif
 LIBS     = $(ROOTLIBS) $(BATLIBS)
 
 # rule for shared library
-$(LIBSO) : $(OBJ)
+$(LIBSO): $(OBJ)
 	$(CXX) $(CXXFLAGS) $(LIBS) $(SOFLAGS) $+ -o $@
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cxx $(INCDIR)/%.h
@@ -44,4 +42,4 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.cxx $(INCDIR)/%.h
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
-	$(RM) $(GARBAGE)
+	$(RM) $(OBJ) $(LIBSO)
