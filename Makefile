@@ -41,5 +41,11 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.cxx $(INCDIR)/%.h
 	@if [ ! -e $(OBJDIR) ]; then $(MKDIR) $(OBJDIR); fi
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
+.PHONY: all
+
+all: $(LIBSO)
+
+.PHONY: clean
+
 clean:
 	$(RM) $(OBJ) $(LIBSO)
