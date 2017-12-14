@@ -5,20 +5,18 @@ MAC     = Darwin
 INCDIR = KLFitter
 SRCDIR = Root
 OBJDIR = lib
+DESTDIR = dest-tmp
 
 CXX = g++
 MKDIR = mkdir -p
 RM = rm -f
+CP = cp -r
 
 ROOTCFLAGS = $(shell root-config --cflags)
 ROOTLIBS   = $(shell root-config --libs) -lMinuit
 
 BATCFLAGS = -I$(BATINSTALLDIR)/include
 BATLIBS   = -L$(BATINSTALLDIR)/lib -lBAT
-
-ifndef BATINSTALLDIR
-$(warning 'Warning: variable BATINSTALLDIR not set')
-endif
 
 SRC = $(wildcard $(SRCDIR)/*.cxx)
 OBJ = $(SRC:$(SRCDIR)/%.cxx=$(OBJDIR)/%.o)
@@ -45,5 +43,19 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.cxx $(INCDIR)/%.h
 	@if [ ! -e $(OBJDIR) ]; then $(MKDIR) $(OBJDIR); fi
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
+.PHONY: all
+
+all: $(LIBSO)
+
+.PHONY: clean
+
 clean:
 	$(RM) $(OBJ) $(LIBSO)
+
+.PHONY: install
+
+install: all
+	$(MKDIR) $(DESTDIR)/include
+	$(MKDIR) $(DESTDIR)/lib
+	$(CP) $(LIBSO) $(DESTDIR)/lib/
+	$(CP) $(INCDIR) $(DESTDIR)/include/
