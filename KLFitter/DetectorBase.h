@@ -1,17 +1,3 @@
-/*!
- * \class KLFitter::DetectorBase
- * \brief A base class for describing detectors.
- * \author Kevin Kr&ouml;ninger
- * \version 1.3
- * \date 03.12.2009
- *
- * This base class contains the energy resolution of different
- * objects. More information (angular resolutions, acceptance,
- * correections, etc.) can be added here. 
- */
-
-// --------------------------------------------------------- 
-
 #ifndef DETECTORBASE
 #define DETECTORBASE
 
@@ -30,6 +16,17 @@ namespace KLFitter
 
   class ResolutionBase;
 
+  /*!
+   * \class KLFitter::DetectorBase
+   * \brief A base class for describing detectors.
+   * \author Kevin Kr&ouml;ninger
+   * \version 1.3
+   * \date 03.12.2009
+   *
+   * This base class contains the energy resolution of different
+   * objects. More information (angular resolutions, acceptance,
+   * correections, etc.) can be added here. 
+   */
   class DetectorBase
   {
                 

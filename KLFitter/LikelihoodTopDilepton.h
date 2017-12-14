@@ -1,13 +1,3 @@
-/*!
- * \class KLFitter::LikelihoodTopDilepton
- * \brief A class implementing a likelihood for the ttbar dilepton channel. 
- * \author Tamara Vazquez Schröder
- *
- * This class represents a likelihood for the ttbar dilepton channel.
- */
-
-// --------------------------------------------------------- 
-
 #ifndef LIKELIHOODTOPDILEPTON
 #define LIKELIHOODTOPDILEPTON
 
@@ -40,6 +30,13 @@ namespace KLFitter
       ~NuSolutions() {};
   };
 
+  /*!
+   * \class KLFitter::LikelihoodTopDilepton
+   * \brief A class implementing a likelihood for the ttbar dilepton channel. 
+   * \author Tamara Vazquez Schröder
+   *
+   * This class represents a likelihood for the ttbar dilepton channel.
+   */
   class LikelihoodTopDilepton : public KLFitter::LikelihoodBase
   {
                 

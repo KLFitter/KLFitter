@@ -1,13 +1,3 @@
-/*!
- * \class KLFitter::LikelihoodBase
- * \brief A base class for likelihoods. 
- * \author Kevin Kr&ouml;ninger
- * \version 1.3
- * \date 03.12.2009
- */
-
-// --------------------------------------------------------- 
-
 #ifndef LIKELIHOODBASE
 #define LIKELIHOODBASE
 
@@ -35,6 +25,13 @@ namespace KLFitter
   class Permutations;
   class DetectorBase;  
 
+  /*!
+   * \class KLFitter::LikelihoodBase
+   * \brief A base class for likelihoods. 
+   * \author Kevin Kr&ouml;ninger
+   * \version 1.3
+   * \date 03.12.2009
+   */
   class LikelihoodBase : public BCModel 
   {
                 

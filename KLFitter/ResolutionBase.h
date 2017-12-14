@@ -1,15 +1,3 @@
-/*!
- * \class KLFitter::ResolutionBase
- * \brief A base class for describing resolutions. 
- * \author Kevin Kr&ouml;ninger
- * \version 1.3
- * \date 03.12.2009
- *
- * This base class can be used to decribe resolutions. 
- */
-
-// --------------------------------------------------------- 
-
 #ifndef RESOLUTIONBASE
 #define RESOLUTIONBASE
 
@@ -26,6 +14,15 @@
 namespace KLFitter
 {
 
+  /*!
+   * \class KLFitter::ResolutionBase
+   * \brief A base class for describing resolutions. 
+   * \author Kevin Kr&ouml;ninger
+   * \version 1.3
+   * \date 03.12.2009
+   *
+   * This base class can be used to decribe resolutions. 
+   */
   class ResolutionBase
   {
                 

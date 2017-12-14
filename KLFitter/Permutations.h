@@ -1,18 +1,3 @@
-/*!
- * \class KLFitter::Permutations
- * \brief A class permuting jets, electrons, muons and photons. 
- * \author Kevin Kr&ouml;ninger
- * \version 1.3
- * \date 03.12.2009
- *
- * The class gets a pointer to the orignal set of particles and a
- * pointer to the currently used permutations. It can calculate all
- * permutations and created a table. The pointer of the current
- * permutation is set to the entry in the table.
- */
-
-// --------------------------------------------------------- 
-
 #ifndef PERMUTATIONS
 #define PERMUTATIONS
 
@@ -29,6 +14,18 @@
 namespace KLFitter
 {
 
+  /*!
+   * \class KLFitter::Permutations
+   * \brief A class permuting jets, electrons, muons and photons. 
+   * \author Kevin Kr&ouml;ninger
+   * \version 1.3
+   * \date 03.12.2009
+   *
+   * The class gets a pointer to the orignal set of particles and a
+   * pointer to the currently used permutations. It can calculate all
+   * permutations and created a table. The pointer of the current
+   * permutation is set to the entry in the table.
+   */
   class Permutations
   {
                 

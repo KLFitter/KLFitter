@@ -1,15 +1,3 @@
-/*!
- * \class KLFitter::DetectorAtlas_7TeV
- * \brief A class for describing of the ATLAS detector. 
- * \author Kevin Kr&ouml;ninger
- * \version 1.3
- * \date 03.12.2009
- *
- * This class holds the description of the ATLAS detector. 
- */
-
-// --------------------------------------------------------- 
-
 #ifndef DETECTORATLAS_7TEV
 #define DETECTORATLAS_7TEV
 
@@ -27,6 +15,15 @@
 namespace KLFitter
 {
 
+  /*!
+   * \class KLFitter::DetectorAtlas_7TeV
+   * \brief A class for describing of the ATLAS detector. 
+   * \author Kevin Kr&ouml;ninger
+   * \version 1.3
+   * \date 03.12.2009
+   *
+   * This class holds the description of the ATLAS detector. 
+   */
   class DetectorAtlas_7TeV : public DetectorBase
   {
                 

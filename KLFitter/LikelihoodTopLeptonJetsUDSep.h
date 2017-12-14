@@ -1,15 +1,3 @@
-/*!
- * \class KLFitter::LikelihoodTopLeptonJetsUDSep
- * \brief A class implementing a likelihood for the ttbar lepton+jets channel. 
- * \author Kevin Kr&ouml;ninger
- * \version 1.3
- * \date 03.12.2009
- *
- * This class represents a likelihood for the ttbar into lepton+jets.
- */
-
-// --------------------------------------------------------- 
-
 #ifndef LIKELIHOODTOPLEPTONJETSUDSEP
 #define LIKELIHOODTOPLEPTONJETSUDSEP
 
@@ -32,6 +20,15 @@
 namespace KLFitter
 {
 
+  /*!
+   * \class KLFitter::LikelihoodTopLeptonJetsUDSep
+   * \brief A class implementing a likelihood for the ttbar lepton+jets channel. 
+   * \author Kevin Kr&ouml;ninger
+   * \version 1.3
+   * \date 03.12.2009
+   *
+   * This class represents a likelihood for the ttbar into lepton+jets.
+   */
   class LikelihoodTopLeptonJetsUDSep : public KLFitter::LikelihoodTopLeptonJets
   {
                 

@@ -1,17 +1,3 @@
-/*!
- * \class KLFitter::ResDoubleGaussE_1
- * \brief A class describing a resolution parameterized with a double Gaussian. 
- * \author Kevin Kr&ouml;ninger
- * \version 1.3
- * \date 03.12.2009
- *
- * This class offers a simple parameterization of a resolution. The
- * parameterization is a double Gaussian with energy dependent
- * parameters.
- */
-
-// --------------------------------------------------------- 
-
 #ifndef RESDOUBLEGAUSSE_1
 #define RESDOUBLEGAUSSE_1
 
@@ -28,6 +14,17 @@
 namespace KLFitter
 {
 
+  /*!
+   * \class KLFitter::ResDoubleGaussE_1
+   * \brief A class describing a resolution parameterized with a double Gaussian. 
+   * \author Kevin Kr&ouml;ninger
+   * \version 1.3
+   * \date 03.12.2009
+   *
+   * This class offers a simple parameterization of a resolution. The
+   * parameterization is a double Gaussian with energy dependent
+   * parameters.
+   */
   class ResDoubleGaussE_1 : public ResDoubleGaussBase
   {
                 

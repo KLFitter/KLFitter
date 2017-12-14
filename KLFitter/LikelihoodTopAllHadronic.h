@@ -1,13 +1,3 @@
-/*!
- * \class KLFitter::LikelihoodTopAllHadronic
- * \brief A class implementing a likelihood for the ttbar allhadronic channel. 
- * \author Stefanie Adomeit
- *
- * This class represents a likelihood for the ttbar allhadronic channel.
- */
-
-// --------------------------------------------------------- 
-
 #ifndef LIKELIHOODTOPALLHADRONIC
 #define LIKELIHOODTOPALLHADRONIC
 
@@ -28,6 +18,13 @@
 namespace KLFitter
 {
 
+  /*!
+   * \class KLFitter::LikelihoodTopAllHadronic
+   * \brief A class implementing a likelihood for the ttbar allhadronic channel. 
+   * \author Stefanie Adomeit
+   *
+   * This class represents a likelihood for the ttbar allhadronic channel.
+   */
   class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase
   {
                 

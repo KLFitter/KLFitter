@@ -1,17 +1,3 @@
-/*!
- * \class KLFitter::PhysicsConstants
- * \brief A class containing physics constants. 
- * \author Kevin Kr&ouml;ninger
- * \version 1.3
- * \date 03.12.2009
- * \added ttH constants: Leonid Serkin
- * \date 01.12.2011
- *
- * This class contains physics constants. 
- */
-
-// --------------------------------------------------------- 
-
 #ifndef PHYSICSCONSTANTS
 #define PHYSICSCONSTANTS
 
@@ -26,6 +12,17 @@
 namespace KLFitter
 {
 
+  /*!
+   * \class KLFitter::PhysicsConstants
+   * \brief A class containing physics constants. 
+   * \author Kevin Kr&ouml;ninger
+   * \version 1.3
+   * \date 03.12.2009
+   * \added ttH constants: Leonid Serkin
+   * \date 01.12.2011
+   *
+   * This class contains physics constants. 
+   */
   class PhysicsConstants
   {
                 

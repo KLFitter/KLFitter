@@ -1,17 +1,3 @@
-/*!
- * \class KLFitter::ResGauss
- * \brief A class describing a Gaussian resolution. 
- * \author Kevin Kr&ouml;ninger
- * \version 1.3
- * \date 03.12.2009
- *
- * This class offers a simple parameterization of a resolution. The
- * parameterization is a Gaussian with a width of a constant times the
- * square root of the true parameter.
- */
-
-// --------------------------------------------------------- 
-
 #ifndef RESGAUSS
 #define RESGAUSS
 
@@ -26,6 +12,17 @@
 namespace KLFitter
 {
 
+  /*!
+   * \class KLFitter::ResGauss
+   * \brief A class describing a Gaussian resolution. 
+   * \author Kevin Kr&ouml;ninger
+   * \version 1.3
+   * \date 03.12.2009
+   *
+   * This class offers a simple parameterization of a resolution. The
+   * parameterization is a Gaussian with a width of a constant times the
+   * square root of the true parameter.
+   */
   class ResGauss : public ResolutionBase
   {
                 
