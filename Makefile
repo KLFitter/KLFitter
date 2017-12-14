@@ -5,10 +5,12 @@ MAC     = Darwin
 INCDIR = KLFitter
 SRCDIR = Root
 OBJDIR = lib
+DESTDIR = dest-tmp
 
 CXX = g++
 MKDIR = mkdir -p
 RM = rm -f
+CP = cp -r
 
 ROOTCFLAGS = $(shell root-config --cflags)
 ROOTLIBS   = $(shell root-config --libs) -lMinuit
@@ -49,3 +51,11 @@ all: $(LIBSO)
 
 clean:
 	$(RM) $(OBJ) $(LIBSO)
+
+.PHONY: install
+
+install: all
+	$(MKDIR) $(DESTDIR)/include
+	$(MKDIR) $(DESTDIR)/lib
+	$(CP) $(LIBSO) $(DESTDIR)/lib/
+	$(CP) $(INCDIR) $(DESTDIR)/include/
