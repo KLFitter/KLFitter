@@ -1,17 +1,21 @@
-/*!  -*- mode: c++; -*-
-
- * \class KLFitter::LikelihoodTTZTrilepton
- * \brief A class implementing a likelihood for the ttZ trilepton channel.
- * \primary author: Knut Zoch
- * \version 1.0
- * \date June 2016
+/*
+ * Copyright (c) 2009--2017, the KLFitter developer team
  *
- * This class represents a KLFitter likelihood for the ttZ trilepton
- * channel. It is largely based on the LikelihoodTopLeptonJets class
- * authored by Kevin Kroeninger.
+ * This file is part of KLFitter.
+ *
+ * KLFitter is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or (at
+ * your option) any later version.
+ *
+ * KLFitter is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
-
-// ---------------------------------------------------------
 
 #ifndef LIKELIHOODTTZTRILEPTON
 #define LIKELIHOODTTZTRILEPTON
@@ -26,13 +30,24 @@
 
 // ---------------------------------------------------------
 
-/*!
+/**
  * \namespace KLFitter
  * \brief The KLFitter namespace
  */
 namespace KLFitter
 {
 
+  /**
+   * \class KLFitter::LikelihoodTTZTrilepton
+   * \brief A class implementing a likelihood for the ttZ trilepton channel.
+   * \author: Knut Zoch
+   * \version 1.0
+   * \date June 2016
+   *
+   * This class represents a KLFitter likelihood for the ttZ trilepton
+   * channel. It is largely based on the LikelihoodTopLeptonJets class
+   * authored by Kevin Kr&ouml;ninger.
+   */
   class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase
   {
 

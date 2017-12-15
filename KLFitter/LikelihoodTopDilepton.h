@@ -1,12 +1,21 @@
-/*!
- * \class KLFitter::LikelihoodTopDilepton
- * \brief A class implementing a likelihood for the ttbar dilepton channel. 
- * \author Tamara Vazquez Schröder
+/*
+ * Copyright (c) 2009--2017, the KLFitter developer team
  *
- * This class represents a likelihood for the ttbar dilepton channel.
+ * This file is part of KLFitter.
+ *
+ * KLFitter is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or (at
+ * your option) any later version.
+ *
+ * KLFitter is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
-
-// --------------------------------------------------------- 
 
 #ifndef LIKELIHOODTOPDILEPTON
 #define LIKELIHOODTOPDILEPTON
@@ -25,7 +34,7 @@
 
 // --------------------------------------------------------- 
 
-/*!
+/**
  * \namespace KLFitter
  * \brief The KLFitter namespace
  */
@@ -40,6 +49,13 @@ namespace KLFitter
       ~NuSolutions() {};
   };
 
+  /**
+   * \class KLFitter::LikelihoodTopDilepton
+   * \brief A class implementing a likelihood for the ttbar dilepton channel. 
+   * \author Tamara Vazquez Schröder
+   *
+   * This class represents a likelihood for the ttbar dilepton channel.
+   */
   class LikelihoodTopDilepton : public KLFitter::LikelihoodBase
   {
                 

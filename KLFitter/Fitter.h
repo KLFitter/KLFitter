@@ -1,15 +1,21 @@
-/*!
- * \class KLFitter::Fitter
- * \brief The fitter class. 
- * \author Kevin Kr&ouml;ninger
- * \version 1.3
- * \date 03.12.2009
+/*
+ * Copyright (c) 2009--2017, the KLFitter developer team
  *
- * This class owns all particles, the detector description, the
- * likelihood, etc. This is the class seen by the user. 
+ * This file is part of KLFitter.
+ *
+ * KLFitter is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or (at
+ * your option) any later version.
+ *
+ * KLFitter is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
-
-// --------------------------------------------------------- 
 
 #ifndef FITTER
 #define FITTER
@@ -18,7 +24,7 @@
 
 // --------------------------------------------------------- 
 
-/*!
+/**
  * \namespace KLFitter
  * \brief The KLFitter namespace
  */
@@ -30,6 +36,16 @@ namespace KLFitter
   class LikelihoodBase;
   class Permutations;
 
+  /**
+   * \class KLFitter::Fitter
+   * \brief The fitter class. 
+   * \author Kevin Kr&ouml;ninger
+   * \version 1.3
+   * \date 03.12.2009
+   *
+   * This class owns all particles, the detector description, the
+   * likelihood, etc. This is the class seen by the user. 
+   */
   class Fitter
   {
                 

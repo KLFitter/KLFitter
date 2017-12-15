@@ -1,14 +1,21 @@
-/*!
- * \class KLFitter::DetectorAtlas_8TeV
- * \brief A class for describing of the ATLAS detector. 
- * \author Kevin Kr&ouml;ninger
- * \version 1.3
- * \date 03.12.2009
+/*
+ * Copyright (c) 2009--2017, the KLFitter developer team
  *
- * This class holds the description of the ATLAS detector. 
+ * This file is part of KLFitter.
+ *
+ * KLFitter is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or (at
+ * your option) any later version.
+ *
+ * KLFitter is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
-
-// --------------------------------------------------------- 
 
 #ifndef DETECTORATLAS_8TEV
 #define DETECTORATLAS_8TEV
@@ -20,13 +27,22 @@
 
 // --------------------------------------------------------- 
 
-/*!
+/**
  * \namespace KLFitter
  * \brief The KLFitter namespace
  */
 namespace KLFitter
 {
 
+  /**
+   * \class KLFitter::DetectorAtlas_8TeV
+   * \brief A class for describing of the ATLAS detector. 
+   * \author Kevin Kr&ouml;ninger
+   * \version 1.3
+   * \date 03.12.2009
+   *
+   * This class holds the description of the ATLAS detector. 
+   */
   class DetectorAtlas_8TeV : public DetectorBase
   {
                 

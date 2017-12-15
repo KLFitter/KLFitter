@@ -1,16 +1,21 @@
-/*!
- * \class KLFitter::ResDoubleGaussE_4
- * \brief A class describing a resolution parameterized with a double Gaussian. 
- * \author Kevin Kr&ouml;ninger
- * \version 1.3
- * \date 03.12.2009
+/*
+ * Copyright (c) 2009--2017, the KLFitter developer team
  *
- * This class offers a simple parameterization of a resolution. The
- * parameterization is a double Gaussian with energy dependent
- * parameters.
+ * This file is part of KLFitter.
+ *
+ * KLFitter is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or (at
+ * your option) any later version.
+ *
+ * KLFitter is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
-
-// --------------------------------------------------------- 
 
 #ifndef RESDOUBLEGAUSSE_4
 #define RESDOUBLEGAUSSE_4
@@ -20,13 +25,24 @@
 
 // --------------------------------------------------------- 
 
-/*!
+/**
  * \namespace KLFitter
  * \brief The KLFitter namespace
  */
 namespace KLFitter
 {
 
+  /**
+   * \class KLFitter::ResDoubleGaussE_4
+   * \brief A class describing a resolution parameterized with a double Gaussian. 
+   * \author Kevin Kr&ouml;ninger
+   * \version 1.3
+   * \date 03.12.2009
+   *
+   * This class offers a simple parameterization of a resolution. The
+   * parameterization is a double Gaussian with energy dependent
+   * parameters.
+   */
   class ResDoubleGaussE_4 : public ResDoubleGaussBase
   {
                 
