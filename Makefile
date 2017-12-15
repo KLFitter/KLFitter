@@ -69,6 +69,7 @@ all: $(LIBSO)
 
 clean:
 	$(RM) $(OBJ) $(LIBSO)
+	$(RM) -r $(DESTDIR)
 
 .PHONY: install
 
