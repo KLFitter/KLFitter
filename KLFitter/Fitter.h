@@ -40,8 +40,6 @@ namespace KLFitter
    * \class KLFitter::Fitter
    * \brief The fitter class. 
    * \author Kevin Kr&ouml;ninger
-   * \version 1.3
-   * \date 03.12.2009
    *
    * This class owns all particles, the detector description, the
    * likelihood, etc. This is the class seen by the user. 

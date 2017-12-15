@@ -41,8 +41,6 @@ namespace KLFitter
    * \class KLFitter::Particles
    * \brief A class describing particles.
    * \author Kevin Kr&ouml;ninger
-   * \version 1.3
-   * \date 03.12.2009
    *
    * This class contains sets of TLorentzVectors for quarks, leptons,
    * etc.

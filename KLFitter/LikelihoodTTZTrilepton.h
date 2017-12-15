@@ -41,8 +41,6 @@ namespace KLFitter
    * \class KLFitter::LikelihoodTTZTrilepton
    * \brief A class implementing a likelihood for the ttZ trilepton channel.
    * \author: Knut Zoch
-   * \version 1.0
-   * \date June 2016
    *
    * This class represents a KLFitter likelihood for the ttZ trilepton
    * channel. It is largely based on the LikelihoodTopLeptonJets class

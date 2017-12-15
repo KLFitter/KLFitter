@@ -38,8 +38,6 @@ namespace KLFitter
    * \class KLFitter::LikelihoodSgTopWtLJ
    * \brief A class implementing a likelihood for the SgTop Wt -> lepton+jets channel. 
    * \author Kevin Kr&ouml;ninger, Thomas Loddenk&ouml;tter
-   * \version 1.3
-   * \date 03.12.2009
    *
    * This class represents a likelihood for the single top Wt channel into lepton+jets.
    */
