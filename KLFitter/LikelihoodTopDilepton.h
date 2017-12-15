@@ -357,12 +357,12 @@ namespace KLFitter
 
     /**
      * Set model parton mass according to fFlagUseJetMass.
-     * @param The jet mass.
-     * @param The quark mass.
-     * @param The parton px (will be modified, if necessary).
-     * @param The parton py (will be modified, if necessary).
-     * @param The parton pz (will be modified, if necessary).
-     * @param The parton energy (not modified).
+     * @param jetmass The jet mass.
+     * @param quarkmass The quark mass.
+     * @param px The parton px (will be modified, if necessary).
+     * @param py The parton py (will be modified, if necessary).
+     * @param pz The parton pz (will be modified, if necessary).
+     * @param e The parton energy (not modified).
      * @return The parton mass.
      */
     inline double SetPartonMass(double jetmass, double quarkmass, double &px, double &py, double &pz, double e) {
