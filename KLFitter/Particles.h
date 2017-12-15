@@ -400,11 +400,6 @@ namespace KLFitter
      * @param ptype The type of particle.
      * @param name The name of the particle.
      * @param measuredindex The index of the associated measured particle.
-     * @param isBtagged Has the particle been b-tagged?
-     * @param bTagEff B-tagging efficiency of the particle.
-     * @param bTagRej B-tagging rejection of the particle.
-     * @param trueflav The true flavor (only for model particles).
-     * @param btagweight The b tagger weight).
      * @return An error code.
      */
     int AddParticle(TLorentzVector * particle, double DetEta, float LepCharge, KLFitter::Particles::ParticleType ptype, std::string name = "", int measuredindex = -1);

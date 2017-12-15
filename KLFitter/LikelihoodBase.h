@@ -144,8 +144,7 @@ namespace KLFitter
     double ParMax(int index); 
 
     /**
-     * Set flag to use b-tagging or not.
-     * @param flag The flag.
+     * Get flag to use b-tagging or not.
      * @return An error flag. 
      */ 
     BtaggingMethod GetBTagging() { return fBTagMethod;} 
@@ -227,9 +226,6 @@ namespace KLFitter
     /**
      * Set which b-tagging you wish to use.
      * @param btagmethod The enum of btagging method.
-     * @param cutvalue The btagger cut value.
-     * @param btageff The btagging efficiency at this cut value.
-     * @param btagrej The btagging rejection at this cut value.
      * @return An error flag. 
      */ 
     int SetBTagging(BtaggingMethod btagmethod) { fBTagMethod = btagmethod; return 1; };
