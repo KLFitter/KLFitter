@@ -274,7 +274,8 @@ namespace KLFitter
      * charged lepton may be specified, for example a photon
      * in ttbargamma, which is radiated from the leptonic W
      * or the charged lepton;
-     * @param Pointer to a 4-vector of a particle which is added to the charged lepton in the calculation
+     * @param additionalParticle Pointer to a 4-vector of a particle which is
+     * added to the charged lepton in the calculation
      * @return A vector with 0, 1 or 2 neutrino pz solutions.
      */
     std::vector<double> CalculateNeutrinoPzSolutions(TLorentzVector * additionalParticle = 0x0);
