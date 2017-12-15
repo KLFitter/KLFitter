@@ -40,7 +40,7 @@
  */
 namespace KLFitter
 {
-  // Neutrino Solution Set
+  //! Neutrino Solution Set
   class NuSolutions {
   public:
     TLorentzVector nu1, nu2;
