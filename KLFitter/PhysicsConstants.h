@@ -24,14 +24,14 @@
 
 // --------------------------------------------------------- 
 
-/*!
+/**
  * \namespace KLFitter
  * \brief The KLFitter namespace
  */
 namespace KLFitter
 {
 
-  /*!
+  /**
    * \class KLFitter::PhysicsConstants
    * \brief A class containing physics constants. 
    * \author Kevin Kr&ouml;ninger

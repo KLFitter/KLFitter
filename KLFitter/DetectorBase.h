@@ -26,7 +26,7 @@
 
 // --------------------------------------------------------- 
 
-/*!
+/**
  * \namespace KLFitter
  * \brief The KLFitter namespace
  */
@@ -35,7 +35,7 @@ namespace KLFitter
 
   class ResolutionBase;
 
-  /*!
+  /**
    * \class KLFitter::DetectorBase
    * \brief A base class for describing detectors.
    * \author Kevin Kr&ouml;ninger

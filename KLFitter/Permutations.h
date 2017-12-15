@@ -26,14 +26,14 @@
 
 // --------------------------------------------------------- 
 
-/*!
+/**
  * \namespace KLFitter
  * \brief The KLFitter namespace
  */
 namespace KLFitter
 {
 
-  /*!
+  /**
    * \class KLFitter::Permutations
    * \brief A class permuting jets, electrons, muons and photons. 
    * \author Kevin Kr&ouml;ninger

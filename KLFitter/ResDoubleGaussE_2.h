@@ -25,14 +25,14 @@
 
 // --------------------------------------------------------- 
 
-/*!
+/**
  * \namespace KLFitter
  * \brief The KLFitter namespace
  */
 namespace KLFitter
 {
 
-  /*!
+  /**
    * \class KLFitter::ResDoubleGaussE_2
    * \brief A class describing a resolution parameterized with a double Gaussian. 
    * \author Kevin Kr&ouml;ninger

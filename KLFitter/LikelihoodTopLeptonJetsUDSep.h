@@ -32,14 +32,14 @@
 
 // --------------------------------------------------------- 
 
-/*!
+/**
  * \namespace KLFitter
  * \brief The KLFitter namespace
  */
 namespace KLFitter
 {
 
-  /*!
+  /**
    * \class KLFitter::LikelihoodTopLeptonJetsUDSep
    * \brief A class implementing a likelihood for the ttbar lepton+jets channel. 
    * \author Kevin Kr&ouml;ninger

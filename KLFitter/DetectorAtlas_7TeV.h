@@ -27,14 +27,14 @@
 
 // --------------------------------------------------------- 
 
-/*!
+/**
  * \namespace KLFitter
  * \brief The KLFitter namespace
  */
 namespace KLFitter
 {
 
-  /*!
+  /**
    * \class KLFitter::DetectorAtlas_7TeV
    * \brief A class for describing of the ATLAS detector. 
    * \author Kevin Kr&ouml;ninger

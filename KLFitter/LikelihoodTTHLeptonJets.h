@@ -30,14 +30,14 @@
 
 // --------------------------------------------------------- 
 
-/*!
+/**
  * \namespace KLFitter
  * \brief The KLFitter namespace
  */
 namespace KLFitter
 {
 
-  /*!
+  /**
    * \class KLFitter::LikelihoodTTHLeptonJets
    * \brief A class implementing a likelihood for the ttH lepton+jets channel. 
    * \author: Leonid Serkin

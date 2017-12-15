@@ -30,14 +30,14 @@
 
 // --------------------------------------------------------- 
 
-/*!
+/**
  * \namespace KLFitter
  * \brief The KLFitter namespace
  */
 namespace KLFitter
 {
 
-  /*!
+  /**
    * \class KLFitter::LikelihoodTopAllHadronic
    * \brief A class implementing a likelihood for the ttbar allhadronic channel. 
    * \author Stefanie Adomeit

@@ -34,7 +34,7 @@
 
 // --------------------------------------------------------- 
 
-/*!
+/**
  * \namespace KLFitter
  * \brief The KLFitter namespace
  */
@@ -49,7 +49,7 @@ namespace KLFitter
       ~NuSolutions() {};
   };
 
-  /*!
+  /**
    * \class KLFitter::LikelihoodTopDilepton
    * \brief A class implementing a likelihood for the ttbar dilepton channel. 
    * \author Tamara Vazquez Schröder

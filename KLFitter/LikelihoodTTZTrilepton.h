@@ -30,7 +30,7 @@
 
 // ---------------------------------------------------------
 
-/*!
+/**
  * \namespace KLFitter
  * \brief The KLFitter namespace
  */

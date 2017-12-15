@@ -27,14 +27,14 @@
 
 // --------------------------------------------------------- 
 
-/*!
+/**
  * \namespace KLFitter
  * \brief The KLFitter namespace
  */
 namespace KLFitter
 {
 
-  /*!
+  /**
    * \class KLFitter::LikelihoodSgTopWtLJ
    * \brief A class implementing a likelihood for the SgTop Wt -> lepton+jets channel. 
    * \author Kevin Kr&ouml;ninger, Thomas Loddenk&ouml;tter

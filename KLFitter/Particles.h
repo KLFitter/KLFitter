@@ -30,14 +30,14 @@
 
 class TLorentzVector;
 
-/*!
+/**
  * \namespace KLFitter
  * \brief The KLFitter namespace
  */
 namespace KLFitter
 {
 
-  /*!
+  /**
    * \class KLFitter::Particles
    * \brief A class describing particles.
    * \author Kevin Kr&ouml;ninger

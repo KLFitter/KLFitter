@@ -33,7 +33,7 @@
 
 // --------------------------------------------------------- 
 
-/*!
+/**
  * \namespace KLFitter
  * \brief The KLFitter namespace
  */
@@ -44,7 +44,7 @@ namespace KLFitter
   class Permutations;
   class DetectorBase;  
 
-  /*!
+  /**
    * \class KLFitter::LikelihoodBase
    * \brief A base class for likelihoods. 
    * \author Kevin Kr&ouml;ninger

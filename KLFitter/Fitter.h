@@ -24,7 +24,7 @@
 
 // --------------------------------------------------------- 
 
-/*!
+/**
  * \namespace KLFitter
  * \brief The KLFitter namespace
  */
@@ -36,7 +36,7 @@ namespace KLFitter
   class LikelihoodBase;
   class Permutations;
 
-  /*!
+  /**
    * \class KLFitter::Fitter
    * \brief The fitter class. 
    * \author Kevin Kr&ouml;ninger

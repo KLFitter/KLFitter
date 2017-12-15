@@ -24,14 +24,14 @@
 
 // --------------------------------------------------------- 
 
-/*!
+/**
  * \namespace KLFitter
  * \brief The KLFitter namespace
  */
 namespace KLFitter
 {
 
-  /*!
+  /**
    * \class KLFitter::ResGauss_MET
    * \brief A class describing a Gaussian resolution, parametrized for MET. 
    * \author Kevin Kr&ouml;ninger

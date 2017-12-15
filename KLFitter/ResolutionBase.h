@@ -26,14 +26,14 @@
 
 // --------------------------------------------------------- 
 
-/*!
+/**
  * \namespace KLFitter
  * \brief The KLFitter namespace
  */
 namespace KLFitter
 {
 
-  /*!
+  /**
    * \class KLFitter::ResolutionBase
    * \brief A base class for describing resolutions. 
    * \author Kevin Kr&ouml;ninger
