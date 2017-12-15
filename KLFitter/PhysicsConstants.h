@@ -35,8 +35,6 @@ namespace KLFitter
    * \class KLFitter::PhysicsConstants
    * \brief A class containing physics constants. 
    * \author Kevin Kr&ouml;ninger
-   * \added ttH constants: Leonid Serkin
-   * \date 01.12.2011
    *
    * This class contains physics constants. 
    */
