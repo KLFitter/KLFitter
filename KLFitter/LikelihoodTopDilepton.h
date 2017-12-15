@@ -122,13 +122,15 @@ namespace KLFitter
 
     /**
      * Set the type of lepton 
-     * @param leptontype The type of lepton: kElectron or kMuon
+     * @param leptontype_1 The type of the first lepton: kElectron or kMuon
+     * @param leptontype_2 The type of the second lepton: kElectron or kMuon 
      */ 
     void SetLeptonType(LeptonType leptontype_1, LeptonType leptontype_2); 
 
     /**
      * Set the type of lepton 
-     * @param leptontype The type of lepton: electron(1) or muon (2) 
+     * @param leptontype_1 The type of the first lepton: electron(1) or muon (2) 
+     * @param leptontype_2 The type of the second lepton: electron(1) or muon (2) 
      */ 
     void SetLeptonType(int leptontype_1, int leptontype_2); 
 

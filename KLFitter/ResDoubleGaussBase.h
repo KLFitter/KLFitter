@@ -147,9 +147,9 @@ namespace KLFitter
 
     /**
      * Sanity check for double gaussian parameters p2, p3 and p5 (1st sigma, scale and 2nd sigma).
-     * @param p2 (the 1st sigma).
-     * @param p3 (the scale parameter).
-     * @param p5 (the 2nd sigma).
+     * @param sigma1 (the 1st sigma).
+     * @param amplitude2 (the scale parameter).
+     * @param sigma2 (the 2nd sigma).
      * @return False if problem with TF.
      */
     inline static bool CheckDoubleGaussianSanity(double &sigma1, double &amplitude2, double &sigma2) {

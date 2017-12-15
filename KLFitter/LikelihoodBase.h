@@ -219,6 +219,7 @@ namespace KLFitter
     /**
      * Set the initial values for the minimization, etc. for each chain
      * @param parameters The initial values.
+     * @param nchains The number of chains.
      * @return An error flag. 
      */ 
     int SetInitialParametersNChains(std::vector<double> const& parameters, unsigned int nchains); 
@@ -413,6 +414,8 @@ namespace KLFitter
      * Check if the permutation is LH invariant.
      * @param iperm Current permutation
      * @param nperms Total number of permutations
+     * @param switchpar1 ???
+     * @param switchpar2 ???
      * @return Permutation of the invariant partner, -1 if there is no one. 
      */
     virtual int LHInvariantPermutationPartner(int iperm, int nperms, int &switchpar1, int &switchpar2)
@@ -428,6 +431,7 @@ namespace KLFitter
     /**
      * Write parameters to fCachedParametersVector.at(iperm) from GetBestFitParameter()
      * @param iperm Current permutation
+     * @param nperms Number of permutations
      * @return An error code. 
      */
     int SetParametersToCache(int iperm, int nperms);

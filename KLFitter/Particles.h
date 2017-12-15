@@ -351,7 +351,7 @@ namespace KLFitter
     /**
      * Set has the jet been b-tagged?
      * @param index The parton index
-     * @param isBtagged The parton b-tagging boolean.
+     * @param isBTagged The parton b-tagging boolean.
      * @return An error flag.
      */
     int SetIsBTagged(int index, bool isBTagged);
@@ -375,7 +375,7 @@ namespace KLFitter
     /**
      * Set the jet b-tagging weight.
      * @param index The parton index
-     * @param btagRej The b-tagging weight.
+     * @param btagweight The b-tagging weight.
      * @return An error flag.
      */
     int SetBTagWeight(int index, double btagweight);
@@ -383,7 +383,7 @@ namespace KLFitter
     /**
      * Set bool for set jet b-tagging weight.
      * @param index The parton index
-     * @param btagRej The b-tagging probability.
+     * @param btagweightset The b-tagging probability.
      * @return An error flag.
      */
     int SetBTagWeightSet(int index, bool btagweightset);
@@ -396,7 +396,7 @@ namespace KLFitter
      * Add a particle to a list of particles.
      * @param particle A pointer to the particle.
      * @param DetEta The Detector Eta of the particle.
-     * @param LepEta The Charge of the particle.
+     * @param LepCharge The Charge of the particle.
      * @param ptype The type of particle.
      * @param name The name of the particle.
      * @param measuredindex The index of the associated measured particle.

@@ -218,6 +218,7 @@ namespace KLFitter
      * fCachedMinuitStatusVector.at(iperm) 
      * and fCachedConvergenceStatusVector.at(iperm)
      * @param iperm Current permutation
+     * @param nperms The number of permutations
      * @return An error code. 
      */
    int SetFitStatusToCache(int iperm, int nperms);

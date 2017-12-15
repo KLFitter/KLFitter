@@ -235,9 +235,9 @@ namespace KLFitter
      * that the relativistic Breit-Wigner distribution is normalised
      * to 1. The function then returns the log of this distribution.
      *
-     * @param Value to be evaluated.
-     * @param The mean of the distribution, i.e. Z pole mass.
-     * @param The FWHM of the distribution, i.e. the Z decay width.
+     * @param x Value to be evaluated.
+     * @param mean The mean of the distribution, i.e. Z pole mass.
+     * @param gamma The FWHM of the distribution, i.e. the Z decay width.
      * @return Log of the relativistic B-W.
      */
     double LogBreitWignerRelNorm(const double& x, const double& mean, const double& gamma);
@@ -247,9 +247,9 @@ namespace KLFitter
      * function and the 1/E^2 distribution are weighted according to
      * fOnShellFraction.
      *
-     * @param Value to be evaluated.
-     * @param The mean of the distribution, i.e. Z pole mass.
-     * @param The FWHM of the distribution, i.e. the Z decay width.
+     * @param x Value to be evaluated.
+     * @param mean The mean of the distribution, i.e. Z pole mass.
+     * @param gamma The FWHM of the distribution, i.e. the Z decay width.
      * @return Log of combined mass distribution.
      */
     double LogZCombinedDistribution(const double& x, const double& mean, const double& gamma);
