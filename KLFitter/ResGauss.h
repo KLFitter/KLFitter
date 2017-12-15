@@ -95,7 +95,7 @@ namespace KLFitter
      * @param par Optional additional parameter (SumET in case of MET TF).
      * @return The probability. 
      */ 
-    virtual double p(double /*x*/, double /*xmeas*/, bool &good, double /*par*/)
+    virtual double p(double x, double xmeas, bool &good, double par)
     { good = true; return 0; } 
 
     /* @} */

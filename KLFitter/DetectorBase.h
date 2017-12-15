@@ -66,7 +66,7 @@ namespace KLFitter
      * The default constructor. 
      * @param folder The folder with transfer function parameters.
      */ 
-    DetectorBase(std::string /*folder*/ = ""); 
+    DetectorBase(std::string folder = ""); 
                 
     /**
      * The default destructor.
@@ -82,7 +82,7 @@ namespace KLFitter
      * @param eta The eta of the particle.
      * @return A pointer to the energy resolution object. 
      */ 
-    virtual KLFitter::ResolutionBase * ResEnergyLightJet(double /*eta*/ = 0.)
+    virtual KLFitter::ResolutionBase * ResEnergyLightJet(double eta = 0.)
     { return fResEnergyLightJet; }; 
 
     /**
@@ -90,7 +90,7 @@ namespace KLFitter
      * @param eta The eta of the particle.
      * @return A pointer to the energy resolution object. 
      */ 
-    virtual KLFitter::ResolutionBase * ResEnergyBJet(double /*eta*/ = 0.)
+    virtual KLFitter::ResolutionBase * ResEnergyBJet(double eta = 0.)
     { return fResEnergyBJet; }; 
 
     /**
@@ -98,7 +98,7 @@ namespace KLFitter
      * @param eta The eta of the particle.
      * @return A pointer to the energy resolution object. 
      */ 
-    virtual KLFitter::ResolutionBase * ResEnergyGluonJet(double /*eta*/ = 0.)
+    virtual KLFitter::ResolutionBase * ResEnergyGluonJet(double eta = 0.)
     { return fResEnergyGluonJet; }; 
 
     /**
@@ -106,7 +106,7 @@ namespace KLFitter
      * @param eta The eta of the particle.
      * @return A pointer to the energy resolution object. 
      */ 
-    virtual KLFitter::ResolutionBase * ResEnergyElectron(double /*eta*/ = 0.)
+    virtual KLFitter::ResolutionBase * ResEnergyElectron(double eta = 0.)
     { return fResEnergyElectron; }; 
 
     /**
@@ -114,7 +114,7 @@ namespace KLFitter
      * @param eta The eta of the particle.
      * @return A pointer to the energy resolution object. 
      */ 
-    virtual KLFitter::ResolutionBase * ResEnergyMuon(double /*eta*/= 0.)
+    virtual KLFitter::ResolutionBase * ResEnergyMuon(double eta = 0.)
     { return fResEnergyMuon; }; 
 
     /**
@@ -122,7 +122,7 @@ namespace KLFitter
      * @param eta The eta of the particle.
      * @return A pointer to the energy resolution object. 
      */ 
-    virtual KLFitter::ResolutionBase * ResEnergyPhoton(double /*eta*/ = 0.)
+    virtual KLFitter::ResolutionBase * ResEnergyPhoton(double eta = 0.)
     { return fResEnergyPhoton; }; 
 
     /**
@@ -137,7 +137,7 @@ namespace KLFitter
      * @param eta The eta of the particle.
      * @return A pointer to the eta resolution object. 
      */ 
-    virtual KLFitter::ResolutionBase * ResEtaLightJet(double /*eta*/ = 0.)
+    virtual KLFitter::ResolutionBase * ResEtaLightJet(double eta = 0.)
     { return fResEtaLightJet; }; 
 
     /**
@@ -145,7 +145,7 @@ namespace KLFitter
      * @param eta The eta of the particle.
      * @return A pointer to the eta resolution object. 
      */ 
-    virtual KLFitter::ResolutionBase * ResEtaBJet(double /*eta*/ = 0.)
+    virtual KLFitter::ResolutionBase * ResEtaBJet(double eta = 0.)
     { return fResEtaBJet; }; 
 
     /**
@@ -153,7 +153,7 @@ namespace KLFitter
      * @param eta The phi of the particle.
      * @return A pointer to the phi resolution object. 
      */ 
-    virtual KLFitter::ResolutionBase * ResPhiLightJet(double /*eta*/ = 0.)
+    virtual KLFitter::ResolutionBase * ResPhiLightJet(double eta = 0.)
     { return fResPhiLightJet; }; 
 
     /**
@@ -161,7 +161,7 @@ namespace KLFitter
      * @param eta The phi of the particle.
      * @return A pointer to the phi resolution object. 
      */ 
-    virtual KLFitter::ResolutionBase * ResPhiBJet(double /*eta*/ = 0.)
+    virtual KLFitter::ResolutionBase * ResPhiBJet(double eta = 0.)
     { return fResPhiBJet; }; 
 
     /* @} */

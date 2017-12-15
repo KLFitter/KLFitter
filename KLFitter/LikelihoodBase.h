@@ -192,7 +192,7 @@ namespace KLFitter
      * @param sumet total scalar ET.
      * @return An error flag.
      */
-    virtual int SetET_miss_XY_SumET(double /*etx*/, double /*ety*/, double /*sumet*/) { return 0; }
+    virtual int SetET_miss_XY_SumET(double etx, double ety, double sumet) { return 0; }
 
     /**
      * Set the permutation object.
@@ -300,7 +300,7 @@ namespace KLFitter
      * @param parameters A vector of parameters (double values). 
      * @return The logarithm of the prior probability. 
      */
-    virtual double LogAPrioriProbability(const std::vector <double> & /*parameters*/)
+    virtual double LogAPrioriProbability(const std::vector <double> & parameters)
     { return 0; } 
                 
     /** 
@@ -308,7 +308,7 @@ namespace KLFitter
      * @param parameters A vector of parameters (double values). 
      * @return The logarithm of the prior probability. 
      */
-    virtual double LogLikelihood(const std::vector <double> & /*parameters*/)
+    virtual double LogLikelihood(const std::vector <double> & parameters)
     { return 0; } 
 
     /** 
@@ -316,7 +316,7 @@ namespace KLFitter
      * @param parameters A vector of parameters (double values). 
      * @return A vector with the components of the logarithm of the prior probability. 
      */
-    virtual std::vector<double> LogLikelihoodComponents(std::vector <double> /*parameters*/)
+    virtual std::vector<double> LogLikelihoodComponents(std::vector <double> parameters)
     { return std::vector<double>(0); } 
 
     /** 
@@ -415,7 +415,7 @@ namespace KLFitter
      * @param nperms Total number of permutations
      * @return Permutation of the invariant partner, -1 if there is no one. 
      */
-    virtual int LHInvariantPermutationPartner(int /*iperm*/, int /*nperms*/, int &/*switchpar1*/, int &/*switchpar2*/)
+    virtual int LHInvariantPermutationPartner(int iperm, int nperms, int &switchpar1, int &switchpar2)
     { return -1; };
 
     /**

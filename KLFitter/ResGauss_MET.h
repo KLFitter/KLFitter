@@ -84,7 +84,7 @@ namespace KLFitter
      * @param good False if problem with TF.
      * @return The probability. 
      */ 
-    virtual double p(double /*x*/, double /*xmeas*/, bool &good)
+    virtual double p(double x, double xmeas, bool &good)
     { good = true; return 0; } 
 
     /**

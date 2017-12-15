@@ -162,7 +162,7 @@ namespace KLFitter
      * @return The logarithm of the prior probability. 
      */
     
-    virtual double LogAPrioriProbability(const std::vector <double> & /*parameters*/)
+    virtual double LogAPrioriProbability(const std::vector <double> & parameters)
     { return 0; }; 
                 
     /** 
