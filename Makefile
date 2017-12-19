@@ -20,8 +20,8 @@ MACHINE = $(shell uname -s)
 LINUX   = Linux
 MAC     = Darwin
 
-INCDIR = KLFitter
-SRCDIR = Root
+INCDIR = include
+SRCDIR = src
 OBJDIR = obj
 LIBDIR = lib
 DESTDIR = dest-tmp
@@ -59,7 +59,7 @@ $(LIBSO): $(OBJ)
 	@if [ ! -e $(LIBDIR) ]; then $(MKDIR) $(LIBDIR); fi
 	$(CXX) $(CXXFLAGS) $(LIBS) $(SOFLAGS) $+ -o $@
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.cxx $(INCDIR)/%.h
+$(OBJDIR)/%.o: $(SRCDIR)/%.cxx
 	@if [ ! -e $(OBJDIR) ]; then $(MKDIR) $(OBJDIR); fi
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
