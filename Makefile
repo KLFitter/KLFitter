@@ -22,7 +22,8 @@ MAC     = Darwin
 
 INCDIR = KLFitter
 SRCDIR = Root
-OBJDIR = lib
+OBJDIR = obj
+LIBDIR = lib
 DESTDIR = dest-tmp
 
 CXX = g++
@@ -40,10 +41,10 @@ SRC = $(wildcard $(SRCDIR)/*.cxx)
 OBJ = $(SRC:$(SRCDIR)/%.cxx=$(OBJDIR)/%.o)
 MAIN = $(wildcard *.c)
 ifneq ($(MACHINE), $(MAC))
-	LIBSO = libKLFitter.so
+	LIBSO = $(LIBDIR)/libKLFitter.so
 	SOFLAGS = -shared
 else
-	LIBSO = libKLFitter.dylib
+	LIBSO = $(LIBDIR)/libKLFitter.dylib
 	SOFLAGS = -dynamiclib
 endif
 
@@ -55,6 +56,7 @@ LIBS     = $(ROOTLIBS) $(BATLIBS)
 
 # rule for shared library
 $(LIBSO): $(OBJ)
+	@if [ ! -e $(LIBDIR) ]; then $(MKDIR) $(LIBDIR); fi
 	$(CXX) $(CXXFLAGS) $(LIBS) $(SOFLAGS) $+ -o $@
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cxx $(INCDIR)/%.h
@@ -76,5 +78,5 @@ clean:
 install: all
 	$(MKDIR) $(DESTDIR)/include
 	$(MKDIR) $(DESTDIR)/lib
-	$(CP) $(LIBSO) $(DESTDIR)/lib/
+	$(CP) $(LIBDIR) $(DESTDIR)/
 	$(CP) $(INCDIR) $(DESTDIR)/include/
