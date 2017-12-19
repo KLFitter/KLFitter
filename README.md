@@ -1,6 +1,4 @@
-===========================================================
-KLFitter
-===========================================================
+# The (K)inematic (L)ikelihood Fitter
 
 Authors: Kevin Kroeninger, University of Goettingen
          Johannes Erdmann, University of Goettingen
@@ -13,8 +11,7 @@ Date:    23.02.2011
 
 ===========================================================
 
-Outline: 
---------
+## Outline
 
 1. Purpose / motivation
 2. Installation
@@ -24,8 +21,7 @@ Outline:
 6. How to run KLFitter - an example 
 
 
-1. Purpose / motivation 
------------------------
+## 1. Purpose / motivation
 
 The K(inematic)L(ikelihood)Fitter is a library for kinematic fitting
 using a likelihood approach. It is primarily developed for the case of
@@ -34,11 +30,9 @@ processes. KLFitter is experiment independent in a sense that
 different experiments can be parameterized.
 
 
-2.Installation
---------------
+## 2.Installation
 
-2.1 Dependencies 
-----------------
+### 2.1 Dependencies
 
 KLFitter depends on ROOT and the BAT library. BAT can be obtained
 from the following web page:
@@ -48,8 +42,7 @@ http://www.mppmu.mpg.de/bat/
 Please read the instructions on
 how to install and run BAT. 
 
-2.2 Installation 
-----------------
+### 2.2 Installation
 
 The installation procedure is simple: 
 
@@ -77,8 +70,7 @@ In order to run the ttbar lepton+jets example on a D3PD ntuple do the following:
 	"./runKLFitter.exe 0 100" 
 
 
-3. Class structure
-------------------
+## 3. Class structure
 
 The KLFitter package is build in a modular way so as to allow the
 implementation of different physics processes and parameterizations of
@@ -114,11 +106,9 @@ LikelihoodBase. The user has to define the parameters of the fit and
 the likelihood itself. One example is the LikelihoodTopLeptonJets class for l+jets ttbar channel.
 
 
-4. The fitting procedure
-------------------------
+## 4. The fitting procedure
 
-4.1 The likelihood
-------------------
+### 4.1 The likelihood
 
 The KLFitter is based on a likelihood approach. The likelihood
 function has to be specified separately for each process. It can
@@ -160,31 +150,26 @@ likelihood.
 
 Other parameters can easily be added. 
 
-4.2 Optimization 
-----------------
+### 4.2 Optimization
 
 Optimization is done using the methods provided by BAT. By default,
 the optimization method used is TMinuit.
 
-4.3 Marginalization
--------------------
+### 4.3 Marginalization
 
 Marginalization is done using the methods provided by BAT. By default,
 this method is Markov Chain Monte Carlo. 
 
-4.4 Default analysis
---------------------
+### 4.4 Default analysis
 
 In the default analysis a Markov chain is run to coarsly sample the
 parameter space and locate a global maximum. Minuit is then used to
 find the maximum with a greater precision. 
 
 
-5. Using the KLFitter
----------------------
+## 5. Using the KLFitter
 
-5.1 Setting the measured quantities
------------------------------------
+### 5.1 Setting the measured quantities
 
 The measured quantities are the 4-vectors of four jets and one charged
 lepton, as well as the missing transverse energy. An object of type 
@@ -193,8 +178,7 @@ either be set by defining TLorentzVectors and adding them to Particles
 object, or by using an interface. An example for a Root interface exists 
 which reads the data from a flat Root tree.
 
-5.2 Combinatorics
------------------
+### 5.2 Combinatorics
 
 The association of jets with partons and of reconstructed and parton
 level leptons leads to several possible combinations. The class
@@ -210,38 +194,39 @@ permutations are removed from the table. The indices can be set via
 
 int InvariantPartonPermutations(int index1, int index2, int index3 = -1). 
 
-5.3 Output
-----------
+### 5.3 Output
 
 The output in the provided examples comes in form of a ROOT file which contains the following
 trees: 
 
-* TreeMeasured | the measured particles.
-* TreeSelected | the particles selected for the fitting. 
-* TreeModel    | the model particles (e.g., including also the top quark.
-               | and other intermediate particles).
-* TreeTruth    | the Monte Carlo truth information (if avialable).
-* TreeMap      | maps containing the mapping between the measured and the selected particles. 
+* `TreeMeasured`: the measured particles.
+* `TreeSelected`: the particles selected for the fitting.
+* `TreeModel`: the model particles (e.g., including also the top quark and other
+  intermediate particles).
+* `TreeTruth`: the Monte Carlo truth information (if avialable).
+* `TreeMap`: maps containing the mapping between the measured and the selected
+  particles.
 
 The TreeModel contains the results from the fit. The most important
 stored variables are:
 
-* EventNumber                          | the event number.
-* N_permutations                       | the number of permutations.
-* best_permutation[N_permutations]     | a list of indices ordered by the EventProbability. The 
-                                       | best permutation has the index best_permutation[0], etc. 
-* EventProbability[N_permutations]     | the event probability for each permutation.
-* LogLikelihood[N_permutations]        | the log Likelihood for each permutation.
-* ConvergenceStatusBit[N_permutations] | the convergence status bit word for each permutation.
-* x_E[N_permutations], x_pt, ...       | x is a particle known in the model (i.e., initial state 
-                                       | or intermediate particle, etc.). The _E, ... describe
-                                       | the kinematics for each permutation. 
-* par_x[N_permutations]                | x is the best fit parameter for each permutation. 
-* parerr_x[N_permutations]             | x is the estimated uncertainty on the best fit 
-                                       | parameter for each permutation. 
+* `EventNumber`: the event number.
+* `N_permutations`: the number of permutations.
+* `best_permutation[N_permutations]`: a list of indices ordered by the
+  EventProbability. The best permutation has the index best_permutation[0], etc.
+* `EventProbability[N_permutations]`: the event probability for each
+  permutation.
+* `LogLikelihood[N_permutations]`: the log Likelihood for each permutation.
+* `ConvergenceStatusBit[N_permutations]`: the convergence status bit word for
+  each permutation.
+* `x_E[N_permutations]`, `x_pt`: x is a particle known in the model (i.e.,
+  initial state or intermediate particle, etc.). The `_E`, ... describe the
+  kinematics for each permutation.
+* `par_x[N_permutations]`: x is the best fit parameter for each permutation.
+* `parerr_x[N_permutations]`: x is the estimated uncertainty on the best fit
+  parameter for each permutation.
 
-6. How to run KLFitter - an example
------------------------------------
+## 6. How to run KLFitter - an example
 
 A example on how to use the KLFitter library is provided: ExampleCode.C.
 The example is extensively commented. However, it is kept "minimal" in order to
