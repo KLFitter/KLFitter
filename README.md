@@ -1,15 +1,20 @@
+>>>
+Please note that this README file was written in 2011 and essentially has not
+been updated since. Expect a major update to happen soon.
+>>>
+
+
 # The (K)inematic (L)ikelihood Fitter
 
-Authors: Kevin Kroeninger, University of Goettingen
-         Johannes Erdmann, University of Goettingen
-         Olaf Nackenhorst, University of Goettingen
-Email:   kevin.kroeninger *AT* phys.uni-goettingen.de, 
-         johannes.erdmann *AT* phys.uni-goettingen.de
-         olaf.nackenhorst *AT* phys.uni-goettingen.de
-Version: 1.4
-Date:    23.02.2011 
 
-===========================================================
+At the time, this README was written, these were the main authors of KLFitter:
+
+| Author           | Affiliation              | Email                                        |
+| ---------------- | ------------------------ | -------------------------------------------- |
+| Kevin Kroeninger | University of Goettingen | kevin.kroeninger *AT* phys.uni-goettingen.de | 
+| Johannes Erdmann | University of Goettingen | johannes.erdmann *AT* phys.uni-goettingen.de |
+| Olaf Nackenhorst | University of Goettingen | olaf.nackenhorst *AT* phys.uni-goettingen.de |
+
 
 ## Outline
 
