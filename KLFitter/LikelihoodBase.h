@@ -48,8 +48,6 @@ namespace KLFitter
    * \class KLFitter::LikelihoodBase
    * \brief A base class for likelihoods. 
    * \author Kevin Kr&ouml;ninger
-   * \version 1.3
-   * \date 03.12.2009
    */
   class LikelihoodBase : public BCModel 
   {
@@ -146,8 +144,7 @@ namespace KLFitter
     double ParMax(int index); 
 
     /**
-     * Set flag to use b-tagging or not.
-     * @param flag The flag.
+     * Get flag to use b-tagging or not.
      * @return An error flag. 
      */ 
     BtaggingMethod GetBTagging() { return fBTagMethod;} 
@@ -194,7 +191,7 @@ namespace KLFitter
      * @param sumet total scalar ET.
      * @return An error flag.
      */
-    virtual int SetET_miss_XY_SumET(double /*etx*/, double /*ety*/, double /*sumet*/) { return 0; }
+    virtual int SetET_miss_XY_SumET(double etx, double ety, double sumet) { return 0; }
 
     /**
      * Set the permutation object.
@@ -221,6 +218,7 @@ namespace KLFitter
     /**
      * Set the initial values for the minimization, etc. for each chain
      * @param parameters The initial values.
+     * @param nchains The number of chains.
      * @return An error flag. 
      */ 
     int SetInitialParametersNChains(std::vector<double> const& parameters, unsigned int nchains); 
@@ -228,9 +226,6 @@ namespace KLFitter
     /**
      * Set which b-tagging you wish to use.
      * @param btagmethod The enum of btagging method.
-     * @param cutvalue The btagger cut value.
-     * @param btageff The btagging efficiency at this cut value.
-     * @param btagrej The btagging rejection at this cut value.
      * @return An error flag. 
      */ 
     int SetBTagging(BtaggingMethod btagmethod) { fBTagMethod = btagmethod; return 1; };
@@ -302,7 +297,7 @@ namespace KLFitter
      * @param parameters A vector of parameters (double values). 
      * @return The logarithm of the prior probability. 
      */
-    virtual double LogAPrioriProbability(const std::vector <double> & /*parameters*/)
+    virtual double LogAPrioriProbability(const std::vector <double> & parameters)
     { return 0; } 
                 
     /** 
@@ -310,7 +305,7 @@ namespace KLFitter
      * @param parameters A vector of parameters (double values). 
      * @return The logarithm of the prior probability. 
      */
-    virtual double LogLikelihood(const std::vector <double> & /*parameters*/)
+    virtual double LogLikelihood(const std::vector <double> & parameters)
     { return 0; } 
 
     /** 
@@ -318,7 +313,7 @@ namespace KLFitter
      * @param parameters A vector of parameters (double values). 
      * @return A vector with the components of the logarithm of the prior probability. 
      */
-    virtual std::vector<double> LogLikelihoodComponents(std::vector <double> /*parameters*/)
+    virtual std::vector<double> LogLikelihoodComponents(std::vector <double> parameters)
     { return std::vector<double>(0); } 
 
     /** 
@@ -415,9 +410,11 @@ namespace KLFitter
      * Check if the permutation is LH invariant.
      * @param iperm Current permutation
      * @param nperms Total number of permutations
+     * @param switchpar1 ???
+     * @param switchpar2 ???
      * @return Permutation of the invariant partner, -1 if there is no one. 
      */
-    virtual int LHInvariantPermutationPartner(int /*iperm*/, int /*nperms*/, int &/*switchpar1*/, int &/*switchpar2*/)
+    virtual int LHInvariantPermutationPartner(int iperm, int nperms, int &switchpar1, int &switchpar2)
     { return -1; };
 
     /**
@@ -430,6 +427,7 @@ namespace KLFitter
     /**
      * Write parameters to fCachedParametersVector.at(iperm) from GetBestFitParameter()
      * @param iperm Current permutation
+     * @param nperms Number of permutations
      * @return An error code. 
      */
     int SetParametersToCache(int iperm, int nperms);

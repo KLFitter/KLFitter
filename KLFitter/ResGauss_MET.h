@@ -35,8 +35,6 @@ namespace KLFitter
    * \class KLFitter::ResGauss_MET
    * \brief A class describing a Gaussian resolution, parametrized for MET. 
    * \author Kevin Kr&ouml;ninger
-   * \version 1.4
-   * \date 24.06.2011
    *
    * This class offers a simple parameterization of a resolution. The
    * parameterization is a Gaussian with a width of a constant times the
@@ -86,7 +84,7 @@ namespace KLFitter
      * @param good False if problem with TF.
      * @return The probability. 
      */ 
-    virtual double p(double /*x*/, double /*xmeas*/, bool &good)
+    virtual double p(double x, double xmeas, bool &good)
     { good = true; return 0; } 
 
     /**

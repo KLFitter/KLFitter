@@ -37,8 +37,6 @@ namespace KLFitter
    * \class KLFitter::ResolutionBase
    * \brief A base class for describing resolutions. 
    * \author Kevin Kr&ouml;ninger
-   * \version 1.3
-   * \date 03.12.2009
    *
    * This base class can be used to decribe resolutions. 
    */
@@ -78,7 +76,7 @@ namespace KLFitter
      * @param par Parameter on which the width depends
      * @return The width. 
      */ 
-    virtual double GetSigma(double /*par*/) = 0;
+    virtual double GetSigma(double par) = 0;
 
     /**
      * Return the probability of the true value of x given the
@@ -88,7 +86,7 @@ namespace KLFitter
      * @param good False if problem with TF.
      * @return The probability. 
      */ 
-    virtual double p(double /*x*/, double /*xmeas*/, bool &good)
+    virtual double p(double x, double xmeas, bool &good)
     { good = true; return 0; } 
 
     /**
@@ -100,7 +98,7 @@ namespace KLFitter
      * @param par Optional additional parameter (SumET in case of MET TF).
      * @return The probability. 
      */ 
-    virtual double p(double /*x*/, double /*xmeas*/, bool &good, double /*par*/)
+    virtual double p(double x, double xmeas, bool &good, double par)
     { good = true; return 0; } 
 
     /**

@@ -41,8 +41,6 @@ namespace KLFitter
    * \class KLFitter::LikelihoodTTHLeptonJets
    * \brief A class implementing a likelihood for the ttH lepton+jets channel. 
    * \author: Leonid Serkin
-   * \version 1.3
-   * \date 01.12.2011
    *
    * This class represents a likelihood for the ttH in lepton+jets channel. It
    * is largely based on the LikelihoodTopLeptonJets class authored by Kevin
@@ -142,7 +140,7 @@ namespace KLFitter
      * @param parameters A vector of parameters (double values). 
      * @return The logarithm of the prior probability. 
      */
-    virtual double LogAPrioriProbability(const std::vector <double> & /*parameters*/)
+    virtual double LogAPrioriProbability(const std::vector <double> & parameters)
     { return 0; }; 
                 
     /** 
@@ -286,7 +284,8 @@ namespace KLFitter
      * charged lepton may be specified, for example a photon
      * in ttbargamma, which is radiated from the leptonic W
      * or the charged lepton;
-     * @param Pointer to a 4-vector of a particle which is added to the charged lepton in the calculation
+     * @param additionalParticle Pointer to a 4-vector of a particle which is
+     * added to the charged lepton in the calculation
      * @return A vector with 0, 1 or 2 neutrino pz solutions.
      */
     std::vector<double> CalculateNeutrinoPzSolutions(TLorentzVector * additionalParticle = 0x0);
@@ -303,12 +302,12 @@ namespace KLFitter
 
     /**
      * Set model parton mass according to fFlagUseJetMass.
-     * @param The jet mass.
-     * @param The quark mass.
-     * @param The parton px (will be modified, if necessary).
-     * @param The parton py (will be modified, if necessary).
-     * @param The parton pz (will be modified, if necessary).
-     * @param The parton energy (not modified).
+     * @param jetmass The jet mass.
+     * @param quarkmass The quark mass.
+     * @param px The parton px (will be modified, if necessary).
+     * @param py The parton py (will be modified, if necessary).
+     * @param pz The parton pz (will be modified, if necessary).
+     * @param e The parton energy (not modified).
      * @return The parton mass.
      */
     inline double SetPartonMass(double jetmass, double quarkmass, double &px, double &py, double &pz, double e) {

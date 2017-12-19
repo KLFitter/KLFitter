@@ -41,8 +41,6 @@ namespace KLFitter
    * \class KLFitter::Particles
    * \brief A class describing particles.
    * \author Kevin Kr&ouml;ninger
-   * \version 1.3
-   * \date 03.12.2009
    *
    * This class contains sets of TLorentzVectors for quarks, leptons,
    * etc.
@@ -353,7 +351,7 @@ namespace KLFitter
     /**
      * Set has the jet been b-tagged?
      * @param index The parton index
-     * @param isBtagged The parton b-tagging boolean.
+     * @param isBTagged The parton b-tagging boolean.
      * @return An error flag.
      */
     int SetIsBTagged(int index, bool isBTagged);
@@ -377,7 +375,7 @@ namespace KLFitter
     /**
      * Set the jet b-tagging weight.
      * @param index The parton index
-     * @param btagRej The b-tagging weight.
+     * @param btagweight The b-tagging weight.
      * @return An error flag.
      */
     int SetBTagWeight(int index, double btagweight);
@@ -385,7 +383,7 @@ namespace KLFitter
     /**
      * Set bool for set jet b-tagging weight.
      * @param index The parton index
-     * @param btagRej The b-tagging probability.
+     * @param btagweightset The b-tagging probability.
      * @return An error flag.
      */
     int SetBTagWeightSet(int index, bool btagweightset);
@@ -398,15 +396,10 @@ namespace KLFitter
      * Add a particle to a list of particles.
      * @param particle A pointer to the particle.
      * @param DetEta The Detector Eta of the particle.
-     * @param LepEta The Charge of the particle.
+     * @param LepCharge The Charge of the particle.
      * @param ptype The type of particle.
      * @param name The name of the particle.
      * @param measuredindex The index of the associated measured particle.
-     * @param isBtagged Has the particle been b-tagged?
-     * @param bTagEff B-tagging efficiency of the particle.
-     * @param bTagRej B-tagging rejection of the particle.
-     * @param trueflav The true flavor (only for model particles).
-     * @param btagweight The b tagger weight).
      * @return An error code.
      */
     int AddParticle(TLorentzVector * particle, double DetEta, float LepCharge, KLFitter::Particles::ParticleType ptype, std::string name = "", int measuredindex = -1);

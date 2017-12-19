@@ -37,8 +37,6 @@ namespace KLFitter
    * \class KLFitter::ResDoubleGaussBase
    * \brief A class describing a resolution parameterized with a double Gaussian. 
    * \author Kevin Kr&ouml;ninger
-   * \version 1.3
-   * \date 03.12.2009
    *
    * This class offers a simple parameterization of a resolution. The
    * parameterization is a double Gaussian with energy dependent
@@ -134,7 +132,7 @@ namespace KLFitter
      * @param par Optional additional parameter (SumET in case of MET TF).
      * @return The probability. 
      */ 
-    virtual double p(double /*x*/, double /*xmeas*/, bool &good, double /*par*/)
+    virtual double p(double x, double xmeas, bool &good, double par)
     { good = true; return 0; } 
 
     /* @} */
@@ -149,9 +147,9 @@ namespace KLFitter
 
     /**
      * Sanity check for double gaussian parameters p2, p3 and p5 (1st sigma, scale and 2nd sigma).
-     * @param p2 (the 1st sigma).
-     * @param p3 (the scale parameter).
-     * @param p5 (the 2nd sigma).
+     * @param sigma1 (the 1st sigma).
+     * @param amplitude2 (the scale parameter).
+     * @param sigma2 (the 2nd sigma).
      * @return False if problem with TF.
      */
     inline static bool CheckDoubleGaussianSanity(double &sigma1, double &amplitude2, double &sigma2) {
