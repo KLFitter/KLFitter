@@ -51,28 +51,45 @@ how to install and run BAT.
 
 The installation procedure is simple: 
 
-* Check out the latest KLFitter tag from SVN: 
-  "svn co $SVNGRP/Institutes/Goettingen/KLFitter/KLFitter-<latest-tag> KLFitter"
-* Change to the KLFitter directory
-* Make sure that the environment variable $BATINSTALLDIR is correctly defined 
-* Compile the KLFitter library - this will produce the *standard* library (classes in the
-  folder 'library') you can use in your analysis
-	"make"
-* Several additional classes are available from an additional library (classes in the
-  folder 'extras'), which you need in particular to run the provided examples:
-        "make extras"
+Check out the branch `master` or a tagged release of KLFitter from the [KLFitter
+  git repository](https://gitlab.cern.ch/KLFitter/KLFitter/) by typing:
 
-In order to run the ttbar lepton+jets example on a D3PD ntuple do the following:
+```
+$ git clone https://gitlab.cern.ch/KLFitter/KLFitter.git
+$ cd KLFitter
+# For checking out a tagged release:
+$ git checkout VERSION_TAG
+```
 
-* Change into the KLFitter/examples/top_ljets
-* Compile the example: 
-	"make" 
-* Source the setup file: 
-	"source setup.sh"
-* Define your input files in input.txt
-* Configure config.conf depending on the run options you would like to use
-* Run the example over 100 events: 
-	"./runKLFitter.exe 0 100" 
+Make sure that the environment variable `$BATINSTALLDIR` is correctly defined.
+  In step 2.1, you should have installed BAT to a specific location, so export
+  that location with
+
+```
+$ export BATINSTALLDIR=/path/to/BAT/install
+```
+
+Compile the KLFitter library - this will produce the standard library (classes
+  in the folder 'lib') you can use in your analysis. Compilation is
+  straightforward and can be done with
+
+```
+$ make -j
+```
+
+Additionally, in case you want to install KLFitter to a designated directory,
+  you can create a _clean_ KLFitter install version that only includes the
+  header and library files:
+  
+```
+$ make install
+```
+
+The files will be copied into the folder 'dest-tmp'.
+
+KLFitter also comes with lots of examples. These example implementations and
+instructions on how to use them, please refer to the
+[KLFitterExtras](https://gitlab.cern.ch/KLFitter/KLFitterExtras) repository.
 
 
 ## 3. Class structure
