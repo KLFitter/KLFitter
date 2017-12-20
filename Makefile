@@ -48,7 +48,7 @@ else
 	SOFLAGS = -dynamiclib
 endif
 
-CXXFLAGS = $(ROOTCFLAGS) $(BATCFLAGS) -I$/$(INCDIR) -Wall -Wno-deprecated -O2 -ggdb -g
+CXXFLAGS = $(ROOTCFLAGS) $(BATCFLAGS) -I$(INCDIR) -Wall -Wno-deprecated -O2 -ggdb -g
 ifneq ($(MACHINE), $(MAC))
 	CXXFLAGS += -fPIC
 endif
