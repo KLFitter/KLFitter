@@ -42,11 +42,14 @@ set( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib )
 set( CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib )
 
 # Make the project's modules visible to CMake.
-# list( INSERT CMAKE_MODULE_PATH 0 ${CMAKE_SOURCE_DIR}/cmake )
+list( INSERT CMAKE_MODULE_PATH 0 ${CMAKE_SOURCE_DIR}/cmake )
 
 # Add ROOT system directory and require ROOT.
 list(APPEND CMAKE_PREFIX_PATH $ENV{ROOTSYS})
 find_package( ROOT REQUIRED )
+
+# Require BAT.
+find_package( BAT REQUIRED )
 
 # Public header files for the shared/static library.
 set( lib_headers include/KLFitter/BoostedLikelihoodTopLeptonJets.h
@@ -80,18 +83,18 @@ src/ResGauss_MET.cxx src/ResolutionBase.cxx )
 # Build the shared library.
 add_library( KLFitter SHARED ${lib_headers} ${lib_sources} )
 target_include_directories( KLFitter
-   PUBLIC ${ROOT_INCLUDE_DIRS}
+   PUBLIC ${ROOT_INCLUDE_DIRS} ${BAT_INCLUDE_DIR}
    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include> )
-target_link_libraries( KLFitter ${ROOT_LIBRARIES} )
+target_link_libraries( KLFitter ${ROOT_LIBRARIES} ${BAT_LIBARY} )
 set_property( TARGET KLFitter
    PROPERTY PUBLIC_HEADER ${lib_headers} )
 
 # Build the static library.
 add_library( KLFitter-stat ${lib_headers} ${lib_sources} )
 target_include_directories( KLFitter-stat
-   PUBLIC ${ROOT_INCLUDE_DIRS}
+   PUBLIC ${ROOT_INCLUDE_DIRS} ${BAT_INCLUDE_DIR}
    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include> )
-target_link_libraries( KLFitter-stat ${ROOT_LIBRARIES} )
+target_link_libraries( KLFitter-stat ${ROOT_LIBRARIES} ${BAT_LIBRARY} )
 set_property( TARGET KLFitter-stat
    PROPERTY PUBLIC_HEADER ${lib_headers} )
 
