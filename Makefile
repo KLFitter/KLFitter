@@ -15,11 +15,6 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
 #
-
-MACHINE = $(shell uname -s)
-LINUX   = Linux
-MAC     = Darwin
-
 INCDIR = include
 SRCDIR = src
 OBJDIR = obj
@@ -40,18 +35,10 @@ BATLIBS   = -L$(BATINSTALLDIR)/lib -lBAT
 SRC = $(wildcard $(SRCDIR)/*.cxx)
 OBJ = $(SRC:$(SRCDIR)/%.cxx=$(OBJDIR)/%.o)
 MAIN = $(wildcard *.c)
-ifneq ($(MACHINE), $(MAC))
-	LIBSO = $(LIBDIR)/libKLFitter.so
-	SOFLAGS = -shared
-else
-	LIBSO = $(LIBDIR)/libKLFitter.dylib
-	SOFLAGS = -dynamiclib
-endif
+LIBSO = $(LIBDIR)/libKLFitter.so
 
-CXXFLAGS = $(ROOTCFLAGS) $(BATCFLAGS) -I$(INCDIR) -Wall -Wno-deprecated -O2 -ggdb -g
-ifneq ($(MACHINE), $(MAC))
-	CXXFLAGS += -fPIC
-endif
+SOFLAGS = -shared
+CXXFLAGS = $(ROOTCFLAGS) $(BATCFLAGS) -I$(INCDIR) -Wall -Wno-deprecated -O2 -ggdb -g -fPIC
 LIBS     = $(ROOTLIBS) $(BATLIBS)
 
 # rule for shared library
