@@ -44,6 +44,10 @@ set( CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib )
 # Make the project's modules visible to CMake.
 # list( INSERT CMAKE_MODULE_PATH 0 ${CMAKE_SOURCE_DIR}/cmake )
 
+# Add ROOT system directory and require ROOT.
+list(APPEND CMAKE_PREFIX_PATH $ENV{ROOTSYS})
+find_package( ROOT REQUIRED )
+
 # Public header files for the shared/static library.
 set( lib_headers include/KLFitter/BoostedLikelihoodTopLeptonJets.h
 include/KLFitter/DetectorAtlas_7TeV.h include/KLFitter/DetectorAtlas_8TeV.h
@@ -76,18 +80,18 @@ src/ResGauss_MET.cxx src/ResolutionBase.cxx )
 # Build the shared library.
 add_library( KLFitter SHARED ${lib_headers} ${lib_sources} )
 target_include_directories( KLFitter
-   PUBLIC ${EIGEN3_INCLUDE_DIR}
-   $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include>
-   PRIVATE ${Boost_INCLUDE_DIRS} )
+   PUBLIC ${ROOT_INCLUDE_DIRS}
+   $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include> )
+target_link_libraries( KLFitter ${ROOT_LIBRARIES} )
 set_property( TARGET KLFitter
    PROPERTY PUBLIC_HEADER ${lib_headers} )
 
 # Build the static library.
 add_library( KLFitter-stat ${lib_headers} ${lib_sources} )
 target_include_directories( KLFitter-stat
-   PUBLIC ${EIGEN3_INCLUDE_DIR}
-   $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include>
-   PRIVATE ${Boost_INCLUDE_DIRS} )
+   PUBLIC ${ROOT_INCLUDE_DIRS}
+   $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include> )
+target_link_libraries( KLFitter-stat ${ROOT_LIBRARIES} )
 set_property( TARGET KLFitter-stat
    PROPERTY PUBLIC_HEADER ${lib_headers} )
 
