@@ -79,4 +79,4 @@ install: all
 	$(MKDIR) $(DESTDIR)/include
 	$(MKDIR) $(DESTDIR)/lib
 	$(CP) $(LIBDIR) $(DESTDIR)/
-	$(CP) $(INCDIR) $(DESTDIR)/include/
+	$(CP) $(INCDIR) $(DESTDIR)/
