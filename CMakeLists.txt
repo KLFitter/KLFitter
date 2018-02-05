@@ -7,7 +7,7 @@ if( NOT ${CMAKE_VERSION} VERSION_LESS 3.9 )
 endif()
 
 # Set the project's name and version.
-project( KLFitter VERSION 2.6 )
+project( KLFitter )
 
 # Enable using CTest in the project.
 include( CTest )
