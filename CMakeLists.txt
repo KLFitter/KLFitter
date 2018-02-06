@@ -90,16 +90,19 @@ set_property( TARGET KLFitter
    PROPERTY PUBLIC_HEADER ${lib_headers} )
 
 # Build the static library.
-add_library( KLFitter-stat ${lib_headers} ${lib_sources} )
-target_include_directories( KLFitter-stat
-   PUBLIC ${ROOT_INCLUDE_DIRS} ${BAT_INCLUDE_DIR}
-   $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include> )
-target_link_libraries( KLFitter-stat ${ROOT_LIBRARIES} ${BAT_LIBRARY} )
-set_property( TARGET KLFitter-stat
-   PROPERTY PUBLIC_HEADER ${lib_headers} )
+# add_library( KLFitter-stat ${lib_headers} ${lib_sources} )
+# target_include_directories( KLFitter-stat
+#    PUBLIC ${ROOT_INCLUDE_DIRS} ${BAT_INCLUDE_DIR}
+#    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include> )
+# target_link_libraries( KLFitter-stat ${ROOT_LIBRARIES} ${BAT_LIBRARY} )
+# set_property( TARGET KLFitter-stat
+#    PROPERTY PUBLIC_HEADER ${lib_headers} )
+#
+# # Install the libraries.
+# install( TARGETS KLFitter KLFitter-stat
 
 # Install the libraries.
-install( TARGETS KLFitter KLFitter-stat
+install( TARGETS KLFitter
    EXPORT KLFitterTargets
    ARCHIVE DESTINATION lib
    LIBRARY DESTINATION lib
