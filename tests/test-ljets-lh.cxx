@@ -4,6 +4,7 @@
 #include "KLFitter/Permutations.h"
 
 #include "TLorentzVector.h"
+#include <iomanip>
 #include <iostream>
 #include <memory>
 #include <vector>
@@ -87,6 +88,14 @@ int main() {
 
   normalizeValues(&evt_probs);
 
-  std::cout << "Hello World" << std::endl;
+  std::cout << std::fixed;  // enforce fixed precision for output
+  for (int perm = 0; perm < nperm; ++perm) {
+    std::cout << "Permutation: " << perm + 1;
+    std::cout << std::setprecision(2);
+    std::cout << "  \tLogLikelihood: " << lh_values.at(perm);
+    std::cout << std::setprecision(10);
+    std::cout << "  \tEvtProbability: " << evt_probs.at(perm);
+    std::cout << std::endl;
+  }
   return 0;
 }
