@@ -55,7 +55,14 @@ namespace {
   }
 }
 
-int main() {
+int main(int argc, char* argv[]) {
+  if (argc != 2) {
+    std::cerr << "Wrong number of arguments." << std::endl;
+    std::cerr << "Usage: test-ljets-lh [base directory]" << std::endl;
+    return -1;
+  }
+  const auto base_dir = std::string(argv[1]);
+
   KLFitter::Fitter fitter{};
 
   // Get one set of example particles. Assume the following
@@ -74,7 +81,7 @@ int main() {
   lh.SetBTagging(KLFitter::LikelihoodBase::BtaggingMethod::kWorkingPoint);
   fitter.SetLikelihood(&lh);
 
-  KLFitter::DetectorAtlas_8TeV detector{"../data/transferfunctions/8TeV/ttbar/mc12_LCJets_v1"};
+  KLFitter::DetectorAtlas_8TeV detector{base_dir + "/data/transferfunctions/8TeV/ttbar/mc12_LCJets_v1"};
   if (!fitter.SetDetector(&detector)) {
     std::cerr << "Setting up the detector failed" << std::endl;
     return -1;
