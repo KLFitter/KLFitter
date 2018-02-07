@@ -1,10 +1,12 @@
 #include "KLFitter/DetectorAtlas_8TeV.h"
 #include "KLFitter/Fitter.h"
 #include "KLFitter/LikelihoodTopLeptonJets.h"
+#include "KLFitter/Permutations.h"
 
 #include "TLorentzVector.h"
 #include <iostream>
 #include <memory>
+#include <vector>
 
 namespace {
   std::unique_ptr<KLFitter::Particles> getExampleParticles(float tag_eff, float tag_ineff) {
@@ -62,6 +64,15 @@ int main() {
 
   KLFitter::DetectorAtlas_8TeV detector{"../data/transferfunctions/8TeV/ttbar/mc12_LCJets_v1"};
   fitter.SetDetector(&detector);
+
+  const auto nperm = fitter.Permutations()->NPermutations();
+  std::vector<float> lh_values{};
+  std::vector<float> evt_probs{};
+  for (int perm = 0; perm < nperm; ++perm) {
+    fitter.Fit(perm);
+    lh_values.emplace_back(fitter.Likelihood()->LogLikelihood(fitter.Likelihood()->GetBestFitParameters()));
+    evt_probs.emplace_back(std::exp(fitter.Likelihood()->LogEventProbability()));
+  }
 
   std::cout << "Hello World" << std::endl;
   return 0;
