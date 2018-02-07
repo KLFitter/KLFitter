@@ -1,3 +1,5 @@
+#include "KLFitter/DetectorAtlas_8TeV.h"
+#include "KLFitter/Fitter.h"
 #include "KLFitter/LikelihoodTopLeptonJets.h"
 
 #include "TLorentzVector.h"
@@ -40,13 +42,20 @@ namespace {
 }
 
 int main() {
+  KLFitter::Fitter fitter{};
+
   // Get one set of example particles. Assume the following
   // efficiencies for the jet b-tagging algorithm:
   //   - 0.7 tag rate
   //   - 1/125 type-II error (false positives)
   const auto particles = getExampleParticles(0.7, 125);
+  fitter.SetParticles(particles.get());
 
   KLFitter::LikelihoodTopLeptonJets lh{};
+  fitter.SetLikelihood(&lh);
+
+  KLFitter::DetectorAtlas_8TeV detector{"../data/transferfunctions/8TeV/ttbar/mc12_LCJets_v1"};
+  fitter.SetDetector(&detector);
 
   std::cout << "Hello World" << std::endl;
   return 0;
