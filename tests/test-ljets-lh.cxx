@@ -41,6 +41,17 @@ namespace {
     particles->AddParticle(&lep, lep.Eta(), KLFitter::Particles::kMuon, "", 0);
     return particles;
   }
+
+  void normalizeValues(std::vector<float>* vector) {
+    float scale{0};
+    for (const auto& i : *vector) {
+      scale += i;
+    }
+
+    for (auto& i : *vector) {
+      i *= 1./scale;
+    }
+  }
 }
 
 int main() {
@@ -73,6 +84,8 @@ int main() {
     lh_values.emplace_back(fitter.Likelihood()->LogLikelihood(fitter.Likelihood()->GetBestFitParameters()));
     evt_probs.emplace_back(std::exp(fitter.Likelihood()->LogEventProbability()));
   }
+
+  normalizeValues(&evt_probs);
 
   std::cout << "Hello World" << std::endl;
   return 0;
