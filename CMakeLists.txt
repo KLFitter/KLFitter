@@ -122,6 +122,9 @@ target_include_directories( KLFitter-stat
 target_link_libraries( KLFitter-stat ${ROOT_LIBRARIES} ${BAT_LIBRARY} )
 set_property( TARGET KLFitter-stat
    PROPERTY PUBLIC_HEADER ${lib_headers} )
+if( BUILTIN_BAT )
+  add_dependencies( KLFitter-stat BAT )
+endif()
 
 # Helper macro for building the project's unit tests.
 macro( KLFitter_add_test name )
