@@ -64,8 +64,10 @@ if( BUILTIN_BAT )
     BUILD_COMMAND make
     INSTALL_COMMAND make install
     COMMAND ${CMAKE_COMMAND} -E copy_directory ${_buildDir}/ <INSTALL_DIR> )
-  # Set the include path to use.
+  # Set the include and library paths to use.
   set( BAT_INCLUDE_DIR $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/externals/BAT/include> )
+  set( BAT_LIBRARY $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/externals/BAT/lib/libBAT.so>
+    $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/externals/BAT/lib/libBAT.a>)
   # Tell the user what will happen.
   message( STATUS "Using a privately downloaded BAT version for the build" )
 else()
@@ -126,6 +128,13 @@ if( BUILTIN_BAT )
   add_dependencies( KLFitter-stat BAT )
 endif()
 
+# Install the libraries.
+install( TARGETS KLFitter KLFitter-stat
+   EXPORT KLFitterTargets
+   ARCHIVE DESTINATION lib
+   LIBRARY DESTINATION lib
+   PUBLIC_HEADER DESTINATION include/KLFitter )
+
 # Helper macro for building the project's unit tests.
 macro( KLFitter_add_test name )
    # Build the unit-test executable:
@@ -141,13 +150,6 @@ endmacro( KLFitter_add_test )
 
 # Set up the test(s) of the project.
 KLFitter_add_test( test-ljets-lh tests/test-ljets-lh.cxx )
-
-# Install the libraries.
-install( TARGETS KLFitter KLFitter-stat
-   EXPORT KLFitterTargets
-   ARCHIVE DESTINATION lib
-   LIBRARY DESTINATION lib
-   PUBLIC_HEADER DESTINATION include/KLFitter )
 
 # Install the CMake description of the project.
 install( EXPORT KLFitterTargets
