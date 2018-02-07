@@ -51,7 +51,13 @@ int main() {
   const auto particles = getExampleParticles(0.7, 125);
   fitter.SetParticles(particles.get());
 
+  const float met{26.125748};
+  const float met_phi{0.3639200};
+  fitter.SetET_miss_XY_SumET(met * std::cos(met_phi), met * std::sin(met_phi), met);
+
   KLFitter::LikelihoodTopLeptonJets lh{};
+  lh.SetLeptonType(KLFitter::LikelihoodTopLeptonJets::LeptonType::kMuon);
+  lh.SetBTagging(KLFitter::LikelihoodBase::BtaggingMethod::kWorkingPoint);
   fitter.SetLikelihood(&lh);
 
   KLFitter::DetectorAtlas_8TeV detector{"../data/transferfunctions/8TeV/ttbar/mc12_LCJets_v1"};
