@@ -64,8 +64,10 @@ if( BUILTIN_BAT )
     BUILD_COMMAND make
     INSTALL_COMMAND make install
     COMMAND ${CMAKE_COMMAND} -E copy_directory ${_buildDir}/ <INSTALL_DIR> )
-  # Set the include path to use.
+  # Set the include and library paths to use.
   set( BAT_INCLUDE_DIR $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/externals/BAT/include> )
+  set( BAT_LIBRARY $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/externals/BAT/lib/libBAT.so>
+    $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/externals/BAT/lib/libBAT.a>)
   # Tell the user what will happen.
   message( STATUS "Using a privately downloaded BAT version for the build" )
 else()
