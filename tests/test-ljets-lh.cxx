@@ -75,7 +75,10 @@ int main() {
   fitter.SetLikelihood(&lh);
 
   KLFitter::DetectorAtlas_8TeV detector{"../data/transferfunctions/8TeV/ttbar/mc12_LCJets_v1"};
-  fitter.SetDetector(&detector);
+  if (!fitter.SetDetector(&detector)) {
+    std::cerr << "Setting up the detector failed" << std::endl;
+    return -1;
+  }
 
   const auto nperm = fitter.Permutations()->NPermutations();
   std::vector<float> lh_values{};
