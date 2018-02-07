@@ -115,19 +115,32 @@ if( BUILTIN_BAT )
 endif()
 
 # Build the static library.
-# add_library( KLFitter-stat ${lib_headers} ${lib_sources} )
-# target_include_directories( KLFitter-stat
-#    PUBLIC ${ROOT_INCLUDE_DIRS} ${BAT_INCLUDE_DIR}
-#    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include> )
-# target_link_libraries( KLFitter-stat ${ROOT_LIBRARIES} ${BAT_LIBRARY} )
-# set_property( TARGET KLFitter-stat
-#    PROPERTY PUBLIC_HEADER ${lib_headers} )
-#
-# # Install the libraries.
-# install( TARGETS KLFitter KLFitter-stat
+add_library( KLFitter-stat ${lib_headers} ${lib_sources} )
+target_include_directories( KLFitter-stat
+   PUBLIC ${ROOT_INCLUDE_DIRS} ${BAT_INCLUDE_DIR}
+   $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include> )
+target_link_libraries( KLFitter-stat ${ROOT_LIBRARIES} ${BAT_LIBRARY} )
+set_property( TARGET KLFitter-stat
+   PROPERTY PUBLIC_HEADER ${lib_headers} )
+
+# Helper macro for building the project's unit tests.
+macro( KLFitter_add_test name )
+   # Build the unit-test executable:
+   add_executable( ${name} ${ARGN} )
+   target_link_libraries( ${name} KLFitter-stat )
+   set_target_properties( ${name} PROPERTIES
+      RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/test-bin" )
+   # Set up the test itself:
+   add_test( NAME ${name}_ctest
+      COMMAND ${CMAKE_BINARY_DIR}/test-bin/${name}
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/test-bin )
+endmacro( KLFitter_add_test )
+
+# Set up the test(s) of the project.
+KLFitter_add_test( test-ljets-lh tests/test-ljets-lh.cxx )
 
 # Install the libraries.
-install( TARGETS KLFitter
+install( TARGETS KLFitter KLFitter-stat
    EXPORT KLFitterTargets
    ARCHIVE DESTINATION lib
    LIBRARY DESTINATION lib
