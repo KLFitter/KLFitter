@@ -48,8 +48,30 @@ list( INSERT CMAKE_MODULE_PATH 0 ${CMAKE_SOURCE_DIR}/cmake )
 list(APPEND CMAKE_PREFIX_PATH $ENV{ROOTSYS})
 find_package( ROOT REQUIRED )
 
-# Require BAT.
-find_package( BAT REQUIRED )
+# Figure out what to do with BAT.
+set( _buildDir ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/BATBuild )
+option( BUILTIN_BAT "Acquire BAT as part of building this project" OFF )
+if( BUILTIN_BAT )
+  # Download and install BAT using ExternalProject.
+  include( ExternalProject )
+  ExternalProject_Add( BAT
+    PREFIX ${CMAKE_BINARY_DIR}/externals
+    INSTALL_DIR ${CMAKE_BINARY_DIR}/externals/BAT
+    URL "https://github.com/bat/bat/releases/download/v0.9.4.1/BAT-0.9.4.1.tar.gz"
+    URL_MD5 "e1a09dc5e379dd5b5d665729ea45b535"
+    BUILD_IN_SOURCE 1
+    CONFIGURE_COMMAND <SOURCE_DIR>/configure --with-rootsys=$ENV{ROOTSYS} --prefix=${_buildDir}
+    BUILD_COMMAND make
+    INSTALL_COMMAND make install
+    COMMAND ${CMAKE_COMMAND} -E copy_directory ${_buildDir}/ <INSTALL_DIR> )
+  # Set the include path to use.
+  set( BAT_INCLUDE_DIR $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/externals/BAT/include> )
+  # Tell the user what will happen.
+  message( STATUS "Using a privately downloaded BAT version for the build" )
+else()
+  # Look for BAT on the build system.
+  find_package( BAT REQUIRED )
+endif()
 
 # Public header files for the shared/static library.
 set( lib_headers include/KLFitter/BoostedLikelihoodTopLeptonJets.h
@@ -88,6 +110,9 @@ target_include_directories( KLFitter
 target_link_libraries( KLFitter ${ROOT_LIBRARIES} ${BAT_LIBARY} )
 set_property( TARGET KLFitter
    PROPERTY PUBLIC_HEADER ${lib_headers} )
+if( BUILTIN_BAT )
+  add_dependencies( KLFitter BAT )
+endif()
 
 # Build the static library.
 # add_library( KLFitter-stat ${lib_headers} ${lib_sources} )
