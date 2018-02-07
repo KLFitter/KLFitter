@@ -126,6 +126,13 @@ if( BUILTIN_BAT )
   add_dependencies( KLFitter-stat BAT )
 endif()
 
+# Install the libraries.
+install( TARGETS KLFitter KLFitter-stat
+   EXPORT KLFitterTargets
+   ARCHIVE DESTINATION lib
+   LIBRARY DESTINATION lib
+   PUBLIC_HEADER DESTINATION include/KLFitter )
+
 # Helper macro for building the project's unit tests.
 macro( KLFitter_add_test name )
    # Build the unit-test executable:
@@ -141,13 +148,6 @@ endmacro( KLFitter_add_test )
 
 # Set up the test(s) of the project.
 KLFitter_add_test( test-ljets-lh tests/test-ljets-lh.cxx )
-
-# Install the libraries.
-install( TARGETS KLFitter KLFitter-stat
-   EXPORT KLFitterTargets
-   ARCHIVE DESTINATION lib
-   LIBRARY DESTINATION lib
-   PUBLIC_HEADER DESTINATION include/KLFitter )
 
 # Install the CMake description of the project.
 install( EXPORT KLFitterTargets
