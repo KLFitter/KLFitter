@@ -11,16 +11,13 @@
 #
 #   BAT::BAT   - The BAT library
 
-find_package(PkgConfig)
-pkg_check_modules(PC_BAT QUIET BAT)
-
 find_path(BAT_INCLUDE_DIR
   NAMES BAT/BCLog.h BAT/BCMath.h
-  PATHS ${PC_BAT_INCLUDE_DIRS} $ENV{BATINSTALLDIR}/include
+  PATHS ${CMAKE_INSTALL_PREFIX}/include $ENV{BATINSTALLDIR}/include
 )
 find_library(BAT_LIBRARY
   NAMES BAT
-  PATHS ${PC_BAT_LIBRARY_DIRS} $ENV{BATINSTALLDIR}/lib
+  PATHS ${CMAKE_INSTALL_PREFIX}/lib $ENV{BATINSTALLDIR}/lib
 )
 
 set(BAT_VERSION ${PC_BAT_VERSION})
