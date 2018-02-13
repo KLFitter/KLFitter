@@ -22,8 +22,6 @@ find_library(BAT_LIBRARY
   PATH_SUFFIXES lib
 )
 
-set(BAT_VERSION ${PC_BAT_VERSION})
-
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(BAT
   FOUND_VAR BAT_FOUND
