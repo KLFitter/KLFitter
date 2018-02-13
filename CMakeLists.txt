@@ -59,7 +59,7 @@ if( BUILTIN_BAT )
     URL "https://github.com/bat/bat/releases/download/v0.9.4.1/BAT-0.9.4.1.tar.gz"
     URL_MD5 "e1a09dc5e379dd5b5d665729ea45b535"
     BUILD_IN_SOURCE 1
-    CONFIGURE_COMMAND <SOURCE_DIR>/configure --with-rootsys=$ENV{ROOTSYS} --prefix=${_buildDir}
+    CONFIGURE_COMMAND <SOURCE_DIR>/configure --with-rootsys=${ROOTSYS} --prefix=${_buildDir}
     BUILD_COMMAND make
     INSTALL_COMMAND make install
     COMMAND ${CMAKE_COMMAND} -E copy_directory ${_buildDir}/ <INSTALL_DIR> )
