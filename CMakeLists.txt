@@ -45,7 +45,6 @@ set( CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib )
 list( INSERT CMAKE_MODULE_PATH 0 ${CMAKE_SOURCE_DIR}/cmake )
 
 # Add ROOT system directory and require ROOT.
-list(APPEND CMAKE_PREFIX_PATH $ENV{ROOTSYS})
 find_package( ROOT REQUIRED )
 
 # Figure out what to do with BAT.
