@@ -148,7 +148,9 @@ macro( KLFitter_add_test name )
 endmacro( KLFitter_add_test )
 
 # Set up the test(s) of the project.
-KLFitter_add_test( test-ljets-lh tests/test-ljets-lh.cxx )
+if( KLFITTER_INSTALL_TESTS )
+  KLFitter_add_test( test-ljets-lh tests/test-ljets-lh.cxx )
+endif()
 
 # Install the CMake description of the project.
 install( EXPORT KLFitterTargets
