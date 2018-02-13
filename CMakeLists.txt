@@ -56,7 +56,7 @@ if( BUILTIN_BAT )
   include( ExternalProject )
   ExternalProject_Add( BAT
     PREFIX ${CMAKE_BINARY_DIR}/externals
-    INSTALL_DIR ${CMAKE_BINARY_DIR}/externals/BAT
+    INSTALL_DIR ${CMAKE_BINARY_DIR}
     URL "https://github.com/bat/bat/releases/download/v0.9.4.1/BAT-0.9.4.1.tar.gz"
     URL_MD5 "e1a09dc5e379dd5b5d665729ea45b535"
     BUILD_IN_SOURCE 1
@@ -65,9 +65,9 @@ if( BUILTIN_BAT )
     INSTALL_COMMAND make install
     COMMAND ${CMAKE_COMMAND} -E copy_directory ${_buildDir}/ <INSTALL_DIR> )
   # Set the include and library paths to use.
-  set( BAT_INCLUDE_DIR $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/externals/BAT/include> )
-  set( BAT_LIBRARY $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/externals/BAT/lib/libBAT.so>
-    $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/externals/BAT/lib/libBAT.a>)
+  set( BAT_ROOT $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}> )
+  set( BAT_INCLUDE_DIR ${BAT_ROOT}/include )
+  set( BAT_LIBRARY ${BAT_ROOT}/lib/libBAT.so )
   # Tell the user what will happen.
   message( STATUS "Using a privately downloaded BAT version for the build" )
 else()
