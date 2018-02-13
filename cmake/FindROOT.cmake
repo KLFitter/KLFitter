@@ -17,7 +17,7 @@
 #  dependencies in ROOT_GENERATE_DICTIONARY
 
 find_program(ROOT_CONFIG_EXECUTABLE root-config
-  HINTS $ENV{ROOTSYS}/bin)
+  HINTS ${ROOT_ROOT}/bin $ENV{ROOTSYS}/bin)
 
 execute_process(
     COMMAND ${ROOT_CONFIG_EXECUTABLE} --prefix
