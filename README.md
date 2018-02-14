@@ -1,4 +1,7 @@
-# KLFitter -- The Kinematic Likelihood Fitter
+# KLFitter – The Kinematic Likelihood Fitter
+
+[![pipeline status](https://gitlab.cern.ch/KLFitter/KLFitter/badges/master/pipeline.svg)](https://gitlab.cern.ch/KLFitter/KLFitter/commits/master)
+[![coverage report](https://gitlab.cern.ch/KLFitter/KLFitter/badges/master/coverage.svg)](https://gitlab.cern.ch/KLFitter/KLFitter/commits/master)
 
 KLFitter is a library for kinematic fitting using a likelihood approach. It is
 primarily developed for the case of top quark reconstruction, but it can be
