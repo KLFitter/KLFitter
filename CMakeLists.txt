@@ -45,7 +45,7 @@ set( CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib )
 list( INSERT CMAKE_MODULE_PATH 0 ${CMAKE_SOURCE_DIR}/cmake )
 
 # Add ROOT system directory and require ROOT.
-find_package( ROOT 5.34.10 REQUIRED MathCore )
+find_package( ROOT 5.34.10 REQUIRED MathCore Minuit )
 
 # Figure out what to do with BAT.
 set( _buildDir ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/BATBuild )
