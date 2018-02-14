@@ -13,6 +13,7 @@ make-build:
   artifacts:
     paths:
     - build
+    expire_in: 2 days
 
 # run tests using the binary built
 run-tests:
