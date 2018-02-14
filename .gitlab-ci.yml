@@ -1,0 +1,7 @@
+image: rootproject/root-ubuntu16
+
+# run tests using the binary built
+test:
+  stage: test
+  script:
+    - echo `root-config --version`
