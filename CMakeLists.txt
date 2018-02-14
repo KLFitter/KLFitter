@@ -45,7 +45,7 @@ set( CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib )
 list( INSERT CMAKE_MODULE_PATH 0 ${CMAKE_SOURCE_DIR}/cmake )
 
 # Add ROOT system directory and require ROOT.
-find_package( ROOT REQUIRED MathCore )
+find_package( ROOT 5.34.10 REQUIRED MathCore )
 
 # Figure out what to do with BAT.
 set( _buildDir ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/BATBuild )
@@ -71,7 +71,7 @@ if( BUILTIN_BAT )
   message( STATUS "Using a privately downloaded BAT version for the build" )
 else()
   # Look for BAT on the build system.
-  find_package( BAT REQUIRED )
+  find_package( BAT 0.9.4.1 REQUIRED )
 endif()
 
 # Public header files for the shared/static library.
