@@ -45,7 +45,7 @@ set( CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib )
 list( INSERT CMAKE_MODULE_PATH 0 ${CMAKE_SOURCE_DIR}/cmake )
 
 # Add ROOT system directory and require ROOT.
-find_package( ROOT REQUIRED )
+find_package( ROOT REQUIRED MathCore )
 
 # Figure out what to do with BAT.
 set( _buildDir ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/BATBuild )
@@ -108,7 +108,7 @@ add_library( KLFitter SHARED ${lib_headers} ${lib_sources} )
 target_include_directories( KLFitter
    PUBLIC ${ROOT_INCLUDE_DIRS} ${BAT_INCLUDE_DIR}
    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include> )
-target_link_libraries( KLFitter ${ROOT_LIBRARIES} ${BAT_LIBARY} )
+target_link_libraries( KLFitter ${ROOT_MathCore_LIBRARY} ${BAT_LIBARY} )
 set_property( TARGET KLFitter
    PROPERTY PUBLIC_HEADER ${lib_headers} )
 if( BUILTIN_BAT )
@@ -120,7 +120,7 @@ add_library( KLFitter-stat ${lib_headers} ${lib_sources} )
 target_include_directories( KLFitter-stat
    PUBLIC ${ROOT_INCLUDE_DIRS} ${BAT_INCLUDE_DIR}
    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include> )
-target_link_libraries( KLFitter-stat ${ROOT_LIBRARIES} ${BAT_LIBRARY} )
+target_link_libraries( KLFitter-stat ${ROOT_MathCore_LIBRARY} ${BAT_LIBRARY} )
 set_property( TARGET KLFitter-stat
    PROPERTY PUBLIC_HEADER ${lib_headers} )
 if( BUILTIN_BAT )
