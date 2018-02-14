@@ -10,6 +10,9 @@ make-build:
     - cd build
     - cmake -DBUILTIN_BAT=TRUE -DKLFITTER_INSTALL_TESTS=TRUE ..
     - make -j || make -j || make -j
+  artifacts:
+    paths:
+    - build
 
 # run tests using the binary built
 run-tests:
