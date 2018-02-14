@@ -1,0 +1,24 @@
+image: rootproject/root-ubuntu16
+
+# Build the project (including download of BAT)
+make-build:
+  stage: build
+  script:
+    - cmake --version
+    - echo `root-config --version`
+    - mkdir -p build
+    - cd build
+    - cmake -DBUILTIN_BAT=TRUE -DKLFITTER_INSTALL_TESTS=TRUE ..
+    - make -j || make -j || make -j
+  artifacts:
+    paths:
+    - build
+
+# run tests using the binary built
+run-tests:
+  stage: test
+  before_script:
+    - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/build/lib
+    - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`root-config --libdir`
+  script:
+    - ./build/test-bin/test-ljets-lh ./
