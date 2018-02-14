@@ -20,6 +20,7 @@ SRCDIR = src
 OBJDIR = obj
 LIBDIR = lib
 DESTDIR = dest-tmp
+TESTDIR = tests
 
 CXX = g++
 MKDIR = mkdir -p
@@ -37,9 +38,16 @@ OBJ = $(SRC:$(SRCDIR)/%.cxx=$(OBJDIR)/%.o)
 MAIN = $(wildcard *.c)
 LIBSO = $(LIBDIR)/libKLFitter.so
 
+TESTSRC = $(wildcard $(TESTDIR)/*.cxx)
+TESTEXE = $(TESTSRC:$(TESTDIR)/%.cxx=%.exe)
+
 SOFLAGS = -shared
 CXXFLAGS = $(ROOTCFLAGS) $(BATCFLAGS) -I$(INCDIR) -Wall -Wno-deprecated -O2 -ggdb -g -fPIC
 LIBS     = $(ROOTLIBS) $(BATLIBS)
+
+# rule for test executables
+%.exe: $(TESTDIR)/%.cxx $(LIBSO)
+	$(CXX) $(CXXFLAGS) $(LIBS) $+ -o $@
 
 # rule for shared library
 $(LIBSO): $(OBJ)
@@ -52,13 +60,18 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.cxx
 
 .PHONY: all
 
-all: $(LIBSO)
+all: $(LIBSO) $(TESTEXE)
+
+.PHONY: tests
+
+tests: $(TESTEXE)
 
 .PHONY: clean
 
 clean:
 	$(RM) $(OBJ) $(LIBSO)
 	$(RM) -r $(DESTDIR)
+	$(RM) $(TESTEXE)
 
 .PHONY: install
 
