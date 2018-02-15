@@ -19,7 +19,7 @@ INCDIR = include
 SRCDIR = src
 OBJDIR = obj
 LIBDIR = lib
-DESTDIR = dest-tmp
+DESTDIR = build
 TESTDIR = tests
 
 CXX = g++
@@ -80,3 +80,4 @@ install: all
 	$(MKDIR) $(DESTDIR)/lib
 	$(CP) $(LIBDIR) $(DESTDIR)/
 	$(CP) $(INCDIR) $(DESTDIR)/
+	$(CP) $(TESTEXE) $(DESTDIR)/
