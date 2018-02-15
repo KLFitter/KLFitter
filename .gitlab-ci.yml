@@ -5,6 +5,7 @@ stages:
   - build
   - test
 
+
 # Download and build BAT.
 pre-build:BAT:
   stage: pre-build
@@ -18,13 +19,13 @@ pre-build:BAT:
     - external/BAT
     expire_in: 2 days
 
+
 # Build the project with cmake, including download of BAT.
 build:cmake:minimal:
   stage: build
-  script:
-    - cmake --version
-    - echo `root-config --version`
+  before_script:
     - mkdir -p build
+  script:
     - cd build
     - cmake -DBUILTIN_BAT=TRUE -DKLFITTER_INSTALL_TESTS=TRUE ..
     - make -j || make -j || make -j
@@ -33,17 +34,15 @@ build:cmake:minimal:
     - build
     expire_in: 2 days
 
+
 # Build the project with cmake, using local version of BAT.
 build:cmake:
   stage: build
   before_script:
     - export BATINSTALLDIR=$PWD/external/BAT
-    - mkdir -p KLFitter
+    - mkdir -p build KLFitter
     - mv CMakeLists.txt cmake include src tests KLFitter/
   script:
-    - cmake --version
-    - echo `root-config --version`
-    - mkdir -p build
     - cd build
     - cmake -DKLFITTER_INSTALL_TESTS=TRUE ../KLFitter
     - make -j || make -j || make -j
@@ -54,11 +53,13 @@ build:cmake:
     - build
     expire_in: 2 days
 
+
 # # Build the project with the traditional Makefile.
 # build:make:
 #   stage: build
-#   script:
+#   before_script:
 #     - export BATINSTALLDIR=$PWD/build
+#   script:
 #     - make -j || make -j || make -j
 #     - make -j tests || make -j tests
 #     - make install || make install
@@ -68,6 +69,7 @@ build:cmake:
 #     paths:
 #     - build
 #     expire_in: 2 days
+
 
 # Run unit tests based on the cmake minimal setup.
 test:cmake:minimal:
@@ -79,6 +81,7 @@ test:cmake:minimal:
     - ./build/test-bin/test-ljets-lh ./
   dependencies:
     - build:cmake:minimal
+
 
 # Run unit tests based on the cmake setup with local BAT.
 test:cmake:
@@ -92,6 +95,7 @@ test:cmake:
   dependencies:
     - pre-build:BAT
     - build:cmake
+
 
 # # Run unit tests based on the Makefile setup.
 # test:make:
