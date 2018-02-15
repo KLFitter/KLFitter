@@ -57,7 +57,7 @@ if( BUILTIN_BAT )
     PREFIX ${CMAKE_BINARY_DIR}/externals
     INSTALL_DIR ${CMAKE_BINARY_DIR}
     URL "https://github.com/bat/bat/releases/download/v0.9.4.1/BAT-0.9.4.1.tar.gz"
-    URL_MD5 "e1a09dc5e379dd5b5d665729ea45b535"
+    URL_HASH SHA256=D46C6F834CB5888BBF4DB393887190380132FA48816E0804F79C4A3CC344EF87
     BUILD_IN_SOURCE 1
     CONFIGURE_COMMAND <SOURCE_DIR>/configure --with-rootsys=${ROOTSYS} --prefix=${_buildDir}
     BUILD_COMMAND make
