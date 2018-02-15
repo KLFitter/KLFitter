@@ -38,12 +38,14 @@ build:cmake:
   stage: build
   before_script:
     - export BATINSTALLDIR=$PWD/external/BAT
+    - mkdir -p KLFitter
+    - mv CMakeLists.txt cmake include src tests KLFitter/
   script:
     - cmake --version
     - echo `root-config --version`
     - mkdir -p build
     - cd build
-    - cmake -DKLFITTER_INSTALL_TESTS=TRUE ..
+    - cmake -DKLFITTER_INSTALL_TESTS=TRUE ../KLFitter
     - make -j || make -j || make -j
   dependencies:
     - pre-build:BAT
