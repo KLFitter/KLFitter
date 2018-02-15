@@ -42,7 +42,7 @@ TESTSRC = $(wildcard $(TESTDIR)/*.cxx)
 TESTEXE = $(TESTSRC:$(TESTDIR)/%.cxx=%.exe)
 
 SOFLAGS = -shared
-CXXFLAGS = $(ROOTCFLAGS) $(BATCFLAGS) -I$(INCDIR) -Wall -Wno-deprecated -O2 -ggdb -g -fPIC
+CXXFLAGS = $(ROOTCFLAGS) $(BATCFLAGS) -I$(INCDIR) -Wall -Wno-deprecated -O2 -ggdb -g -std=c++11 -fPIC
 LIBS     = $(ROOTLIBS) $(BATLIBS)
 
 # rule for test executables
