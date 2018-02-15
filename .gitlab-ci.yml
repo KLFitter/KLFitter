@@ -1,5 +1,25 @@
 image: rootproject/root-ubuntu16
 
+stages:
+  - pre-build
+  - build
+  - test
+
+# Download and build BAT.
+pre-build:BAT:
+  stage: pre-build
+  before_script:
+    - sudo apt-get update
+    - sudo apt-get install wget
+  script:
+    - mkdir -p build
+    - cd build
+    - ./../cmake/CompileBAT.sh
+  artifacts:
+    paths:
+    - build
+    expire_in: 2 days
+
 # Build the project with cmake, including download of BAT.
 build:cmake:minimal:
   stage: build
@@ -18,18 +38,13 @@ build:cmake:minimal:
 # Build the project with the traditional Makefile.
 build:make:
   stage: build
-  before_script:
-    - sudo apt-get update
-    - sudo apt-get install wget
   script:
-    - mkdir -p build
-    - cd build
-    - ./../cmake/CompileBAT.sh
-    - export BATINSTALLDIR=$PWD
-    - cd ..
+    - export BATINSTALLDIR=$PWD/build
     - make -j || make -j || make -j
     - make -j tests || make -j tests
     - make install || make install
+  dependencies:
+    - build:BAT
   artifacts:
     paths:
     - build
