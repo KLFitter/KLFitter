@@ -18,6 +18,9 @@ build:cmake:minimal:
 # Build the project with the traditional Makefile.
 build:make:
   stage: build
+  before_script:
+    - sudo apt-get update
+    - sudo apt-get install wget
   script:
     - mkdir -p build
     - cd build
