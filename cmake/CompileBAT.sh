@@ -30,7 +30,7 @@ if verify_file_hash "$tar_name" "$valid_hash"; then
 fi
 
 # Extract the tar archive, move its contents into "BATBuild" folder.
-tar xzf BAT-0.9.4.1.tar.gz
+tar xzf "$tar_name"
 mv BAT-0.9.4.1 BATBuild
 
 # Perform the actual configure and make commands.
@@ -39,3 +39,5 @@ cd BATBuild
 make -j || make -j || make -j
 make install
 cd $build_dir
+rm -rf BATBuild
+rm -f "$tar_name"
