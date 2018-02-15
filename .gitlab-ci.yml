@@ -15,6 +15,21 @@ build:cmake:minimal:
     - build
     expire_in: 2 days
 
+# Build the project with the traditional Makefile.
+build:make:
+  stage: build
+  script:
+    - mkdir -p build
+    - cd build
+    - ./../cmake/CompileBAT.sh
+    - cd ..
+    - (make -j || make -j || make -j)
+    - (make -j tests || make -j tests)
+  artifacts:
+    paths:
+      - build
+      expire_in: 2 days
+
 # Run unit tests based on the cmake minimal setup.
 test:cmake:minimal:
   stage: test
@@ -25,3 +40,14 @@ test:cmake:minimal:
     - ./build/test-bin/test-ljets-lh ./
   dependencies:
     - build:cmake:minimal
+
+# Run unit tests based on the Makefile setup.
+test:make:
+  stage: test
+  before_script:
+    - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/build/lib
+    - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`root-config --libdir`
+  script:
+    - ./build/test-ljets-lh ./
+  dependencies:
+    - build:make
