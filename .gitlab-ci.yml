@@ -25,6 +25,7 @@ build:make:
     - mkdir -p build
     - cd build
     - ./../cmake/CompileBAT.sh
+    - export BATINSTALLDIR=$PWD
     - cd ..
     - make -j || make -j || make -j
     - make -j tests || make -j tests
