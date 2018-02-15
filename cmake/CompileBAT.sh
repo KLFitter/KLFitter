@@ -26,7 +26,7 @@ tar_name="BAT-0.9.4.1.tar.gz"
 valid_hash="d46c6f834cb5888bbf4db393887190380132fa48816e0804f79c4a3cc344ef87"
 wget https://github.com/bat/bat/releases/download/v0.9.4.1/$tar_name
 if verify_file_hash "$tar_name" "$valid_hash"; then
-    exit -1;
+    exit 1;
 fi
 
 # Extract the tar archive, move its contents into "BATBuild" folder.
