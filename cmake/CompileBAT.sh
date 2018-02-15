@@ -35,7 +35,7 @@ mv BAT-0.9.4.1 BATBuild
 
 # Perform the actual configure and make commands.
 cd BATBuild
-./configure --with-rootsys=$ROOTSYS --prefix=$build_dir
+./configure --with-rootsys=`root-config --prefix` --prefix=$build_dir
 make -j || make -j || make -j
 make install
 cd $build_dir
