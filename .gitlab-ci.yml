@@ -35,6 +35,25 @@ build:cmake:minimal:
     - build
     expire_in: 2 days
 
+# Build the project with cmake, using local version of BAT.
+build:cmake:
+  stage: build
+  before_script:
+    - export BATINSTALLDIR=$PWD/build
+  script:
+    - cmake --version
+    - echo `root-config --version`
+    - mkdir -p build
+    - cd build
+    - cmake -DKLFITTER_INSTALL_TESTS=TRUE ..
+    - make -j || make -j || make -j
+  dependencies:
+    - pre-build:BAT
+  artifacts:
+    paths:
+    - build
+    expire_in: 2 days
+
 # # Build the project with the traditional Makefile.
 # build:make:
 #   stage: build
@@ -60,6 +79,18 @@ test:cmake:minimal:
     - ./build/test-bin/test-ljets-lh ./
   dependencies:
     - build:cmake:minimal
+
+# Run unit tests based on the cmake setup with local BAT.
+test:cmake:
+  stage: test
+  before_script:
+    - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/build/lib
+    - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`root-config --libdir`
+  script:
+    - ./build/test-bin/test-ljets-lh ./
+  dependencies:
+    - pre-build:BAT
+    - build:cmake
 
 # # Run unit tests based on the Makefile setup.
 # test:make:
