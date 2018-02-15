@@ -1,7 +1,7 @@
 image: rootproject/root-ubuntu16
 
-# Build the project (including download of BAT)
-make-build:
+# Build the project with cmake, including download of BAT.
+build:cmake:minimal:
   stage: build
   script:
     - cmake --version
@@ -15,11 +15,13 @@ make-build:
     - build
     expire_in: 2 days
 
-# run tests using the binary built
-run-tests:
+# Run unit tests based on the cmake minimal setup.
+test:cmake:minimal:
   stage: test
   before_script:
     - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/build/lib
     - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`root-config --libdir`
   script:
     - ./build/test-bin/test-ljets-lh ./
+  dependencies:
+    - build:cmake:minimal
