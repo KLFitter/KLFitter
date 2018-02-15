@@ -12,12 +12,10 @@ pre-build:BAT:
     - sudo apt-get update
     - sudo apt-get install wget
   script:
-    - mkdir -p build
-    - cd build
-    - ./../cmake/CompileBAT.sh
+    - ./cmake/CompileBAT.sh
   artifacts:
     paths:
-    - build
+    - external/BAT
     expire_in: 2 days
 
 # Build the project with cmake, including download of BAT.
@@ -39,7 +37,7 @@ build:cmake:minimal:
 build:cmake:
   stage: build
   before_script:
-    - export BATINSTALLDIR=$PWD/build
+    - export BATINSTALLDIR=$PWD/external/BAT
   script:
     - cmake --version
     - echo `root-config --version`
@@ -85,6 +83,7 @@ test:cmake:
   stage: test
   before_script:
     - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/build/lib
+    - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/external/BAT/lib
     - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`root-config --libdir`
   script:
     - ./build/test-bin/test-ljets-lh ./

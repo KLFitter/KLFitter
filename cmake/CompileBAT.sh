@@ -2,8 +2,14 @@
 
 set -e
 
-# Save the build directory.
-build_dir=$PWD
+# Define the directories.
+base_dir=$PWD
+build_dir=$base_dir/BATBuild
+target_dir=$base_dir/external/BAT
+
+# Make the directories..
+mkdir -p $build_dir
+mkdir -p $target_dir
 
 # This function verifies the SHA256 ID of a given file.
 verify_file_hash() {
@@ -22,6 +28,7 @@ verify_file_hash() {
 }
 
 # Download the archive and verify it.
+cd $build_dir
 tar_name="BAT-0.9.4.1.tar.gz"
 valid_hash="d46c6f834cb5888bbf4db393887190380132fa48816e0804f79c4a3cc344ef87"
 wget https://github.com/bat/bat/releases/download/v0.9.4.1/$tar_name
@@ -29,15 +36,11 @@ if verify_file_hash "$tar_name" "$valid_hash"; then
     exit 1;
 fi
 
-# Extract the tar archive, move its contents into "BATBuild" folder.
-tar xzf "$tar_name"
-mv BAT-0.9.4.1 BATBuild
-
 # Perform the actual configure and make commands.
-cd BATBuild
-./configure --with-rootsys=`root-config --prefix` --prefix=$build_dir
+tar xzf "$tar_name"
+cd BAT-0.9.4.1
+./configure --with-rootsys=`root-config --prefix` --prefix=$target_dir
 make -j || make -j || make -j
 make install
-cd $build_dir
-rm -rf BATBuild
-rm -f "$tar_name"
+cd $base_dir
+rm -rf $build_dir
