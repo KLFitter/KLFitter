@@ -54,21 +54,22 @@ build:cmake:
     expire_in: 2 days
 
 
-# # Build the project with the traditional Makefile.
-# build:make:
-#   stage: build
-#   before_script:
-#     - export BATINSTALLDIR=$PWD/build
-#   script:
-#     - make -j || make -j || make -j
-#     - make -j tests || make -j tests
-#     - make install || make install
-#   dependencies:
-#     - pre-build:BAT
-#   artifacts:
-#     paths:
-#     - build
-#     expire_in: 2 days
+# Build the project with the traditional Makefile.
+build:make:
+  stage: build
+  allow_failure: true
+  before_script:
+    - export BATINSTALLDIR=$PWD/external/BAT
+  script:
+    - make -j || make -j || make -j
+    - make -j tests || make -j tests
+    - make install || make install
+  dependencies:
+    - pre-build:BAT
+  artifacts:
+    paths:
+    - build
+    expire_in: 2 days
 
 
 # Run unit tests based on the cmake minimal setup.
@@ -97,13 +98,16 @@ test:cmake:
     - build:cmake
 
 
-# # Run unit tests based on the Makefile setup.
-# test:make:
-#   stage: test
-#   before_script:
-#     - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/build/lib
-#     - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`root-config --libdir`
-#   script:
-#     - ./build/test-ljets-lh ./
-#   dependencies:
-#     - build:make
+# Run unit tests based on the Makefile setup.
+test:make:
+  stage: test
+  allow_failure: true
+  before_script:
+    - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/build/lib
+    - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/external/BAT/lib
+    - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`root-config --libdir`
+  script:
+    - ./build/test-ljets-lh ./
+  dependencies:
+    - pre-build:BAT
+    - build:make
