@@ -6,7 +6,7 @@ set -e
 build_dir=$PWD
 
 # This function verifies the SHA256 ID of a given file.
-function verify_file_hash() {
+verify_file_hash() {
     # Extract the SHA256 hash from the file.
     file_hash=`sha256sum "$1" |xargs`
     file_hash=${file_hash%$1}
