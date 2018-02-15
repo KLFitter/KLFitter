@@ -8,9 +8,9 @@ build_dir=$PWD
 # This function verifies the SHA256 ID of a given file.
 verify_file_hash() {
     # Extract the SHA256 hash from the file.
-    file_hash=`sha256sum "$1" |xargs`
+    file_hash=`sha256sum "$1"`
     file_hash=${file_hash%$1}
-    file_hash="$(echo -e $file_hash | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
+    file_hash="$(echo $file_hash | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
 
     if [ "$file_hash" != "$2" ]; then
         echo "SHA256 hash of $1 is invalid. Aborting"
