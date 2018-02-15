@@ -23,12 +23,13 @@ build:make:
     - cd build
     - ./../cmake/CompileBAT.sh
     - cd ..
-    - (make -j || make -j || make -j)
-    - (make -j tests || make -j tests)
+    - make -j || make -j || make -j
+    - make -j tests || make -j tests
+    - make install || make install
   artifacts:
     paths:
-      - build
-      expire_in: 2 days
+    - build
+    expire_in: 2 days
 
 # Run unit tests based on the cmake minimal setup.
 test:cmake:minimal:
