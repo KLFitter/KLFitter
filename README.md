@@ -42,7 +42,7 @@ source code, you can use the git clone command:
 ```
 $ git clone https://gitlab.cern.ch/KLFitter/KLFitter.git
 $ cd KLFitter
-  (for checking out a tagged release)
+  (for checking out a specific release)
 $ git checkout VERSION_TAG
 ```
 
@@ -91,4 +91,15 @@ export CC=`which gcc`
 
 ### Installation via Makefile (deprecated)
 
-to be written ...
+The repository also comes with a _Makefile_, although using cmake to build
+KLFitter is the recommended procedure. Compilation via Makefile assumes that
+you have a working installation of ROOT and BAT. The location of the BAT library
+is determined with the `$BATINSTALLDIR` variable, so make sure to set and export
+it. Then switch to the KLFitter repository directoy and call
+
+```
+make -j && make -j install
+```
+
+to compile KLFitter. The latter command will create a subdirectory _build_ and
+copy the header and library files into that directory for external usage.
