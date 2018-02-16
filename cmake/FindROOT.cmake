@@ -1,3 +1,6 @@
+# N.B. This file is taken from ROOT v6.10.08 and was modified in line 21 to
+# include an additional ${ROOT_ROOT} hint for locating ROOT.
+#
 # - Finds ROOT instalation
 # This module sets up ROOT information
 # It defines:
