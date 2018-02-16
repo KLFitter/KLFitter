@@ -35,7 +35,7 @@ build:cmake:
     - mv KLFitter/* ./
     - rm -rf KLFitter
   script:
-    - ./cmake/CompileBAT.sh
+    - ./KLFitter/cmake/CompileBAT.sh $BATINSTALLDIR
     - cd build
     - cmake -DKLFITTER_INSTALL_TESTS=TRUE ../KLFitter
     - make -j || make -j || make -j
@@ -56,7 +56,7 @@ build:make:
     - sudo apt-get install wget
     - export BATINSTALLDIR=$PWD/external/BAT
   script:
-    - ./cmake/CompileBAT.sh
+    - ./cmake/CompileBAT.sh $BATINSTALLDIR
     - make -j || make -j || make -j
     - make -j tests || make -j tests
     - make install || make install
