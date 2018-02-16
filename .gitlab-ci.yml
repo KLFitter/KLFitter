@@ -1,23 +1,8 @@
 image: rootproject/root-ubuntu16
 
 stages:
-  - pre-build
   - build
   - test
-
-
-# Download and build BAT.
-pre-build:BAT:
-  stage: pre-build
-  before_script:
-    - sudo apt-get update
-    - sudo apt-get install wget
-  script:
-    - ./cmake/CompileBAT.sh
-  artifacts:
-    paths:
-    - external/BAT
-    expire_in: 2 days
 
 
 # Build the project with cmake, including download of BAT.
@@ -38,37 +23,47 @@ build:cmake:minimal:
 # Build the project with cmake, using local version of BAT.
 build:cmake:
   stage: build
+  when: manual
+  allow_failure: true
   before_script:
+    - sudo apt-get update
+    - sudo apt-get install wget
     - export BATINSTALLDIR=$PWD/external/BAT
     - mkdir -p build KLFitter
     - mv CMakeLists.txt cmake include src tests KLFitter/
+  after_script:
+    - mv KLFitter/* ./
+    - rm -rf KLFitter
   script:
+    - ./cmake/CompileBAT.sh
     - cd build
     - cmake -DKLFITTER_INSTALL_TESTS=TRUE ../KLFitter
     - make -j || make -j || make -j
-  dependencies:
-    - pre-build:BAT
   artifacts:
     paths:
     - build
+    - external/BAT
     expire_in: 2 days
 
 
 # Build the project with the traditional Makefile.
 build:make:
   stage: build
+  when: manual
   allow_failure: true
   before_script:
+    - sudo apt-get update
+    - sudo apt-get install wget
     - export BATINSTALLDIR=$PWD/external/BAT
   script:
+    - ./cmake/CompileBAT.sh
     - make -j || make -j || make -j
     - make -j tests || make -j tests
     - make install || make install
-  dependencies:
-    - pre-build:BAT
   artifacts:
     paths:
     - build
+    - external/BAT
     expire_in: 2 days
 
 
