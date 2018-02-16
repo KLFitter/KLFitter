@@ -2,10 +2,18 @@
 
 set -e
 
+if [ $# -eq 1 ]
+then
+    echo "Downloading and installing BAT into $1."
+else
+    echo "Usage: $0 /path/to/install/BAT"
+    exit 1
+fi
+
 # Define the directories.
 base_dir=$PWD
 build_dir=$base_dir/BATBuild
-target_dir=$base_dir/external/BAT
+target_dir=$1
 
 # Make the directories..
 mkdir -p $build_dir
