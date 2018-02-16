@@ -31,8 +31,5 @@
 *.out
 *.app
 
-# Temporary output folder
-dest-tmp
-
 # Build folder
 build
