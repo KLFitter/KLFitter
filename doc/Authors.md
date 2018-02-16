@@ -12,6 +12,7 @@ Main authors of KLFitter in alphabetical order:
 
 Other contributors to KLFitter in alphabetical order:
  - Stefanie Adomeit
+ - Anthony Ciavarella
  - Tomas Dado
  - Stefan Guindon
  - Andrea Knue
