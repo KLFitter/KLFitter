@@ -1,12 +1,18 @@
 image: rootproject/root-ubuntu16
 
-# Build the project (including download of BAT)
-make-build:
+stages:
+  - build
+  - test
+
+
+# Build the project with cmake. This includes an automatic download of the BAT
+# library, and KLFitter and BAT are compiled and linked against each other. This
+# is the recommended way to build KLFitter.
+cmake-build:
   stage: build
-  script:
-    - cmake --version
-    - echo `root-config --version`
+  before_script:
     - mkdir -p build
+  script:
     - cd build
     - cmake -DBUILTIN_BAT=TRUE -DKLFITTER_INSTALL_TESTS=TRUE ..
     - make -j || make -j || make -j
@@ -15,11 +21,67 @@ make-build:
     - build
     expire_in: 2 days
 
-# run tests using the binary built
-run-tests:
+
+# Alternative build 1: build the project with cmake, but use an existing version
+# of the BAT library. For that, we use the script ./cmake/CompileBAT.sh to
+# download and install BAT (without cmake). Then cmake uses the
+# ./cmake/FindBAT.cmake file to locate that external library.
+cmake-build-with-prebuilt-BAT:
+  stage: build
+  when: manual
+  allow_failure: true
+  before_script:
+    - sudo apt-get update
+    - sudo apt-get install wget
+    - export BATINSTALLDIR=$PWD/external/BAT
+    - mkdir -p build KLFitter
+    - mv CMakeLists.txt cmake include src tests KLFitter/
+  after_script:
+    - mv KLFitter/* ./
+    - rm -rf KLFitter
+  script:
+    - ./KLFitter/cmake/CompileBAT.sh $BATINSTALLDIR
+    - cd build
+    - cmake -DKLFITTER_INSTALL_TESTS=TRUE ../KLFitter
+    - make -j || make -j || make -j
+  artifacts:
+    paths:
+    - build
+    - external/BAT
+    expire_in: 2 days
+
+
+# Alternative build 2: build the project with the traditional Makefile. Again
+# this utilises the script ./cmake/CompileBAT.sh to download and install BAT (no
+# use of Makefile). Then the Makefile locates the BAT installation with the
+# $BATINSTALLDIR variable.
+makefile-build:
+  stage: build
+  when: manual
+  allow_failure: true
+  before_script:
+    - sudo apt-get update
+    - sudo apt-get install wget
+    - export BATINSTALLDIR=$PWD/external/BAT
+  script:
+    - ./cmake/CompileBAT.sh $BATINSTALLDIR
+    - make -j || make -j || make -j
+    - make -j tests || make -j tests
+    - make install || make install
+  artifacts:
+    paths:
+    - build
+    - external/BAT
+    expire_in: 2 days
+
+
+# Run unit tests based on the cmake setup.
+cmake-test:
   stage: test
   before_script:
     - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/build/lib
     - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`root-config --libdir`
   script:
     - ./build/test-bin/test-ljets-lh ./
+  dependencies:
+    - cmake-build
