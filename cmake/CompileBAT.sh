@@ -1,5 +1,16 @@
 #!/bin/sh
 
+# This is a short script to download and build the BAT library. The
+# individual steps include:
+#  - Download a tar archive of BAT v0.9.4.1.
+#  - Verify the integrity of the tar file.
+#  - Extract the source.
+#  - Configure and build the source.
+#  - Copy the source into the installation path ($1).
+#  - Clean up.
+#
+# Usage: CompileBAT.sh [absolute install path]
+
 set -e
 
 if [ $# -eq 1 ]
@@ -14,12 +25,10 @@ fi
 base_dir=$PWD
 build_dir=$base_dir/BATBuild
 target_dir=$1
-
-# Make the directories..
-mkdir -p $build_dir
-mkdir -p $target_dir
+mkdir -p $build_dir $target_dir
 
 # This function verifies the SHA256 ID of a given file.
+# Call with: verify_file_hash [file name] [valid hash]
 verify_file_hash() {
     # Extract the SHA256 hash from the file.
     file_hash=`sha256sum "$1"`
@@ -28,19 +37,19 @@ verify_file_hash() {
 
     if [ "$file_hash" != "$2" ]; then
         echo "SHA256 hash of $1 is invalid. Aborting"
-        return 0
+        return 1
     else
         echo "SHA256 hash of $1 matches."
-        return 1
+        return 0
     fi
 }
 
-# Download the archive and verify it.
+# Download the BAT tar archive and verify it.
 cd $build_dir
 tar_name="BAT-0.9.4.1.tar.gz"
 valid_hash="d46c6f834cb5888bbf4db393887190380132fa48816e0804f79c4a3cc344ef87"
 wget https://github.com/bat/bat/releases/download/v0.9.4.1/$tar_name
-if verify_file_hash "$tar_name" "$valid_hash"; then
+if !verify_file_hash "$tar_name" "$valid_hash"; then
     exit 1;
 fi
 
@@ -49,6 +58,10 @@ tar xzf "$tar_name"
 cd BAT-0.9.4.1
 ./configure --with-rootsys=`root-config --prefix` --prefix=$target_dir
 make -j || make -j || make -j
+
+# Copy built BAT into the installation path ($1).
 make install
+
+# Go back to the start and clean up.
 cd $base_dir
 rm -rf $build_dir
