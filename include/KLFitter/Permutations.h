@@ -20,11 +20,11 @@
 #ifndef PERMUTATIONS
 #define PERMUTATIONS
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 
 #include "Particles.h"
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 
 /**
  * \namespace KLFitter
@@ -35,7 +35,7 @@ namespace KLFitter
 
   /**
    * \class KLFitter::Permutations
-   * \brief A class permuting jets, electrons, muons and photons. 
+   * \brief A class permuting jets, electrons, muons and photons.
    * \author Kevin Kr&ouml;ninger
    *
    * The class gets a pointer to the orignal set of particles and a
@@ -45,72 +45,72 @@ namespace KLFitter
    */
   class Permutations
   {
-                
-  public: 
-                
-    /** \name Constructors and destructors */ 
-    /* @{ */ 
-                
+
+  public:
+
+    /** \name Constructors and destructors */
+    /* @{ */
+
     /**
      * The default constructor.
-     * @param p A pointer to the pointer to the original set of particles. 
-     * @param pp A pointer to the pointer to the permutated set of particles. 
-     */ 
-    Permutations(KLFitter::Particles** p, KLFitter::Particles** pp); 
+     * @param p A pointer to the pointer to the original set of particles.
+     * @param pp A pointer to the pointer to the permutated set of particles.
+     */
+    Permutations(KLFitter::Particles** p, KLFitter::Particles** pp);
 
     /**
      * The default destructor.
      */
-    virtual ~Permutations(); 
+    virtual ~Permutations();
 
     /* @} */
     /** \name Member functions (Get)  */
     /* @{ */
 
     /**
-     * Return the original particles. 
-     * @return A pointer to the particles. 
-     */ 
-    KLFitter::Particles* Particles()                    
-      { return *fParticles; }; 
+     * Return the original particles.
+     * @return A pointer to the particles.
+     */
+    KLFitter::Particles* Particles()
+      { return *fParticles; };
 
     /**
-     * Return the current permutation of jets and leptons. 
-     * @return A pointer to the permuted particles. 
-     */ 
+     * Return the current permutation of jets and leptons.
+     * @return A pointer to the permuted particles.
+     */
     KLFitter::Particles* ParticlesPermuted()
-      { return *fParticlesPermuted; }; 
+      { return *fParticlesPermuted; };
 
     /**
      * Return the permutation table.
-     * @return A pointer to the permutation table. 
+     * @return A pointer to the permutation table.
      */
     std::vector<std::vector<int>* >* PermutationTable();
 
     /**
-     * Return the number of permutations. 
-     */ 
+     * Return the number of permutations.
+     */
     int NPermutations()
-    { return int(fParticlesTable -> size()); }; 
+    { return int(fParticlesTable -> size()); };
 
     /**
      * Return the current permutation index.
      * @return The current permutation index.
-     */ 
+     */
     int PermutationIndex()
-    { return fPermutationIndex; }; 
+    { return fPermutationIndex; };
 
     std::vector<std::vector<int>*>* TablePartons()
-      { return fTablePartons; }; 
+      { return fTablePartons; };
 
     std::vector<std::vector<int>*>* TableElectrons()
-      { return fTableElectrons; }; 
+      { return fTableElectrons; };
 
     std::vector<std::vector<int>*>* TableMuons()
-      { return fTableMuons; }; 
+      { return fTableMuons; };
 
     std::vector<std::vector<int>*>* TablePhotons()
-      { return fTablePhotons; }; 
+      { return fTablePhotons; };
 
     /* @} */
     /** \name Member functions (Set)  */
@@ -118,17 +118,17 @@ namespace KLFitter
 
     /**
      * Set the original particles.
-     * @param particles A set of particles. 
-     * @return An error code. 
-     */ 
-    int SetParticles(KLFitter::Particles* particles); 
+     * @param particles A set of particles.
+     * @return An error code.
+     */
+    int SetParticles(KLFitter::Particles* particles);
 
     /**
-     * Set the permutation. 
+     * Set the permutation.
      * @param index The permutation index.
-     * @return An error code. 
-     */ 
-    int SetPermutation(int index); 
+     * @return An error code.
+     */
+    int SetPermutation(int index);
 
     /* @} */
     /** \name Member functions (misc)  */
@@ -137,7 +137,7 @@ namespace KLFitter
     /**
      * Create all possible permutations of jets and leptons.
      * However, make permutations with exactly nPartonsInPermutations.
-     */ 
+     */
     int CreatePermutations(int nPartonsInPermutations = -1);
 
     /**
@@ -148,10 +148,10 @@ namespace KLFitter
      * if two jets come from a W (top).
      * @param ptype The type of the particle.
      * @param indexVector Vector of indices.
-     * @return An error code. 
-     */ 
+     * @return An error code.
+     */
     int InvariantParticlePermutations(KLFitter::Particles::ParticleType ptype, std::vector<int> indexVector);
-    
+
     /**
      * Remove permutations in which all indices in the vector indexVectorPosition1 are exchanged with the corresponding indices in indexVectorPosition2
      * for the given particle type.
@@ -161,10 +161,10 @@ namespace KLFitter
      * @param ptype The type of the particle.
      * @param indexVectorPosition1 Vector of indices of first set of particle.
      * @param indexVectorPosition2 Vector of corresponding indices for second set of particle.
-     * @return An error code. 
-     */     
-    int InvariantParticleGroupPermutations(KLFitter::Particles::ParticleType ptype, std::vector<int> indexVectorPosition1,  std::vector<int> indexVectorPosition2);       
-    
+     * @return An error code.
+     */
+    int InvariantParticleGroupPermutations(KLFitter::Particles::ParticleType ptype, std::vector<int> indexVectorPosition1,  std::vector<int> indexVectorPosition2);
+
      /**
      * Remove permutations in which a certain particles is in a certain position.
      * This is useful to reduce the number of permutations if for example
@@ -172,78 +172,78 @@ namespace KLFitter
      * @param ptype The type of the particle.
      * @param index The index of the particle.
      * @param position The position in which it is forbidden.
-     * @return An error code. 
-     */ 
-    int RemoveParticlePermutations(KLFitter::Particles::ParticleType ptype, int index, int position);     
+     * @return An error code.
+     */
+    int RemoveParticlePermutations(KLFitter::Particles::ParticleType ptype, int index, int position);
 
     /**
-     * Reset Permutations. 
-     * @return An error code. 
-     */ 
-    int Reset(); 
+     * Reset Permutations.
+     * @return An error code.
+     */
+    int Reset();
 
     /**
-     * Creates table of permutations. 
-     */ 
-    int CreateSubTable(int Nobj,  std::vector<std::vector<int>*>* table, int Nmax = -1); 
+     * Creates table of permutations.
+     */
+    int CreateSubTable(int Nobj,  std::vector<std::vector<int>*>* table, int Nmax = -1);
 
     /* @} */
 
-  private: 
+  private:
 
     /**
-     * Check if particles are defined. 
-     */ 
-    int CheckParticles(); 
-                
-  protected: 
+     * Check if particles are defined.
+     */
+    int CheckParticles();
+
+  protected:
 
   private:
 
     /**
      * Helper functions to efficienctly create permutations of N particles of only M selected particles.
      */
-    
+
     std::vector<int> Get_int_vector(int i);
     std::vector<int> Get_int_plus_vector(int i, std::vector<int> v);
     std::vector<std::vector<int> > Get_M_from_N(unsigned int N, unsigned int M, unsigned int start = 0);
 
-  private: 
+  private:
 
     /**
-     * A pointer to the pointer of original particles. 
-     */ 
-    KLFitter::Particles** fParticles; 
+     * A pointer to the pointer of original particles.
+     */
+    KLFitter::Particles** fParticles;
 
     /**
-     * A pointer to the pointer of permuted particles. 
-     */ 
-    KLFitter::Particles** fParticlesPermuted; 
+     * A pointer to the pointer of permuted particles.
+     */
+    KLFitter::Particles** fParticlesPermuted;
 
     /**
-     * A table of permuted particles (jets and leptons). 
-     */ 
-    std::vector <KLFitter::Particles*>* fParticlesTable; 
+     * A table of permuted particles (jets and leptons).
+     */
+    std::vector <KLFitter::Particles*>* fParticlesTable;
 
     /**
-     * A table of permutations. Needed for the math. 
-     */ 
-    std::vector < std::vector <int>*>* fPermutationTable; 
+     * A table of permutations. Needed for the math.
+     */
+    std::vector < std::vector <int>*>* fPermutationTable;
 
     /**
      * The permutation index
-     */ 
-    int fPermutationIndex; 
+     */
+    int fPermutationIndex;
 
-    std::vector<std::vector<int>*>* fTablePartons; 
-    std::vector<std::vector<int>*>* fTableElectrons; 
-    std::vector<std::vector<int>*>* fTableMuons; 
-    std::vector<std::vector<int>*>* fTablePhotons; 
-  }; 
+    std::vector<std::vector<int>*>* fTablePartons;
+    std::vector<std::vector<int>*>* fTableElectrons;
+    std::vector<std::vector<int>*>* fTableMuons;
+    std::vector<std::vector<int>*>* fTablePhotons;
+  };
 
-} // namespace KLFitter 
+} // namespace KLFitter
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 
-#endif 
+#endif
 

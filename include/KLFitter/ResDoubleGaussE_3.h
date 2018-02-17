@@ -21,9 +21,9 @@
 #define RESDOUBLEGAUSSE_3
 
 #include <vector>
-#include "ResDoubleGaussBase.h" 
+#include "ResDoubleGaussBase.h"
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 
 /**
  * \namespace KLFitter
@@ -34,7 +34,7 @@ namespace KLFitter
 
   /**
    * \class KLFitter::ResDoubleGaussE_3
-   * \brief A class describing a resolution parameterized with a double Gaussian. 
+   * \brief A class describing a resolution parameterized with a double Gaussian.
    * \author Kevin Kr&ouml;ninger
    *
    * This class offers a simple parameterization of a resolution. The
@@ -43,27 +43,27 @@ namespace KLFitter
    */
   class ResDoubleGaussE_3 : public ResDoubleGaussBase
   {
-                
-  public: 
-                
-    /** \name Constructors and destructors */ 
-    /* @{ */ 
-                
-    /** 
-     * The default constructor. 
-     */ 
-    ResDoubleGaussE_3(const char * filename); 
+
+  public:
+
+    /** \name Constructors and destructors */
+    /* @{ */
+
+    /**
+     * The default constructor.
+     */
+    ResDoubleGaussE_3(const char * filename);
 
     /**
      * A constructor.
-     * @param parameters The parameters of the parameterization. 
+     * @param parameters The parameters of the parameterization.
      */
     ResDoubleGaussE_3(std::vector<double> const& parameters);
 
     /**
      * The default destructor.
      */
-    virtual ~ResDoubleGaussE_3(); 
+    virtual ~ResDoubleGaussE_3();
 
     /* @} */
     /** \name Member functions (Get)  */
@@ -72,52 +72,52 @@ namespace KLFitter
     /**
      * Calculate the mean of the first Gaussian from the TF parameters and the value of x.
      * @param x The value of x.
-     * @return The width. 
-     */ 
+     * @return The width.
+     */
     virtual double GetMean1(double x);
 
     /**
      * Calculate the width of the first Gaussian from the TF parameters and the value of x.
      * @param x The value of x.
-     * @return The width. 
-     */ 
+     * @return The width.
+     */
     virtual double GetSigma1(double x);
 
     /**
      * Calculate the amplitude of the second Gaussian from the TF parameters and the value of x.
      * @param x The value of x.
-     * @return The width. 
-     */ 
+     * @return The width.
+     */
     virtual double GetAmplitude2(double x);
 
     /**
      * Calculate the mean of the second Gaussian from the TF parameters and the value of x.
      * @param x The value of x.
-     * @return The width. 
-     */ 
+     * @return The width.
+     */
     virtual double GetMean2(double x);
 
     /**
      * Calculate the width of the sedcond Gaussian from the TF parameters and the value of x.
      * @param x The value of x.
-     * @return The width. 
-     */ 
+     * @return The width.
+     */
     virtual double GetSigma2(double x);
 
     /* @} */
     /** \name Member functions (Set)  */
     /* @{ */
-        
+
     /* @} */
     /** \name Member functions (misc)  */
     /* @{ */
-                
+
     /* @} */
-  }; 
-        
-} // namespace KLFitter 
+  };
 
-// --------------------------------------------------------- 
+} // namespace KLFitter
 
-#endif 
+// ---------------------------------------------------------
+
+#endif
 

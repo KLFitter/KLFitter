@@ -17,20 +17,20 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "KLFitter/BoostedLikelihoodTopLeptonJets.h" 
+#include "KLFitter/BoostedLikelihoodTopLeptonJets.h"
 #include "KLFitter/ResolutionBase.h"
 #include "KLFitter/Particles.h"
 #include "KLFitter/Permutations.h"
 #include "KLFitter/PhysicsConstants.h"
 #include "KLFitter/DetectorBase.h"
 
-#include <iostream> 
-#include <algorithm> 
+#include <iostream>
+#include <algorithm>
 
-#include <BAT/BCMath.h> 
+#include <BAT/BCMath.h>
 #include "BAT/BCParameter.h"
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 KLFitter::BoostedLikelihoodTopLeptonJets::BoostedLikelihoodTopLeptonJets() : KLFitter::LikelihoodBase::LikelihoodBase()
                                                              , fFlagTopMassFixed(false)
                                                              , fFlagUseJetMass(false)
@@ -43,19 +43,19 @@ KLFitter::BoostedLikelihoodTopLeptonJets::BoostedLikelihoodTopLeptonJets() : KLF
 {
 
 
-  // define model particles 
-  this->DefineModelParticles(); 
+  // define model particles
+  this->DefineModelParticles();
 
-  // define parameters 
-  this->DefineParameters(); 
+  // define parameters
+  this->DefineParameters();
 }
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 KLFitter::BoostedLikelihoodTopLeptonJets::~BoostedLikelihoodTopLeptonJets()
 {
 }
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 int KLFitter::BoostedLikelihoodTopLeptonJets::SetET_miss_XY_SumET(double etx, double ety, double sumet)
 {
   // set missing ET x and y component and the SumET
@@ -67,27 +67,27 @@ int KLFitter::BoostedLikelihoodTopLeptonJets::SetET_miss_XY_SumET(double etx, do
   return 1;
 }
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 void KLFitter::BoostedLikelihoodTopLeptonJets::SetLeptonType(LeptonType leptontype)
 {
   if (leptontype != kElectron && leptontype != kMuon)
     {
-      std::cout << "KLFitter::SetLeptonTyp(). Warning: lepton type not defined. Set electron as lepton type." << std::endl; 
+      std::cout << "KLFitter::SetLeptonTyp(). Warning: lepton type not defined. Set electron as lepton type." << std::endl;
       fTypeLepton = kElectron;
     }
   else
-    fTypeLepton = leptontype; 
+    fTypeLepton = leptontype;
 
-  // define model particles 
-  DefineModelParticles(); 
+  // define model particles
+  DefineModelParticles();
 }
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 void KLFitter::BoostedLikelihoodTopLeptonJets::SetLeptonType(int leptontype)
 {
   if (leptontype != 1 && leptontype != 2)
     {
-      std::cout << "KLFitter::SetLeptonTyp(). Warning: lepton type not defined. Set electron as lepton type." << std::endl; 
+      std::cout << "KLFitter::SetLeptonTyp(). Warning: lepton type not defined. Set electron as lepton type." << std::endl;
       leptontype = 1;
     }
 
@@ -98,59 +98,59 @@ void KLFitter::BoostedLikelihoodTopLeptonJets::SetLeptonType(int leptontype)
 }
 
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 int KLFitter::BoostedLikelihoodTopLeptonJets::DefineModelParticles()
 {
   // check if model particles and lorentz vector container exist and delete
   if (fParticlesModel) {
-    delete fParticlesModel; 
+    delete fParticlesModel;
     fParticlesModel = 0;
   }
 
-  // create the particles of the model 
-  fParticlesModel = new KLFitter::Particles(); 
+  // create the particles of the model
+  fParticlesModel = new KLFitter::Particles();
 
   // add model particles
   //create dummy TLorentzVector
   TLorentzVector * dummy = new TLorentzVector(0,0,0,0); // 4-vector
-  
+
   fParticlesModel->AddParticle(dummy,
-                               KLFitter::Particles::kParton, // type 
-                               "hadronic b quark",           // name 
-                               0,                            // index of corresponding particle 
+                               KLFitter::Particles::kParton, // type
+                               "hadronic b quark",           // name
+                               0,                            // index of corresponding particle
                                KLFitter::Particles::kB);     // b jet (truth)
 
   fParticlesModel->AddParticle(dummy,
-                               KLFitter::Particles::kParton, 
+                               KLFitter::Particles::kParton,
                                "leptonic b quark",
-                               1,                            // index of corresponding particle 
+                               1,                            // index of corresponding particle
                                KLFitter::Particles::kB);     // b jet (truth)
 
   fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kParton,
                                "light quarks",
-                               2,                            // index of corresponding particle 
+                               2,                            // index of corresponding particle
                                KLFitter::Particles::kLight); // merged light jet (truth)
 
-        
+
   if (fTypeLepton == kElectron) {
     fParticlesModel->AddParticle(dummy,
                                  KLFitter::Particles::kElectron,
-                                 "electron"); 
+                                 "electron");
   }
   else if (fTypeLepton == kMuon) {
     fParticlesModel->AddParticle(dummy,
                                  KLFitter::Particles::kMuon,
-                                 "muon"); 
+                                 "muon");
   }
 
   fParticlesModel->AddParticle(dummy,
-                               KLFitter::Particles::kNeutrino, 
-                               "neutrino"); 
-   
+                               KLFitter::Particles::kNeutrino,
+                               "neutrino");
+
   fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kBoson,
-                               "leptonic W"); 
+                               "leptonic W");
 
   fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kParton,
@@ -161,13 +161,13 @@ int KLFitter::BoostedLikelihoodTopLeptonJets::DefineModelParticles()
                                "leptonic top");
 
   //free memory
-  delete dummy; 
+  delete dummy;
 
-  // no error 
+  // no error
   return 1;
 }
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 void KLFitter::BoostedLikelihoodTopLeptonJets::DefineParameters()
 {
   // add parameters of model
@@ -181,7 +181,7 @@ void KLFitter::BoostedLikelihoodTopLeptonJets::DefineParameters()
   AddParameter("top mass",              100.0, 1000.0);                             // parTopM
 }
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 int KLFitter::BoostedLikelihoodTopLeptonJets::CalculateLorentzVectors(std::vector <double> const& parameters)
 {
   static double scale;
@@ -198,22 +198,22 @@ int KLFitter::BoostedLikelihoodTopLeptonJets::CalculateLorentzVectors(std::vecto
   static double tlep_fit_py;
   static double tlep_fit_pz;
 
-  // hadronic b quark 
-  bhad_fit_e = parameters[parBhadE]; 
+  // hadronic b quark
+  bhad_fit_e = parameters[parBhadE];
   scale = sqrt(bhad_fit_e*bhad_fit_e - bhad_meas_m*bhad_meas_m) / bhad_meas_p;
   bhad_fit_px = scale * bhad_meas_px;
   bhad_fit_py = scale * bhad_meas_py;
   bhad_fit_pz = scale * bhad_meas_pz;
 
-  // leptonic b quark 
-  blep_fit_e = parameters[parBlepE]; 
+  // leptonic b quark
+  blep_fit_e = parameters[parBlepE];
   scale = sqrt(blep_fit_e*blep_fit_e - blep_meas_m*blep_meas_m) / blep_meas_p;
   blep_fit_px = scale * blep_meas_px;
   blep_fit_py = scale * blep_meas_py;
   blep_fit_pz = scale * blep_meas_pz;
 
-  // light quarks 
-  lq_fit_e = parameters[parLQE]; 
+  // light quarks
+  lq_fit_e = parameters[parLQE];
   scale = sqrt(lq_fit_e*lq_fit_e - lq_meas_m*lq_meas_m) / lq_meas_p;
   lq_fit_px = scale * lq_meas_px;
   lq_fit_py = scale * lq_meas_py;
@@ -226,42 +226,42 @@ int KLFitter::BoostedLikelihoodTopLeptonJets::CalculateLorentzVectors(std::vecto
   lep_fit_py = scale * lep_meas_py;
   lep_fit_pz = scale * lep_meas_pz;
 
-  // neutrino 
+  // neutrino
   nu_fit_px = parameters[parNuPx];
   nu_fit_py = parameters[parNuPy];
   nu_fit_pz = parameters[parNuPz];
   nu_fit_e  = sqrt(nu_fit_px*nu_fit_px + nu_fit_py*nu_fit_py + nu_fit_pz*nu_fit_pz);
-  
-  // leptonic W 
+
+  // leptonic W
   wlep_fit_e  = lep_fit_e +nu_fit_e;
   wlep_fit_px = lep_fit_px+nu_fit_px;
   wlep_fit_py = lep_fit_py+nu_fit_py;
   wlep_fit_pz = lep_fit_pz+nu_fit_pz;
   wlep_fit_m = sqrt(wlep_fit_e*wlep_fit_e - (wlep_fit_px*wlep_fit_px + wlep_fit_py*wlep_fit_py + wlep_fit_pz*wlep_fit_pz));
 
-  // hadronic top 
+  // hadronic top
   thad_fit_e = lq_fit_e+bhad_fit_e;
   thad_fit_px = lq_fit_px+bhad_fit_px;
   thad_fit_py = lq_fit_py+bhad_fit_py;
   thad_fit_pz = lq_fit_pz+bhad_fit_pz;
   thad_fit_m = sqrt(thad_fit_e*thad_fit_e - (thad_fit_px*thad_fit_px + thad_fit_py*thad_fit_py + thad_fit_pz*thad_fit_pz));
 
-  // leptonic top 
+  // leptonic top
   tlep_fit_e = wlep_fit_e+blep_fit_e;
   tlep_fit_px = wlep_fit_px+blep_fit_px;
   tlep_fit_py = wlep_fit_py+blep_fit_py;
   tlep_fit_pz = wlep_fit_pz+blep_fit_pz;
   tlep_fit_m = sqrt(tlep_fit_e*tlep_fit_e - (tlep_fit_px*tlep_fit_px + tlep_fit_py*tlep_fit_py + tlep_fit_pz*tlep_fit_pz));
 
-  // no error 
-  return 1; 
+  // no error
+  return 1;
 }
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 int KLFitter::BoostedLikelihoodTopLeptonJets::Initialize()
 {
-  // error code 
-  int err = 1; 
+  // error code
+  int err = 1;
 
   // save the current permuted particles
   err *= SavePermutedParticles();
@@ -269,33 +269,33 @@ int KLFitter::BoostedLikelihoodTopLeptonJets::Initialize()
   // save the corresponding resolution functions
   err *= SaveResolutionFunctions();
 
-  // adjust parameter ranges 
-  err *= AdjustParameterRanges(); 
+  // adjust parameter ranges
+  err *= AdjustParameterRanges();
 
   // set initial values
   // (only for Markov chains - initial parameters for other minimisation methods are set in Fitter.cxx)
-  SetInitialParameters( GetInitialParameters() );       
+  SetInitialParameters( GetInitialParameters() );
 
-  // return error code 
-  return err; 
+  // return error code
+  return err;
 }
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 int KLFitter::BoostedLikelihoodTopLeptonJets::RemoveInvariantParticlePermutations()
 {
-  // error code 
-  int err = 1; 
+  // error code
+  int err = 1;
 
   // there are no invariant particle permutations with this likelihood
- 
+
   KLFitter::Particles::ParticleType ptype = KLFitter::Particles::kParton;
   std::vector<int> indexVector_Jets;
   // indexVector_Jets.push_back(2);
   // indexVector_Jets.push_back(3);
-  // err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Jets); 
-        
+  // err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Jets);
+
   //remove invariant jet permutations of notevent jets
-  
+
   KLFitter::Particles* particles = (*fPermutations)->Particles();
   indexVector_Jets.clear();
   for (int iPartons = 3; iPartons < particles->NPartons(); iPartons++)
@@ -309,7 +309,7 @@ int KLFitter::BoostedLikelihoodTopLeptonJets::RemoveInvariantParticlePermutation
       std::vector<int> indexVector_Muons;
       for (int iMuon = 0; iMuon < particles->NMuons(); iMuon++)
         indexVector_Muons.push_back(iMuon);
-      err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Muons); 
+      err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Muons);
     }
   else if (fTypeLepton == kMuon)
     {
@@ -317,18 +317,18 @@ int KLFitter::BoostedLikelihoodTopLeptonJets::RemoveInvariantParticlePermutation
       std::vector<int> indexVector_Electrons;
       for (int iElectron = 0; iElectron < particles->NElectrons(); iElectron++)
         indexVector_Electrons.push_back(iElectron);
-      err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Electrons); 
+      err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Electrons);
     }
 
-  // return error code 
-  return err; 
+  // return error code
+  return err;
 }
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 int KLFitter::BoostedLikelihoodTopLeptonJets::RemoveForbiddenParticlePermutations()
 {
-  // error code 
-  int err = 1; 
+  // error code
+  int err = 1;
 
   // only in b-tagging type kVetoNoFit
   if (!((fBTagMethod == kVetoNoFit)||(fBTagMethod == kVetoNoFitLight)||(fBTagMethod == kVetoNoFitBoth)))
@@ -356,65 +356,65 @@ int KLFitter::BoostedLikelihoodTopLeptonJets::RemoveForbiddenParticlePermutation
       err *= (*fPermutations)->RemoveParticlePermutations(KLFitter::Particles::kParton, iParton, iPartonModel);
     }
   }
-        
-  // return error code 
-  return err; 
+
+  // return error code
+  return err;
 }
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 int KLFitter::BoostedLikelihoodTopLeptonJets::AdjustParameterRanges()
 {
-  // adjust limits 
-  double nsigmas_jet    = fFlagGetParSigmasFromTFs ? 10 : 7; 
-  double nsigmas_lepton = fFlagGetParSigmasFromTFs ? 10 : 2; 
-  double nsigmas_met    = fFlagGetParSigmasFromTFs ? 10 : 1; 
+  // adjust limits
+  double nsigmas_jet    = fFlagGetParSigmasFromTFs ? 10 : 7;
+  double nsigmas_lepton = fFlagGetParSigmasFromTFs ? 10 : 2;
+  double nsigmas_met    = fFlagGetParSigmasFromTFs ? 10 : 1;
 
-  double E = (*fParticlesPermuted)->Parton(0)->E(); 
-  double m = fPhysicsConstants->MassBottom(); 
+  double E = (*fParticlesPermuted)->Parton(0)->E();
+  double m = fPhysicsConstants->MassBottom();
   if (fFlagUseJetMass)
-    m = std::max(0.0, (*fParticlesPermuted)->Parton(0)->M()); 
+    m = std::max(0.0, (*fParticlesPermuted)->Parton(0)->M());
   double sigma = fFlagGetParSigmasFromTFs ? fResEnergyBhad->GetSigma(E) : sqrt(E);
-  double Emin = std::max(m, E - nsigmas_jet* sigma); 
+  double Emin = std::max(m, E - nsigmas_jet* sigma);
   double Emax  = E + nsigmas_jet* sigma;
-  SetParameterRange(parBhadE, Emin, Emax); 
+  SetParameterRange(parBhadE, Emin, Emax);
 
-  E = (*fParticlesPermuted)->Parton(1)->E(); 
-  m = fPhysicsConstants->MassBottom(); 
+  E = (*fParticlesPermuted)->Parton(1)->E();
+  m = fPhysicsConstants->MassBottom();
   if (fFlagUseJetMass)
-    m = std::max(0.0, (*fParticlesPermuted)->Parton(1)->M()); 
+    m = std::max(0.0, (*fParticlesPermuted)->Parton(1)->M());
   sigma = fFlagGetParSigmasFromTFs ? fResEnergyBlep->GetSigma(E) : sqrt(E);
-  Emin = std::max(m, E - nsigmas_jet* sigma); 
-  Emax  = E + nsigmas_jet* sigma; 
-  SetParameterRange(parBlepE, Emin, Emax); 
+  Emin = std::max(m, E - nsigmas_jet* sigma);
+  Emax  = E + nsigmas_jet* sigma;
+  SetParameterRange(parBlepE, Emin, Emax);
 
-  E = (*fParticlesPermuted)->Parton(2)->E(); 
+  E = (*fParticlesPermuted)->Parton(2)->E();
   m = fPhysicsConstants->MassW();
   if (fFlagUseJetMass)
-    m = std::max(0.0, (*fParticlesPermuted)->Parton(2)->M()); 
+    m = std::max(0.0, (*fParticlesPermuted)->Parton(2)->M());
   sigma = fFlagGetParSigmasFromTFs ? fResEnergyLQ->GetSigma(E) : sqrt(E);
-  Emin = std::max(m, E - nsigmas_jet* sigma); 
-  Emax  = E + nsigmas_jet* sigma; 
-  SetParameterRange(parLQE, Emin, Emax);  
+  Emin = std::max(m, E - nsigmas_jet* sigma);
+  Emax  = E + nsigmas_jet* sigma;
+  SetParameterRange(parLQE, Emin, Emax);
 
   if (fTypeLepton == kElectron)
     {
       E = (*fParticlesPermuted)->Electron(0)->E();
       sigma = fFlagGetParSigmasFromTFs ? fResLepton->GetSigma(E) : sqrt(E);
-      Emin = std::max(0.001, E - nsigmas_lepton* sigma); 
-      Emax  = E + nsigmas_lepton* sigma;  
+      Emin = std::max(0.001, E - nsigmas_lepton* sigma);
+      Emax  = E + nsigmas_lepton* sigma;
     }
   else if (fTypeLepton == kMuon)
     {
-      E = (*fParticlesPermuted)->Muon(0)->E(); 
+      E = (*fParticlesPermuted)->Muon(0)->E();
       double sintheta= sin((*fParticlesPermuted)->Muon(0)->Theta());
       sigma = fFlagGetParSigmasFromTFs ? fResLepton->GetSigma(E*sintheta)/sintheta : E*E*sintheta;
       double sigrange=nsigmas_lepton* sigma;
       Emin=std::max(0.001,E -sigrange);
       Emax=E +sigrange;
     }
-  SetParameterRange(parLepE, Emin, Emax); 
+  SetParameterRange(parLepE, Emin, Emax);
 
-  // note: this is hard-coded in the momement 
+  // note: this is hard-coded in the momement
 
   sigma = fFlagGetParSigmasFromTFs ? fResMET->GetSigma(SumET) : 100;
   double sigrange = nsigmas_met*sigma;
@@ -422,25 +422,25 @@ int KLFitter::BoostedLikelihoodTopLeptonJets::AdjustParameterRanges()
   SetParameterRange(parNuPy, ETmiss_y-sigrange, ETmiss_y+sigrange);
 
   if (fFlagTopMassFixed)
-    SetParameterRange(parTopM, fPhysicsConstants->MassTop(), fPhysicsConstants->MassTop()); 
+    SetParameterRange(parTopM, fPhysicsConstants->MassTop(), fPhysicsConstants->MassTop());
 
-  // no error 
-  return 1; 
+  // no error
+  return 1;
 }
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 double KLFitter::BoostedLikelihoodTopLeptonJets::LogLikelihood(const std::vector<double> & parameters)
 {
-  // calculate 4-vectors 
-  CalculateLorentzVectors(parameters); 
+  // calculate 4-vectors
+  CalculateLorentzVectors(parameters);
 
-  // define log of likelihood 
-  double logprob(0.); 
+  // define log of likelihood
+  double logprob(0.);
 
   // temporary flag for a safe use of the transfer functions
   bool TFgoodTmp(true);
 
-  // jet energy resolution terms 
+  // jet energy resolution terms
   logprob += log( fResEnergyBhad->p(bhad_fit_e, bhad_meas_e, TFgoodTmp) );
   if (!TFgoodTmp) fTFgood = false;
 
@@ -451,7 +451,7 @@ double KLFitter::BoostedLikelihoodTopLeptonJets::LogLikelihood(const std::vector
   if (!TFgoodTmp) fTFgood = false;
 
 
-  // lepton energy resolution terms 
+  // lepton energy resolution terms
   if (fTypeLepton == kElectron)
     logprob += log( fResLepton->p(lep_fit_e, lep_meas_e, TFgoodTmp) );
   else if (fTypeLepton == kMuon)
@@ -478,16 +478,16 @@ double KLFitter::BoostedLikelihoodTopLeptonJets::LogLikelihood(const std::vector
   logprob += BCMath::LogBreitWignerRel(wlep_fit_m, massW, gammaW);
 
   // Breit-Wigner of hadronically decaying top quark
-  logprob += BCMath::LogBreitWignerRel(thad_fit_m, parameters[parTopM], gammaTop); 
-        
-  // Breit-Wigner of leptonically decaying top quark
-  logprob += BCMath::LogBreitWignerRel(tlep_fit_m, parameters[parTopM], gammaTop); 
+  logprob += BCMath::LogBreitWignerRel(thad_fit_m, parameters[parTopM], gammaTop);
 
-  // return log of likelihood 
-  return logprob; 
+  // Breit-Wigner of leptonically decaying top quark
+  logprob += BCMath::LogBreitWignerRel(tlep_fit_m, parameters[parTopM], gammaTop);
+
+  // return log of likelihood
+  return logprob;
 }
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 std::vector<double> KLFitter::BoostedLikelihoodTopLeptonJets::GetInitialParameters()
 {
   std::vector<double> values(GetInitialParametersWoNeutrinoPz());
@@ -495,23 +495,23 @@ std::vector<double> KLFitter::BoostedLikelihoodTopLeptonJets::GetInitialParamete
   // check second neutrino solution
   std::vector<double> neutrino_pz_solutions = GetNeutrinoPzSolutions();
   if (int(neutrino_pz_solutions.size()) == 1)
-    values[parNuPz] = neutrino_pz_solutions[0]; 
+    values[parNuPz] = neutrino_pz_solutions[0];
   else if(int(neutrino_pz_solutions.size()) == 2)
     {
-      double sol1, sol2; 
-      values[parNuPz] = neutrino_pz_solutions[0]; 
-      sol1 = LogLikelihood(values); 
-      values[parNuPz] = neutrino_pz_solutions[1]; 
-      sol2 = LogLikelihood(values); 
+      double sol1, sol2;
+      values[parNuPz] = neutrino_pz_solutions[0];
+      sol1 = LogLikelihood(values);
+      values[parNuPz] = neutrino_pz_solutions[1];
+      sol2 = LogLikelihood(values);
 
       if (sol1 > sol2)
-        values[parNuPz] = neutrino_pz_solutions[0]; 
+        values[parNuPz] = neutrino_pz_solutions[0];
     }
 
   return values;
 }
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 std::vector<double> KLFitter::BoostedLikelihoodTopLeptonJets::GetInitialParametersWoNeutrinoPz()
 {
   std::vector<double> values(GetNParameters());
@@ -535,23 +535,23 @@ std::vector<double> KLFitter::BoostedLikelihoodTopLeptonJets::GetInitialParamete
   values[parNuPz] = 0.;
 
   // top mass
-  double mtop = ( *(*fParticlesPermuted)->Parton(0) + *(*fParticlesPermuted)->Parton(2)).M(); 
+  double mtop = ( *(*fParticlesPermuted)->Parton(0) + *(*fParticlesPermuted)->Parton(2)).M();
   if (mtop < GetParameter(parTopM)->GetLowerLimit())
-    mtop = GetParameter(parTopM)->GetLowerLimit(); 
+    mtop = GetParameter(parTopM)->GetLowerLimit();
   else if (mtop > GetParameter(parTopM)->GetUpperLimit())
-    mtop = GetParameter(parTopM)->GetUpperLimit(); 
+    mtop = GetParameter(parTopM)->GetUpperLimit();
   values[parTopM] = mtop;
 
   // return the vector
   return values;
 }
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 std::vector<double> KLFitter::BoostedLikelihoodTopLeptonJets::GetNeutrinoPzSolutions() {
   return CalculateNeutrinoPzSolutions();
 }
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 std::vector<double> KLFitter::BoostedLikelihoodTopLeptonJets::CalculateNeutrinoPzSolutions(TLorentzVector* additionalParticle)
 {
   std::vector<double> pz;
@@ -563,7 +563,7 @@ std::vector<double> KLFitter::BoostedLikelihoodTopLeptonJets::CalculateNeutrinoP
   double px_c = 0.0;
   double py_c = 0.0;
   double pz_c = 0.0;
-  double Ec = 0.0; 
+  double Ec = 0.0;
 
   if (fTypeLepton == kElectron)
     {
@@ -613,14 +613,14 @@ std::vector<double> KLFitter::BoostedLikelihoodTopLeptonJets::CalculateNeutrinoP
   return pz;
 }
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 bool KLFitter::BoostedLikelihoodTopLeptonJets::NoTFProblem(std::vector<double> parameters) {
   fTFgood = true;
   this->LogLikelihood(parameters);
   return fTFgood;
 }
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 int KLFitter::BoostedLikelihoodTopLeptonJets::SavePermutedParticles() {
   bhad_meas_e      = (*fParticlesPermuted)->Parton(0)->E();
   bhad_meas_deteta = (*fParticlesPermuted)->DetEta(0, KLFitter::Particles::kParton);
@@ -667,7 +667,7 @@ int KLFitter::BoostedLikelihoodTopLeptonJets::SavePermutedParticles() {
   return 1;
 }
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 int KLFitter::BoostedLikelihoodTopLeptonJets::SaveResolutionFunctions() {
 
   fResEnergyBhad = (*fDetector)->ResEnergyBJet(bhad_meas_deteta);
@@ -682,7 +682,7 @@ int KLFitter::BoostedLikelihoodTopLeptonJets::SaveResolutionFunctions() {
   // no error
   return 1;
 }
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 
 int KLFitter::BoostedLikelihoodTopLeptonJets::BuildModelParticles() {	
 if (GetBestFitParameters().size() > 0) CalculateLorentzVectors(GetBestFitParameters());
@@ -713,21 +713,21 @@ if (GetBestFitParameters().size() > 0) CalculateLorentzVectors(GetBestFitParamet
   // no error
   return 1;
 }
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 std::vector<double> KLFitter::BoostedLikelihoodTopLeptonJets::LogLikelihoodComponents(std::vector<double> parameters)
 {
 std::vector<double> vecci;
 
-  // calculate 4-vectors 
-  CalculateLorentzVectors(parameters); 
+  // calculate 4-vectors
+  CalculateLorentzVectors(parameters);
 
 
   // temporary flag for a safe use of the transfer functions
   bool TFgoodTmp(true);
 
-  // jet energy resolution terms 
+  // jet energy resolution terms
   vecci.push_back(log( fResEnergyBhad->p(bhad_fit_e, bhad_meas_e, TFgoodTmp) )); //comp0
   if (!TFgoodTmp) fTFgood = false;
 
@@ -737,7 +737,7 @@ std::vector<double> vecci;
   vecci.push_back(log( fResEnergyLQ->p(lq_fit_e, lq_meas_e, TFgoodTmp) ));  //comp2
   if (!TFgoodTmp) fTFgood = false;
 
-  // lepton energy resolution terms 
+  // lepton energy resolution terms
   if (fTypeLepton == kElectron){
   vecci.push_back(log( fResLepton->p(lep_fit_e, lep_meas_e, TFgoodTmp) )); //comp3
   }
@@ -764,11 +764,11 @@ std::vector<double> vecci;
   vecci.push_back(BCMath::LogBreitWignerRel(wlep_fit_m, massW, gammaW)); //comp6
 
   // Breit-Wigner of hadronically decaying top quark
-  vecci.push_back(BCMath::LogBreitWignerRel(thad_fit_m, parameters[parTopM], gammaTop)); //comp7 
-        
+  vecci.push_back(BCMath::LogBreitWignerRel(thad_fit_m, parameters[parTopM], gammaTop)); //comp7
+
   // Breit-Wigner of leptonically decaying top quark
   vecci.push_back(BCMath::LogBreitWignerRel(tlep_fit_m, parameters[parTopM], gammaTop)); //comp8
 
-  // return log of likelihood 
-  return vecci; 
+  // return log of likelihood
+  return vecci;
 }

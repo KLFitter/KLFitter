@@ -20,12 +20,12 @@
 #ifndef __LIKELIHOODSGTOPWTLJ__H
 #define __LIKELIHOODSGTOPWTLJ__H
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 
 #include "LikelihoodBase.h"
 #include "ResolutionBase.h"
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 
 /**
  * \namespace KLFitter
@@ -36,28 +36,28 @@ namespace KLFitter
 
   /**
    * \class KLFitter::LikelihoodSgTopWtLJ
-   * \brief A class implementing a likelihood for the SgTop Wt -> lepton+jets channel. 
+   * \brief A class implementing a likelihood for the SgTop Wt -> lepton+jets channel.
    * \author Kevin Kr&ouml;ninger, Thomas Loddenk&ouml;tter
    *
    * This class represents a likelihood for the single top Wt channel into lepton+jets.
    */
   class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase
   {
-    
-  public: 
-    
-    /** \name Constructors and destructors */ 
-    /* @{ */ 
-    
-    /** 
-     * The default constructor. 
-     */ 
-    LikelihoodSgTopWtLJ(); 
-    
+
+  public:
+
+    /** \name Constructors and destructors */
+    /* @{ */
+
+    /**
+     * The default constructor.
+     */
+    LikelihoodSgTopWtLJ();
+
     /**
      * The default destructor.
      */
-    virtual ~LikelihoodSgTopWtLJ(); 
+    virtual ~LikelihoodSgTopWtLJ();
 
     /* @} */
     /** \name Member functions (Get)  */
@@ -101,31 +101,31 @@ namespace KLFitter
      * Set the values for the missing ET x and y components and the SumET.
      * @param etx missing ET x component.
      * @param ety missing ET y component.
-     * @param sumet total scalar ET. 
+     * @param sumet total scalar ET.
      * @return An error flag.
      */
     int SetET_miss_XY_SumET(double etx, double ety, double sumet);
 
     /**
      * Associate the hadronic leg of the event to the top quark for likelihood calculation.
-     */ 
-    void SetHadronicTop() 
-    { fHadronicTop = kTRUE; }; 
+     */
+    void SetHadronicTop()
+    { fHadronicTop = kTRUE; };
 
     /**
      * Associate the leptonic leg of the event to the top quark for likelihood calculation.
-     */ 
-    void SetLeptonicTop() 
-    { fHadronicTop = kFALSE; }; 
+     */
+    void SetLeptonicTop()
+    { fHadronicTop = kFALSE; };
 
     void SetFlagUseJetMass(bool flag)
-    { fFlagUseJetMass = flag; }; 
+    { fFlagUseJetMass = flag; };
 
     /**
-     * Set the type of lepton 
-     * @param leptontype The type of lepton: electron(1) or muon (2) 
-     */ 
-    void SetLeptonType(int leptontype); 
+     * Set the type of lepton
+     * @param leptontype The type of lepton: electron(1) or muon (2)
+     */
+    void SetLeptonType(int leptontype);
 
     /* @} */
     /** \name Member functions (misc)  */
@@ -136,22 +136,22 @@ namespace KLFitter
     /* @{ */
 
     /**
-     * Define the parameters of the fit. 
-     */ 
+     * Define the parameters of the fit.
+     */
     virtual void DefineParameters();
 
-    /** 
-     * The prior probability definition, overloaded from BCModel. 
-     * @param parameters A vector of parameters (double values). 
-     * @return The logarithm of the prior probability. 
+    /**
+     * The prior probability definition, overloaded from BCModel.
+     * @param parameters A vector of parameters (double values).
+     * @return The logarithm of the prior probability.
      */
     virtual double LogAPrioriProbability(const std::vector <double> & parameters)
-    { return 0; }; 
-    
-    /** 
-     * The posterior probability definition, overloaded from BCModel. 
-     * @param parameters A vector of parameters (double values). 
-     * @return The logarithm of the prior probability. 
+    { return 0; };
+
+    /**
+     * The posterior probability definition, overloaded from BCModel.
+     * @param parameters A vector of parameters (double values).
+     * @return The logarithm of the prior probability.
      */
     virtual double LogLikelihood(const std::vector<double> & parameters);
 
@@ -183,38 +183,38 @@ namespace KLFitter
 
     /* @} */
 
-  protected: 
+  protected:
 
     /** \name Member functions (misc)  */
     /* @{ */
 
     /**
-     * Update 4-vectors of model particles. 
+     * Update 4-vectors of model particles.
      * @return An error flag.
-     */ 
+     */
     virtual int CalculateLorentzVectors(std::vector <double> parameters);
 
     /**
      * Initialize the likelihood for the event
-     */ 
+     */
     virtual int Initialize();
 
     /**
-     * Adjust parameter ranges 
-     */ 
+     * Adjust parameter ranges
+     */
     virtual int AdjustParameterRanges();
 
     /**
      * Define the model particles
      * @return An error code.
-     */ 
+     */
     virtual int DefineModelParticles();
 
     /**
      * Remove invariant particle permutations.
-     * @return An error code. 
-     */ 
-    int RemoveInvariantParticlePermutations(); 
+     * @return An error code.
+     */
+    int RemoveInvariantParticlePermutations();
 
     /**
      * Build the model particles from the best fit parameters.
@@ -224,20 +224,20 @@ namespace KLFitter
 
     /* @} */
 
-  protected: 
-    
+  protected:
+
     /**
-     * A flag for associating either the hadronic (true) 
+     * A flag for associating either the hadronic (true)
      * or the leponic (false) leg of the event to the top quark
      * for likelihood calculation.
-     */ 
-    bool fHadronicTop; 
+     */
+    bool fHadronicTop;
 
     /**
      * A flag for using the measured jet masses (true) instead of
      * parton masses (false);
-     */ 
-    bool fFlagUseJetMass; 
+     */
+    bool fFlagUseJetMass;
 
     /**
      * Calculates the neutrino pz solutions from the measured values
@@ -299,8 +299,8 @@ namespace KLFitter
     /**
      * An index deciding if the event is electron (1) or muon (2) plus
      * jets.
-     */ 
-    int fTypeLepton; 
+     */
+    int fTypeLepton;
 
     /**
      * Global variable for TF problems.
@@ -391,11 +391,11 @@ namespace KLFitter
     double thad_fit_m;
     double tlep_fit_m;
 
-  }; 
+  };
 
-} // namespace KLFitter 
+} // namespace KLFitter
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 
 #endif // __LIKELIHOODSGTOPWTLJ__H
 

@@ -20,15 +20,15 @@
 #ifndef LIKELIHOODTOPLEPTONJETS_JETANGLES
 #define LIKELIHOODTOPLEPTONJETS_JETANGLES
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 
-#include "LikelihoodBase.h" 
+#include "LikelihoodBase.h"
 #include "TLorentzVector.h"
 #include "ResolutionBase.h"
 
 #include <iostream>
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 
 /**
  * \namespace KLFitter
@@ -46,21 +46,21 @@ namespace KLFitter
    */
   class LikelihoodTopLeptonJets_JetAngles : public KLFitter::LikelihoodBase
   {
-                
-  public: 
-                
-    /** \name Constructors and destructors */ 
-    /* @{ */ 
-                
-    /** 
-     * The default constructor. 
-     */ 
-    LikelihoodTopLeptonJets_JetAngles(); 
-                
+
+  public:
+
+    /** \name Constructors and destructors */
+    /* @{ */
+
+    /**
+     * The default constructor.
+     */
+    LikelihoodTopLeptonJets_JetAngles();
+
     /**
      * The default destructor.
      */
-    virtual ~LikelihoodTopLeptonJets_JetAngles(); 
+    virtual ~LikelihoodTopLeptonJets_JetAngles();
 
     /* @} */
     /** \name Member functions (Get)  */
@@ -91,29 +91,29 @@ namespace KLFitter
 
     /**
      * Set a flag. If flag is true the invariant top quark mass is
-     * fixed to the pole mass. 
-     * @param flag The flag. 
-     */ 
+     * fixed to the pole mass.
+     * @param flag The flag.
+     */
     void SetFlagTopMassFixed(bool flag)
-    { fFlagTopMassFixed = flag; }; 
+    { fFlagTopMassFixed = flag; };
 
     void SetFlagUseJetMass(bool flag)
-    { fFlagUseJetMass = flag; }; 
+    { fFlagUseJetMass = flag; };
 
     void SetFlagGetParSigmasFromTFs(bool flag)
-    { fFlagGetParSigmasFromTFs = flag; }; 
+    { fFlagGetParSigmasFromTFs = flag; };
 
     /**
-     * Set the type of lepton 
+     * Set the type of lepton
      * @param leptontype The type of lepton: kElectron or kMuon
-     */ 
-    void SetLeptonType(LeptonType leptontype); 
+     */
+    void SetLeptonType(LeptonType leptontype);
 
     /**
-     * Set the type of lepton 
-     * @param leptontype The type of lepton: electron(1) or muon (2) 
-     */ 
-    void SetLeptonType(int leptontype); 
+     * Set the type of lepton
+     * @param leptontype The type of lepton: electron(1) or muon (2)
+     */
+    void SetLeptonType(int leptontype);
 
     /* @} */
     /** \name Member functions (misc)  */
@@ -124,28 +124,28 @@ namespace KLFitter
     /* @{ */
 
     /**
-     * Define the parameters of the fit. 
-     */ 
+     * Define the parameters of the fit.
+     */
     virtual void DefineParameters();
 
-    /** 
-     * The prior probability definition, overloaded from BCModel. 
-     * @param parameters A vector of parameters (double values). 
-     * @return The logarithm of the prior probability. 
+    /**
+     * The prior probability definition, overloaded from BCModel.
+     * @param parameters A vector of parameters (double values).
+     * @return The logarithm of the prior probability.
      */
     virtual double LogAPrioriProbability(const std::vector <double> & parameters)
-    { return 0; }; 
-                
-    /** 
-     * The posterior probability definition, overloaded from BCModel. 
-     * @param parameters A vector of parameters (double values). 
-     * @return The logarithm of the prior probability. 
-     */
-    virtual double LogLikelihood(const std::vector <double> & parameters); 
+    { return 0; };
 
-    /** 
-     * The posterior probability definition, overloaded from BCModel. Split up into several subcomponents 
-     * @param parameters A vector of parameters (double values). 
+    /**
+     * The posterior probability definition, overloaded from BCModel.
+     * @param parameters A vector of parameters (double values).
+     * @return The logarithm of the prior probability.
+     */
+    virtual double LogLikelihood(const std::vector <double> & parameters);
+
+    /**
+     * The posterior probability definition, overloaded from BCModel. Split up into several subcomponents
+     * @param parameters A vector of parameters (double values).
      * @return A vector with the components of the logarithm of the prior probability. Its components are:
      * 0:  TF_bhad
      * 1:  TF_blep
@@ -167,7 +167,7 @@ namespace KLFitter
      *17:  BW_Thad
      *18:  BW_Tlep
      */
-    virtual std::vector<double> LogLikelihoodComponents(std::vector <double> parameters); 
+    virtual std::vector<double> LogLikelihoodComponents(std::vector <double> parameters);
 
     /**
      * Get initial values for the parameters.
@@ -190,58 +190,58 @@ namespace KLFitter
     virtual bool NoTFProblem(std::vector<double> parameters);
 
     /**
-     * Return the set of model particles. 
-     * @return A pointer to the particles. 
-     */ 
+     * Return the set of model particles.
+     * @return A pointer to the particles.
+     */
     virtual KLFitter::Particles* ParticlesModel() {
       BuildModelParticles();
       return fParticlesModel;
-    }; 
+    };
     virtual KLFitter::Particles** PParticlesModel() {
       BuildModelParticles();
       return &fParticlesModel;
-    }; 
+    };
 
     /* @} */
 
-  protected: 
+  protected:
 
     /** \name Member functions (misc)  */
     /* @{ */
 
     /**
-     * Update 4-vectors of model particles. 
+     * Update 4-vectors of model particles.
      * @return An error flag.
-     */ 
-    virtual int CalculateLorentzVectors(std::vector <double> const& parameters); 
+     */
+    virtual int CalculateLorentzVectors(std::vector <double> const& parameters);
 
     /**
      * Initialize the likelihood for the event
-     */ 
-    virtual int Initialize(); 
+     */
+    virtual int Initialize();
 
     /**
-     * Adjust parameter ranges 
-     */ 
-    virtual int AdjustParameterRanges(); 
+     * Adjust parameter ranges
+     */
+    virtual int AdjustParameterRanges();
 
     /**
      * Define the model particles
      * @return An error code.
-     */ 
+     */
     virtual int DefineModelParticles();
 
     /**
      * Remove invariant particle permutations.
-     * @return An error code. 
-     */ 
-    int RemoveInvariantParticlePermutations(); 
-    
+     * @return An error code.
+     */
+    int RemoveInvariantParticlePermutations();
+
      /**
      * Remove forbidden particle permutations.
-     * @return An error code. 
-     */ 
-    int RemoveForbiddenParticlePermutations();      
+     * @return An error code.
+     */
+    int RemoveForbiddenParticlePermutations();
 
     /**
      * Build the model particles from the best fit parameters.
@@ -251,18 +251,18 @@ namespace KLFitter
 
     /* @} */
 
-  protected: 
-                
+  protected:
+
     /**
      * A flag for using a fixed top mass (true) or not (false).
-     */ 
-    bool fFlagTopMassFixed; 
+     */
+    bool fFlagTopMassFixed;
 
     /**
      * A flag for using the measured jet masses (true) instead of
      * parton masses (false);
-     */ 
-    bool fFlagUseJetMass; 
+     */
+    bool fFlagUseJetMass;
 
     /**
      *  Flag for using ResolutionBase::GetSigma() to retrieve the parameter ranges
@@ -278,7 +278,7 @@ namespace KLFitter
 
     /**
      * Calculates the neutrino pz solutions from the measured values
-     * and the W mass. An additional particle to be added to the 
+     * and the W mass. An additional particle to be added to the
      * charged lepton may be specified, for example a photon
      * in ttbargamma, which is radiated from the leptonic W
      * or the charged lepton;
@@ -292,7 +292,7 @@ namespace KLFitter
      * A helper for calculating delta(phi1, phi2)
      */
     double diffPhi(double phi1, double phi2);
-    
+
     /**
      * Save permuted particles.
      */
@@ -346,8 +346,8 @@ namespace KLFitter
     /**
      * An index deciding if the event is electron (1) or muon (2) plus
      * jets.
-     */ 
-    LeptonType fTypeLepton; 
+     */
+    LeptonType fTypeLepton;
 
     /**
      * Global variable for TF problems.
@@ -449,11 +449,11 @@ namespace KLFitter
     double thad_fit_m;
     double tlep_fit_m;
 
-  }; 
+  };
 
-} // namespace KLFitter 
+} // namespace KLFitter
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 
-#endif 
+#endif
 

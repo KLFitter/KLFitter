@@ -22,7 +22,7 @@
 
 #include <vector>
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 
 /**
  * \namespace KLFitter
@@ -38,29 +38,29 @@ namespace KLFitter
 
   /**
    * \class KLFitter::Fitter
-   * \brief The fitter class. 
+   * \brief The fitter class.
    * \author Kevin Kr&ouml;ninger
    *
    * This class owns all particles, the detector description, the
-   * likelihood, etc. This is the class seen by the user. 
+   * likelihood, etc. This is the class seen by the user.
    */
   class Fitter
   {
-                
-  public: 
-                
-    /** \name Constructors and destructors */ 
-    /* @{ */ 
-                
-    /** 
-     * The default constructor. 
-     */ 
-    Fitter(); 
-                
+
+  public:
+
+    /** \name Constructors and destructors */
+    /* @{ */
+
+    /**
+     * The default constructor.
+     */
+    Fitter();
+
     /**
      * The default destructor.
      */
-    virtual ~Fitter(); 
+    virtual ~Fitter();
 
     /* @} */
     /** \name Member functions (Get)  */
@@ -69,43 +69,43 @@ namespace KLFitter
     /**
      * Return the detector.
      * @return A pointer to the detector.
-     */ 
+     */
     KLFitter::DetectorBase * Detector()
-      { return fDetector; }; 
+      { return fDetector; };
 
     /**
-     * Return the measured particles. 
+     * Return the measured particles.
      * @return A pointer to the particles.
-     */ 
+     */
     KLFitter::Particles * Particles()
-      { return fParticles; }; 
+      { return fParticles; };
     KLFitter::Particles ** PParticles()
-      { return &fParticles; }; 
+      { return &fParticles; };
 
     /**
-     * Return the permutation object. 
-     * @return A pointer to the permutation object. 
-     **/ 
+     * Return the permutation object.
+     * @return A pointer to the permutation object.
+     **/
     KLFitter::Permutations * Permutations()
-      { return fPermutations; }; 
+      { return fPermutations; };
     KLFitter::Permutations ** PPermutations()
-      { return &fPermutations; }; 
+      { return &fPermutations; };
 
     /**
-     * Return the lieklihood . 
-     * @return A pointer to the likelihood object. 
-     **/ 
+     * Return the lieklihood .
+     * @return A pointer to the likelihood object.
+     **/
     KLFitter::LikelihoodBase * Likelihood()
-      { return fLikelihood; }; 
+      { return fLikelihood; };
     KLFitter::LikelihoodBase ** PLikelihood()
-      { return &fLikelihood; }; 
+      { return &fLikelihood; };
 
     /**
      * Return the Minuit status
      * @return The Minuit stats
-     */ 
+     */
     int MinuitStatus()
-    { return fMinuitStatus; }; 
+    { return fMinuitStatus; };
 
     /**
      * Return the convergence status bit.
@@ -119,65 +119,65 @@ namespace KLFitter
     /* @{ */
 
     /**
-     * Set the detector description. 
-     * @param detector A pointer to the detector. 
-     * @return An error code. 
-     */ 
-    int SetDetector(KLFitter::DetectorBase * detector); 
+     * Set the detector description.
+     * @param detector A pointer to the detector.
+     * @return An error code.
+     */
+    int SetDetector(KLFitter::DetectorBase * detector);
 
     /**
-     * Set the particles. 
-     * @param particles A pointer to a set of particles. 
+     * Set the particles.
+     * @param particles A pointer to a set of particles.
      * @param nPartonsInPermutations The number of partons per permutation (can be smaller than the number of added partons).
-     * @return An error flag. 
-     */ 
-    int SetParticles(KLFitter::Particles * particles, int nPartonsInPermutations = -1); 
+     * @return An error flag.
+     */
+    int SetParticles(KLFitter::Particles * particles, int nPartonsInPermutations = -1);
 
     /**
-     * Set truth particles. 
-     * @param particles A pointer to a set of particles. 
-     * @return An error flag. 
-     */ 
-    int SetMyParticlesTruth(KLFitter::Particles * particles); 
+     * Set truth particles.
+     * @param particles A pointer to a set of particles.
+     * @return An error flag.
+     */
+    int SetMyParticlesTruth(KLFitter::Particles * particles);
 
     /**
      * Set x and y component of the missing ET.
      * @param etx component of the missing ET.
      * @param ety component of the missing ET.
-     * @param sumet The measured scalar sum of transverse energy. 
+     * @param sumet The measured scalar sum of transverse energy.
      * @return An error flag.
      */
     int SetET_miss_XY_SumET(double etx, double ety, double sumet);
 
     /**
-     * Set the likelihood for the actual fit. 
-     * @param likelihood A pointer to the likelihood. 
-     * @return An error code. 
-     */ 
-    int SetLikelihood(KLFitter::LikelihoodBase * likelihood); 
+     * Set the likelihood for the actual fit.
+     * @param likelihood A pointer to the likelihood.
+     * @return An error code.
+     */
+    int SetLikelihood(KLFitter::LikelihoodBase * likelihood);
 
     /* @} */
     /** \name Member functions (misc)  */
     /* @{ */
 
     /**
-     * Perform the fit for a single permutation of jets and leptons. 
+     * Perform the fit for a single permutation of jets and leptons.
      * @param index The permutation index.
      * @return An error code.
-     */ 
-    int Fit(int index); 
+     */
+    int Fit(int index);
 
     /**
-     * Perform the fit for all permutations of jets and leptons. 
-     * @return An error code. 
-     */ 
-    int Fit(); 
+     * Perform the fit for all permutations of jets and leptons.
+     * @return An error code.
+     */
+    int Fit();
 
     /**
-     * Check if detector, likelihood, etc. are all set. 
-     * @return A status code. 
-     */ 
-    int Status(); 
+     * Check if detector, likelihood, etc. are all set.
+     * @return A status code.
+     */
+    int Status();
 
     /**
      * Turn of simulated annealing.
@@ -214,37 +214,37 @@ namespace KLFitter
     void SetMinimizationMethod(kMinimizationMethod method) { fMinimizationMethod = method; }
 
     /**
-     * Write fCachedMinuitStatus and fCachedConvergenceStatus to 
-     * fCachedMinuitStatusVector.at(iperm) 
+     * Write fCachedMinuitStatus and fCachedConvergenceStatus to
+     * fCachedMinuitStatusVector.at(iperm)
      * and fCachedConvergenceStatusVector.at(iperm)
      * @param iperm Current permutation
      * @param nperms The number of permutations
-     * @return An error code. 
+     * @return An error code.
      */
    int SetFitStatusToCache(int iperm, int nperms);
 
     /**
-     * Write parameters from fCachedMinuitStatusVector.at(iperm) 
+     * Write parameters from fCachedMinuitStatusVector.at(iperm)
      * and fCachedConvergenceStatusVector.at(iperm) to fCachedMinuitStatus
      * and fCachedConvergenceStatus
      * @param iperm Current permutation
-     * @return An error code. 
+     * @return An error code.
      */
    int GetFitStatusFromCache(int iperm);
 
     /* @} */
-                
-  private: 
+
+  private:
 
     /**
-     * A pointer to the detector. 
-     */ 
-    KLFitter::DetectorBase * fDetector; 
+     * A pointer to the detector.
+     */
+    KLFitter::DetectorBase * fDetector;
 
     /**
-     * A pointer to the set of original particles. 
-     */ 
-    KLFitter::Particles * fParticles; 
+     * A pointer to the set of original particles.
+     */
+    KLFitter::Particles * fParticles;
 
     /**
      * The x and y component of the missing ET and the sumET.
@@ -254,33 +254,33 @@ namespace KLFitter
     double SumET;
 
     /**
-     * A pointer to the set of permuted particles. 
-     */ 
-    KLFitter::Particles * fParticlesPermuted; 
+     * A pointer to the set of permuted particles.
+     */
+    KLFitter::Particles * fParticlesPermuted;
 
     /**
-     * A pointer to the set of truth particles. 
-     */ 
+     * A pointer to the set of truth particles.
+     */
     KLFitter::Particles * fMyParticlesTruth;
 
     /**
-     * A pointer to the likelihood. 
-     */ 
-    KLFitter::LikelihoodBase * fLikelihood; 
+     * A pointer to the likelihood.
+     */
+    KLFitter::LikelihoodBase * fLikelihood;
 
     /**
      * A pointer to the permutation object.
-     */ 
-    KLFitter::Permutations * fPermutations; 
+     */
+    KLFitter::Permutations * fPermutations;
 
     /**
      * The TMinuit status
-     */ 
-    int fMinuitStatus; 
+     */
+    int fMinuitStatus;
 
     /**
      * The convergence status bit
-     */ 
+     */
     unsigned int fConvergenceStatus;
 
     /**
@@ -295,25 +295,25 @@ namespace KLFitter
 
     /**
      * A vector of cached Minuit status
-     */ 
-    std::vector<int>  fCachedMinuitStatusVector; 
+     */
+    std::vector<int>  fCachedMinuitStatusVector;
 
     /**
      * A vector of cached convergence status
-     */ 
-    std::vector<unsigned int>  fCachedConvergenceStatusVector; 
+     */
+    std::vector<unsigned int>  fCachedConvergenceStatusVector;
 
     /**
      * Resets the values of all parameter cache vectors
-     * @return An error code. 
+     * @return An error code.
      */
      int ResetCache();
 
-  }; 
+  };
 
-} // namespace KLFitter 
+} // namespace KLFitter
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 
-#endif 
+#endif
 

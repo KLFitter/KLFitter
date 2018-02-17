@@ -20,11 +20,11 @@
 #ifndef RESOLUTIONBASE
 #define RESOLUTIONBASE
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 
 #include <vector>
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 
 /**
  * \namespace KLFitter
@@ -35,47 +35,47 @@ namespace KLFitter
 
   /**
    * \class KLFitter::ResolutionBase
-   * \brief A base class for describing resolutions. 
+   * \brief A base class for describing resolutions.
    * \author Kevin Kr&ouml;ninger
    *
-   * This base class can be used to decribe resolutions. 
+   * This base class can be used to decribe resolutions.
    */
   class ResolutionBase
   {
-                
-  public: 
-                
-    /** \name Constructors and destructors */ 
-    /* @{ */ 
-                
-    /** 
-     * The default constructor. 
-     * @param npar The number of parameters needed for the parameterization.
-     */ 
-    ResolutionBase(int npar); 
 
-    /** 
-     * A constructor. 
-     * @param parameters A vector with the parameters. 
-     */ 
-    ResolutionBase(std::vector<double> parameters); 
-                
+  public:
+
+    /** \name Constructors and destructors */
+    /* @{ */
+
+    /**
+     * The default constructor.
+     * @param npar The number of parameters needed for the parameterization.
+     */
+    ResolutionBase(int npar);
+
+    /**
+     * A constructor.
+     * @param parameters A vector with the parameters.
+     */
+    ResolutionBase(std::vector<double> parameters);
+
     /**
      * The default destructor.
      */
-    virtual ~ResolutionBase(); 
+    virtual ~ResolutionBase();
 
     /* @} */
     /** \name Member functions (Get)  */
     /* @{ */
 
     /**
-     * Return the (approximate) width of the TF depending on the relevant parameter 
+     * Return the (approximate) width of the TF depending on the relevant parameter
      * (mostly xmeas, but sumET in case of ResGauss_MET).
      * Use to adjust the range of the fit parameter that correspond to the TF.
      * @param par Parameter on which the width depends
-     * @return The width. 
-     */ 
+     * @return The width.
+     */
     virtual double GetSigma(double par) = 0;
 
     /**
@@ -84,10 +84,10 @@ namespace KLFitter
      * @param x The true value of x.
      * @param xmeas The measured value of x.
      * @param good False if problem with TF.
-     * @return The probability. 
-     */ 
+     * @return The probability.
+     */
     virtual double p(double x, double xmeas, bool &good)
-    { good = true; return 0; } 
+    { good = true; return 0; }
 
     /**
      * Return the probability of the true value of x given the
@@ -96,75 +96,75 @@ namespace KLFitter
      * @param xmeas The measured value of x.
      * @param good False if problem with TF.
      * @param par Optional additional parameter (SumET in case of MET TF).
-     * @return The probability. 
-     */ 
+     * @return The probability.
+     */
     virtual double p(double x, double xmeas, bool &good, double par)
-    { good = true; return 0; } 
+    { good = true; return 0; }
 
     /**
-     * Return a parameter of the parameterization. 
-     * @param index The parameter index. 
-     * @param par The parameter value. 
-     * @return An error flag. 
-     */ 
-    int Par(int index, double &par); 
+     * Return a parameter of the parameterization.
+     * @param index The parameter index.
+     * @param par The parameter value.
+     * @return An error flag.
+     */
+    int Par(int index, double &par);
 
     /* @} */
     /** \name Member functions (Set)  */
     /* @{ */
 
     /**
-     * Set a parameter value. 
+     * Set a parameter value.
      * @param index The parameter index.
-     * @param value The parameter value. 
-     * @return An error code. 
-     */ 
-    int SetPar(int index, double value); 
+     * @param value The parameter value.
+     * @return An error code.
+     */
+    int SetPar(int index, double value);
 
     /**
      * Set all parameter values.
      * @param parameters A vector of parameters.
-     * @return An error code. 
-     */ 
-    int SetPar(std::vector<double> parameters); 
+     * @return An error code.
+     */
+    int SetPar(std::vector<double> parameters);
 
     /* @} */
     /** \name Member functions (misc)  */
     /* @{ */
 
     /**
-     * Read parameter values from ASCII file. 
-     * @param filename The name of the file. 
-     * @param nparameters The number of parameters. 
-     * @return An error code. 
-     */ 
-    int ReadParameters(const char * filename, int nparameters); 
+     * Read parameter values from ASCII file.
+     * @param filename The name of the file.
+     * @param nparameters The number of parameters.
+     * @return An error code.
+     */
+    int ReadParameters(const char * filename, int nparameters);
 
     /**
-     * Return a status code. 
-     * @return A status code (1: ok, 0: error). 
-     */ 
-    int Status(); 
-                
+     * Return a status code.
+     * @return A status code (1: ok, 0: error).
+     */
+    int Status();
+
     /* @} */
 
-  protected: 
+  protected:
 
     /**
-     * The number of parameters. 
-     */ 
-    int fNParameters; 
+     * The number of parameters.
+     */
+    int fNParameters;
 
     /**
-     * The parameter values. 
-     */ 
-    std::vector <double> fParameters; 
+     * The parameter values.
+     */
+    std::vector <double> fParameters;
 
-  }; 
-        
-} // namespace KLFitter 
+  };
 
-// --------------------------------------------------------- 
+} // namespace KLFitter
 
-#endif 
+// ---------------------------------------------------------
+
+#endif
 

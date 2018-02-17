@@ -20,15 +20,15 @@
 #ifndef LIKELIHOODTOPALLHADRONIC
 #define LIKELIHOODTOPALLHADRONIC
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 
-#include "LikelihoodBase.h" 
+#include "LikelihoodBase.h"
 #include "TLorentzVector.h"
 #include "ResolutionBase.h"
 
 #include <iostream>
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 
 /**
  * \namespace KLFitter
@@ -39,28 +39,28 @@ namespace KLFitter
 
   /**
    * \class KLFitter::LikelihoodTopAllHadronic
-   * \brief A class implementing a likelihood for the ttbar allhadronic channel. 
+   * \brief A class implementing a likelihood for the ttbar allhadronic channel.
    * \author Stefanie Adomeit
    *
    * This class represents a likelihood for the ttbar allhadronic channel.
    */
   class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase
   {
-                
-  public: 
-                
-    /** \name Constructors and destructors */ 
-    /* @{ */ 
-                
-    /** 
-     * The default constructor. 
-     */ 
-    LikelihoodTopAllHadronic(); 
-                
+
+  public:
+
+    /** \name Constructors and destructors */
+    /* @{ */
+
+    /**
+     * The default constructor.
+     */
+    LikelihoodTopAllHadronic();
+
     /**
      * The default destructor.
      */
-    virtual ~LikelihoodTopAllHadronic(); 
+    virtual ~LikelihoodTopAllHadronic();
 
     /* @} */
     /** \name Member functions (Get)  */
@@ -79,17 +79,17 @@ namespace KLFitter
 
     /**
      * Set a flag. If flag is true the invariant top quark mass is
-     * fixed to the pole mass. 
-     * @param flag The flag. 
-     */ 
+     * fixed to the pole mass.
+     * @param flag The flag.
+     */
     void SetFlagTopMassFixed(bool flag)
-    { fFlagTopMassFixed = flag; }; 
+    { fFlagTopMassFixed = flag; };
 
     void SetFlagUseJetMass(bool flag)
-    { fFlagUseJetMass = flag; }; 
+    { fFlagUseJetMass = flag; };
 
     void SetFlagGetParSigmasFromTFs(bool flag)
-    { fFlagGetParSigmasFromTFs = flag; }; 
+    { fFlagGetParSigmasFromTFs = flag; };
 
     /* @} */
     /** \name Member functions (misc)  */
@@ -100,28 +100,28 @@ namespace KLFitter
     /* @{ */
 
     /**
-     * Define the parameters of the fit. 
-     */ 
+     * Define the parameters of the fit.
+     */
     virtual void DefineParameters();
 
-    /** 
-     * The prior probability definition, overloaded from BCModel. 
-     * @param parameters A vector of parameters (double values). 
-     * @return The logarithm of the prior probability. 
+    /**
+     * The prior probability definition, overloaded from BCModel.
+     * @param parameters A vector of parameters (double values).
+     * @return The logarithm of the prior probability.
      */
     virtual double LogAPrioriProbability(const std::vector <double> & parameters)
-    { return 0; }; 
-                
-    /** 
-     * The posterior probability definition, overloaded from BCModel. 
-     * @param parameters A vector of parameters (double values). 
-     * @return The logarithm of the prior probability. 
+    { return 0; };
+
+    /**
+     * The posterior probability definition, overloaded from BCModel.
+     * @param parameters A vector of parameters (double values).
+     * @return The logarithm of the prior probability.
      */
-    virtual double LogLikelihood(const std::vector <double> &  parameters); 
-    
-    /** 
-     * The posterior probability definition, overloaded from BCModel. Split up into several subcomponents 
-     * @param parameters A vector of parameters (double values). 
+    virtual double LogLikelihood(const std::vector <double> &  parameters);
+
+    /**
+     * The posterior probability definition, overloaded from BCModel. Split up into several subcomponents
+     * @param parameters A vector of parameters (double values).
      * @return A vector with the components of the logarithm of the prior probability. Its components are:
      * 0:  TF_bhad1
      * 1:  TF_bhad2
@@ -134,7 +134,7 @@ namespace KLFitter
      * 8:  BW_Thad1
      * 9:  BW_Thad2
      */
-    virtual std::vector<double> LogLikelihoodComponents(std::vector <double> parameters);     
+    virtual std::vector<double> LogLikelihoodComponents(std::vector <double> parameters);
 
     /**
      * Get initial values for the parameters.
@@ -150,64 +150,64 @@ namespace KLFitter
     virtual bool NoTFProblem(std::vector<double> parameters);
 
     /**
-     * Return the set of model particles. 
-     * @return A pointer to the particles. 
-     */ 
+     * Return the set of model particles.
+     * @return A pointer to the particles.
+     */
     virtual KLFitter::Particles* ParticlesModel() {
       BuildModelParticles();
       return fParticlesModel;
-    }; 
+    };
     virtual KLFitter::Particles** PParticlesModel() {
       BuildModelParticles();
       return &fParticlesModel;
-    }; 
+    };
 
     /* @} */
 
-  protected: 
+  protected:
 
     /** \name Member functions (misc)  */
     /* @{ */
 
     /**
-     * Update 4-vectors of model particles. 
+     * Update 4-vectors of model particles.
      * @return An error flag.
-     */ 
-    virtual int CalculateLorentzVectors(std::vector <double> const& parameters); 
+     */
+    virtual int CalculateLorentzVectors(std::vector <double> const& parameters);
 
     /**
      * Initialize the likelihood for the event
-     */ 
-    virtual int Initialize(); 
+     */
+    virtual int Initialize();
 
     /**
-     * Adjust parameter ranges 
-     */ 
-    virtual int AdjustParameterRanges(); 
+     * Adjust parameter ranges
+     */
+    virtual int AdjustParameterRanges();
 
     /**
      * Define the model particles
      * @return An error code.
-     */ 
+     */
     virtual int DefineModelParticles();
 
     /**
      * Remove invariant particle permutations.
-     * @return An error code. 
-     */ 
-    int RemoveInvariantParticlePermutations(); 
+     * @return An error code.
+     */
+    int RemoveInvariantParticlePermutations();
 
     /**
      * Remove forbidden particle permutations.
-     * @return An error code. 
-     */ 
-    int RemoveForbiddenParticlePermutations(); 
-    
-    
+     * @return An error code.
+     */
+    int RemoveForbiddenParticlePermutations();
+
+
     /**
      * Remove forbidden particle permutations - forcing b-jets on the position of a b parton.
-     * @return An error code. 
-     */     
+     * @return An error code.
+     */
 //    int RemoveForbiddenBParticlePermutations();
 
     /**
@@ -218,18 +218,18 @@ namespace KLFitter
 
     /* @} */
 
-  protected: 
-                
+  protected:
+
     /**
      * A flag for using a fixed top mass (true) or not (false).
-     */ 
-    bool fFlagTopMassFixed; 
+     */
+    bool fFlagTopMassFixed;
 
     /**
      * A flag for using the measured jet masses (true) instead of
      * parton masses (false);
-     */ 
-    bool fFlagUseJetMass; 
+     */
+    bool fFlagUseJetMass;
 
     /**
      *  Flag for using ResolutionBase::GetSigma() to retrieve the parameter ranges
@@ -329,7 +329,7 @@ namespace KLFitter
     double lq2_meas_px;
     double lq2_meas_py;
     double lq2_meas_pz;
-    
+
     double lq3_meas_e;
     double lq3_meas_p;
     double lq3_meas_m;
@@ -338,7 +338,7 @@ namespace KLFitter
     double lq3_meas_phi;
     double lq3_meas_px;
     double lq3_meas_py;
-    double lq3_meas_pz;    
+    double lq3_meas_pz;
 
     double lq4_meas_e;
     double lq4_meas_p;
@@ -348,7 +348,7 @@ namespace KLFitter
     double lq4_meas_phi;
     double lq4_meas_px;
     double lq4_meas_py;
-    double lq4_meas_pz;   
+    double lq4_meas_pz;
 
     /**
      * Save fit particle values for frequent calls
@@ -361,8 +361,8 @@ namespace KLFitter
     double bhad2_fit_e;
     double bhad2_fit_px;
     double bhad2_fit_py;
-    double bhad2_fit_pz;   
-    
+    double bhad2_fit_pz;
+
     double lq1_fit_e;
     double lq1_fit_px;
     double lq1_fit_py;
@@ -372,27 +372,27 @@ namespace KLFitter
     double lq2_fit_px;
     double lq2_fit_py;
     double lq2_fit_pz;
-    
+
     double lq3_fit_e;
     double lq3_fit_px;
     double lq3_fit_py;
-    double lq3_fit_pz;   
-    
+    double lq3_fit_pz;
+
     double lq4_fit_e;
     double lq4_fit_px;
     double lq4_fit_py;
-    double lq4_fit_pz;   
-    
+    double lq4_fit_pz;
+
     double whad1_fit_m;
     double whad2_fit_m;
     double thad1_fit_m;
     double thad2_fit_m;
 
-  }; 
+  };
 
-} // namespace KLFitter 
+} // namespace KLFitter
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 
-#endif 
+#endif
 

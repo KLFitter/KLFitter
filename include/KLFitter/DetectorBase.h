@@ -20,11 +20,11 @@
 #ifndef DETECTORBASE
 #define DETECTORBASE
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 
 #include <string>
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 
 /**
  * \namespace KLFitter
@@ -42,13 +42,13 @@ namespace KLFitter
    *
    * This base class contains the energy resolution of different
    * objects. More information (angular resolutions, acceptance,
-   * correections, etc.) can be added here. 
+   * correections, etc.) can be added here.
    */
   class DetectorBase
   {
-                
+
   public:
-    
+
     /** \name Enumerators */
     /* @{ */
 
@@ -57,21 +57,21 @@ namespace KLFitter
      */
     enum BeamCMEnergy {k7TeV,k8TeV, k10TeV};
 
-    /* @} */  
-                
-    /** \name Constructors and destructors */ 
-    /* @{ */ 
-                
-    /** 
-     * The default constructor. 
+    /* @} */
+
+    /** \name Constructors and destructors */
+    /* @{ */
+
+    /**
+     * The default constructor.
      * @param folder The folder with transfer function parameters.
-     */ 
-    DetectorBase(std::string folder = ""); 
-                
+     */
+    DetectorBase(std::string folder = "");
+
     /**
      * The default destructor.
      */
-    virtual ~DetectorBase(); 
+    virtual ~DetectorBase();
 
     /* @} */
     /** \name Member functions (Get)  */
@@ -80,230 +80,230 @@ namespace KLFitter
     /**
      * Return the energy resolution of light jets.
      * @param eta The eta of the particle.
-     * @return A pointer to the energy resolution object. 
-     */ 
+     * @return A pointer to the energy resolution object.
+     */
     virtual KLFitter::ResolutionBase * ResEnergyLightJet(double eta = 0.)
-    { return fResEnergyLightJet; }; 
+    { return fResEnergyLightJet; };
 
     /**
      * Return the energy resolution of b jets.
      * @param eta The eta of the particle.
-     * @return A pointer to the energy resolution object. 
-     */ 
+     * @return A pointer to the energy resolution object.
+     */
     virtual KLFitter::ResolutionBase * ResEnergyBJet(double eta = 0.)
-    { return fResEnergyBJet; }; 
+    { return fResEnergyBJet; };
 
     /**
      * Return the energy resolution of gluon jets.
      * @param eta The eta of the particle.
-     * @return A pointer to the energy resolution object. 
-     */ 
+     * @return A pointer to the energy resolution object.
+     */
     virtual KLFitter::ResolutionBase * ResEnergyGluonJet(double eta = 0.)
-    { return fResEnergyGluonJet; }; 
+    { return fResEnergyGluonJet; };
 
     /**
      * Return the energy resolution of electrons.
      * @param eta The eta of the particle.
-     * @return A pointer to the energy resolution object. 
-     */ 
+     * @return A pointer to the energy resolution object.
+     */
     virtual KLFitter::ResolutionBase * ResEnergyElectron(double eta = 0.)
-    { return fResEnergyElectron; }; 
+    { return fResEnergyElectron; };
 
     /**
      * Return the energy resolution of muons.
      * @param eta The eta of the particle.
-     * @return A pointer to the energy resolution object. 
-     */ 
+     * @return A pointer to the energy resolution object.
+     */
     virtual KLFitter::ResolutionBase * ResEnergyMuon(double eta = 0.)
-    { return fResEnergyMuon; }; 
+    { return fResEnergyMuon; };
 
     /**
      * Return the energy resolution of photons.
      * @param eta The eta of the particle.
-     * @return A pointer to the energy resolution object. 
-     */ 
+     * @return A pointer to the energy resolution object.
+     */
     virtual KLFitter::ResolutionBase * ResEnergyPhoton(double eta = 0.)
-    { return fResEnergyPhoton; }; 
+    { return fResEnergyPhoton; };
 
     /**
-     * Return the missing ET resolution. 
+     * Return the missing ET resolution.
      * @return A pointer to the missing ET resolution.
-     */ 
+     */
     virtual KLFitter::ResolutionBase * ResMissingET()
-    { return fResMissingET; }; 
+    { return fResMissingET; };
 
     /**
      * Return the eta resolution of light jets.
      * @param eta The eta of the particle.
-     * @return A pointer to the eta resolution object. 
-     */ 
+     * @return A pointer to the eta resolution object.
+     */
     virtual KLFitter::ResolutionBase * ResEtaLightJet(double eta = 0.)
-    { return fResEtaLightJet; }; 
+    { return fResEtaLightJet; };
 
     /**
      * Return the eta resolution of b jets.
      * @param eta The eta of the particle.
-     * @return A pointer to the eta resolution object. 
-     */ 
+     * @return A pointer to the eta resolution object.
+     */
     virtual KLFitter::ResolutionBase * ResEtaBJet(double eta = 0.)
-    { return fResEtaBJet; }; 
+    { return fResEtaBJet; };
 
     /**
      * Return the phi resolution of light jets.
      * @param eta The phi of the particle.
-     * @return A pointer to the phi resolution object. 
-     */ 
+     * @return A pointer to the phi resolution object.
+     */
     virtual KLFitter::ResolutionBase * ResPhiLightJet(double eta = 0.)
-    { return fResPhiLightJet; }; 
+    { return fResPhiLightJet; };
 
     /**
      * Return the phi resolution of b jets.
      * @param eta The phi of the particle.
-     * @return A pointer to the phi resolution object. 
-     */ 
+     * @return A pointer to the phi resolution object.
+     */
     virtual KLFitter::ResolutionBase * ResPhiBJet(double eta = 0.)
-    { return fResPhiBJet; }; 
+    { return fResPhiBJet; };
 
     /* @} */
     /** \name Member functions (Set)  */
     /* @{ */
 
     /**
-     * Set the energy resolution parameterization of b jets. 
-     * @param res A pointer to the resolution object. 
-     * @return An error code. 
-     */ 
-    int SetResEnergyBJet(KLFitter::ResolutionBase * res); 
+     * Set the energy resolution parameterization of b jets.
+     * @param res A pointer to the resolution object.
+     * @return An error code.
+     */
+    int SetResEnergyBJet(KLFitter::ResolutionBase * res);
 
     /**
-     * Set the energy resolution parameterization of light jets. 
-     * @param res A pointer to the resolution object. 
-     * @return An error code. 
-     */ 
-    int SetResEnergyLightJet(KLFitter::ResolutionBase * res); 
+     * Set the energy resolution parameterization of light jets.
+     * @param res A pointer to the resolution object.
+     * @return An error code.
+     */
+    int SetResEnergyLightJet(KLFitter::ResolutionBase * res);
 
     /**
-     * Set the energy resolution parameterization of gluon jets. 
-     * @param res A pointer to the resolution object. 
-     * @return An error code. 
-     */ 
-    int SetResEnergyGluonJet(KLFitter::ResolutionBase * res); 
+     * Set the energy resolution parameterization of gluon jets.
+     * @param res A pointer to the resolution object.
+     * @return An error code.
+     */
+    int SetResEnergyGluonJet(KLFitter::ResolutionBase * res);
 
     /**
-     * Set the energy resolution parameterization of electrons. 
-     * @param res A pointer to the resolution object. 
-     * @return An error code. 
-     */ 
-    int SetResEnergyElectron(KLFitter::ResolutionBase * res); 
+     * Set the energy resolution parameterization of electrons.
+     * @param res A pointer to the resolution object.
+     * @return An error code.
+     */
+    int SetResEnergyElectron(KLFitter::ResolutionBase * res);
 
     /**
      * Set the energy resolution parameterization of muons.
-     * @param res A pointer to the resolution object. 
-     * @return An error code. 
-     */ 
-    int SetResEnergyMuon(KLFitter::ResolutionBase * res); 
+     * @param res A pointer to the resolution object.
+     * @return An error code.
+     */
+    int SetResEnergyMuon(KLFitter::ResolutionBase * res);
 
     /**
      * Set the energy resolution parameterization of photons.
-     * @param res A pointer to the resolution object. 
-     * @return An error code. 
-     */ 
-    int SetResEnergyPhoton(KLFitter::ResolutionBase * res); 
+     * @param res A pointer to the resolution object.
+     * @return An error code.
+     */
+    int SetResEnergyPhoton(KLFitter::ResolutionBase * res);
 
     /**
      * Set the missing ET resolution parameterization.
-     * @param res A pointer to the resolution object. 
-     * @return An error code. 
-     */ 
-    int SetResMissingET(KLFitter::ResolutionBase * res); 
+     * @param res A pointer to the resolution object.
+     * @return An error code.
+     */
+    int SetResMissingET(KLFitter::ResolutionBase * res);
 
     /**
      * Set the beam centre-of-mass energy in the current detector.
-     * @param beamenergy The beam energy. 
-     * @return An error code. 
-     */ 
-    int SetBeamCMEnergy(KLFitter::DetectorBase::BeamCMEnergy beamenergy) 
+     * @param beamenergy The beam energy.
+     * @return An error code.
+     */
+    int SetBeamCMEnergy(KLFitter::DetectorBase::BeamCMEnergy beamenergy)
     {fBeamCMEnergy = beamenergy; return 1;};
 
     /* @} */
     /** \name Member functions (misc)  */
     /* @{ */
 
-    int Status(); 
+    int Status();
 
     /**
      * Get the beam centre-of-mass energy in the current detector.
-     * @return An error code. 
-     */ 
-    KLFitter::DetectorBase::BeamCMEnergy GetBeamCMEnergy() 
+     * @return An error code.
+     */
+    KLFitter::DetectorBase::BeamCMEnergy GetBeamCMEnergy()
     {return fBeamCMEnergy;};
     /* @} */
 
-  protected: 
+  protected:
 
     /**
-     * The energy resolution of light jets. 
-     */ 
-    KLFitter::ResolutionBase * fResEnergyLightJet; 
+     * The energy resolution of light jets.
+     */
+    KLFitter::ResolutionBase * fResEnergyLightJet;
 
     /**
-     * The energy resolution of b jets. 
-     */ 
-    KLFitter::ResolutionBase * fResEnergyBJet; 
+     * The energy resolution of b jets.
+     */
+    KLFitter::ResolutionBase * fResEnergyBJet;
 
     /**
      * The energy resolution of gluon jets.
-     */ 
-    KLFitter::ResolutionBase * fResEnergyGluonJet; 
+     */
+    KLFitter::ResolutionBase * fResEnergyGluonJet;
 
     /**
-     * The energy resolution of electrons. 
-     */ 
-    KLFitter::ResolutionBase * fResEnergyElectron; 
+     * The energy resolution of electrons.
+     */
+    KLFitter::ResolutionBase * fResEnergyElectron;
 
     /**
      * The energy resolution of muons.
-     */ 
-    KLFitter::ResolutionBase * fResEnergyMuon; 
+     */
+    KLFitter::ResolutionBase * fResEnergyMuon;
 
     /**
      * The energy resolution of photons.
-     */ 
-    KLFitter::ResolutionBase * fResEnergyPhoton; 
+     */
+    KLFitter::ResolutionBase * fResEnergyPhoton;
 
     /**
-     * The missing ET resolution. 
-     */ 
-    KLFitter::ResolutionBase * fResMissingET; 
+     * The missing ET resolution.
+     */
+    KLFitter::ResolutionBase * fResMissingET;
 
     /**
      * The eta resolution of light jets.
-     */ 
-    KLFitter::ResolutionBase * fResEtaLightJet; 
+     */
+    KLFitter::ResolutionBase * fResEtaLightJet;
 
     /**
      * The eta resolution of b jets.
-     */ 
-    KLFitter::ResolutionBase * fResEtaBJet; 
+     */
+    KLFitter::ResolutionBase * fResEtaBJet;
 
     /**
      * The phi resolution of light jets.
-     */ 
-    KLFitter::ResolutionBase * fResPhiLightJet; 
+     */
+    KLFitter::ResolutionBase * fResPhiLightJet;
 
     /**
      * The phi resolution of b jets.
-     */ 
-    KLFitter::ResolutionBase * fResPhiBJet; 
+     */
+    KLFitter::ResolutionBase * fResPhiBJet;
 
     /**
      * The current beam centre-of-mass energy in the detector
     */
-    KLFitter::DetectorBase::BeamCMEnergy fBeamCMEnergy; 
-  }; 
+    KLFitter::DetectorBase::BeamCMEnergy fBeamCMEnergy;
+  };
 
-} // namespace KLFitter 
+} // namespace KLFitter
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 
-#endif 
+#endif
