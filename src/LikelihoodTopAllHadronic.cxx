@@ -36,8 +36,7 @@ KLFitter::LikelihoodTopAllHadronic::LikelihoodTopAllHadronic() : KLFitter::Likel
                                                              , fFlagTopMassFixed(false)
                                                              , fFlagUseJetMass(false)
                                                              , fFlagGetParSigmasFromTFs(false)
-                                                             , fTFgood(true)
-{
+                                                             , fTFgood(true) {
   // define model particles
   DefineModelParticles();
 
@@ -46,14 +45,12 @@ KLFitter::LikelihoodTopAllHadronic::LikelihoodTopAllHadronic() : KLFitter::Likel
 }
 
 // ---------------------------------------------------------
-KLFitter::LikelihoodTopAllHadronic::~LikelihoodTopAllHadronic()
-{
+KLFitter::LikelihoodTopAllHadronic::~LikelihoodTopAllHadronic() {
 }
 
 
 // ---------------------------------------------------------
-int KLFitter::LikelihoodTopAllHadronic::DefineModelParticles()
-{
+int KLFitter::LikelihoodTopAllHadronic::DefineModelParticles() {
   // check if model particles and lorentz vector container exist and delete
   if (fParticlesModel) {
     delete fParticlesModel;
@@ -126,8 +123,7 @@ int KLFitter::LikelihoodTopAllHadronic::DefineModelParticles()
 }
 
 // ---------------------------------------------------------
-void KLFitter::LikelihoodTopAllHadronic::DefineParameters()
-{
+void KLFitter::LikelihoodTopAllHadronic::DefineParameters() {
   // add parameters of model
   AddParameter("energy hadronic b 1",       fPhysicsConstants->MassBottom(), 1000.0); // parBhad1E
   AddParameter("energy hadronic b 2",       fPhysicsConstants->MassBottom(), 1000.0); // parBhad2E
@@ -139,8 +135,7 @@ void KLFitter::LikelihoodTopAllHadronic::DefineParameters()
 }
 
 // ---------------------------------------------------------
-int KLFitter::LikelihoodTopAllHadronic::CalculateLorentzVectors(std::vector <double> const& parameters)
-{
+int KLFitter::LikelihoodTopAllHadronic::CalculateLorentzVectors(std::vector <double> const& parameters) {
   static double scale;
   static double whad1_fit_e;
   static double whad1_fit_px;
@@ -235,8 +230,7 @@ int KLFitter::LikelihoodTopAllHadronic::CalculateLorentzVectors(std::vector <dou
 }
 
 // ---------------------------------------------------------
-int KLFitter::LikelihoodTopAllHadronic::Initialize()
-{
+int KLFitter::LikelihoodTopAllHadronic::Initialize() {
   // error code
   int err = 1;
 
@@ -258,8 +252,7 @@ int KLFitter::LikelihoodTopAllHadronic::Initialize()
 }
 
 // ---------------------------------------------------------
-int KLFitter::LikelihoodTopAllHadronic::RemoveInvariantParticlePermutations()
-{
+int KLFitter::LikelihoodTopAllHadronic::RemoveInvariantParticlePermutations() {
   // error code
   int err = 1;
 
@@ -298,8 +291,7 @@ int KLFitter::LikelihoodTopAllHadronic::RemoveInvariantParticlePermutations()
 }
 // ---------------------------------------------------------
 
-int KLFitter::LikelihoodTopAllHadronic::RemoveForbiddenParticlePermutations()
-{
+int KLFitter::LikelihoodTopAllHadronic::RemoveForbiddenParticlePermutations() {
   // error code
   int err = 1;
 
@@ -336,8 +328,7 @@ int KLFitter::LikelihoodTopAllHadronic::RemoveForbiddenParticlePermutations()
   return err;
 }
 // ---------------------------------------------------------
-int KLFitter::LikelihoodTopAllHadronic::AdjustParameterRanges()
-{
+int KLFitter::LikelihoodTopAllHadronic::AdjustParameterRanges() {
   // adjust limits
   double nsigmas_jet = fFlagGetParSigmasFromTFs ? 10 : 7;
 
@@ -403,8 +394,7 @@ int KLFitter::LikelihoodTopAllHadronic::AdjustParameterRanges()
 }
 
 // ---------------------------------------------------------
-double KLFitter::LikelihoodTopAllHadronic::LogLikelihood(const std::vector<double> & parameters)
-{
+double KLFitter::LikelihoodTopAllHadronic::LogLikelihood(const std::vector<double> & parameters) {
   // calculate 4-vectors
   CalculateLorentzVectors(parameters);
 
@@ -460,8 +450,7 @@ double KLFitter::LikelihoodTopAllHadronic::LogLikelihood(const std::vector<doubl
 
 
 // ---------------------------------------------------------
-std::vector<double> KLFitter::LikelihoodTopAllHadronic::GetInitialParameters()
-{
+std::vector<double> KLFitter::LikelihoodTopAllHadronic::GetInitialParameters() {
   std::vector<double> values(GetNParameters());
 
   // energies of the quarks
@@ -593,8 +582,7 @@ if (GetBestFitParameters().size() > 0) CalculateLorentzVectors(GetBestFitParamet
 }
 
 // ---------------------------------------------------------
-std::vector<double> KLFitter::LikelihoodTopAllHadronic::LogLikelihoodComponents(std::vector<double> parameters)
-{
+std::vector<double> KLFitter::LikelihoodTopAllHadronic::LogLikelihoodComponents(std::vector<double> parameters) {
 std::vector<double> vecci;
 
   // calculate 4-vectors

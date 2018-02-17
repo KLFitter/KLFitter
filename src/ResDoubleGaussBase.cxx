@@ -23,31 +23,27 @@
 #include <cmath>
 
 // ---------------------------------------------------------
-KLFitter::ResDoubleGaussBase::ResDoubleGaussBase(const char * filename) : KLFitter::ResolutionBase(10)
-{
+KLFitter::ResDoubleGaussBase::ResDoubleGaussBase(const char * filename) : KLFitter::ResolutionBase(10) {
   // read parameters from file
   ReadParameters(filename, 10);
 }
 
 // ---------------------------------------------------------
-KLFitter::ResDoubleGaussBase::ResDoubleGaussBase(std::vector<double> const& parameters) : KLFitter::ResolutionBase(parameters)
-{
+KLFitter::ResDoubleGaussBase::ResDoubleGaussBase(std::vector<double> const& parameters) : KLFitter::ResolutionBase(parameters) {
   // check number of parameters
-  if (parameters.size() != 10)
-    {
+  if (parameters.size() != 10) {
       std::cout << "KLFitter::ResDoubleGaussBase::ResDoubleGaussBase(). Number of parameters != 10." << std::endl;
       return;
     }
 }
 
 // ---------------------------------------------------------
-KLFitter::ResDoubleGaussBase::~ResDoubleGaussBase()
-{
+KLFitter::ResDoubleGaussBase::~ResDoubleGaussBase() {
   ;
 }
 
 // ---------------------------------------------------------
-double KLFitter::ResDoubleGaussBase::GetSigma(double xmeas){
+double KLFitter::ResDoubleGaussBase::GetSigma(double xmeas) {
   /* Calculate mean width of both gaussians; weight the width of the 2nd one with its amplitude */
   double sigma1 = GetSigma1(xmeas);
   double sigma2 = GetSigma2(xmeas);
@@ -59,8 +55,7 @@ double KLFitter::ResDoubleGaussBase::GetSigma(double xmeas){
 }
 
 // ---------------------------------------------------------
-double KLFitter::ResDoubleGaussBase::p(double x, double xmeas, bool &good)
-{
+double KLFitter::ResDoubleGaussBase::p(double x, double xmeas, bool &good) {
   double m1 = GetMean1(x);
   double s1 = GetSigma1(x);
   double a2 = GetAmplitude2(x);

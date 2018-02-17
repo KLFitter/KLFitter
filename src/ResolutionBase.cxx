@@ -22,8 +22,7 @@
 #include <fstream>
 
 // ---------------------------------------------------------
-KLFitter::ResolutionBase::ResolutionBase(int npar)
-{
+KLFitter::ResolutionBase::ResolutionBase(int npar) {
   if (npar < 0)
     npar = 0;
 
@@ -34,8 +33,7 @@ KLFitter::ResolutionBase::ResolutionBase(int npar)
 }
 
 // ---------------------------------------------------------
-KLFitter::ResolutionBase::ResolutionBase(std::vector <double> parameters)
-{
+KLFitter::ResolutionBase::ResolutionBase(std::vector <double> parameters) {
   fNParameters = int(parameters.size());
 
   // clear parameters
@@ -47,17 +45,14 @@ KLFitter::ResolutionBase::ResolutionBase(std::vector <double> parameters)
 }
 
 // ---------------------------------------------------------
-KLFitter::ResolutionBase::~ResolutionBase()
-{
+KLFitter::ResolutionBase::~ResolutionBase() {
   fParameters.clear();
 }
 
 // ---------------------------------------------------------
-int KLFitter::ResolutionBase::Par(int index, double &par)
-{
+int KLFitter::ResolutionBase::Par(int index, double &par) {
   // check parameter range
-  if (index < 0 || index >= fNParameters)
-    {
+  if (index < 0 || index >= fNParameters) {
       std::cout << "KLFitter:ResolutionBase::Par(). Index out of range." << std::endl;
       // error
       return 0;
@@ -70,11 +65,9 @@ int KLFitter::ResolutionBase::Par(int index, double &par)
 }
 
 // ---------------------------------------------------------
-int KLFitter::ResolutionBase::SetPar(int index, double value)
-{
+int KLFitter::ResolutionBase::SetPar(int index, double value) {
   // check parameter range
-  if (index < 0 || index >= fNParameters)
-    {
+  if (index < 0 || index >= fNParameters) {
       std::cout << "KLFitter:ResolutionBase::SetPar(). Index out of range." << std::endl;
       // error
       return 1;
@@ -87,13 +80,11 @@ int KLFitter::ResolutionBase::SetPar(int index, double value)
 }
 
 // ---------------------------------------------------------
-int KLFitter::ResolutionBase::SetPar(std::vector <double> parameters)
-{
+int KLFitter::ResolutionBase::SetPar(std::vector <double> parameters) {
   // check vector size
   int npar = parameters.size();
 
-  if (npar != fNParameters)
-    {
+  if (npar != fNParameters) {
       std::cout << "KLFitter:ResolutionBase::SetPar(). Number of parameters is inconsistent." << std::endl;
 
       // return error code
@@ -109,8 +100,7 @@ int KLFitter::ResolutionBase::SetPar(std::vector <double> parameters)
 }
 
 // ---------------------------------------------------------
-int KLFitter::ResolutionBase::ReadParameters(const char * filename, int nparameters)
-{
+int KLFitter::ResolutionBase::ReadParameters(const char * filename, int nparameters) {
   // define input file
   std::ifstream inputfile;
 
@@ -118,8 +108,7 @@ int KLFitter::ResolutionBase::ReadParameters(const char * filename, int nparamet
   inputfile.open(filename);
 
   // check if file is open
-  if (!inputfile.is_open())
-    {
+  if (!inputfile.is_open()) {
       std::cout << "KLFitter::ResolutionBase::ReadParameters(). File \"" << filename << "\" not found." << std::endl;
       return 0;
     }
@@ -128,8 +117,7 @@ int KLFitter::ResolutionBase::ReadParameters(const char * filename, int nparamet
   fParameters.clear();
 
   // read parameters
-  for (int i = 0; i < nparameters; ++i)
-    {
+  for (int i = 0; i < nparameters; ++i) {
       double par = 0.0;
       inputfile >> par;
       fParameters.push_back(par);

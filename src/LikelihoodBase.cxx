@@ -43,17 +43,13 @@ KLFitter::LikelihoodBase::LikelihoodBase(Particles** particles) : BCModel(),
                                                                   fEventProbability(std::vector<double>(0)),
                                                                   fFlagIntegrate(0),
                                                                   fFlagIsNan(false),
-                                                                  fBTagMethod(kNotag)
-
-{
-
+                                                                  fBTagMethod(kNotag) {
   BCLog::SetLogLevel(BCLog::nothing);
   MCMCSetRandomSeed(123456789);
 }
 
 // ---------------------------------------------------------
-KLFitter::LikelihoodBase::~LikelihoodBase()
-{
+KLFitter::LikelihoodBase::~LikelihoodBase() {
   if (fParticlesModel)
     delete fParticlesModel;
 
@@ -63,8 +59,7 @@ KLFitter::LikelihoodBase::~LikelihoodBase()
 }
 
 // ---------------------------------------------------------
-int KLFitter::LikelihoodBase::SetPhysicsConstants(KLFitter::PhysicsConstants* physicsconstants)
-{
+int KLFitter::LikelihoodBase::SetPhysicsConstants(KLFitter::PhysicsConstants* physicsconstants) {
   fPhysicsConstants = physicsconstants;
 
   // no error
@@ -72,11 +67,9 @@ int KLFitter::LikelihoodBase::SetPhysicsConstants(KLFitter::PhysicsConstants* ph
 }
 
 // ---------------------------------------------------------
-int KLFitter::LikelihoodBase::SetInitialParameters(std::vector<double> const& parameters)
-{
+int KLFitter::LikelihoodBase::SetInitialParameters(std::vector<double> const& parameters) {
   // check number of parameters
-  if (int(parameters.size()) != NParameters())
-    {
+  if (int(parameters.size()) != NParameters()) {
       std::cout << "KLFitter::SetInitialPosition(). Length of vector does not equal the number of parameters." << std::endl;
       return 0;
     }
@@ -89,11 +82,9 @@ int KLFitter::LikelihoodBase::SetInitialParameters(std::vector<double> const& pa
 }
 
 // ---------------------------------------------------------
-int KLFitter::LikelihoodBase::SetInitialParametersNChains(std::vector<double> const& parameters, unsigned int nchains)
-{
+int KLFitter::LikelihoodBase::SetInitialParametersNChains(std::vector<double> const& parameters, unsigned int nchains) {
   // check number of parameters
-  if (int(parameters.size()) != NParameters())
-    {
+  if (int(parameters.size()) != NParameters()) {
       std::cout << "KLFitter::SetInitialPosition(). Length of vector does not equal the number of parameters." << std::endl;
       return 0;
     }
@@ -114,11 +105,9 @@ int KLFitter::LikelihoodBase::SetInitialParametersNChains(std::vector<double> co
 }
 
 // ---------------------------------------------------------
-int KLFitter::LikelihoodBase::SetParameterRange(int index, double parmin, double parmax)
-{
+int KLFitter::LikelihoodBase::SetParameterRange(int index, double parmin, double parmax) {
   // check index
-  if (index < 0 || index >= NParameters())
-    {
+  if (index < 0 || index >= NParameters()) {
       std::cout << " KLFitter::Combinatorics::SetParameterRange(). Index out of range." << std::endl;
       return 0;
     }
@@ -132,8 +121,7 @@ int KLFitter::LikelihoodBase::SetParameterRange(int index, double parmin, double
 }
 
 // ---------------------------------------------------------
-int KLFitter::LikelihoodBase::SetDetector(KLFitter::DetectorBase** detector)
-{
+int KLFitter::LikelihoodBase::SetDetector(KLFitter::DetectorBase** detector) {
   // set pointer to pointer of detector
   fDetector = detector;
 
@@ -142,8 +130,7 @@ int KLFitter::LikelihoodBase::SetDetector(KLFitter::DetectorBase** detector)
 }
 
 // ---------------------------------------------------------
-int KLFitter::LikelihoodBase::SetParticlesPermuted(KLFitter::Particles** particles)
-{
+int KLFitter::LikelihoodBase::SetParticlesPermuted(KLFitter::Particles** particles) {
   // set pointer to pointer of permuted particles
   fParticlesPermuted  = particles;
 
@@ -151,8 +138,7 @@ int KLFitter::LikelihoodBase::SetParticlesPermuted(KLFitter::Particles** particl
   return 1;
 }
 // ---------------------------------------------------------
-int KLFitter::LikelihoodBase::SetMyParticlesTruth(KLFitter::Particles** particles)
-{
+int KLFitter::LikelihoodBase::SetMyParticlesTruth(KLFitter::Particles** particles) {
   // set pointer to pointer of truth particles
   fMyParticlesTruth  = particles;
 
@@ -162,8 +148,7 @@ int KLFitter::LikelihoodBase::SetMyParticlesTruth(KLFitter::Particles** particle
   return 1;
 }
 // ---------------------------------------------------------
-int KLFitter::LikelihoodBase::SetPermutations(KLFitter::Permutations** permutations)
-{
+int KLFitter::LikelihoodBase::SetPermutations(KLFitter::Permutations** permutations) {
   // error code
   int err = 1;
 
@@ -175,8 +160,7 @@ int KLFitter::LikelihoodBase::SetPermutations(KLFitter::Permutations** permutati
 }
 
 // ---------------------------------------------------------
-double KLFitter::LikelihoodBase::ParMin(int index)
-{
+double KLFitter::LikelihoodBase::ParMin(int index) {
   // check index
   if (index < 0 || index >= NParameters()) {
     std::cout << " KLFitter::Combinatorics::ParMin(). Index out of range." << std::endl;
@@ -188,11 +172,9 @@ double KLFitter::LikelihoodBase::ParMin(int index)
 }
 
 // ---------------------------------------------------------
-double KLFitter::LikelihoodBase::ParMax(int index)
-{
+double KLFitter::LikelihoodBase::ParMax(int index) {
   // check index
-  if (index < 0 || index >= NParameters())
-    {
+  if (index < 0 || index >= NParameters()) {
       std::cout << " KLFitter::Combinatorics::ParMax(). Index out of range." << std::endl;
       return 0;
     }
@@ -202,8 +184,7 @@ double KLFitter::LikelihoodBase::ParMax(int index)
 }
 
 // ---------------------------------------------------------
-double KLFitter::LikelihoodBase::LogEventProbability()
-{
+double KLFitter::LikelihoodBase::LogEventProbability() {
   double logprob = 0;
 
   if (fBTagMethod != kNotag) {
@@ -224,16 +205,15 @@ double KLFitter::LikelihoodBase::LogEventProbability()
 
 
 // ---------------------------------------------------------
-double KLFitter::LikelihoodBase::LogEventProbabilityBTag()
-{
+double KLFitter::LikelihoodBase::LogEventProbabilityBTag() {
   double logprob = 0;
 
     double probbtag = 1;
 
-    if(fBTagMethod == kVeto){
+    if(fBTagMethod == kVeto) {
       // loop over all model particles.  calculate the overall b-tagging
       // probability which is the product of all probabilities.
-      for (int i = 0; i < fParticlesModel->NPartons(); ++i){
+      for (int i = 0; i < fParticlesModel->NPartons(); ++i) {
         // get index of corresponding measured particle.
         int index = fParticlesModel->JetIndex(i);
         if (index < 0)
@@ -250,10 +230,10 @@ double KLFitter::LikelihoodBase::LogEventProbabilityBTag()
       else
 	return -1e99;
     }
-    else if(fBTagMethod == kVetoLight){
+    else if(fBTagMethod == kVetoLight) {
       // loop over all model particles.  calculate the overall b-tagging
       // probability which is the product of all probabilities.
-      for (int i = 0; i < fParticlesModel->NPartons(); ++i){
+      for (int i = 0; i < fParticlesModel->NPartons(); ++i) {
         // get index of corresponding measured particle.
         int index = fParticlesModel->JetIndex(i);
         if (index < 0)
@@ -270,10 +250,10 @@ double KLFitter::LikelihoodBase::LogEventProbabilityBTag()
       else
 	return -1e99;
     }
-    else if(fBTagMethod == kVetoBoth){
+    else if(fBTagMethod == kVetoBoth) {
       // loop over all model particles.  calculate the overall b-tagging
       // probability which is the product of all probabilities.
-      for (int i = 0; i < fParticlesModel->NPartons(); ++i){
+      for (int i = 0; i < fParticlesModel->NPartons(); ++i) {
         // get index of corresponding measured particle.
         int index = fParticlesModel->JetIndex(i);
         if (index < 0)
@@ -292,8 +272,8 @@ double KLFitter::LikelihoodBase::LogEventProbabilityBTag()
       else
 	return -1e99;
     }
-    else if (fBTagMethod == kWorkingPoint){
-      for (int i = 0; i < fParticlesModel->NPartons(); ++i){
+    else if (fBTagMethod == kWorkingPoint) {
+      for (int i = 0; i < fParticlesModel->NPartons(); ++i) {
         // get index of corresponding measured particle.
         int index = fParticlesModel->JetIndex(i);
         if (index < 0)
@@ -303,7 +283,7 @@ double KLFitter::LikelihoodBase::LogEventProbabilityBTag()
         bool isBTagged = fParticlesModel->IsBTagged(i);
         double efficiency = fParticlesModel->BTaggingEfficiency(i);
         double rejection = fParticlesModel->BTaggingRejection(i);
-	if(rejection < 0 || efficiency < 0){
+	if(rejection < 0 || efficiency < 0) {
 	  std::cout <<  " KLFitter::LikelihoodBase::LogEventProbability() : Your working points are not set properly! Returning 0 probability " << std::endl;
 	  return -1e99;
 	}
@@ -325,14 +305,12 @@ double KLFitter::LikelihoodBase::LogEventProbabilityBTag()
 }
 
 // ---------------------------------------------------------
-void KLFitter::LikelihoodBase::PropagateBTaggingInformation()
-{
+void KLFitter::LikelihoodBase::PropagateBTaggingInformation() {
   // get number of partons
   unsigned int npartons = fParticlesModel->NPartons();
 
   // loop over all model particles.
-  for (unsigned int i = 0; i < npartons; ++i)
-    {
+  for (unsigned int i = 0; i < npartons; ++i) {
       // get index of corresponding measured particle.
       int index = fParticlesModel->JetIndex(i);
 
@@ -347,8 +325,7 @@ void KLFitter::LikelihoodBase::PropagateBTaggingInformation()
 }
 // ---------------------------------------------------------.
 
- std::vector <double> KLFitter::LikelihoodBase::GetBestFitParameters()
-{
+ std::vector <double> KLFitter::LikelihoodBase::GetBestFitParameters() {
 if (fCachedParameters.size() > 0) {
 	return fCachedParameters;
 }
@@ -360,8 +337,7 @@ else return BCModel::GetBestFitParameters();
 
 // ---------------------------------------------------------.
 
- std::vector <double> KLFitter::LikelihoodBase::GetBestFitParameterErrors()
-{
+ std::vector <double> KLFitter::LikelihoodBase::GetBestFitParameterErrors() {
 
 if (fCachedParameterErrors.size() > 0) {
 	return fCachedParameterErrors;
@@ -372,8 +348,7 @@ else return BCModel::GetBestFitParameterErrors();
 
 // ---------------------------------------------------------
 
-int KLFitter::LikelihoodBase::SetParametersToCache(int iperm, int nperms)
-{
+int KLFitter::LikelihoodBase::SetParametersToCache(int iperm, int nperms) {
 //set correct size of cachevector
 if (iperm==0) {
 	fCachedParametersVector.clear();
@@ -401,7 +376,7 @@ int partner = LHInvariantPermutationPartner(iperm, nperms, switchpar1, switchpar
 
 if (partner > iperm) {
 
-	if (((int)fCachedParametersVector.size() > partner)&&((int)fCachedParameterErrorsVector.size() > partner)){
+	if (((int)fCachedParametersVector.size() > partner)&&((int)fCachedParameterErrorsVector.size() > partner)) {
 		fCachedParametersVector.at(partner) = BCModel::GetBestFitParameters();
 		switchcache = fCachedParametersVector.at(partner).at(switchpar1);
 		fCachedParametersVector.at(partner).at(switchpar1) = fCachedParametersVector.at(partner).at(switchpar2);
@@ -425,8 +400,7 @@ return 1;
 }
 // ---------------------------------------------------------
 
-int KLFitter::LikelihoodBase::GetParametersFromCache(int iperm)
-{
+int KLFitter::LikelihoodBase::GetParametersFromCache(int iperm) {
 
 	if (((int)fCachedParametersVector.size() > iperm)&&((int)fCachedParameterErrorsVector.size() > iperm)) {
 		fCachedParameters = fCachedParametersVector.at(iperm);
@@ -440,8 +414,7 @@ return 1;
 
 // ---------------------------------------------------------.
 
- double KLFitter::LikelihoodBase::GetIntegral()
-{
+ double KLFitter::LikelihoodBase::GetIntegral() {
 
 if (fCachedNormalizationVector.size() > 0) {
 	return fCachedNormalization;
@@ -452,8 +425,7 @@ return BCIntegrate::GetIntegral();
 }
 // ---------------------------------------------------------.
 
- int KLFitter::LikelihoodBase::ResetCache()
-{
+ int KLFitter::LikelihoodBase::ResetCache() {
 fCachedParameters.clear();
 fCachedParameterErrors.clear();
 
@@ -463,8 +435,7 @@ return 1;
 }
 // ---------------------------------------------------------.
 
- double KLFitter::LikelihoodBase::GetBestFitParameter(unsigned int index)
-{
+ double KLFitter::LikelihoodBase::GetBestFitParameter(unsigned int index) {
 if (fCachedParameters.size() > 0) {
 	return fCachedParameters.at(index);
 }
@@ -476,8 +447,7 @@ else return BCModel::GetBestFitParameter(index);
 
 // ---------------------------------------------------------.
 
- double KLFitter::LikelihoodBase::GetBestFitParameterError(unsigned int index)
-{
+ double KLFitter::LikelihoodBase::GetBestFitParameterError(unsigned int index) {
 
 if (fCachedParameterErrors.size() > 0) {
 	return fCachedParameterErrors.at(index);

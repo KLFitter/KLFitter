@@ -39,8 +39,7 @@ KLFitter::LikelihoodSgTopWtLJ::LikelihoodSgTopWtLJ(): KLFitter::LikelihoodBase::
                                                     , ETmiss_y(0.)
                                                     , SumET(0.)
                                                     , fTypeLepton(kElectron)
-                                                    , fTFgood(true)
-{
+                                                    , fTFgood(true) {
   // define model particles
   this->DefineModelParticles();
 
@@ -49,7 +48,7 @@ KLFitter::LikelihoodSgTopWtLJ::LikelihoodSgTopWtLJ(): KLFitter::LikelihoodBase::
 }
 
 // ---------------------------------------------------------
-KLFitter::LikelihoodSgTopWtLJ::~LikelihoodSgTopWtLJ(){
+KLFitter::LikelihoodSgTopWtLJ::~LikelihoodSgTopWtLJ() {
 }
 
 // ---------------------------------------------------------
@@ -75,8 +74,7 @@ int KLFitter::LikelihoodSgTopWtLJ::GetLeptonType() {
 }
 
 // ---------------------------------------------------------
-int KLFitter::LikelihoodSgTopWtLJ::SetET_miss_XY_SumET(double etx, double ety, double sumet)
-{
+int KLFitter::LikelihoodSgTopWtLJ::SetET_miss_XY_SumET(double etx, double ety, double sumet) {
   // set missing ET x and y component and the SumET
   ETmiss_x = etx;
   ETmiss_y = ety;
@@ -87,10 +85,8 @@ int KLFitter::LikelihoodSgTopWtLJ::SetET_miss_XY_SumET(double etx, double ety, d
 }
 
 // ---------------------------------------------------------
-void KLFitter::LikelihoodSgTopWtLJ::SetLeptonType(int leptontype)
-{
-  if (leptontype != kElectron && leptontype != kMuon )
-    {
+void KLFitter::LikelihoodSgTopWtLJ::SetLeptonType(int leptontype) {
+  if (leptontype != kElectron && leptontype != kMuon ) {
       std::cout << "KLFitter::SetLeptonType()\tWARNING\t lepton type not defined: " << leptontype << ". Set electron as lepton type." << std::endl;
       fTypeLepton = kElectron;
     }
@@ -102,8 +98,7 @@ void KLFitter::LikelihoodSgTopWtLJ::SetLeptonType(int leptontype)
 }
 
 // ---------------------------------------------------------
-int KLFitter::LikelihoodSgTopWtLJ::DefineModelParticles()
-{
+int KLFitter::LikelihoodSgTopWtLJ::DefineModelParticles() {
   // check if model particles exist and delete
   if (fParticlesModel) {
     delete fParticlesModel;
@@ -147,8 +142,7 @@ int KLFitter::LikelihoodSgTopWtLJ::DefineModelParticles()
 }
 
 // ---------------------------------------------------------
-void KLFitter::LikelihoodSgTopWtLJ::DefineParameters()
-{
+void KLFitter::LikelihoodSgTopWtLJ::DefineParameters() {
   // add parameters of model
   this->AddParameter("energy b",                fPhysicsConstants->MassBottom(), 1000.0);   // parBE
   this->AddParameter("energy light quark 1",    0.0, 1000.0);                               // parLQ1E
@@ -160,8 +154,7 @@ void KLFitter::LikelihoodSgTopWtLJ::DefineParameters()
 }
 
 // ---------------------------------------------------------
-int KLFitter::LikelihoodSgTopWtLJ::CalculateLorentzVectors(std::vector <double> parameters)
-{
+int KLFitter::LikelihoodSgTopWtLJ::CalculateLorentzVectors(std::vector <double> parameters) {
   // variables
   static double scale;
 
@@ -251,8 +244,7 @@ int KLFitter::LikelihoodSgTopWtLJ::CalculateLorentzVectors(std::vector <double> 
 }
 
 // ---------------------------------------------------------
-int KLFitter::LikelihoodSgTopWtLJ::Initialize()
-{
+int KLFitter::LikelihoodSgTopWtLJ::Initialize() {
   // error code
   int err = 1;
 
@@ -276,8 +268,7 @@ int KLFitter::LikelihoodSgTopWtLJ::Initialize()
 }
 
 // ---------------------------------------------------------
-int KLFitter::LikelihoodSgTopWtLJ::RemoveInvariantParticlePermutations()
-{
+int KLFitter::LikelihoodSgTopWtLJ::RemoveInvariantParticlePermutations() {
   // error code
   int err = 1;
 
@@ -313,8 +304,7 @@ int KLFitter::LikelihoodSgTopWtLJ::RemoveInvariantParticlePermutations()
 }
 
 // ---------------------------------------------------------
-int KLFitter::LikelihoodSgTopWtLJ::AdjustParameterRanges()
-{
+int KLFitter::LikelihoodSgTopWtLJ::AdjustParameterRanges() {
   // adjust limits
   double nsigmas_jet = 7.0;
   double nsigmas_lepton = 2.0;
@@ -371,8 +361,7 @@ int KLFitter::LikelihoodSgTopWtLJ::AdjustParameterRanges()
 }
 
 // ---------------------------------------------------------
-double KLFitter::LikelihoodSgTopWtLJ::LogLikelihood(const std::vector<double> & parameters)
-{
+double KLFitter::LikelihoodSgTopWtLJ::LogLikelihood(const std::vector<double> & parameters) {
   // calculate 4-vectors
   this->CalculateLorentzVectors(parameters);
 
@@ -412,7 +401,7 @@ double KLFitter::LikelihoodSgTopWtLJ::LogLikelihood(const std::vector<double> & 
 
   // Breit-Wigner of top quark - user either leptonic or hadronic W, dependic on fHadronicTop flag.
 //  /* Set fHadronicTop automatically if applicable */
-//  if ((*fParticlesPermuted)->NBosons() == 2){
+//  if ((*fParticlesPermuted)->NBosons() == 2) {
 //    if ((*fParticlesPermuted)->NameBoson(0) == "LepW" && (*fParticlesPermuted)->NameBoson(1) == "HadW")
 //      fHadronicTop = true;
 //    else if ((*fParticlesPermuted)->NameBoson(0) == "HadW" && (*fParticlesPermuted)->NameBoson(1) == "LepW")
@@ -428,8 +417,7 @@ double KLFitter::LikelihoodSgTopWtLJ::LogLikelihood(const std::vector<double> & 
 }
 
 // ---------------------------------------------------------
-std::vector<double> KLFitter::LikelihoodSgTopWtLJ::GetInitialParameters()
-{
+std::vector<double> KLFitter::LikelihoodSgTopWtLJ::GetInitialParameters() {
   std::vector<double> values(GetNParameters());
 
   // energies of the quarks
@@ -493,8 +481,7 @@ std::vector<double> KLFitter::LikelihoodSgTopWtLJ::GetInitialParameters()
 }
 
 // ---------------------------------------------------------
-std::vector<double> KLFitter::LikelihoodSgTopWtLJ::GetNeutrinoPzSolutions()
-{
+std::vector<double> KLFitter::LikelihoodSgTopWtLJ::GetNeutrinoPzSolutions() {
   std::vector<double> pz;
 
   KLFitter::PhysicsConstants constants;

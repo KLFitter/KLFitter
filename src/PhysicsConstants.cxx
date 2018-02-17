@@ -23,8 +23,7 @@
 #include <cmath>
 
 // ---------------------------------------------------------
-KLFitter::PhysicsConstants::PhysicsConstants()
-{
+KLFitter::PhysicsConstants::PhysicsConstants() {
   fMassBottom =   4.7; // bottom quark mass in GeV/c^{2}
   fMassW      =  80.4; // W boson mass in GeV/c^{2}
   fMassTop    = 170.0; // top quark pole mass in GeV/c^{2}
@@ -42,16 +41,13 @@ KLFitter::PhysicsConstants::PhysicsConstants()
 }
 
 // ---------------------------------------------------------
-KLFitter::PhysicsConstants::~PhysicsConstants()
-{
+KLFitter::PhysicsConstants::~PhysicsConstants() {
 }
 
 // ---------------------------------------------------------
-int KLFitter::PhysicsConstants::SetMassBottom(double mass)
-{
+int KLFitter::PhysicsConstants::SetMassBottom(double mass) {
   // check argument
-  if (mass < 0)
-    {
+  if (mass < 0) {
       std::cout << "KLFitter::PhysicsConstants::SetMassBottom(). Mass cannot be negative. Set mass to zero." << std::endl;
       fMassBottom = 0.;
       return 0;
@@ -65,11 +61,9 @@ int KLFitter::PhysicsConstants::SetMassBottom(double mass)
 }
 
 // ---------------------------------------------------------
-int KLFitter::PhysicsConstants::SetMassTop(double mass)
-{
+int KLFitter::PhysicsConstants::SetMassTop(double mass) {
   // check argument
-  if (mass < 0)
-    {
+  if (mass < 0) {
       std::cout << "KLFitter::PhysicsConstants::SetMassTop(). Mass cannot be negative. Set mass to zero." << std::endl;
       fMassTop = 0.;
       return 0;
@@ -86,11 +80,9 @@ int KLFitter::PhysicsConstants::SetMassTop(double mass)
 }
 
 // ---------------------------------------------------------
-int KLFitter::PhysicsConstants::SetMassHiggs(double mass)
-{
+int KLFitter::PhysicsConstants::SetMassHiggs(double mass) {
   // check argument
-  if (mass < 0)
-    {
+  if (mass < 0) {
       std::cout << "KLFitter::PhysicsConstants::SetMassHiggs(). Mass cannot be negative. Set mass to zero." << std::endl;
       fMassHiggs = 0.;
       return 0;
@@ -108,11 +100,9 @@ int KLFitter::PhysicsConstants::SetMassHiggs(double mass)
 
 
 // ---------------------------------------------------------
-int KLFitter::PhysicsConstants::SetMassW(double mass)
-{
+int KLFitter::PhysicsConstants::SetMassW(double mass) {
   // check argument
-  if (mass < 0)
-    {
+  if (mass < 0) {
       std::cout << "KLFitter::PhysicsConstants::SetMassW(). Mass cannot be negative. Set mass to zero." << std::endl;
       fMassW = 0.;
       return 0;
@@ -126,11 +116,9 @@ int KLFitter::PhysicsConstants::SetMassW(double mass)
 }
 
 // ---------------------------------------------------------
-int KLFitter::PhysicsConstants::SetMassZ(double mass)
-{
+int KLFitter::PhysicsConstants::SetMassZ(double mass) {
   // check argument
-  if (mass < 0)
-    {
+  if (mass < 0) {
       std::cout << "KLFitter::PhysicsConstants::SetMassZ(). Mass cannot be negative. Set mass to zero." << std::endl;
       fMassZ = 0.;
       return 0;
@@ -144,11 +132,9 @@ int KLFitter::PhysicsConstants::SetMassZ(double mass)
 }
 
 // ---------------------------------------------------------
-int KLFitter::PhysicsConstants::SetGammaW(double gamma)
-{
+int KLFitter::PhysicsConstants::SetGammaW(double gamma) {
   // check argument
-  if (gamma < 0)
-    {
+  if (gamma < 0) {
       std::cout << "KLFitter::PhysicsConstants::SetGammaW(). Width cannot be negative. Set width to zero." << std::endl;
       fGammaW = 0.;
       return 0;
@@ -162,11 +148,9 @@ int KLFitter::PhysicsConstants::SetGammaW(double gamma)
 }
 
 // ---------------------------------------------------------
-int KLFitter::PhysicsConstants::SetGammaZ(double gamma)
-{
+int KLFitter::PhysicsConstants::SetGammaZ(double gamma) {
   // check argument
-  if (gamma < 0)
-    {
+  if (gamma < 0) {
       std::cout << "KLFitter::PhysicsConstants::SetGammaZ(). Width cannot be negative. Set width to zero." << std::endl;
       fGammaW = 0.;
       return 0;
@@ -180,11 +164,9 @@ int KLFitter::PhysicsConstants::SetGammaZ(double gamma)
 }
 
 // ---------------------------------------------------------
-int KLFitter::PhysicsConstants::SetGammaTop(double gamma)
-{
+int KLFitter::PhysicsConstants::SetGammaTop(double gamma) {
   // check argument
-  if (gamma < 0)
-    {
+  if (gamma < 0) {
       std::cout << "KLFitter::PhysicsConstants::SetGammaTop(). Width cannot be negative. Set width to zero." << std::endl;
       fGammaTop = 0.;
       return 0;
@@ -198,11 +180,9 @@ int KLFitter::PhysicsConstants::SetGammaTop(double gamma)
 }
 
 // ---------------------------------------------------------
-int KLFitter::PhysicsConstants::SetGammaHiggs(double gamma)
-{
+int KLFitter::PhysicsConstants::SetGammaHiggs(double gamma) {
   // check argument
-  if (gamma < 0)
-    {
+  if (gamma < 0) {
       std::cout << "KLFitter::PhysicsConstants::SetGammaHiggs(). Width cannot be negative. Set width to zero." << std::endl;
       fGammaHiggs = 0.;
       return 0;
@@ -217,8 +197,7 @@ int KLFitter::PhysicsConstants::SetGammaHiggs(double gamma)
 
 
 // ---------------------------------------------------------
-void KLFitter::PhysicsConstants::CalculateGammaTop()
-{
+void KLFitter::PhysicsConstants::CalculateGammaTop() {
   // use formula used in:
   // T.~M.~Liss and A.~Quadt,
   // ``The Top Quark,'' in
@@ -236,8 +215,7 @@ void KLFitter::PhysicsConstants::CalculateGammaTop()
 
 // ---------------------------------------------------------
 
-void KLFitter::PhysicsConstants::CalculateGammaHiggs()
-{
+void KLFitter::PhysicsConstants::CalculateGammaHiggs() {
   // numbers calculated by HDECAY
   // A.Djouadi, J.Kalinowski and M.Spira,
   // Comp. Phys. Commun. 108 C (1998) 56, hep-ph/9704448.

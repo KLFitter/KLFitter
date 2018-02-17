@@ -28,8 +28,7 @@
 #include "BAT/BCParameter.h"
 
 // ---------------------------------------------------------
-KLFitter::Fitter::Fitter()
-{
+KLFitter::Fitter::Fitter() {
   fDetector = 0;
   fLikelihood = 0;
   fParticles = 0;
@@ -46,15 +45,13 @@ KLFitter::Fitter::Fitter()
 }
 
 // ---------------------------------------------------------
-KLFitter::Fitter::~Fitter()
-{
+KLFitter::Fitter::~Fitter() {
   if (fPermutations)
     delete fPermutations;
 }
 
 // ---------------------------------------------------------
-int KLFitter::Fitter::SetParticles(KLFitter::Particles * particles, int nPartonsInPermutations)
-{
+int KLFitter::Fitter::SetParticles(KLFitter::Particles * particles, int nPartonsInPermutations) {
   fParticles = particles;
 
   // reset old table of permutations
@@ -83,8 +80,7 @@ int KLFitter::Fitter::SetParticles(KLFitter::Particles * particles, int nPartons
   return 1;
 }
 // ---------------------------------------------------------
-int KLFitter::Fitter::SetMyParticlesTruth(KLFitter::Particles * particles)
-{
+int KLFitter::Fitter::SetMyParticlesTruth(KLFitter::Particles * particles) {
   fMyParticlesTruth = particles;
 
   // set pointer to truth particles
@@ -97,8 +93,7 @@ int KLFitter::Fitter::SetMyParticlesTruth(KLFitter::Particles * particles)
   return 1;
 }
 // ---------------------------------------------------------
-int KLFitter::Fitter::SetET_miss_XY_SumET(double etx, double ety, double sumet)
-{
+int KLFitter::Fitter::SetET_miss_XY_SumET(double etx, double ety, double sumet) {
   // set missing ET x and y component and sumET
   ETmiss_x = etx;
   ETmiss_y = ety;
@@ -108,8 +103,7 @@ int KLFitter::Fitter::SetET_miss_XY_SumET(double etx, double ety, double sumet)
 }
 
 // ---------------------------------------------------------
-int KLFitter::Fitter::SetDetector(KLFitter::DetectorBase * detector)
-{
+int KLFitter::Fitter::SetDetector(KLFitter::DetectorBase * detector) {
   // set detector
   fDetector = detector;
 
@@ -118,8 +112,7 @@ int KLFitter::Fitter::SetDetector(KLFitter::DetectorBase * detector)
 }
 
 // ---------------------------------------------------------
-int KLFitter::Fitter::SetLikelihood(KLFitter::LikelihoodBase * likelihood)
-{
+int KLFitter::Fitter::SetLikelihood(KLFitter::LikelihoodBase * likelihood) {
   // set likelihood
   fLikelihood = likelihood;
 
@@ -143,8 +136,7 @@ int KLFitter::Fitter::SetLikelihood(KLFitter::LikelihoodBase * likelihood)
 }
 
 // ---------------------------------------------------------
-int KLFitter::Fitter::Fit(int index)
-{
+int KLFitter::Fitter::Fit(int index) {
   fLikelihood->ResetCache();
   fLikelihood->ResetResults();
   ResetCache();
@@ -182,7 +174,7 @@ int KLFitter::Fitter::Fit(int index)
 
 
   // check if permutation is LH invariant and has already been calculated
-  if ((partnerindex > -1)&&(partnerindex < index)){
+  if ((partnerindex > -1)&&(partnerindex < index)) {
 	fLikelihood->GetParametersFromCache(index);
 	GetFitStatusFromCache(index);
 
@@ -218,25 +210,20 @@ int KLFitter::Fitter::Fit(int index)
       fMinuitStatus = fLikelihood->GetMinuitErrorFlag();
 
       // check if any parameter is at its borders->set MINUIT flag to 500
-      if ( fMinuitStatus == 0)
-        {
+      if ( fMinuitStatus == 0) {
           std::vector<double> BestParameters = fLikelihood->GetBestFitParameters();
-          for (unsigned int iPar = 0; iPar < fLikelihood->GetNParameters(); iPar++)
-            {
-              if ( fLikelihood->GetParameter(0)->IsAtLimit(BestParameters[iPar]) )
-                {
+          for (unsigned int iPar = 0; iPar < fLikelihood->GetNParameters(); iPar++) {
+              if ( fLikelihood->GetParameter(0)->IsAtLimit(BestParameters[iPar]) ) {
                   fMinuitStatus = 500;
                 }
             }
         }
-      if(fLikelihood->GetFlagIsNan()==true)
-        {
+      if(fLikelihood->GetFlagIsNan()==true) {
           fMinuitStatus=508;
         }
 
       // re-run if Minuit status bad
-      if (fMinuitStatus != 0)
-        {
+      if (fMinuitStatus != 0) {
 	  fLikelihood->ResetCache();
           fLikelihood->ResetResults();
           // print to screen
@@ -259,20 +246,16 @@ int KLFitter::Fitter::Fit(int index)
 
 
     // check if any parameter is at its borders->set MINUIT flag to 501
-    if ( fMinuitStatus == 0)
-      {
+    if ( fMinuitStatus == 0) {
         std::vector<double> BestParameters = fLikelihood->GetBestFitParameters();
-        for (unsigned int iPar = 0; iPar < fLikelihood->GetNParameters(); iPar++)
-          {
-            if ( fLikelihood->GetParameter(0)->IsAtLimit(BestParameters[iPar]) )
-              {
+        for (unsigned int iPar = 0; iPar < fLikelihood->GetNParameters(); iPar++) {
+            if ( fLikelihood->GetParameter(0)->IsAtLimit(BestParameters[iPar]) ) {
                 fMinuitStatus = 501;
                 fConvergenceStatus |= AtLeastOneFitParameterAtItsLimitMask;
               }
           }
       }
-    if(fLikelihood->GetFlagIsNan()==true)
-      {
+    if(fLikelihood->GetFlagIsNan()==true) {
         fMinuitStatus=509;
         fConvergenceStatus |= FitAbortedDueToNaNMask;
       }
@@ -285,8 +268,7 @@ int KLFitter::Fitter::Fit(int index)
     }
 
     // calculate integral
-    if (fLikelihood->FlagIntegrate())
-      {
+    if (fLikelihood->FlagIntegrate()) {
         fLikelihood->SetIntegrationMethod(BCIntegrate::kIntCuba);
       fLikelihood->Normalize();
       }
@@ -302,8 +284,7 @@ int KLFitter::Fitter::Fit(int index)
 }
 
 // ---------------------------------------------------------
-int KLFitter::Fitter::Fit()
-{
+int KLFitter::Fitter::Fit() {
   // check status
   if (!Status())
     return 0;
@@ -312,8 +293,7 @@ int KLFitter::Fitter::Fit()
   int npermutations = fPermutations->NPermutations();
 
   // loop over all permutations
-  for (int ipermutation = 0; ipermutation < npermutations; ++ipermutation)
-    {
+  for (int ipermutation = 0; ipermutation < npermutations; ++ipermutation) {
       // set permutation
       if (!fPermutations->SetPermutation(ipermutation))
         return 0;
@@ -339,25 +319,21 @@ int KLFitter::Fitter::Fit()
 }
 
 // ---------------------------------------------------------
-int KLFitter::Fitter::Status()
-{
+int KLFitter::Fitter::Status() {
   // check if measured particles exist
-  if (!fParticles)
-    {
+  if (!fParticles) {
       std::cout << "KLFitter::Fitter::Status(). Set of measured particles not defined." << std::endl;
       return 0;
     }
 
   // check if detector exists
-  if (!fDetector)
-    {
+  if (!fDetector) {
       std::cout << "KLFitter::Fitter::Status(). No detector defined." << std::endl;
       return 0;
     }
 
   // check detector
-  if (!fDetector->Status())
-    {
+  if (!fDetector->Status()) {
       return 0;
     }
 
@@ -367,8 +343,7 @@ int KLFitter::Fitter::Status()
 
 // ---------------------------------------------------------
 
-int KLFitter::Fitter::GetFitStatusFromCache(int iperm)
-{
+int KLFitter::Fitter::GetFitStatusFromCache(int iperm) {
 	if (((int)fCachedConvergenceStatusVector.size() > iperm)&&((int)fCachedMinuitStatusVector.size() > iperm)) {
 		fConvergenceStatus = fCachedConvergenceStatusVector.at(iperm);
 		fMinuitStatus = fCachedMinuitStatusVector.at(iperm);
@@ -381,8 +356,7 @@ return 1;
 
 // ---------------------------------------------------------
 
-int KLFitter::Fitter::SetFitStatusToCache(int iperm, int nperms)
-{
+int KLFitter::Fitter::SetFitStatusToCache(int iperm, int nperms) {
 
 if (iperm==0) {
 	fCachedMinuitStatusVector.clear();
@@ -404,7 +378,7 @@ int partner = fLikelihood->LHInvariantPermutationPartner(iperm, nperms, dummy, d
 
 if (partner > iperm) {
 
-	if (((int)fCachedMinuitStatusVector.size() > partner)&&((int)fCachedConvergenceStatusVector.size() > partner)){
+	if (((int)fCachedMinuitStatusVector.size() > partner)&&((int)fCachedConvergenceStatusVector.size() > partner)) {
 
 		fCachedMinuitStatusVector.at(partner) = fMinuitStatus;
 		fCachedConvergenceStatusVector.at(partner) = fConvergenceStatus;
@@ -420,8 +394,7 @@ return 1;
 
 // ---------------------------------------------------------.
 
- int KLFitter::Fitter::ResetCache()
-{
+ int KLFitter::Fitter::ResetCache() {
 fMinuitStatus = -1;
 fConvergenceStatus = -1;
 
