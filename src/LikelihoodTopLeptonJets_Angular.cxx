@@ -182,10 +182,10 @@ void KLFitter::LikelihoodTopLeptonJets_Angular::DefineParameters() {
 // ---------------------------------------------------------
 int KLFitter::LikelihoodTopLeptonJets_Angular::CalculateLorentzVectors(std::vector <double> const& parameters) {
   static double scale;
-	//  static double whad_fit_e;
-	//  static double whad_fit_px;
-	//  static double whad_fit_py;
-	//  static double whad_fit_pz;
+  //  static double whad_fit_e;
+  //  static double whad_fit_px;
+  //  static double whad_fit_py;
+  //  static double whad_fit_pz;
 //   static double wlep_fit_e;
 //   static double wlep_fit_px;
 //   static double wlep_fit_py;
@@ -491,37 +491,37 @@ double KLFitter::LikelihoodTopLeptonJets_Angular::LogLikelihood(const std::vecto
   // Breit-Wigner of leptonically decaying top quark
   logprob += BCMath::LogBreitWignerRel(tlep_fit_m, parameters[parTopM], gammaTop);
 
-	// angular information of leptonic decay
+  // angular information of leptonic decay
 
-	// create 4-vector for leptonically decaying W boson, charge lepton and corresponding b quark
-	TLorentzVector Wlep(wlep_fit_px, wlep_fit_py, wlep_fit_pz, wlep_fit_e);
-	TLorentzVector Whad(whad_fit_px, whad_fit_py, whad_fit_pz, whad_fit_e);
-	TLorentzVector lep (lep_fit_px,  lep_fit_py,  lep_fit_pz,  lep_fit_e);
-	TLorentzVector blep(blep_fit_px, blep_fit_py, blep_fit_pz, blep_fit_e);
-	TLorentzVector bhad(bhad_fit_px, bhad_fit_py, bhad_fit_pz, bhad_fit_e);
-	TLorentzVector lq1(lq1_fit_px, lq1_fit_py, lq1_fit_pz, lq1_fit_e);
-	TLorentzVector lq2(lq2_fit_px, lq2_fit_py, lq2_fit_pz, lq2_fit_e);
+  // create 4-vector for leptonically decaying W boson, charge lepton and corresponding b quark
+  TLorentzVector Wlep(wlep_fit_px, wlep_fit_py, wlep_fit_pz, wlep_fit_e);
+  TLorentzVector Whad(whad_fit_px, whad_fit_py, whad_fit_pz, whad_fit_e);
+  TLorentzVector lep (lep_fit_px,  lep_fit_py,  lep_fit_pz,  lep_fit_e);
+  TLorentzVector blep(blep_fit_px, blep_fit_py, blep_fit_pz, blep_fit_e);
+  TLorentzVector bhad(bhad_fit_px, bhad_fit_py, bhad_fit_pz, bhad_fit_e);
+  TLorentzVector lq1(lq1_fit_px, lq1_fit_py, lq1_fit_pz, lq1_fit_e);
+  TLorentzVector lq2(lq2_fit_px, lq2_fit_py, lq2_fit_pz, lq2_fit_e);
 
-	// get boost vectors
+  // get boost vectors
   TVector3  Wlep_bo(0.0, 0.0, 0.0);
-	Wlep_bo = Wlep.BoostVector();
+  Wlep_bo = Wlep.BoostVector();
 
   TVector3  Whad_bo(0.0, 0.0, 0.0);
-	Whad_bo = Whad.BoostVector();
+  Whad_bo = Whad.BoostVector();
 
-	// boost everything into W rest frames
-	blep.Boost(-Wlep_bo);
+  // boost everything into W rest frames
+  blep.Boost(-Wlep_bo);
   lep.Boost(-Wlep_bo);
 
-	bhad.Boost(-Whad_bo);
-	lq1.Boost(-Whad_bo);
-	lq2.Boost(-Whad_bo);
+  bhad.Boost(-Whad_bo);
+  lq1.Boost(-Whad_bo);
+  lq2.Boost(-Whad_bo);
 
-	// calculate 3-vectors
-	TVector3 lep3 (0.0, 0.0, 0.0);
+  // calculate 3-vectors
+  TVector3 lep3 (0.0, 0.0, 0.0);
   TVector3 blep3(0.0, 0.0, 0.0);
   TVector3 bhad3(0.0, 0.0, 0.0);
-	TVector3 lq13 (0.0, 0.0, 0.0);
+  TVector3 lq13 (0.0, 0.0, 0.0);
   TVector3 lq23(0.0, 0.0, 0.0);
 
   lep3.SetXYZ (lep.Px(),  lep.Py(),  lep.Pz());
@@ -530,25 +530,25 @@ double KLFitter::LikelihoodTopLeptonJets_Angular::LogLikelihood(const std::vecto
   lq13.SetXYZ(lq1.Px(), lq1.Py(), lq1.Pz());
   lq23.SetXYZ(lq2.Px(), lq2.Py(), lq2.Pz());
 
-	// calculate cos theta *
-	double cos_theta     = cos(lep3.Angle(-blep3));
-	double cos_theta_had = cos(lq23.Angle(-bhad3));
+  // calculate cos theta *
+  double cos_theta     = cos(lep3.Angle(-blep3));
+  double cos_theta_had = cos(lq23.Angle(-bhad3));
 
-	// fix helicity fractions
-	double F0 = 0.687;
-	double FL = 0.311;
-	double FR = 0.0017;
+  // fix helicity fractions
+  double F0 = 0.687;
+  double FL = 0.311;
+  double FR = 0.0017;
 
-	// calculate probability
-	double p_angular_lep = ( 3./4.*(1.-cos_theta*cos_theta) * F0 +
-													 3./8.*(1.-cos_theta)*(1.-cos_theta) * FL +
-													 3./8.*(1.+cos_theta)*(1.+cos_theta) * FR );
-	
-	double p_angular_had = ( 3./4.*(1.-cos_theta_had*cos_theta_had) * F0 +
-													 3./8.*(1.+cos_theta_had*cos_theta_had) * (FL + FR) );
+  // calculate probability
+  double p_angular_lep = ( 3./4.*(1.-cos_theta*cos_theta) * F0 +
+                           3./8.*(1.-cos_theta)*(1.-cos_theta) * FL +
+                           3./8.*(1.+cos_theta)*(1.+cos_theta) * FR );
+  
+  double p_angular_had = ( 3./4.*(1.-cos_theta_had*cos_theta_had) * F0 +
+                           3./8.*(1.+cos_theta_had*cos_theta_had) * (FL + FR) );
 
-	logprob += log(p_angular_lep);
-	logprob += log(p_angular_had);
+  logprob += log(p_angular_lep);
+  logprob += log(p_angular_had);
 
   // return log of likelihood
   return logprob;
@@ -754,7 +754,7 @@ int KLFitter::LikelihoodTopLeptonJets_Angular::SaveResolutionFunctions() {
 }
 // ---------------------------------------------------------
 
-int KLFitter::LikelihoodTopLeptonJets_Angular::BuildModelParticles() {	
+int KLFitter::LikelihoodTopLeptonJets_Angular::BuildModelParticles() {  
 if (GetBestFitParameters().size() > 0) CalculateLorentzVectors(GetBestFitParameters());
 
   TLorentzVector * bhad = fParticlesModel->Parton(0);

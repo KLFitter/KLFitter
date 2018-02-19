@@ -175,8 +175,8 @@ int KLFitter::Fitter::Fit(int index) {
 
   // check if permutation is LH invariant and has already been calculated
   if ((partnerindex > -1)&&(partnerindex < index)) {
-	fLikelihood->GetParametersFromCache(index);
-	GetFitStatusFromCache(index);
+  fLikelihood->GetParametersFromCache(index);
+  GetFitStatusFromCache(index);
 
   } else {
 
@@ -224,7 +224,7 @@ int KLFitter::Fitter::Fit(int index) {
 
       // re-run if Minuit status bad
       if (fMinuitStatus != 0) {
-	  fLikelihood->ResetCache();
+    fLikelihood->ResetCache();
           fLikelihood->ResetResults();
           // print to screen
           //        std::cout << "KLFitter::Fit(). Minuit did not find proper minimum. Rerun with Simulated Annealing."<<std::endl;
@@ -344,12 +344,12 @@ int KLFitter::Fitter::Status() {
 // ---------------------------------------------------------
 
 int KLFitter::Fitter::GetFitStatusFromCache(int iperm) {
-	if (((int)fCachedConvergenceStatusVector.size() > iperm)&&((int)fCachedMinuitStatusVector.size() > iperm)) {
-		fConvergenceStatus = fCachedConvergenceStatusVector.at(iperm);
-		fMinuitStatus = fCachedMinuitStatusVector.at(iperm);
-	} else {
-		std::cout<<"KLFitter::Fitter::GetFitStatusFromCache: size of fCachedConvergenceStatusVector or fCachedMinuitStatusVector too small!"<<std::endl;
-	}
+  if (((int)fCachedConvergenceStatusVector.size() > iperm)&&((int)fCachedMinuitStatusVector.size() > iperm)) {
+    fConvergenceStatus = fCachedConvergenceStatusVector.at(iperm);
+    fMinuitStatus = fCachedMinuitStatusVector.at(iperm);
+  } else {
+    std::cout<<"KLFitter::Fitter::GetFitStatusFromCache: size of fCachedConvergenceStatusVector or fCachedMinuitStatusVector too small!"<<std::endl;
+  }
 
 return 1;
 }
@@ -359,16 +359,16 @@ return 1;
 int KLFitter::Fitter::SetFitStatusToCache(int iperm, int nperms) {
 
 if (iperm==0) {
-	fCachedMinuitStatusVector.clear();
-	fCachedMinuitStatusVector.assign(nperms, -1);
+  fCachedMinuitStatusVector.clear();
+  fCachedMinuitStatusVector.assign(nperms, -1);
 
-	fCachedConvergenceStatusVector.clear();
-	fCachedConvergenceStatusVector.assign(nperms, -1);
-}	
+  fCachedConvergenceStatusVector.clear();
+  fCachedConvergenceStatusVector.assign(nperms, -1);
+} 
 
 if ((iperm>(int)fCachedMinuitStatusVector.size())||(iperm>(int)fCachedConvergenceStatusVector.size())) {
-	std::cout<<"KLFitter::Fitter::SetFitStatusToCache: iperm > size of fCachedMinuitStatusVector or fCachedConvergenceStatusVector!"<<std::endl;
-	return 0;
+  std::cout<<"KLFitter::Fitter::SetFitStatusToCache: iperm > size of fCachedMinuitStatusVector or fCachedConvergenceStatusVector!"<<std::endl;
+  return 0;
 }
 fCachedMinuitStatusVector.at(iperm) = fMinuitStatus;
 fCachedConvergenceStatusVector.at(iperm) = fConvergenceStatus;
@@ -378,15 +378,15 @@ int partner = fLikelihood->LHInvariantPermutationPartner(iperm, nperms, dummy, d
 
 if (partner > iperm) {
 
-	if (((int)fCachedMinuitStatusVector.size() > partner)&&((int)fCachedConvergenceStatusVector.size() > partner)) {
+  if (((int)fCachedMinuitStatusVector.size() > partner)&&((int)fCachedConvergenceStatusVector.size() > partner)) {
 
-		fCachedMinuitStatusVector.at(partner) = fMinuitStatus;
-		fCachedConvergenceStatusVector.at(partner) = fConvergenceStatus;
+    fCachedMinuitStatusVector.at(partner) = fMinuitStatus;
+    fCachedConvergenceStatusVector.at(partner) = fConvergenceStatus;
 
-	} else {
-		std::cout<<"KLFitter::Fitter::SetFitStatusToCache: size of fCachedMinuitStatusVector or fCachedConvergenceStatusVector too small!"<<std::endl;
-	}	
-}	
+  } else {
+    std::cout<<"KLFitter::Fitter::SetFitStatusToCache: size of fCachedMinuitStatusVector or fCachedConvergenceStatusVector too small!"<<std::endl;
+  } 
+} 
 
 GetFitStatusFromCache(iperm);
 return 1;

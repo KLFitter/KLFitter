@@ -325,7 +325,7 @@ namespace KLFitter
      * Get BAT BCH1D histograms of CosTheta
      * @return BCH1D histograms
      */
-    BCH1D * GetHistCosTheta() {	return fHistCosTheta;  }
+    BCH1D * GetHistCosTheta() { return fHistCosTheta;  }
 
     /**
      * calculate cos(theta*) for both top and antitop

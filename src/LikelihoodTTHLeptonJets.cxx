@@ -33,7 +33,7 @@
 // ---------------------------------------------------------
 KLFitter::LikelihoodTTHLeptonJets::LikelihoodTTHLeptonJets() : KLFitter::LikelihoodBase::LikelihoodBase()
                                                              , fFlagTopMassFixed(false)
-							     , fFlagHiggsMassFixed(false)
+                   , fFlagHiggsMassFixed(false)
                                                              , fFlagUseJetMass(false)
                                                              , ETmiss_x(0.)
                                                              , ETmiss_y(0.)
@@ -668,12 +668,12 @@ std::vector<double> KLFitter::LikelihoodTTHLeptonJets::GetInitialParametersWoNeu
   //++++++++++++++++//
   // Higgs mass
   if (fFlagHiggsMassFixed) {
-	double mhiggs = ( *(*fParticlesPermuted)->Parton(4) + *(*fParticlesPermuted)->Parton(5)).M();
-	if (mhiggs < GetParameter(parHiggsM)->GetLowerLimit())
-	mhiggs = GetParameter(parHiggsM)->GetLowerLimit();
-	else if (mhiggs > GetParameter(parHiggsM)->GetUpperLimit())
-	mhiggs = GetParameter(parHiggsM)->GetUpperLimit();
-	values[parHiggsM] = mhiggs;
+  double mhiggs = ( *(*fParticlesPermuted)->Parton(4) + *(*fParticlesPermuted)->Parton(5)).M();
+  if (mhiggs < GetParameter(parHiggsM)->GetLowerLimit())
+  mhiggs = GetParameter(parHiggsM)->GetLowerLimit();
+  else if (mhiggs > GetParameter(parHiggsM)->GetUpperLimit())
+  mhiggs = GetParameter(parHiggsM)->GetUpperLimit();
+  values[parHiggsM] = mhiggs;
   }
   //++++++++++++++++//
 
@@ -850,7 +850,7 @@ int KLFitter::LikelihoodTTHLeptonJets::SaveResolutionFunctions() {
 }
 // ---------------------------------------------------------
 
-int KLFitter::LikelihoodTTHLeptonJets::BuildModelParticles() {	
+int KLFitter::LikelihoodTTHLeptonJets::BuildModelParticles() {  
 if (GetBestFitParameters().size() > 0) CalculateLorentzVectors(GetBestFitParameters());
 
   TLorentzVector * bhad = fParticlesModel->Parton(0);

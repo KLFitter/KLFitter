@@ -285,11 +285,11 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, K
       fJetDetEta->push_back(DetEta);
       fBTagWeight->push_back(btagweight);
       if (btagweight != 999) {
-	fBTagWeightSet->push_back(true);
-	}
-	else {
-		fBTagWeightSet->push_back(false);
-	}
+  fBTagWeightSet->push_back(true);
+  }
+  else {
+    fBTagWeightSet->push_back(false);
+  }
     }
     else if (ptype == KLFitter::Particles::kElectron) {
       fElectronIndex->push_back(measuredindex);

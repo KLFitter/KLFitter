@@ -37,7 +37,7 @@ KLFitter::LikelihoodBase::LikelihoodBase(Particles** particles) : BCModel(),
                                                                   fParticlesPermuted(particles),
                                                                   fPermutations(0),
                                                                   fParticlesModel(0),
-								  fMyParticlesTruth(0),
+                  fMyParticlesTruth(0),
                                                                   fPhysicsConstants(new KLFitter::PhysicsConstants()),
                                                                   fDetector(0),
                                                                   fEventProbability(std::vector<double>(0)),
@@ -53,8 +53,8 @@ KLFitter::LikelihoodBase::~LikelihoodBase() {
   if (fParticlesModel)
     delete fParticlesModel;
 
-	if (fPhysicsConstants)
-		delete fPhysicsConstants;
+  if (fPhysicsConstants)
+    delete fPhysicsConstants;
 
 }
 
@@ -221,14 +221,14 @@ double KLFitter::LikelihoodBase::LogEventProbabilityBTag() {
 
         KLFitter::Particles::TrueFlavorType trueFlavor = fParticlesModel->TrueFlavor(i);
         bool isBTagged = fParticlesModel->IsBTagged(i);
-	if (trueFlavor == KLFitter::Particles::kLight && isBTagged == true)
+  if (trueFlavor == KLFitter::Particles::kLight && isBTagged == true)
           probbtag = 0.;
       }
 
       if (probbtag > 0)
-	logprob += log(probbtag);
+  logprob += log(probbtag);
       else
-	return -1e99;
+  return -1e99;
     }
     else if(fBTagMethod == kVetoLight) {
       // loop over all model particles.  calculate the overall b-tagging
@@ -241,14 +241,14 @@ double KLFitter::LikelihoodBase::LogEventProbabilityBTag() {
 
         KLFitter::Particles::TrueFlavorType trueFlavor = fParticlesModel->TrueFlavor(i);
         bool isBTagged = fParticlesModel->IsBTagged(i);
-	if (trueFlavor == KLFitter::Particles::kB && isBTagged == false)
+  if (trueFlavor == KLFitter::Particles::kB && isBTagged == false)
           probbtag = 0.;
       }
 
       if (probbtag > 0)
-	logprob += log(probbtag);
+  logprob += log(probbtag);
       else
-	return -1e99;
+  return -1e99;
     }
     else if(fBTagMethod == kVetoBoth) {
       // loop over all model particles.  calculate the overall b-tagging
@@ -261,16 +261,16 @@ double KLFitter::LikelihoodBase::LogEventProbabilityBTag() {
 
         KLFitter::Particles::TrueFlavorType trueFlavor = fParticlesModel->TrueFlavor(i);
         bool isBTagged = fParticlesModel->IsBTagged(i);
-	if (trueFlavor == KLFitter::Particles::kLight && isBTagged == true)
+  if (trueFlavor == KLFitter::Particles::kLight && isBTagged == true)
           probbtag = 0.;
-	if (trueFlavor == KLFitter::Particles::kB && isBTagged == false)
+  if (trueFlavor == KLFitter::Particles::kB && isBTagged == false)
           probbtag = 0.;
       }
 
       if (probbtag > 0)
-	logprob += log(probbtag);
+  logprob += log(probbtag);
       else
-	return -1e99;
+  return -1e99;
     }
     else if (fBTagMethod == kWorkingPoint) {
       for (int i = 0; i < fParticlesModel->NPartons(); ++i) {
@@ -283,20 +283,20 @@ double KLFitter::LikelihoodBase::LogEventProbabilityBTag() {
         bool isBTagged = fParticlesModel->IsBTagged(i);
         double efficiency = fParticlesModel->BTaggingEfficiency(i);
         double rejection = fParticlesModel->BTaggingRejection(i);
-	if(rejection < 0 || efficiency < 0) {
-	  std::cout <<  " KLFitter::LikelihoodBase::LogEventProbability() : Your working points are not set properly! Returning 0 probability " << std::endl;
-	  return -1e99;
-	}
+  if(rejection < 0 || efficiency < 0) {
+    std::cout <<  " KLFitter::LikelihoodBase::LogEventProbability() : Your working points are not set properly! Returning 0 probability " << std::endl;
+    return -1e99;
+  }
 
-	if(trueFlavor == KLFitter::Particles::kLight && isBTagged)
+  if(trueFlavor == KLFitter::Particles::kLight && isBTagged)
           logprob += log(1./rejection);
-	else if(trueFlavor == KLFitter::Particles::kLight && !isBTagged)
+  else if(trueFlavor == KLFitter::Particles::kLight && !isBTagged)
           logprob += log(1 - 1./rejection);
-	else if(trueFlavor == KLFitter::Particles::kB && isBTagged)
+  else if(trueFlavor == KLFitter::Particles::kB && isBTagged)
           logprob += log(efficiency);
-	else if(trueFlavor == KLFitter::Particles::kB && !isBTagged)
+  else if(trueFlavor == KLFitter::Particles::kB && !isBTagged)
           logprob += log(1 - efficiency);
-	else
+  else
           std::cout << " KLFitter::LikelihoodBase::LogEventProbability() : b-tagging association failed! " << std::endl;
       }
     }
@@ -327,7 +327,7 @@ void KLFitter::LikelihoodBase::PropagateBTaggingInformation() {
 
  std::vector <double> KLFitter::LikelihoodBase::GetBestFitParameters() {
 if (fCachedParameters.size() > 0) {
-	return fCachedParameters;
+  return fCachedParameters;
 }
 else return BCModel::GetBestFitParameters();
 
@@ -340,7 +340,7 @@ else return BCModel::GetBestFitParameters();
  std::vector <double> KLFitter::LikelihoodBase::GetBestFitParameterErrors() {
 
 if (fCachedParameterErrors.size() > 0) {
-	return fCachedParameterErrors;
+  return fCachedParameterErrors;
 }
 else return BCModel::GetBestFitParameterErrors();
 
@@ -351,19 +351,19 @@ else return BCModel::GetBestFitParameterErrors();
 int KLFitter::LikelihoodBase::SetParametersToCache(int iperm, int nperms) {
 //set correct size of cachevector
 if (iperm==0) {
-	fCachedParametersVector.clear();
-	fCachedParametersVector.assign(nperms, std::vector<double>(NParameters(), 0));
+  fCachedParametersVector.clear();
+  fCachedParametersVector.assign(nperms, std::vector<double>(NParameters(), 0));
 
-	fCachedParameterErrorsVector.clear();
-	fCachedParameterErrorsVector.assign(nperms, std::vector<double>(NParameters(), 0));
+  fCachedParameterErrorsVector.clear();
+  fCachedParameterErrorsVector.assign(nperms, std::vector<double>(NParameters(), 0));
 
-	fCachedNormalizationVector.clear();
-	fCachedNormalizationVector.assign(nperms, 0.);
-}	
+  fCachedNormalizationVector.clear();
+  fCachedNormalizationVector.assign(nperms, 0.);
+} 
 
 if ((iperm>(int)fCachedParametersVector.size())||(iperm>(int)fCachedParameterErrorsVector.size())) {
-	std::cout<<"KLFitter::LikelihoodBase::SetParametersToCache: iperm > size of fCachedParametersVector or fCachedParameterErrorsVector!"<<std::endl;
-	return 0;
+  std::cout<<"KLFitter::LikelihoodBase::SetParametersToCache: iperm > size of fCachedParametersVector or fCachedParameterErrorsVector!"<<std::endl;
+  return 0;
 }
 fCachedParametersVector.at(iperm) = BCModel::GetBestFitParameters();
 fCachedParameterErrorsVector.at(iperm) = BCModel::GetBestFitParameterErrors();
@@ -376,23 +376,23 @@ int partner = LHInvariantPermutationPartner(iperm, nperms, switchpar1, switchpar
 
 if (partner > iperm) {
 
-	if (((int)fCachedParametersVector.size() > partner)&&((int)fCachedParameterErrorsVector.size() > partner)) {
-		fCachedParametersVector.at(partner) = BCModel::GetBestFitParameters();
-		switchcache = fCachedParametersVector.at(partner).at(switchpar1);
-		fCachedParametersVector.at(partner).at(switchpar1) = fCachedParametersVector.at(partner).at(switchpar2);
-		fCachedParametersVector.at(partner).at(switchpar2) = switchcache;
+  if (((int)fCachedParametersVector.size() > partner)&&((int)fCachedParameterErrorsVector.size() > partner)) {
+    fCachedParametersVector.at(partner) = BCModel::GetBestFitParameters();
+    switchcache = fCachedParametersVector.at(partner).at(switchpar1);
+    fCachedParametersVector.at(partner).at(switchpar1) = fCachedParametersVector.at(partner).at(switchpar2);
+    fCachedParametersVector.at(partner).at(switchpar2) = switchcache;
 
-		fCachedParameterErrorsVector.at(partner) = BCModel::GetBestFitParameterErrors();
-		switchcache = fCachedParameterErrorsVector.at(partner).at(switchpar1);
-		fCachedParameterErrorsVector.at(partner).at(switchpar1) = fCachedParameterErrorsVector.at(partner).at(switchpar2);
-		fCachedParameterErrorsVector.at(partner).at(switchpar2) = switchcache;
+    fCachedParameterErrorsVector.at(partner) = BCModel::GetBestFitParameterErrors();
+    switchcache = fCachedParameterErrorsVector.at(partner).at(switchpar1);
+    fCachedParameterErrorsVector.at(partner).at(switchpar1) = fCachedParameterErrorsVector.at(partner).at(switchpar2);
+    fCachedParameterErrorsVector.at(partner).at(switchpar2) = switchcache;
 
-		fCachedNormalizationVector.at(partner) = BCIntegrate::GetIntegral();
+    fCachedNormalizationVector.at(partner) = BCIntegrate::GetIntegral();
 
 
-	} else {
-		std::cout<<"KLFitter::LikelihoodBase::SetParametersToCache: size of fCachedParametersVector too small!"<<std::endl;
-	}	
+  } else {
+    std::cout<<"KLFitter::LikelihoodBase::SetParametersToCache: size of fCachedParametersVector too small!"<<std::endl;
+  } 
 }
 GetParametersFromCache(iperm);
 
@@ -402,13 +402,13 @@ return 1;
 
 int KLFitter::LikelihoodBase::GetParametersFromCache(int iperm) {
 
-	if (((int)fCachedParametersVector.size() > iperm)&&((int)fCachedParameterErrorsVector.size() > iperm)) {
-		fCachedParameters = fCachedParametersVector.at(iperm);
-		fCachedParameterErrors = fCachedParameterErrorsVector.at(iperm);
-		fCachedNormalization = fCachedNormalizationVector.at(iperm);
-	} else {
-		std::cout<<"KLFitter::LikelihoodBase::GetParametersFromCache: size of fCachedParametersVector,  fCachedParameterErrorsVector or fCachedNormalizationVector too small!"<<std::endl;
-	}
+  if (((int)fCachedParametersVector.size() > iperm)&&((int)fCachedParameterErrorsVector.size() > iperm)) {
+    fCachedParameters = fCachedParametersVector.at(iperm);
+    fCachedParameterErrors = fCachedParameterErrorsVector.at(iperm);
+    fCachedNormalization = fCachedNormalizationVector.at(iperm);
+  } else {
+    std::cout<<"KLFitter::LikelihoodBase::GetParametersFromCache: size of fCachedParametersVector,  fCachedParameterErrorsVector or fCachedNormalizationVector too small!"<<std::endl;
+  }
 return 1;
 }
 
@@ -417,7 +417,7 @@ return 1;
  double KLFitter::LikelihoodBase::GetIntegral() {
 
 if (fCachedNormalizationVector.size() > 0) {
-	return fCachedNormalization;
+  return fCachedNormalization;
 }
 else {
 return BCIntegrate::GetIntegral();
@@ -437,7 +437,7 @@ return 1;
 
  double KLFitter::LikelihoodBase::GetBestFitParameter(unsigned int index) {
 if (fCachedParameters.size() > 0) {
-	return fCachedParameters.at(index);
+  return fCachedParameters.at(index);
 }
 else return BCModel::GetBestFitParameter(index);
 
@@ -450,7 +450,7 @@ else return BCModel::GetBestFitParameter(index);
  double KLFitter::LikelihoodBase::GetBestFitParameterError(unsigned int index) {
 
 if (fCachedParameterErrors.size() > 0) {
-	return fCachedParameterErrors.at(index);
+  return fCachedParameterErrors.at(index);
 }
 else return BCModel::GetBestFitParameterError(index);
 

@@ -705,7 +705,7 @@ int KLFitter::LikelihoodTopLeptonJets::SaveResolutionFunctions() {
 }
 // ---------------------------------------------------------
 
-int KLFitter::LikelihoodTopLeptonJets::BuildModelParticles() {	
+int KLFitter::LikelihoodTopLeptonJets::BuildModelParticles() {  
 if (GetBestFitParameters().size() > 0) CalculateLorentzVectors(GetBestFitParameters());
 
   TLorentzVector * bhad = fParticlesModel->Parton(0);
