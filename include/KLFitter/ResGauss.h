@@ -69,7 +69,7 @@ class ResGauss : public ResolutionBase {
     * @param dummy Dummy parameter. Only needed to satisfy the interface.
     * @return The width.
     */
-  virtual double GetSigma(double dummy = 0) ;
+  virtual double GetSigma(double dummy = 0);
 
   /**
     * Return the probability of the true value of x given the
@@ -100,7 +100,11 @@ class ResGauss : public ResolutionBase {
     * Set the width of the Gaussian
     * @param sigma The width of the Gaussian.
     */
-  void SetSigma(double sigma) { if (sigma < 0) sigma = - sigma; this -> SetPar(0, sigma); }
+  void SetSigma(double sigma) {
+    if (sigma < 0)
+      sigma = - sigma;
+    this -> SetPar(0, sigma);
+  }
 
   /* @} */
 

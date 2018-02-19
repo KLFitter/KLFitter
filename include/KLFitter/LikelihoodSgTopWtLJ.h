@@ -63,13 +63,13 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
     * @brief Get a pointer to the lepton in a particles object, depending on value of fTypeLepton
     * @return Pointer to the lepton's TLorentzVector
     */
-  TLorentzVector* GetLepton(KLFitter::Particles* particles) ;
+  TLorentzVector* GetLepton(KLFitter::Particles* particles);
 
   /**
     * @brief Return the lepton type
     * @return fTypeLepton
     */
-  int GetLeptonType() ;
+  int GetLeptonType();
 
   /**
     * @brief Return the top decay hypothesis

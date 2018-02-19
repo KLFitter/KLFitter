@@ -101,7 +101,11 @@ class ResGauss_MET : public ResolutionBase {
     * Set the width of the Gaussian
     * @param sigma The width of the Gaussian.
     */
-  void SetSigma(double sigma) { if (sigma < 0) sigma = - sigma; this -> SetPar(0, sigma); }
+  void SetSigma(double sigma) {
+    if (sigma < 0)
+      sigma = - sigma;
+    this -> SetPar(0, sigma);
+  }
 
   /* @} */
 

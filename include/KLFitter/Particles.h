@@ -476,8 +476,6 @@ class Particles {
   /* @} */
 
  private:
- protected:
- private:
   /**
     * A set of quarks and gluons.
     */

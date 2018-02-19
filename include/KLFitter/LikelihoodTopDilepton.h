@@ -241,7 +241,7 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
     * Return neutrino weight for a given nu solution and antinu solution
     * @return A double.
     */
-  double neutrino_weight(TLorentzVector nu,TLorentzVector nubar);
+  double neutrino_weight(TLorentzVector nu, TLorentzVector nubar);
   /**
     * Return sum of invariant masses of each (lep,jet) pair,
     * including a tuning factor alpha.

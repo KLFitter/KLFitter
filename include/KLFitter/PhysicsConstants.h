@@ -199,7 +199,6 @@ class PhysicsConstants {
 
   /* @} */
 
- protected:
  private:
   /**
     * The bottom quark pole mass in GeV/c2.

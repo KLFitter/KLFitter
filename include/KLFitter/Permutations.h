@@ -183,7 +183,6 @@ class Permutations {
     */
   int CheckParticles();
 
- protected:
  private:
   /**
     * Helper functions to efficienctly create permutations of N particles of only M selected particles.
@@ -193,7 +192,6 @@ class Permutations {
   std::vector<int> Get_int_plus_vector(int i, std::vector<int> v);
   std::vector<std::vector<int> > Get_M_from_N(unsigned int N, unsigned int M, unsigned int start = 0);
 
- private:
   /**
     * A pointer to the pointer of original particles.
     */
