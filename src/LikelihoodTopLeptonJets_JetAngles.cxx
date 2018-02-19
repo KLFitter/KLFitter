@@ -543,19 +543,27 @@ double KLFitter::LikelihoodTopLeptonJets_JetAngles::LogLikelihood(const std::vec
   if (!TFgoodTmp) fTFgood = false;
 
   // eta resolution
-  logprob += log((*fDetector)->ResEtaBJet((*fParticlesPermuted)->DetEta(0, KLFitter::Particles::kParton))->p(parameters[parBhadEta], (*fParticlesPermuted)->Parton(0)->Eta(), TFgoodTmp));  if (!TFgoodTmp) fTFgood = false;
-  logprob += log((*fDetector)->ResEtaBJet((*fParticlesPermuted)->DetEta(1, KLFitter::Particles::kParton))->p(parameters[parBlepEta], (*fParticlesPermuted)->Parton(1)->Eta(), TFgoodTmp));  if (!TFgoodTmp) fTFgood = false;
-  logprob += log((*fDetector)->ResEtaLightJet((*fParticlesPermuted)->DetEta(2, KLFitter::Particles::kParton))->p(parameters[parLQ1Eta], (*fParticlesPermuted)->Parton(2)->Eta(), TFgoodTmp)); if (!TFgoodTmp) fTFgood = false;
-  logprob += log((*fDetector)->ResEtaLightJet((*fParticlesPermuted)->DetEta(3, KLFitter::Particles::kParton))->p(parameters[parLQ2Eta], (*fParticlesPermuted)->Parton(3)->Eta(), TFgoodTmp)); if (!TFgoodTmp) fTFgood = false;
+  logprob += log((*fDetector)->ResEtaBJet((*fParticlesPermuted)->DetEta(0, KLFitter::Particles::kParton))->p(parameters[parBhadEta], (*fParticlesPermuted)->Parton(0)->Eta(), TFgoodTmp));
+  if (!TFgoodTmp) fTFgood = false;
+  logprob += log((*fDetector)->ResEtaBJet((*fParticlesPermuted)->DetEta(1, KLFitter::Particles::kParton))->p(parameters[parBlepEta], (*fParticlesPermuted)->Parton(1)->Eta(), TFgoodTmp));
+  if (!TFgoodTmp) fTFgood = false;
+  logprob += log((*fDetector)->ResEtaLightJet((*fParticlesPermuted)->DetEta(2, KLFitter::Particles::kParton))->p(parameters[parLQ1Eta], (*fParticlesPermuted)->Parton(2)->Eta(), TFgoodTmp));
+  if (!TFgoodTmp) fTFgood = false;
+  logprob += log((*fDetector)->ResEtaLightJet((*fParticlesPermuted)->DetEta(3, KLFitter::Particles::kParton))->p(parameters[parLQ2Eta], (*fParticlesPermuted)->Parton(3)->Eta(), TFgoodTmp));
+  if (!TFgoodTmp) fTFgood = false;
 
   // transform all phi values, so that they are centered around zero, and not around the measured phi
 
   // phi resolution
   // std::cout << parameters[parBhadPhi] << " | " << (*fParticlesPermuted)->Parton(0)->Phi() << " | " << diffPhi(parameters[parBhadPhi], (*fParticlesPermuted)->Parton(0)->Phi()) << std::endl;
-  logprob += log((*fDetector)->ResPhiBJet((*fParticlesPermuted)->DetEta(0, KLFitter::Particles::kParton))->p(diffPhi(parameters[parBhadPhi], (*fParticlesPermuted)->Parton(0)->Phi()), 0., TFgoodTmp));  if (!TFgoodTmp) fTFgood = false;
-  logprob += log((*fDetector)->ResPhiBJet((*fParticlesPermuted)->DetEta(1, KLFitter::Particles::kParton))->p(diffPhi(parameters[parBlepPhi], (*fParticlesPermuted)->Parton(1)->Phi()), 0., TFgoodTmp));  if (!TFgoodTmp) fTFgood = false;
-  logprob += log((*fDetector)->ResPhiLightJet((*fParticlesPermuted)->DetEta(2, KLFitter::Particles::kParton))->p(diffPhi(parameters[parLQ1Phi], (*fParticlesPermuted)->Parton(2)->Phi()), 0., TFgoodTmp)); if (!TFgoodTmp) fTFgood = false;
-  logprob += log((*fDetector)->ResPhiLightJet((*fParticlesPermuted)->DetEta(3, KLFitter::Particles::kParton))->p(diffPhi(parameters[parLQ2Phi], (*fParticlesPermuted)->Parton(3)->Phi()), 0., TFgoodTmp)); if (!TFgoodTmp) fTFgood = false;
+  logprob += log((*fDetector)->ResPhiBJet((*fParticlesPermuted)->DetEta(0, KLFitter::Particles::kParton))->p(diffPhi(parameters[parBhadPhi], (*fParticlesPermuted)->Parton(0)->Phi()), 0., TFgoodTmp));
+  if (!TFgoodTmp) fTFgood = false;
+  logprob += log((*fDetector)->ResPhiBJet((*fParticlesPermuted)->DetEta(1, KLFitter::Particles::kParton))->p(diffPhi(parameters[parBlepPhi], (*fParticlesPermuted)->Parton(1)->Phi()), 0., TFgoodTmp));
+  if (!TFgoodTmp) fTFgood = false;
+  logprob += log((*fDetector)->ResPhiLightJet((*fParticlesPermuted)->DetEta(2, KLFitter::Particles::kParton))->p(diffPhi(parameters[parLQ1Phi], (*fParticlesPermuted)->Parton(2)->Phi()), 0., TFgoodTmp));
+  if (!TFgoodTmp) fTFgood = false;
+  logprob += log((*fDetector)->ResPhiLightJet((*fParticlesPermuted)->DetEta(3, KLFitter::Particles::kParton))->p(diffPhi(parameters[parLQ2Phi], (*fParticlesPermuted)->Parton(3)->Phi()), 0., TFgoodTmp));
+  if (!TFgoodTmp) fTFgood = false;
 
   // physics constants
   double massW = fPhysicsConstants->MassW();

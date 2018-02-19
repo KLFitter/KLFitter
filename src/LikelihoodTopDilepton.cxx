@@ -469,8 +469,9 @@ double KLFitter::LikelihoodTopDilepton::LogLikelihood(const std::vector<double> 
   if (nuwt_weight == 0.) {
     logweight = log(1e-99);
     return logweight;
-  } else
+  } else {
     logweight += log(nuwt_weight);
+  }
   // std::cout << "NUWT  : " << logweight << std::endl;
 
   if (logweight + 10 == logweight) std::cout << "NUWT inf! : " << logweight << std::endl;
@@ -480,8 +481,9 @@ double KLFitter::LikelihoodTopDilepton::LogLikelihood(const std::vector<double> 
   if (fResEnergyB1->p(b1_fit_e, b1_meas_e, TFgoodTmp) == 0.) {
     logweight = log(1e-99);
     return logweight;
-  } else
+  } else {
     logweight += log(fResEnergyB1->p(b1_fit_e, b1_meas_e, TFgoodTmp));
+  }
   if (!TFgoodTmp) fTFgood = false;
   // std::cout << "TF b1 : " << log(fResEnergyB1->p(b1_fit_e, b1_meas_e, TFgoodTmp)) << std::endl;
 
