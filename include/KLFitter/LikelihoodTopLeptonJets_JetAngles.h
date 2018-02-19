@@ -438,7 +438,7 @@ namespace KLFitter {
     double thad_fit_m;
     double tlep_fit_m;
   };
-} // namespace KLFitter
+}  // namespace KLFitter
 
 // ---------------------------------------------------------
 

@@ -152,7 +152,7 @@ namespace KLFitter {
      */
     std::vector <double> fParameters;
   };
-} // namespace KLFitter
+}  // namespace KLFitter
 
 // ---------------------------------------------------------
 

@@ -478,7 +478,7 @@ namespace KLFitter {
     double Higgs_fit_m;
     //++++++++++++++++//
   };
-} // namespace KLFitter
+}  // namespace KLFitter
 
 // ---------------------------------------------------------
 

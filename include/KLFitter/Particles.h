@@ -622,7 +622,7 @@ namespace KLFitter {
      */
     std::vector <float> * fMuonCharge;
   };
-} // namespace KLFitter
+}  // namespace KLFitter
 
 inline
 KLFitter::Particles::ParticleType &operator++(KLFitter::Particles::ParticleType &ptype) {

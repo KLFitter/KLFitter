@@ -86,7 +86,7 @@ namespace KLFitter {
     /**
      * Enumerator for the parameters.
      */
-    //enum Parameters { parTopM=0, parB1E, parB2E, parLep1E, parLep2E, parNuEta, parAntiNuEta /*parNuPx, parNuPy, parNuPz,parTopM*/ };
+    // enum Parameters { parTopM=0, parB1E, parB2E, parLep1E, parLep2E, parNuEta, parAntiNuEta /*parNuPx, parNuPy, parNuPz,parTopM*/ };
     enum Parameters { parTopM=0, parB1E, parB2E, parLep1E, parLep2E, parAntiNuEta, parNuEta };
 
     /**
@@ -525,7 +525,7 @@ namespace KLFitter {
     double b2_fit_py;
     double b2_fit_pz;
   };
-} // namespace KLFitter
+}  // namespace KLFitter
 
 // ---------------------------------------------------------
 

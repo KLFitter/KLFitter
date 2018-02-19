@@ -294,7 +294,7 @@ namespace KLFitter {
      */
     int ResetCache();
   };
-} // namespace KLFitter
+}  // namespace KLFitter
 
 // ---------------------------------------------------------
 

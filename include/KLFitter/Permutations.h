@@ -223,7 +223,7 @@ namespace KLFitter {
     std::vector<std::vector<int>*>* fTableMuons;
     std::vector<std::vector<int>*>* fTablePhotons;
   };
-} // namespace KLFitter
+}  // namespace KLFitter
 
 // ---------------------------------------------------------
 

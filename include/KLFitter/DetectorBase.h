@@ -282,7 +282,7 @@ namespace KLFitter {
      */
     KLFitter::DetectorBase::BeamCMEnergy fBeamCMEnergy;
   };
-} // namespace KLFitter
+}  // namespace KLFitter
 
 // ---------------------------------------------------------
 

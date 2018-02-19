@@ -379,9 +379,9 @@ namespace KLFitter {
     double thad_fit_m;
     double tlep_fit_m;
   };
-} // namespace KLFitter
+}  // namespace KLFitter
 
 // ---------------------------------------------------------
 
-#endif // __LIKELIHOODSGTOPWTLJ__H
+#endif  // __LIKELIHOODSGTOPWTLJ__H
 

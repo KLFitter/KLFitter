@@ -251,7 +251,7 @@ namespace KLFitter {
     double fPhotonEtaBin_3;
     double fPhotonEtaBin_4;
   };
-} // namespace KLFitter
+}  // namespace KLFitter
 
 // ---------------------------------------------------------
 

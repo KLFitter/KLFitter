@@ -521,7 +521,7 @@ namespace KLFitter {
 
     double Z_fit_m;
   };
-} // namespace KLFitter
+}  // namespace KLFitter
 
 // ---------------------------------------------------------
 

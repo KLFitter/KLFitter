@@ -166,7 +166,7 @@ namespace KLFitter {
 
   private:
   };
-} // namespace KLFitter
+}  // namespace KLFitter
 
 // ---------------------------------------------------------
 

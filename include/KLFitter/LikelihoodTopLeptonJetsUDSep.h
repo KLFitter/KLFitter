@@ -304,7 +304,7 @@ namespace KLFitter {
 
     /* @} */
   };
-} // namespace KLFitter
+}  // namespace KLFitter
 
 // ---------------------------------------------------------
 

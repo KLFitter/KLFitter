@@ -261,7 +261,7 @@ namespace KLFitter {
      */
     double fMassTopUnc;
   };
-} // namespace KLFitter
+}  // namespace KLFitter
 
 // ---------------------------------------------------------
 
