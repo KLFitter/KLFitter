@@ -101,7 +101,7 @@ int KLFitter::LikelihoodTTHLeptonJets::DefineModelParticles() {
 
   // add model particles
   // create dummy TLorentzVector
-  TLorentzVector * dummy = new TLorentzVector(0,0,0,0);  // 4-vector
+  TLorentzVector * dummy = new TLorentzVector(0, 0, 0, 0);  // 4-vector
   fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kParton,  // type
                                "hadronic b quark",           // name
@@ -503,7 +503,7 @@ int KLFitter::LikelihoodTTHLeptonJets::AdjustParameterRanges() {
     E = (*fParticlesPermuted)->Muon(0)->E();
     double sintheta = sin((*fParticlesPermuted)->Muon(0)->Theta());
     double sigrange = nsigmas_lepton* (E*E*sintheta);
-    Emin = std::max(0.001,E -sigrange);
+    Emin = std::max(0.001, E -sigrange);
     Emax = E +sigrange;
   }
   SetParameterRange(parLepE, Emin, Emax);

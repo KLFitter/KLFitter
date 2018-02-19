@@ -62,7 +62,7 @@ int KLFitter::LikelihoodTopAllHadronic::DefineModelParticles() {
 
   // add model particles
   // create dummy TLorentzVector
-  TLorentzVector * dummy = new TLorentzVector(0,0,0,0);  // 4-vector
+  TLorentzVector * dummy = new TLorentzVector(0, 0, 0, 0);  // 4-vector
   fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kParton,  // type
                                "hadronic b quark 1",           // name

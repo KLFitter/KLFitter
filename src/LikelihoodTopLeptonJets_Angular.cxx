@@ -101,7 +101,7 @@ int KLFitter::LikelihoodTopLeptonJets_Angular::DefineModelParticles() {
 
   // add model particles
   // create dummy TLorentzVector
-  TLorentzVector * dummy = new TLorentzVector(0,0,0,0);  // 4-vector
+  TLorentzVector * dummy = new TLorentzVector(0, 0, 0, 0);  // 4-vector
   fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kParton,  // type
                                "hadronic b quark",           // name
@@ -414,7 +414,7 @@ int KLFitter::LikelihoodTopLeptonJets_Angular::AdjustParameterRanges() {
     E = (*fParticlesPermuted)->Muon(0)->E();
     double sintheta = sin((*fParticlesPermuted)->Muon(0)->Theta());
     double sigrange = nsigmas_lepton* (E*E*sintheta);
-    Emin = std::max(0.001,E -sigrange);
+    Emin = std::max(0.001, E -sigrange);
     Emax = E +sigrange;
   }
   SetParameterRange(parLepE, Emin, Emax);
@@ -495,7 +495,7 @@ double KLFitter::LikelihoodTopLeptonJets_Angular::LogLikelihood(const std::vecto
   // create 4-vector for leptonically decaying W boson, charge lepton and corresponding b quark
   TLorentzVector Wlep(wlep_fit_px, wlep_fit_py, wlep_fit_pz, wlep_fit_e);
   TLorentzVector Whad(whad_fit_px, whad_fit_py, whad_fit_pz, whad_fit_e);
-  TLorentzVector lep (lep_fit_px,  lep_fit_py,  lep_fit_pz,  lep_fit_e);
+  TLorentzVector lep(lep_fit_px,  lep_fit_py,  lep_fit_pz,  lep_fit_e);
   TLorentzVector blep(blep_fit_px, blep_fit_py, blep_fit_pz, blep_fit_e);
   TLorentzVector bhad(bhad_fit_px, bhad_fit_py, bhad_fit_pz, bhad_fit_e);
   TLorentzVector lq1(lq1_fit_px, lq1_fit_py, lq1_fit_pz, lq1_fit_e);
@@ -517,13 +517,13 @@ double KLFitter::LikelihoodTopLeptonJets_Angular::LogLikelihood(const std::vecto
   lq2.Boost(-Whad_bo);
 
   // calculate 3-vectors
-  TVector3 lep3 (0.0, 0.0, 0.0);
+  TVector3 lep3(0.0, 0.0, 0.0);
   TVector3 blep3(0.0, 0.0, 0.0);
   TVector3 bhad3(0.0, 0.0, 0.0);
-  TVector3 lq13 (0.0, 0.0, 0.0);
+  TVector3 lq13(0.0, 0.0, 0.0);
   TVector3 lq23(0.0, 0.0, 0.0);
 
-  lep3.SetXYZ (lep.Px(),  lep.Py(),  lep.Pz());
+  lep3.SetXYZ(lep.Px(),  lep.Py(),  lep.Pz());
   blep3.SetXYZ(blep.Px(), blep.Py(), blep.Pz());
   bhad3.SetXYZ(bhad.Px(), bhad.Py(), bhad.Pz());
   lq13.SetXYZ(lq1.Px(), lq1.Py(), lq1.Pz());

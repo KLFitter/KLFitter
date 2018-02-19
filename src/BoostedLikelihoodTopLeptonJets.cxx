@@ -103,7 +103,7 @@ int KLFitter::BoostedLikelihoodTopLeptonJets::DefineModelParticles() {
 
   // add model particles
   // create dummy TLorentzVector
-  TLorentzVector * dummy = new TLorentzVector(0,0,0,0);  // 4-vector
+  TLorentzVector * dummy = new TLorentzVector(0, 0, 0, 0);  // 4-vector
 
   fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kParton,  // type
@@ -389,7 +389,7 @@ int KLFitter::BoostedLikelihoodTopLeptonJets::AdjustParameterRanges() {
     double sintheta = sin((*fParticlesPermuted)->Muon(0)->Theta());
     sigma = fFlagGetParSigmasFromTFs ? fResLepton->GetSigma(E*sintheta)/sintheta : E*E*sintheta;
     double sigrange = nsigmas_lepton* sigma;
-    Emin = std::max(0.001,E -sigrange);
+    Emin = std::max(0.001, E -sigrange);
     Emax = E +sigrange;
   }
   SetParameterRange(parLepE, Emin, Emax);

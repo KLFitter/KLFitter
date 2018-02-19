@@ -624,7 +624,7 @@ int KLFitter::Particles::CheckIndex(std::vector <TLorentzVector *>* container, i
 // ---------------------------------------------------------
 std::vector <TLorentzVector *>* KLFitter::Particles::ParticleContainer(KLFitter::Particles::ParticleType ptype) {
   // return particle container
-  switch(ptype) {
+  switch (ptype) {
   case KLFitter::Particles::kParton:
     return fPartons;
     break;
