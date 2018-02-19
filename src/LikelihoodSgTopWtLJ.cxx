@@ -87,7 +87,7 @@ int KLFitter::LikelihoodSgTopWtLJ::SetET_miss_XY_SumET(double etx, double ety, d
 
 // ---------------------------------------------------------
 void KLFitter::LikelihoodSgTopWtLJ::SetLeptonType(int leptontype) {
-  if (leptontype != kElectron && leptontype != kMuon ) {
+  if (leptontype != kElectron && leptontype != kMuon) {
     std::cout << "KLFitter::SetLeptonType()\tWARNING\t lepton type not defined: " << leptontype << ". Set electron as lepton type." << std::endl;
     fTypeLepton = kElectron;
   } else {
@@ -263,7 +263,7 @@ int KLFitter::LikelihoodSgTopWtLJ::Initialize() {
 
   // set initial values
   // (only for Markov chains - initial parameters for other minimisation methods are set in Fitter.cxx)
-  SetInitialParameters( GetInitialParameters() );
+  SetInitialParameters(GetInitialParameters());
 
   // return error code
   return err;
@@ -375,21 +375,21 @@ double KLFitter::LikelihoodSgTopWtLJ::LogLikelihood(const std::vector<double> & 
   bool TFgoodTmp(true);
 
   // jet energy resolution terms
-  logprob += log( fResEnergyB->p(b_fit_e, b_meas_e, TFgoodTmp) ); if (!TFgoodTmp) fTFgood = false;
-  logprob += log( fResEnergyLQ1->p(lq1_fit_e, lq1_meas_e, TFgoodTmp) );  if (!TFgoodTmp) fTFgood = false;
-  logprob += log( fResEnergyLQ2->p(lq2_fit_e, lq2_meas_e, TFgoodTmp) );  if (!TFgoodTmp) fTFgood = false;
+  logprob += log(fResEnergyB->p(b_fit_e, b_meas_e, TFgoodTmp)); if (!TFgoodTmp) fTFgood = false;
+  logprob += log(fResEnergyLQ1->p(lq1_fit_e, lq1_meas_e, TFgoodTmp));  if (!TFgoodTmp) fTFgood = false;
+  logprob += log(fResEnergyLQ2->p(lq2_fit_e, lq2_meas_e, TFgoodTmp));  if (!TFgoodTmp) fTFgood = false;
 
   // lepton energy resolution terms
   if (fTypeLepton == kElectron) {
-    logprob += log( fResLepton->p(lep_fit_e, lep_meas_e, TFgoodTmp) );
+    logprob += log(fResLepton->p(lep_fit_e, lep_meas_e, TFgoodTmp));
   } else if (fTypeLepton == kMuon) {
-    logprob += log( fResLepton->p(lep_fit_e* lep_meas_sintheta, lep_meas_pt, TFgoodTmp) );
+    logprob += log(fResLepton->p(lep_fit_e* lep_meas_sintheta, lep_meas_pt, TFgoodTmp));
   }
   if (!TFgoodTmp) fTFgood = false;
 
   // neutrino px and py
-  logprob += log( fResMET->p(nu_fit_px, ETmiss_x, TFgoodTmp, SumET) );  if (!TFgoodTmp) fTFgood = false;
-  logprob += log( fResMET->p(nu_fit_py, ETmiss_y, TFgoodTmp, SumET) );  if (!TFgoodTmp) fTFgood = false;
+  logprob += log(fResMET->p(nu_fit_px, ETmiss_x, TFgoodTmp, SumET));  if (!TFgoodTmp) fTFgood = false;
+  logprob += log(fResMET->p(nu_fit_py, ETmiss_y, TFgoodTmp, SumET));  if (!TFgoodTmp) fTFgood = false;
 
   // physics constants
   double massW = fPhysicsConstants->MassW();

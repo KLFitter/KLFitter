@@ -91,7 +91,7 @@ int KLFitter::LikelihoodBase::SetInitialParametersNChains(std::vector<double> co
   // set starting point for MCMC
   std::vector< std::vector<double> > par(0.);
 
-  for(unsigned int i = 0; i< nchains; ++i) {
+  for (unsigned int i = 0; i< nchains; ++i) {
     par.push_back(parameters);
   }
 
@@ -196,7 +196,7 @@ double KLFitter::LikelihoodBase::LogEventProbability() {
   if (fFlagIntegrate) {
     logprob += log(GetIntegral());
   } else {
-    logprob += LogLikelihood( GetBestFitParameters() );
+    logprob += LogLikelihood(GetBestFitParameters());
   }
 
   return logprob;
@@ -210,7 +210,7 @@ double KLFitter::LikelihoodBase::LogEventProbabilityBTag() {
 
   double probbtag = 1;
 
-  if(fBTagMethod == kVeto) {
+  if (fBTagMethod == kVeto) {
     // loop over all model particles.  calculate the overall b-tagging
     // probability which is the product of all probabilities.
     for (int i = 0; i < fParticlesModel->NPartons(); ++i) {
@@ -230,7 +230,7 @@ double KLFitter::LikelihoodBase::LogEventProbabilityBTag() {
     } else {
       return -1e99;
     }
-  } else if(fBTagMethod == kVetoLight) {
+  } else if (fBTagMethod == kVetoLight) {
     // loop over all model particles.  calculate the overall b-tagging
     // probability which is the product of all probabilities.
     for (int i = 0; i < fParticlesModel->NPartons(); ++i) {
@@ -250,7 +250,7 @@ double KLFitter::LikelihoodBase::LogEventProbabilityBTag() {
     } else {
       return -1e99;
     }
-  } else if(fBTagMethod == kVetoBoth) {
+  } else if (fBTagMethod == kVetoBoth) {
     // loop over all model particles.  calculate the overall b-tagging
     // probability which is the product of all probabilities.
     for (int i = 0; i < fParticlesModel->NPartons(); ++i) {
@@ -284,18 +284,18 @@ double KLFitter::LikelihoodBase::LogEventProbabilityBTag() {
       bool isBTagged = fParticlesModel->IsBTagged(i);
       double efficiency = fParticlesModel->BTaggingEfficiency(i);
       double rejection = fParticlesModel->BTaggingRejection(i);
-      if(rejection < 0 || efficiency < 0) {
+      if (rejection < 0 || efficiency < 0) {
         std::cout <<  " KLFitter::LikelihoodBase::LogEventProbability() : Your working points are not set properly! Returning 0 probability " << std::endl;
         return -1e99;
       }
 
-      if(trueFlavor == KLFitter::Particles::kLight && isBTagged) {
+      if (trueFlavor == KLFitter::Particles::kLight && isBTagged) {
         logprob += log(1./rejection);
-      } else if(trueFlavor == KLFitter::Particles::kLight && !isBTagged) {
+      } else if (trueFlavor == KLFitter::Particles::kLight && !isBTagged) {
         logprob += log(1 - 1./rejection);
-      } else if(trueFlavor == KLFitter::Particles::kB && isBTagged) {
+      } else if (trueFlavor == KLFitter::Particles::kB && isBTagged) {
         logprob += log(efficiency);
-      } else if(trueFlavor == KLFitter::Particles::kB && !isBTagged) {
+      } else if (trueFlavor == KLFitter::Particles::kB && !isBTagged) {
         logprob += log(1 - efficiency);
       } else {
         std::cout << " KLFitter::LikelihoodBase::LogEventProbability() : b-tagging association failed! " << std::endl;
@@ -320,9 +320,9 @@ void KLFitter::LikelihoodBase::PropagateBTaggingInformation() {
       continue;
     }
 
-    fParticlesModel->SetIsBTagged(         index, (*fParticlesPermuted)->IsBTagged(index));
+    fParticlesModel->SetIsBTagged(index, (*fParticlesPermuted)->IsBTagged(index));
     fParticlesModel->SetBTaggingEfficiency(index, (*fParticlesPermuted)->BTaggingEfficiency(index));
-    fParticlesModel->SetBTaggingRejection( index, (*fParticlesPermuted)->BTaggingRejection(index));
+    fParticlesModel->SetBTaggingRejection(index, (*fParticlesPermuted)->BTaggingRejection(index));
   }
 }
 // ---------------------------------------------------------.

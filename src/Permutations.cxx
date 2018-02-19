@@ -93,10 +93,10 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
 
   bool isDilepton(false);
 
-  if(nelectrons != 0 && (*fParticles)->LeptonCharge(0, KLFitter::Particles::kElectron) != -9)
+  if (nelectrons != 0 && (*fParticles)->LeptonCharge(0, KLFitter::Particles::kElectron) != -9)
     isDilepton = true;
 
-  if(nmuons != 0 && (*fParticles)->LeptonCharge(0, KLFitter::Particles::kMuon) != -9)
+  if (nmuons != 0 && (*fParticles)->LeptonCharge(0, KLFitter::Particles::kMuon) != -9)
     isDilepton = true;
 
   // std::cout << "isDilepton? " << isDilepton  << std::endl;
@@ -250,7 +250,7 @@ int KLFitter::Permutations::Reset() {
   if (fParticlesTable) {
     while (!fParticlesTable->empty()) {
       KLFitter::Particles * p = fParticlesTable->front();
-      fParticlesTable->erase( fParticlesTable->begin() );
+      fParticlesTable->erase(fParticlesTable->begin());
       delete p;
     }
     delete fParticlesTable;
@@ -261,7 +261,7 @@ int KLFitter::Permutations::Reset() {
   if (fPermutationTable) {
     while (!fPermutationTable->empty()) {
       std::vector <int> * p = fPermutationTable->front();
-      fPermutationTable->erase( fPermutationTable->begin() );
+      fPermutationTable->erase(fPermutationTable->begin());
       delete p;
     }
     delete fPermutationTable;
@@ -272,7 +272,7 @@ int KLFitter::Permutations::Reset() {
   if (fTablePartons) {
     while (!fTablePartons->empty()) {
       std::vector<int> * l = fTablePartons->front();
-      fTablePartons->erase( fTablePartons->begin() );
+      fTablePartons->erase(fTablePartons->begin());
       l->clear();
       delete l;
     }
@@ -283,7 +283,7 @@ int KLFitter::Permutations::Reset() {
   if (fTableElectrons) {
     while (!fTableElectrons->empty()) {
       std::vector<int> * l = fTableElectrons->front();
-      fTableElectrons->erase( fTableElectrons->begin() );
+      fTableElectrons->erase(fTableElectrons->begin());
       l->clear();
       delete l;
     }
@@ -294,7 +294,7 @@ int KLFitter::Permutations::Reset() {
   if (fTableMuons) {
     while (!fTableMuons->empty()) {
       std::vector<int> * l = fTableMuons->front();
-      fTableMuons->erase( fTableMuons->begin() );
+      fTableMuons->erase(fTableMuons->begin());
       l->clear();
       delete l;
     }
@@ -305,7 +305,7 @@ int KLFitter::Permutations::Reset() {
   if (fTablePhotons) {
     while (!fTablePhotons->empty()) {
       std::vector<int> * l = fTablePhotons->front();
-      fTablePhotons->erase( fTablePhotons->begin() );
+      fTablePhotons->erase(fTablePhotons->begin());
       l->clear();
       delete l;
     }
@@ -407,11 +407,11 @@ int KLFitter::Permutations::InvariantParticlePermutations(KLFitter::Particles::P
       // check indices
       if ((*permutation)[index1] >= (*permutation)[index2]) {
         std::vector <int> * pt = (*fPermutationTable)[iperm];
-        fPermutationTable->erase( fPermutationTable->begin() + iperm );
+        fPermutationTable->erase(fPermutationTable->begin() + iperm);
         delete pt;
 
         KLFitter::Particles * p = (*fParticlesTable)[iperm];
-        fParticlesTable->erase( fParticlesTable->begin() + iperm );
+        fParticlesTable->erase(fParticlesTable->begin() + iperm);
         delete p;
       }
     }
@@ -530,11 +530,11 @@ int KLFitter::Permutations::InvariantParticleGroupPermutations(KLFitter::Particl
 
       if (numberOfInvariantMatches == indexVectorPosition1.size()) {
         std::vector <int> * pt = (*fPermutationTable)[iperm2];
-        fPermutationTable->erase( fPermutationTable->begin() + iperm2 );
+        fPermutationTable->erase(fPermutationTable->begin() + iperm2);
         delete pt;
 
         KLFitter::Particles * p = (*fParticlesTable)[iperm2];
-        fParticlesTable->erase( fParticlesTable->begin() + iperm2 );
+        fParticlesTable->erase(fParticlesTable->begin() + iperm2);
         delete p;
       }
     }  // second permutation

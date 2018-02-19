@@ -358,7 +358,7 @@ int KLFitter::LikelihoodTTZTrilepton::Initialize() {
 
   // set initial values
   // (only for Markov chains - initial parameters for other minimisation methods are set in Fitter.cxx)
-  SetInitialParameters( GetInitialParameters() );
+  SetInitialParameters(GetInitialParameters());
 
   // return error code
   return err;
@@ -569,45 +569,45 @@ double KLFitter::LikelihoodTTZTrilepton::LogLikelihood(const std::vector<double>
   bool TFgoodTmp(true);
 
   // jet energy resolution terms
-  logprob += log( fResEnergyBhad->p(bhad_fit_e, bhad_meas_e, TFgoodTmp) );
+  logprob += log(fResEnergyBhad->p(bhad_fit_e, bhad_meas_e, TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
 
-  logprob += log( fResEnergyBlep->p(blep_fit_e, blep_meas_e, TFgoodTmp) );
+  logprob += log(fResEnergyBlep->p(blep_fit_e, blep_meas_e, TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
 
-  logprob += log( fResEnergyLQ1->p(lq1_fit_e, lq1_meas_e, TFgoodTmp) );
+  logprob += log(fResEnergyLQ1->p(lq1_fit_e, lq1_meas_e, TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
 
-  logprob += log( fResEnergyLQ2->p(lq2_fit_e, lq2_meas_e, TFgoodTmp) );
+  logprob += log(fResEnergyLQ2->p(lq2_fit_e, lq2_meas_e, TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
 
   // lepton energy resolution terms
   if (fTypeLepton == kElectron) {
-    logprob += log( fResLepton->p(lep_fit_e, lep_meas_e, TFgoodTmp) );
+    logprob += log(fResLepton->p(lep_fit_e, lep_meas_e, TFgoodTmp));
   } else if (fTypeLepton == kMuon) {
-    logprob += log( fResLepton->p(lep_fit_e* lep_meas_sintheta, lep_meas_pt, TFgoodTmp) );
+    logprob += log(fResLepton->p(lep_fit_e* lep_meas_sintheta, lep_meas_pt, TFgoodTmp));
   }
   if (!TFgoodTmp) fTFgood = false;
 
   if (fTypeLepton == kElectron) {
-    logprob += log( fResLeptonZ1->p(lepZ1_fit_e, lepZ1_meas_e, TFgoodTmp) );
+    logprob += log(fResLeptonZ1->p(lepZ1_fit_e, lepZ1_meas_e, TFgoodTmp));
   } else if (fTypeLepton == kMuon) {
-    logprob += log( fResLeptonZ1->p(lepZ1_fit_e* lepZ1_meas_sintheta, lepZ1_meas_pt, TFgoodTmp) );
+    logprob += log(fResLeptonZ1->p(lepZ1_fit_e* lepZ1_meas_sintheta, lepZ1_meas_pt, TFgoodTmp));
   }
   if (!TFgoodTmp) fTFgood = false;
 
   if (fTypeLepton == kElectron) {
-    logprob += log( fResLeptonZ2->p(lepZ2_fit_e, lepZ2_meas_e, TFgoodTmp) );
+    logprob += log(fResLeptonZ2->p(lepZ2_fit_e, lepZ2_meas_e, TFgoodTmp));
   } else if (fTypeLepton == kMuon) {
-    logprob += log( fResLeptonZ2->p(lepZ2_fit_e* lepZ2_meas_sintheta, lepZ2_meas_pt, TFgoodTmp) );
+    logprob += log(fResLeptonZ2->p(lepZ2_fit_e* lepZ2_meas_sintheta, lepZ2_meas_pt, TFgoodTmp));
   }
   if (!TFgoodTmp) fTFgood = false;
 
   // neutrino px and py
-  logprob += log( fResMET->p(nu_fit_px, ETmiss_x, TFgoodTmp, SumET) );
+  logprob += log(fResMET->p(nu_fit_px, ETmiss_x, TFgoodTmp, SumET));
   if (!TFgoodTmp) fTFgood = false;
 
-  logprob += log( fResMET->p(nu_fit_py, ETmiss_y, TFgoodTmp, SumET) );
+  logprob += log(fResMET->p(nu_fit_py, ETmiss_y, TFgoodTmp, SumET));
   if (!TFgoodTmp) fTFgood = false;
 
   // physics constants
@@ -651,7 +651,7 @@ std::vector<double> KLFitter::LikelihoodTTZTrilepton::GetInitialParameters() {
   std::vector<double> neutrino_pz_solutions = GetNeutrinoPzSolutions();
   if (int(neutrino_pz_solutions.size()) == 1) {
     values[parNuPz] = neutrino_pz_solutions[0];
-  } else if(int(neutrino_pz_solutions.size()) == 2) {
+  } else if (int(neutrino_pz_solutions.size()) == 2) {
     double sol1, sol2;
     values[parNuPz] = neutrino_pz_solutions[0];
     sol1 = LogLikelihood(values);
@@ -704,7 +704,7 @@ std::vector<double> KLFitter::LikelihoodTTZTrilepton::GetInitialParametersWoNeut
   values[parNuPz] = 0.;
 
   // top mass
-  double mtop = ( *(*fParticlesPermuted)->Parton(0) + *(*fParticlesPermuted)->Parton(2) + *(*fParticlesPermuted)->Parton(3) ).M();
+  double mtop = (*(*fParticlesPermuted)->Parton(0) + *(*fParticlesPermuted)->Parton(2) + *(*fParticlesPermuted)->Parton(3)).M();
   if (mtop < GetParameter(parTopM)->GetLowerLimit()) {
     mtop = GetParameter(parTopM)->GetLowerLimit();
   } else if (mtop > GetParameter(parTopM)->GetUpperLimit()) {
@@ -715,9 +715,9 @@ std::vector<double> KLFitter::LikelihoodTTZTrilepton::GetInitialParametersWoNeut
   // Z mass
   double mz;
   if (fTypeLepton == kElectron) {
-    mz = ( *(*fParticlesPermuted)->Electron(1) + *(*fParticlesPermuted)->Electron(2)).M();
+    mz = (*(*fParticlesPermuted)->Electron(1) + *(*fParticlesPermuted)->Electron(2)).M();
   } else {
-    mz = ( *(*fParticlesPermuted)->Muon(1) + *(*fParticlesPermuted)->Muon(2)).M();
+    mz = (*(*fParticlesPermuted)->Muon(1) + *(*fParticlesPermuted)->Muon(2)).M();
   }
   if (mz < GetParameter(parZM)->GetLowerLimit()) {
     mz = GetParameter(parZM)->GetLowerLimit();
@@ -978,45 +978,45 @@ std::vector<double> KLFitter::LikelihoodTTZTrilepton::LogLikelihoodComponents(st
   bool TFgoodTmp(true);
 
   // jet energy resolution terms
-  vecci.push_back(log( fResEnergyBhad->p(bhad_fit_e, bhad_meas_e, TFgoodTmp) ));  // comp0
+  vecci.push_back(log(fResEnergyBhad->p(bhad_fit_e, bhad_meas_e, TFgoodTmp)));  // comp0
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log( fResEnergyBlep->p(blep_fit_e, blep_meas_e, TFgoodTmp) ));  // comp1
+  vecci.push_back(log(fResEnergyBlep->p(blep_fit_e, blep_meas_e, TFgoodTmp)));  // comp1
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log( fResEnergyLQ1->p(lq1_fit_e, lq1_meas_e, TFgoodTmp) ));  // comp2
+  vecci.push_back(log(fResEnergyLQ1->p(lq1_fit_e, lq1_meas_e, TFgoodTmp)));  // comp2
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log( fResEnergyLQ2->p(lq2_fit_e, lq2_meas_e, TFgoodTmp) ));  // comp3
+  vecci.push_back(log(fResEnergyLQ2->p(lq2_fit_e, lq2_meas_e, TFgoodTmp)));  // comp3
   if (!TFgoodTmp) fTFgood = false;
 
   // lepton energy resolution terms
   if (fTypeLepton == kElectron) {
-    vecci.push_back(log( fResLepton->p(lep_fit_e, lep_meas_e, TFgoodTmp) ));  // comp4
+    vecci.push_back(log(fResLepton->p(lep_fit_e, lep_meas_e, TFgoodTmp)));  // comp4
   } else if (fTypeLepton == kMuon) {
-    vecci.push_back(log( fResLepton->p(lep_fit_e* lep_meas_sintheta, lep_meas_pt, TFgoodTmp) ));  // comp4
+    vecci.push_back(log(fResLepton->p(lep_fit_e* lep_meas_sintheta, lep_meas_pt, TFgoodTmp)));  // comp4
   }
   if (!TFgoodTmp) fTFgood = false;
 
   if (fTypeLepton == kElectron) {
-    vecci.push_back(log( fResLeptonZ1->p(lepZ1_fit_e, lepZ1_meas_e, TFgoodTmp) ));  // comp4
+    vecci.push_back(log(fResLeptonZ1->p(lepZ1_fit_e, lepZ1_meas_e, TFgoodTmp)));  // comp4
   } else if (fTypeLepton == kMuon) {
-    vecci.push_back(log( fResLeptonZ1->p(lepZ1_fit_e* lepZ1_meas_sintheta, lepZ1_meas_pt, TFgoodTmp) ));  // comp4
+    vecci.push_back(log(fResLeptonZ1->p(lepZ1_fit_e* lepZ1_meas_sintheta, lepZ1_meas_pt, TFgoodTmp)));  // comp4
   }
   if (!TFgoodTmp) fTFgood = false;
 
   if (fTypeLepton == kElectron) {
-    vecci.push_back(log( fResLeptonZ2->p(lepZ2_fit_e, lepZ2_meas_e, TFgoodTmp) ));  // comp4
+    vecci.push_back(log(fResLeptonZ2->p(lepZ2_fit_e, lepZ2_meas_e, TFgoodTmp)));  // comp4
   } else if (fTypeLepton == kMuon) {
-    vecci.push_back(log( fResLeptonZ2->p(lepZ2_fit_e* lepZ2_meas_sintheta, lepZ2_meas_pt, TFgoodTmp) ));  // comp4
+    vecci.push_back(log(fResLeptonZ2->p(lepZ2_fit_e* lepZ2_meas_sintheta, lepZ2_meas_pt, TFgoodTmp)));  // comp4
   }
   if (!TFgoodTmp) fTFgood = false;
 
   // neutrino px and py
-  vecci.push_back(log( fResMET->p(nu_fit_px, ETmiss_x, TFgoodTmp, SumET) ));  // comp5
+  vecci.push_back(log(fResMET->p(nu_fit_px, ETmiss_x, TFgoodTmp, SumET)));  // comp5
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log( fResMET->p(nu_fit_py, ETmiss_y, TFgoodTmp, SumET) ));  // comp6
+  vecci.push_back(log(fResMET->p(nu_fit_py, ETmiss_y, TFgoodTmp, SumET)));  // comp6
   if (!TFgoodTmp) fTFgood = false;
 
   // physics constants

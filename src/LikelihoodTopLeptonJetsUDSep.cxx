@@ -180,7 +180,7 @@ double KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbability() {
   if (fFlagIntegrate) {
     logprob += log(GetIntegral());
   } else {
-    logprob += LogLikelihood( GetBestFitParameters() );
+    logprob += LogLikelihood(GetBestFitParameters());
   }
   return logprob;
 }
@@ -211,19 +211,19 @@ double KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityLJetReweight()
         return -1e99;
       }
       KLFitter::Particles::TrueFlavorType trueFlavor = fParticlesModel->TrueFlavor(i);
-      if(trueFlavor == KLFitter::Particles::kB) {
+      if (trueFlavor == KLFitter::Particles::kB) {
         logprob += log(BJetPt((*fParticlesPermuted)->Parton(index)->Pt()));
         logprob += log(BJetTagWeight((*fParticlesPermuted)->BTagWeight(index)));
         // std::cout<<"DEBUG! adding pT weight for b: "<<BJetPt((*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
         // std::cout<<"DEBUG! adding tag weight for b: "<<BJetTagWeight((*fParticlesPermuted)->BTagWeight(index))<<std::endl;
       }
-      if(trueFlavor == KLFitter::Particles::kLightUp) {
+      if (trueFlavor == KLFitter::Particles::kLightUp) {
         logprob += log(UpJetPt((*fParticlesPermuted)->Parton(index)->Pt()));
         logprob += log(UpJetTagWeight((*fParticlesPermuted)->BTagWeight(index)));
         // std::cout<<"DEBUG! adding pT weight for b: "<<UpJetPt((*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
         // std::cout<<"DEBUG! adding tag weight for b: "<<UpJetTagWeight((*fParticlesPermuted)->BTagWeight(index))<<std::endl;
       }
-      if(trueFlavor == KLFitter::Particles::kLightDown) {
+      if (trueFlavor == KLFitter::Particles::kLightDown) {
         logprob += log(DownJetPt((*fParticlesPermuted)->Parton(index)->Pt()));
         logprob += log(DownJetTagWeight((*fParticlesPermuted)->BTagWeight(index)));
         // std::cout<<"DEBUG! adding pT weight for b: "<<DownJetPt((*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
@@ -252,15 +252,15 @@ double KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityLJetReweight()
         return -1e99;
       }
       KLFitter::Particles::TrueFlavorType trueFlavor = fParticlesModel->TrueFlavor(i);
-      if(trueFlavor == KLFitter::Particles::kB) {
+      if (trueFlavor == KLFitter::Particles::kB) {
         logprob += log(BJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt()));
         // std::cout<<"DEBUG! adding prob weight for b: "<<BJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
       }
-      if(trueFlavor == KLFitter::Particles::kLightUp) {
+      if (trueFlavor == KLFitter::Particles::kLightUp) {
         logprob += log(UpJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt()));
         // std::cout<<"DEBUG! adding prob weight for up: "<<UpJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
       }
-      if(trueFlavor == KLFitter::Particles::kLightDown) {
+      if (trueFlavor == KLFitter::Particles::kLightDown) {
         logprob += log(DownJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt()));
         // std::cout<<"DEBUG! adding prob weight for down: "<<DownJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
       }
@@ -280,7 +280,7 @@ double KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityBTag() {
 
   double probbtag = 1;
 
-  if(fBTagMethod == kVeto) {
+  if (fBTagMethod == kVeto) {
     // loop over all model particles.  calculate the overall b-tagging
     // probability which is the product of all probabilities.
     for (int i = 0; i < fParticlesModel->NPartons(); ++i) {
@@ -311,18 +311,18 @@ double KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityBTag() {
       bool isBTagged = fParticlesModel->IsBTagged(i);
       double efficiency = fParticlesModel->BTaggingEfficiency(i);
       double rejection = fParticlesModel->BTaggingRejection(i);
-      if(rejection < 0 || efficiency < 0) {
+      if (rejection < 0 || efficiency < 0) {
         std::cout <<  " KLFitter::LikelihoodBase::LogEventProbability() : Your working points are not set properly! Returning 0 probability " << std::endl;
         return -1e99;
       }
 
-      if(((trueFlavor == KLFitter::Particles::kLightUp) || (trueFlavor == KLFitter::Particles::kLightDown)) && isBTagged) {
+      if (((trueFlavor == KLFitter::Particles::kLightUp) || (trueFlavor == KLFitter::Particles::kLightDown)) && isBTagged) {
         logprob += log(1./rejection);
-      } else if(((trueFlavor == KLFitter::Particles::kLightUp) || (trueFlavor == KLFitter::Particles::kLightDown)) && !isBTagged) {
+      } else if (((trueFlavor == KLFitter::Particles::kLightUp) || (trueFlavor == KLFitter::Particles::kLightDown)) && !isBTagged) {
         logprob += log(1 - 1./rejection);
-      } else if(trueFlavor == KLFitter::Particles::kB && isBTagged) {
+      } else if (trueFlavor == KLFitter::Particles::kB && isBTagged) {
         logprob += log(efficiency);
-      } else if(trueFlavor == KLFitter::Particles::kB && !isBTagged) {
+      } else if (trueFlavor == KLFitter::Particles::kB && !isBTagged) {
         logprob += log(1 - efficiency);
       } else {
         std::cout << " KLFitter::LikelihoodBase::LogEventProbability() : b-tagging association failed! " << std::endl;

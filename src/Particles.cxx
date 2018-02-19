@@ -64,7 +64,7 @@ KLFitter::Particles::Particles() :
 KLFitter::Particles::~Particles() {
   while (!fPartons->empty()) {
     TLorentzVector* lv = fPartons->front();
-    fPartons->erase( fPartons->begin() );
+    fPartons->erase(fPartons->begin());
     if (lv)
       delete lv;
   }
@@ -72,7 +72,7 @@ KLFitter::Particles::~Particles() {
 
   while (!fElectrons->empty()) {
     TLorentzVector* lv = fElectrons->front();
-    fElectrons->erase( fElectrons->begin() );
+    fElectrons->erase(fElectrons->begin());
     if (lv)
       delete lv;
   }
@@ -80,7 +80,7 @@ KLFitter::Particles::~Particles() {
 
   while (!fMuons->empty()) {
     TLorentzVector* lv = fMuons->front();
-    fMuons->erase( fMuons->begin() );
+    fMuons->erase(fMuons->begin());
     if (lv)
       delete lv;
   }
@@ -88,7 +88,7 @@ KLFitter::Particles::~Particles() {
 
   while (!fTaus->empty()) {
     TLorentzVector* lv = fTaus->front();
-    fTaus->erase( fTaus->begin() );
+    fTaus->erase(fTaus->begin());
     if (lv)
       delete lv;
   }
@@ -96,7 +96,7 @@ KLFitter::Particles::~Particles() {
 
   while (!fNeutrinos->empty()) {
     TLorentzVector* lv = fNeutrinos->front();
-    fNeutrinos->erase( fNeutrinos->begin() );
+    fNeutrinos->erase(fNeutrinos->begin());
     if (lv)
       delete lv;
   }
@@ -104,7 +104,7 @@ KLFitter::Particles::~Particles() {
 
   while (!fBosons->empty()) {
     TLorentzVector* lv = fBosons->front();
-    fBosons->erase( fBosons->begin() );
+    fBosons->erase(fBosons->begin());
     if (lv)
       delete lv;
   }
@@ -112,7 +112,7 @@ KLFitter::Particles::~Particles() {
 
   while (!fPhotons->empty()) {
     TLorentzVector* lv = fPhotons->front();
-    fPhotons->erase( fPhotons->begin() );
+    fPhotons->erase(fPhotons->begin());
     if (lv)
       delete lv;
   }
@@ -341,9 +341,9 @@ int KLFitter::Particles::RemoveParticle(int index, KLFitter::Particles::Particle
 
   // remove particle
   TLorentzVector* lv = (*ParticleContainer(ptype))[index];
-  ParticleContainer(ptype)->erase( ParticleContainer(ptype)->begin() + index);
+  ParticleContainer(ptype)->erase(ParticleContainer(ptype)->begin() + index);
   delete lv;
-  ParticleNameContainer(ptype)->erase( ParticleNameContainer(ptype)->begin() + index);
+  ParticleNameContainer(ptype)->erase(ParticleNameContainer(ptype)->begin() + index);
 
   // no error
   return 1;

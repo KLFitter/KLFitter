@@ -245,7 +245,7 @@ int KLFitter::LikelihoodTopAllHadronic::Initialize() {
 
   // set initial values
   // (only for Markov chains - initial parameters for other minimisation methods are set in Fitter.cxx)
-  SetInitialParameters( GetInitialParameters() );
+  SetInitialParameters(GetInitialParameters());
 
   // return error code
   return err;
@@ -405,22 +405,22 @@ double KLFitter::LikelihoodTopAllHadronic::LogLikelihood(const std::vector<doubl
   bool TFgoodTmp(true);
 
   // jet energy resolution terms
-  logprob += log( fResEnergyBhad1->p(bhad1_fit_e, bhad1_meas_e, TFgoodTmp) );
+  logprob += log(fResEnergyBhad1->p(bhad1_fit_e, bhad1_meas_e, TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
 
-  logprob += log( fResEnergyBhad2->p(bhad2_fit_e, bhad2_meas_e, TFgoodTmp) );
+  logprob += log(fResEnergyBhad2->p(bhad2_fit_e, bhad2_meas_e, TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
 
-  logprob += log( fResEnergyLQ1->p(lq1_fit_e, lq1_meas_e, TFgoodTmp) );
+  logprob += log(fResEnergyLQ1->p(lq1_fit_e, lq1_meas_e, TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
 
-  logprob += log( fResEnergyLQ2->p(lq2_fit_e, lq2_meas_e, TFgoodTmp) );
+  logprob += log(fResEnergyLQ2->p(lq2_fit_e, lq2_meas_e, TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
 
-  logprob += log( fResEnergyLQ3->p(lq3_fit_e, lq3_meas_e, TFgoodTmp) );
+  logprob += log(fResEnergyLQ3->p(lq3_fit_e, lq3_meas_e, TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
 
-  logprob += log( fResEnergyLQ4->p(lq4_fit_e, lq4_meas_e, TFgoodTmp) );
+  logprob += log(fResEnergyLQ4->p(lq4_fit_e, lq4_meas_e, TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
 
 
@@ -463,7 +463,7 @@ std::vector<double> KLFitter::LikelihoodTopAllHadronic::GetInitialParameters() {
 
   // still need to think about appropriate start value for top mass
   // top mass
-  double mtop = ( *(*fParticlesPermuted)->Parton(0) + *(*fParticlesPermuted)->Parton(2) + *(*fParticlesPermuted)->Parton(3) ).M();
+  double mtop = (*(*fParticlesPermuted)->Parton(0) + *(*fParticlesPermuted)->Parton(2) + *(*fParticlesPermuted)->Parton(3)).M();
   if (mtop < GetParameter(parTopM)->GetLowerLimit()) {
     mtop = GetParameter(parTopM)->GetLowerLimit();
   } else if (mtop > GetParameter(parTopM)->GetUpperLimit()) {
@@ -593,22 +593,22 @@ std::vector<double> KLFitter::LikelihoodTopAllHadronic::LogLikelihoodComponents(
   bool TFgoodTmp(true);
 
   // jet energy resolution terms
-  vecci.push_back(log( fResEnergyBhad1->p(bhad1_fit_e, bhad1_meas_e, TFgoodTmp) ));  // comp0
+  vecci.push_back(log(fResEnergyBhad1->p(bhad1_fit_e, bhad1_meas_e, TFgoodTmp)));  // comp0
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log( fResEnergyBhad2->p(bhad2_fit_e, bhad2_meas_e, TFgoodTmp) ));  // comp1
+  vecci.push_back(log(fResEnergyBhad2->p(bhad2_fit_e, bhad2_meas_e, TFgoodTmp)));  // comp1
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log( fResEnergyLQ1->p(lq1_fit_e, lq1_meas_e, TFgoodTmp) ));  // comp2
+  vecci.push_back(log(fResEnergyLQ1->p(lq1_fit_e, lq1_meas_e, TFgoodTmp)));  // comp2
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log( fResEnergyLQ2->p(lq2_fit_e, lq2_meas_e, TFgoodTmp) ));  // comp3
+  vecci.push_back(log(fResEnergyLQ2->p(lq2_fit_e, lq2_meas_e, TFgoodTmp)));  // comp3
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log( fResEnergyLQ3->p(lq3_fit_e, lq3_meas_e, TFgoodTmp) ));  // comp4
+  vecci.push_back(log(fResEnergyLQ3->p(lq3_fit_e, lq3_meas_e, TFgoodTmp)));  // comp4
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log( fResEnergyLQ4->p(lq4_fit_e, lq4_meas_e, TFgoodTmp) ));  // comp5
+  vecci.push_back(log(fResEnergyLQ4->p(lq4_fit_e, lq4_meas_e, TFgoodTmp)));  // comp5
   if (!TFgoodTmp) fTFgood = false;
 
   // physics constants

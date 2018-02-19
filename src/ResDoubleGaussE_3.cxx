@@ -40,7 +40,7 @@ double KLFitter::ResDoubleGaussE_3::GetMean1(double x) {
 
 // ---------------------------------------------------------
 double KLFitter::ResDoubleGaussE_3::GetSigma1(double x) {
-  return sqrt( fParameters[2]*fParameters[2] / x + fParameters[3]*fParameters[3] );
+  return sqrt(fParameters[2]*fParameters[2] / x + fParameters[3]*fParameters[3]);
 }
 
 // ---------------------------------------------------------

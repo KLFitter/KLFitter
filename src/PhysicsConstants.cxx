@@ -231,17 +231,17 @@ void KLFitter::PhysicsConstants::CalculateGammaHiggs() {
 
   double gamma = 0.0;
 
-  if ( fMassHiggs < 111.0)
+  if (fMassHiggs < 111.0)
     gamma = 0.002849;
-  if ( fMassHiggs > 114.0 && fMassHiggs < 116.0)
+  if (fMassHiggs > 114.0 && fMassHiggs < 116.0)
     gamma = 0.003124;
-  if ( fMassHiggs > 119.0 && fMassHiggs < 121.0)
+  if (fMassHiggs > 119.0 && fMassHiggs < 121.0)
     gamma = 0.003512;
-  if ( fMassHiggs > 124.0 && fMassHiggs < 126.0)
+  if (fMassHiggs > 124.0 && fMassHiggs < 126.0)
     gamma = 0.004078;
-  if ( fMassHiggs > 129.0 && fMassHiggs < 131.0)
+  if (fMassHiggs > 129.0 && fMassHiggs < 131.0)
     gamma = 0.004920;
-  if ( fMassHiggs > 139.0  )
+  if (fMassHiggs > 139.0 )
     gamma = 0.008196;
 
   SetGammaHiggs(gamma);
