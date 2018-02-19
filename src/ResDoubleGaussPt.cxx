@@ -29,7 +29,7 @@ KLFitter::ResDoubleGaussPt::ResDoubleGaussPt(std::vector<double> const& paramete
 
 // ---------------------------------------------------------
 KLFitter::ResDoubleGaussPt::~ResDoubleGaussPt() {
-  ;
+  // empty destructor
 }
 
 // ---------------------------------------------------------

@@ -30,7 +30,7 @@ KLFitter::ResDoubleGaussE_2::ResDoubleGaussE_2(std::vector<double> const& parame
 
 // ---------------------------------------------------------
 KLFitter::ResDoubleGaussE_2::~ResDoubleGaussE_2() {
-  ;
+  // empty destructor
 }
 
 // ---------------------------------------------------------

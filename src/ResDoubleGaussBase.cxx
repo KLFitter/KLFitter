@@ -39,7 +39,7 @@ KLFitter::ResDoubleGaussBase::ResDoubleGaussBase(std::vector<double> const& para
 
 // ---------------------------------------------------------
 KLFitter::ResDoubleGaussBase::~ResDoubleGaussBase() {
-  ;
+  // empty destructor
 }
 
 // ---------------------------------------------------------
