@@ -448,9 +448,9 @@ std::vector<double> KLFitter::LikelihoodSgTopWtLJ::GetInitialParameters() {
 
   // check neutrino solutions
   std::vector<double> neutrino_pz_solutions = GetNeutrinoPzSolutions();
-  if (int(neutrino_pz_solutions.size()) == 1) {
+  if (neutrino_pz_solutions.size() == 1) {
     values[parNuPz] = neutrino_pz_solutions.at(0);
-  } else if (int(neutrino_pz_solutions.size()) == 2) {
+  } else if (neutrino_pz_solutions.size() == 2) {
     if (fHadronicTop) {
       if (std::fabs(neutrino_pz_solutions[0]) < std::fabs(neutrino_pz_solutions[1])) {
         values[parNuPz] = neutrino_pz_solutions[0];

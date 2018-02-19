@@ -473,9 +473,9 @@ std::vector<double> KLFitter::BoostedLikelihoodTopLeptonJets::GetInitialParamete
 
   // check second neutrino solution
   std::vector<double> neutrino_pz_solutions = GetNeutrinoPzSolutions();
-  if (int(neutrino_pz_solutions.size()) == 1) {
+  if (neutrino_pz_solutions.size() == 1) {
     values[parNuPz] = neutrino_pz_solutions[0];
-  } else if (int(neutrino_pz_solutions.size()) == 2) {
+  } else if (neutrino_pz_solutions.size() == 2) {
     double sol1, sol2;
     values[parNuPz] = neutrino_pz_solutions[0];
     sol1 = LogLikelihood(values);

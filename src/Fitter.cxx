@@ -338,7 +338,7 @@ int KLFitter::Fitter::Status() {
 // ---------------------------------------------------------
 
 int KLFitter::Fitter::GetFitStatusFromCache(int iperm) {
-  if (((int)fCachedConvergenceStatusVector.size() > iperm)&&((int)fCachedMinuitStatusVector.size() > iperm)) {
+  if ((fCachedConvergenceStatusVector.size() > iperm) && (fCachedMinuitStatusVector.size() > iperm)) {
     fConvergenceStatus = fCachedConvergenceStatusVector.at(iperm);
     fMinuitStatus = fCachedMinuitStatusVector.at(iperm);
   } else {
@@ -359,7 +359,7 @@ int KLFitter::Fitter::SetFitStatusToCache(int iperm, int nperms) {
     fCachedConvergenceStatusVector.assign(nperms, -1);
   }
 
-  if ((iperm > (int)fCachedMinuitStatusVector.size()) || (iperm > (int)fCachedConvergenceStatusVector.size())) {
+  if ((iperm > fCachedMinuitStatusVector.size()) || (iperm > fCachedConvergenceStatusVector.size())) {
     std::cout << "KLFitter::Fitter::SetFitStatusToCache: iperm > size of fCachedMinuitStatusVector or fCachedConvergenceStatusVector!" << std::endl;
     return 0;
   }
@@ -370,7 +370,7 @@ int KLFitter::Fitter::SetFitStatusToCache(int iperm, int nperms) {
   int partner = fLikelihood->LHInvariantPermutationPartner(iperm, nperms, dummy, dummy);
 
   if (partner > iperm) {
-    if (((int)fCachedMinuitStatusVector.size() > partner)&&((int)fCachedConvergenceStatusVector.size() > partner)) {
+    if ((fCachedMinuitStatusVector.size() > partner) && (fCachedConvergenceStatusVector.size() > partner)) {
       fCachedMinuitStatusVector.at(partner) = fMinuitStatus;
       fCachedConvergenceStatusVector.at(partner) = fConvergenceStatus;
     } else {

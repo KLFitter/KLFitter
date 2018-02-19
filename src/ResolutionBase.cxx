@@ -34,7 +34,7 @@ KLFitter::ResolutionBase::ResolutionBase(int npar) {
 
 // ---------------------------------------------------------
 KLFitter::ResolutionBase::ResolutionBase(std::vector <double> parameters) {
-  fNParameters = int(parameters.size());
+  fNParameters = parameters.size();
 
   // clear parameters
   fParameters.clear();
