@@ -464,10 +464,11 @@ std::vector<double> KLFitter::LikelihoodTopAllHadronic::GetInitialParameters() {
   // still need to think about appropriate start value for top mass
   // top mass
   double mtop = ( *(*fParticlesPermuted)->Parton(0) + *(*fParticlesPermuted)->Parton(2) + *(*fParticlesPermuted)->Parton(3) ).M();
-  if (mtop < GetParameter(parTopM)->GetLowerLimit())
+  if (mtop < GetParameter(parTopM)->GetLowerLimit()) {
     mtop = GetParameter(parTopM)->GetLowerLimit();
-  else if (mtop > GetParameter(parTopM)->GetUpperLimit())
+  } else if (mtop > GetParameter(parTopM)->GetUpperLimit()) {
     mtop = GetParameter(parTopM)->GetUpperLimit();
+  }
   values[parTopM] = mtop;
 
   // return the vector

@@ -222,18 +222,15 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, f
       fElectronIndex->push_back(measuredindex);
       fElectronDetEta->push_back(DetEta);
       fElectronCharge->push_back(LepCharge);
-    }
-    else if (ptype == KLFitter::Particles::kMuon) {
+    } else if (ptype == KLFitter::Particles::kMuon) {
       fMuonIndex->push_back(measuredindex);
       fMuonDetEta->push_back(DetEta);
       fMuonCharge->push_back(LepCharge);
-    }
-    else if (ptype == KLFitter::Particles::kPhoton) {
+    } else if (ptype == KLFitter::Particles::kPhoton) {
       fPhotonIndex->push_back(measuredindex);
       fPhotonDetEta->push_back(DetEta);
     }
-  }
-  else {
+  } else {
     std::cout << "KLFitter::Particles::AddParticle(). Particle with the name " << name << " exists already." << std::endl;
     return 0;
   }
@@ -284,25 +281,20 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, K
       fBTagWeight->push_back(btagweight);
       if (btagweight != 999) {
         fBTagWeightSet->push_back(true);
-      }
-      else {
+      } else {
         fBTagWeightSet->push_back(false);
       }
-    }
-    else if (ptype == KLFitter::Particles::kElectron) {
+    } else if (ptype == KLFitter::Particles::kElectron) {
       fElectronIndex->push_back(measuredindex);
       fElectronDetEta->push_back(DetEta);
-    }
-    else if (ptype == KLFitter::Particles::kMuon) {
+    } else if (ptype == KLFitter::Particles::kMuon) {
       fMuonIndex->push_back(measuredindex);
       fMuonDetEta->push_back(DetEta);
-    }
-    else if (ptype == KLFitter::Particles::kPhoton) {
+    } else if (ptype == KLFitter::Particles::kPhoton) {
       fPhotonIndex->push_back(measuredindex);
       fPhotonDetEta->push_back(DetEta);
     }
-  }
-  else {
+  } else {
     std::cout << "KLFitter::Particles::AddParticle(). Particle with the name " << name << " exists already." << std::endl;
     return 0;
   }
@@ -365,9 +357,9 @@ int KLFitter::Particles::RemoveParticle(std::string name) {
   KLFitter::Particles::ParticleType ptype = kParton;
 
   // remove particle
-  if (FindParticle(name, vect, index, ptype))
+  if (FindParticle(name, vect, index, ptype)) {
     return RemoveParticle(index, ptype);
-  else {
+  } else {
     std::cout << "KLFitter::Particles::RemoveParticles(). Could not find particle with name " << name << "." << std::endl;
     return 0;
   }
@@ -664,29 +656,22 @@ std::vector <TLorentzVector *>* KLFitter::Particles::ParticleContainer(KLFitter:
 // ---------------------------------------------------------
 std::vector <std::string>* KLFitter::Particles::ParticleNameContainer(KLFitter::Particles::ParticleType ptype) {
   // return container
-  if (ptype == KLFitter::Particles::kParton)
+  if (ptype == KLFitter::Particles::kParton) {
     return fNamePartons;
-
-  else if (ptype == KLFitter::Particles::kElectron)
+  } else if (ptype == KLFitter::Particles::kElectron) {
     return fNameElectrons;
-
-  else if (ptype == KLFitter::Particles::kMuon)
+  } else if (ptype == KLFitter::Particles::kMuon) {
     return fNameMuons;
-
-  else if (ptype == KLFitter::Particles::kTau)
+  } else if (ptype == KLFitter::Particles::kTau) {
     return fNameTaus;
-
-  else if (ptype == KLFitter::Particles::kBoson)
+  } else if (ptype == KLFitter::Particles::kBoson) {
     return fNameBosons;
-
-  else if (ptype == KLFitter::Particles::kNeutrino)
+  } else if (ptype == KLFitter::Particles::kNeutrino) {
     return fNameNeutrinos;
-
-  else if (ptype == KLFitter::Particles::kPhoton)
+  } else if (ptype == KLFitter::Particles::kPhoton) {
     return fNamePhotons;
-
-  // or null pointer
-  else {
+  } else {
+    // or null pointer
     std::cout << "KLFitter::Particles::ParticleNameContainer(). Particle type not known." << std::endl;
     return 0;
   }
@@ -699,14 +684,15 @@ double KLFitter::Particles::DetEta(int index, KLFitter::Particles::ParticleType 
     return 0;
   }
 
-  if (ptype == KLFitter::Particles::kParton)
+  if (ptype == KLFitter::Particles::kParton) {
     return (*fJetDetEta)[index];
-  else if (ptype == KLFitter::Particles::kElectron)
+  } else if (ptype == KLFitter::Particles::kElectron) {
     return (*fElectronDetEta)[index];
-  else if (ptype == KLFitter::Particles::kMuon)
+  } else if (ptype == KLFitter::Particles::kMuon) {
     return (*fMuonDetEta)[index];
-  else if (ptype == KLFitter::Particles::kPhoton)
+  } else if (ptype == KLFitter::Particles::kPhoton) {
     return (*fPhotonDetEta)[index];
+  }
 
   // return error value
   return -100;
@@ -720,19 +706,20 @@ float KLFitter::Particles::LeptonCharge(int index, KLFitter::Particles::Particle
 
 
   if (ptype == KLFitter::Particles::kElectron) {
-    if (fElectronCharge->size()== 0)
+    if (fElectronCharge->size()== 0) {
       return -9;
-    else
+    } else {
       return (*fElectronCharge)[index];
-  }
-  else if (ptype == KLFitter::Particles::kMuon) {
-    if (fMuonCharge->size()== 0)
+    }
+  } else if (ptype == KLFitter::Particles::kMuon) {
+    if (fMuonCharge->size()== 0) {
       return -9;
-    else
+    } else {
       return (*fMuonCharge)[index];
-  }
-  else
+    }
+  } else {
     std::cout << "KLFitter::Particles::LepCharge NO LEPTON TYPE!" << std::endl;
+  }
 
   // return error value
   return -9;
@@ -743,10 +730,9 @@ int KLFitter::Particles::JetIndex(int index) {
   return (*fJetIndex)[index];
 
   // // check index
-  // if (index < 0 || index >= NPartons())
-  // {
-  // std::cout << "KLFitter::Particles::JetIndex(). Index out of range." << std::endl;
-  // return 0;
+  // if (index < 0 || index >= NPartons()) {
+  //   std::cout << "KLFitter::Particles::JetIndex(). Index out of range." << std::endl;
+  //   return 0;
   // }
 
   // // return jet index
@@ -759,10 +745,9 @@ int KLFitter::Particles::ElectronIndex(int index) {
   return (*fElectronIndex)[index];
 
   // // check index
-  // if (index < 0 || index >= NElectrons())
-  // {
-  // std::cout << "KLFitter::Particles::ElectronIndex(). Index out of range." << std::endl;
-  // return 0;
+  // if (index < 0 || index >= NElectrons()) {
+  //   std::cout << "KLFitter::Particles::ElectronIndex(). Index out of range." << std::endl;
+  //   return 0;
   // }
 
   // // return electron index
@@ -775,10 +760,9 @@ int KLFitter::Particles::MuonIndex(int index) {
   return (*fMuonIndex)[index];
 
   // // check index
-  // if (index < 0 || index >= NMuons())
-  // {
-  // std::cout << "KLFitter::Particles::MuonIndex(). Index out of range." << std::endl;
-  // return 0;
+  // if (index < 0 || index >= NMuons()) {
+  //   std::cout << "KLFitter::Particles::MuonIndex(). Index out of range." << std::endl;
+  //   return 0;
   // }
 
   // // return muon index
@@ -791,10 +775,9 @@ int KLFitter::Particles::PhotonIndex(int index) {
   return (*fPhotonIndex)[index];
 
   // // check index
-  // if (index < 0 || index >= NPhotons())
-  // {
-  // std::cout << "KLFitter::Particles::PhotonIndex(). Index out of range." << std::endl;
-  // return 0;
+  // if (index < 0 || index >= NPhotons()) {}
+  //   std::cout << "KLFitter::Particles::PhotonIndex(). Index out of range." << std::endl;
+  //   return 0;
   // }
 
   // // return photon index
@@ -873,8 +856,9 @@ int KLFitter::Particles::NBTags() {
   int sum = 0;
 
   for (unsigned int i = 0; i < n; ++i) {
-    if ((*fIsBTagged)[i])
+    if ((*fIsBTagged)[i]) {
       sum++;
+    }
   }
 
   return sum;

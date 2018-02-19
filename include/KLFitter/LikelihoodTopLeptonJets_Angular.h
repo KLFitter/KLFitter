@@ -284,10 +284,11 @@ namespace KLFitter {
      */
     inline double SetPartonMass(double jetmass, double quarkmass, double &px, double &py, double &pz, double e) {
       double mass(0.);
-      if (fFlagUseJetMass)
+      if (fFlagUseJetMass) {
         mass = jetmass > 0. ? jetmass : 0.;
-      else
+      } else {
         mass = quarkmass;
+      }
       double p_orig = sqrt(px*px + py*py + pz*pz);
       double p_newmass = sqrt(e*e - mass*mass);
       double scale = p_newmass / p_orig;

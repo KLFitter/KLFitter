@@ -174,8 +174,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
                                      KLFitter::Particles::kElectron,
                                      (*fParticles)->NameParticle(index, KLFitter::Particles::kElectron),
                                      (*fParticles)->ElectronIndex(index));
-            }
-            else {
+            } else {
               // add electron
               particles->AddParticle((*fParticles)->Electron(index),
                                      (*fParticles)->DetEta(index, KLFitter::Particles::kElectron),
@@ -202,8 +201,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
                                      KLFitter::Particles::kMuon,
                                      (*fParticles)->NameParticle(index, KLFitter::Particles::kMuon),
                                      (*fParticles)->MuonIndex(index));
-            }
-            else {
+            } else {
               // add muon
               particles->AddParticle((*fParticles)->Muon(index),
                                      (*fParticles)->DetEta(index, KLFitter::Particles::kMuon),
@@ -330,9 +328,7 @@ int KLFitter::Permutations::CreateSubTable(int Nobj, std::vector < std::vector<i
 
     do table->push_back(new std::vector<int>(vidx));
     while (next_permutation(vidx.begin(), vidx.end()));
-  }
-
-  else {
+  } else {
     std::vector<std::vector<int> > v = Get_M_from_N(Nobj, Nmax);
 
     for (unsigned int i(0), n(v.size()); i < n; ++i) {
@@ -358,9 +354,9 @@ int KLFitter::Permutations::InvariantParticlePermutations(KLFitter::Particles::P
     if (indexSet.find(indexVector[i]) != indexSet.end()) {
       std::cout << "KLFitter::Permutations::InvariantParticlePermutations(). Indices have to be different." << std::endl;
       return 0;
-    }
-    else
+    } else {
       indexSet.insert(indexVector[i]);
+    }
   }
 
   for (unsigned int i = 0, I = indexVector.size(); i < I; i++) {
@@ -419,8 +415,7 @@ int KLFitter::Permutations::InvariantParticlePermutations(KLFitter::Particles::P
         delete p;
       }
     }
-  }
-  else {
+  } else {
     // repeat until there are only 2 indices left
     while (indexVector.size() >= 2) {
       int index2 = indexVector.back();
@@ -457,16 +452,13 @@ int KLFitter::Permutations::InvariantParticleGroupPermutations(KLFitter::Particl
     if (indexSetPosition1.find(indexVectorPosition1[i]) != indexSetPosition1.end()) {
       std::cout << "KLFitter::Permutations::InvariantParticleGroupPermutations(). Indices within same index vector have to be different." << std::endl;
       return 0;
-    }
-    else if (indexSetPosition2.find(indexVectorPosition2[i]) != indexSetPosition2.end()) {
+    } else if (indexSetPosition2.find(indexVectorPosition2[i]) != indexSetPosition2.end()) {
       std::cout << "KLFitter::Permutations::InvariantParticleGroupPermutations(). Indices within same index vector have to be different." << std::endl;
       return 0;
-    }
-    else if (indexVectorPosition1[i] == indexVectorPosition2[i]) {
+    } else if (indexVectorPosition1[i] == indexVectorPosition2[i]) {
       std::cout << "KLFitter::Permutations::InvariantParticleGroupPermutations(). Indices have to be different." << std::endl;
       return 0;
-    }
-    else {
+    } else {
       indexSetPosition1.insert(indexVectorPosition1[i]);
       indexSetPosition2.insert(indexVectorPosition2[i]);
     }
@@ -664,9 +656,9 @@ std::vector<int> KLFitter::Permutations::Get_int_plus_vector(int i, std::vector<
 std::vector<std::vector<int> > KLFitter::Permutations::Get_M_from_N(unsigned int N, unsigned int M, unsigned int start) {
   std::vector<std::vector<int> > v(0);
   for (unsigned int i(start); i < N-(M-1); ++i) {
-    if (M == 1)
+    if (M == 1) {
       v.push_back(Get_int_vector(i));
-    else {
+    } else {
       std::vector<std::vector<int> > vnext = Get_M_from_N(N, M-1, i+1);
       for (unsigned int j(0), jend(vnext.size()); j < jend; ++j) {
         v.push_back(Get_int_plus_vector(i, vnext[j]));

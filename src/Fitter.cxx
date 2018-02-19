@@ -191,16 +191,14 @@ int KLFitter::Fitter::Fit(int index) {
       fLikelihood->MarginalizeAll();
       // log->CloseLog();
       // delete log;
-    }
-    // simulated annealing
-    else if (fMinimizationMethod == kSimulatedAnnealing) {
+    } else if (fMinimizationMethod == kSimulatedAnnealing) {
+      // simulated annealing
       fLikelihood->SetOptimizationMethod( BCIntegrate::kOptSimAnn );
       fLikelihood->SetSAT0(10);
       fLikelihood->SetSATmin(0.001);
       fLikelihood->FindMode( fLikelihood->GetInitialParameters() );
-    }
-    // MINUIT
-    else if (fMinimizationMethod == kMinuit) {
+    } else if (fMinimizationMethod == kMinuit) {
+      // MINUIT
       fLikelihood->SetOptimizationMethod( BCIntegrate::kOptMinuit);
       fLikelihood->FindMode( fLikelihood->GetInitialParameters() );
       //    fLikelihood->FindMode( fLikelihood->GetBestFitParameters() );
@@ -256,8 +254,7 @@ int KLFitter::Fitter::Fit(int index) {
     if(fLikelihood->GetFlagIsNan()== true) {
       fMinuitStatus = 509;
       fConvergenceStatus |= FitAbortedDueToNaNMask;
-    }
-    else {
+    } else {
       // check if TF problem
       if (!fLikelihood->NoTFProblem(fLikelihood->GetBestFitParameters())) {
         fMinuitStatus = 510;

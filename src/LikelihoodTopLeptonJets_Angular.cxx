@@ -66,9 +66,9 @@ void KLFitter::LikelihoodTopLeptonJets_Angular::SetLeptonType(LeptonType leptont
   if (leptontype != kElectron && leptontype != kMuon) {
     std::cout << "KLFitter::SetLeptonTyp(). Warning: lepton type not defined. Set electron as lepton type." << std::endl;
     fTypeLepton = kElectron;
-  }
-  else
+  } else {
     fTypeLepton = leptontype;
+  }
 
   // define model particles
   DefineModelParticles();
@@ -81,10 +81,11 @@ void KLFitter::LikelihoodTopLeptonJets_Angular::SetLeptonType(int leptontype) {
     leptontype = 1;
   }
 
-  if (leptontype == 1)
+  if (leptontype == 1) {
     SetLeptonType(kElectron);
-  else if (leptontype == 2)
+  } else if (leptontype == 2) {
     SetLeptonType(kMuon);
+  }
 }
 
 // ---------------------------------------------------------
@@ -129,8 +130,7 @@ int KLFitter::LikelihoodTopLeptonJets_Angular::DefineModelParticles() {
     fParticlesModel->AddParticle(dummy,
                                  KLFitter::Particles::kElectron,
                                  "electron");
-  }
-  else if (fTypeLepton == kMuon) {
+  } else if (fTypeLepton == kMuon) {
     fParticlesModel->AddParticle(dummy,
                                  KLFitter::Particles::kMuon,
                                  "muon");
@@ -320,8 +320,7 @@ int KLFitter::LikelihoodTopLeptonJets_Angular::RemoveInvariantParticlePermutatio
       indexVector_Muons.push_back(iMuon);
     }
     err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Muons);
-  }
-  else if (fTypeLepton == kMuon) {
+  } else if (fTypeLepton == kMuon) {
     ptype = KLFitter::Particles::kElectron;
     std::vector<int> indexVector_Electrons;
     for (int iElectron = 0; iElectron < particles->NElectrons(); iElectron++) {
@@ -411,8 +410,7 @@ int KLFitter::LikelihoodTopLeptonJets_Angular::AdjustParameterRanges() {
     E = (*fParticlesPermuted)->Electron(0)->E();
     Emin = std::max(0.001, E - nsigmas_lepton* sqrt(E));
     Emax  = E + nsigmas_lepton* sqrt(E);
-  }
-  else if (fTypeLepton == kMuon) {
+  } else if (fTypeLepton == kMuon) {
     E = (*fParticlesPermuted)->Muon(0)->E();
     double sintheta = sin((*fParticlesPermuted)->Muon(0)->Theta());
     double sigrange = nsigmas_lepton* (E*E*sintheta);
@@ -458,10 +456,11 @@ double KLFitter::LikelihoodTopLeptonJets_Angular::LogLikelihood(const std::vecto
   if (!TFgoodTmp) fTFgood = false;
 
   // lepton energy resolution terms
-  if (fTypeLepton == kElectron)
+  if (fTypeLepton == kElectron) {
     logprob += log( fResLepton->p(lep_fit_e, lep_meas_e, TFgoodTmp) );
-  else if (fTypeLepton == kMuon)
+  } else if (fTypeLepton == kMuon) {
     logprob += log( fResLepton->p(lep_fit_e* lep_meas_sintheta, lep_meas_pt, TFgoodTmp) );
+  }
   if (!TFgoodTmp) fTFgood = false;
 
   // neutrino px and py
@@ -560,9 +559,9 @@ std::vector<double> KLFitter::LikelihoodTopLeptonJets_Angular::GetInitialParamet
 
   // check second neutrino solution
   std::vector<double> neutrino_pz_solutions = GetNeutrinoPzSolutions();
-  if (int(neutrino_pz_solutions.size()) == 1)
+  if (int(neutrino_pz_solutions.size()) == 1) {
     values[parNuPz] = neutrino_pz_solutions[0];
-  else if(int(neutrino_pz_solutions.size()) == 2) {
+  } else if(int(neutrino_pz_solutions.size()) == 2) {
     double sol1, sol2;
     values[parNuPz] = neutrino_pz_solutions[0];
     sol1 = LogLikelihood(values);
@@ -587,10 +586,11 @@ std::vector<double> KLFitter::LikelihoodTopLeptonJets_Angular::GetInitialParamet
   values[parLQ2E]  = lq2_meas_e;
 
   // energy of the lepton
-  if (fTypeLepton == kElectron)
+  if (fTypeLepton == kElectron) {
     values[parLepE] = (*fParticlesPermuted)->Electron(0)->E();
-  else if (fTypeLepton == kMuon)
+  } else if (fTypeLepton == kMuon) {
     values[parLepE] = (*fParticlesPermuted)->Muon(0)->E();
+  }
 
   // missing px and py
   values[parNuPx] = ETmiss_x;
@@ -601,10 +601,11 @@ std::vector<double> KLFitter::LikelihoodTopLeptonJets_Angular::GetInitialParamet
 
   // top mass
   double mtop = ( *(*fParticlesPermuted)->Parton(0) + *(*fParticlesPermuted)->Parton(2) + *(*fParticlesPermuted)->Parton(3) ).M();
-  if (mtop < GetParameter(parTopM)->GetLowerLimit())
+  if (mtop < GetParameter(parTopM)->GetLowerLimit()) {
     mtop = GetParameter(parTopM)->GetLowerLimit();
-  else if (mtop > GetParameter(parTopM)->GetUpperLimit())
+  } else if (mtop > GetParameter(parTopM)->GetUpperLimit()) {
     mtop = GetParameter(parTopM)->GetUpperLimit();
+  }
   values[parTopM] = mtop;
 
   // return the vector
@@ -634,8 +635,7 @@ std::vector<double> KLFitter::LikelihoodTopLeptonJets_Angular::CalculateNeutrino
     py_c = (*fParticlesPermuted)->Electron(0)->Py();
     pz_c = (*fParticlesPermuted)->Electron(0)->Pz();
     Ec = (*fParticlesPermuted)->Electron(0)->E();
-  }
-  else if (fTypeLepton == kMuon) {
+  } else if (fTypeLepton == kMuon) {
     px_c = (*fParticlesPermuted)->Muon(0)->Px();
     py_c = (*fParticlesPermuted)->Muon(0)->Py();
     pz_c = (*fParticlesPermuted)->Muon(0)->Pz();
@@ -665,9 +665,9 @@ std::vector<double> KLFitter::LikelihoodTopLeptonJets_Angular::CalculateNeutrino
   double pz_offset = - b / (2*a);
 
   double squareRoot = sqrt(discriminant);
-  if (squareRoot < 1.e-6)
+  if (squareRoot < 1.e-6) {
     pz.push_back(pz_offset);
-  else {
+  } else {
     pz.push_back(pz_offset + squareRoot / (2*a));
     pz.push_back(pz_offset - squareRoot / (2*a));
   }
@@ -720,8 +720,7 @@ int KLFitter::LikelihoodTopLeptonJets_Angular::SavePermutedParticles() {
   if (fTypeLepton == kElectron) {
     lepton = (*fParticlesPermuted)->Electron(0);
     lep_meas_deteta = (*fParticlesPermuted)->DetEta(0, KLFitter::Particles::kElectron);
-  }
-  else {
+  } else {
     lepton = (*fParticlesPermuted)->Muon(0);
     lep_meas_deteta = (*fParticlesPermuted)->DetEta(0, KLFitter::Particles::kMuon);
   }
@@ -742,10 +741,11 @@ int KLFitter::LikelihoodTopLeptonJets_Angular::SaveResolutionFunctions() {
   fResEnergyBlep = (*fDetector)->ResEnergyBJet(blep_meas_deteta);
   fResEnergyLQ1  = (*fDetector)->ResEnergyLightJet(lq1_meas_deteta);
   fResEnergyLQ2  = (*fDetector)->ResEnergyLightJet(lq2_meas_deteta);
-  if (fTypeLepton == kElectron)
+  if (fTypeLepton == kElectron) {
     fResLepton = (*fDetector)->ResEnergyElectron(lep_meas_deteta);
-  else if (fTypeLepton == kMuon)
+  } else if (fTypeLepton == kMuon) {
     fResLepton = (*fDetector)->ResEnergyMuon(lep_meas_deteta);
+  }
   fResMET = (*fDetector)->ResMissingET();
 
   // no error
@@ -761,10 +761,11 @@ int KLFitter::LikelihoodTopLeptonJets_Angular::BuildModelParticles() {
   TLorentzVector * lq1  = fParticlesModel->Parton(2);
   TLorentzVector * lq2  = fParticlesModel->Parton(3);
   TLorentzVector * lep(0);
-  if (fTypeLepton == kElectron)
+  if (fTypeLepton == kElectron) {
     lep  = fParticlesModel->Electron(0);
-  else if (fTypeLepton == kMuon)
+  } else if (fTypeLepton == kMuon) {
     lep  = fParticlesModel->Muon(0);
+  }
   TLorentzVector * nu   = fParticlesModel->Neutrino(0);
   TLorentzVector * whad  = fParticlesModel->Boson(0);
   TLorentzVector * wlep  = fParticlesModel->Boson(1);
@@ -815,9 +816,9 @@ std::vector<double> KLFitter::LikelihoodTopLeptonJets_Angular::LogLikelihoodComp
   // lepton energy resolution terms
   if (fTypeLepton == kElectron) {
     vecci.push_back(log( fResLepton->p(lep_fit_e, lep_meas_e, TFgoodTmp) ));  // comp4
-  }
-  else if (fTypeLepton == kMuon)
+  } else if (fTypeLepton == kMuon) {
     vecci.push_back(log( fResLepton->p(lep_fit_e* lep_meas_sintheta, lep_meas_pt, TFgoodTmp) ));  // comp4
+  }
   if (!TFgoodTmp) fTFgood = false;
 
   // neutrino px and py

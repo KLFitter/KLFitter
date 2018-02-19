@@ -193,10 +193,11 @@ double KLFitter::LikelihoodBase::LogEventProbability() {
   }
 
   // use integrated value of LogLikelihood (default)
-  if (fFlagIntegrate)
+  if (fFlagIntegrate) {
     logprob += log(GetIntegral());
-  else
+  } else {
     logprob += LogLikelihood( GetBestFitParameters() );
+  }
 
   return logprob;
 }
@@ -224,12 +225,12 @@ double KLFitter::LikelihoodBase::LogEventProbabilityBTag() {
         probbtag = 0.;
     }
 
-    if (probbtag > 0)
+    if (probbtag > 0) {
       logprob += log(probbtag);
-    else
+    } else {
       return -1e99;
-  }
-  else if(fBTagMethod == kVetoLight) {
+    }
+  } else if(fBTagMethod == kVetoLight) {
     // loop over all model particles.  calculate the overall b-tagging
     // probability which is the product of all probabilities.
     for (int i = 0; i < fParticlesModel->NPartons(); ++i) {
@@ -244,12 +245,12 @@ double KLFitter::LikelihoodBase::LogEventProbabilityBTag() {
         probbtag = 0.;
     }
 
-    if (probbtag > 0)
+    if (probbtag > 0) {
       logprob += log(probbtag);
-    else
+    } else {
       return -1e99;
-  }
-  else if(fBTagMethod == kVetoBoth) {
+    }
+  } else if(fBTagMethod == kVetoBoth) {
     // loop over all model particles.  calculate the overall b-tagging
     // probability which is the product of all probabilities.
     for (int i = 0; i < fParticlesModel->NPartons(); ++i) {
@@ -260,18 +261,19 @@ double KLFitter::LikelihoodBase::LogEventProbabilityBTag() {
 
       KLFitter::Particles::TrueFlavorType trueFlavor = fParticlesModel->TrueFlavor(i);
       bool isBTagged = fParticlesModel->IsBTagged(i);
-      if (trueFlavor == KLFitter::Particles::kLight && isBTagged == true)
+      if (trueFlavor == KLFitter::Particles::kLight && isBTagged == true) {
         probbtag = 0.;
-      if (trueFlavor == KLFitter::Particles::kB && isBTagged == false)
+      } else if (trueFlavor == KLFitter::Particles::kB && isBTagged == false) {
         probbtag = 0.;
+      }
     }
 
-    if (probbtag > 0)
+    if (probbtag > 0) {
       logprob += log(probbtag);
-    else
+    } else {
       return -1e99;
-  }
-  else if (fBTagMethod == kWorkingPoint) {
+    }
+  } else if (fBTagMethod == kWorkingPoint) {
     for (int i = 0; i < fParticlesModel->NPartons(); ++i) {
       // get index of corresponding measured particle.
       int index = fParticlesModel->JetIndex(i);
@@ -287,16 +289,17 @@ double KLFitter::LikelihoodBase::LogEventProbabilityBTag() {
         return -1e99;
       }
 
-      if(trueFlavor == KLFitter::Particles::kLight && isBTagged)
+      if(trueFlavor == KLFitter::Particles::kLight && isBTagged) {
         logprob += log(1./rejection);
-      else if(trueFlavor == KLFitter::Particles::kLight && !isBTagged)
+      } else if(trueFlavor == KLFitter::Particles::kLight && !isBTagged) {
         logprob += log(1 - 1./rejection);
-      else if(trueFlavor == KLFitter::Particles::kB && isBTagged)
+      } else if(trueFlavor == KLFitter::Particles::kB && isBTagged) {
         logprob += log(efficiency);
-      else if(trueFlavor == KLFitter::Particles::kB && !isBTagged)
+      } else if(trueFlavor == KLFitter::Particles::kB && !isBTagged) {
         logprob += log(1 - efficiency);
-      else
+      } else {
         std::cout << " KLFitter::LikelihoodBase::LogEventProbability() : b-tagging association failed! " << std::endl;
+      }
     }
   }
 
@@ -327,8 +330,9 @@ void KLFitter::LikelihoodBase::PropagateBTaggingInformation() {
 std::vector <double> KLFitter::LikelihoodBase::GetBestFitParameters() {
   if (fCachedParameters.size() > 0) {
     return fCachedParameters;
+  } else {
+    return BCModel::GetBestFitParameters();
   }
-  else return BCModel::GetBestFitParameters();
 }
 
 
@@ -338,8 +342,9 @@ std::vector <double> KLFitter::LikelihoodBase::GetBestFitParameters() {
 std::vector <double> KLFitter::LikelihoodBase::GetBestFitParameterErrors() {
   if (fCachedParameterErrors.size() > 0) {
     return fCachedParameterErrors;
+  } else {
+    return BCModel::GetBestFitParameterErrors();
   }
-  else return BCModel::GetBestFitParameterErrors();
 }
 
 // ---------------------------------------------------------
@@ -409,8 +414,7 @@ int KLFitter::LikelihoodBase::GetParametersFromCache(int iperm) {
 double KLFitter::LikelihoodBase::GetIntegral() {
   if (fCachedNormalizationVector.size() > 0) {
     return fCachedNormalization;
-  }
-  else {
+  } else {
     return BCIntegrate::GetIntegral();
   }
 }
@@ -429,8 +433,9 @@ int KLFitter::LikelihoodBase::ResetCache() {
 double KLFitter::LikelihoodBase::GetBestFitParameter(unsigned int index) {
   if (fCachedParameters.size() > 0) {
     return fCachedParameters.at(index);
+  } else {
+    return BCModel::GetBestFitParameter(index);
   }
-  else return BCModel::GetBestFitParameter(index);
 }
 
 
@@ -440,6 +445,7 @@ double KLFitter::LikelihoodBase::GetBestFitParameter(unsigned int index) {
 double KLFitter::LikelihoodBase::GetBestFitParameterError(unsigned int index) {
   if (fCachedParameterErrors.size() > 0) {
     return fCachedParameterErrors.at(index);
+  } else {
+    return BCModel::GetBestFitParameterError(index);
   }
-  else return BCModel::GetBestFitParameterError(index);
 }

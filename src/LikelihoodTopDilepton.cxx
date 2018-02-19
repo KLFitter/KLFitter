@@ -81,8 +81,7 @@ void KLFitter::LikelihoodTopDilepton::SetLeptonType(LeptonType leptontype_1, Lep
     std::cout << "KLFitter::SetLeptonTyp(). Warning: lepton type not defined. Set electron-electron as lepton type." << std::endl;
     fTypeLepton_1 = kElectron;
     fTypeLepton_2 = kElectron;
-  }
-  else {
+  } else {
     fTypeLepton_1 = leptontype_1;
     fTypeLepton_2 = leptontype_2;
   }
@@ -102,14 +101,15 @@ void KLFitter::LikelihoodTopDilepton::SetLeptonType(int leptontype_1, int lepton
     leptontype_2 = 1;
   }
 
-  if (leptontype_1 == 1 && leptontype_2 == 1)
+  if (leptontype_1 == 1 && leptontype_2 == 1) {
     SetLeptonType(kElectron, kElectron);
-  else if (leptontype_1 == 1 && leptontype_2 == 2)
+  } else if (leptontype_1 == 1 && leptontype_2 == 2) {
     SetLeptonType(kElectron, kMuon);
-  else if (leptontype_1 == 2 && leptontype_2 == 2)
+  } else if (leptontype_1 == 2 && leptontype_2 == 2) {
     SetLeptonType(kMuon, kMuon);
-  else
+  } else {
     std::cout << "LikelihoodTopDilepton::SetLeptonType Error: NOT POSSIBLE (2,1) conf! <---" << std::endl;
+  }
 }
 
 
@@ -148,16 +148,14 @@ int KLFitter::LikelihoodTopDilepton::DefineModelParticles() {
     fParticlesModel->AddParticle(dummy,
                                  KLFitter::Particles::kMuon,
                                  "muon");
-  }
-  else if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kElectron) {
+  } else if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kElectron) {
     fParticlesModel->AddParticle(dummy,
                                  KLFitter::Particles::kElectron,
                                  "electron 1");
     fParticlesModel->AddParticle(dummy,
                                  KLFitter::Particles::kElectron,
                                  "electron 2");
-  }
-  else if (fTypeLepton_1 == kMuon && fTypeLepton_2 == kMuon) {
+  } else if (fTypeLepton_1 == kMuon && fTypeLepton_2 == kMuon) {
     fParticlesModel->AddParticle(dummy,
                                  KLFitter::Particles::kMuon,
                                  "muon 1");
@@ -202,11 +200,9 @@ void KLFitter::LikelihoodTopDilepton::DefineHistograms() {
 
   if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kMuon) {
     channel = "emu";
-  }
-  else if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kElectron) {
+  } else if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kElectron) {
     channel = "ee";
-  }
-  else if (fTypeLepton_1 == kMuon && fTypeLepton_2 == kMuon) {
+  } else if (fTypeLepton_1 == kMuon && fTypeLepton_2 == kMuon) {
     channel = "mumu";
   }
 
@@ -302,8 +298,7 @@ int KLFitter::LikelihoodTopDilepton::RemoveInvariantParticlePermutations() {
       indexVector_Electrons.push_back(iElectron);
     }
     err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Electrons);
-  }
-  else if (fTypeLepton_1 == kMuon && fTypeLepton_2 == kMuon) {
+  } else if (fTypeLepton_1 == kMuon && fTypeLepton_2 == kMuon) {
     ptype = KLFitter::Particles::kMuon;
     std::vector<int> indexVector_Muons;
     for (int iMuon = 0; iMuon < particles->NMuons(); iMuon++) {
@@ -415,8 +410,7 @@ int KLFitter::LikelihoodTopDilepton::AdjustParameterRanges() {
     Emax = E +sigrange;
     // std::cout << "Emin mu: " << Emin << " Emax mu: " << Emax << std::endl;
     SetParameterRange(parLep2E, Emin, Emax);
-  }
-  else if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kElectron) {
+  } else if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kElectron) {
     E = (*fParticlesPermuted)->Electron(0)->E();
     double sigrange = nsigmas_lepton*std::max(par2_1*sqrt(E),par3_1*E);
     Emin = std::max(0.001, E - sigrange);
@@ -430,8 +424,7 @@ int KLFitter::LikelihoodTopDilepton::AdjustParameterRanges() {
     Emax  = E + sigrange;
     // std::cout << "Emin el 2: " << Emin << " Emax el 2: " << Emax << std::endl;
     SetParameterRange(parLep2E, Emin, Emax);
-  }
-  else if (fTypeLepton_1 == kMuon && fTypeLepton_2 == kMuon) {
+  } else if (fTypeLepton_1 == kMuon && fTypeLepton_2 == kMuon) {
     E = (*fParticlesPermuted)->Muon(0)->E();
     double sintheta = sin((*fParticlesPermuted)->Muon(0)->Theta());
     double sigrange = nsigmas_lepton*std::max(par2_1*E,par3_1*E*E*sintheta);
@@ -476,8 +469,7 @@ double KLFitter::LikelihoodTopDilepton::LogLikelihood(const std::vector<double> 
   if(nuwt_weight == 0.) {
     logweight = log(1e-99);
     return logweight;
-  }
-  else
+  } else
     logweight += log(nuwt_weight);
   // std::cout << "NUWT  : " << logweight << std::endl;
 
@@ -488,8 +480,7 @@ double KLFitter::LikelihoodTopDilepton::LogLikelihood(const std::vector<double> 
   if( fResEnergyB1->p(b1_fit_e, b1_meas_e, TFgoodTmp) == 0. ) {
     logweight = log(1e-99);
     return logweight;
-  }
-  else
+  } else
     logweight += log( fResEnergyB1->p(b1_fit_e, b1_meas_e, TFgoodTmp) );
   if (!TFgoodTmp) fTFgood = false;
   // std::cout << "TF b1 : " << log( fResEnergyB1->p(b1_fit_e, b1_meas_e, TFgoodTmp) ) << std::endl;
@@ -500,9 +491,9 @@ double KLFitter::LikelihoodTopDilepton::LogLikelihood(const std::vector<double> 
   if( fResEnergyB2->p(b2_fit_e, b2_meas_e, TFgoodTmp) == 0.) {
     logweight = log(1e-99);
     return logweight;
-  }
-  else
+  } else {
     logweight += log( fResEnergyB2->p(b2_fit_e, b2_meas_e, TFgoodTmp) );
+  }
   if (!TFgoodTmp) fTFgood = false;
   // std::cout << "TF b2 : " << log( fResEnergyB2->p(b2_fit_e, b2_meas_e, TFgoodTmp) ) << std::endl;
 
@@ -514,58 +505,54 @@ double KLFitter::LikelihoodTopDilepton::LogLikelihood(const std::vector<double> 
     if( fResLepton1->p(lep1_fit_e, lep1_meas_e, TFgoodTmp) == 0.) {
       logweight = log(1e-99);
       return logweight;
-    }
-    else
+    } else {
       logweight += log( fResLepton1->p(lep1_fit_e, lep1_meas_e, TFgoodTmp) );
+    }
 
     if( fResLepton2->p(lep2_fit_e*lep2_meas_sintheta, lep2_meas_pt, TFgoodTmp) == 0.) {
       logweight = log(1e-99);
       return logweight;
-    }
-    else
+    } else {
       logweight += log( fResLepton2->p(lep2_fit_e*lep2_meas_sintheta, lep2_meas_pt, TFgoodTmp) );
+    }
     if (!TFgoodTmp) fTFgood = false;
 
     // std::cout << "TF lep emu : " << log( fResLepton1->p(lep1_fit_e, lep1_meas_e, TFgoodTmp) ) << " and " << log( fResLepton2->p(lep2_fit_e*lep2_meas_sintheta, lep2_meas_pt, TFgoodTmp) ) << std::endl;
 
     if(logweight + 10 == logweight) std::cout << "TF lep emu inf! : "<< log(fResLepton1->p(lep1_fit_e, lep1_meas_e, TFgoodTmp)) <<" and "<< log(fResLepton2->p(lep2_fit_e*lep2_meas_sintheta, lep2_meas_pt, TFgoodTmp)) <<std::endl;
-  }
-
-  // /// /// lepton energy resolution terms EE
-  else if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kElectron) {
+  } else if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kElectron) {
+    // /// /// lepton energy resolution terms EE
     if( fResLepton1->p(lep1_fit_e, lep1_meas_e, TFgoodTmp) == 0.) {
       logweight = log(1e-99);
       return logweight;
-    }
-    else
+    } else {
       logweight += log( fResLepton1->p(lep1_fit_e, lep1_meas_e, TFgoodTmp) );
+    }
 
     if( fResLepton2->p(lep2_fit_e, lep2_meas_e, TFgoodTmp) == 0.) {
       logweight = log(1e-99);
       return logweight;
-    }
-    else
+    } else {
       logweight += log( fResLepton2->p(lep2_fit_e, lep2_meas_e, TFgoodTmp) );
+    }
     if (!TFgoodTmp) fTFgood = false;
 
     if(logweight + 10 == logweight) std::cout << "TF lep ee inf! : " << log( fResLepton1->p(lep1_fit_e, lep1_meas_e, TFgoodTmp) ) << " and " << log( fResLepton2->p(lep2_fit_e, lep2_meas_e, TFgoodTmp) ) << std::endl;
-  }
-
-  // /// /// lepton energy resolution terms MM
-  else if (fTypeLepton_1 == kMuon && fTypeLepton_2 == kMuon) {
+  } else if (fTypeLepton_1 == kMuon && fTypeLepton_2 == kMuon) {
+    // /// /// lepton energy resolution terms MM
     if( fResLepton1->p(lep1_fit_e*lep1_meas_sintheta, lep1_meas_pt, TFgoodTmp) == 0.) {
       logweight = log(1e-99);
       return logweight;
-    }
-    else
+    } else {
       logweight += log( fResLepton1->p(lep1_fit_e*lep1_meas_sintheta, lep1_meas_pt, TFgoodTmp) );
+    }
 
     if( fResLepton2->p(lep2_fit_e*lep2_meas_sintheta, lep2_meas_pt, TFgoodTmp) == 0.) {
       logweight = log(1e-99);
       return logweight;
-    }
-    else
+    } else {
       logweight += log( fResLepton2->p(lep2_fit_e*lep2_meas_sintheta, lep2_meas_pt, TFgoodTmp) );
+    }
     if (!TFgoodTmp) fTFgood = false;
 
     if(logweight + 10 == logweight) std::cout << "TF lep mumu inf! : " << log(fResLepton1->p(lep1_fit_e*lep1_meas_sintheta, lep1_meas_pt, TFgoodTmp)) << " and " << log(fResLepton2->p(lep2_fit_e*lep2_meas_sintheta, lep2_meas_pt, TFgoodTmp)) << std::endl;
@@ -575,9 +562,9 @@ double KLFitter::LikelihoodTopDilepton::LogLikelihood(const std::vector<double> 
   if (GaussAntiNuEta(parameters) == 0.) {
     logweight = log(1e-99);
     return logweight;
-  }
-  else
+  } else {
     logweight += log( GaussAntiNuEta(parameters) );
+  }
   // std::cout << "Gauss AntiNuEta  : " << log( GaussAntiNuEta(parameters) ) << std::endl;
 
   if(logweight + 10 == logweight) std::cout << "Gauss AntiNuEta inf! : " << log( GaussAntiNuEta(parameters) ) << std::endl;
@@ -587,9 +574,9 @@ double KLFitter::LikelihoodTopDilepton::LogLikelihood(const std::vector<double> 
   if (GaussNuEta(parameters) == 0.) {
     logweight = log(1e-99);
     return logweight;
-  }
-  else
+  } else {
     logweight += log( GaussNuEta(parameters) );
+  }
   // std::cout << "Gauss NuEta : " << log( GaussNuEta(parameters) ) << std::endl;
 
   if(logweight + 10 == logweight) std::cout << "Gauss NuEta inf! : " << log( GaussNuEta(parameters) ) << std::endl;
@@ -599,10 +586,9 @@ double KLFitter::LikelihoodTopDilepton::LogLikelihood(const std::vector<double> 
   if (CalculateMLepJet(parameters) == 0.) {
     logweight = log(1e-99);
     return logweight;
-  }
-  else
+  } else {
     logweight += log( CalculateMLepJet(parameters) );
-
+  }
 
   if(logweight + 10 == logweight) std::cout << "CalculateMLepJet inf! : "  << log( CalculateMLepJet(parameters) ) << std::endl;
 
@@ -637,22 +623,22 @@ double KLFitter::LikelihoodTopDilepton::CalculateMLepJet(const std::vector<doubl
   j2.SetPxPyPzE(b2_fit_px, b2_fit_py, b2_fit_pz, b2_fit_e);
 
   // normalized to the sum of all combinations of (lep,jet)
-  if ((pow((l1+j1).M() + (l2+j2).M(),alpha) + pow((l2+j1).M() + (l1+j2).M(),alpha))!= 0.)
+  if ((pow((l1+j1).M() + (l2+j2).M(),alpha) + pow((l2+j1).M() + (l1+j2).M(),alpha))!= 0.) {
     norm = 1/(pow((l1+j1).M() + (l2+j2).M(),alpha) + pow((l2+j1).M() + (l1+j2).M(),alpha));
-  else
+  } else {
     std::cout << "Error LikelihoodTopDilepton::CalculateMLepJet: normalization is inf!" << std::endl;
+  }
 
   // ensure correctly (lepton, nu) pair according to lepton charge
   if (lep1_meas_charge == 1 && lep2_meas_charge == -1) {
     // std::cout << "opt1: lep1_meas_charge: " << lep1_meas_charge << " and lep2_meas_charge: " << lep2_meas_charge  << std::endl;
     sumMinv = (l1+j1).M() + (l2+j2).M();
-  }
-  else if (lep1_meas_charge == -1 && lep2_meas_charge == 1) {
+  } else if (lep1_meas_charge == -1 && lep2_meas_charge == 1) {
     // std::cout << "opt2: lep1_meas_charge: " << lep1_meas_charge << " and lep2_meas_charge: " << lep2_meas_charge  << std::endl;
     sumMinv = (l2+j1).M() + (l1+j2).M();
-  }
-  else
+  } else {
     std::cout << "ERROR KLFitter::LikelihoodTopDilepton::CalculateMLepJet -------> NO VALID LEPTON CHARGE!!!" << std::endl;
+  }
 
   //  std::cout << "sumMinv: " << sumMinv << " pow(sumMinv," << alpha << "): " << pow(sumMinv,alpha) << std::endl;
 
@@ -710,15 +696,13 @@ double KLFitter::LikelihoodTopDilepton::CalculateWeightPerm(TLorentzVector * l1,
     // std::cout << "opt1: lep1_meas_charge: " << lep1_meas_charge << " and lep2_meas_charge: " << lep2_meas_charge  << std::endl;
     nus = SolveForNuMom(l1,j1,parameters[parTopM],parameters[parNuEta]);
     nubars = SolveForNuMom(l2,j2,parameters[parTopM],parameters[parAntiNuEta]);
-  }
-  else if (lep1_meas_charge == -1 && lep2_meas_charge == 1) {
+  } else if (lep1_meas_charge == -1 && lep2_meas_charge == 1) {
     // std::cout << "opt2: lep1_meas_charge: " << lep1_meas_charge << " and lep2_meas_charge: " << lep2_meas_charge  << std::endl;
     nus = SolveForNuMom(l2,j1,parameters[parTopM],parameters[parNuEta]);
     nubars = SolveForNuMom(l1,j2,parameters[parTopM],parameters[parAntiNuEta]);
-  }
-  else
+  } else {
     std::cout << "ERROR KLFitter::LikelihoodTopDilepton::CalculateWeightPerm -------> NO VALID LEPTON CHARGE!!!" << std::endl;
-
+  }
 
   if (nus.NSolutions > 0 && nubars.NSolutions > 0) {
     weight += neutrino_weight(nus.nu1,nubars.nu1);  // ***solution 1
@@ -726,11 +710,9 @@ double KLFitter::LikelihoodTopDilepton::CalculateWeightPerm(TLorentzVector * l1,
 
     if (nus.NSolutions == 1 && nubars.NSolutions == 2) {
       weight += neutrino_weight(nus.nu1,nubars.nu2);  // ***solution 2
-    }
-    else if (nus.NSolutions == 2 && nubars.NSolutions == 1) {
+    } else if (nus.NSolutions == 2 && nubars.NSolutions == 1) {
       weight += neutrino_weight(nus.nu2,nubars.nu1);  // ***solution 2
-    }
-    else if (nus.NSolutions == 2 && nubars.NSolutions == 2) {
+    } else if (nus.NSolutions == 2 && nubars.NSolutions == 2) {
       weight += neutrino_weight(nus.nu1,nubars.nu2);  // ***solution 2
 
       weight += neutrino_weight(nus.nu2,nubars.nu1);  // ***solution 3
@@ -847,16 +829,14 @@ KLFitter::NuSolutions KLFitter::LikelihoodTopDilepton::SolveForNuMom(TLorentzVec
 
   if (det < 0.) {
     ret.NSolutions = 0;
-  }
-  else if (det == 0.) {
+  } else if (det == 0.) {
     ret.NSolutions = 1;
     py =-D/(2.*C);
     px = A*py+B;
     pT2 = px*px+py*py;
     pz = sqrt(pT2)*sinhnueta;
     ret.nu1.SetPxPyPzE(px,py,pz,sqrt(pT2+pz*pz));
-  }
-  else {
+  } else {
     ret.NSolutions = 2;
     tmp = sqrt(det)/(2.*C);
     py1 =-D/(2.*C)+tmp;
@@ -920,12 +900,10 @@ std::vector<double> KLFitter::LikelihoodTopDilepton::GetInitialParameters() {
   if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kMuon) {
     values[parLep1E] = (*fParticlesPermuted)->Electron(0)->E();
     values[parLep2E] = (*fParticlesPermuted)->Muon(0)->E();
-  }
-  else if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kElectron) {
+  } else if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kElectron) {
     values[parLep1E] = (*fParticlesPermuted)->Electron(0)->E();
     values[parLep2E] = (*fParticlesPermuted)->Electron(1)->E();
-  }
-  else if (fTypeLepton_1 == kMuon && fTypeLepton_2 == kMuon) {
+  } else if (fTypeLepton_1 == kMuon && fTypeLepton_2 == kMuon) {
     values[parLep1E] = (*fParticlesPermuted)->Muon(0)->E();
     values[parLep2E] = (*fParticlesPermuted)->Muon(1)->E();
   }
@@ -973,16 +951,14 @@ int KLFitter::LikelihoodTopDilepton::SavePermutedParticles() {
     lepton_2 = (*fParticlesPermuted)->Muon(0);
     lep2_meas_deteta = (*fParticlesPermuted)->DetEta(0, KLFitter::Particles::kMuon);
     lep2_meas_charge = (*fParticlesPermuted)->LeptonCharge(0, KLFitter::Particles::kMuon);
-  }
-  else if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kElectron) {
+  } else if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kElectron) {
     lepton_1 = (*fParticlesPermuted)->Electron(0);
     lep1_meas_deteta = (*fParticlesPermuted)->DetEta(0, KLFitter::Particles::kElectron);
     lep1_meas_charge = (*fParticlesPermuted)->LeptonCharge(0, KLFitter::Particles::kElectron);
     lepton_2 = (*fParticlesPermuted)->Electron(1);
     lep2_meas_deteta = (*fParticlesPermuted)->DetEta(1, KLFitter::Particles::kElectron);
     lep2_meas_charge = (*fParticlesPermuted)->LeptonCharge(1, KLFitter::Particles::kElectron);
-  }
-  else if (fTypeLepton_1 == kMuon && fTypeLepton_2 == kMuon) {
+  } else if (fTypeLepton_1 == kMuon && fTypeLepton_2 == kMuon) {
     lepton_1 = (*fParticlesPermuted)->Muon(0);
     lep1_meas_deteta = (*fParticlesPermuted)->DetEta(0, KLFitter::Particles::kMuon);
     lep1_meas_charge = (*fParticlesPermuted)->LeptonCharge(0, KLFitter::Particles::kMuon);
@@ -1017,12 +993,10 @@ int KLFitter::LikelihoodTopDilepton::SaveResolutionFunctions() {
   if(fTypeLepton_1 == kElectron && fTypeLepton_2 == kMuon) {
     fResLepton1 = (*fDetector)->ResEnergyElectron(lep1_meas_deteta);
     fResLepton2 = (*fDetector)->ResEnergyMuon(lep2_meas_deteta);
-  }
-  else if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kElectron) {
+  } else if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kElectron) {
     fResLepton1 = (*fDetector)->ResEnergyElectron(lep1_meas_deteta);
     fResLepton2 = (*fDetector)->ResEnergyElectron(lep2_meas_deteta);
-  }
-  else if (fTypeLepton_1 == kMuon && fTypeLepton_2 == kMuon) {
+  } else if (fTypeLepton_1 == kMuon && fTypeLepton_2 == kMuon) {
     fResLepton1 = (*fDetector)->ResEnergyMuon(lep1_meas_deteta);
     fResLepton2 = (*fDetector)->ResEnergyMuon(lep2_meas_deteta);
   }
@@ -1045,12 +1019,10 @@ int KLFitter::LikelihoodTopDilepton::BuildModelParticles() {
   if(fTypeLepton_1 == kElectron && fTypeLepton_2 == kMuon) {
     lep1  = fParticlesModel->Electron(0);
     lep2  = fParticlesModel->Muon(0);
-  }
-  else if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kElectron) {
+  } else if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kElectron) {
     lep1  = fParticlesModel->Electron(0);
     lep2  = fParticlesModel->Electron(1);
-  }
-  else {
+  } else {
     lep1  = fParticlesModel->Muon(0);
     lep2  = fParticlesModel->Muon(1);
   }
@@ -1080,83 +1052,91 @@ std::vector<double> KLFitter::LikelihoodTopDilepton::LogLikelihoodComponents(std
 
   // NuWT weight
   nuwt_weight = CalculateWeight(parameters);
-  if(nuwt_weight == 0.)
+  if(nuwt_weight == 0.) {
     vecci.push_back(log(1e-99));
-  else
+  } else {
     vecci.push_back(log( CalculateWeight(parameters) ));  // comp0
+  }
 
   // jet energy resolution terms
-  if( fResEnergyB1->p(b1_fit_e, b1_meas_e, TFgoodTmp) == 0. )
+  if( fResEnergyB1->p(b1_fit_e, b1_meas_e, TFgoodTmp) == 0. ) {
     vecci.push_back(log(1e-99));
-  else
+  } else {
     vecci.push_back(log( fResEnergyB1->p(b1_fit_e, b1_meas_e, TFgoodTmp) ));   // comp1
+  }
   if (!TFgoodTmp) fTFgood = false;
 
 
-  if( fResEnergyB2->p(b2_fit_e, b2_meas_e, TFgoodTmp) == 0.)
+  if( fResEnergyB2->p(b2_fit_e, b2_meas_e, TFgoodTmp) == 0.) {
     vecci.push_back(log(1e-99));
-  else
+  } else {
     vecci.push_back(log( fResEnergyB2->p(b2_fit_e, b2_meas_e, TFgoodTmp) ));   // comp2
+  }
   if (!TFgoodTmp) fTFgood = false;
 
   // lepton energy resolution terms
   if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kMuon) {
-    if( fResLepton1->p(lep1_fit_e, lep1_meas_e, TFgoodTmp) == 0.)
+    if( fResLepton1->p(lep1_fit_e, lep1_meas_e, TFgoodTmp) == 0.) {
       vecci.push_back(log(1e-99));
-    else
+    } else {
       vecci.push_back(log( fResLepton1->p(lep1_fit_e, lep1_meas_e, TFgoodTmp) ));                         // comp3
+    }
 
-    if( fResLepton2->p(lep2_fit_e*lep2_meas_sintheta, lep2_meas_pt, TFgoodTmp) == 0.)
+    if( fResLepton2->p(lep2_fit_e*lep2_meas_sintheta, lep2_meas_pt, TFgoodTmp) == 0.) {
       vecci.push_back(log(1e-99));
-    else
+    } else {
       vecci.push_back(log( fResLepton2->p(lep2_fit_e* lep2_meas_sintheta, lep2_meas_pt, TFgoodTmp) ));    // comp4
+    }
     if (!TFgoodTmp) fTFgood = false;
-  }
-  else if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kElectron) {
-    if( fResLepton1->p(lep1_fit_e, lep1_meas_e, TFgoodTmp) == 0.)
+  } else if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kElectron) {
+    if( fResLepton1->p(lep1_fit_e, lep1_meas_e, TFgoodTmp) == 0.) {
       vecci.push_back(log(1e-99));
-    else
+    } else {
       vecci.push_back(log( fResLepton1->p(lep1_fit_e, lep1_meas_e, TFgoodTmp) ));  // comp3
+    }
 
-    if( fResLepton2->p(lep2_fit_e, lep2_meas_e, TFgoodTmp) == 0.)
+    if( fResLepton2->p(lep2_fit_e, lep2_meas_e, TFgoodTmp) == 0.) {
       vecci.push_back(log(1e-99));
-    else
+    } else {
       vecci.push_back(log( fResLepton2->p(lep2_fit_e, lep2_meas_e, TFgoodTmp) ));  // comp4
+    }
     if (!TFgoodTmp) fTFgood = false;
-  }
-  else if (fTypeLepton_1 == kMuon && fTypeLepton_2 == kMuon) {
-    if( fResLepton1->p(lep1_fit_e*lep1_meas_sintheta, lep1_meas_pt, TFgoodTmp) == 0.)
+  } else if (fTypeLepton_1 == kMuon && fTypeLepton_2 == kMuon) {
+    if( fResLepton1->p(lep1_fit_e*lep1_meas_sintheta, lep1_meas_pt, TFgoodTmp) == 0.) {
       vecci.push_back(log(1e-99));
-    else
+    } else {
       vecci.push_back(log( fResLepton1->p(lep1_fit_e* lep1_meas_sintheta, lep1_meas_pt, TFgoodTmp) ));  // comp3
+    }
 
-    if( fResLepton2->p(lep2_fit_e*lep2_meas_sintheta, lep2_meas_pt, TFgoodTmp) == 0.)
+    if( fResLepton2->p(lep2_fit_e*lep2_meas_sintheta, lep2_meas_pt, TFgoodTmp) == 0.) {
       vecci.push_back(log(1e-99));
-    else
+    } else {
       vecci.push_back(log( fResLepton2->p(lep2_fit_e* lep2_meas_sintheta, lep2_meas_pt, TFgoodTmp) ));  // comp4
+    }
     if (!TFgoodTmp) fTFgood = false;
   }
 
   // nueta and antinueta terms
 
-  if (GaussAntiNuEta(parameters) == 0.)
+  if (GaussAntiNuEta(parameters) == 0.) {
     vecci.push_back(log(1e-99));
-  else
+  } else {
     vecci.push_back(log (GaussAntiNuEta(parameters)) );  // comp5
+  }
 
-  if (GaussNuEta(parameters) == 0.)
+  if (GaussNuEta(parameters) == 0.) {
     vecci.push_back(log(1e-99));
-  else
+  } else {
     vecci.push_back(log (GaussNuEta(parameters)) );  // comp6
+  }
 
   // sum of invariant masses (lep,jet) term
 
   if (CalculateMLepJet(parameters) == 0.) {
     vecci.push_back(log(1e-99));
-  }
-  else
+  } else {
     vecci.push_back(log( CalculateMLepJet(parameters)) );  // comp7
-
+  }
 
   // return log of likelihood
   return vecci;
@@ -1236,18 +1216,16 @@ void KLFitter::LikelihoodTopDilepton::MCMCIterationInterface() {
       // for costheta
       MCMC_lep = MCMC_lep2;
       MCMC_antilep = MCMC_lep1;
-    }
-    else if (lep1_meas_charge == -1 && lep2_meas_charge == 1) {
+    } else if (lep1_meas_charge == -1 && lep2_meas_charge == 1) {
       // std::cout << "opt2: lep1_meas_charge: " << lep1_meas_charge << " and lep2_meas_charge: " << lep2_meas_charge  << std::endl;
       nus = SolveForNuMom(&MCMC_lep2,&MCMC_b1,mtop,nueta);
       nubars = SolveForNuMom(&MCMC_lep1,&MCMC_b2,mtop,antinueta);
       // for costheta
       MCMC_lep = MCMC_lep1;
       MCMC_antilep = MCMC_lep2;
-    }
-    else
+    } else {
       std::cout << "ERROR KLFitter::LikelihoodTopDilepton::MCMCIterationInterface -------> NO VALID LEPTON CHARGE!!!" << std::endl;
-
+    }
 
     if (nus.NSolutions > 0 && nubars.NSolutions > 0) {  // 1 nu 1 nubar
       if (nus.nu1.M() >= 0 && nubars.nu1.M() >= 0) {
@@ -1288,8 +1266,7 @@ void KLFitter::LikelihoodTopDilepton::MCMCIterationInterface() {
           fHistCosTheta->GetHistogram()->Fill(costheta.second);
           // std::cout << "costheta: " << costheta.first << std::endl;
         }
-      }  // 1 nu 2 nubar
-      else if (nus.NSolutions == 2 && nubars.NSolutions == 1) {  // 2 nu 1 nubar
+      } else if (nus.NSolutions == 2 && nubars.NSolutions == 1) {  // 2 nu 1 nubar
         if (nus.nu2.M() >= 0 && nubars.nu1.M() >= 0) {
           // mttbar
           mttbar = (MCMC_b1 + MCMC_b2 + MCMC_lep1 + MCMC_lep2 + nus.nu2 + nubars.nu1).M();
@@ -1308,8 +1285,7 @@ void KLFitter::LikelihoodTopDilepton::MCMCIterationInterface() {
           fHistCosTheta->GetHistogram()->Fill(costheta.second);
           // std::cout << "costheta: " << costheta.first << std::endl;
         }
-      }  // 2 nu 1 nubar
-      else if (nus.NSolutions == 2 && nubars.NSolutions == 2) {  // 2 nu 2 nubar
+      } else if (nus.NSolutions == 2 && nubars.NSolutions == 2) {  // 2 nu 2 nubar
         if (nus.nu1.M() >= 0 && nubars.nu2.M() >= 0) {
           // mttbar
           mttbar = (MCMC_b1 + MCMC_b2 + MCMC_lep1 + MCMC_lep2 + nus.nu1 + nubars.nu2).M();

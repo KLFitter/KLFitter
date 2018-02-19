@@ -86,8 +86,7 @@ int KLFitter::LikelihoodTopLeptonJetsUDSep::DefineModelParticles() {
     fParticlesModel->AddParticle(dummy,
                                  KLFitter::Particles::kElectron,
                                  "electron");
-  }
-  else if (fTypeLepton == kMuon) {
+  } else if (fTypeLepton == kMuon) {
     fParticlesModel->AddParticle(dummy,
                                  KLFitter::Particles::kMuon,
                                  "muon");
@@ -150,8 +149,7 @@ int KLFitter::LikelihoodTopLeptonJetsUDSep::RemoveInvariantParticlePermutations(
       indexVector_Muons.push_back(iMuon);
     }
     err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Muons);
-  }
-  else if (fTypeLepton == kMuon) {
+  } else if (fTypeLepton == kMuon) {
     ptype = KLFitter::Particles::kElectron;
     std::vector<int> indexVector_Electrons;
     for (int iElectron = 0; iElectron < particles->NElectrons(); iElectron++) {
@@ -179,10 +177,11 @@ double KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbability() {
   }
 
   // use integrated value of LogLikelihood (default)
-  if (fFlagIntegrate)
+  if (fFlagIntegrate) {
     logprob += log(GetIntegral());
-  else
+  } else {
     logprob += LogLikelihood( GetBestFitParameters() );
+  }
   return logprob;
 }
 
@@ -296,12 +295,12 @@ double KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityBTag() {
         probbtag = 0.;
     }
 
-    if (probbtag > 0)
+    if (probbtag > 0) {
       logprob += log(probbtag);
-    else
+    } else {
       return -1e99;
-  }
-  else if (fBTagMethod == kWorkingPoint) {
+    }
+  } else if (fBTagMethod == kWorkingPoint) {
     for (int i = 0; i < fParticlesModel->NPartons(); ++i) {
       // get index of corresponding measured particle.
       int index = fParticlesModel->JetIndex(i);
@@ -317,16 +316,17 @@ double KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityBTag() {
         return -1e99;
       }
 
-      if(((trueFlavor == KLFitter::Particles::kLightUp) || (trueFlavor == KLFitter::Particles::kLightDown)) && isBTagged)
+      if(((trueFlavor == KLFitter::Particles::kLightUp) || (trueFlavor == KLFitter::Particles::kLightDown)) && isBTagged) {
         logprob += log(1./rejection);
-      else if(((trueFlavor == KLFitter::Particles::kLightUp) || (trueFlavor == KLFitter::Particles::kLightDown)) && !isBTagged)
+      } else if(((trueFlavor == KLFitter::Particles::kLightUp) || (trueFlavor == KLFitter::Particles::kLightDown)) && !isBTagged) {
         logprob += log(1 - 1./rejection);
-      else if(trueFlavor == KLFitter::Particles::kB && isBTagged)
+      } else if(trueFlavor == KLFitter::Particles::kB && isBTagged) {
         logprob += log(efficiency);
-      else if(trueFlavor == KLFitter::Particles::kB && !isBTagged)
+      } else if(trueFlavor == KLFitter::Particles::kB && !isBTagged) {
         logprob += log(1 - efficiency);
-      else
+      } else {
         std::cout << " KLFitter::LikelihoodBase::LogEventProbability() : b-tagging association failed! " << std::endl;
+      }
     }
   }
 
