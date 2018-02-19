@@ -612,7 +612,7 @@ int KLFitter::Particles::CheckIndex(std::vector <TLorentzVector *>* container, i
   }
 
   // check index
-  if (index < 0 || index >= container->size()) {
+  if (index < 0 || index >= static_cast<int>(container->size())) {
     std::cout << "KLFitter::Particles::CheckIndex(). Index out of range." << std::endl;
     return 0;
   }
@@ -787,7 +787,7 @@ int KLFitter::Particles::PhotonIndex(int index) {
 // ---------------------------------------------------------
 int KLFitter::Particles::SetIsBTagged(int index, bool isBTagged) {
   // check index
-  if (index < 0 || index >= fIsBTagged->size()) {
+  if (index < 0 || index >= static_cast<int>(fIsBTagged->size())) {
     std::cout << " KLFitter::SetIsBTagged(). Index out of range." << std::endl;
     return 0;
   }
@@ -800,7 +800,7 @@ int KLFitter::Particles::SetIsBTagged(int index, bool isBTagged) {
 // ---------------------------------------------------------
 int KLFitter::Particles::SetBTagWeight(int index, double btagweight) {
   // check index
-  if (index < 0 || index >= fBTagWeight->size()) {
+  if (index < 0 || index >= static_cast<int>(fBTagWeight->size())) {
     std::cout << " KLFitter::SetBTagWeight(). Index out of range." << std::endl;
     return 0;
   }
@@ -814,7 +814,7 @@ int KLFitter::Particles::SetBTagWeight(int index, double btagweight) {
 // ---------------------------------------------------------
 int KLFitter::Particles::SetBTagWeightSet(int index, bool btagweightset) {
   // check index
-  if (index < 0 || index >= fBTagWeightSet->size()) {
+  if (index < 0 || index >= static_cast<int>(fBTagWeightSet->size())) {
     std::cout << " KLFitter::SetBTagWeightSet(). Index out of range." << std::endl;
     return 0;
   }
@@ -827,7 +827,7 @@ int KLFitter::Particles::SetBTagWeightSet(int index, bool btagweightset) {
 // ---------------------------------------------------------
 int KLFitter::Particles::SetBTaggingEfficiency(int index, double btagEff) {
   // check index
-  if (index < 0 || index >= fBTaggingEfficiency->size()) {
+  if (index < 0 || index >= static_cast<int>(fBTaggingEfficiency->size())) {
     std::cout << " KLFitter::SetBTaggingEfficiency(). Index out of range." << std::endl;
     return 0;
   }
@@ -840,7 +840,7 @@ int KLFitter::Particles::SetBTaggingEfficiency(int index, double btagEff) {
 // ---------------------------------------------------------
 int KLFitter::Particles::SetBTaggingRejection(int index, double btagRej) {
   // check index
-  if (index < 0 || index >= fBTaggingRejection->size()) {
+  if (index < 0 || index >= static_cast<int>(fBTaggingRejection->size())) {
     std::cout << " KLFitter::SetBTaggingRejection(). Index out of range." << std::endl;
     return 0;
   }
