@@ -32,7 +32,6 @@
  */
 namespace KLFitter
 {
-
   /**
    * \class KLFitter::ResolutionBase
    * \brief A base class for describing resolutions.
@@ -42,9 +41,7 @@ namespace KLFitter
    */
   class ResolutionBase
   {
-
   public:
-
     /** \name Constructors and destructors */
     /* @{ */
 
@@ -149,7 +146,6 @@ namespace KLFitter
     /* @} */
 
   protected:
-
     /**
      * The number of parameters.
      */
@@ -159,9 +155,7 @@ namespace KLFitter
      * The parameter values.
      */
     std::vector <double> fParameters;
-
   };
-
 } // namespace KLFitter
 
 // ---------------------------------------------------------

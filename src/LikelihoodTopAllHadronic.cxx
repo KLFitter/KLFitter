@@ -311,7 +311,6 @@ int KLFitter::LikelihoodTopAllHadronic::RemoveForbiddenParticlePermutations() {
     bool isBtagged = particles->IsBTagged(iParton);
 
     for (int iPartonModel(0); iPartonModel < nPartonsModel; ++iPartonModel) {
-
       KLFitter::Particles::TrueFlavorType trueFlavor = particlesModel->TrueFlavor(iPartonModel);
       if ((fBTagMethod == kVetoNoFit)&&((!isBtagged)||(trueFlavor != KLFitter::Particles::kLight)))
         continue;
@@ -537,7 +536,6 @@ int KLFitter::LikelihoodTopAllHadronic::SavePermutedParticles() {
 
 // ---------------------------------------------------------
 int KLFitter::LikelihoodTopAllHadronic::SaveResolutionFunctions() {
-
   fResEnergyBhad1 = (*fDetector)->ResEnergyBJet(bhad1_meas_deteta);
   fResEnergyBhad2 = (*fDetector)->ResEnergyBJet(bhad2_meas_deteta);
   fResEnergyLQ1  = (*fDetector)->ResEnergyLightJet(lq1_meas_deteta);

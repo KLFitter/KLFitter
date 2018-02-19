@@ -30,7 +30,6 @@
  */
 namespace KLFitter
 {
-
   /**
    * \class KLFitter::ResGauss_MET
    * \brief A class describing a Gaussian resolution, parametrized for MET.
@@ -42,9 +41,7 @@ namespace KLFitter
    */
   class ResGauss_MET : public ResolutionBase
   {
-
   public:
-
     /** \name Constructors and destructors */
     /* @{ */
 
@@ -112,9 +109,7 @@ namespace KLFitter
     /* @} */
 
   private:
-
   };
-
 } // namespace KLFitter
 
 // ---------------------------------------------------------

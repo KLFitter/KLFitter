@@ -30,7 +30,6 @@
  */
 namespace KLFitter
 {
-
   class Particles;
   class DetectorBase;
   class LikelihoodBase;
@@ -46,9 +45,7 @@ namespace KLFitter
    */
   class Fitter
   {
-
   public:
-
     /** \name Constructors and destructors */
     /* @{ */
 
@@ -235,7 +232,6 @@ namespace KLFitter
     /* @} */
 
   private:
-
     /**
      * A pointer to the detector.
      */
@@ -308,9 +304,7 @@ namespace KLFitter
      * @return An error code.
      */
     int ResetCache();
-
   };
-
 } // namespace KLFitter
 
 // ---------------------------------------------------------

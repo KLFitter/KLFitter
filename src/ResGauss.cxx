@@ -35,7 +35,6 @@ KLFitter::ResGauss::ResGauss(double sigma) : KLFitter::ResolutionBase(1) {
 
 // ---------------------------------------------------------
 KLFitter::ResGauss::~ResGauss() {
-
 }
 
 // ---------------------------------------------------------

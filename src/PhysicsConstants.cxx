@@ -37,7 +37,6 @@ KLFitter::PhysicsConstants::PhysicsConstants() {
   //++++++++++++++++//
   fMassHiggs    = 120.0; // Higgs mass in GeV/c^{2}
   fGammaHiggs   = 0.003512; // Higgs width
-
 }
 
 // ---------------------------------------------------------

@@ -167,7 +167,6 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
     
             // if isDilepton include charge of the lepton
             if (isDilepton) {
-      
               // add electron
               particles->AddParticle((*fParticles)->Electron(index),
                                      (*fParticles)->DetEta(index, KLFitter::Particles::kElectron),
@@ -196,7 +195,6 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
 
             // if isDilepton include charge of the lepton
             if (isDilepton) {
-      
               // add muon
               particles->AddParticle((*fParticles)->Muon(index),
                                      (*fParticles)->DetEta(index, KLFitter::Particles::kMuon),
@@ -212,7 +210,6 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
                                      KLFitter::Particles::kMuon,
                                      (*fParticles)->NameParticle(index, KLFitter::Particles::kMuon),
                                      (*fParticles)->MuonIndex(index));
-      
             }
 
             // set permutation
@@ -247,7 +244,6 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
 
   // no error
   return 1;
-
 }
 
 // ---------------------------------------------------------
@@ -336,7 +332,6 @@ int KLFitter::Permutations::CreateSubTable(int Nobj, std::vector < std::vector<i
   }
 
   else {
-
     std::vector<std::vector<int> > v = Get_M_from_N(Nobj, Nmax);
 
     for (unsigned int i(0), n(v.size()); i < n; ++i) {
@@ -344,7 +339,6 @@ int KLFitter::Permutations::CreateSubTable(int Nobj, std::vector < std::vector<i
       do table->push_back(new std::vector<int>(vidx));
       while (next_permutation(vidx.begin(), vidx.end()));
     }
-
   }
 
   // no error

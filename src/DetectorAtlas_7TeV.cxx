@@ -164,7 +164,6 @@ KLFitter::DetectorAtlas_7TeV::DetectorAtlas_7TeV(std::string folder) : DetectorB
   fPhotonEtaBin_2 = 1.25;
   fPhotonEtaBin_3 = 2.5;
   fPhotonEtaBin_4 = 3.0;
-
 }
 
 // ---------------------------------------------------------

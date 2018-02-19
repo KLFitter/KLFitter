@@ -40,8 +40,6 @@ KLFitter::BoostedLikelihoodTopLeptonJets::BoostedLikelihoodTopLeptonJets() : KLF
   , SumET(0.)
   , fTypeLepton(kElectron)
   , fTFgood(true) {
-
-
   // define model particles
   this->DefineModelParticles();
 
@@ -329,7 +327,6 @@ int KLFitter::BoostedLikelihoodTopLeptonJets::RemoveForbiddenParticlePermutation
     bool isBtagged = particles->IsBTagged(iParton);
 
     for (int iPartonModel(0); iPartonModel < nPartonsModel; ++iPartonModel) {
-
       KLFitter::Particles::TrueFlavorType trueFlavor = particlesModel->TrueFlavor(iPartonModel);
       if ((fBTagMethod == kVetoNoFit)&&((!isBtagged)||(trueFlavor != KLFitter::Particles::kLight)))
         continue;
@@ -644,7 +641,6 @@ int KLFitter::BoostedLikelihoodTopLeptonJets::SavePermutedParticles() {
 
 // ---------------------------------------------------------
 int KLFitter::BoostedLikelihoodTopLeptonJets::SaveResolutionFunctions() {
-
   fResEnergyBhad = (*fDetector)->ResEnergyBJet(bhad_meas_deteta);
   fResEnergyBlep = (*fDetector)->ResEnergyBJet(blep_meas_deteta);
   fResEnergyLQ  = (*fDetector)->ResEnergyLightJet(lq_meas_deteta);

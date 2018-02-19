@@ -36,7 +36,6 @@ class TLorentzVector;
  */
 namespace KLFitter
 {
-
   /**
    * \class KLFitter::Particles
    * \brief A class describing particles.
@@ -47,9 +46,7 @@ namespace KLFitter
    */
   class Particles
   {
-
   public:
-
     /** \name Enumerators */
     /* @{ */
 
@@ -488,11 +485,8 @@ namespace KLFitter
     /* @} */
 
   private:
-
   protected:
-
   private:
-
     /**
      * A set of quarks and gluons.
      */
@@ -637,9 +631,7 @@ namespace KLFitter
      * Vector containing the charge of muons.
      */
     std::vector <float> * fMuonCharge;
-
   };
-
 } // namespace KLFitter
 
 inline

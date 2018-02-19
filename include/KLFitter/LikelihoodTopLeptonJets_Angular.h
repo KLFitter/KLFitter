@@ -36,7 +36,6 @@
  */
 namespace KLFitter
 {
-
   /**
    * \class KLFitter::LikelihoodTopLeptonJets_Angular
    * \brief Add brief description here
@@ -46,9 +45,7 @@ namespace KLFitter
    */
   class LikelihoodTopLeptonJets_Angular : public KLFitter::LikelihoodBase
   {
-
   public:
-
     /** \name Constructors and destructors */
     /* @{ */
 
@@ -194,7 +191,6 @@ namespace KLFitter
     /* @} */
 
   protected:
-
     /** \name Member functions (misc)  */
     /* @{ */
 
@@ -241,7 +237,6 @@ namespace KLFitter
     /* @} */
 
   protected:
-
     /**
      * A flag for using a fixed top mass (true) or not (false).
      */
@@ -441,9 +436,7 @@ namespace KLFitter
     double wlep_fit_m;
     double thad_fit_m;
     double tlep_fit_m;
-
   };
-
 } // namespace KLFitter
 
 // ---------------------------------------------------------

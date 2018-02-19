@@ -38,7 +38,6 @@
  */
 namespace KLFitter
 {
-
   /**
    * \class KLFitter::LikelihoodTopLeptonJetsUDSep
    * \brief A class implementing a likelihood for the ttbar lepton+jets channel.
@@ -48,9 +47,7 @@ namespace KLFitter
    */
   class LikelihoodTopLeptonJetsUDSep : public KLFitter::LikelihoodTopLeptonJets
   {
-
   public:
-
     /**
      * Enumerate for lJet reweighting methods
      */
@@ -234,7 +231,6 @@ namespace KLFitter
 
 
   protected:
-
     /** \name Member functions (misc)  */
     /* @{ */
 
@@ -311,9 +307,7 @@ namespace KLFitter
 
 
     /* @} */
-
   };
-
 } // namespace KLFitter
 
 // ---------------------------------------------------------

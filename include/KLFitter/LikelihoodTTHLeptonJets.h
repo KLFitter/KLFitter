@@ -36,7 +36,6 @@
  */
 namespace KLFitter
 {
-
   /**
    * \class KLFitter::LikelihoodTTHLeptonJets
    * \brief A class implementing a likelihood for the ttH lepton+jets channel.
@@ -48,9 +47,7 @@ namespace KLFitter
    */
   class LikelihoodTTHLeptonJets : public KLFitter::LikelihoodBase
   {
-
   public:
-
     /** \name Constructors and destructors */
     /* @{ */
 
@@ -207,7 +204,6 @@ namespace KLFitter
     /* @} */
 
   protected:
-
     /** \name Member functions (misc)  */
     /* @{ */
 
@@ -254,7 +250,6 @@ namespace KLFitter
     /* @} */
 
   protected:
-
     /**
      * A flag for using a fixed top mass (true) or not (false).
      */
@@ -488,10 +483,7 @@ namespace KLFitter
 
     double Higgs_fit_m;
     //++++++++++++++++//
-
-
   };
-
 } // namespace KLFitter
 
 // ---------------------------------------------------------

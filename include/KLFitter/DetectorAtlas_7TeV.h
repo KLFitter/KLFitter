@@ -33,7 +33,6 @@
  */
 namespace KLFitter
 {
-
   /**
    * \class KLFitter::DetectorAtlas_7TeV
    * \brief A class for describing of the ATLAS detector.
@@ -43,9 +42,7 @@ namespace KLFitter
    */
   class DetectorAtlas_7TeV : public DetectorBase
   {
-
   public:
-
     /** \name Constructors and destructors */
     /* @{ */
 
@@ -255,11 +252,7 @@ namespace KLFitter
     double fPhotonEtaBin_2;
     double fPhotonEtaBin_3;
     double fPhotonEtaBin_4;
-
-
-
   };
-
 } // namespace KLFitter
 
 // ---------------------------------------------------------

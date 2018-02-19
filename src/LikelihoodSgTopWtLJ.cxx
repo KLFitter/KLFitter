@@ -575,7 +575,6 @@ int KLFitter::LikelihoodSgTopWtLJ::SavePermutedParticles() {
 
 // ---------------------------------------------------------
 int KLFitter::LikelihoodSgTopWtLJ::SaveResolutionFunctions() {
-
   fResEnergyB = (*fDetector)->ResEnergyBJet(b_meas_deteta);
   fResEnergyLQ1  = (*fDetector)->ResEnergyLightJet(lq1_meas_deteta);
   fResEnergyLQ2  = (*fDetector)->ResEnergyLightJet(lq2_meas_deteta);

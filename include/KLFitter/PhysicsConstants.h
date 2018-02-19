@@ -30,7 +30,6 @@
  */
 namespace KLFitter
 {
-
   /**
    * \class KLFitter::PhysicsConstants
    * \brief A class containing physics constants.
@@ -40,9 +39,7 @@ namespace KLFitter
    */
   class PhysicsConstants
   {
-
   public:
-
     /** \name Constructors and destructors */
     /* @{ */
 
@@ -215,9 +212,7 @@ namespace KLFitter
     /* @} */
 
   protected:
-
   private:
-
     /**
      * The bottom quark pole mass in GeV/c2.
      */
@@ -277,9 +272,7 @@ namespace KLFitter
      * The top quark mass LHC uncertainty in GeV/c2.
      */
     double fMassTopUnc;
-
   };
-
 } // namespace KLFitter
 
 // ---------------------------------------------------------

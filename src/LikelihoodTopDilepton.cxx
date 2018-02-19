@@ -48,8 +48,6 @@ KLFitter::LikelihoodTopDilepton::LikelihoodTopDilepton() : KLFitter::LikelihoodB
   , hist_costheta(new TH1D())
   , fHistMttbar(new BCH1D())
   , fHistCosTheta(new BCH1D()) {
-
-
   // define model particles
   this->DefineModelParticles();
 
@@ -58,14 +56,12 @@ KLFitter::LikelihoodTopDilepton::LikelihoodTopDilepton() : KLFitter::LikelihoodB
 
   // define prior
   this->DefinePrior();
-
 }
 
 // ---------------------------------------------------------
 KLFitter::LikelihoodTopDilepton::~LikelihoodTopDilepton() {
   delete fHistMttbar;
   delete fHistCosTheta;
-
 }
 
 // ---------------------------------------------------------
@@ -189,8 +185,6 @@ void KLFitter::LikelihoodTopDilepton::DefineParameters() {
   AddParameter("energy lepton2",           0.0, 1000.0);                           // parLep2E
   AddParameter("antinueta",               -5.0, 5.0);                           // parAntiNuEta
   AddParameter("nueta",                   -5.0, 5.0);                           // parNuEta
-
-
 }
 
 // ---------------------------------------------------------
@@ -199,7 +193,6 @@ void KLFitter::LikelihoodTopDilepton::DefinePrior() {
   // define sharp Gaussian prior for mtop
   if (fFlagTopMassFixed)
     SetPriorGauss(0,fPhysicsConstants->MassTop(),fPhysicsConstants->MassTopUnc());
-
 }
 
 // ---------------------------------------------------------
@@ -224,7 +217,6 @@ void KLFitter::LikelihoodTopDilepton::DefineHistograms() {
   // create a new ROOT and BAT histogram for costheta
   hist_costheta = new TH1D(TString::Format("hist_costheta_%s", channel), "", 100, 0., 1.);
   fHistCosTheta->SetHistogram(hist_costheta);
-
 }
 
 // ---------------------------------------------------------
@@ -619,7 +611,6 @@ double KLFitter::LikelihoodTopDilepton::LogLikelihood(const std::vector<double> 
 }
 
 double KLFitter::LikelihoodTopDilepton::CalculateMLepJet(const std::vector<double> & /*parameters*/) {
-
   double sumMinv=0.;
   double norm=1.;
 
@@ -667,7 +658,6 @@ double KLFitter::LikelihoodTopDilepton::CalculateMLepJet(const std::vector<doubl
 
 
 double KLFitter::LikelihoodTopDilepton::CalculateWeight(const std::vector<double> & parameters) {
-
   double Weight=0.;
 
   //charged leptons
@@ -703,7 +693,6 @@ double KLFitter::LikelihoodTopDilepton::CalculateWeight(const std::vector<double
 }
 
 double KLFitter::LikelihoodTopDilepton::CalculateWeightPerm(TLorentzVector * l1, TLorentzVector * l2, TLorentzVector * j1, TLorentzVector * j2, const std::vector<double> & parameters) {
-
   double weight=0.;
   int NSolutions=0;
 
@@ -734,11 +723,9 @@ double KLFitter::LikelihoodTopDilepton::CalculateWeightPerm(TLorentzVector * l1,
 
     if (nus.NSolutions==1 && nubars.NSolutions==2) {
       weight += neutrino_weight(nus.nu1,nubars.nu2);// ***solution 2
-
     }
     else if (nus.NSolutions==2 && nubars.NSolutions==1) {
       weight += neutrino_weight(nus.nu2,nubars.nu1);// ***solution 2
-
     }
     else if (nus.NSolutions==2 && nubars.NSolutions==2) {
       weight += neutrino_weight(nus.nu1,nubars.nu2);// ***solution 2
@@ -756,7 +743,6 @@ double KLFitter::LikelihoodTopDilepton::CalculateWeightPerm(TLorentzVector * l1,
 }
 
 double KLFitter::LikelihoodTopDilepton::GaussNuEta(std::vector<double> parameters) {
-
   double weight=0.;
 
   double nueta_sigma=0.;
@@ -780,7 +766,6 @@ double KLFitter::LikelihoodTopDilepton::GaussNuEta(std::vector<double> parameter
 }
 
 double KLFitter::LikelihoodTopDilepton::GaussAntiNuEta(std::vector<double> parameters) {
-
   double weight=0.;
 
   double nueta_sigma=0.;
@@ -804,7 +789,6 @@ double KLFitter::LikelihoodTopDilepton::GaussAntiNuEta(std::vector<double> param
 }
 
 KLFitter::NuSolutions KLFitter::LikelihoodTopDilepton::SolveForNuMom(TLorentzVector * l, TLorentzVector * b, double mtop, double nueta) {
-
   NuSolutions ret;
   double Wmass = fPhysicsConstants->MassW();
   double Wmass2=Wmass*Wmass;
@@ -887,7 +871,6 @@ KLFitter::NuSolutions KLFitter::LikelihoodTopDilepton::SolveForNuMom(TLorentzVec
 
     ret.nu1.SetPxPyPzE(px1,py1,pz1,E1);
     ret.nu2.SetPxPyPzE(px2,py2,pz2,E2);
-
   }
   if (ret.NSolutions==1) std::cout<<"KLFitter::LikelihoodTopDilepton::SolveForNuMom  NSolutions==1 !!!!!!!!!!!!!!!!!"<<std::endl;
 
@@ -895,7 +878,6 @@ KLFitter::NuSolutions KLFitter::LikelihoodTopDilepton::SolveForNuMom(TLorentzVec
 }
 
 double KLFitter::LikelihoodTopDilepton::neutrino_weight(TLorentzVector nu,TLorentzVector nubar) {
-
   static double sigmaX;
   static double sigmaY;
   static double dx;
@@ -1026,7 +1008,6 @@ int KLFitter::LikelihoodTopDilepton::SavePermutedParticles() {
 
 // ---------------------------------------------------------
 int KLFitter::LikelihoodTopDilepton::SaveResolutionFunctions() {
-
   fResEnergyB1 = (*fDetector)->ResEnergyBJet(b1_meas_deteta);
   fResEnergyB2 = (*fDetector)->ResEnergyBJet(b2_meas_deteta);
 
@@ -1266,7 +1247,6 @@ void KLFitter::LikelihoodTopDilepton::MCMCIterationInterface() {
 
 
     if (nus.NSolutions > 0 && nubars.NSolutions > 0) { // 1 nu 1 nubar
-
       if (nus.nu1.M() >= 0 && nubars.nu1.M() >= 0) {
         //mttbar
         mttbar = (MCMC_b1 + MCMC_b2 + MCMC_lep1 + MCMC_lep2 + nus.nu1 + nubars.nu1).M();
@@ -1327,7 +1307,6 @@ void KLFitter::LikelihoodTopDilepton::MCMCIterationInterface() {
         }
       }// 2 nu 1 nubar
       else if (nus.NSolutions == 2 && nubars.NSolutions == 2) {  // 2 nu 2 nubar
-  
         if (nus.nu1.M() >= 0 && nubars.nu2.M() >= 0) {
           //mttbar
           mttbar = (MCMC_b1 + MCMC_b2 + MCMC_lep1 + MCMC_lep2 + nus.nu1 + nubars.nu2).M();
@@ -1386,14 +1365,12 @@ void KLFitter::LikelihoodTopDilepton::MCMCIterationInterface() {
         }
       }// 2 nu 2 nubar
     }//Nsol
-
   }//Nchains
   delete help_ParticleVector;
 }
 
 // ---------------------------------------------------------
 std::pair<float, float> KLFitter::LikelihoodTopDilepton::CalculateCosTheta(std::vector <TLorentzVector> *particles) {
-
   TLorentzVector         lep(0.0, 0.0, 0.0, 0.0);
   TLorentzVector     antilep(0.0, 0.0, 0.0, 0.0);
   TLorentzVector          nu(0.0, 0.0, 0.0, 0.0);
@@ -1464,6 +1441,5 @@ std::pair<float, float> KLFitter::LikelihoodTopDilepton::CalculateCosTheta(std::
   //std::cout << "cos_theta_top: "  << cos_theta_top << " and cos_theta_antitop: " << cos_theta_antitop << std::endl;
 
   return cos;
-
 }
 // ---------------------------------------------------------

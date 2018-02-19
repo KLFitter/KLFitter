@@ -36,7 +36,6 @@
 // ---------------------------------------------------------
 
 KLFitter::DetectorAtlas_8TeV::DetectorAtlas_8TeV(std::string folder) : DetectorBase() {
-
   std::cout<<"Using TF from MC12 ..."<<std::endl;
   // energy resolution
   fResEnergyLightJet_eta1 = new KLFitter::ResDoubleGaussE_4(Form("%s/par_energy_lJets_eta1.txt", folder.c_str()));
@@ -126,7 +125,6 @@ KLFitter::DetectorAtlas_8TeV::DetectorAtlas_8TeV(std::string folder) : DetectorB
   fPhotonEtaBin_2 = 1.25;
   fPhotonEtaBin_3 = 2.5;
   fPhotonEtaBin_4 = 3.0;
-
 }
 
 // ---------------------------------------------------------
@@ -292,7 +290,6 @@ KLFitter::ResolutionBase * KLFitter::DetectorAtlas_8TeV::ResEnergyBJet(double et
   //  else if (fabs(eta) <= fJetEtaBin_5)
   //    fResEnergyBJet = fResEnergyBJet_eta5;
   else {
-
     std::cout << "KLFitter::DetectorAtlas_8TeV::ResEnergyBJet(). Eta range exceeded." << std::endl;
     return 0;
   }

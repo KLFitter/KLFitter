@@ -42,8 +42,6 @@ KLFitter::LikelihoodTopLeptonJets_JetAngles::LikelihoodTopLeptonJets_JetAngles()
   , SumET(0.)
   , fTypeLepton(kElectron)
   , fTFgood(true) {
-
-
   // define model particles
   this->DefineModelParticles();
 
@@ -365,7 +363,6 @@ int KLFitter::LikelihoodTopLeptonJets_JetAngles::RemoveForbiddenParticlePermutat
     bool isBtagged = particles->IsBTagged(iParton);
 
     for (int iPartonModel(0); iPartonModel < nPartonsModel; ++iPartonModel) {
-
       KLFitter::Particles::TrueFlavorType trueFlavor = particlesModel->TrueFlavor(iPartonModel);
       if ((fBTagMethod == kVetoNoFit)&&((!isBtagged)||(trueFlavor != KLFitter::Particles::kLight)))
         continue;
@@ -778,7 +775,6 @@ int KLFitter::LikelihoodTopLeptonJets_JetAngles::SavePermutedParticles() {
 
 // ---------------------------------------------------------
 int KLFitter::LikelihoodTopLeptonJets_JetAngles::SaveResolutionFunctions() {
-
   if (fTypeLepton == kElectron)
     fResLepton = (*fDetector)->ResEnergyElectron(lep_meas_deteta);
   else if (fTypeLepton == kMuon)

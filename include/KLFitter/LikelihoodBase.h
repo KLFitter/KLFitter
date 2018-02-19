@@ -39,7 +39,6 @@
  */
 namespace KLFitter
 {
-
   class PhysicsConstants;
   class Permutations;
   class DetectorBase;
@@ -51,7 +50,6 @@ namespace KLFitter
    */
   class LikelihoodBase : public BCModel
   {
-
   public:
     /**
      * Enumerate for b-tagging possibilities
@@ -452,7 +450,6 @@ namespace KLFitter
     /* @} */
 
   protected:
-
     /**
      * A pointer to the measured particles.
      */
@@ -534,9 +531,7 @@ namespace KLFitter
     std::vector<double>  fCachedNormalizationVector;
 
   private:
-
   };
-
 } // namespace KLFitter
 
 // ---------------------------------------------------------

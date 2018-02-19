@@ -188,7 +188,6 @@ double KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityLJetReweight()
   //    std::cout <<  " KDEBUG! Extraweight " << std::endl;
   double logprob = 0;
   switch (fLJetSeparationMethod) {
-
   case kPermReweight:
 
     if (!(fUpJetPtHisto && fDownJetPtHisto&& fBJetPtHisto && fUpJetTagWeightHisto && fDownJetTagWeightHisto && fBJetTagWeightHisto)) {
@@ -254,7 +253,6 @@ double KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityLJetReweight()
       if(trueFlavor==KLFitter::Particles::kB) {
         logprob += log(BJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt()));
         //std::cout<<"DEBUG! adding prob weight for b: "<<BJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
-
       }
       if(trueFlavor==KLFitter::Particles::kLightUp) {
         logprob += log(UpJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt()));
@@ -271,7 +269,6 @@ double KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityLJetReweight()
   default:
     return logprob;
     break;
-
   }
 }
 

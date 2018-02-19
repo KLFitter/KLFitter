@@ -177,9 +177,7 @@ int KLFitter::Fitter::Fit(int index) {
   if ((partnerindex > -1)&&(partnerindex < index)) {
     fLikelihood->GetParametersFromCache(index);
     GetFitStatusFromCache(index);
-
   } else {
-
     // Markov Chain MC
     if (fMinimizationMethod == kMarkovChainMC) {
       // comment out BCLog lines if interested in more BAT details
@@ -276,7 +274,6 @@ int KLFitter::Fitter::Fit(int index) {
     // caching parameters
     fLikelihood->SetParametersToCache(index, nperms);
     SetFitStatusToCache(index, nperms);
-
   } //end of fitting "else"
 
   // no error
@@ -357,7 +354,6 @@ int KLFitter::Fitter::GetFitStatusFromCache(int iperm) {
 // ---------------------------------------------------------
 
 int KLFitter::Fitter::SetFitStatusToCache(int iperm, int nperms) {
-
   if (iperm==0) {
     fCachedMinuitStatusVector.clear();
     fCachedMinuitStatusVector.assign(nperms, -1);
@@ -377,12 +373,9 @@ int KLFitter::Fitter::SetFitStatusToCache(int iperm, int nperms) {
   int partner = fLikelihood->LHInvariantPermutationPartner(iperm, nperms, dummy, dummy);
 
   if (partner > iperm) {
-
     if (((int)fCachedMinuitStatusVector.size() > partner)&&((int)fCachedConvergenceStatusVector.size() > partner)) {
-
       fCachedMinuitStatusVector.at(partner) = fMinuitStatus;
       fCachedConvergenceStatusVector.at(partner) = fConvergenceStatus;
-
     } else {
       std::cout<<"KLFitter::Fitter::SetFitStatusToCache: size of fCachedMinuitStatusVector or fCachedConvergenceStatusVector too small!"<<std::endl;
     } 

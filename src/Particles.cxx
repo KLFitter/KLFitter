@@ -213,7 +213,6 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, f
 
   // check if particle with name exists already
   if (!FindParticle(name, vect, index, temptype)) {
-
     // add particle
     // create pointer copy of particle content which is owend by Particles
     TLorentzVector * cparticle = new TLorentzVector(particle->Px(), particle->Py(), particle->Pz(), particle->E());
@@ -270,7 +269,6 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, K
 
   // check if particle with name exists already
   if (!FindParticle(name, vect, index, temptype)) {
-
     // add particle
     // create pointer copy of particle content which is owend by Particles
     TLorentzVector * cparticle = new TLorentzVector(particle->Px(), particle->Py(), particle->Pz(), particle->E());
@@ -329,7 +327,6 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, KLFitter::Partic
 
   // no error
   return 1;
-
 }
 
 // ---------------------------------------------------------
@@ -409,7 +406,6 @@ TLorentzVector* KLFitter::Particles::Particle(int index, KLFitter::Particles::Pa
 
 // ---------------------------------------------------------
 int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particle, int &index, KLFitter::Particles::ParticleType &ptype) {
-
   // loop over all partons
   unsigned int npartons = fNamePartons->size();
   for (unsigned int i = 0; i < npartons; ++i)
@@ -613,7 +609,6 @@ std::string KLFitter::Particles::NameParticle(int index, KLFitter::Particles::Pa
 
   // return name
   return (*ParticleNameContainer(ptype))[index];
-
 }
 
 // ---------------------------------------------------------

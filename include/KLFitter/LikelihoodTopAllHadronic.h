@@ -36,7 +36,6 @@
  */
 namespace KLFitter
 {
-
   /**
    * \class KLFitter::LikelihoodTopAllHadronic
    * \brief A class implementing a likelihood for the ttbar allhadronic channel.
@@ -46,9 +45,7 @@ namespace KLFitter
    */
   class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase
   {
-
   public:
-
     /** \name Constructors and destructors */
     /* @{ */
 
@@ -165,7 +162,6 @@ namespace KLFitter
     /* @} */
 
   protected:
-
     /** \name Member functions (misc)  */
     /* @{ */
 
@@ -219,7 +215,6 @@ namespace KLFitter
     /* @} */
 
   protected:
-
     /**
      * A flag for using a fixed top mass (true) or not (false).
      */
@@ -387,9 +382,7 @@ namespace KLFitter
     double whad2_fit_m;
     double thad1_fit_m;
     double thad2_fit_m;
-
   };
-
 } // namespace KLFitter
 
 // ---------------------------------------------------------

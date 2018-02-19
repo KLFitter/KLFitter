@@ -38,7 +38,6 @@ KLFitter::ResGauss_MET::ResGauss_MET(std::vector<double> const& parameters) :KLF
 
 // ---------------------------------------------------------
 KLFitter::ResGauss_MET::~ResGauss_MET() {
-
 }
 
 // ---------------------------------------------------------

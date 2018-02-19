@@ -58,9 +58,7 @@ namespace KLFitter
    */
   class LikelihoodTopDilepton : public KLFitter::LikelihoodBase
   {
-
   public:
-
     /** \name Constructors and destructors */
     /* @{ */
 
@@ -265,7 +263,6 @@ namespace KLFitter
     /* @} */
 
   protected:
-
     /** \name Member functions (misc)  */
     /* @{ */
 
@@ -335,7 +332,6 @@ namespace KLFitter
     /* @} */
 
   protected:
-
     /**
      * A flag for using a fixed top mass (true) or not (false).
      */
@@ -424,7 +420,6 @@ namespace KLFitter
     bool fTFgood;
 
   public:
-
     /**
      * TH1D histograms to be filled
      * with functions of interest, e.g.: mttbar,
@@ -434,7 +429,6 @@ namespace KLFitter
     TH1D *  hist_costheta;
 
   protected:
-
     /**
      * BAT BCH1D Histogram for mttbar
      */
@@ -537,9 +531,7 @@ namespace KLFitter
     double b2_fit_px;
     double b2_fit_py;
     double b2_fit_pz;
-
   };
-
 } // namespace KLFitter
 
 // ---------------------------------------------------------

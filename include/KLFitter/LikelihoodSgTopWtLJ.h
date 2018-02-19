@@ -33,7 +33,6 @@
  */
 namespace KLFitter
 {
-
   /**
    * \class KLFitter::LikelihoodSgTopWtLJ
    * \brief A class implementing a likelihood for the SgTop Wt -> lepton+jets channel.
@@ -43,9 +42,7 @@ namespace KLFitter
    */
   class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase
   {
-
   public:
-
     /** \name Constructors and destructors */
     /* @{ */
 
@@ -184,7 +181,6 @@ namespace KLFitter
     /* @} */
 
   protected:
-
     /** \name Member functions (misc)  */
     /* @{ */
 
@@ -225,7 +221,6 @@ namespace KLFitter
     /* @} */
 
   protected:
-
     /**
      * A flag for associating either the hadronic (true)
      * or the leponic (false) leg of the event to the top quark
@@ -390,9 +385,7 @@ namespace KLFitter
     double wlep_fit_m;
     double thad_fit_m;
     double tlep_fit_m;
-
   };
-
 } // namespace KLFitter
 
 // ---------------------------------------------------------

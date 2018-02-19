@@ -55,7 +55,6 @@ KLFitter::LikelihoodBase::~LikelihoodBase() {
 
   if (fPhysicsConstants)
     delete fPhysicsConstants;
-
 }
 
 // ---------------------------------------------------------
@@ -330,7 +329,6 @@ std::vector <double> KLFitter::LikelihoodBase::GetBestFitParameters() {
     return fCachedParameters;
   }
   else return BCModel::GetBestFitParameters();
-
 }
 
 
@@ -338,12 +336,10 @@ std::vector <double> KLFitter::LikelihoodBase::GetBestFitParameters() {
 // ---------------------------------------------------------.
 
 std::vector <double> KLFitter::LikelihoodBase::GetBestFitParameterErrors() {
-
   if (fCachedParameterErrors.size() > 0) {
     return fCachedParameterErrors;
   }
   else return BCModel::GetBestFitParameterErrors();
-
 }
 
 // ---------------------------------------------------------
@@ -375,7 +371,6 @@ int KLFitter::LikelihoodBase::SetParametersToCache(int iperm, int nperms) {
   int partner = LHInvariantPermutationPartner(iperm, nperms, switchpar1, switchpar2);
 
   if (partner > iperm) {
-
     if (((int)fCachedParametersVector.size() > partner)&&((int)fCachedParameterErrorsVector.size() > partner)) {
       fCachedParametersVector.at(partner) = BCModel::GetBestFitParameters();
       switchcache = fCachedParametersVector.at(partner).at(switchpar1);
@@ -388,8 +383,6 @@ int KLFitter::LikelihoodBase::SetParametersToCache(int iperm, int nperms) {
       fCachedParameterErrorsVector.at(partner).at(switchpar2) = switchcache;
 
       fCachedNormalizationVector.at(partner) = BCIntegrate::GetIntegral();
-
-
     } else {
       std::cout<<"KLFitter::LikelihoodBase::SetParametersToCache: size of fCachedParametersVector too small!"<<std::endl;
     } 
@@ -401,7 +394,6 @@ int KLFitter::LikelihoodBase::SetParametersToCache(int iperm, int nperms) {
 // ---------------------------------------------------------
 
 int KLFitter::LikelihoodBase::GetParametersFromCache(int iperm) {
-
   if (((int)fCachedParametersVector.size() > iperm)&&((int)fCachedParameterErrorsVector.size() > iperm)) {
     fCachedParameters = fCachedParametersVector.at(iperm);
     fCachedParameterErrors = fCachedParameterErrorsVector.at(iperm);
@@ -415,7 +407,6 @@ int KLFitter::LikelihoodBase::GetParametersFromCache(int iperm) {
 // ---------------------------------------------------------.
 
 double KLFitter::LikelihoodBase::GetIntegral() {
-
   if (fCachedNormalizationVector.size() > 0) {
     return fCachedNormalization;
   }
@@ -440,7 +431,6 @@ double KLFitter::LikelihoodBase::GetBestFitParameter(unsigned int index) {
     return fCachedParameters.at(index);
   }
   else return BCModel::GetBestFitParameter(index);
-
 }
 
 
@@ -448,10 +438,8 @@ double KLFitter::LikelihoodBase::GetBestFitParameter(unsigned int index) {
 // ---------------------------------------------------------.
 
 double KLFitter::LikelihoodBase::GetBestFitParameterError(unsigned int index) {
-
   if (fCachedParameterErrors.size() > 0) {
     return fCachedParameterErrors.at(index);
   }
   else return BCModel::GetBestFitParameterError(index);
-
 }

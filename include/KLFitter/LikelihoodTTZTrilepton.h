@@ -36,7 +36,6 @@
  */
 namespace KLFitter
 {
-
   /**
    * \class KLFitter::LikelihoodTTZTrilepton
    * \brief A class implementing a likelihood for the ttZ trilepton channel.
@@ -48,9 +47,7 @@ namespace KLFitter
    */
   class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase
   {
-
   public:
-
     /** \name Constructors and destructors */
     /* @{ */
 
@@ -226,7 +223,6 @@ namespace KLFitter
     /* @} */
 
   protected:
-
     /** \name Member functions (misc)  */
     /* @{ */
 
@@ -297,7 +293,6 @@ namespace KLFitter
     /* @} */
 
   protected:
-
     /**
      * A flag for using a fixed top mass (true) or not (false).
      */
@@ -535,9 +530,7 @@ namespace KLFitter
     double lepZ2_fit_pz;
 
     double Z_fit_m;
-
   };
-
 } // namespace KLFitter
 
 // ---------------------------------------------------------

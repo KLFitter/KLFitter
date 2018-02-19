@@ -30,7 +30,6 @@
  */
 namespace KLFitter
 {
-
   /**
    * \class KLFitter::ResGauss
    * \brief A class describing a Gaussian resolution.
@@ -42,9 +41,7 @@ namespace KLFitter
    */
   class ResGauss : public ResolutionBase
   {
-
   public:
-
     /** \name Constructors and destructors */
     /* @{ */
 
@@ -112,9 +109,7 @@ namespace KLFitter
     /* @} */
 
   private:
-
   };
-
 } // namespace KLFitter
 
 // ---------------------------------------------------------

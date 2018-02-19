@@ -31,7 +31,6 @@
  */
 namespace KLFitter
 {
-
   /**
    * \class KLFitter::ResDoubleGaussE_2
    * \brief A class describing a resolution parameterized with a double Gaussian.
@@ -43,9 +42,7 @@ namespace KLFitter
    */
   class ResDoubleGaussE_2 : public ResDoubleGaussBase
   {
-
   public:
-
     /** \name Constructors and destructors */
     /* @{ */
 
@@ -113,9 +110,7 @@ namespace KLFitter
     /* @{ */
 
     /* @} */
-
   };
-
 } // namespace KLFitter
 
 // ---------------------------------------------------------

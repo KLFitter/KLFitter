@@ -32,7 +32,6 @@
  */
 namespace KLFitter
 {
-
   /**
    * \class KLFitter::Permutations
    * \brief A class permuting jets, electrons, muons and photons.
@@ -45,9 +44,7 @@ namespace KLFitter
    */
   class Permutations
   {
-
   public:
-
     /** \name Constructors and destructors */
     /* @{ */
 
@@ -190,16 +187,13 @@ namespace KLFitter
     /* @} */
 
   private:
-
     /**
      * Check if particles are defined.
      */
     int CheckParticles();
 
   protected:
-
   private:
-
     /**
      * Helper functions to efficienctly create permutations of N particles of only M selected particles.
      */
@@ -209,7 +203,6 @@ namespace KLFitter
     std::vector<std::vector<int> > Get_M_from_N(unsigned int N, unsigned int M, unsigned int start = 0);
 
   private:
-
     /**
      * A pointer to the pointer of original particles.
      */
@@ -240,7 +233,6 @@ namespace KLFitter
     std::vector<std::vector<int>*>* fTableMuons;
     std::vector<std::vector<int>*>* fTablePhotons;
   };
-
 } // namespace KLFitter
 
 // ---------------------------------------------------------

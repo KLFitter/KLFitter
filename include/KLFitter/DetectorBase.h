@@ -32,7 +32,6 @@
  */
 namespace KLFitter
 {
-
   class ResolutionBase;
 
   /**
@@ -46,9 +45,7 @@ namespace KLFitter
    */
   class DetectorBase
   {
-
   public:
-
     /** \name Enumerators */
     /* @{ */
 
@@ -240,7 +237,6 @@ namespace KLFitter
     /* @} */
 
   protected:
-
     /**
      * The energy resolution of light jets.
      */
@@ -301,7 +297,6 @@ namespace KLFitter
      */
     KLFitter::DetectorBase::BeamCMEnergy fBeamCMEnergy;
   };
-
 } // namespace KLFitter
 
 // ---------------------------------------------------------
