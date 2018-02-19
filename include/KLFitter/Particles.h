@@ -45,7 +45,7 @@ namespace KLFitter {
   * etc.
   */
 class Particles {
-public:
+ public:
   /** \name Enumerators */
   /* @{ */
 
@@ -475,9 +475,9 @@ public:
 
   /* @} */
 
-private:
-protected:
-private:
+ private:
+ protected:
+ private:
   /**
     * A set of quarks and gluons.
     */

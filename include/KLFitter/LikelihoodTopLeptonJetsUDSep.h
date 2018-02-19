@@ -45,7 +45,7 @@ namespace KLFitter {
   * This class represents a likelihood for the ttbar into lepton+jets.
   */
 class LikelihoodTopLeptonJetsUDSep : public KLFitter::LikelihoodTopLeptonJets {
-public:
+ public:
   /**
     * Enumerate for lJet reweighting methods
     */
@@ -227,7 +227,7 @@ public:
   int SetBJet2DWeightHisto(TH2F* hist) { fBJet2DWeightHisto = hist; return 1; }
 
 
-protected:
+ protected:
   /** \name Member functions (misc)  */
   /* @{ */
 

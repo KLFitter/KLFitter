@@ -41,7 +41,7 @@ namespace KLFitter {
   * parameters.
   */
 class ResDoubleGaussBase : public ResolutionBase {
-public:
+ public:
   /** \name Constructors and destructors */
   /* @{ */
 
@@ -164,7 +164,7 @@ public:
     return true;
   }
 
-private:
+ private:
 };
 }  // namespace KLFitter
 

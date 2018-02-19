@@ -43,7 +43,7 @@ class Permutations;
   * likelihood, etc. This is the class seen by the user.
   */
 class Fitter {
-public:
+ public:
   /** \name Constructors and destructors */
   /* @{ */
 
@@ -220,7 +220,7 @@ public:
 
   /* @} */
 
-private:
+ private:
   /**
     * A pointer to the detector.
     */

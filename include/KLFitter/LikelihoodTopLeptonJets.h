@@ -44,7 +44,7 @@ namespace KLFitter {
   * This class represents a likelihood for the ttbar into lepton+jets.
   */
 class LikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
-public:
+ public:
   /** \name Constructors and destructors */
   /* @{ */
 
@@ -188,7 +188,7 @@ public:
 
   /* @} */
 
-protected:
+ protected:
   /** \name Member functions (misc)  */
   /* @{ */
 
@@ -234,7 +234,7 @@ protected:
 
   /* @} */
 
-protected:
+ protected:
   /**
     * A flag for using a fixed top mass (true) or not (false).
     */

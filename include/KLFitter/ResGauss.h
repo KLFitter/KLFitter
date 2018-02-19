@@ -39,7 +39,7 @@ namespace KLFitter {
   * square root of the true parameter.
   */
 class ResGauss : public ResolutionBase {
-public:
+ public:
   /** \name Constructors and destructors */
   /* @{ */
 
@@ -104,7 +104,7 @@ public:
 
   /* @} */
 
-private:
+ private:
 };
 }  // namespace KLFitter
 

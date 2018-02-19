@@ -43,7 +43,7 @@ class ResolutionBase;
   * correections, etc.) can be added here.
   */
 class DetectorBase {
-public:
+ public:
   /** \name Enumerators */
   /* @{ */
 
@@ -221,7 +221,7 @@ public:
   KLFitter::DetectorBase::BeamCMEnergy GetBeamCMEnergy() {return fBeamCMEnergy;};
   /* @} */
 
-protected:
+ protected:
   /**
     * The energy resolution of light jets.
     */

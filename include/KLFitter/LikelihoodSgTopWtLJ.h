@@ -42,7 +42,7 @@ namespace KLFitter {
   * This class represents a likelihood for the single top Wt channel into lepton+jets.
   */
 class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
-public:
+ public:
   /** \name Constructors and destructors */
   /* @{ */
 
@@ -175,7 +175,7 @@ public:
 
   /* @} */
 
-protected:
+ protected:
   /** \name Member functions (misc)  */
   /* @{ */
 
@@ -215,7 +215,7 @@ protected:
 
   /* @} */
 
-protected:
+ protected:
   /**
     * A flag for associating either the hadronic (true)
     * or the leponic (false) leg of the event to the top quark

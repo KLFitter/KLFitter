@@ -39,7 +39,7 @@ namespace KLFitter {
   * This base class can be used to decribe resolutions.
   */
 class ResolutionBase {
-public:
+ public:
   /** \name Constructors and destructors */
   /* @{ */
 
@@ -141,7 +141,7 @@ public:
 
   /* @} */
 
-protected:
+ protected:
   /**
     * The number of parameters.
     */

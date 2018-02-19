@@ -43,7 +43,7 @@ namespace KLFitter {
   * permutation is set to the entry in the table.
   */
 class Permutations {
-public:
+ public:
   /** \name Constructors and destructors */
   /* @{ */
 
@@ -177,14 +177,14 @@ public:
 
   /* @} */
 
-private:
+ private:
   /**
     * Check if particles are defined.
     */
   int CheckParticles();
 
-protected:
-private:
+ protected:
+ private:
   /**
     * Helper functions to efficienctly create permutations of N particles of only M selected particles.
     */
@@ -193,7 +193,7 @@ private:
   std::vector<int> Get_int_plus_vector(int i, std::vector<int> v);
   std::vector<std::vector<int> > Get_M_from_N(unsigned int N, unsigned int M, unsigned int start = 0);
 
-private:
+ private:
   /**
     * A pointer to the pointer of original particles.
     */

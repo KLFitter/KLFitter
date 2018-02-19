@@ -37,7 +37,7 @@ namespace KLFitter {
   * This class contains physics constants.
   */
 class PhysicsConstants {
-public:
+ public:
   /** \name Constructors and destructors */
   /* @{ */
 
@@ -199,8 +199,8 @@ public:
 
   /* @} */
 
-protected:
-private:
+ protected:
+ private:
   /**
     * The bottom quark pole mass in GeV/c2.
     */

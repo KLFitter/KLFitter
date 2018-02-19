@@ -40,7 +40,7 @@ namespace KLFitter {
   * parameters.
   */
 class ResDoubleGaussE_2 : public ResDoubleGaussBase {
-public:
+ public:
   /** \name Constructors and destructors */
   /* @{ */
 

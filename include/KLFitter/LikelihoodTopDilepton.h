@@ -44,7 +44,7 @@
 namespace KLFitter {
 //! Neutrino Solution Set
 class NuSolutions {
-public:
+ public:
   TLorentzVector nu1, nu2;
   int NSolutions;
   NuSolutions():NSolutions(0) {};
@@ -59,7 +59,7 @@ public:
   * This class represents a likelihood for the ttbar dilepton channel.
   */
 class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
-public:
+ public:
   /** \name Constructors and destructors */
   /* @{ */
 
@@ -258,7 +258,7 @@ public:
 
   /* @} */
 
-protected:
+ protected:
   /** \name Member functions (misc)  */
   /* @{ */
 
@@ -327,7 +327,7 @@ protected:
 
   /* @} */
 
-protected:
+ protected:
   /**
     * A flag for using a fixed top mass (true) or not (false).
     */
@@ -416,7 +416,7 @@ protected:
     */
   bool fTFgood;
 
-public:
+ public:
   /**
     * TH1D histograms to be filled
     * with functions of interest, e.g.: mttbar,
@@ -425,7 +425,7 @@ public:
   TH1D *  hist_mttbar;
   TH1D *  hist_costheta;
 
-protected:
+ protected:
   /**
     * BAT BCH1D Histogram for mttbar
     */

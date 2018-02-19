@@ -48,7 +48,7 @@ class DetectorBase;
   * \author Kevin Kr&ouml;ninger
   */
 class LikelihoodBase : public BCModel {
-public:
+ public:
   /**
     * Enumerate for b-tagging possibilities
     */
@@ -430,7 +430,7 @@ public:
 
   /* @} */
 
-protected:
+ protected:
   /**
     * A pointer to the measured particles.
     */
@@ -511,7 +511,7 @@ protected:
     */
   std::vector<double>  fCachedNormalizationVector;
 
-private:
+ private:
 };
 }  // namespace KLFitter
 

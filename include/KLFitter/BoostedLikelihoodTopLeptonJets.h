@@ -44,7 +44,7 @@ namespace KLFitter {
 * Add detailed description here.
 */
 class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
-public:
+ public:
 /** \name Constructors and destructors */
 /* @{ */
 
@@ -186,7 +186,7 @@ virtual KLFitter::Particles** PParticlesModel() {
 
 /* @} */
 
-protected:
+ protected:
 /** \name Member functions (misc)  */
 /* @{ */
 
@@ -232,7 +232,7 @@ int BuildModelParticles();
 
 /* @} */
 
-protected:
+ protected:
 /**
   * A flag for using a fixed top mass (true) or not (false).
   */

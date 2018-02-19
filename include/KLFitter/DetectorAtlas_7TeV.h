@@ -40,7 +40,7 @@ namespace KLFitter {
   * This class holds the description of the ATLAS detector.
   */
 class DetectorAtlas_7TeV : public DetectorBase {
-public:
+ public:
   /** \name Constructors and destructors */
   /* @{ */
 
@@ -137,7 +137,7 @@ public:
 
   /* @} */
 
-private:
+ private:
   /**
     * The energy resolution of light jets for different eta regions.
     */
