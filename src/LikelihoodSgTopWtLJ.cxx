@@ -18,18 +18,17 @@
  */
 
 #include "KLFitter/LikelihoodSgTopWtLJ.h"
-#include "KLFitter/ResolutionBase.h"
+
+#include <cmath>
+#include <iostream>
+
+#include "BAT/BCMath.h"
+#include "BAT/BCParameter.h"
+#include "KLFitter/DetectorBase.h"
 #include "KLFitter/Particles.h"
 #include "KLFitter/Permutations.h"
 #include "KLFitter/PhysicsConstants.h"
-#include "KLFitter/DetectorBase.h"
-
-#include <iostream>
-
-#include <BAT/BCMath.h>
-#include "BAT/BCParameter.h"
-
-#include <cmath>
+#include "KLFitter/ResolutionBase.h"
 
 // ---------------------------------------------------------
 KLFitter::LikelihoodSgTopWtLJ::LikelihoodSgTopWtLJ(): KLFitter::LikelihoodBase::LikelihoodBase()

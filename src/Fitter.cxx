@@ -18,14 +18,14 @@
  */
 
 #include "KLFitter/Fitter.h"
-#include "KLFitter/DetectorBase.h"
-#include "KLFitter/LikelihoodBase.h"
-#include "KLFitter/Permutations.h"
-#include "KLFitter/Particles.h"
 
 #include <iostream>
 
 #include "BAT/BCParameter.h"
+#include "KLFitter/DetectorBase.h"
+#include "KLFitter/LikelihoodBase.h"
+#include "KLFitter/Particles.h"
+#include "KLFitter/Permutations.h"
 
 // ---------------------------------------------------------
 KLFitter::Fitter::Fitter() {

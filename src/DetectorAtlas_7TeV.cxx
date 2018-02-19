@@ -18,19 +18,21 @@
  */
 
 #include "KLFitter/DetectorAtlas_7TeV.h"
-#include "KLFitter/ResolutionBase.h"
-#include "KLFitter/ResDoubleGaussPt.h"
-#include "KLFitter/ResDoubleGaussE_1.h"
-#include "KLFitter/ResDoubleGaussE_2.h"
-#include "KLFitter/ResDoubleGaussE_3.h"
-#include "KLFitter/ResGauss.h"
-#include "KLFitter/ResGauss_MET.h"
 
-#include "TString.h"
+#include <stdlib.h>
 
 #include <cmath>
 #include <iostream>
-#include <stdlib.h>
+
+#include "KLFitter/ResDoubleGaussE_1.h"
+#include "KLFitter/ResDoubleGaussE_2.h"
+#include "KLFitter/ResDoubleGaussE_3.h"
+#include "KLFitter/ResDoubleGaussPt.h"
+#include "KLFitter/ResGauss.h"
+#include "KLFitter/ResGauss_MET.h"
+#include "KLFitter/ResolutionBase.h"
+#include "TString.h"
+
 
 // ---------------------------------------------------------
 

@@ -18,17 +18,16 @@
  */
 
 #include "KLFitter/LikelihoodBase.h"
-#include "KLFitter/PhysicsConstants.h"
-#include "KLFitter/Permutations.h"
-#include "KLFitter/DetectorBase.h"
-
-#include "TRandom3.h"
-
-#include "BAT/BCLog.h"
-#include "BAT/BCParameter.h"
 
 #include <iostream>
 #include <string>
+
+#include "BAT/BCLog.h"
+#include "BAT/BCParameter.h"
+#include "KLFitter/DetectorBase.h"
+#include "KLFitter/Permutations.h"
+#include "KLFitter/PhysicsConstants.h"
+#include "TRandom3.h"
 
 
 

@@ -18,19 +18,21 @@
  */
 
 #include "KLFitter/LikelihoodTopDilepton.h"
-#include "KLFitter/ResolutionBase.h"
+
+#include <assert.h>
+
+#include <algorithm>
+#include <cmath>
+#include <iostream>
+
+#include "BAT/BCH1D.h"
+#include "BAT/BCMath.h"
+#include "BAT/BCModel.h"
+#include "KLFitter/DetectorBase.h"
 #include "KLFitter/Particles.h"
 #include "KLFitter/Permutations.h"
 #include "KLFitter/PhysicsConstants.h"
-#include "KLFitter/DetectorBase.h"
-#include <assert.h>
-#include <iostream>
-#include <algorithm>
-#include <cmath>
-
-#include "BAT/BCModel.h"
-#include "BAT/BCH1D.h"
-#include <BAT/BCMath.h>
+#include "KLFitter/ResolutionBase.h"
 
 // ---------------------------------------------------------
 KLFitter::LikelihoodTopDilepton::LikelihoodTopDilepton() : KLFitter::LikelihoodBase::LikelihoodBase()

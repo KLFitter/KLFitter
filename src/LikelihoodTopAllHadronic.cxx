@@ -18,18 +18,18 @@
  */
 
 #include "KLFitter/LikelihoodTopAllHadronic.h"
-#include "KLFitter/ResolutionBase.h"
+
+#include <algorithm>
+#include <iostream>
+#include <set>
+
+#include "BAT/BCMath.h"
+#include "BAT/BCParameter.h"
+#include "KLFitter/DetectorBase.h"
 #include "KLFitter/Particles.h"
 #include "KLFitter/Permutations.h"
 #include "KLFitter/PhysicsConstants.h"
-#include "KLFitter/DetectorBase.h"
-
-#include <iostream>
-#include <algorithm>
-#include <set>
-
-#include <BAT/BCMath.h>
-#include "BAT/BCParameter.h"
+#include "KLFitter/ResolutionBase.h"
 
 // ---------------------------------------------------------
 KLFitter::LikelihoodTopAllHadronic::LikelihoodTopAllHadronic() : KLFitter::LikelihoodBase::LikelihoodBase()

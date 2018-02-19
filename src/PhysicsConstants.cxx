@@ -20,7 +20,6 @@
 #include "KLFitter/PhysicsConstants.h"
 #include <cmath>
 #include <iostream>
-#include <cmath>
 
 // ---------------------------------------------------------
 KLFitter::PhysicsConstants::PhysicsConstants() {

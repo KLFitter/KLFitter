@@ -18,17 +18,17 @@
  */
 
 #include "KLFitter/LikelihoodTopLeptonJetsUDSep.h"
-#include "KLFitter/ResolutionBase.h"
-#include "KLFitter/Particles.h"
-#include "KLFitter/Permutations.h"
-#include "KLFitter/PhysicsConstants.h"
-#include "KLFitter/DetectorBase.h"
 
 #include <iostream>
 #include <algorithm>
 
-#include <BAT/BCMath.h>
+#include "BAT/BCMath.h"
 #include "BAT/BCParameter.h"
+#include "KLFitter/DetectorBase.h"
+#include "KLFitter/Particles.h"
+#include "KLFitter/Permutations.h"
+#include "KLFitter/PhysicsConstants.h"
+#include "KLFitter/ResolutionBase.h"
 
 // ---------------------------------------------------------
 KLFitter::LikelihoodTopLeptonJetsUDSep::LikelihoodTopLeptonJetsUDSep() : KLFitter::LikelihoodTopLeptonJets::LikelihoodTopLeptonJets(),

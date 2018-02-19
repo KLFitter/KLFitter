@@ -18,18 +18,17 @@
  */
 
 #include "KLFitter/LikelihoodTopLeptonJets_JetAngles.h"
+
+#include <algorithm>
+#include <iostream>
+
+#include "BAT/BCMath.h"
+#include "BAT/BCParameter.h"
 #include "KLFitter/ResolutionBase.h"
 #include "KLFitter/Particles.h"
 #include "KLFitter/Permutations.h"
 #include "KLFitter/PhysicsConstants.h"
 #include "KLFitter/DetectorBase.h"
-
-#include <iostream>
-#include <algorithm>
-
-#include <BAT/BCMath.h>
-#include "BAT/BCParameter.h"
-
 #include "TMath.h"
 
 // ---------------------------------------------------------

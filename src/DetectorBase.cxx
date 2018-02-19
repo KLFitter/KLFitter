@@ -18,8 +18,10 @@
  */
 
 #include "KLFitter/DetectorBase.h"
-#include "KLFitter/ResolutionBase.h"
+
 #include <iostream>
+
+#include "KLFitter/ResolutionBase.h"
 
 // ---------------------------------------------------------
 KLFitter::DetectorBase::DetectorBase(std::string /*folder*/) :
