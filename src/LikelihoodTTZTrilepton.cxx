@@ -904,7 +904,7 @@ int KLFitter::LikelihoodTTZTrilepton::SaveResolutionFunctions() {
 }
 // ---------------------------------------------------------
 
-int KLFitter::LikelihoodTTZTrilepton::BuildModelParticles() { 
+int KLFitter::LikelihoodTTZTrilepton::BuildModelParticles() {
   if (GetBestFitParameters().size() > 0) CalculateLorentzVectors(GetBestFitParameters());
 
   TLorentzVector * bhad = fParticlesModel->Parton(0);

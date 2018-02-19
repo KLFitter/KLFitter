@@ -210,13 +210,13 @@ double KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityLJetReweight()
       }
       KLFitter::Particles::TrueFlavorType trueFlavor = fParticlesModel->TrueFlavor(i);
       if(trueFlavor == KLFitter::Particles::kB) {
-        logprob += log(BJetPt((*fParticlesPermuted)->Parton(index)->Pt()));   
+        logprob += log(BJetPt((*fParticlesPermuted)->Parton(index)->Pt()));
         logprob += log(BJetTagWeight((*fParticlesPermuted)->BTagWeight(index)));
         // std::cout<<"DEBUG! adding pT weight for b: "<<BJetPt((*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
         // std::cout<<"DEBUG! adding tag weight for b: "<<BJetTagWeight((*fParticlesPermuted)->BTagWeight(index))<<std::endl;
       }
       if(trueFlavor == KLFitter::Particles::kLightUp) {
-        logprob += log(UpJetPt((*fParticlesPermuted)->Parton(index)->Pt()));  
+        logprob += log(UpJetPt((*fParticlesPermuted)->Parton(index)->Pt()));
         logprob += log(UpJetTagWeight((*fParticlesPermuted)->BTagWeight(index)));
         // std::cout<<"DEBUG! adding pT weight for b: "<<UpJetPt((*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
         // std::cout<<"DEBUG! adding tag weight for b: "<<UpJetTagWeight((*fParticlesPermuted)->BTagWeight(index))<<std::endl;
@@ -380,9 +380,9 @@ double KLFitter::LikelihoodTopLeptonJetsUDSep::BJetProb(double tagweight, double
 // ---------------------------------------------------------
 int KLFitter::LikelihoodTopLeptonJetsUDSep::LHInvariantPermutationPartner(int iperm, int nperms, int &switchpar1, int &switchpar2) {
   int partnerid = -1;
-  int cache = iperm%6;  
+  int cache = iperm%6;
   switch (nperms) {
-  case 24:  
+  case 24:
     if ((iperm)%2) {
       partnerid = (iperm -1);
     } else {
@@ -397,7 +397,7 @@ int KLFitter::LikelihoodTopLeptonJetsUDSep::LHInvariantPermutationPartner(int ip
       partnerid = (iperm+3);
     }
     break;
-  
+
   default: partnerid = -1;
   }
   switchpar1 = 2;

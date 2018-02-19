@@ -34,7 +34,7 @@ KLFitter::PhysicsConstants::PhysicsConstants() {
   fGF         =   1.16637e-5;  // in GeV^{-2}
   fAlphaS     =   0.118;
   fMassTopUnc =   1.4;  // top quark LHC uncertainty
-  // ++++++++++++++++// 
+  // ++++++++++++++++//
   fMassHiggs    = 120.0;  // Higgs mass in GeV/c^{2}
   fGammaHiggs   = 0.003512;  // Higgs width
 }
@@ -218,11 +218,11 @@ void KLFitter::PhysicsConstants::CalculateGammaHiggs() {
   // numbers calculated by HDECAY
   // A.Djouadi, J.Kalinowski and M.Spira,
   // Comp. Phys. Commun. 108 C (1998) 56, hep-ph/9704448.
-  // 
+  //
   //   MHSM(GeV)     WIDTH(GeV/c2)
   //   __________________________
-  // 
-  //    110.000       0.2849E-02  
+  //
+  //    110.000       0.2849E-02
   //    115.000       0.3124E-02
   //    120.000       0.3512E-02
   //    125.000       0.4078E-02

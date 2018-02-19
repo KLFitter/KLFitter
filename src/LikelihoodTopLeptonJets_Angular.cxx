@@ -540,7 +540,7 @@ double KLFitter::LikelihoodTopLeptonJets_Angular::LogLikelihood(const std::vecto
   double p_angular_lep = ( 3./4.*(1.-cos_theta*cos_theta) * F0 +
                            3./8.*(1.-cos_theta)*(1.-cos_theta) * FL +
                            3./8.*(1.+cos_theta)*(1.+cos_theta) * FR );
-  
+
   double p_angular_had = ( 3./4.*(1.-cos_theta_had*cos_theta_had) * F0 +
                            3./8.*(1.+cos_theta_had*cos_theta_had) * (FL + FR) );
 
@@ -750,7 +750,7 @@ int KLFitter::LikelihoodTopLeptonJets_Angular::SaveResolutionFunctions() {
 }
 // ---------------------------------------------------------
 
-int KLFitter::LikelihoodTopLeptonJets_Angular::BuildModelParticles() {  
+int KLFitter::LikelihoodTopLeptonJets_Angular::BuildModelParticles() {
   if (GetBestFitParameters().size() > 0) CalculateLorentzVectors(GetBestFitParameters());
 
   TLorentzVector * bhad = fParticlesModel->Parton(0);

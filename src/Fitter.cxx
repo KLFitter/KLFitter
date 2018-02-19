@@ -360,7 +360,7 @@ int KLFitter::Fitter::SetFitStatusToCache(int iperm, int nperms) {
 
     fCachedConvergenceStatusVector.clear();
     fCachedConvergenceStatusVector.assign(nperms, -1);
-  } 
+  }
 
   if ((iperm > (int)fCachedMinuitStatusVector.size()) || (iperm > (int)fCachedConvergenceStatusVector.size())) {
     std::cout << "KLFitter::Fitter::SetFitStatusToCache: iperm > size of fCachedMinuitStatusVector or fCachedConvergenceStatusVector!" << std::endl;
@@ -378,8 +378,8 @@ int KLFitter::Fitter::SetFitStatusToCache(int iperm, int nperms) {
       fCachedConvergenceStatusVector.at(partner) = fConvergenceStatus;
     } else {
       std::cout << "KLFitter::Fitter::SetFitStatusToCache: size of fCachedMinuitStatusVector or fCachedConvergenceStatusVector too small!" << std::endl;
-    } 
-  } 
+    }
+  }
 
   GetFitStatusFromCache(iperm);
   return 1;

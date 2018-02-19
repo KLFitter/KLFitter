@@ -355,7 +355,7 @@ int KLFitter::LikelihoodBase::SetParametersToCache(int iperm, int nperms) {
 
     fCachedNormalizationVector.clear();
     fCachedNormalizationVector.assign(nperms, 0.);
-  } 
+  }
 
   if ((iperm > (int)fCachedParametersVector.size()) || (iperm > (int)fCachedParameterErrorsVector.size())) {
     std::cout << "KLFitter::LikelihoodBase::SetParametersToCache: iperm > size of fCachedParametersVector or fCachedParameterErrorsVector!" << std::endl;
@@ -385,7 +385,7 @@ int KLFitter::LikelihoodBase::SetParametersToCache(int iperm, int nperms) {
       fCachedNormalizationVector.at(partner) = BCIntegrate::GetIntegral();
     } else {
       std::cout << "KLFitter::LikelihoodBase::SetParametersToCache: size of fCachedParametersVector too small!" << std::endl;
-    } 
+    }
   }
   GetParametersFromCache(iperm);
 

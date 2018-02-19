@@ -1031,7 +1031,7 @@ int KLFitter::LikelihoodTopDilepton::SaveResolutionFunctions() {
 }
 // ---------------------------------------------------------
 
-int KLFitter::LikelihoodTopDilepton::BuildModelParticles() {  
+int KLFitter::LikelihoodTopDilepton::BuildModelParticles() {
   if (GetBestFitParameters().size() > 0) CalculateLorentzVectors(GetBestFitParameters());
 
   TLorentzVector * b1 = fParticlesModel->Parton(0);
@@ -1284,7 +1284,7 @@ void KLFitter::LikelihoodTopDilepton::MCMCIterationInterface() {
           fHistCosTheta->GetHistogram()->Fill(costheta.first);
           fHistCosTheta->GetHistogram()->Fill(costheta.second);
           // std::cout << "costheta: " << costheta.first << std::endl;
-        } 
+        }
       }  // 1 nu 2 nubar
       else if (nus.NSolutions == 2 && nubars.NSolutions == 1) {  // 2 nu 1 nubar
         if (nus.nu2.M() >= 0 && nubars.nu1.M() >= 0) {
