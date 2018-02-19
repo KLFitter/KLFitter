@@ -191,7 +191,7 @@ class Fitter {
   /**
     * Enumerator for the minimization methods.
     */
-  enum kMinimizationMethod { kMinuit, kSimulatedAnnealing, kMarkovChainMC }
+  enum kMinimizationMethod { kMinuit, kSimulatedAnnealing, kMarkovChainMC };
 
   /**
     * Set the minimization method.
