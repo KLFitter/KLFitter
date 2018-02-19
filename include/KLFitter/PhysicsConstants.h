@@ -59,59 +59,59 @@ class PhysicsConstants {
     * Return the mass of the bottom quark in GeV/c2.
     * @return The mass of the particle in GeV/c2.
     */
-  double MassBottom() { return fMassBottom; };
+  double MassBottom() { return fMassBottom; }
 
   /**
     * Return the msas of the W boson in GeV/c2.
     * @return The mass of the particle in GeV/c2.
     */
-  double MassW() { return fMassW; };
+  double MassW() { return fMassW; }
 
   /**
     * Return the mass of the Z boson in GeV/c2.
     * @return The mass of the particle in GeV/c2.
     */
-  double MassZ() { return fMassZ; };
+  double MassZ() { return fMassZ; }
 
   /**
     * Return the msas of the top quark in GeV/c2
     * @return The mass of the particle in GeV/c2.
     */
-  double MassTop() { return fMassTop; };
+  double MassTop() { return fMassTop; }
 
   /**
     * Return the msas of the Higgs boson in GeV/c2
     * @return The mass of the particle in GeV/c2.
     */
-  double MassHiggs() { return fMassHiggs; };
+  double MassHiggs() { return fMassHiggs; }
 
   /**
     * Return the width of the W boson in GeV/c2.
     * @return The width of the particle in GeV/c2.
     */
-  double GammaW() { return fGammaW; };
+  double GammaW() { return fGammaW; }
 
   /**
     * Return the width of the Z boson in GeV/c2.
     * @return The width of the particle in GeV/c2.
     */
-  double GammaZ() { return fGammaZ; };
+  double GammaZ() { return fGammaZ; }
 
   /**
     * Return the width of the top quark in GeV/c2
     * @return The width of the particle in GeV/c2.
     */
-  double GammaTop() { return fGammaTop; };
+  double GammaTop() { return fGammaTop; }
 
 
   /**
     * Return the width of the Higgs boson in GeV/c2
     * @return The width of the particle in GeV/c2.
     */
-  double GammaHiggs() { return fGammaHiggs; };
+  double GammaHiggs() { return fGammaHiggs; }
 
 
-  double MassTopUnc() { return fMassTopUnc; };
+  double MassTopUnc() { return fMassTopUnc; }
 
 
   /* @} */

@@ -197,7 +197,7 @@ class LikelihoodTopLeptonJetsUDSep : public KLFitter::LikelihoodTopLeptonJets {
     * Set a flag. If flag is true the permutations are reweighted with the pT and tag weight probabilities.
     * @param flag The flag.
     */
-  void SetLJetSeparationMethod(KLFitter::LikelihoodTopLeptonJetsUDSep::LJetSeparationMethod flag) { fLJetSeparationMethod = flag; };
+  void SetLJetSeparationMethod(KLFitter::LikelihoodTopLeptonJetsUDSep::LJetSeparationMethod flag) { fLJetSeparationMethod = flag; }
 
   /**
     * Check if the permutation is LH invariant.
@@ -248,7 +248,7 @@ class LikelihoodTopLeptonJetsUDSep : public KLFitter::LikelihoodTopLeptonJets {
     * Remove forbidden particle permutations.
     * @return An error code.
     */
-  int RemoveForbiddenParticlePermutations() { return 1; };
+  int RemoveForbiddenParticlePermutations() { return 1; }
 
 
   /**

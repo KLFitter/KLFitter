@@ -75,7 +75,7 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
     * @brief Return the top decay hypothesis
     * @return fHadronicTop
     */
-  bool GetHadronicTop() { return fHadronicTop; };
+  bool GetHadronicTop() { return fHadronicTop; }
 
   /* @{ */
 
@@ -105,14 +105,14 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
   /**
     * Associate the hadronic leg of the event to the top quark for likelihood calculation.
     */
-  void SetHadronicTop() { fHadronicTop = kTRUE; };
+  void SetHadronicTop() { fHadronicTop = kTRUE; }
 
   /**
     * Associate the leptonic leg of the event to the top quark for likelihood calculation.
     */
-  void SetLeptonicTop() { fHadronicTop = kFALSE; };
+  void SetLeptonicTop() { fHadronicTop = kFALSE; }
 
-  void SetFlagUseJetMass(bool flag) { fFlagUseJetMass = flag; };
+  void SetFlagUseJetMass(bool flag) { fFlagUseJetMass = flag; }
 
   /**
     * Set the type of lepton
@@ -138,7 +138,7 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
     * @param parameters A vector of parameters (double values).
     * @return The logarithm of the prior probability.
     */
-  virtual double LogAPrioriProbability(const std::vector <double> & parameters) { return 0; };
+  virtual double LogAPrioriProbability(const std::vector <double> & parameters) { return 0; }
 
   /**
     * The posterior probability definition, overloaded from BCModel.
@@ -166,11 +166,11 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
   virtual KLFitter::Particles* ParticlesModel() {
     BuildModelParticles();
     return fParticlesModel;
-  };
+  }
   virtual KLFitter::Particles** PParticlesModel() {
     BuildModelParticles();
     return &fParticlesModel;
-  };
+  }
 
 
   /* @} */

@@ -112,11 +112,11 @@ class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
     * fixed to the pole mass.
     * @param flag The flag.
     */
-  void SetFlagTopMassFixed(bool flag) { fFlagTopMassFixed = flag; };
+  void SetFlagTopMassFixed(bool flag) { fFlagTopMassFixed = flag; }
 
-  void SetFlagUseJetMass(bool flag) { fFlagUseJetMass = flag; };
+  void SetFlagUseJetMass(bool flag) { fFlagUseJetMass = flag; }
 
-  void SetFlagGetParSigmasFromTFs(bool flag) { fFlagGetParSigmasFromTFs = flag; };
+  void SetFlagGetParSigmasFromTFs(bool flag) { fFlagGetParSigmasFromTFs = flag; }
 
   /**
     * Set the type of lepton
@@ -148,7 +148,7 @@ class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
     * @param parameters A vector of parameters (double values).
     * @return The logarithm of the prior probability.
     */
-  virtual double LogAPrioriProbability(const std::vector <double> & parameters) { return 0; };
+  virtual double LogAPrioriProbability(const std::vector <double> & parameters) { return 0; }
 
   /**
     * The posterior probability definition, overloaded from BCModel.
@@ -205,11 +205,11 @@ class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
   virtual KLFitter::Particles* ParticlesModel() {
     BuildModelParticles();
     return fParticlesModel;
-  };
+  }
   virtual KLFitter::Particles** PParticlesModel() {
     BuildModelParticles();
     return &fParticlesModel;
-  };
+  }
 
   /* @} */
 

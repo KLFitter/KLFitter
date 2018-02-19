@@ -65,34 +65,34 @@ class Fitter {
     * Return the detector.
     * @return A pointer to the detector.
     */
-  KLFitter::DetectorBase * Detector() { return fDetector; };
+  KLFitter::DetectorBase * Detector() { return fDetector; }
 
   /**
     * Return the measured particles.
     * @return A pointer to the particles.
     */
-  KLFitter::Particles * Particles() { return fParticles; };
-  KLFitter::Particles ** PParticles() { return &fParticles; };
+  KLFitter::Particles * Particles() { return fParticles; }
+  KLFitter::Particles ** PParticles() { return &fParticles; }
 
   /**
     * Return the permutation object.
     * @return A pointer to the permutation object.
     **/
-  KLFitter::Permutations * Permutations() { return fPermutations; };
-  KLFitter::Permutations ** PPermutations() { return &fPermutations; };
+  KLFitter::Permutations * Permutations() { return fPermutations; }
+  KLFitter::Permutations ** PPermutations() { return &fPermutations; }
 
   /**
     * Return the lieklihood .
     * @return A pointer to the likelihood object.
     **/
-  KLFitter::LikelihoodBase * Likelihood() { return fLikelihood; };
-  KLFitter::LikelihoodBase ** PLikelihood() { return &fLikelihood; };
+  KLFitter::LikelihoodBase * Likelihood() { return fLikelihood; }
+  KLFitter::LikelihoodBase ** PLikelihood() { return &fLikelihood; }
 
   /**
     * Return the Minuit status
     * @return The Minuit stats
     */
-  int MinuitStatus() { return fMinuitStatus; };
+  int MinuitStatus() { return fMinuitStatus; }
 
   /**
     * Return the convergence status bit.
@@ -168,7 +168,7 @@ class Fitter {
   /**
     * Turn of simulated annealing.
     */
-  void TurnOffSA() { fTurnOffSA = true; };
+  void TurnOffSA() { fTurnOffSA = true; }
 
   /**
     * Enumerator for convergence errors.
@@ -191,7 +191,7 @@ class Fitter {
   /**
     * Enumerator for the minimization methods.
     */
-  enum kMinimizationMethod { kMinuit, kSimulatedAnnealing, kMarkovChainMC };
+  enum kMinimizationMethod { kMinuit, kSimulatedAnnealing, kMarkovChainMC }
 
   /**
     * Set the minimization method.

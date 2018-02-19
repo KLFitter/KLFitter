@@ -67,13 +67,13 @@ class Permutations {
     * Return the original particles.
     * @return A pointer to the particles.
     */
-  KLFitter::Particles* Particles() { return *fParticles; };
+  KLFitter::Particles* Particles() { return *fParticles; }
 
   /**
     * Return the current permutation of jets and leptons.
     * @return A pointer to the permuted particles.
     */
-  KLFitter::Particles* ParticlesPermuted() { return *fParticlesPermuted; };
+  KLFitter::Particles* ParticlesPermuted() { return *fParticlesPermuted; }
 
   /**
     * Return the permutation table.
@@ -84,21 +84,21 @@ class Permutations {
   /**
     * Return the number of permutations.
     */
-  int NPermutations() { return int(fParticlesTable -> size()); };
+  int NPermutations() { return int(fParticlesTable -> size()); }
 
   /**
     * Return the current permutation index.
     * @return The current permutation index.
     */
-  int PermutationIndex() { return fPermutationIndex; };
+  int PermutationIndex() { return fPermutationIndex; }
 
-  std::vector<std::vector<int>*>* TablePartons() { return fTablePartons; };
+  std::vector<std::vector<int>*>* TablePartons() { return fTablePartons; }
 
-  std::vector<std::vector<int>*>* TableElectrons() { return fTableElectrons; };
+  std::vector<std::vector<int>*>* TableElectrons() { return fTableElectrons; }
 
-  std::vector<std::vector<int>*>* TableMuons() { return fTableMuons; };
+  std::vector<std::vector<int>*>* TableMuons() { return fTableMuons; }
 
-  std::vector<std::vector<int>*>* TablePhotons() { return fTablePhotons; };
+  std::vector<std::vector<int>*>* TablePhotons() { return fTablePhotons; }
 
   /* @} */
   /** \name Member functions (Set)  */

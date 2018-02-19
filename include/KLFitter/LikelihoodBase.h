@@ -85,38 +85,38 @@ class LikelihoodBase : public BCModel {
     * Return the table of physics constants.
     * @return A pointer to the physics constants.
     */
-  KLFitter::PhysicsConstants* PhysicsConstants() { return fPhysicsConstants; };
+  KLFitter::PhysicsConstants* PhysicsConstants() { return fPhysicsConstants; }
 
   /**
     * Return the detector.
     * @return A pointer to the detector.
     */
-  KLFitter::DetectorBase* Detector() { return *fDetector; };
+  KLFitter::DetectorBase* Detector() { return *fDetector; }
 
   /**
     * Return the set of measured particles.
     * @return A pointer to the particles.
     */
-  KLFitter::Particles** PParticlesPermuted() { return fParticlesPermuted; };
+  KLFitter::Particles** PParticlesPermuted() { return fParticlesPermuted; }
 
   /**
     * Return the set of model particles.
     * @return A pointer to the particles.
     */
-  virtual KLFitter::Particles* ParticlesModel() { return fParticlesModel; };
-  virtual KLFitter::Particles** PParticlesModel() { return &fParticlesModel; };
+  virtual KLFitter::Particles* ParticlesModel() { return fParticlesModel; }
+  virtual KLFitter::Particles** PParticlesModel() { return &fParticlesModel; }
 
   /**
     * Return the number of model particles.
     * @return The number of model particles.
     */
-  int NParticlesModel() { return int(fParticlesModel -> NParticles()); };
+  int NParticlesModel() { return int(fParticlesModel -> NParticles()); }
 
   /**
     * Return the number of parameters.
     * @return The number of parameters of the model.
     */
-  int NParameters() { return this -> GetNParameters(); };
+  int NParameters() { return this -> GetNParameters(); }
 
   /**
     * Return the lower boundary of a parameter
@@ -217,7 +217,7 @@ class LikelihoodBase : public BCModel {
     * @param btagmethod The enum of btagging method.
     * @return An error flag.
     */
-  int SetBTagging(BtaggingMethod btagmethod) { fBTagMethod = btagmethod; return 1; };
+  int SetBTagging(BtaggingMethod btagmethod) { fBTagMethod = btagmethod; return 1; }
 
   /**
     * THIS IS AN OUTDATED METHOD - JUST HERE FOR BACKWARD COMPATIBILITY.
@@ -261,7 +261,7 @@ class LikelihoodBase : public BCModel {
     * Initialize the likelihood for the event
     * @return An error code
     */
-  virtual int Initialize() { return 1; };
+  virtual int Initialize() { return 1; }
 
   /**
     * Propagate the b-tagging information from the permuted (measured) particles to the model particles.
@@ -277,7 +277,7 @@ class LikelihoodBase : public BCModel {
   /**
     * Define the parameters of the fit.
     */
-  virtual void DefineParameters() { ; };
+  virtual void DefineParameters() { ; }
 
   /**
     * The prior probability definition, overloaded from BCModel.
@@ -326,25 +326,25 @@ class LikelihoodBase : public BCModel {
     * Remove invariant particle permutations.
     * @return An error code.
     */
-  virtual int RemoveInvariantParticlePermutations() { return 1; };
+  virtual int RemoveInvariantParticlePermutations() { return 1; }
 
   /**
     * Remove forbidden particle permutations.
     * @return An error code.
     */
-  virtual int RemoveForbiddenParticlePermutations() { return 1; };
+  virtual int RemoveForbiddenParticlePermutations() { return 1; }
 
   /**
     * Get initial values for the parameters.
     * @return vector of initial values.
     */
-  virtual std::vector<double> GetInitialParameters() { std::vector<double> v; return v; };
+  virtual std::vector<double> GetInitialParameters() { std::vector<double> v; return v; }
 
   /**
     * Check if there are TF problems.
     * @return Return false if TF problem.
     */
-  virtual bool NoTFProblem(std::vector<double> /*parameters*/) { return true; };
+  virtual bool NoTFProblem(std::vector<double> /*parameters*/) { return true; }
 
   /**
     * Returns the best fit parameters, overloaded from BCModel
@@ -394,7 +394,7 @@ class LikelihoodBase : public BCModel {
     * @param switchpar2 ???
     * @return Permutation of the invariant partner, -1 if there is no one.
     */
-  virtual int LHInvariantPermutationPartner(int iperm, int nperms, int &switchpar1, int &switchpar2) { return -1; };
+  virtual int LHInvariantPermutationPartner(int iperm, int nperms, int &switchpar1, int &switchpar2) { return -1; }
 
   /**
     * Write parameters from fCachedParametersVector.at(iperm) to fCachedParameters

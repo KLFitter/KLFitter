@@ -47,8 +47,8 @@ class NuSolutions {
  public:
   TLorentzVector nu1, nu2;
   int NSolutions;
-  NuSolutions():NSolutions(0) {};
-  ~NuSolutions() {};
+  NuSolutions():NSolutions(0) {}
+  ~NuSolutions() {}
 };
 
 /**
@@ -106,15 +106,15 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
     * fixed to the pole mass.
     * @param flag The flag.
     */
-  void SetFlagTopMassFixed(bool flag) { fFlagTopMassFixed = flag; };
+  void SetFlagTopMassFixed(bool flag) { fFlagTopMassFixed = flag; }
 
-  void SetFlagUseJetMass(bool flag) { fFlagUseJetMass = flag; };
+  void SetFlagUseJetMass(bool flag) { fFlagUseJetMass = flag; }
 
   /**
     * Set the neutrino pseudorapidity sigma linear dependency on mtop
     * according to SM expectations
     */
-  void SetEtaNuParams(std::vector<double> etanuparam) { nueta_params = etanuparam; };
+  void SetEtaNuParams(std::vector<double> etanuparam) { nueta_params = etanuparam; }
 
   /**
     * Set the type of lepton
@@ -160,7 +160,7 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
     * @return The logarithm of the prior probability.
     */
 
-  virtual double LogAPrioriProbability(const std::vector <double> & parameters) { return 0; };
+  virtual double LogAPrioriProbability(const std::vector <double> & parameters) { return 0; }
 
   /**
     * The posterior probability definition, overloaded from BCModel.
@@ -203,11 +203,11 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
   virtual KLFitter::Particles* ParticlesModel() {
     BuildModelParticles();
     return fParticlesModel;
-  };
+  }
   virtual KLFitter::Particles** PParticlesModel() {
     BuildModelParticles();
     return &fParticlesModel;
-  };
+  }
 
   /**
     * Return Gaussian term for neutrino
@@ -254,7 +254,7 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
     * option is used, instead of the default best-permutation
     * @param flag The flag.
     */
-  void SetDoSumLogLik(bool flag) { doSumloglik = flag; };
+  void SetDoSumLogLik(bool flag) { doSumloglik = flag; }
 
   /* @} */
 
