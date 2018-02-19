@@ -46,13 +46,13 @@ class ResGauss : public ResolutionBase {
   /**
     * The default constructor.
     */
-  ResGauss(const char * filename);
+  explicit ResGauss(const char * filename);
 
   /**
     * A constructor.
     * @param sigma The width of the Gaussian.
     */
-  ResGauss(double sigma);
+  explicit ResGauss(double sigma);
 
   /**
     * The default destructor.

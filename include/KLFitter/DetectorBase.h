@@ -61,7 +61,7 @@ class DetectorBase {
     * The default constructor.
     * @param folder The folder with transfer function parameters.
     */
-  DetectorBase(std::string folder = "");
+  explicit DetectorBase(std::string folder = "");
 
   /**
     * The default destructor.

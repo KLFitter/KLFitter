@@ -47,13 +47,13 @@ class ResDoubleGaussE_3 : public ResDoubleGaussBase {
   /**
     * The default constructor.
     */
-  ResDoubleGaussE_3(const char * filename);
+  explicit ResDoubleGaussE_3(const char * filename);
 
   /**
     * A constructor.
     * @param parameters The parameters of the parameterization.
     */
-  ResDoubleGaussE_3(std::vector<double> const& parameters);
+  explicit ResDoubleGaussE_3(std::vector<double> const& parameters);
 
   /**
     * The default destructor.

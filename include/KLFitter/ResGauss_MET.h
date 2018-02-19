@@ -47,13 +47,13 @@ class ResGauss_MET : public ResolutionBase {
   /**
     * The default constructor.
     */
-  ResGauss_MET(const char * filename);
+  explicit ResGauss_MET(const char * filename);
 
   /**
     * A constructor.
     * @param parameters The parameters of the parameterization.
     */
-  ResGauss_MET(std::vector<double> const& parameters);
+  explicit ResGauss_MET(std::vector<double> const& parameters);
 
   /**
     * The default destructor.

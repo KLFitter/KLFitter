@@ -47,13 +47,13 @@ class ResDoubleGaussPt : public ResDoubleGaussBase {
   /**
     * The default constructor.
     */
-  ResDoubleGaussPt(const char * filename);
+  explicit ResDoubleGaussPt(const char * filename);
 
   /**
     * A constructor.
     * @param parameters The parameters of the parameterization.
     */
-  ResDoubleGaussPt(std::vector<double> const& parameters);
+  explicit ResDoubleGaussPt(std::vector<double> const& parameters);
 
   /**
     * The default destructor.

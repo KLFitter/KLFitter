@@ -47,13 +47,13 @@ class ResolutionBase {
     * The default constructor.
     * @param npar The number of parameters needed for the parameterization.
     */
-  ResolutionBase(int npar);
+  explicit ResolutionBase(int npar);
 
   /**
     * A constructor.
     * @param parameters A vector with the parameters.
     */
-  ResolutionBase(std::vector<double> parameters);
+  explicit ResolutionBase(std::vector<double> parameters);
 
   /**
     * The default destructor.

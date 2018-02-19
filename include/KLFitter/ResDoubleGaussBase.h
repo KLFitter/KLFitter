@@ -48,13 +48,13 @@ class ResDoubleGaussBase : public ResolutionBase {
   /**
     * The default constructor.
     */
-  ResDoubleGaussBase(const char * filename);
+  explicit ResDoubleGaussBase(const char * filename);
 
   /**
     * A constructor.
     * @param parameters The parameters of the parameterization.
     */
-  ResDoubleGaussBase(std::vector<double> const& parameters);
+  explicit ResDoubleGaussBase(std::vector<double> const& parameters);
 
   /**
     * The default destructor.

@@ -48,7 +48,7 @@ class DetectorAtlas_8TeV : public DetectorBase {
     * The default constructor.
     * @param folder The folder with transfer function parameters.
     */
-  DetectorAtlas_8TeV(std::string folder = "");
+  explicit DetectorAtlas_8TeV(std::string folder = "");
 
   /**
     * The default destructor.

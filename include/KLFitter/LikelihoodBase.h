@@ -70,7 +70,7 @@ class LikelihoodBase : public BCModel {
     * The default constructor.
     * @param particles A pointer to the measured particles.
     */
-  LikelihoodBase(Particles ** particles = 0);
+  explicit LikelihoodBase(Particles ** particles = 0);
 
   /**
     * The default destructor.
