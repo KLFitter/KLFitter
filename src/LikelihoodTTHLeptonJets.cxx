@@ -377,8 +377,9 @@ int KLFitter::LikelihoodTTHLeptonJets::RemoveInvariantParticlePermutations() {
   // remove invariant jet permutations of notevent jets
   KLFitter::Particles* particles = (*fPermutations)->Particles();
   indexVector_Jets.clear();
-  for (int iPartons = 6; iPartons < particles->NPartons(); iPartons++)
+  for (int iPartons = 6; iPartons < particles->NPartons(); iPartons++) {
     indexVector_Jets.push_back(iPartons);
+  }
   err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Jets);
   // ++++++++++++++++//
 
@@ -387,15 +388,17 @@ int KLFitter::LikelihoodTTHLeptonJets::RemoveInvariantParticlePermutations() {
   if (fTypeLepton == kElectron) {
     ptype = KLFitter::Particles::kMuon;
     std::vector<int> indexVector_Muons;
-    for (int iMuon = 0; iMuon < particles->NMuons(); iMuon++)
+    for (int iMuon = 0; iMuon < particles->NMuons(); iMuon++) {
       indexVector_Muons.push_back(iMuon);
+    }
     err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Muons);
   }
   else if (fTypeLepton == kMuon) {
     ptype = KLFitter::Particles::kElectron;
     std::vector<int> indexVector_Electrons;
-    for (int iElectron = 0; iElectron < particles->NElectrons(); iElectron++)
+    for (int iElectron = 0; iElectron < particles->NElectrons(); iElectron++) {
       indexVector_Electrons.push_back(iElectron);
+    }
     err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Electrons);
   }
 

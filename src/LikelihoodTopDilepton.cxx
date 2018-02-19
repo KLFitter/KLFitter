@@ -289,23 +289,26 @@ int KLFitter::LikelihoodTopDilepton::RemoveInvariantParticlePermutations() {
   // remove invariant jet permutations of notevent jets
   KLFitter::Particles* particles = (*fPermutations)->Particles();
   indexVector_Jets.clear();
-  for (int iPartons = 2; iPartons < particles->NPartons(); iPartons++)
+  for (int iPartons = 2; iPartons < particles->NPartons(); iPartons++) {
     indexVector_Jets.push_back(iPartons);
+  }
   err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Jets);
 
   // remove lepton permutations within the same kind
   if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kElectron) {
     ptype = KLFitter::Particles::kElectron;
     std::vector<int> indexVector_Electrons;
-    for (int iElectron = 0; iElectron < particles->NElectrons(); iElectron++)
+    for (int iElectron = 0; iElectron < particles->NElectrons(); iElectron++) {
       indexVector_Electrons.push_back(iElectron);
+    }
     err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Electrons);
   }
   else if (fTypeLepton_1 == kMuon && fTypeLepton_2 == kMuon) {
     ptype = KLFitter::Particles::kMuon;
     std::vector<int> indexVector_Muons;
-    for (int iMuon = 0; iMuon < particles->NMuons(); iMuon++)
+    for (int iMuon = 0; iMuon < particles->NMuons(); iMuon++) {
       indexVector_Muons.push_back(iMuon);
+    }
     err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Muons);
   }
 

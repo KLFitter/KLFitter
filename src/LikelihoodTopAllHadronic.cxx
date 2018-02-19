@@ -282,8 +282,9 @@ int KLFitter::LikelihoodTopAllHadronic::RemoveInvariantParticlePermutations() {
   // remove invariant jet permutations of notevent jets
   KLFitter::Particles* particles = (*fPermutations)->Particles();
   indexVector_Jets.clear();
-  for (int iPartons = 6; iPartons < particles->NPartons(); iPartons++)
+  for (int iPartons = 6; iPartons < particles->NPartons(); iPartons++) {
     indexVector_Jets.push_back(iPartons);
+  }
   err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Jets);
 
   // return error code

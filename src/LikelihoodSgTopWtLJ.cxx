@@ -282,8 +282,9 @@ int KLFitter::LikelihoodSgTopWtLJ::RemoveInvariantParticlePermutations() {
   // remove the permutation from all jet not used for the likelihood
   KLFitter::Particles * particles = (*fPermutations)->Particles();
   indexVector_Jets.clear();
-  for (int i = 3; i < particles->NPartons(); i++)
+  for (int i = 3; i < particles->NPartons(); i++) {
     indexVector_Jets.push_back(i);
+  }
   err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Jets);
   //
   //  // remove the permutation from the other lepton type

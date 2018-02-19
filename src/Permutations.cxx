@@ -324,8 +324,9 @@ int KLFitter::Permutations::Reset() {
 int KLFitter::Permutations::CreateSubTable(int Nobj, std::vector < std::vector<int> * > * table, int Nmax) {
   if (Nmax < 0) {
     std::vector<int> vidx;
-    for (int i(0); i < Nobj; ++i)
+    for (int i(0); i < Nobj; ++i) {
       vidx.push_back(i);
+    }
 
     do table->push_back(new std::vector<int>(vidx));
     while (next_permutation(vidx.begin(), vidx.end()));
@@ -652,8 +653,9 @@ std::vector<int> KLFitter::Permutations::Get_int_vector(int i) {
 
 std::vector<int> KLFitter::Permutations::Get_int_plus_vector(int i, std::vector<int> v) {
   std::vector<int> vtmp = Get_int_vector(i);
-  for (unsigned int j(0), jend(v.size()); j < jend; ++j)
+  for (unsigned int j(0), jend(v.size()); j < jend; ++j) {
     vtmp.push_back(v[j]);
+  }
   return vtmp;
 }
 
@@ -666,8 +668,9 @@ std::vector<std::vector<int> > KLFitter::Permutations::Get_M_from_N(unsigned int
       v.push_back(Get_int_vector(i));
     else {
       std::vector<std::vector<int> > vnext = Get_M_from_N(N, M-1, i+1);
-      for (unsigned int j(0), jend(vnext.size()); j < jend; ++j)
+      for (unsigned int j(0), jend(vnext.size()); j < jend; ++j) {
         v.push_back(Get_int_plus_vector(i, vnext[j]));
+      }
     }
   }
   return v;
