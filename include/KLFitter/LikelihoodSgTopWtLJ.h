@@ -17,13 +17,15 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __LIKELIHOODSGTOPWTLJ__H
-#define __LIKELIHOODSGTOPWTLJ__H
+#ifndef KLFITTER_LIKELIHOODSGTOPWTLJ_H_
+#define KLFITTER_LIKELIHOODSGTOPWTLJ_H_
 
 // ---------------------------------------------------------
 
 #include "LikelihoodBase.h"
 #include "ResolutionBase.h"
+
+#include <vector>
 
 // ---------------------------------------------------------
 
@@ -384,5 +386,5 @@ namespace KLFitter {
 
 // ---------------------------------------------------------
 
-#endif  // __LIKELIHOODSGTOPWTLJ__H
+#endif  // KLFITTER_LIKELIHOODSGTOPWTLJ_H_
 

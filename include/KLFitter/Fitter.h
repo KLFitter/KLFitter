@@ -17,8 +17,8 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FITTER
-#define FITTER
+#ifndef KLFITTER_FITTER_H_
+#define KLFITTER_FITTER_H_
 
 #include <vector>
 
@@ -298,5 +298,5 @@ namespace KLFitter {
 
 // ---------------------------------------------------------
 
-#endif
+#endif  // KLFITTER_FITTER_H_
 

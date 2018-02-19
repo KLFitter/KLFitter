@@ -17,8 +17,8 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DETECTORBASE
-#define DETECTORBASE
+#ifndef KLFITTER_DETECTORBASE_H_
+#define KLFITTER_DETECTORBASE_H_
 
 // ---------------------------------------------------------
 
@@ -286,4 +286,4 @@ namespace KLFitter {
 
 // ---------------------------------------------------------
 
-#endif
+#endif  // KLFITTER_DETECTORBASE_H_

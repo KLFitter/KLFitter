@@ -17,8 +17,8 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIKELIHOODTOPLEPTONJETS_ANGULAR
-#define LIKELIHOODTOPLEPTONJETS_ANGULAR
+#ifndef KLFITTER_LIKELIHOODTOPLEPTONJETS_ANGULAR_H_
+#define KLFITTER_LIKELIHOODTOPLEPTONJETS_ANGULAR_H_
 
 // ---------------------------------------------------------
 
@@ -27,6 +27,7 @@
 #include "ResolutionBase.h"
 
 #include <iostream>
+#include <vector>
 
 // ---------------------------------------------------------
 
@@ -437,5 +438,5 @@ namespace KLFitter {
 
 // ---------------------------------------------------------
 
-#endif
+#endif  // KLFITTER_LIKELIHOODTOPLEPTONJETS_ANGULAR_H_
 

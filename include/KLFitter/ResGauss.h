@@ -17,8 +17,8 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef RESGAUSS
-#define RESGAUSS
+#ifndef KLFITTER_RESGAUSS_H_
+#define KLFITTER_RESGAUSS_H_
 
 #include "ResolutionBase.h"
 
@@ -110,5 +110,5 @@ namespace KLFitter {
 
 // ---------------------------------------------------------
 
-#endif
+#endif  // KLFITTER_RESGAUSS_H_
 

@@ -17,20 +17,23 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIKELIHOODTOPDILEPTON
-#define LIKELIHOODTOPDILEPTON
+#ifndef KLFITTER_LIKELIHOODTOPDILEPTON_H_
+#define KLFITTER_LIKELIHOODTOPDILEPTON_H_
 
 // ---------------------------------------------------------
 
 #include "LikelihoodBase.h"
-#include "TLorentzVector.h"
-#include "ResolutionBase.h"
-#include <assert.h>
-#include <iostream>
-#include <cmath>
 
-#include "BAT/BCModel.h"
+#include <assert.h>
+#include <cmath>
+#include <iostream>
+#include <utility>
+#include <vector>
+
 #include "BAT/BCH1D.h"
+#include "BAT/BCModel.h"
+#include "ResolutionBase.h"
+#include "TLorentzVector.h"
 
 // ---------------------------------------------------------
 
@@ -530,5 +533,5 @@ namespace KLFitter {
 
 // ---------------------------------------------------------
 
-#endif
+#endif  // KLFITTER_LIKELIHOODTOPDILEPTON_H_
 

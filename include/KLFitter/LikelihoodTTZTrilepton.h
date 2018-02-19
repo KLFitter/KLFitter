@@ -17,8 +17,8 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIKELIHOODTTZTRILEPTON
-#define LIKELIHOODTTZTRILEPTON
+#ifndef KLFITTER_LIKELIHOODTTZTRILEPTON_H_
+#define KLFITTER_LIKELIHOODTTZTRILEPTON_H_
 
 // ---------------------------------------------------------
 
@@ -27,6 +27,7 @@
 #include "ResolutionBase.h"
 
 #include <iostream>
+#include <vector>
 
 // ---------------------------------------------------------
 
@@ -526,4 +527,4 @@ namespace KLFitter {
 
 // ---------------------------------------------------------
 
-#endif
+#endif  // KLFITTER_LIKELIHOODTTZTRILEPTON_H_

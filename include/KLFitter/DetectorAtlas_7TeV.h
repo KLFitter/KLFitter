@@ -17,8 +17,8 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DETECTORATLAS_7TEV
-#define DETECTORATLAS_7TEV
+#ifndef KLFITTER_DETECTORATLAS_7TEV_H_
+#define KLFITTER_DETECTORATLAS_7TEV_H_
 
 // ---------------------------------------------------------
 
@@ -255,4 +255,4 @@ namespace KLFitter {
 
 // ---------------------------------------------------------
 
-#endif
+#endif  // KLFITTER_DETECTORATLAS_7TEV_H_

@@ -17,12 +17,12 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef RESDOUBLEGAUSSBASE
-#define RESDOUBLEGAUSSBASE
+#ifndef KLFITTER_RESDOUBLEGAUSSBASE_H_
+#define KLFITTER_RESDOUBLEGAUSSBASE_H_
 
-#include <vector>
 #include "ResolutionBase.h"
 #include <iostream>
+#include <vector>
 
 // ---------------------------------------------------------
 
@@ -170,5 +170,5 @@ namespace KLFitter {
 
 // ---------------------------------------------------------
 
-#endif
+#endif  // KLFITTER_RESDOUBLEGAUSSBASE_H_
 

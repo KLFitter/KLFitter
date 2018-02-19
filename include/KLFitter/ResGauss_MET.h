@@ -17,10 +17,11 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef RESGAUSS_MET
-#define RESGAUSS_MET
+#ifndef KLFITTER_RESGAUSS_MET_H_
+#define KLFITTER_RESGAUSS_MET_H_
 
 #include "ResolutionBase.h"
+#include <vector>
 
 // ---------------------------------------------------------
 
@@ -110,5 +111,5 @@ namespace KLFitter {
 
 // ---------------------------------------------------------
 
-#endif
+#endif  // KLFITTER_RESGAUSS_MET_H_
 

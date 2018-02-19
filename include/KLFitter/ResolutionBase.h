@@ -17,8 +17,8 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef RESOLUTIONBASE
-#define RESOLUTIONBASE
+#ifndef KLFITTER_RESOLUTIONBASE_H_
+#define KLFITTER_RESOLUTIONBASE_H_
 
 // ---------------------------------------------------------
 
@@ -156,5 +156,5 @@ namespace KLFitter {
 
 // ---------------------------------------------------------
 
-#endif
+#endif  // KLFITTER_RESOLUTIONBASE_H_
 

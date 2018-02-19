@@ -17,8 +17,8 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PHYSICSCONSTANTS
-#define PHYSICSCONSTANTS
+#ifndef KLFITTER_PHYSICSCONSTANTS_H_
+#define KLFITTER_PHYSICSCONSTANTS_H_
 
 // ---------------------------------------------------------
 
@@ -265,5 +265,5 @@ namespace KLFitter {
 
 // ---------------------------------------------------------
 
-#endif
+#endif  // KLFITTER_PHYSICSCONSTANTS_H_
 

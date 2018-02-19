@@ -17,8 +17,8 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIKELIHOODTOPLEPTONJETSUDSEP
-#define LIKELIHOODTOPLEPTONJETSUDSEP
+#ifndef KLFITTER_LIKELIHOODTOPLEPTONJETSUDSEP_H_
+#define KLFITTER_LIKELIHOODTOPLEPTONJETSUDSEP_H_
 
 // ---------------------------------------------------------
 
@@ -308,5 +308,5 @@ namespace KLFitter {
 
 // ---------------------------------------------------------
 
-#endif
+#endif  // KLFITTER_LIKELIHOODTOPLEPTONJETSUDSEP_H_
 

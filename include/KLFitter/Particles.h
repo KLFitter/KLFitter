@@ -17,14 +17,15 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PARTICLES
-#define PARTICLES
+#ifndef KLFITTER_PARTICLES_H_
+#define KLFITTER_PARTICLES_H_
 
 // ---------------------------------------------------------
 
-#include <TLorentzVector.h>
-#include <vector>
 #include <string>
+#include <vector>
+
+#include <TLorentzVector.h>
 
 // ---------------------------------------------------------
 
@@ -631,5 +632,5 @@ KLFitter::Particles::ParticleType &operator++(KLFitter::Particles::ParticleType 
 
 // ---------------------------------------------------------
 
-#endif
+#endif  // KLFITTER_PARTICLES_H_
 

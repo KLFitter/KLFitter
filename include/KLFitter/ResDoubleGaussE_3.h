@@ -17,8 +17,8 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef RESDOUBLEGAUSSE_3
-#define RESDOUBLEGAUSSE_3
+#ifndef KLFITTER_RESDOUBLEGAUSSE_3_H_
+#define KLFITTER_RESDOUBLEGAUSSE_3_H_
 
 #include <vector>
 #include "ResDoubleGaussBase.h"
@@ -113,5 +113,5 @@ namespace KLFitter {
 
 // ---------------------------------------------------------
 
-#endif
+#endif  // KLFITTER_RESDOUBLEGAUSSE_3_H_
 

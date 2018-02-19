@@ -17,8 +17,8 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIKELIHOODTOPALLHADRONIC
-#define LIKELIHOODTOPALLHADRONIC
+#ifndef KLFITTER_LIKELIHOODTOPALLHADRONIC_H_
+#define KLFITTER_LIKELIHOODTOPALLHADRONIC_H_
 
 // ---------------------------------------------------------
 
@@ -27,6 +27,7 @@
 #include "ResolutionBase.h"
 
 #include <iostream>
+#include <vector>
 
 // ---------------------------------------------------------
 
@@ -382,5 +383,5 @@ namespace KLFitter {
 
 // ---------------------------------------------------------
 
-#endif
+#endif  // KLFITTER_LIKELIHOODTOPALLHADRONIC_H_
 

@@ -17,11 +17,12 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PERMUTATIONS
-#define PERMUTATIONS
+#ifndef KLFITTER_PERMUTATIONS_H_
+#define KLFITTER_PERMUTATIONS_H_
 
 // ---------------------------------------------------------
 
+#include <vector>
 #include "Particles.h"
 
 // ---------------------------------------------------------
@@ -227,5 +228,5 @@ namespace KLFitter {
 
 // ---------------------------------------------------------
 
-#endif
+#endif  // KLFITTER_PERMUTATIONS_H_
 

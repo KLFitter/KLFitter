@@ -17,19 +17,19 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIKELIHOODBASE
-#define LIKELIHOODBASE
+#ifndef KLFITTER_LIKELIHOODBASE_H_
+#define KLFITTER_LIKELIHOODBASE_H_
 
 // ---------------------------------------------------------
 
 #include "Particles.h"
 
+#include <iostream>
+#include <vector>
+
 #include "BAT/BCLog.h"
 #include "BAT/BCModel.h"
-
-#include <TLorentzVector.h>
-
-#include <iostream>
+#include "TLorentzVector.h"
 
 // ---------------------------------------------------------
 
@@ -517,5 +517,5 @@ namespace KLFitter {
 
 // ---------------------------------------------------------
 
-#endif
+#endif  // KLFITTER_LIKELIHOODBASE_H_
 
