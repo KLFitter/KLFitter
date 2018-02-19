@@ -28,8 +28,7 @@
  * \namespace KLFitter
  * \brief The KLFitter namespace
  */
-namespace KLFitter
-{
+namespace KLFitter {
   /**
    * \class KLFitter::ResGauss_MET
    * \brief A class describing a Gaussian resolution, parametrized for MET.
@@ -39,8 +38,7 @@ namespace KLFitter
    * parameterization is a Gaussian with a width of a constant times the
    * square root of the true parameter.
    */
-  class ResGauss_MET : public ResolutionBase
-  {
+  class ResGauss_MET : public ResolutionBase {
   public:
     /** \name Constructors and destructors */
     /* @{ */
@@ -81,8 +79,7 @@ namespace KLFitter
      * @param good False if problem with TF.
      * @return The probability.
      */
-    virtual double p(double x, double xmeas, bool &good)
-    { good = true; return 0; }
+    virtual double p(double x, double xmeas, bool &good) { good = true; return 0; }
 
     /**
      * Return the probability of the true value of x given the
@@ -103,8 +100,7 @@ namespace KLFitter
      * Set the width of the Gaussian
      * @param sigma The width of the Gaussian.
      */
-    void SetSigma(double sigma)
-    { if (sigma < 0) sigma = - sigma; this -> SetPar(0, sigma); };
+    void SetSigma(double sigma) { if (sigma < 0) sigma = - sigma; this -> SetPar(0, sigma); };
 
     /* @} */
 

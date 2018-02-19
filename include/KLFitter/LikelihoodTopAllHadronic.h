@@ -34,8 +34,7 @@
  * \namespace KLFitter
  * \brief The KLFitter namespace
  */
-namespace KLFitter
-{
+namespace KLFitter {
   /**
    * \class KLFitter::LikelihoodTopAllHadronic
    * \brief A class implementing a likelihood for the ttbar allhadronic channel.
@@ -43,8 +42,7 @@ namespace KLFitter
    *
    * This class represents a likelihood for the ttbar allhadronic channel.
    */
-  class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase
-  {
+  class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
   public:
     /** \name Constructors and destructors */
     /* @{ */
@@ -79,14 +77,11 @@ namespace KLFitter
      * fixed to the pole mass.
      * @param flag The flag.
      */
-    void SetFlagTopMassFixed(bool flag)
-    { fFlagTopMassFixed = flag; };
+    void SetFlagTopMassFixed(bool flag) { fFlagTopMassFixed = flag; };
 
-    void SetFlagUseJetMass(bool flag)
-    { fFlagUseJetMass = flag; };
+    void SetFlagUseJetMass(bool flag) { fFlagUseJetMass = flag; };
 
-    void SetFlagGetParSigmasFromTFs(bool flag)
-    { fFlagGetParSigmasFromTFs = flag; };
+    void SetFlagGetParSigmasFromTFs(bool flag) { fFlagGetParSigmasFromTFs = flag; };
 
     /* @} */
     /** \name Member functions (misc)  */
@@ -106,8 +101,7 @@ namespace KLFitter
      * @param parameters A vector of parameters (double values).
      * @return The logarithm of the prior probability.
      */
-    virtual double LogAPrioriProbability(const std::vector <double> & parameters)
-    { return 0; };
+    virtual double LogAPrioriProbability(const std::vector <double> & parameters) { return 0; };
 
     /**
      * The posterior probability definition, overloaded from BCModel.

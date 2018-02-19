@@ -38,8 +38,7 @@
  * \namespace KLFitter
  * \brief The KLFitter namespace
  */
-namespace KLFitter
-{
+namespace KLFitter {
   //! Neutrino Solution Set
   class NuSolutions {
   public:
@@ -56,8 +55,7 @@ namespace KLFitter
    *
    * This class represents a likelihood for the ttbar dilepton channel.
    */
-  class LikelihoodTopDilepton : public KLFitter::LikelihoodBase
-  {
+  class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
   public:
     /** \name Constructors and destructors */
     /* @{ */
@@ -105,18 +103,15 @@ namespace KLFitter
      * fixed to the pole mass.
      * @param flag The flag.
      */
-    void SetFlagTopMassFixed(bool flag)
-    { fFlagTopMassFixed = flag; };
+    void SetFlagTopMassFixed(bool flag) { fFlagTopMassFixed = flag; };
 
-    void SetFlagUseJetMass(bool flag)
-    { fFlagUseJetMass = flag; };
+    void SetFlagUseJetMass(bool flag) { fFlagUseJetMass = flag; };
 
     /**
      * Set the neutrino pseudorapidity sigma linear dependency on mtop
      * according to SM expectations
      */
-    void SetEtaNuParams(std::vector<double> etanuparam)
-    { nueta_params = etanuparam; };
+    void SetEtaNuParams(std::vector<double> etanuparam) { nueta_params = etanuparam; };
 
     /**
      * Set the type of lepton
@@ -162,8 +157,7 @@ namespace KLFitter
      * @return The logarithm of the prior probability.
      */
 
-    virtual double LogAPrioriProbability(const std::vector <double> & parameters)
-    { return 0; };
+    virtual double LogAPrioriProbability(const std::vector <double> & parameters) { return 0; };
 
     /**
      * The posterior probability definition, overloaded from BCModel.
@@ -257,8 +251,7 @@ namespace KLFitter
      * option is used, instead of the default best-permutation
      * @param flag The flag.
      */
-    void SetDoSumLogLik(bool flag)
-    { doSumloglik = flag; };
+    void SetDoSumLogLik(bool flag) { doSumloglik = flag; };
 
     /* @} */
 

@@ -34,8 +34,7 @@
  * \namespace KLFitter
  * \brief The KLFitter namespace
  */
-namespace KLFitter
-{
+namespace KLFitter {
   /**
    * \class KLFitter::LikelihoodTTZTrilepton
    * \brief A class implementing a likelihood for the ttZ trilepton channel.
@@ -45,8 +44,7 @@ namespace KLFitter
    * channel. It is largely based on the LikelihoodTopLeptonJets class
    * authored by Kevin Kr&ouml;ninger.
    */
-  class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase
-  {
+  class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
   public:
     /** \name Constructors and destructors */
     /* @{ */
@@ -68,14 +66,12 @@ namespace KLFitter
     /**
      * Get the cut-off value of the 1/E^2 distribution.
      */
-    inline double GetInvMassCutoff()
-    { return fInvMassCutoff; }
+    inline double GetInvMassCutoff() { return fInvMassCutoff; }
 
     /**
      * Get the fraction of on-shell events.
      */
-    inline float GetOnShellFraction()
-    { return fOnShellFraction; }
+    inline float GetOnShellFraction() { return fOnShellFraction; }
 
     /* @} */
     /** \name Member functions (Set)  */
@@ -103,28 +99,23 @@ namespace KLFitter
     /**
      * Set the cut-off value of the 1/E^2 distribution.
      */
-    inline void SetInvMassCutoff(double cutoff)
-    { fInvMassCutoff = cutoff; }
+    inline void SetInvMassCutoff(double cutoff) { fInvMassCutoff = cutoff; }
 
     /**
      * Set the fraction of on-shell events.
      */
-    inline void SetOnShellFraction(double fraction)
-    { fOnShellFraction = fraction; }
+    inline void SetOnShellFraction(double fraction) { fOnShellFraction = fraction; }
 
     /**
      * Set a flag. If flag is true the invariant top quark mass is
      * fixed to the pole mass.
      * @param flag The flag.
      */
-    void SetFlagTopMassFixed(bool flag)
-    { fFlagTopMassFixed = flag; };
+    void SetFlagTopMassFixed(bool flag) { fFlagTopMassFixed = flag; };
 
-    void SetFlagUseJetMass(bool flag)
-    { fFlagUseJetMass = flag; };
+    void SetFlagUseJetMass(bool flag) { fFlagUseJetMass = flag; };
 
-    void SetFlagGetParSigmasFromTFs(bool flag)
-    { fFlagGetParSigmasFromTFs = flag; };
+    void SetFlagGetParSigmasFromTFs(bool flag) { fFlagGetParSigmasFromTFs = flag; };
 
     /**
      * Set the type of lepton
@@ -156,8 +147,7 @@ namespace KLFitter
      * @param parameters A vector of parameters (double values).
      * @return The logarithm of the prior probability.
      */
-    virtual double LogAPrioriProbability(const std::vector <double> & parameters)
-    { return 0; };
+    virtual double LogAPrioriProbability(const std::vector <double> & parameters) { return 0; };
 
     /**
      * The posterior probability definition, overloaded from BCModel.

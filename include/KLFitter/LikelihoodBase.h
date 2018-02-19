@@ -37,8 +37,7 @@
  * \namespace KLFitter
  * \brief The KLFitter namespace
  */
-namespace KLFitter
-{
+namespace KLFitter {
   class PhysicsConstants;
   class Permutations;
   class DetectorBase;
@@ -48,8 +47,7 @@ namespace KLFitter
    * \brief A base class for likelihoods.
    * \author Kevin Kr&ouml;ninger
    */
-  class LikelihoodBase : public BCModel
-  {
+  class LikelihoodBase : public BCModel {
   public:
     /**
      * Enumerate for b-tagging possibilities
@@ -87,45 +85,38 @@ namespace KLFitter
      * Return the table of physics constants.
      * @return A pointer to the physics constants.
      */
-    KLFitter::PhysicsConstants* PhysicsConstants()
-    { return fPhysicsConstants; };
+    KLFitter::PhysicsConstants* PhysicsConstants() { return fPhysicsConstants; };
 
     /**
      * Return the detector.
      * @return A pointer to the detector.
      */
-    KLFitter::DetectorBase* Detector()
-    { return *fDetector; };
+    KLFitter::DetectorBase* Detector() { return *fDetector; };
 
     /**
      * Return the set of measured particles.
      * @return A pointer to the particles.
      */
-    KLFitter::Particles** PParticlesPermuted()
-    { return fParticlesPermuted; };
+    KLFitter::Particles** PParticlesPermuted() { return fParticlesPermuted; };
 
     /**
      * Return the set of model particles.
      * @return A pointer to the particles.
      */
-    virtual KLFitter::Particles* ParticlesModel()
-    { return fParticlesModel; };
-    virtual KLFitter::Particles** PParticlesModel()
-    { return &fParticlesModel; };
+    virtual KLFitter::Particles* ParticlesModel() { return fParticlesModel; };
+    virtual KLFitter::Particles** PParticlesModel() { return &fParticlesModel; };
 
     /**
      * Return the number of model particles.
      * @return The number of model particles.
      */
-    int NParticlesModel()
-    { return int(fParticlesModel -> NParticles()); };
+    int NParticlesModel() { return int(fParticlesModel -> NParticles()); };
 
     /**
      * Return the number of parameters.
      * @return The number of parameters of the model.
      */
-    int NParameters()
-    { return this -> GetNParameters(); };
+    int NParameters() { return this -> GetNParameters(); };
 
     /**
      * Return the lower boundary of a parameter
@@ -270,8 +261,7 @@ namespace KLFitter
      * Initialize the likelihood for the event
      * @return An error code
      */
-    virtual int Initialize()
-    { return 1; };
+    virtual int Initialize() { return 1; };
 
     /**
      * Propagate the b-tagging information from the permuted (measured) particles to the model particles.
@@ -287,32 +277,28 @@ namespace KLFitter
     /**
      * Define the parameters of the fit.
      */
-    virtual void DefineParameters()
-    { ; };
+    virtual void DefineParameters() { ; };
 
     /**
      * The prior probability definition, overloaded from BCModel.
      * @param parameters A vector of parameters (double values).
      * @return The logarithm of the prior probability.
      */
-    virtual double LogAPrioriProbability(const std::vector <double> & parameters)
-    { return 0; }
+    virtual double LogAPrioriProbability(const std::vector <double> & parameters) { return 0; }
 
     /**
      * The posterior probability definition, overloaded from BCModel.
      * @param parameters A vector of parameters (double values).
      * @return The logarithm of the prior probability.
      */
-    virtual double LogLikelihood(const std::vector <double> & parameters)
-    { return 0; }
+    virtual double LogLikelihood(const std::vector <double> & parameters) { return 0; }
 
     /**
      * The posterior probability definition, overloaded from BCModel. Split up into several subcomponents
      * @param parameters A vector of parameters (double values).
      * @return A vector with the components of the logarithm of the prior probability.
      */
-    virtual std::vector<double> LogLikelihoodComponents(std::vector <double> parameters)
-    { return std::vector<double>(0); }
+    virtual std::vector<double> LogLikelihoodComponents(std::vector <double> parameters) { return std::vector<double>(0); }
 
     /**
      * Return BCH1D histograms calculated inside
@@ -340,29 +326,25 @@ namespace KLFitter
      * Remove invariant particle permutations.
      * @return An error code.
      */
-    virtual int RemoveInvariantParticlePermutations()
-    { return 1; };
+    virtual int RemoveInvariantParticlePermutations() { return 1; };
 
     /**
      * Remove forbidden particle permutations.
      * @return An error code.
      */
-    virtual int RemoveForbiddenParticlePermutations()
-    { return 1; };
+    virtual int RemoveForbiddenParticlePermutations() { return 1; };
 
     /**
      * Get initial values for the parameters.
      * @return vector of initial values.
      */
-    virtual std::vector<double> GetInitialParameters()
-    { std::vector<double> v; return v; };
+    virtual std::vector<double> GetInitialParameters() { std::vector<double> v; return v; };
 
     /**
      * Check if there are TF problems.
      * @return Return false if TF problem.
      */
-    virtual bool NoTFProblem(std::vector<double> /*parameters*/)
-    { return true; };
+    virtual bool NoTFProblem(std::vector<double> /*parameters*/) { return true; };
 
     /**
      * Returns the best fit parameters, overloaded from BCModel
@@ -412,8 +394,7 @@ namespace KLFitter
      * @param switchpar2 ???
      * @return Permutation of the invariant partner, -1 if there is no one.
      */
-    virtual int LHInvariantPermutationPartner(int iperm, int nperms, int &switchpar1, int &switchpar2)
-    { return -1; };
+    virtual int LHInvariantPermutationPartner(int iperm, int nperms, int &switchpar1, int &switchpar2) { return -1; };
 
     /**
      * Write parameters from fCachedParametersVector.at(iperm) to fCachedParameters

@@ -31,8 +31,7 @@
  * \namespace KLFitter
  * \brief The KLFitter namespace
  */
-namespace KLFitter
-{
+namespace KLFitter {
   /**
    * \class KLFitter::LikelihoodSgTopWtLJ
    * \brief A class implementing a likelihood for the SgTop Wt -> lepton+jets channel.
@@ -40,8 +39,7 @@ namespace KLFitter
    *
    * This class represents a likelihood for the single top Wt channel into lepton+jets.
    */
-  class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase
-  {
+  class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
   public:
     /** \name Constructors and destructors */
     /* @{ */
@@ -75,8 +73,7 @@ namespace KLFitter
      * @brief Return the top decay hypothesis
      * @return fHadronicTop
      */
-    bool GetHadronicTop()
-    { return fHadronicTop; };
+    bool GetHadronicTop() { return fHadronicTop; };
 
     /* @{ */
 
@@ -106,17 +103,14 @@ namespace KLFitter
     /**
      * Associate the hadronic leg of the event to the top quark for likelihood calculation.
      */
-    void SetHadronicTop()
-    { fHadronicTop = kTRUE; };
+    void SetHadronicTop() { fHadronicTop = kTRUE; };
 
     /**
      * Associate the leptonic leg of the event to the top quark for likelihood calculation.
      */
-    void SetLeptonicTop()
-    { fHadronicTop = kFALSE; };
+    void SetLeptonicTop() { fHadronicTop = kFALSE; };
 
-    void SetFlagUseJetMass(bool flag)
-    { fFlagUseJetMass = flag; };
+    void SetFlagUseJetMass(bool flag) { fFlagUseJetMass = flag; };
 
     /**
      * Set the type of lepton
@@ -142,8 +136,7 @@ namespace KLFitter
      * @param parameters A vector of parameters (double values).
      * @return The logarithm of the prior probability.
      */
-    virtual double LogAPrioriProbability(const std::vector <double> & parameters)
-    { return 0; };
+    virtual double LogAPrioriProbability(const std::vector <double> & parameters) { return 0; };
 
     /**
      * The posterior probability definition, overloaded from BCModel.

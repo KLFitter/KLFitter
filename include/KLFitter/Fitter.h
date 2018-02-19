@@ -28,8 +28,7 @@
  * \namespace KLFitter
  * \brief The KLFitter namespace
  */
-namespace KLFitter
-{
+namespace KLFitter {
   class Particles;
   class DetectorBase;
   class LikelihoodBase;
@@ -43,8 +42,7 @@ namespace KLFitter
    * This class owns all particles, the detector description, the
    * likelihood, etc. This is the class seen by the user.
    */
-  class Fitter
-  {
+  class Fitter {
   public:
     /** \name Constructors and destructors */
     /* @{ */
@@ -67,49 +65,40 @@ namespace KLFitter
      * Return the detector.
      * @return A pointer to the detector.
      */
-    KLFitter::DetectorBase * Detector()
-    { return fDetector; };
+    KLFitter::DetectorBase * Detector() { return fDetector; };
 
     /**
      * Return the measured particles.
      * @return A pointer to the particles.
      */
-    KLFitter::Particles * Particles()
-    { return fParticles; };
-    KLFitter::Particles ** PParticles()
-    { return &fParticles; };
+    KLFitter::Particles * Particles() { return fParticles; };
+    KLFitter::Particles ** PParticles() { return &fParticles; };
 
     /**
      * Return the permutation object.
      * @return A pointer to the permutation object.
      **/
-    KLFitter::Permutations * Permutations()
-    { return fPermutations; };
-    KLFitter::Permutations ** PPermutations()
-    { return &fPermutations; };
+    KLFitter::Permutations * Permutations() { return fPermutations; };
+    KLFitter::Permutations ** PPermutations() { return &fPermutations; };
 
     /**
      * Return the lieklihood .
      * @return A pointer to the likelihood object.
      **/
-    KLFitter::LikelihoodBase * Likelihood()
-    { return fLikelihood; };
-    KLFitter::LikelihoodBase ** PLikelihood()
-    { return &fLikelihood; };
+    KLFitter::LikelihoodBase * Likelihood() { return fLikelihood; };
+    KLFitter::LikelihoodBase ** PLikelihood() { return &fLikelihood; };
 
     /**
      * Return the Minuit status
      * @return The Minuit stats
      */
-    int MinuitStatus()
-    { return fMinuitStatus; };
+    int MinuitStatus() { return fMinuitStatus; };
 
     /**
      * Return the convergence status bit.
      * @return The convergence status bit.
      */
-    unsigned int ConvergenceStatus()
-    { return fConvergenceStatus; }
+    unsigned int ConvergenceStatus() { return fConvergenceStatus; }
 
     /* @} */
     /** \name Member functions (Set)  */

@@ -30,8 +30,7 @@
  * \namespace KLFitter
  * \brief The KLFitter namespace
  */
-namespace KLFitter
-{
+namespace KLFitter {
   /**
    * \class KLFitter::ResDoubleGaussBase
    * \brief A class describing a resolution parameterized with a double Gaussian.
@@ -41,8 +40,7 @@ namespace KLFitter
    * parameterization is a double Gaussian with energy dependent
    * parameters.
    */
-  class ResDoubleGaussBase : public ResolutionBase
-  {
+  class ResDoubleGaussBase : public ResolutionBase {
   public:
     /** \name Constructors and destructors */
     /* @{ */
@@ -129,8 +127,7 @@ namespace KLFitter
      * @param par Optional additional parameter (SumET in case of MET TF).
      * @return The probability.
      */
-    virtual double p(double x, double xmeas, bool &good, double par)
-    { good = true; return 0; }
+    virtual double p(double x, double xmeas, bool &good, double par) { good = true; return 0; }
 
     /* @} */
     /** \name Member functions (Set)  */

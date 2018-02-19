@@ -31,8 +31,7 @@
  * \namespace KLFitter
  * \brief The KLFitter namespace
  */
-namespace KLFitter
-{
+namespace KLFitter {
   /**
    * \class KLFitter::DetectorAtlas_8TeV
    * \brief A class for describing of the ATLAS detector.
@@ -40,8 +39,7 @@ namespace KLFitter
    *
    * This class holds the description of the ATLAS detector.
    */
-  class DetectorAtlas_8TeV : public DetectorBase
-  {
+  class DetectorAtlas_8TeV : public DetectorBase {
   public:
     /** \name Constructors and destructors */
     /* @{ */

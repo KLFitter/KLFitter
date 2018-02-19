@@ -34,8 +34,7 @@ class TLorentzVector;
  * \namespace KLFitter
  * \brief The KLFitter namespace
  */
-namespace KLFitter
-{
+namespace KLFitter {
   /**
    * \class KLFitter::Particles
    * \brief A class describing particles.
@@ -44,8 +43,7 @@ namespace KLFitter
    * This class contains sets of TLorentzVectors for quarks, leptons,
    * etc.
    */
-  class Particles
-  {
+  class Particles {
   public:
     /** \name Enumerators */
     /* @{ */
@@ -82,50 +80,43 @@ namespace KLFitter
      * Return the number of partons.
      * @return The number of partons.
      */
-    int NPartons()
-    { return int(fPartons -> size()); };
+    int NPartons() { return int(fPartons -> size()); };
 
     /**
      * Return the number of electrons.
      * @return The number of electrons.
      */
-    int NElectrons()
-    { return int (fElectrons -> size()); };
+    int NElectrons() { return int (fElectrons -> size()); };
 
     /**
      * Return the number of muons.
      * @return The number of muons.
      */
-    int NMuons()
-    { return int (fMuons -> size()); };
+    int NMuons() { return int (fMuons -> size()); };
 
     /**
      * Return the number of taus.
      * @return The number of taus.
      */
-    int NTaus()
-    { return int (fTaus -> size()); };
+    int NTaus() { return int (fTaus -> size()); };
 
     /**
      * Return the number of neutrinos.
      * @return The number of neutrinos.
      */
-    int NNeutrinos()
-    { return int (fNeutrinos -> size()); };
+    int NNeutrinos() { return int (fNeutrinos -> size()); };
 
     /**
      * Return the number of bosons.
      * @return The number of bosons.
      */
-    int NBosons()
-    { return int (fBosons -> size()); };
+    int NBosons() { return int (fBosons -> size()); };
 
     /**
      * Return the number of photons.
      * @return The number of photons.
      */
-    int NPhotons()
-    { return int (fPhotons -> size()); };
+    int NPhotons() { return int (fPhotons -> size()); };
 
     /**
      * Return the particle with a certain name
@@ -205,8 +196,7 @@ namespace KLFitter
      * Return the number of particles.
      * @return The number of particles.
      */
-    int NParticles()
-    { return int(fPartons -> size() + fElectrons -> size() + fMuons -> size() + fTaus -> size() + fNeutrinos -> size() + fBosons -> size() + fPhotons -> size()); };
+    int NParticles() { return int(fPartons -> size() + fElectrons -> size() + fMuons -> size() + fTaus -> size() + fNeutrinos -> size() + fBosons -> size() + fPhotons -> size()); };
 
     /**
      * Return the number of particles of a certain type.
@@ -635,8 +625,7 @@ namespace KLFitter
 } // namespace KLFitter
 
 inline
-KLFitter::Particles::ParticleType &operator++(KLFitter::Particles::ParticleType &ptype)
-{
+KLFitter::Particles::ParticleType &operator++(KLFitter::Particles::ParticleType &ptype) {
   return ptype = KLFitter::Particles::ParticleType(ptype + 1);
 }
 

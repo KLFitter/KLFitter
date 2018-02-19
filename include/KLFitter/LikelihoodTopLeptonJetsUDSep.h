@@ -36,8 +36,7 @@
  * \namespace KLFitter
  * \brief The KLFitter namespace
  */
-namespace KLFitter
-{
+namespace KLFitter {
   /**
    * \class KLFitter::LikelihoodTopLeptonJetsUDSep
    * \brief A class implementing a likelihood for the ttbar lepton+jets channel.
@@ -45,8 +44,7 @@ namespace KLFitter
    *
    * This class represents a likelihood for the ttbar into lepton+jets.
    */
-  class LikelihoodTopLeptonJetsUDSep : public KLFitter::LikelihoodTopLeptonJets
-  {
+  class LikelihoodTopLeptonJetsUDSep : public KLFitter::LikelihoodTopLeptonJets {
   public:
     /**
      * Enumerate for lJet reweighting methods
@@ -199,8 +197,7 @@ namespace KLFitter
      * Set a flag. If flag is true the permutations are reweighted with the pT and tag weight probabilities.
      * @param flag The flag.
      */
-    void SetLJetSeparationMethod(KLFitter::LikelihoodTopLeptonJetsUDSep::LJetSeparationMethod flag)
-    { fLJetSeparationMethod = flag; };
+    void SetLJetSeparationMethod(KLFitter::LikelihoodTopLeptonJetsUDSep::LJetSeparationMethod flag) { fLJetSeparationMethod = flag; };
 
     /**
      * Check if the permutation is LH invariant.
@@ -251,8 +248,7 @@ namespace KLFitter
      * Remove forbidden particle permutations.
      * @return An error code.
      */
-    int RemoveForbiddenParticlePermutations()
-    { return 1; };
+    int RemoveForbiddenParticlePermutations() { return 1; };
 
 
     /**

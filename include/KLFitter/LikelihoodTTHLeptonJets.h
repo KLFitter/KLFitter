@@ -34,8 +34,7 @@
  * \namespace KLFitter
  * \brief The KLFitter namespace
  */
-namespace KLFitter
-{
+namespace KLFitter {
   /**
    * \class KLFitter::LikelihoodTTHLeptonJets
    * \brief A class implementing a likelihood for the ttH lepton+jets channel.
@@ -45,8 +44,7 @@ namespace KLFitter
    * is largely based on the LikelihoodTopLeptonJets class authored by Kevin
    * Kr&ouml;ninger.
    */
-  class LikelihoodTTHLeptonJets : public KLFitter::LikelihoodBase
-  {
+  class LikelihoodTTHLeptonJets : public KLFitter::LikelihoodBase {
   public:
     /** \name Constructors and destructors */
     /* @{ */
@@ -93,19 +91,16 @@ namespace KLFitter
      * fixed to the pole mass.
      * @param flag The flag.
      */
-    void SetFlagTopMassFixed(bool flag)
-    { fFlagTopMassFixed = flag; };
+    void SetFlagTopMassFixed(bool flag) { fFlagTopMassFixed = flag; };
 
     /**
      * Set a flag. If flag is true the invariant Higgs mass is fixed
      * @param flag The flag.
      */
-    void SetFlagHiggsMassFixed(bool flag)
-    { fFlagHiggsMassFixed = flag; };
+    void SetFlagHiggsMassFixed(bool flag) { fFlagHiggsMassFixed = flag; };
 
 
-    void SetFlagUseJetMass(bool flag)
-    { fFlagUseJetMass = flag; };
+    void SetFlagUseJetMass(bool flag) { fFlagUseJetMass = flag; };
 
     /**
      * Set the type of lepton
@@ -137,8 +132,7 @@ namespace KLFitter
      * @param parameters A vector of parameters (double values).
      * @return The logarithm of the prior probability.
      */
-    virtual double LogAPrioriProbability(const std::vector <double> & parameters)
-    { return 0; };
+    virtual double LogAPrioriProbability(const std::vector <double> & parameters) { return 0; };
 
     /**
      * The posterior probability definition, overloaded from BCModel.

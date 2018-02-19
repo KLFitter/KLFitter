@@ -30,8 +30,7 @@
  * \namespace KLFitter
  * \brief The KLFitter namespace
  */
-namespace KLFitter
-{
+namespace KLFitter {
   /**
    * \class KLFitter::ResolutionBase
    * \brief A base class for describing resolutions.
@@ -39,8 +38,7 @@ namespace KLFitter
    *
    * This base class can be used to decribe resolutions.
    */
-  class ResolutionBase
-  {
+  class ResolutionBase {
   public:
     /** \name Constructors and destructors */
     /* @{ */
@@ -83,8 +81,7 @@ namespace KLFitter
      * @param good False if problem with TF.
      * @return The probability.
      */
-    virtual double p(double x, double xmeas, bool &good)
-    { good = true; return 0; }
+    virtual double p(double x, double xmeas, bool &good) { good = true; return 0; }
 
     /**
      * Return the probability of the true value of x given the
@@ -95,8 +92,7 @@ namespace KLFitter
      * @param par Optional additional parameter (SumET in case of MET TF).
      * @return The probability.
      */
-    virtual double p(double x, double xmeas, bool &good, double par)
-    { good = true; return 0; }
+    virtual double p(double x, double xmeas, bool &good, double par) { good = true; return 0; }
 
     /**
      * Return a parameter of the parameterization.
