@@ -99,7 +99,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
   if(nmuons!=0 && (*fParticles)->LeptonCharge(0, KLFitter::Particles::kMuon)!=-9)
     isDilepton=true;
 
-  //std::cout << "isDilepton? " << isDilepton  << std::endl;
+  // std::cout << "isDilepton? " << isDilepton  << std::endl;
 
   // create table for parton, electron, muon and photons permutations
   fTablePartons = new std::vector < std::vector<int> * >(0);

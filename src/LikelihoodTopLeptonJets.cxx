@@ -100,7 +100,7 @@ int KLFitter::LikelihoodTopLeptonJets::DefineModelParticles() {
   fParticlesModel = new KLFitter::Particles();
 
   // add model particles
-  //create dummy TLorentzVector
+  // create dummy TLorentzVector
   TLorentzVector * dummy = new TLorentzVector(0,0,0,0); // 4-vector
   fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kParton, // type
@@ -157,7 +157,7 @@ int KLFitter::LikelihoodTopLeptonJets::DefineModelParticles() {
                                KLFitter::Particles::kParton,
                                "leptonic top");
 
-  //free memory
+  // free memory
   delete dummy;
 
   // no error
@@ -305,7 +305,7 @@ int KLFitter::LikelihoodTopLeptonJets::RemoveInvariantParticlePermutations() {
   indexVector_Jets.push_back(3);
   err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Jets);
 
-  //remove invariant jet permutations of notevent jets
+  // remove invariant jet permutations of notevent jets
   KLFitter::Particles* particles = (*fPermutations)->Particles();
   indexVector_Jets.clear();
   for (int iPartons = 4; iPartons < particles->NPartons(); iPartons++)
@@ -748,31 +748,31 @@ std::vector<double> KLFitter::LikelihoodTopLeptonJets::LogLikelihoodComponents(s
   bool TFgoodTmp(true);
 
   // jet energy resolution terms
-  vecci.push_back(log( fResEnergyBhad->p(bhad_fit_e, bhad_meas_e, TFgoodTmp) )); //comp0
+  vecci.push_back(log( fResEnergyBhad->p(bhad_fit_e, bhad_meas_e, TFgoodTmp) )); // comp0
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log( fResEnergyBlep->p(blep_fit_e, blep_meas_e, TFgoodTmp) )); //comp1
+  vecci.push_back(log( fResEnergyBlep->p(blep_fit_e, blep_meas_e, TFgoodTmp) )); // comp1
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log( fResEnergyLQ1->p(lq1_fit_e, lq1_meas_e, TFgoodTmp) ));  //comp2
+  vecci.push_back(log( fResEnergyLQ1->p(lq1_fit_e, lq1_meas_e, TFgoodTmp) ));  // comp2
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log( fResEnergyLQ2->p(lq2_fit_e, lq2_meas_e, TFgoodTmp) ));  //comp3
+  vecci.push_back(log( fResEnergyLQ2->p(lq2_fit_e, lq2_meas_e, TFgoodTmp) ));  // comp3
   if (!TFgoodTmp) fTFgood = false;
 
   // lepton energy resolution terms
   if (fTypeLepton == kElectron) {
-    vecci.push_back(log( fResLepton->p(lep_fit_e, lep_meas_e, TFgoodTmp) )); //comp4
+    vecci.push_back(log( fResLepton->p(lep_fit_e, lep_meas_e, TFgoodTmp) )); // comp4
   }
   else if (fTypeLepton == kMuon)
-    vecci.push_back(log( fResLepton->p(lep_fit_e* lep_meas_sintheta, lep_meas_pt, TFgoodTmp) )); //comp4
+    vecci.push_back(log( fResLepton->p(lep_fit_e* lep_meas_sintheta, lep_meas_pt, TFgoodTmp) )); // comp4
   if (!TFgoodTmp) fTFgood = false;
 
   // neutrino px and py
-  vecci.push_back(log( fResMET->p(nu_fit_px, ETmiss_x, TFgoodTmp, SumET) )); //comp5
+  vecci.push_back(log( fResMET->p(nu_fit_px, ETmiss_x, TFgoodTmp, SumET) )); // comp5
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log( fResMET->p(nu_fit_py, ETmiss_y, TFgoodTmp, SumET) )); //comp6
+  vecci.push_back(log( fResMET->p(nu_fit_py, ETmiss_y, TFgoodTmp, SumET) )); // comp6
   if (!TFgoodTmp) fTFgood = false;
 
   // physics constants
@@ -784,16 +784,16 @@ std::vector<double> KLFitter::LikelihoodTopLeptonJets::LogLikelihoodComponents(s
   double gammaTop = fPhysicsConstants->GammaTop();
 
   // Breit-Wigner of hadronically decaying W-boson
-  vecci.push_back(BCMath::LogBreitWignerRel(whad_fit_m, massW, gammaW)); //comp7
+  vecci.push_back(BCMath::LogBreitWignerRel(whad_fit_m, massW, gammaW)); // comp7
 
   // Breit-Wigner of leptonically decaying W-boson
-  vecci.push_back(BCMath::LogBreitWignerRel(wlep_fit_m, massW, gammaW)); //comp8
+  vecci.push_back(BCMath::LogBreitWignerRel(wlep_fit_m, massW, gammaW)); // comp8
 
   // Breit-Wigner of hadronically decaying top quark
-  vecci.push_back(BCMath::LogBreitWignerRel(thad_fit_m, parameters[parTopM], gammaTop)); //comp9
+  vecci.push_back(BCMath::LogBreitWignerRel(thad_fit_m, parameters[parTopM], gammaTop)); // comp9
 
   // Breit-Wigner of leptonically decaying top quark
-  vecci.push_back(BCMath::LogBreitWignerRel(tlep_fit_m, parameters[parTopM], gammaTop)); //comp10
+  vecci.push_back(BCMath::LogBreitWignerRel(tlep_fit_m, parameters[parTopM], gammaTop)); // comp10
 
   // return log of likelihood
   return vecci;

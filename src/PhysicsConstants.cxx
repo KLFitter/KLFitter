@@ -34,7 +34,7 @@ KLFitter::PhysicsConstants::PhysicsConstants() {
   fGF         =   1.16637e-5; // in GeV^{-2}
   fAlphaS     =   0.118;
   fMassTopUnc =   1.4; // top quark LHC uncertainty
-  //++++++++++++++++//
+  // ++++++++++++++++// 
   fMassHiggs    = 120.0; // Higgs mass in GeV/c^{2}
   fGammaHiggs   = 0.003512; // Higgs width
 }
@@ -52,7 +52,7 @@ int KLFitter::PhysicsConstants::SetMassBottom(double mass) {
     return 0;
   }
 
-  //set mass
+  // set mass
   fMassBottom = mass;
 
   // no error
@@ -68,7 +68,7 @@ int KLFitter::PhysicsConstants::SetMassTop(double mass) {
     return 0;
   }
 
-  //set mass
+  // set mass
   fMassTop = mass;
 
   // calculate top width
@@ -87,7 +87,7 @@ int KLFitter::PhysicsConstants::SetMassHiggs(double mass) {
     return 0;
   }
 
-  //set mass
+  // set mass
   fMassHiggs = mass;
 
   // calculate top width
@@ -107,7 +107,7 @@ int KLFitter::PhysicsConstants::SetMassW(double mass) {
     return 0;
   }
 
-  //set mass
+  // set mass
   fMassW = mass;
 
   // no error
@@ -123,7 +123,7 @@ int KLFitter::PhysicsConstants::SetMassZ(double mass) {
     return 0;
   }
 
-  //set mass
+  // set mass
   fMassZ = mass;
 
   // no error
@@ -139,7 +139,7 @@ int KLFitter::PhysicsConstants::SetGammaW(double gamma) {
     return 0;
   }
 
-  //set gamma
+  // set gamma
   fGammaW = gamma;
 
   // no error
@@ -155,7 +155,7 @@ int KLFitter::PhysicsConstants::SetGammaZ(double gamma) {
     return 0;
   }
 
-  //set gamma
+  // set gamma
   fGammaZ = gamma;
 
   // no error
@@ -171,7 +171,7 @@ int KLFitter::PhysicsConstants::SetGammaTop(double gamma) {
     return 0;
   }
 
-  //set gamma
+  // set gamma
   fGammaTop = gamma;
 
   // no error
@@ -187,7 +187,7 @@ int KLFitter::PhysicsConstants::SetGammaHiggs(double gamma) {
     return 0;
   }
 
-  //set gamma
+  // set gamma
   fGammaHiggs = gamma;
 
   // no error
@@ -218,10 +218,10 @@ void KLFitter::PhysicsConstants::CalculateGammaHiggs() {
   // numbers calculated by HDECAY
   // A.Djouadi, J.Kalinowski and M.Spira,
   // Comp. Phys. Commun. 108 C (1998) 56, hep-ph/9704448.
-  //
+  // 
   //   MHSM(GeV)     WIDTH(GeV/c2)
   //   __________________________
-  //
+  // 
   //    110.000       0.2849E-02  
   //    115.000       0.3124E-02
   //    120.000       0.3512E-02

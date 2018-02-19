@@ -21,7 +21,7 @@
 #include <iostream>
 
 #include <cmath>
-//used for electrons in mc12
+// used for electrons in mc12
 // ---------------------------------------------------------
 KLFitter::ResDoubleGaussE_5::ResDoubleGaussE_5(const char * filename) : KLFitter::ResDoubleGaussBase(filename) { }
 

@@ -21,7 +21,7 @@
 #include <iostream>
 
 #include <cmath>
-//used for lJets/bjets in mc12
+// used for lJets/bjets in mc12
 // ---------------------------------------------------------
 KLFitter::ResDoubleGaussE_4::ResDoubleGaussE_4(const char * filename) : KLFitter::ResDoubleGaussBase(filename) { }
 

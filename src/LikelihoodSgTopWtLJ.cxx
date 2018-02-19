@@ -110,7 +110,7 @@ int KLFitter::LikelihoodSgTopWtLJ::DefineModelParticles() {
 
   /* add model particles */
 
-  //create dummy TLorentzVector
+  // create dummy TLorentzVector
   TLorentzVector * dummy = new TLorentzVector(0,0,0,0); // 4-vector
 
   fParticlesModel->AddParticle(dummy, KLFitter::Particles::kParton,  "b quark", 0, KLFitter::Particles::kB);
@@ -285,7 +285,7 @@ int KLFitter::LikelihoodSgTopWtLJ::RemoveInvariantParticlePermutations() {
   for (int i = 3; i < particles->NPartons(); i++)
     indexVector_Jets.push_back(i);
   err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Jets);
-  //
+  // 
   //  // remove the permutation from the other lepton type
   //  std::vector<int> indexVector_Leptons;
   //  if (fTypeLepton == kEletron) {

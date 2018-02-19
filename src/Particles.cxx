@@ -193,8 +193,8 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, f
   // get particle container
   std::vector <TLorentzVector *>* container = ParticleContainer(ptype);
 
-  //std::string name = "";
-  //int measuredindex = -1;
+  // std::string name = "";
+  // int measuredindex = -1;
 
   // check if container exists
   if (!container) {
@@ -320,7 +320,7 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, K
 
 // ---------------------------------------------------------
 int KLFitter::Particles::AddParticle(TLorentzVector * particle, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, TrueFlavorType trueflav, double btagweight) {
-  //set default DetEta
+  // set default DetEta
   double DetEta=-999;
 
   this->AddParticle(particle, DetEta, ptype, name, measuredindex, isBtagged, bTagEff, bTagRej, trueflav, btagweight);
@@ -331,7 +331,7 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, KLFitter::Partic
 
 // ---------------------------------------------------------
 int KLFitter::Particles::AddParticle(TLorentzVector * particle, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, TrueFlavorType trueflav, double btagweight) {
-  //set default DetEta
+  // set default DetEta
   double DetEta=-999;
 
   this->AddParticle(particle, DetEta, ptype, name, measuredindex, false, -1., -1., trueflav, btagweight);

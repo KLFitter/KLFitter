@@ -141,7 +141,7 @@ int KLFitter::LikelihoodBase::SetMyParticlesTruth(KLFitter::Particles** particle
   // set pointer to pointer of truth particles
   fMyParticlesTruth  = particles;
 
-  //std::cout << "set particlestruth inside likelihoodbase!" << std::endl;
+  // std::cout << "set particlestruth inside likelihoodbase!" << std::endl;
 
   // no error
   return 1;
@@ -345,7 +345,7 @@ std::vector <double> KLFitter::LikelihoodBase::GetBestFitParameterErrors() {
 // ---------------------------------------------------------
 
 int KLFitter::LikelihoodBase::SetParametersToCache(int iperm, int nperms) {
-  //set correct size of cachevector
+  // set correct size of cachevector
   if (iperm==0) {
     fCachedParametersVector.clear();
     fCachedParametersVector.assign(nperms, std::vector<double>(NParameters(), 0));

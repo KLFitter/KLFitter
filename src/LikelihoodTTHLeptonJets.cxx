@@ -100,7 +100,7 @@ int KLFitter::LikelihoodTTHLeptonJets::DefineModelParticles() {
   fParticlesModel = new KLFitter::Particles();
 
   // add model particles
-  //create dummy TLorentzVector
+  // create dummy TLorentzVector
   TLorentzVector * dummy = new TLorentzVector(0,0,0,0); // 4-vector
   fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kParton, // type
@@ -174,7 +174,7 @@ int KLFitter::LikelihoodTTHLeptonJets::DefineModelParticles() {
                                "Higgs");
 
 
-  //free memory
+  // free memory
   delete dummy;
 
   // no error
@@ -196,7 +196,7 @@ void KLFitter::LikelihoodTTHLeptonJets::DefineParameters() {
   AddParameter("energy Higgs b quark 1",  fPhysicsConstants->MassBottom(), 1000.0); // parBHiggs1E
   AddParameter("energy Higgs b quark 2",  fPhysicsConstants->MassBottom(), 1000.0); // parBHiggs2E
   if (fFlagHiggsMassFixed)  AddParameter("Higgs mass",              100.0, 1000.0);   // parHiggsM
-  //++++++++++++++++//
+  // ++++++++++++++++// 
 }
 
 // ---------------------------------------------------------
@@ -219,12 +219,12 @@ int KLFitter::LikelihoodTTHLeptonJets::CalculateLorentzVectors(std::vector <doub
   static double tlep_fit_py;
   static double tlep_fit_pz;
 
-  //++++++++++++++++//
+  // ++++++++++++++++// 
   static double Higgs_fit_e;
   static double Higgs_fit_px;
   static double Higgs_fit_py;
   static double Higgs_fit_pz;
-  //++++++++++++++++//
+  // ++++++++++++++++// 
 
 
   // hadronic b quark
@@ -256,7 +256,7 @@ int KLFitter::LikelihoodTTHLeptonJets::CalculateLorentzVectors(std::vector <doub
   lq2_fit_pz  = scale * lq2_meas_pz;
 
 
-  //++++++++++++++++//
+  // ++++++++++++++++// 
   // Higgs b quark 1
   BHiggs1_fit_e = parameters[parBHiggs1E];
   scale = sqrt(BHiggs1_fit_e*BHiggs1_fit_e - BHiggs1_meas_m*BHiggs1_meas_m) / BHiggs1_meas_p;
@@ -271,7 +271,7 @@ int KLFitter::LikelihoodTTHLeptonJets::CalculateLorentzVectors(std::vector <doub
   BHiggs2_fit_px = scale * BHiggs2_meas_px;
   BHiggs2_fit_py = scale * BHiggs2_meas_py;
   BHiggs2_fit_pz = scale * BHiggs2_meas_pz;
-  //++++++++++++++++//
+  // ++++++++++++++++// 
 
 
   // lepton
@@ -316,14 +316,14 @@ int KLFitter::LikelihoodTTHLeptonJets::CalculateLorentzVectors(std::vector <doub
   tlep_fit_m = sqrt(tlep_fit_e*tlep_fit_e - (tlep_fit_px*tlep_fit_px + tlep_fit_py*tlep_fit_py + tlep_fit_pz*tlep_fit_pz));
 
 
-  //++++++++++++++++//
+  // ++++++++++++++++// 
   // Higgs
   Higgs_fit_e  = BHiggs1_fit_e  + BHiggs2_fit_e;
   Higgs_fit_px = BHiggs1_fit_px + BHiggs2_fit_px;
   Higgs_fit_py = BHiggs1_fit_py + BHiggs2_fit_py;
   Higgs_fit_pz = BHiggs1_fit_pz + BHiggs2_fit_pz;
   Higgs_fit_m  = sqrt(Higgs_fit_e*Higgs_fit_e - (Higgs_fit_px*Higgs_fit_px + Higgs_fit_py*Higgs_fit_py + Higgs_fit_pz*Higgs_fit_pz));
-  //++++++++++++++++//
+  // ++++++++++++++++// 
 
 
   // no error
@@ -366,7 +366,7 @@ int KLFitter::LikelihoodTTHLeptonJets::RemoveInvariantParticlePermutations() {
   indexVector_Jets.push_back(3);
   err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Jets);
 
-  //++++++++++++++++//
+  // ++++++++++++++++// 
   // remove the permutation from the two Higgs b jets
   KLFitter::Particles::ParticleType ptypeBB = KLFitter::Particles::kParton;
   std::vector<int> indexVector_JetsBB;
@@ -374,13 +374,13 @@ int KLFitter::LikelihoodTTHLeptonJets::RemoveInvariantParticlePermutations() {
   indexVector_JetsBB.push_back(5);
   err *= (*fPermutations)->InvariantParticlePermutations(ptypeBB, indexVector_JetsBB);
 
-  //remove invariant jet permutations of notevent jets
+  // remove invariant jet permutations of notevent jets
   KLFitter::Particles* particles = (*fPermutations)->Particles();
   indexVector_Jets.clear();
   for (int iPartons = 6; iPartons < particles->NPartons(); iPartons++)
     indexVector_Jets.push_back(iPartons);
   err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Jets);
-  //++++++++++++++++//
+  // ++++++++++++++++// 
 
 
   // remove the permutation from the other lepton
@@ -476,7 +476,7 @@ int KLFitter::LikelihoodTTHLeptonJets::AdjustParameterRanges() {
   Emax  = E + nsigmas_jet* sqrt(E);
   SetParameterRange(parLQ2E, Emin, Emax);
 
-  //++++++++++++++++//
+  // ++++++++++++++++// 
   E = (*fParticlesPermuted)->Parton(4)->E();
   m = fPhysicsConstants->MassBottom();
   if (fFlagUseJetMass)
@@ -492,7 +492,7 @@ int KLFitter::LikelihoodTTHLeptonJets::AdjustParameterRanges() {
   Emin = std::max(m, E - nsigmas_jet* sqrt(E));
   Emax  = E + nsigmas_jet* sqrt(E);
   SetParameterRange(parBHiggs2E, Emin, Emax);
-  //++++++++++++++++//
+  // ++++++++++++++++// 
 
   if (fTypeLepton == kElectron) {
     E = (*fParticlesPermuted)->Electron(0)->E();
@@ -516,10 +516,10 @@ int KLFitter::LikelihoodTTHLeptonJets::AdjustParameterRanges() {
   if (fFlagTopMassFixed)
     SetParameterRange(parTopM, fPhysicsConstants->MassTop(), fPhysicsConstants->MassTop());
 
-  //++++++++++++++++//
+  // ++++++++++++++++// 
   if (fFlagHiggsMassFixed)
     SetParameterRange(parHiggsM, fPhysicsConstants->MassHiggs(), fPhysicsConstants->MassHiggs());
-  //++++++++++++++++//
+  // ++++++++++++++++// 
 
   // no error
   return 1;
@@ -549,13 +549,13 @@ double KLFitter::LikelihoodTTHLeptonJets::LogLikelihood(const std::vector<double
   logprob += log( fResEnergyLQ2->p(lq2_fit_e, lq2_meas_e, TFgoodTmp) );
   if (!TFgoodTmp) fTFgood = false;
 
-  //++++++++++++++++//
+  // ++++++++++++++++// 
   logprob += log( fResEnergyBHiggs1->p(BHiggs1_fit_e, BHiggs1_meas_e, TFgoodTmp) );
   if (!TFgoodTmp) fTFgood = false;
 
   logprob += log( fResEnergyBHiggs2->p(BHiggs2_fit_e, BHiggs2_meas_e, TFgoodTmp) );
   if (!TFgoodTmp) fTFgood = false;
-  //++++++++++++++++//
+  // ++++++++++++++++// 
 
 
   // lepton energy resolution terms
@@ -577,9 +577,9 @@ double KLFitter::LikelihoodTTHLeptonJets::LogLikelihood(const std::vector<double
   double gammaW = fPhysicsConstants->GammaW();
   double gammaTop = fPhysicsConstants->GammaTop();
 
-  //++++++++++++++++//
+  // ++++++++++++++++// 
   double gammaHiggs = fPhysicsConstants->GammaHiggs();
-  //++++++++++++++++//
+  // ++++++++++++++++// 
 
   // Breit-Wigner of hadronically decaying W-boson
   logprob += BCMath::LogBreitWignerRel(whad_fit_m, massW, gammaW);
@@ -593,11 +593,11 @@ double KLFitter::LikelihoodTTHLeptonJets::LogLikelihood(const std::vector<double
   // Breit-Wigner of leptonically decaying top quark
   logprob += BCMath::LogBreitWignerRel(tlep_fit_m, parameters[parTopM], gammaTop);
 
-  //++++++++++++++++//
+  // ++++++++++++++++// 
   // Breit-Wigner of Higgs decaying into 2 b-quark
   if (fFlagHiggsMassFixed) logprob += BCMath::LogBreitWignerRel(Higgs_fit_m, parameters[parHiggsM], gammaHiggs);
 
-  //++++++++++++++++//
+  // ++++++++++++++++// 
 
   // return log of likelihood
   return logprob;
@@ -634,10 +634,10 @@ std::vector<double> KLFitter::LikelihoodTTHLeptonJets::GetInitialParametersWoNeu
   values[parBlepE] = blep_meas_e;
   values[parLQ1E]  = lq1_meas_e;
   values[parLQ2E]  = lq2_meas_e;
-  //++++++++++++++++//
+  // ++++++++++++++++// 
   values[parBHiggs1E]  = BHiggs1_meas_e;
   values[parBHiggs2E]  = BHiggs2_meas_e;
-  //++++++++++++++++//
+  // ++++++++++++++++// 
 
 
 
@@ -662,7 +662,7 @@ std::vector<double> KLFitter::LikelihoodTTHLeptonJets::GetInitialParametersWoNeu
     mtop = GetParameter(parTopM)->GetUpperLimit();
   values[parTopM] = mtop;
 
-  //++++++++++++++++//
+  // ++++++++++++++++// 
   // Higgs mass
   if (fFlagHiggsMassFixed) {
     double mhiggs = ( *(*fParticlesPermuted)->Parton(4) + *(*fParticlesPermuted)->Parton(5)).M();
@@ -672,7 +672,7 @@ std::vector<double> KLFitter::LikelihoodTTHLeptonJets::GetInitialParametersWoNeu
       mhiggs = GetParameter(parHiggsM)->GetUpperLimit();
     values[parHiggsM] = mhiggs;
   }
-  //++++++++++++++++//
+  // ++++++++++++++++// 
 
 
   // return the vector
@@ -784,7 +784,7 @@ int KLFitter::LikelihoodTTHLeptonJets::SavePermutedParticles() {
   lq2_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(3)->M(), 0., lq2_meas_px, lq2_meas_py, lq2_meas_pz, lq2_meas_e);
   lq2_meas_p      = sqrt(lq2_meas_e*lq2_meas_e - lq2_meas_m*lq2_meas_m);
 
-  //++++++++++++++++//
+  // ++++++++++++++++// 
   BHiggs1_meas_e      = (*fParticlesPermuted)->Parton(4)->E();
   BHiggs1_meas_deteta = (*fParticlesPermuted)->DetEta(4, KLFitter::Particles::kParton);
   BHiggs1_meas_px     = (*fParticlesPermuted)->Parton(4)->Px();
@@ -800,7 +800,7 @@ int KLFitter::LikelihoodTTHLeptonJets::SavePermutedParticles() {
   BHiggs2_meas_pz     = (*fParticlesPermuted)->Parton(5)->Pz();
   BHiggs2_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(5)->M(), fPhysicsConstants->MassBottom(), BHiggs2_meas_px, BHiggs2_meas_py, BHiggs2_meas_pz, BHiggs2_meas_e);
   BHiggs2_meas_p      = sqrt(BHiggs2_meas_e*BHiggs2_meas_e - BHiggs2_meas_m*BHiggs2_meas_m);
-  //++++++++++++++++//
+  // ++++++++++++++++// 
 
   TLorentzVector * lepton(0);
   if (fTypeLepton == kElectron) {
@@ -829,10 +829,10 @@ int KLFitter::LikelihoodTTHLeptonJets::SaveResolutionFunctions() {
   fResEnergyLQ1  = (*fDetector)->ResEnergyLightJet(lq1_meas_deteta);
   fResEnergyLQ2  = (*fDetector)->ResEnergyLightJet(lq2_meas_deteta);
 
-  //++++++++++++++++//
+  // ++++++++++++++++// 
   fResEnergyBHiggs1 = (*fDetector)->ResEnergyBJet(BHiggs1_meas_deteta);
   fResEnergyBHiggs2 = (*fDetector)->ResEnergyBJet(BHiggs2_meas_deteta);
-  //++++++++++++++++//
+  // ++++++++++++++++// 
 
   if (fTypeLepton == kElectron)
     fResLepton = (*fDetector)->ResEnergyElectron(lep_meas_deteta);
@@ -854,10 +854,10 @@ int KLFitter::LikelihoodTTHLeptonJets::BuildModelParticles() {
   TLorentzVector * lq1  = fParticlesModel->Parton(2);
   TLorentzVector * lq2  = fParticlesModel->Parton(3);
 
-  //++++++++++++++++//
+  // ++++++++++++++++// 
   TLorentzVector * BHiggs1  = fParticlesModel->Parton(4);
   TLorentzVector * BHiggs2  = fParticlesModel->Parton(5);
-  //++++++++++++++++//
+  // ++++++++++++++++// 
 
   TLorentzVector * lep(0);
   if (fTypeLepton == kElectron)
@@ -868,21 +868,21 @@ int KLFitter::LikelihoodTTHLeptonJets::BuildModelParticles() {
   TLorentzVector * whad  = fParticlesModel->Boson(0);
   TLorentzVector * wlep  = fParticlesModel->Boson(1);
 
-  //++++++++++++++++//
+  // ++++++++++++++++// 
   TLorentzVector * thad  = fParticlesModel->Parton(6);
   TLorentzVector * tlep  = fParticlesModel->Parton(7);
   TLorentzVector * Higgs = fParticlesModel->Boson(2);
-  //++++++++++++++++//
+  // ++++++++++++++++// 
 
   bhad->SetPxPyPzE(bhad_fit_px, bhad_fit_py, bhad_fit_pz, bhad_fit_e);
   blep->SetPxPyPzE(blep_fit_px, blep_fit_py, blep_fit_pz, blep_fit_e);
   lq1 ->SetPxPyPzE(lq1_fit_px,  lq1_fit_py,  lq1_fit_pz,  lq1_fit_e);
   lq2 ->SetPxPyPzE(lq2_fit_px,  lq2_fit_py,  lq2_fit_pz,  lq2_fit_e);
 
-  //++++++++++++++++//
+  // ++++++++++++++++// 
   BHiggs1->SetPxPyPzE(BHiggs1_fit_px, BHiggs1_fit_py, BHiggs1_fit_pz, BHiggs1_fit_e);
   BHiggs2->SetPxPyPzE(BHiggs2_fit_px, BHiggs2_fit_py, BHiggs2_fit_pz, BHiggs2_fit_e);
-  //++++++++++++++++//
+  // ++++++++++++++++// 
 
   lep ->SetPxPyPzE(lep_fit_px,  lep_fit_py,  lep_fit_pz,  lep_fit_e);
   nu  ->SetPxPyPzE(nu_fit_px,   nu_fit_py,   nu_fit_pz,   nu_fit_e);
@@ -892,9 +892,9 @@ int KLFitter::LikelihoodTTHLeptonJets::BuildModelParticles() {
   (*thad) = (*whad) + (*bhad);
   (*tlep) = (*wlep) + (*blep);
 
-  //++++++++++++++++//
+  // ++++++++++++++++// 
   (*Higgs) = (*BHiggs1) + (*BHiggs2);
-  //++++++++++++++++//
+  // ++++++++++++++++// 
 
   // no error
   return 1;
@@ -913,37 +913,37 @@ std::vector<double> KLFitter::LikelihoodTTHLeptonJets::LogLikelihoodComponents(s
   bool TFgoodTmp(true);
 
   // jet energy resolution terms
-  vecci.push_back(log( fResEnergyBhad->p(bhad_fit_e, bhad_meas_e, TFgoodTmp) )); //comp0
+  vecci.push_back(log( fResEnergyBhad->p(bhad_fit_e, bhad_meas_e, TFgoodTmp) )); // comp0
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log( fResEnergyBlep->p(blep_fit_e, blep_meas_e, TFgoodTmp) )); //comp1
+  vecci.push_back(log( fResEnergyBlep->p(blep_fit_e, blep_meas_e, TFgoodTmp) )); // comp1
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log( fResEnergyLQ1->p(lq1_fit_e, lq1_meas_e, TFgoodTmp) ));  //comp2
+  vecci.push_back(log( fResEnergyLQ1->p(lq1_fit_e, lq1_meas_e, TFgoodTmp) ));  // comp2
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log( fResEnergyLQ2->p(lq2_fit_e, lq2_meas_e, TFgoodTmp) ));  //comp3
+  vecci.push_back(log( fResEnergyLQ2->p(lq2_fit_e, lq2_meas_e, TFgoodTmp) ));  // comp3
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log( fResEnergyBHiggs1->p(BHiggs1_fit_e, BHiggs1_meas_e, TFgoodTmp) ));  //comp4
+  vecci.push_back(log( fResEnergyBHiggs1->p(BHiggs1_fit_e, BHiggs1_meas_e, TFgoodTmp) ));  // comp4
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log( fResEnergyBHiggs2->p(BHiggs2_fit_e, BHiggs2_meas_e, TFgoodTmp) ));  //comp5
+  vecci.push_back(log( fResEnergyBHiggs2->p(BHiggs2_fit_e, BHiggs2_meas_e, TFgoodTmp) ));  // comp5
   if (!TFgoodTmp) fTFgood = false;
 
   // lepton energy resolution terms
   if (fTypeLepton == kElectron) {
-    vecci.push_back(log( fResLepton->p(lep_fit_e, lep_meas_e, TFgoodTmp) )); //comp6
+    vecci.push_back(log( fResLepton->p(lep_fit_e, lep_meas_e, TFgoodTmp) )); // comp6
   }
   else if (fTypeLepton == kMuon)
-    vecci.push_back(log( fResLepton->p(lep_fit_e* lep_meas_sintheta, lep_meas_pt, TFgoodTmp) )); //comp6
+    vecci.push_back(log( fResLepton->p(lep_fit_e* lep_meas_sintheta, lep_meas_pt, TFgoodTmp) )); // comp6
   if (!TFgoodTmp) fTFgood = false;
 
   // neutrino px and py
-  vecci.push_back(log( fResMET->p(nu_fit_px, ETmiss_x, TFgoodTmp, SumET) )); //comp7
+  vecci.push_back(log( fResMET->p(nu_fit_px, ETmiss_x, TFgoodTmp, SumET) )); // comp7
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log( fResMET->p(nu_fit_py, ETmiss_y, TFgoodTmp, SumET) )); //comp8
+  vecci.push_back(log( fResMET->p(nu_fit_py, ETmiss_y, TFgoodTmp, SumET) )); // comp8
   if (!TFgoodTmp) fTFgood = false;
 
   // physics constants
@@ -953,19 +953,19 @@ std::vector<double> KLFitter::LikelihoodTTHLeptonJets::LogLikelihoodComponents(s
   double gammaHiggs = fPhysicsConstants->GammaHiggs();
 
   // Breit-Wigner of hadronically decaying W-boson
-  vecci.push_back(BCMath::LogBreitWignerRel(whad_fit_m, massW, gammaW)); //comp9
+  vecci.push_back(BCMath::LogBreitWignerRel(whad_fit_m, massW, gammaW)); // comp9
 
   // Breit-Wigner of leptonically decaying W-boson
-  vecci.push_back(BCMath::LogBreitWignerRel(wlep_fit_m, massW, gammaW)); //comp10
+  vecci.push_back(BCMath::LogBreitWignerRel(wlep_fit_m, massW, gammaW)); // comp10
 
   // Breit-Wigner of hadronically decaying top quark
-  vecci.push_back(BCMath::LogBreitWignerRel(thad_fit_m, parameters[parTopM], gammaTop)); //comp11
+  vecci.push_back(BCMath::LogBreitWignerRel(thad_fit_m, parameters[parTopM], gammaTop)); // comp11
 
   // Breit-Wigner of leptonically decaying top quark
-  vecci.push_back(BCMath::LogBreitWignerRel(tlep_fit_m, parameters[parTopM], gammaTop)); //comp12
+  vecci.push_back(BCMath::LogBreitWignerRel(tlep_fit_m, parameters[parTopM], gammaTop)); // comp12
 
   // Breit-Wigner of Higgs decaying into 2 b-quark
-  if (fFlagHiggsMassFixed)  vecci.push_back(BCMath::LogBreitWignerRel(Higgs_fit_m, parameters[parHiggsM], gammaHiggs)); //comp13
+  if (fFlagHiggsMassFixed)  vecci.push_back(BCMath::LogBreitWignerRel(Higgs_fit_m, parameters[parHiggsM], gammaHiggs)); // comp13
 
   // return log of likelihood
   return vecci;

@@ -61,7 +61,7 @@ int KLFitter::LikelihoodTopAllHadronic::DefineModelParticles() {
   fParticlesModel = new KLFitter::Particles();
 
   // add model particles
-  //create dummy TLorentzVector
+  // create dummy TLorentzVector
   TLorentzVector * dummy = new TLorentzVector(0,0,0,0); // 4-vector
   fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kParton, // type
@@ -115,7 +115,7 @@ int KLFitter::LikelihoodTopAllHadronic::DefineModelParticles() {
                                KLFitter::Particles::kParton,
                                "hadronic top 2");
 
-  //free memory
+  // free memory
   delete dummy;
 
   // no error
@@ -268,7 +268,7 @@ int KLFitter::LikelihoodTopAllHadronic::RemoveInvariantParticlePermutations() {
   indexVector_Jets.push_back(5);
   err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Jets);
 
-  //remove invariant permutation when exchanging both top quarks
+  // remove invariant permutation when exchanging both top quarks
   std::vector<int> indexVector_JetsTop1;
   indexVector_JetsTop1.push_back(0);
   indexVector_JetsTop1.push_back(2);
@@ -279,7 +279,7 @@ int KLFitter::LikelihoodTopAllHadronic::RemoveInvariantParticlePermutations() {
   indexVector_JetsTop2.push_back(5);
   err *= (*fPermutations)->InvariantParticleGroupPermutations(ptype, indexVector_JetsTop1, indexVector_JetsTop2);
 
-  //remove invariant jet permutations of notevent jets
+  // remove invariant jet permutations of notevent jets
   KLFitter::Particles* particles = (*fPermutations)->Particles();
   indexVector_Jets.clear();
   for (int iPartons = 6; iPartons < particles->NPartons(); iPartons++)
@@ -591,22 +591,22 @@ std::vector<double> KLFitter::LikelihoodTopAllHadronic::LogLikelihoodComponents(
   bool TFgoodTmp(true);
 
   // jet energy resolution terms
-  vecci.push_back(log( fResEnergyBhad1->p(bhad1_fit_e, bhad1_meas_e, TFgoodTmp) )); //comp0
+  vecci.push_back(log( fResEnergyBhad1->p(bhad1_fit_e, bhad1_meas_e, TFgoodTmp) )); // comp0
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log( fResEnergyBhad2->p(bhad2_fit_e, bhad2_meas_e, TFgoodTmp) )); //comp1
+  vecci.push_back(log( fResEnergyBhad2->p(bhad2_fit_e, bhad2_meas_e, TFgoodTmp) )); // comp1
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log( fResEnergyLQ1->p(lq1_fit_e, lq1_meas_e, TFgoodTmp) ));  //comp2
+  vecci.push_back(log( fResEnergyLQ1->p(lq1_fit_e, lq1_meas_e, TFgoodTmp) ));  // comp2
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log( fResEnergyLQ2->p(lq2_fit_e, lq2_meas_e, TFgoodTmp) ));  //comp3
+  vecci.push_back(log( fResEnergyLQ2->p(lq2_fit_e, lq2_meas_e, TFgoodTmp) ));  // comp3
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log( fResEnergyLQ3->p(lq3_fit_e, lq3_meas_e, TFgoodTmp) ));  //comp4
+  vecci.push_back(log( fResEnergyLQ3->p(lq3_fit_e, lq3_meas_e, TFgoodTmp) ));  // comp4
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log( fResEnergyLQ4->p(lq4_fit_e, lq4_meas_e, TFgoodTmp) ));  //comp5
+  vecci.push_back(log( fResEnergyLQ4->p(lq4_fit_e, lq4_meas_e, TFgoodTmp) ));  // comp5
   if (!TFgoodTmp) fTFgood = false;
 
   // physics constants
@@ -618,16 +618,16 @@ std::vector<double> KLFitter::LikelihoodTopAllHadronic::LogLikelihoodComponents(
   double gammaTop = fPhysicsConstants->GammaTop();
 
   // Breit-Wigner of hadronically decaying W-boson1
-  vecci.push_back(BCMath::LogBreitWignerRel(whad1_fit_m, massW, gammaW)); //comp6
+  vecci.push_back(BCMath::LogBreitWignerRel(whad1_fit_m, massW, gammaW)); // comp6
 
   // Breit-Wigner of hadronically decaying W-boson2
-  vecci.push_back(BCMath::LogBreitWignerRel(whad2_fit_m, massW, gammaW)); //comp7
+  vecci.push_back(BCMath::LogBreitWignerRel(whad2_fit_m, massW, gammaW)); // comp7
 
   // Breit-Wigner of hadronically decaying top quark1
-  vecci.push_back(BCMath::LogBreitWignerRel(thad1_fit_m, parameters[parTopM], gammaTop)); //comp8
+  vecci.push_back(BCMath::LogBreitWignerRel(thad1_fit_m, parameters[parTopM], gammaTop)); // comp8
 
   // Breit-Wigner of hadronically decaying top quark
-  vecci.push_back(BCMath::LogBreitWignerRel(thad2_fit_m, parameters[parTopM], gammaTop)); //comp9
+  vecci.push_back(BCMath::LogBreitWignerRel(thad2_fit_m, parameters[parTopM], gammaTop)); // comp9
 
   // return log of likelihood
   return vecci;

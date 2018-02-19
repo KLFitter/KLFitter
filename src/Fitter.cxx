@@ -87,7 +87,7 @@ int KLFitter::Fitter::SetMyParticlesTruth(KLFitter::Particles * particles) {
 
   fLikelihood->SetMyParticlesTruth(&fMyParticlesTruth);
 
-  //std:: cout << "fMyParticlesTruth set in Fitter!!!!!" << std::endl;
+  // std:: cout << "fMyParticlesTruth set in Fitter!!!!!" << std::endl;
 
   // no error
   return 1;
@@ -181,16 +181,16 @@ int KLFitter::Fitter::Fit(int index) {
     // Markov Chain MC
     if (fMinimizationMethod == kMarkovChainMC) {
       // comment out BCLog lines if interested in more BAT details
-      //BCLog * log = new BCLog();
-      //log->OpenLog("help.txt",BCLog::detail,BCLog::detail);
+      // BCLog * log = new BCLog();
+      // log->OpenLog("help.txt",BCLog::detail,BCLog::detail);
       fLikelihood->MCMCSetFlagFillHistograms(true);
       fLikelihood->MCMCSetNChains(5);
       fLikelihood->MCMCSetNIterationsRun(20000);
       fLikelihood->MCMCSetNIterationsMax(1000000);
       fLikelihood->MCMCSetNIterationsUpdate(100);
       fLikelihood->MarginalizeAll();
-      //log->CloseLog();
-      //delete log;
+      // log->CloseLog();
+      // delete log;
     }
     // simulated annealing
     else if (fMinimizationMethod == kSimulatedAnnealing) {
@@ -274,7 +274,7 @@ int KLFitter::Fitter::Fit(int index) {
     // caching parameters
     fLikelihood->SetParametersToCache(index, nperms);
     SetFitStatusToCache(index, nperms);
-  } //end of fitting "else"
+  } // end of fitting "else"
 
   // no error
   return 1;
