@@ -81,7 +81,7 @@ class Particles {
     * Return the number of partons.
     * @return The number of partons.
     */
-  int NPartons() { return int(fPartons -> size()); }
+  int NPartons() { return static_cast<int>(fPartons -> size()); }
 
   /**
     * Return the number of electrons.
@@ -197,7 +197,7 @@ class Particles {
     * Return the number of particles.
     * @return The number of particles.
     */
-  int NParticles() { return int(fPartons -> size() + fElectrons -> size() + fMuons -> size() + fTaus -> size() + fNeutrinos -> size() + fBosons -> size() + fPhotons -> size()); }
+  int NParticles() { return static_cast<int>(fPartons -> size() + fElectrons -> size() + fMuons -> size() + fTaus -> size() + fNeutrinos -> size() + fBosons -> size() + fPhotons -> size()); }
 
   /**
     * Return the number of particles of a certain type.

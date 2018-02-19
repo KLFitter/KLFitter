@@ -84,7 +84,7 @@ class Permutations {
   /**
     * Return the number of permutations.
     */
-  int NPermutations() { return int(fParticlesTable -> size()); }
+  int NPermutations() { return static_cast<int>(fParticlesTable -> size()); }
 
   /**
     * Return the current permutation index.

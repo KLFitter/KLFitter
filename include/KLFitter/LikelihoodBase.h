@@ -110,7 +110,7 @@ class LikelihoodBase : public BCModel {
     * Return the number of model particles.
     * @return The number of model particles.
     */
-  int NParticlesModel() { return int(fParticlesModel -> NParticles()); }
+  int NParticlesModel() { return static_cast<int>(fParticlesModel -> NParticles())); }
 
   /**
     * Return the number of parameters.
