@@ -72,14 +72,14 @@ namespace KLFitter
      * @return A pointer to the particles.
      */
     KLFitter::Particles* Particles()
-      { return *fParticles; };
+    { return *fParticles; };
 
     /**
      * Return the current permutation of jets and leptons.
      * @return A pointer to the permuted particles.
      */
     KLFitter::Particles* ParticlesPermuted()
-      { return *fParticlesPermuted; };
+    { return *fParticlesPermuted; };
 
     /**
      * Return the permutation table.
@@ -101,16 +101,16 @@ namespace KLFitter
     { return fPermutationIndex; };
 
     std::vector<std::vector<int>*>* TablePartons()
-      { return fTablePartons; };
+    { return fTablePartons; };
 
     std::vector<std::vector<int>*>* TableElectrons()
-      { return fTableElectrons; };
+    { return fTableElectrons; };
 
     std::vector<std::vector<int>*>* TableMuons()
-      { return fTableMuons; };
+    { return fTableMuons; };
 
     std::vector<std::vector<int>*>* TablePhotons()
-      { return fTablePhotons; };
+    { return fTablePhotons; };
 
     /* @} */
     /** \name Member functions (Set)  */
@@ -165,7 +165,7 @@ namespace KLFitter
      */
     int InvariantParticleGroupPermutations(KLFitter::Particles::ParticleType ptype, std::vector<int> indexVectorPosition1,  std::vector<int> indexVectorPosition2);
 
-     /**
+    /**
      * Remove permutations in which a certain particles is in a certain position.
      * This is useful to reduce the number of permutations if for example
      * a b-tagged jet is forbidden in the position of a light jet.

@@ -87,7 +87,7 @@ namespace KLFitter
     /** \name Member functions (Set)  */
     /* @{ */
 
-     /**
+    /**
      * Enumerator for the lepton type.
      */
     enum LeptonType { kElectron, kMuon };
@@ -246,7 +246,7 @@ namespace KLFitter
      */
     virtual std::vector<double> GetNeutrinoPzSolutions();
 
-     /**
+    /**
      * Save permuted particles.
      */
     int SavePermutedParticles();
@@ -360,7 +360,7 @@ namespace KLFitter
 
     /**
      * Save fit particle values for frequent calls
-    */
+     */
     double b_fit_e;
     double b_fit_px;
     double b_fit_py;

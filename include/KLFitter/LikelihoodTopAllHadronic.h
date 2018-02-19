@@ -208,7 +208,7 @@ namespace KLFitter
      * Remove forbidden particle permutations - forcing b-jets on the position of a b parton.
      * @return An error code.
      */
-//    int RemoveForbiddenBParticlePermutations();
+    //    int RemoveForbiddenBParticlePermutations();
 
     /**
      * Build the model particles from the best fit parameters.

@@ -175,8 +175,8 @@ int KLFitter::Fitter::Fit(int index) {
 
   // check if permutation is LH invariant and has already been calculated
   if ((partnerindex > -1)&&(partnerindex < index)) {
-  fLikelihood->GetParametersFromCache(index);
-  GetFitStatusFromCache(index);
+    fLikelihood->GetParametersFromCache(index);
+    GetFitStatusFromCache(index);
 
   } else {
 
@@ -211,33 +211,33 @@ int KLFitter::Fitter::Fit(int index) {
 
       // check if any parameter is at its borders->set MINUIT flag to 500
       if ( fMinuitStatus == 0) {
-          std::vector<double> BestParameters = fLikelihood->GetBestFitParameters();
-          for (unsigned int iPar = 0; iPar < fLikelihood->GetNParameters(); iPar++) {
-              if ( fLikelihood->GetParameter(0)->IsAtLimit(BestParameters[iPar]) ) {
-                  fMinuitStatus = 500;
-                }
-            }
+        std::vector<double> BestParameters = fLikelihood->GetBestFitParameters();
+        for (unsigned int iPar = 0; iPar < fLikelihood->GetNParameters(); iPar++) {
+          if ( fLikelihood->GetParameter(0)->IsAtLimit(BestParameters[iPar]) ) {
+            fMinuitStatus = 500;
+          }
         }
+      }
       if(fLikelihood->GetFlagIsNan()==true) {
-          fMinuitStatus=508;
-        }
+        fMinuitStatus=508;
+      }
 
       // re-run if Minuit status bad
       if (fMinuitStatus != 0) {
-    fLikelihood->ResetCache();
-          fLikelihood->ResetResults();
-          // print to screen
-          //        std::cout << "KLFitter::Fit(). Minuit did not find proper minimum. Rerun with Simulated Annealing."<<std::endl;
-          if (!fTurnOffSA) {
-            fLikelihood->SetFlagIsNan(false);
-            fLikelihood->SetOptimizationMethod( BCIntegrate::kOptSimAnn );
-            fLikelihood->FindMode( fLikelihood->GetInitialParameters() );
-          }
-
-          fLikelihood->SetOptimizationMethod( BCIntegrate::kOptMinuit);
-          fLikelihood->FindMode( fLikelihood->GetBestFitParameters() );
-          fMinuitStatus = fLikelihood->GetMinuitErrorFlag();
+        fLikelihood->ResetCache();
+        fLikelihood->ResetResults();
+        // print to screen
+        //        std::cout << "KLFitter::Fit(). Minuit did not find proper minimum. Rerun with Simulated Annealing."<<std::endl;
+        if (!fTurnOffSA) {
+          fLikelihood->SetFlagIsNan(false);
+          fLikelihood->SetOptimizationMethod( BCIntegrate::kOptSimAnn );
+          fLikelihood->FindMode( fLikelihood->GetInitialParameters() );
         }
+
+        fLikelihood->SetOptimizationMethod( BCIntegrate::kOptMinuit);
+        fLikelihood->FindMode( fLikelihood->GetBestFitParameters() );
+        fMinuitStatus = fLikelihood->GetMinuitErrorFlag();
+      }
 
       fConvergenceStatus = 0;
       if (fMinuitStatus == 4)
@@ -247,31 +247,31 @@ int KLFitter::Fitter::Fit(int index) {
 
     // check if any parameter is at its borders->set MINUIT flag to 501
     if ( fMinuitStatus == 0) {
-        std::vector<double> BestParameters = fLikelihood->GetBestFitParameters();
-        for (unsigned int iPar = 0; iPar < fLikelihood->GetNParameters(); iPar++) {
-            if ( fLikelihood->GetParameter(0)->IsAtLimit(BestParameters[iPar]) ) {
-                fMinuitStatus = 501;
-                fConvergenceStatus |= AtLeastOneFitParameterAtItsLimitMask;
-              }
-          }
+      std::vector<double> BestParameters = fLikelihood->GetBestFitParameters();
+      for (unsigned int iPar = 0; iPar < fLikelihood->GetNParameters(); iPar++) {
+        if ( fLikelihood->GetParameter(0)->IsAtLimit(BestParameters[iPar]) ) {
+          fMinuitStatus = 501;
+          fConvergenceStatus |= AtLeastOneFitParameterAtItsLimitMask;
+        }
       }
+    }
     if(fLikelihood->GetFlagIsNan()==true) {
-        fMinuitStatus=509;
-        fConvergenceStatus |= FitAbortedDueToNaNMask;
-      }
+      fMinuitStatus=509;
+      fConvergenceStatus |= FitAbortedDueToNaNMask;
+    }
     else {
       // check if TF problem
       if (! fLikelihood->NoTFProblem(fLikelihood->GetBestFitParameters())) {
         fMinuitStatus = 510;
         fConvergenceStatus |= InvalidTransferFunctionAtConvergenceMask;
-    }
+      }
     }
 
     // calculate integral
     if (fLikelihood->FlagIntegrate()) {
-        fLikelihood->SetIntegrationMethod(BCIntegrate::kIntCuba);
+      fLikelihood->SetIntegrationMethod(BCIntegrate::kIntCuba);
       fLikelihood->Normalize();
-      }
+    }
 
     // caching parameters
     fLikelihood->SetParametersToCache(index, nperms);
@@ -294,25 +294,25 @@ int KLFitter::Fitter::Fit() {
 
   // loop over all permutations
   for (int ipermutation = 0; ipermutation < npermutations; ++ipermutation) {
-      // set permutation
-      if (!fPermutations->SetPermutation(ipermutation))
-        return 0;
+    // set permutation
+    if (!fPermutations->SetPermutation(ipermutation))
+      return 0;
 
-      // get new permutation
-      fParticlesPermuted = fPermutations->ParticlesPermuted();
+    // get new permutation
+    fParticlesPermuted = fPermutations->ParticlesPermuted();
 
-      // initialize likelihood
-      fLikelihood->Initialize();
+    // initialize likelihood
+    fLikelihood->Initialize();
 
-      // perform fitting
-      fLikelihood->MCMCSetNChains(5);
-      fLikelihood->MCMCSetNIterationsRun(2000);
-      fLikelihood->MCMCSetNIterationsMax(1000);
-      fLikelihood->MCMCSetNIterationsUpdate(100);
-      fLikelihood->MarginalizeAll();
-      fLikelihood->FindMode(BCIntegrate::kOptMinuit, fLikelihood->GetBestFitParameters());
-      fMinuitStatus = fLikelihood->GetMinuitErrorFlag();
-    }
+    // perform fitting
+    fLikelihood->MCMCSetNChains(5);
+    fLikelihood->MCMCSetNIterationsRun(2000);
+    fLikelihood->MCMCSetNIterationsMax(1000);
+    fLikelihood->MCMCSetNIterationsUpdate(100);
+    fLikelihood->MarginalizeAll();
+    fLikelihood->FindMode(BCIntegrate::kOptMinuit, fLikelihood->GetBestFitParameters());
+    fMinuitStatus = fLikelihood->GetMinuitErrorFlag();
+  }
 
   // no error
   return 1;
@@ -322,20 +322,20 @@ int KLFitter::Fitter::Fit() {
 int KLFitter::Fitter::Status() {
   // check if measured particles exist
   if (!fParticles) {
-      std::cout << "KLFitter::Fitter::Status(). Set of measured particles not defined." << std::endl;
-      return 0;
-    }
+    std::cout << "KLFitter::Fitter::Status(). Set of measured particles not defined." << std::endl;
+    return 0;
+  }
 
   // check if detector exists
   if (!fDetector) {
-      std::cout << "KLFitter::Fitter::Status(). No detector defined." << std::endl;
-      return 0;
-    }
+    std::cout << "KLFitter::Fitter::Status(). No detector defined." << std::endl;
+    return 0;
+  }
 
   // check detector
   if (!fDetector->Status()) {
-      return 0;
-    }
+    return 0;
+  }
 
   // no error
   return 1;
@@ -351,52 +351,52 @@ int KLFitter::Fitter::GetFitStatusFromCache(int iperm) {
     std::cout<<"KLFitter::Fitter::GetFitStatusFromCache: size of fCachedConvergenceStatusVector or fCachedMinuitStatusVector too small!"<<std::endl;
   }
 
-return 1;
+  return 1;
 }
 
 // ---------------------------------------------------------
 
 int KLFitter::Fitter::SetFitStatusToCache(int iperm, int nperms) {
 
-if (iperm==0) {
-  fCachedMinuitStatusVector.clear();
-  fCachedMinuitStatusVector.assign(nperms, -1);
+  if (iperm==0) {
+    fCachedMinuitStatusVector.clear();
+    fCachedMinuitStatusVector.assign(nperms, -1);
 
-  fCachedConvergenceStatusVector.clear();
-  fCachedConvergenceStatusVector.assign(nperms, -1);
-} 
-
-if ((iperm>(int)fCachedMinuitStatusVector.size())||(iperm>(int)fCachedConvergenceStatusVector.size())) {
-  std::cout<<"KLFitter::Fitter::SetFitStatusToCache: iperm > size of fCachedMinuitStatusVector or fCachedConvergenceStatusVector!"<<std::endl;
-  return 0;
-}
-fCachedMinuitStatusVector.at(iperm) = fMinuitStatus;
-fCachedConvergenceStatusVector.at(iperm) = fConvergenceStatus;
-
-int dummy;
-int partner = fLikelihood->LHInvariantPermutationPartner(iperm, nperms, dummy, dummy);
-
-if (partner > iperm) {
-
-  if (((int)fCachedMinuitStatusVector.size() > partner)&&((int)fCachedConvergenceStatusVector.size() > partner)) {
-
-    fCachedMinuitStatusVector.at(partner) = fMinuitStatus;
-    fCachedConvergenceStatusVector.at(partner) = fConvergenceStatus;
-
-  } else {
-    std::cout<<"KLFitter::Fitter::SetFitStatusToCache: size of fCachedMinuitStatusVector or fCachedConvergenceStatusVector too small!"<<std::endl;
+    fCachedConvergenceStatusVector.clear();
+    fCachedConvergenceStatusVector.assign(nperms, -1);
   } 
-} 
 
-GetFitStatusFromCache(iperm);
-return 1;
+  if ((iperm>(int)fCachedMinuitStatusVector.size())||(iperm>(int)fCachedConvergenceStatusVector.size())) {
+    std::cout<<"KLFitter::Fitter::SetFitStatusToCache: iperm > size of fCachedMinuitStatusVector or fCachedConvergenceStatusVector!"<<std::endl;
+    return 0;
+  }
+  fCachedMinuitStatusVector.at(iperm) = fMinuitStatus;
+  fCachedConvergenceStatusVector.at(iperm) = fConvergenceStatus;
+
+  int dummy;
+  int partner = fLikelihood->LHInvariantPermutationPartner(iperm, nperms, dummy, dummy);
+
+  if (partner > iperm) {
+
+    if (((int)fCachedMinuitStatusVector.size() > partner)&&((int)fCachedConvergenceStatusVector.size() > partner)) {
+
+      fCachedMinuitStatusVector.at(partner) = fMinuitStatus;
+      fCachedConvergenceStatusVector.at(partner) = fConvergenceStatus;
+
+    } else {
+      std::cout<<"KLFitter::Fitter::SetFitStatusToCache: size of fCachedMinuitStatusVector or fCachedConvergenceStatusVector too small!"<<std::endl;
+    } 
+  } 
+
+  GetFitStatusFromCache(iperm);
+  return 1;
 }
 
 // ---------------------------------------------------------.
 
- int KLFitter::Fitter::ResetCache() {
-fMinuitStatus = -1;
-fConvergenceStatus = -1;
+int KLFitter::Fitter::ResetCache() {
+  fMinuitStatus = -1;
+  fConvergenceStatus = -1;
 
-return 1;
+  return 1;
 }

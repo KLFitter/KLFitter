@@ -155,17 +155,17 @@ namespace KLFitter
     inline static bool CheckDoubleGaussianSanity(double &sigma1, double &amplitude2, double &sigma2) {
       if (amplitude2 < 0.) amplitude2 = 0.;
       if (sigma1 < 0.) {
-//        std::cout << "KLFitter::ResDoubleGauss::CheckDoubleGaussianSanity() ERROR IN TRANSFERFUNCTIONS the sigma of the 1st Gaussian is < 0  -  FIT RESULT MAY NOT BE RELIABLE" << std::endl;
-//        std::cout << "--> Fitter is in a bad condition! Please check your input files (E out of validation scope?)." << std::endl;
+        //        std::cout << "KLFitter::ResDoubleGauss::CheckDoubleGaussianSanity() ERROR IN TRANSFERFUNCTIONS the sigma of the 1st Gaussian is < 0  -  FIT RESULT MAY NOT BE RELIABLE" << std::endl;
+        //        std::cout << "--> Fitter is in a bad condition! Please check your input files (E out of validation scope?)." << std::endl;
         sigma1 = 0.00000001;
         return false;
-  }
+      }
       if (sigma2 < 0.) {
-//        std::cout << "KLFitter::ResDoubleGauss::CheckDoubleGaussianSanity() ERROR IN TRANSFERFUNCTIONS the sigma of the 2nd Gaussian is < 0  -  FIT RESULT MAY NOT BE RELIABLE" << std::endl;
-//        std::cout << "--> Fitter is in a bad condition! Please check your input files (E out of validation scope?)." << std::endl;
+        //        std::cout << "KLFitter::ResDoubleGauss::CheckDoubleGaussianSanity() ERROR IN TRANSFERFUNCTIONS the sigma of the 2nd Gaussian is < 0  -  FIT RESULT MAY NOT BE RELIABLE" << std::endl;
+        //        std::cout << "--> Fitter is in a bad condition! Please check your input files (E out of validation scope?)." << std::endl;
         sigma2 = 0.000000001;
         return false;
-  }
+      }
 
       return true;
     }

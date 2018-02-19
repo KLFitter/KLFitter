@@ -32,9 +32,9 @@ KLFitter::ResDoubleGaussBase::ResDoubleGaussBase(const char * filename) : KLFitt
 KLFitter::ResDoubleGaussBase::ResDoubleGaussBase(std::vector<double> const& parameters) : KLFitter::ResolutionBase(parameters) {
   // check number of parameters
   if (parameters.size() != 10) {
-      std::cout << "KLFitter::ResDoubleGaussBase::ResDoubleGaussBase(). Number of parameters != 10." << std::endl;
-      return;
-    }
+    std::cout << "KLFitter::ResDoubleGaussBase::ResDoubleGaussBase(). Number of parameters != 10." << std::endl;
+    return;
+  }
 }
 
 // ---------------------------------------------------------

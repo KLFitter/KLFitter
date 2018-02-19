@@ -298,7 +298,7 @@ namespace KLFitter
 
     /**
      * The current beam centre-of-mass energy in the detector
-    */
+     */
     KLFitter::DetectorBase::BeamCMEnergy fBeamCMEnergy;
   };
 

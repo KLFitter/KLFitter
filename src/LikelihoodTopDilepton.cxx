@@ -34,20 +34,20 @@
 
 // ---------------------------------------------------------
 KLFitter::LikelihoodTopDilepton::LikelihoodTopDilepton() : KLFitter::LikelihoodBase::LikelihoodBase()
-                                                             , fFlagTopMassFixed(false)
-                                                             , fFlagUseJetMass(false)
-                                                             , ETmiss_x(0.)
-                                                             , ETmiss_y(0.)
-                                                             , SumET(0.)
-                                                             , fTypeLepton_1(kElectron)
-                                                             , fTypeLepton_2(kElectron)
-                   , nueta_params(0.)
-                   , doSumloglik(false)
-                                                             , fTFgood(true)
-                   , hist_mttbar(new TH1D())
-                   , hist_costheta(new TH1D())
-                   , fHistMttbar(new BCH1D())
-                                                             , fHistCosTheta(new BCH1D()) {
+  , fFlagTopMassFixed(false)
+  , fFlagUseJetMass(false)
+  , ETmiss_x(0.)
+  , ETmiss_y(0.)
+  , SumET(0.)
+  , fTypeLepton_1(kElectron)
+  , fTypeLepton_2(kElectron)
+  , nueta_params(0.)
+  , doSumloglik(false)
+  , fTFgood(true)
+  , hist_mttbar(new TH1D())
+  , hist_costheta(new TH1D())
+  , fHistMttbar(new BCH1D())
+  , fHistCosTheta(new BCH1D()) {
 
 
   // define model particles
@@ -82,10 +82,10 @@ int KLFitter::LikelihoodTopDilepton::SetET_miss_XY_SumET(double etx, double ety,
 // ---------------------------------------------------------
 void KLFitter::LikelihoodTopDilepton::SetLeptonType(LeptonType leptontype_1, LeptonType leptontype_2) {
   if ((leptontype_1 != kElectron && leptontype_1 != kMuon) || (leptontype_2 != kElectron && leptontype_2 != kMuon)) {
-      std::cout << "KLFitter::SetLeptonTyp(). Warning: lepton type not defined. Set electron-electron as lepton type." << std::endl;
-      fTypeLepton_1 = kElectron;
-      fTypeLepton_2 = kElectron;
-    }
+    std::cout << "KLFitter::SetLeptonTyp(). Warning: lepton type not defined. Set electron-electron as lepton type." << std::endl;
+    fTypeLepton_1 = kElectron;
+    fTypeLepton_2 = kElectron;
+  }
   else {
     fTypeLepton_1 = leptontype_1;
     fTypeLepton_2 = leptontype_2;
@@ -101,10 +101,10 @@ void KLFitter::LikelihoodTopDilepton::SetLeptonType(LeptonType leptontype_1, Lep
 // ---------------------------------------------------------
 void KLFitter::LikelihoodTopDilepton::SetLeptonType(int leptontype_1, int leptontype_2 ) {
   if ((leptontype_1 != 1 && leptontype_1 != 2) || (leptontype_2 != 1 && leptontype_2 != 2)) {
-      std::cout << "KLFitter::SetLeptonTyp(). Warning: lepton type not defined. Set electron as lepton type." << std::endl;
-      leptontype_1 = 1;
-      leptontype_2 = 1;
-    }
+    std::cout << "KLFitter::SetLeptonTyp(). Warning: lepton type not defined. Set electron as lepton type." << std::endl;
+    leptontype_1 = 1;
+    leptontype_2 = 1;
+  }
 
   if (leptontype_1 == 1 && leptontype_2 == 1)
     SetLeptonType(kElectron, kElectron);
@@ -146,28 +146,28 @@ int KLFitter::LikelihoodTopDilepton::DefineModelParticles() {
 
   if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kMuon) {
     fParticlesModel->AddParticle(dummy,
-         KLFitter::Particles::kElectron,
-         "electron");
+                                 KLFitter::Particles::kElectron,
+                                 "electron");
 
     fParticlesModel->AddParticle(dummy,
-         KLFitter::Particles::kMuon,
-         "muon");
+                                 KLFitter::Particles::kMuon,
+                                 "muon");
   }
   else if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kElectron) {
     fParticlesModel->AddParticle(dummy,
-         KLFitter::Particles::kElectron,
-         "electron 1");
+                                 KLFitter::Particles::kElectron,
+                                 "electron 1");
     fParticlesModel->AddParticle(dummy,
-         KLFitter::Particles::kElectron,
-         "electron 2");
+                                 KLFitter::Particles::kElectron,
+                                 "electron 2");
   }
   else if (fTypeLepton_1 == kMuon && fTypeLepton_2 == kMuon) {
     fParticlesModel->AddParticle(dummy,
-         KLFitter::Particles::kMuon,
-         "muon 1");
+                                 KLFitter::Particles::kMuon,
+                                 "muon 1");
     fParticlesModel->AddParticle(dummy,
-         KLFitter::Particles::kMuon,
-         "muon 2");
+                                 KLFitter::Particles::kMuon,
+                                 "muon 2");
   }
 
   //free memory
@@ -497,7 +497,7 @@ double KLFitter::LikelihoodTopDilepton::LogLikelihood(const std::vector<double> 
   else
     logweight += log( fResEnergyB1->p(b1_fit_e, b1_meas_e, TFgoodTmp) );
   if (!TFgoodTmp) fTFgood = false;
-    //std::cout << "TF b1 : " << log( fResEnergyB1->p(b1_fit_e, b1_meas_e, TFgoodTmp) ) << std::endl;
+  //std::cout << "TF b1 : " << log( fResEnergyB1->p(b1_fit_e, b1_meas_e, TFgoodTmp) ) << std::endl;
 
   if(logweight + 10 == logweight) std::cout << "TF b1 inf! : " << log( fResEnergyB1->p(b1_fit_e, b1_meas_e, TFgoodTmp) ) << std::endl;
 
@@ -509,7 +509,7 @@ double KLFitter::LikelihoodTopDilepton::LogLikelihood(const std::vector<double> 
   else
     logweight += log( fResEnergyB2->p(b2_fit_e, b2_meas_e, TFgoodTmp) );
   if (!TFgoodTmp) fTFgood = false;
-    //std::cout << "TF b2 : " << log( fResEnergyB2->p(b2_fit_e, b2_meas_e, TFgoodTmp) ) << std::endl;
+  //std::cout << "TF b2 : " << log( fResEnergyB2->p(b2_fit_e, b2_meas_e, TFgoodTmp) ) << std::endl;
 
   if(logweight + 10 == logweight) std::cout << "TF b2 inf! : " << log( fResEnergyB2->p(b2_fit_e, b2_meas_e, TFgoodTmp) ) << std::endl;
 
@@ -620,49 +620,49 @@ double KLFitter::LikelihoodTopDilepton::LogLikelihood(const std::vector<double> 
 
 double KLFitter::LikelihoodTopDilepton::CalculateMLepJet(const std::vector<double> & /*parameters*/) {
 
- double sumMinv=0.;
- double norm=1.;
+  double sumMinv=0.;
+  double norm=1.;
 
- // tuning factor alpha
- double alpha=-2.;
+  // tuning factor alpha
+  double alpha=-2.;
 
- //charged leptons
- TLorentzVector l1(0., 0., 0., 0.);
- TLorentzVector l2(0., 0., 0., 0.);
+  //charged leptons
+  TLorentzVector l1(0., 0., 0., 0.);
+  TLorentzVector l2(0., 0., 0., 0.);
 
- // include parLep1E, parLep2E
- l1.SetPxPyPzE(lep1_fit_px,  lep1_fit_py,  lep1_fit_pz,  lep1_fit_e);
- l2.SetPxPyPzE(lep2_fit_px,  lep2_fit_py,  lep2_fit_pz,  lep2_fit_e);
+  // include parLep1E, parLep2E
+  l1.SetPxPyPzE(lep1_fit_px,  lep1_fit_py,  lep1_fit_pz,  lep1_fit_e);
+  l2.SetPxPyPzE(lep2_fit_px,  lep2_fit_py,  lep2_fit_pz,  lep2_fit_e);
 
- // jet1 and jet2:
- TLorentzVector j1(0., 0., 0., 0.);
- TLorentzVector j2(0., 0., 0., 0.);
+  // jet1 and jet2:
+  TLorentzVector j1(0., 0., 0., 0.);
+  TLorentzVector j2(0., 0., 0., 0.);
 
- // include parB1E, parB2E
- j1.SetPxPyPzE(b1_fit_px, b1_fit_py, b1_fit_pz, b1_fit_e);
- j2.SetPxPyPzE(b2_fit_px, b2_fit_py, b2_fit_pz, b2_fit_e);
+  // include parB1E, parB2E
+  j1.SetPxPyPzE(b1_fit_px, b1_fit_py, b1_fit_pz, b1_fit_e);
+  j2.SetPxPyPzE(b2_fit_px, b2_fit_py, b2_fit_pz, b2_fit_e);
 
- // normalized to the sum of all combinations of (lep,jet)
- if ((pow((l1+j1).M() + (l2+j2).M(),alpha) + pow((l2+j1).M() + (l1+j2).M(),alpha))!=0.)
-   norm = 1/(pow((l1+j1).M() + (l2+j2).M(),alpha) + pow((l2+j1).M() + (l1+j2).M(),alpha));
- else
-   std::cout << "Error LikelihoodTopDilepton::CalculateMLepJet: normalization is inf!" << std::endl;
+  // normalized to the sum of all combinations of (lep,jet)
+  if ((pow((l1+j1).M() + (l2+j2).M(),alpha) + pow((l2+j1).M() + (l1+j2).M(),alpha))!=0.)
+    norm = 1/(pow((l1+j1).M() + (l2+j2).M(),alpha) + pow((l2+j1).M() + (l1+j2).M(),alpha));
+  else
+    std::cout << "Error LikelihoodTopDilepton::CalculateMLepJet: normalization is inf!" << std::endl;
 
- // ensure correctly (lepton, nu) pair according to lepton charge
- if (lep1_meas_charge == 1 && lep2_meas_charge == -1) {
-   //std::cout << "opt1: lep1_meas_charge: " << lep1_meas_charge << " and lep2_meas_charge: " << lep2_meas_charge  << std::endl;
-   sumMinv = (l1+j1).M() + (l2+j2).M();
- }
- else if (lep1_meas_charge == -1 && lep2_meas_charge == 1) {
-   //std::cout << "opt2: lep1_meas_charge: " << lep1_meas_charge << " and lep2_meas_charge: " << lep2_meas_charge  << std::endl;
-   sumMinv = (l2+j1).M() + (l1+j2).M();
- }
- else
-   std::cout << "ERROR KLFitter::LikelihoodTopDilepton::CalculateMLepJet -------> NO VALID LEPTON CHARGE!!!" << std::endl;
+  // ensure correctly (lepton, nu) pair according to lepton charge
+  if (lep1_meas_charge == 1 && lep2_meas_charge == -1) {
+    //std::cout << "opt1: lep1_meas_charge: " << lep1_meas_charge << " and lep2_meas_charge: " << lep2_meas_charge  << std::endl;
+    sumMinv = (l1+j1).M() + (l2+j2).M();
+  }
+  else if (lep1_meas_charge == -1 && lep2_meas_charge == 1) {
+    //std::cout << "opt2: lep1_meas_charge: " << lep1_meas_charge << " and lep2_meas_charge: " << lep2_meas_charge  << std::endl;
+    sumMinv = (l2+j1).M() + (l1+j2).M();
+  }
+  else
+    std::cout << "ERROR KLFitter::LikelihoodTopDilepton::CalculateMLepJet -------> NO VALID LEPTON CHARGE!!!" << std::endl;
 
- //  std::cout << "sumMinv: " << sumMinv << " pow(sumMinv," << alpha << "): " << pow(sumMinv,alpha) << std::endl;
+  //  std::cout << "sumMinv: " << sumMinv << " pow(sumMinv," << alpha << "): " << pow(sumMinv,alpha) << std::endl;
 
- return norm*pow(sumMinv,alpha);
+  return norm*pow(sumMinv,alpha);
 }
 
 
@@ -1167,11 +1167,11 @@ std::vector<double> KLFitter::LikelihoodTopDilepton::LogLikelihoodComponents(std
 
   // sum of invariant masses (lep,jet) term
 
- if (CalculateMLepJet(parameters) == 0.) {
-   vecci.push_back(log(1e-99));
- }
- else
-   vecci.push_back(log( CalculateMLepJet(parameters)) ); //comp7
+  if (CalculateMLepJet(parameters) == 0.) {
+    vecci.push_back(log(1e-99));
+  }
+  else
+    vecci.push_back(log( CalculateMLepJet(parameters)) ); //comp7
 
 
   // return log of likelihood
@@ -1268,122 +1268,122 @@ void KLFitter::LikelihoodTopDilepton::MCMCIterationInterface() {
     if (nus.NSolutions > 0 && nubars.NSolutions > 0) { // 1 nu 1 nubar
 
       if (nus.nu1.M() >= 0 && nubars.nu1.M() >= 0) {
-  //mttbar
-  mttbar = (MCMC_b1 + MCMC_b2 + MCMC_lep1 + MCMC_lep2 + nus.nu1 + nubars.nu1).M();
-  //std::cout << "1 mttbar: " << mttbar << std::endl;
-  fHistMttbar->GetHistogram()->Fill(mttbar);
-  //costheta
-  help_ParticleVector->clear();
-  help_ParticleVector -> push_back(MCMC_lep);
-  help_ParticleVector -> push_back(MCMC_antilep);
-  help_ParticleVector -> push_back(nus.nu1);
-  help_ParticleVector -> push_back(nubars.nu1);
-  help_ParticleVector -> push_back(MCMC_b1);
-  help_ParticleVector -> push_back(MCMC_b2);
-  costheta = CalculateCosTheta( help_ParticleVector );
-  fHistCosTheta->GetHistogram()->Fill(costheta.first);
-  fHistCosTheta->GetHistogram()->Fill(costheta.second);
-  //std::cout << "costheta: " << costheta.first << std::endl;
+        //mttbar
+        mttbar = (MCMC_b1 + MCMC_b2 + MCMC_lep1 + MCMC_lep2 + nus.nu1 + nubars.nu1).M();
+        //std::cout << "1 mttbar: " << mttbar << std::endl;
+        fHistMttbar->GetHistogram()->Fill(mttbar);
+        //costheta
+        help_ParticleVector->clear();
+        help_ParticleVector -> push_back(MCMC_lep);
+        help_ParticleVector -> push_back(MCMC_antilep);
+        help_ParticleVector -> push_back(nus.nu1);
+        help_ParticleVector -> push_back(nubars.nu1);
+        help_ParticleVector -> push_back(MCMC_b1);
+        help_ParticleVector -> push_back(MCMC_b2);
+        costheta = CalculateCosTheta( help_ParticleVector );
+        fHistCosTheta->GetHistogram()->Fill(costheta.first);
+        fHistCosTheta->GetHistogram()->Fill(costheta.second);
+        //std::cout << "costheta: " << costheta.first << std::endl;
       }
 
       if (nus.NSolutions == 1 && nubars.NSolutions == 2) { // 1 nu 2 nubar
-  if (nus.nu1.M() >= 0 && nubars.nu2.M() >= 0) {
-    //mttbar
-    mttbar = (MCMC_b1 + MCMC_b2 + MCMC_lep1 + MCMC_lep2 + nus.nu1 + nubars.nu2).M();
-    //std::cout << "2 mttbar: " << mttbar << std::endl;
-    fHistMttbar->GetHistogram()->Fill(mttbar);
-    //costheta
-    help_ParticleVector->clear();
-    help_ParticleVector -> push_back(MCMC_lep);
-    help_ParticleVector -> push_back(MCMC_antilep);
-    help_ParticleVector -> push_back(nus.nu1);
-    help_ParticleVector -> push_back(nubars.nu2);
-    help_ParticleVector -> push_back(MCMC_b1);
-    help_ParticleVector -> push_back(MCMC_b2);
-    costheta = CalculateCosTheta( help_ParticleVector );
-    fHistCosTheta->GetHistogram()->Fill(costheta.first);
-    fHistCosTheta->GetHistogram()->Fill(costheta.second);
-    //std::cout << "costheta: " << costheta.first << std::endl;
-  } 
+        if (nus.nu1.M() >= 0 && nubars.nu2.M() >= 0) {
+          //mttbar
+          mttbar = (MCMC_b1 + MCMC_b2 + MCMC_lep1 + MCMC_lep2 + nus.nu1 + nubars.nu2).M();
+          //std::cout << "2 mttbar: " << mttbar << std::endl;
+          fHistMttbar->GetHistogram()->Fill(mttbar);
+          //costheta
+          help_ParticleVector->clear();
+          help_ParticleVector -> push_back(MCMC_lep);
+          help_ParticleVector -> push_back(MCMC_antilep);
+          help_ParticleVector -> push_back(nus.nu1);
+          help_ParticleVector -> push_back(nubars.nu2);
+          help_ParticleVector -> push_back(MCMC_b1);
+          help_ParticleVector -> push_back(MCMC_b2);
+          costheta = CalculateCosTheta( help_ParticleVector );
+          fHistCosTheta->GetHistogram()->Fill(costheta.first);
+          fHistCosTheta->GetHistogram()->Fill(costheta.second);
+          //std::cout << "costheta: " << costheta.first << std::endl;
+        } 
       }// 1 nu 2 nubar
       else if (nus.NSolutions == 2 && nubars.NSolutions == 1) {  // 2 nu 1 nubar
-  if (nus.nu2.M() >= 0 && nubars.nu1.M() >= 0) {
-    //mttbar
-    mttbar = (MCMC_b1 + MCMC_b2 + MCMC_lep1 + MCMC_lep2 + nus.nu2 + nubars.nu1).M();
-    //std::cout << "3 mttbar: " << mttbar << std::endl;
-    fHistMttbar->GetHistogram()->Fill(mttbar);
-    //costheta
-    help_ParticleVector->clear();
-    help_ParticleVector -> push_back(MCMC_lep);
-    help_ParticleVector -> push_back(MCMC_antilep);
-    help_ParticleVector -> push_back(nus.nu2);
-    help_ParticleVector -> push_back(nubars.nu1);
-    help_ParticleVector -> push_back(MCMC_b1);
-    help_ParticleVector -> push_back(MCMC_b2);
-    costheta = CalculateCosTheta( help_ParticleVector );
-    fHistCosTheta->GetHistogram()->Fill(costheta.first);
-    fHistCosTheta->GetHistogram()->Fill(costheta.second);
-    //std::cout << "costheta: " << costheta.first << std::endl;
-  }
+        if (nus.nu2.M() >= 0 && nubars.nu1.M() >= 0) {
+          //mttbar
+          mttbar = (MCMC_b1 + MCMC_b2 + MCMC_lep1 + MCMC_lep2 + nus.nu2 + nubars.nu1).M();
+          //std::cout << "3 mttbar: " << mttbar << std::endl;
+          fHistMttbar->GetHistogram()->Fill(mttbar);
+          //costheta
+          help_ParticleVector->clear();
+          help_ParticleVector -> push_back(MCMC_lep);
+          help_ParticleVector -> push_back(MCMC_antilep);
+          help_ParticleVector -> push_back(nus.nu2);
+          help_ParticleVector -> push_back(nubars.nu1);
+          help_ParticleVector -> push_back(MCMC_b1);
+          help_ParticleVector -> push_back(MCMC_b2);
+          costheta = CalculateCosTheta( help_ParticleVector );
+          fHistCosTheta->GetHistogram()->Fill(costheta.first);
+          fHistCosTheta->GetHistogram()->Fill(costheta.second);
+          //std::cout << "costheta: " << costheta.first << std::endl;
+        }
       }// 2 nu 1 nubar
       else if (nus.NSolutions == 2 && nubars.NSolutions == 2) {  // 2 nu 2 nubar
   
-  if (nus.nu1.M() >= 0 && nubars.nu2.M() >= 0) {
-    //mttbar
-    mttbar = (MCMC_b1 + MCMC_b2 + MCMC_lep1 + MCMC_lep2 + nus.nu1 + nubars.nu2).M();
-    //std::cout << "4a mttbar: " << mttbar << std::endl;
-    fHistMttbar->GetHistogram()->Fill(mttbar);
-    //costheta
-    help_ParticleVector->clear();
-    help_ParticleVector -> push_back(MCMC_lep);
-    help_ParticleVector -> push_back(MCMC_antilep);
-    help_ParticleVector -> push_back(nus.nu1);
-    help_ParticleVector -> push_back(nubars.nu2);
-    help_ParticleVector -> push_back(MCMC_b1);
-    help_ParticleVector -> push_back(MCMC_b2);
-    costheta = CalculateCosTheta( help_ParticleVector );
-    fHistCosTheta->GetHistogram()->Fill(costheta.first);
-    fHistCosTheta->GetHistogram()->Fill(costheta.second);
-    //std::cout << "costheta: " << costheta.first << std::endl;
-  }
+        if (nus.nu1.M() >= 0 && nubars.nu2.M() >= 0) {
+          //mttbar
+          mttbar = (MCMC_b1 + MCMC_b2 + MCMC_lep1 + MCMC_lep2 + nus.nu1 + nubars.nu2).M();
+          //std::cout << "4a mttbar: " << mttbar << std::endl;
+          fHistMttbar->GetHistogram()->Fill(mttbar);
+          //costheta
+          help_ParticleVector->clear();
+          help_ParticleVector -> push_back(MCMC_lep);
+          help_ParticleVector -> push_back(MCMC_antilep);
+          help_ParticleVector -> push_back(nus.nu1);
+          help_ParticleVector -> push_back(nubars.nu2);
+          help_ParticleVector -> push_back(MCMC_b1);
+          help_ParticleVector -> push_back(MCMC_b2);
+          costheta = CalculateCosTheta( help_ParticleVector );
+          fHistCosTheta->GetHistogram()->Fill(costheta.first);
+          fHistCosTheta->GetHistogram()->Fill(costheta.second);
+          //std::cout << "costheta: " << costheta.first << std::endl;
+        }
 
-  if (nus.nu2.M() >= 0 && nubars.nu1.M() >= 0) {
-    //mttbar
-    mttbar = (MCMC_b1 + MCMC_b2 + MCMC_lep1 + MCMC_lep2 + nus.nu2 + nubars.nu1).M();
-    //  std::cout << "4b mttbar: " << mttbar << std::endl;
-    fHistMttbar->GetHistogram()->Fill(mttbar);
-    //costheta
-    help_ParticleVector->clear();
-    help_ParticleVector -> push_back(MCMC_lep);
-    help_ParticleVector -> push_back(MCMC_antilep);
-    help_ParticleVector -> push_back(nus.nu2);
-    help_ParticleVector -> push_back(nubars.nu1);
-    help_ParticleVector -> push_back(MCMC_b1);
-    help_ParticleVector -> push_back(MCMC_b2);
-    costheta = CalculateCosTheta( help_ParticleVector );
-    fHistCosTheta->GetHistogram()->Fill(costheta.first);
-    fHistCosTheta->GetHistogram()->Fill(costheta.second);
-    //std::cout << "costheta: " << costheta.first << std::endl;
-  }
+        if (nus.nu2.M() >= 0 && nubars.nu1.M() >= 0) {
+          //mttbar
+          mttbar = (MCMC_b1 + MCMC_b2 + MCMC_lep1 + MCMC_lep2 + nus.nu2 + nubars.nu1).M();
+          //  std::cout << "4b mttbar: " << mttbar << std::endl;
+          fHistMttbar->GetHistogram()->Fill(mttbar);
+          //costheta
+          help_ParticleVector->clear();
+          help_ParticleVector -> push_back(MCMC_lep);
+          help_ParticleVector -> push_back(MCMC_antilep);
+          help_ParticleVector -> push_back(nus.nu2);
+          help_ParticleVector -> push_back(nubars.nu1);
+          help_ParticleVector -> push_back(MCMC_b1);
+          help_ParticleVector -> push_back(MCMC_b2);
+          costheta = CalculateCosTheta( help_ParticleVector );
+          fHistCosTheta->GetHistogram()->Fill(costheta.first);
+          fHistCosTheta->GetHistogram()->Fill(costheta.second);
+          //std::cout << "costheta: " << costheta.first << std::endl;
+        }
 
-  if (nus.nu2.M() >= 0 && nubars.nu2.M() >= 0) {
-    //mttbar
-    mttbar = (MCMC_b1 + MCMC_b2 + MCMC_lep1 + MCMC_lep2 + nus.nu2 + nubars.nu2).M();
-    //std::cout << "4c mttbar: " << mttbar << std::endl;
-    fHistMttbar->GetHistogram()->Fill(mttbar);
-    //costheta
-    help_ParticleVector->clear();
-    help_ParticleVector -> push_back(MCMC_lep);
-    help_ParticleVector -> push_back(MCMC_antilep);
-    help_ParticleVector -> push_back(nus.nu2);
-    help_ParticleVector -> push_back(nubars.nu2);
-    help_ParticleVector -> push_back(MCMC_b1);
-    help_ParticleVector -> push_back(MCMC_b2);
-    costheta = CalculateCosTheta( help_ParticleVector );
-    fHistCosTheta->GetHistogram()->Fill(costheta.first);
-    fHistCosTheta->GetHistogram()->Fill(costheta.second);
-    //std::cout << "costheta: " << costheta.first << std::endl;
-  }
+        if (nus.nu2.M() >= 0 && nubars.nu2.M() >= 0) {
+          //mttbar
+          mttbar = (MCMC_b1 + MCMC_b2 + MCMC_lep1 + MCMC_lep2 + nus.nu2 + nubars.nu2).M();
+          //std::cout << "4c mttbar: " << mttbar << std::endl;
+          fHistMttbar->GetHistogram()->Fill(mttbar);
+          //costheta
+          help_ParticleVector->clear();
+          help_ParticleVector -> push_back(MCMC_lep);
+          help_ParticleVector -> push_back(MCMC_antilep);
+          help_ParticleVector -> push_back(nus.nu2);
+          help_ParticleVector -> push_back(nubars.nu2);
+          help_ParticleVector -> push_back(MCMC_b1);
+          help_ParticleVector -> push_back(MCMC_b2);
+          costheta = CalculateCosTheta( help_ParticleVector );
+          fHistCosTheta->GetHistogram()->Fill(costheta.first);
+          fHistCosTheta->GetHistogram()->Fill(costheta.second);
+          //std::cout << "costheta: " << costheta.first << std::endl;
+        }
       }// 2 nu 2 nubar
     }//Nsol
 
@@ -1447,10 +1447,10 @@ std::pair<float, float> KLFitter::LikelihoodTopDilepton::CalculateCosTheta(std::
   b3.SetXYZ(b.Px(), b.Py(), b.Pz());
   bbar3.SetXYZ(bbar.Px(), bbar.Py(), bbar.Pz());
 
- //  std::cout << "lep.Px(): " << lep.Px() << " lep.Py(): "<< lep.Py() << std::endl;
-//   std::cout << "antilep.Px(): " << antilep.Px() << " antilep.Py(): "<< antilep.Py() << std::endl;
-//   std::cout << "b.Px(): " << b.Px() << " b.Py(): "<< b.Py() << std::endl;
-//   std::cout << "bbar.Px(): " << bbar.Px() << " bbar.Py(): "<< bbar.Py() << std::endl;
+  //  std::cout << "lep.Px(): " << lep.Px() << " lep.Py(): "<< lep.Py() << std::endl;
+  //   std::cout << "antilep.Px(): " << antilep.Px() << " antilep.Py(): "<< antilep.Py() << std::endl;
+  //   std::cout << "b.Px(): " << b.Px() << " b.Py(): "<< b.Py() << std::endl;
+  //   std::cout << "bbar.Px(): " << bbar.Px() << " bbar.Py(): "<< bbar.Py() << std::endl;
 
 
   float cos_theta_top          = cos(antilep3.Angle(-b3));

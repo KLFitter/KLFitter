@@ -53,10 +53,10 @@ KLFitter::ResolutionBase::~ResolutionBase() {
 int KLFitter::ResolutionBase::Par(int index, double &par) {
   // check parameter range
   if (index < 0 || index >= fNParameters) {
-      std::cout << "KLFitter:ResolutionBase::Par(). Index out of range." << std::endl;
-      // error
-      return 0;
-    }
+    std::cout << "KLFitter:ResolutionBase::Par(). Index out of range." << std::endl;
+    // error
+    return 0;
+  }
 
   par = fParameters[index];
 
@@ -68,10 +68,10 @@ int KLFitter::ResolutionBase::Par(int index, double &par) {
 int KLFitter::ResolutionBase::SetPar(int index, double value) {
   // check parameter range
   if (index < 0 || index >= fNParameters) {
-      std::cout << "KLFitter:ResolutionBase::SetPar(). Index out of range." << std::endl;
-      // error
-      return 1;
-    }
+    std::cout << "KLFitter:ResolutionBase::SetPar(). Index out of range." << std::endl;
+    // error
+    return 1;
+  }
 
   fParameters[index] = value;
 
@@ -85,11 +85,11 @@ int KLFitter::ResolutionBase::SetPar(std::vector <double> parameters) {
   int npar = parameters.size();
 
   if (npar != fNParameters) {
-      std::cout << "KLFitter:ResolutionBase::SetPar(). Number of parameters is inconsistent." << std::endl;
+    std::cout << "KLFitter:ResolutionBase::SetPar(). Number of parameters is inconsistent." << std::endl;
 
-      // return error code
-      return 1;
-    }
+    // return error code
+    return 1;
+  }
 
   // set parameters
   for (int i = 0; i < fNParameters; ++i)
@@ -109,19 +109,19 @@ int KLFitter::ResolutionBase::ReadParameters(const char * filename, int nparamet
 
   // check if file is open
   if (!inputfile.is_open()) {
-      std::cout << "KLFitter::ResolutionBase::ReadParameters(). File \"" << filename << "\" not found." << std::endl;
-      return 0;
-    }
+    std::cout << "KLFitter::ResolutionBase::ReadParameters(). File \"" << filename << "\" not found." << std::endl;
+    return 0;
+  }
 
   // reset parameters
   fParameters.clear();
 
   // read parameters
   for (int i = 0; i < nparameters; ++i) {
-      double par = 0.0;
-      inputfile >> par;
-      fParameters.push_back(par);
-    }
+    double par = 0.0;
+    inputfile >> par;
+    fParameters.push_back(par);
+  }
 
   // close file
   inputfile.close();

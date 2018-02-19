@@ -187,7 +187,7 @@ namespace KLFitter
      * 11: BW_Thad
      * 12: BW_Tlep
      * 13: BW_Z
-    */
+     */
     virtual std::vector<double> LogLikelihoodComponents(std::vector <double> parameters);
 
     /**
@@ -282,7 +282,7 @@ namespace KLFitter
      */
     int RemoveInvariantParticlePermutations();
 
-     /**
+    /**
      * Remove forbidden particle permutations.
      * @return An error code.
      */

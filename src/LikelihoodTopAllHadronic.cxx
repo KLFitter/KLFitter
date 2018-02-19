@@ -33,10 +33,10 @@
 
 // ---------------------------------------------------------
 KLFitter::LikelihoodTopAllHadronic::LikelihoodTopAllHadronic() : KLFitter::LikelihoodBase::LikelihoodBase()
-                                                             , fFlagTopMassFixed(false)
-                                                             , fFlagUseJetMass(false)
-                                                             , fFlagGetParSigmasFromTFs(false)
-                                                             , fTFgood(true) {
+  , fFlagTopMassFixed(false)
+  , fFlagUseJetMass(false)
+  , fFlagGetParSigmasFromTFs(false)
+  , fTFgood(true) {
   // define model particles
   DefineModelParticles();
 
@@ -551,7 +551,7 @@ int KLFitter::LikelihoodTopAllHadronic::SaveResolutionFunctions() {
 // ---------------------------------------------------------
 
 int KLFitter::LikelihoodTopAllHadronic::BuildModelParticles() {
-if (GetBestFitParameters().size() > 0) CalculateLorentzVectors(GetBestFitParameters());
+  if (GetBestFitParameters().size() > 0) CalculateLorentzVectors(GetBestFitParameters());
 
   TLorentzVector * bhad1 = fParticlesModel->Parton(0);
   TLorentzVector * bhad2 = fParticlesModel->Parton(1);
@@ -583,7 +583,7 @@ if (GetBestFitParameters().size() > 0) CalculateLorentzVectors(GetBestFitParamet
 
 // ---------------------------------------------------------
 std::vector<double> KLFitter::LikelihoodTopAllHadronic::LogLikelihoodComponents(std::vector<double> parameters) {
-std::vector<double> vecci;
+  std::vector<double> vecci;
 
   // calculate 4-vectors
   CalculateLorentzVectors(parameters);

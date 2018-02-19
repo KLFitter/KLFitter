@@ -227,7 +227,7 @@ namespace KLFitter
      */
     int RemoveInvariantParticlePermutations();
 
-     /**
+    /**
      * Remove forbidden particle permutations.
      * @return An error code.
      */

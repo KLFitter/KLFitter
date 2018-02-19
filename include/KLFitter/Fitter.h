@@ -71,34 +71,34 @@ namespace KLFitter
      * @return A pointer to the detector.
      */
     KLFitter::DetectorBase * Detector()
-      { return fDetector; };
+    { return fDetector; };
 
     /**
      * Return the measured particles.
      * @return A pointer to the particles.
      */
     KLFitter::Particles * Particles()
-      { return fParticles; };
+    { return fParticles; };
     KLFitter::Particles ** PParticles()
-      { return &fParticles; };
+    { return &fParticles; };
 
     /**
      * Return the permutation object.
      * @return A pointer to the permutation object.
      **/
     KLFitter::Permutations * Permutations()
-      { return fPermutations; };
+    { return fPermutations; };
     KLFitter::Permutations ** PPermutations()
-      { return &fPermutations; };
+    { return &fPermutations; };
 
     /**
      * Return the lieklihood .
      * @return A pointer to the likelihood object.
      **/
     KLFitter::LikelihoodBase * Likelihood()
-      { return fLikelihood; };
+    { return fLikelihood; };
     KLFitter::LikelihoodBase ** PLikelihood()
-      { return &fLikelihood; };
+    { return &fLikelihood; };
 
     /**
      * Return the Minuit status
@@ -221,7 +221,7 @@ namespace KLFitter
      * @param nperms The number of permutations
      * @return An error code.
      */
-   int SetFitStatusToCache(int iperm, int nperms);
+    int SetFitStatusToCache(int iperm, int nperms);
 
     /**
      * Write parameters from fCachedMinuitStatusVector.at(iperm)
@@ -230,7 +230,7 @@ namespace KLFitter
      * @param iperm Current permutation
      * @return An error code.
      */
-   int GetFitStatusFromCache(int iperm);
+    int GetFitStatusFromCache(int iperm);
 
     /* @} */
 
@@ -307,7 +307,7 @@ namespace KLFitter
      * Resets the values of all parameter cache vectors
      * @return An error code.
      */
-     int ResetCache();
+    int ResetCache();
 
   };
 

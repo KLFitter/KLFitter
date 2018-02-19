@@ -226,7 +226,7 @@ namespace KLFitter
 
     /**
      * The eta binning for jets
-    */
+     */
     double fJetEtaBin_1;
     double fJetEtaBin_2;
     double fJetEtaBin_3;
@@ -235,7 +235,7 @@ namespace KLFitter
 
     /**
      * The eta binning for electrons
-    */
+     */
     double fElectronEtaBin_1;
     double fElectronEtaBin_2;
     double fElectronEtaBin_3;
@@ -243,14 +243,14 @@ namespace KLFitter
 
     /**
      * The eta binning for muons
-    */
+     */
     double fMuonEtaBin_1;
     double fMuonEtaBin_2;
     double fMuonEtaBin_3;
 
     /**
      * The eta binning for muons
-    */
+     */
     double fPhotonEtaBin_1;
     double fPhotonEtaBin_2;
     double fPhotonEtaBin_3;

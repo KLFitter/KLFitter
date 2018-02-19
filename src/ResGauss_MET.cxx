@@ -31,9 +31,9 @@ KLFitter::ResGauss_MET::ResGauss_MET(const char * filename) : KLFitter::Resoluti
 KLFitter::ResGauss_MET::ResGauss_MET(std::vector<double> const& parameters) :KLFitter::ResolutionBase(parameters) {
   // check number of parameters
   if (parameters.size() != 4) {
-      std::cout << "KLFitter::ResGauss_MET::ResGauss_MET(). Number of parameters != 4." << std::endl;
-      return;
-    }
+    std::cout << "KLFitter::ResGauss_MET::ResGauss_MET(). Number of parameters != 4." << std::endl;
+    return;
+  }
 }
 
 // ---------------------------------------------------------

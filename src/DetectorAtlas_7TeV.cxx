@@ -37,74 +37,74 @@
 KLFitter::DetectorAtlas_7TeV::DetectorAtlas_7TeV(std::string folder) : DetectorBase() {
   //check: powheg sample with 7TeV? Must use 8!
   if (strstr(folder.c_str(), "mc11c_powheg")) {
-std::cout<<"ERROR! Don't use PowHeg TFs with the 7TeV Detector class!!! Exiting..."<<std::endl;
-  exit(1);
+    std::cout<<"ERROR! Don't use PowHeg TFs with the 7TeV Detector class!!! Exiting..."<<std::endl;
+    exit(1);
   }
   //check: MC11b? New parametrization!
   if ((strstr(folder.c_str(), "mc11b"))||(strstr(folder.c_str(), "mc11c"))) {
-std::cout<<"Using TF from MC11b or later..."<<std::endl;
-  // energy resolution
-  fResEnergyLightJet_eta1 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_lJets_eta1.txt", folder.c_str()));
-  fResEnergyBJet_eta1     = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_bJets_eta1.txt", folder.c_str()));
-  fResEnergyGluonJet_eta1 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_gluon_eta1.txt", folder.c_str()));
-  fResEnergyElectron_eta1 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_Electrons_eta1.txt", folder.c_str()));
-  fResEnergyMuon_eta1     = new KLFitter::ResDoubleGaussPt(Form("%s/par_energy_Muons_eta1.txt", folder.c_str()));
-  fResEnergyPhoton_eta1   = new KLFitter::ResGauss(Form("%s/par_energy_photon_eta1.txt", folder.c_str()));
+    std::cout<<"Using TF from MC11b or later..."<<std::endl;
+    // energy resolution
+    fResEnergyLightJet_eta1 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_lJets_eta1.txt", folder.c_str()));
+    fResEnergyBJet_eta1     = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_bJets_eta1.txt", folder.c_str()));
+    fResEnergyGluonJet_eta1 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_gluon_eta1.txt", folder.c_str()));
+    fResEnergyElectron_eta1 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_Electrons_eta1.txt", folder.c_str()));
+    fResEnergyMuon_eta1     = new KLFitter::ResDoubleGaussPt(Form("%s/par_energy_Muons_eta1.txt", folder.c_str()));
+    fResEnergyPhoton_eta1   = new KLFitter::ResGauss(Form("%s/par_energy_photon_eta1.txt", folder.c_str()));
 
-  fResEnergyLightJet_eta2 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_lJets_eta2.txt", folder.c_str()));
-  fResEnergyBJet_eta2     = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_bJets_eta2.txt", folder.c_str()));
-  fResEnergyGluonJet_eta2 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_gluon_eta2.txt", folder.c_str()));
-  fResEnergyElectron_eta2 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_Electrons_eta2.txt", folder.c_str()));
-  fResEnergyMuon_eta2     = new KLFitter::ResDoubleGaussPt(Form("%s/par_energy_Muons_eta2.txt", folder.c_str()));
-  fResEnergyPhoton_eta2   = new KLFitter::ResGauss(Form("%s/par_energy_photon_eta2.txt", folder.c_str()));
+    fResEnergyLightJet_eta2 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_lJets_eta2.txt", folder.c_str()));
+    fResEnergyBJet_eta2     = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_bJets_eta2.txt", folder.c_str()));
+    fResEnergyGluonJet_eta2 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_gluon_eta2.txt", folder.c_str()));
+    fResEnergyElectron_eta2 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_Electrons_eta2.txt", folder.c_str()));
+    fResEnergyMuon_eta2     = new KLFitter::ResDoubleGaussPt(Form("%s/par_energy_Muons_eta2.txt", folder.c_str()));
+    fResEnergyPhoton_eta2   = new KLFitter::ResGauss(Form("%s/par_energy_photon_eta2.txt", folder.c_str()));
 
-  fResEnergyLightJet_eta3 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_lJets_eta3.txt", folder.c_str()));
-  fResEnergyBJet_eta3     = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_bJets_eta3.txt", folder.c_str()));
-  fResEnergyGluonJet_eta3 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_gluon_eta3.txt", folder.c_str()));
-  fResEnergyElectron_eta3 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_Electrons_eta3.txt", folder.c_str()));
-  fResEnergyMuon_eta3     = new KLFitter::ResDoubleGaussPt(Form("%s/par_energy_Muons_eta3.txt", folder.c_str()));
-  fResEnergyPhoton_eta3   = new KLFitter::ResGauss(Form("%s/par_energy_photon_eta3.txt", folder.c_str()));
+    fResEnergyLightJet_eta3 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_lJets_eta3.txt", folder.c_str()));
+    fResEnergyBJet_eta3     = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_bJets_eta3.txt", folder.c_str()));
+    fResEnergyGluonJet_eta3 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_gluon_eta3.txt", folder.c_str()));
+    fResEnergyElectron_eta3 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_Electrons_eta3.txt", folder.c_str()));
+    fResEnergyMuon_eta3     = new KLFitter::ResDoubleGaussPt(Form("%s/par_energy_Muons_eta3.txt", folder.c_str()));
+    fResEnergyPhoton_eta3   = new KLFitter::ResGauss(Form("%s/par_energy_photon_eta3.txt", folder.c_str()));
 
-  fResEnergyLightJet_eta4 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_lJets_eta4.txt", folder.c_str()));
-  fResEnergyBJet_eta4     = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_bJets_eta4.txt", folder.c_str()));
-  fResEnergyGluonJet_eta4 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_gluon_eta4.txt", folder.c_str()));
-  fResEnergyElectron_eta4 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_Electrons_eta4.txt", folder.c_str()));
-  fResEnergyPhoton_eta4   = new KLFitter::ResGauss(Form("%s/par_energy_photon_eta4.txt", folder.c_str()));
+    fResEnergyLightJet_eta4 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_lJets_eta4.txt", folder.c_str()));
+    fResEnergyBJet_eta4     = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_bJets_eta4.txt", folder.c_str()));
+    fResEnergyGluonJet_eta4 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_gluon_eta4.txt", folder.c_str()));
+    fResEnergyElectron_eta4 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_Electrons_eta4.txt", folder.c_str()));
+    fResEnergyPhoton_eta4   = new KLFitter::ResGauss(Form("%s/par_energy_photon_eta4.txt", folder.c_str()));
 
-  fResEnergyLightJet_eta5 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_lJets_eta5.txt", folder.c_str()));
-  fResEnergyBJet_eta5     = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_bJets_eta5.txt", folder.c_str()));
+    fResEnergyLightJet_eta5 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_lJets_eta5.txt", folder.c_str()));
+    fResEnergyBJet_eta5     = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_bJets_eta5.txt", folder.c_str()));
   } else  {
-std::cout<<"Using TF from MC11a or earlier..."<<std::endl;
-  // energy resolution
-  fResEnergyLightJet_eta1 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_lJets_eta1.txt", folder.c_str()));
-  fResEnergyBJet_eta1     = new KLFitter::ResDoubleGaussE_2(Form("%s/par_energy_bJets_eta1.txt", folder.c_str()));
-  fResEnergyGluonJet_eta1 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_gluon_eta1.txt", folder.c_str()));
-  fResEnergyElectron_eta1 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_Electrons_eta1.txt", folder.c_str()));
-  fResEnergyMuon_eta1     = new KLFitter::ResDoubleGaussPt(Form("%s/par_energy_Muons_eta1.txt", folder.c_str()));
-  fResEnergyPhoton_eta1   = new KLFitter::ResGauss(Form("%s/par_energy_photon_eta1.txt", folder.c_str()));
+    std::cout<<"Using TF from MC11a or earlier..."<<std::endl;
+    // energy resolution
+    fResEnergyLightJet_eta1 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_lJets_eta1.txt", folder.c_str()));
+    fResEnergyBJet_eta1     = new KLFitter::ResDoubleGaussE_2(Form("%s/par_energy_bJets_eta1.txt", folder.c_str()));
+    fResEnergyGluonJet_eta1 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_gluon_eta1.txt", folder.c_str()));
+    fResEnergyElectron_eta1 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_Electrons_eta1.txt", folder.c_str()));
+    fResEnergyMuon_eta1     = new KLFitter::ResDoubleGaussPt(Form("%s/par_energy_Muons_eta1.txt", folder.c_str()));
+    fResEnergyPhoton_eta1   = new KLFitter::ResGauss(Form("%s/par_energy_photon_eta1.txt", folder.c_str()));
 
-  fResEnergyLightJet_eta2 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_lJets_eta2.txt", folder.c_str()));
-  fResEnergyBJet_eta2     = new KLFitter::ResDoubleGaussE_2(Form("%s/par_energy_bJets_eta2.txt", folder.c_str()));
-  fResEnergyGluonJet_eta2 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_gluon_eta2.txt", folder.c_str()));
-  fResEnergyElectron_eta2 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_Electrons_eta2.txt", folder.c_str()));
-  fResEnergyMuon_eta2     = new KLFitter::ResDoubleGaussPt(Form("%s/par_energy_Muons_eta2.txt", folder.c_str()));
-  fResEnergyPhoton_eta2   = new KLFitter::ResGauss(Form("%s/par_energy_photon_eta2.txt", folder.c_str()));
+    fResEnergyLightJet_eta2 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_lJets_eta2.txt", folder.c_str()));
+    fResEnergyBJet_eta2     = new KLFitter::ResDoubleGaussE_2(Form("%s/par_energy_bJets_eta2.txt", folder.c_str()));
+    fResEnergyGluonJet_eta2 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_gluon_eta2.txt", folder.c_str()));
+    fResEnergyElectron_eta2 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_Electrons_eta2.txt", folder.c_str()));
+    fResEnergyMuon_eta2     = new KLFitter::ResDoubleGaussPt(Form("%s/par_energy_Muons_eta2.txt", folder.c_str()));
+    fResEnergyPhoton_eta2   = new KLFitter::ResGauss(Form("%s/par_energy_photon_eta2.txt", folder.c_str()));
 
-  fResEnergyLightJet_eta3 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_lJets_eta3.txt", folder.c_str()));
-  fResEnergyBJet_eta3     = new KLFitter::ResDoubleGaussE_2(Form("%s/par_energy_bJets_eta3.txt", folder.c_str()));
-  fResEnergyGluonJet_eta3 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_gluon_eta3.txt", folder.c_str()));
-  fResEnergyElectron_eta3 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_Electrons_eta3.txt", folder.c_str()));
-  fResEnergyMuon_eta3     = new KLFitter::ResDoubleGaussPt(Form("%s/par_energy_Muons_eta3.txt", folder.c_str()));
-  fResEnergyPhoton_eta3   = new KLFitter::ResGauss(Form("%s/par_energy_photon_eta3.txt", folder.c_str()));
+    fResEnergyLightJet_eta3 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_lJets_eta3.txt", folder.c_str()));
+    fResEnergyBJet_eta3     = new KLFitter::ResDoubleGaussE_2(Form("%s/par_energy_bJets_eta3.txt", folder.c_str()));
+    fResEnergyGluonJet_eta3 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_gluon_eta3.txt", folder.c_str()));
+    fResEnergyElectron_eta3 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_Electrons_eta3.txt", folder.c_str()));
+    fResEnergyMuon_eta3     = new KLFitter::ResDoubleGaussPt(Form("%s/par_energy_Muons_eta3.txt", folder.c_str()));
+    fResEnergyPhoton_eta3   = new KLFitter::ResGauss(Form("%s/par_energy_photon_eta3.txt", folder.c_str()));
 
-  fResEnergyLightJet_eta4 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_lJets_eta4.txt", folder.c_str()));
-  fResEnergyBJet_eta4     = new KLFitter::ResDoubleGaussE_2(Form("%s/par_energy_bJets_eta4.txt", folder.c_str()));
-  fResEnergyGluonJet_eta4 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_gluon_eta4.txt", folder.c_str()));
-  fResEnergyElectron_eta4 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_Electrons_eta4.txt", folder.c_str()));
-  fResEnergyPhoton_eta4   = new KLFitter::ResGauss(Form("%s/par_energy_photon_eta4.txt", folder.c_str()));
+    fResEnergyLightJet_eta4 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_lJets_eta4.txt", folder.c_str()));
+    fResEnergyBJet_eta4     = new KLFitter::ResDoubleGaussE_2(Form("%s/par_energy_bJets_eta4.txt", folder.c_str()));
+    fResEnergyGluonJet_eta4 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_gluon_eta4.txt", folder.c_str()));
+    fResEnergyElectron_eta4 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_Electrons_eta4.txt", folder.c_str()));
+    fResEnergyPhoton_eta4   = new KLFitter::ResGauss(Form("%s/par_energy_photon_eta4.txt", folder.c_str()));
 
-  fResEnergyLightJet_eta5 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_lJets_eta5.txt", folder.c_str()));
-  fResEnergyBJet_eta5     = new KLFitter::ResDoubleGaussE_2(Form("%s/par_energy_bJets_eta5.txt", folder.c_str()));
+    fResEnergyLightJet_eta5 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_lJets_eta5.txt", folder.c_str()));
+    fResEnergyBJet_eta5     = new KLFitter::ResDoubleGaussE_2(Form("%s/par_energy_bJets_eta5.txt", folder.c_str()));
   }
 
   // eta resolution
@@ -209,7 +209,7 @@ KLFitter::DetectorAtlas_7TeV::~DetectorAtlas_7TeV() {
   if (fResEnergyGluonJet_eta3)
     delete fResEnergyGluonJet_eta3;
 
- if (fResEnergyGluonJet_eta4)
+  if (fResEnergyGluonJet_eta4)
     delete fResEnergyGluonJet_eta4;
 
   if (fResEnergyElectron_eta1)
@@ -310,9 +310,9 @@ KLFitter::ResolutionBase * KLFitter::DetectorAtlas_7TeV::ResEnergyLightJet(doubl
   else if (fabs(eta) <= fJetEtaBin_5)
     fResEnergyLightJet = fResEnergyLightJet_eta5;
   else {
-      std::cout << "KLFitter::DetectorAtlas_7TeV::ResEnergyLightJet(). Eta range exceeded." << std::endl;
-      return 0;
-    }
+    std::cout << "KLFitter::DetectorAtlas_7TeV::ResEnergyLightJet(). Eta range exceeded." << std::endl;
+    return 0;
+  }
 
   return fResEnergyLightJet;
 }
@@ -330,9 +330,9 @@ KLFitter::ResolutionBase * KLFitter::DetectorAtlas_7TeV::ResEnergyBJet(double et
   else if (fabs(eta) <= fJetEtaBin_5)
     fResEnergyBJet = fResEnergyBJet_eta5;
   else {
-      std::cout << "KLFitter::DetectorAtlas_7TeV::ResEnergyBJet(). Eta range exceeded." << std::endl;
-      return 0;
-    }
+    std::cout << "KLFitter::DetectorAtlas_7TeV::ResEnergyBJet(). Eta range exceeded." << std::endl;
+    return 0;
+  }
 
   return fResEnergyBJet;
 }
@@ -348,9 +348,9 @@ KLFitter::ResolutionBase * KLFitter::DetectorAtlas_7TeV::ResEnergyGluonJet(doubl
   else if (fabs(eta) <= fJetEtaBin_4)
     fResEnergyGluonJet = fResEnergyGluonJet_eta4;
   else {
-      std::cout << "KLFitter::DetectorAtlas_7TeV::ResEnergyGluonJet(). Eta range exceeded." << std::endl;
-      return 0;
-    }
+    std::cout << "KLFitter::DetectorAtlas_7TeV::ResEnergyGluonJet(). Eta range exceeded." << std::endl;
+    return 0;
+  }
 
   return fResEnergyGluonJet;
 }
@@ -368,9 +368,9 @@ KLFitter::ResolutionBase * KLFitter::DetectorAtlas_7TeV::ResEnergyElectron(doubl
   else if (fabs(eta) <= fElectronEtaBin_4)
     fResEnergyElectron = fResEnergyElectron_eta4;
   else {
-      std::cout << "KLFitter::DetectorAtlas_7TeV::ResEnergyElectron(). Eta range exceeded." << std::endl;
-      return 0;
-    }
+    std::cout << "KLFitter::DetectorAtlas_7TeV::ResEnergyElectron(). Eta range exceeded." << std::endl;
+    return 0;
+  }
 
   return fResEnergyElectron;
 }
@@ -384,9 +384,9 @@ KLFitter::ResolutionBase * KLFitter::DetectorAtlas_7TeV::ResEnergyMuon(double et
   else if (fabs(eta) < fMuonEtaBin_3)
     fResEnergyMuon = fResEnergyMuon_eta3;
   else {
-      std::cout << "KLFitter::DetectorAtlas_7TeV::ResEnergyMuon(). Eta range exceeded." << std::endl;
-      return 0;
-    }
+    std::cout << "KLFitter::DetectorAtlas_7TeV::ResEnergyMuon(). Eta range exceeded." << std::endl;
+    return 0;
+  }
 
   return fResEnergyMuon;
 }
@@ -402,9 +402,9 @@ KLFitter::ResolutionBase * KLFitter::DetectorAtlas_7TeV::ResEnergyPhoton(double 
   else if (fabs(eta) <= fPhotonEtaBin_4)
     fResEnergyPhoton = fResEnergyPhoton_eta4;
   else {
-      std::cout << "KLFitter::DetectorAtlas_7TeV::ResEnergyPhoton(). Eta range exceeded." << std::endl;
-      return 0;
-    }
+    std::cout << "KLFitter::DetectorAtlas_7TeV::ResEnergyPhoton(). Eta range exceeded." << std::endl;
+    return 0;
+  }
 
   return fResEnergyPhoton;
 }
@@ -420,9 +420,9 @@ KLFitter::ResolutionBase * KLFitter::DetectorAtlas_7TeV::ResEtaLightJet(double e
   else if (fabs(eta) <= fJetEtaBin_4)
     fResEtaLightJet = fResEtaLightJet_eta4;
   else {
-      std::cout << "KLFitter::DetectorAtlas_7TeV::ResEtaLightJet(). Eta range exceeded." << std::endl;
-      return 0;
-    }
+    std::cout << "KLFitter::DetectorAtlas_7TeV::ResEtaLightJet(). Eta range exceeded." << std::endl;
+    return 0;
+  }
 
   return fResEtaLightJet;
 }
@@ -438,9 +438,9 @@ KLFitter::ResolutionBase * KLFitter::DetectorAtlas_7TeV::ResEtaBJet(double eta) 
   else if (fabs(eta) <= fJetEtaBin_4)
     fResEtaBJet = fResEtaBJet_eta4;
   else {
-      std::cout << "KLFitter::DetectorAtlas_7TeV::ResEtaBJet(). Eta range exceeded." << std::endl;
-      return 0;
-    }
+    std::cout << "KLFitter::DetectorAtlas_7TeV::ResEtaBJet(). Eta range exceeded." << std::endl;
+    return 0;
+  }
 
   return fResEtaBJet;
 }
@@ -456,9 +456,9 @@ KLFitter::ResolutionBase * KLFitter::DetectorAtlas_7TeV::ResPhiLightJet(double e
   else if (fabs(eta) <= fJetEtaBin_4)
     fResPhiLightJet = fResPhiLightJet_eta4;
   else {
-      std::cout << "KLFitter::DetectorAtlas_7TeV::ResPhiLightJet(). Eta range exceeded." << std::endl;
-      return 0;
-    }
+    std::cout << "KLFitter::DetectorAtlas_7TeV::ResPhiLightJet(). Eta range exceeded." << std::endl;
+    return 0;
+  }
 
   return fResPhiLightJet;
 }
@@ -474,9 +474,9 @@ KLFitter::ResolutionBase * KLFitter::DetectorAtlas_7TeV::ResPhiBJet(double eta) 
   else if (fabs(eta) <= fJetEtaBin_4)
     fResPhiLightJet = fResPhiLightJet_eta4;
   else {
-      std::cout << "KLFitter::DetectorAtlas_7TeV::ResPhiBJet(). Eta range exceeded." << std::endl;
-      return 0;
-    }
+    std::cout << "KLFitter::DetectorAtlas_7TeV::ResPhiBJet(). Eta range exceeded." << std::endl;
+    return 0;
+  }
 
   return fResPhiBJet;
 }

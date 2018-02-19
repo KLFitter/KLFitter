@@ -46,7 +46,7 @@ namespace KLFitter
     TLorentzVector nu1, nu2;
     int NSolutions;
     NuSolutions():NSolutions(0) {};
-      ~NuSolutions() {};
+    ~NuSolutions() {};
   };
 
   /**
@@ -297,7 +297,7 @@ namespace KLFitter
      */
     int RemoveInvariantParticlePermutations();
 
-     /**
+    /**
      * Remove forbidden particle permutations.
      * @return An error code.
      */

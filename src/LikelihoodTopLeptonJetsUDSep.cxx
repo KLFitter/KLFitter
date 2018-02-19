@@ -38,7 +38,7 @@ KLFitter::LikelihoodTopLeptonJetsUDSep::LikelihoodTopLeptonJetsUDSep() : KLFitte
 
   // define parameters
   this->DefineParameters();
-}
+  }
 
 // ---------------------------------------------------------
 KLFitter::LikelihoodTopLeptonJetsUDSep::~LikelihoodTopLeptonJetsUDSep() {
@@ -143,19 +143,19 @@ int KLFitter::LikelihoodTopLeptonJetsUDSep::RemoveInvariantParticlePermutations(
 
   // remove the permutation from the other lepton
   if (fTypeLepton == kElectron) {
-      ptype = KLFitter::Particles::kMuon;
-      std::vector<int> indexVector_Muons;
-      for (int iMuon = 0; iMuon < particles->NMuons(); iMuon++)
-        indexVector_Muons.push_back(iMuon);
-      err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Muons);
-    }
+    ptype = KLFitter::Particles::kMuon;
+    std::vector<int> indexVector_Muons;
+    for (int iMuon = 0; iMuon < particles->NMuons(); iMuon++)
+      indexVector_Muons.push_back(iMuon);
+    err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Muons);
+  }
   else if (fTypeLepton == kMuon) {
-      ptype = KLFitter::Particles::kElectron;
-      std::vector<int> indexVector_Electrons;
-      for (int iElectron = 0; iElectron < particles->NElectrons(); iElectron++)
-        indexVector_Electrons.push_back(iElectron);
-      err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Electrons);
-    }
+    ptype = KLFitter::Particles::kElectron;
+    std::vector<int> indexVector_Electrons;
+    for (int iElectron = 0; iElectron < particles->NElectrons(); iElectron++)
+      indexVector_Electrons.push_back(iElectron);
+    err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Electrons);
+  }
 
   // return error code
   return err;
@@ -185,16 +185,16 @@ double KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbability() {
 
 // ---------------------------------------------------------
 double KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityLJetReweight() {
-//    std::cout <<  " KDEBUG! Extraweight " << std::endl;
+  //    std::cout <<  " KDEBUG! Extraweight " << std::endl;
   double logprob = 0;
-switch (fLJetSeparationMethod) {
+  switch (fLJetSeparationMethod) {
 
-case kPermReweight:
+  case kPermReweight:
 
-  if (!(fUpJetPtHisto && fDownJetPtHisto&& fBJetPtHisto && fUpJetTagWeightHisto && fDownJetTagWeightHisto && fBJetTagWeightHisto)) {
-    std::cout <<  " KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityLJetReweight() : Histograms were not set properly! " << std::endl;
-    return -1e99;
-  }
+    if (!(fUpJetPtHisto && fDownJetPtHisto&& fBJetPtHisto && fUpJetTagWeightHisto && fDownJetTagWeightHisto && fBJetTagWeightHisto)) {
+      std::cout <<  " KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityLJetReweight() : Histograms were not set properly! " << std::endl;
+      return -1e99;
+    }
 
 
     for (int i = 0; i < fParticlesModel->NPartons(); ++i) {
@@ -202,133 +202,133 @@ case kPermReweight:
 
       int index = fParticlesModel->JetIndex(i);
 
-  if (index<0) {
-    continue;
-  }
-        if (!((*fParticlesPermuted)->BTagWeightSet(index))) {
-    std::cout <<  " KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityLJetReweight() : bTag weight for particle was not set ! " << std::endl;
-    return -1e99;
-        }
+      if (index<0) {
+        continue;
+      }
+      if (!((*fParticlesPermuted)->BTagWeightSet(index))) {
+        std::cout <<  " KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityLJetReweight() : bTag weight for particle was not set ! " << std::endl;
+        return -1e99;
+      }
       KLFitter::Particles::TrueFlavorType trueFlavor = fParticlesModel->TrueFlavor(i);
       if(trueFlavor==KLFitter::Particles::kB) {
-    logprob += log(BJetPt((*fParticlesPermuted)->Parton(index)->Pt()));   
-    logprob += log(BJetTagWeight((*fParticlesPermuted)->BTagWeight(index)));
-//std::cout<<"DEBUG! adding pT weight for b: "<<BJetPt((*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
-//std::cout<<"DEBUG! adding tag weight for b: "<<BJetTagWeight((*fParticlesPermuted)->BTagWeight(index))<<std::endl;
+        logprob += log(BJetPt((*fParticlesPermuted)->Parton(index)->Pt()));   
+        logprob += log(BJetTagWeight((*fParticlesPermuted)->BTagWeight(index)));
+        //std::cout<<"DEBUG! adding pT weight for b: "<<BJetPt((*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
+        //std::cout<<"DEBUG! adding tag weight for b: "<<BJetTagWeight((*fParticlesPermuted)->BTagWeight(index))<<std::endl;
       }
       if(trueFlavor==KLFitter::Particles::kLightUp) {
-    logprob += log(UpJetPt((*fParticlesPermuted)->Parton(index)->Pt()));  
-    logprob += log(UpJetTagWeight((*fParticlesPermuted)->BTagWeight(index)));
-//std::cout<<"DEBUG! adding pT weight for b: "<<UpJetPt((*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
-//std::cout<<"DEBUG! adding tag weight for b: "<<UpJetTagWeight((*fParticlesPermuted)->BTagWeight(index))<<std::endl;
+        logprob += log(UpJetPt((*fParticlesPermuted)->Parton(index)->Pt()));  
+        logprob += log(UpJetTagWeight((*fParticlesPermuted)->BTagWeight(index)));
+        //std::cout<<"DEBUG! adding pT weight for b: "<<UpJetPt((*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
+        //std::cout<<"DEBUG! adding tag weight for b: "<<UpJetTagWeight((*fParticlesPermuted)->BTagWeight(index))<<std::endl;
       }
       if(trueFlavor==KLFitter::Particles::kLightDown) {
-    logprob += log(DownJetPt((*fParticlesPermuted)->Parton(index)->Pt()));
-  logprob += log(DownJetTagWeight((*fParticlesPermuted)->BTagWeight(index)));
-//std::cout<<"DEBUG! adding pT weight for b: "<<DownJetPt((*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
-//std::cout<<"DEBUG! adding tag weight for b: "<<DownJetTagWeight((*fParticlesPermuted)->BTagWeight(index))<<std::endl;
+        logprob += log(DownJetPt((*fParticlesPermuted)->Parton(index)->Pt()));
+        logprob += log(DownJetTagWeight((*fParticlesPermuted)->BTagWeight(index)));
+        //std::cout<<"DEBUG! adding pT weight for b: "<<DownJetPt((*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
+        //std::cout<<"DEBUG! adding tag weight for b: "<<DownJetTagWeight((*fParticlesPermuted)->BTagWeight(index))<<std::endl;
       }
     }
-  return logprob;
-break;
-//////////////////////////////////////////
-case kPermReweight2D:
-  if (!(fUpJet2DWeightHisto && fDownJet2DWeightHisto && fBJet2DWeightHisto)) {
-    std::cout <<  " KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityLJetReweight() : 2D Histograms were not set properly! " << std::endl;
-    return -1e99;
-  }
+    return logprob;
+    break;
+    //////////////////////////////////////////
+  case kPermReweight2D:
+    if (!(fUpJet2DWeightHisto && fDownJet2DWeightHisto && fBJet2DWeightHisto)) {
+      std::cout <<  " KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityLJetReweight() : 2D Histograms were not set properly! " << std::endl;
+      return -1e99;
+    }
 
     for (int i = 0; i < fParticlesModel->NPartons(); ++i) {
       // get index of corresponding measured particle.
 
       int index = fParticlesModel->JetIndex(i);
 
-  if (index<0) {
-    continue;
-  }
-        if (!((*fParticlesPermuted)->BTagWeightSet(index))) {
-    std::cout <<  " KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityLJetReweight() : bTag weight for particle was not set ! " << std::endl;
-    return -1e99;
-        }
+      if (index<0) {
+        continue;
+      }
+      if (!((*fParticlesPermuted)->BTagWeightSet(index))) {
+        std::cout <<  " KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityLJetReweight() : bTag weight for particle was not set ! " << std::endl;
+        return -1e99;
+      }
       KLFitter::Particles::TrueFlavorType trueFlavor = fParticlesModel->TrueFlavor(i);
       if(trueFlavor==KLFitter::Particles::kB) {
-  logprob += log(BJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt()));
-//std::cout<<"DEBUG! adding prob weight for b: "<<BJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
+        logprob += log(BJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt()));
+        //std::cout<<"DEBUG! adding prob weight for b: "<<BJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
 
       }
       if(trueFlavor==KLFitter::Particles::kLightUp) {
-  logprob += log(UpJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt()));
-//std::cout<<"DEBUG! adding prob weight for up: "<<UpJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
+        logprob += log(UpJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt()));
+        //std::cout<<"DEBUG! adding prob weight for up: "<<UpJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
       }
       if(trueFlavor==KLFitter::Particles::kLightDown) {
-  logprob += log(DownJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt()));
-//std::cout<<"DEBUG! adding prob weight for down: "<<DownJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
+        logprob += log(DownJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt()));
+        //std::cout<<"DEBUG! adding prob weight for down: "<<DownJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
       }
     }
-  return logprob;
-break;
+    return logprob;
+    break;
 
-default:
-  return logprob;
-break;
+  default:
+    return logprob;
+    break;
 
-}
+  }
 }
 
 // ---------------------------------------------------------
 double KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityBTag() {
   double logprob = 0;
 
-    double probbtag = 1;
+  double probbtag = 1;
 
-    if(fBTagMethod == kVeto) {
-      // loop over all model particles.  calculate the overall b-tagging
-      // probability which is the product of all probabilities.
-      for (int i = 0; i < fParticlesModel->NPartons(); ++i) {
-        // get index of corresponding measured particle.
-        int index = fParticlesModel->JetIndex(i);
-        if (index < 0)
-          continue;
+  if(fBTagMethod == kVeto) {
+    // loop over all model particles.  calculate the overall b-tagging
+    // probability which is the product of all probabilities.
+    for (int i = 0; i < fParticlesModel->NPartons(); ++i) {
+      // get index of corresponding measured particle.
+      int index = fParticlesModel->JetIndex(i);
+      if (index < 0)
+        continue;
 
-        KLFitter::Particles::TrueFlavorType trueFlavor = fParticlesModel->TrueFlavor(i);
-        bool isBTagged = fParticlesModel->IsBTagged(i);
-  if (((trueFlavor == KLFitter::Particles::kLightUp)||(trueFlavor == KLFitter::Particles::kLightDown)) && isBTagged == true)
-          probbtag = 0.;
-      }
-
-      if (probbtag > 0)
-  logprob += log(probbtag);
-      else
-  return -1e99;
+      KLFitter::Particles::TrueFlavorType trueFlavor = fParticlesModel->TrueFlavor(i);
+      bool isBTagged = fParticlesModel->IsBTagged(i);
+      if (((trueFlavor == KLFitter::Particles::kLightUp)||(trueFlavor == KLFitter::Particles::kLightDown)) && isBTagged == true)
+        probbtag = 0.;
     }
-    else if (fBTagMethod == kWorkingPoint) {
-      for (int i = 0; i < fParticlesModel->NPartons(); ++i) {
-        // get index of corresponding measured particle.
-        int index = fParticlesModel->JetIndex(i);
-        if (index < 0)
-          continue;
 
-        KLFitter::Particles::TrueFlavorType trueFlavor = fParticlesModel->TrueFlavor(i);
-        bool isBTagged = fParticlesModel->IsBTagged(i);
-        double efficiency = fParticlesModel->BTaggingEfficiency(i);
-        double rejection = fParticlesModel->BTaggingRejection(i);
-  if(rejection < 0 || efficiency < 0) {
-    std::cout <<  " KLFitter::LikelihoodBase::LogEventProbability() : Your working points are not set properly! Returning 0 probability " << std::endl;
-    return -1e99;
+    if (probbtag > 0)
+      logprob += log(probbtag);
+    else
+      return -1e99;
   }
+  else if (fBTagMethod == kWorkingPoint) {
+    for (int i = 0; i < fParticlesModel->NPartons(); ++i) {
+      // get index of corresponding measured particle.
+      int index = fParticlesModel->JetIndex(i);
+      if (index < 0)
+        continue;
 
-  if(((trueFlavor == KLFitter::Particles::kLightUp)||(trueFlavor == KLFitter::Particles::kLightDown)) && isBTagged)
-          logprob += log(1./rejection);
-  else if(((trueFlavor == KLFitter::Particles::kLightUp)||(trueFlavor == KLFitter::Particles::kLightDown)) && !isBTagged)
-          logprob += log(1 - 1./rejection);
-  else if(trueFlavor == KLFitter::Particles::kB && isBTagged)
-          logprob += log(efficiency);
-  else if(trueFlavor == KLFitter::Particles::kB && !isBTagged)
-          logprob += log(1 - efficiency);
-  else
-          std::cout << " KLFitter::LikelihoodBase::LogEventProbability() : b-tagging association failed! " << std::endl;
+      KLFitter::Particles::TrueFlavorType trueFlavor = fParticlesModel->TrueFlavor(i);
+      bool isBTagged = fParticlesModel->IsBTagged(i);
+      double efficiency = fParticlesModel->BTaggingEfficiency(i);
+      double rejection = fParticlesModel->BTaggingRejection(i);
+      if(rejection < 0 || efficiency < 0) {
+        std::cout <<  " KLFitter::LikelihoodBase::LogEventProbability() : Your working points are not set properly! Returning 0 probability " << std::endl;
+        return -1e99;
       }
+
+      if(((trueFlavor == KLFitter::Particles::kLightUp)||(trueFlavor == KLFitter::Particles::kLightDown)) && isBTagged)
+        logprob += log(1./rejection);
+      else if(((trueFlavor == KLFitter::Particles::kLightUp)||(trueFlavor == KLFitter::Particles::kLightDown)) && !isBTagged)
+        logprob += log(1 - 1./rejection);
+      else if(trueFlavor == KLFitter::Particles::kB && isBTagged)
+        logprob += log(efficiency);
+      else if(trueFlavor == KLFitter::Particles::kB && !isBTagged)
+        logprob += log(1 - efficiency);
+      else
+        std::cout << " KLFitter::LikelihoodBase::LogEventProbability() : b-tagging association failed! " << std::endl;
     }
+  }
 
   return logprob;
 }
@@ -337,47 +337,47 @@ double KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityBTag() {
 
 // ---------------------------------------------------------
 double KLFitter::LikelihoodTopLeptonJetsUDSep::UpJetPt(double pt) {
-return fUpJetPtHisto->GetBinContent(fUpJetPtHisto->GetXaxis()->FindBin(pt));
+  return fUpJetPtHisto->GetBinContent(fUpJetPtHisto->GetXaxis()->FindBin(pt));
 }
 
 // ---------------------------------------------------------
 double KLFitter::LikelihoodTopLeptonJetsUDSep::DownJetPt(double pt) {
-return fDownJetPtHisto->GetBinContent(fDownJetPtHisto->GetXaxis()->FindBin(pt));
+  return fDownJetPtHisto->GetBinContent(fDownJetPtHisto->GetXaxis()->FindBin(pt));
 }
 
 // ---------------------------------------------------------
 double KLFitter::LikelihoodTopLeptonJetsUDSep::BJetPt(double pt) {
-return fBJetPtHisto->GetBinContent(fBJetPtHisto->GetXaxis()->FindBin(pt));
+  return fBJetPtHisto->GetBinContent(fBJetPtHisto->GetXaxis()->FindBin(pt));
 }
 
 // ---------------------------------------------------------
 double KLFitter::LikelihoodTopLeptonJetsUDSep::UpJetTagWeight(double tagweight) {
-return fUpJetTagWeightHisto->GetBinContent(fUpJetTagWeightHisto->GetXaxis()->FindBin(tagweight));
+  return fUpJetTagWeightHisto->GetBinContent(fUpJetTagWeightHisto->GetXaxis()->FindBin(tagweight));
 }
 
 // ---------------------------------------------------------
 double KLFitter::LikelihoodTopLeptonJetsUDSep::DownJetTagWeight(double tagweight) {
-return fDownJetTagWeightHisto->GetBinContent(fDownJetTagWeightHisto->GetXaxis()->FindBin(tagweight));
+  return fDownJetTagWeightHisto->GetBinContent(fDownJetTagWeightHisto->GetXaxis()->FindBin(tagweight));
 }
 
 // ---------------------------------------------------------
 double KLFitter::LikelihoodTopLeptonJetsUDSep::BJetTagWeight(double tagweight) {
-return fBJetTagWeightHisto->GetBinContent(fBJetTagWeightHisto->GetXaxis()->FindBin(tagweight));
+  return fBJetTagWeightHisto->GetBinContent(fBJetTagWeightHisto->GetXaxis()->FindBin(tagweight));
 }
 
 // ---------------------------------------------------------
 double KLFitter::LikelihoodTopLeptonJetsUDSep::UpJetProb(double tagweight, double pt) {
-return fUpJet2DWeightHisto->GetBinContent(fUpJet2DWeightHisto->GetXaxis()->FindBin(tagweight), fUpJet2DWeightHisto->GetYaxis()->FindBin(pt));
+  return fUpJet2DWeightHisto->GetBinContent(fUpJet2DWeightHisto->GetXaxis()->FindBin(tagweight), fUpJet2DWeightHisto->GetYaxis()->FindBin(pt));
 }
 
 // ---------------------------------------------------------
 double KLFitter::LikelihoodTopLeptonJetsUDSep::DownJetProb(double tagweight, double pt) {
-return fDownJet2DWeightHisto->GetBinContent(fDownJet2DWeightHisto->GetXaxis()->FindBin(tagweight), fDownJet2DWeightHisto->GetYaxis()->FindBin(pt));
+  return fDownJet2DWeightHisto->GetBinContent(fDownJet2DWeightHisto->GetXaxis()->FindBin(tagweight), fDownJet2DWeightHisto->GetYaxis()->FindBin(pt));
 }
 
 // ---------------------------------------------------------
 double KLFitter::LikelihoodTopLeptonJetsUDSep::BJetProb(double tagweight, double pt) {
-return fBJet2DWeightHisto->GetBinContent(fBJet2DWeightHisto->GetXaxis()->FindBin(tagweight), fBJet2DWeightHisto->GetYaxis()->FindBin(pt));
+  return fBJet2DWeightHisto->GetBinContent(fBJet2DWeightHisto->GetXaxis()->FindBin(tagweight), fBJet2DWeightHisto->GetYaxis()->FindBin(pt));
 }
 
 // ---------------------------------------------------------
@@ -386,24 +386,24 @@ int KLFitter::LikelihoodTopLeptonJetsUDSep::LHInvariantPermutationPartner(int ip
   int cache = iperm%6;  
   switch (nperms) {
   case 24:  
-  if ((iperm)%2) {
-    partnerid = (iperm -1);
-  } else {
-    partnerid = (iperm+1);
-  }
-  break;
+    if ((iperm)%2) {
+      partnerid = (iperm -1);
+    } else {
+      partnerid = (iperm+1);
+    }
+    break;
 
   case 120:
-  if (cache > 2) {
-    partnerid = (iperm -3);
-  } else {
-    partnerid = (iperm+3);
-  }
-  break;
+    if (cache > 2) {
+      partnerid = (iperm -3);
+    } else {
+      partnerid = (iperm+3);
+    }
+    break;
   
   default: partnerid = -1;
   }
-switchpar1 = 2;
-switchpar2 = 3;
-return partnerid;
+  switchpar1 = 2;
+  switchpar2 = 3;
+  return partnerid;
 }

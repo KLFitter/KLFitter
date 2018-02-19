@@ -90,30 +90,30 @@ namespace KLFitter
      * @return A pointer to the physics constants.
      */
     KLFitter::PhysicsConstants* PhysicsConstants()
-      { return fPhysicsConstants; };
+    { return fPhysicsConstants; };
 
     /**
      * Return the detector.
      * @return A pointer to the detector.
      */
     KLFitter::DetectorBase* Detector()
-      { return *fDetector; };
+    { return *fDetector; };
 
     /**
      * Return the set of measured particles.
      * @return A pointer to the particles.
      */
     KLFitter::Particles** PParticlesPermuted()
-      { return fParticlesPermuted; };
+    { return fParticlesPermuted; };
 
     /**
      * Return the set of model particles.
      * @return A pointer to the particles.
      */
     virtual KLFitter::Particles* ParticlesModel()
-      { return fParticlesModel; };
+    { return fParticlesModel; };
     virtual KLFitter::Particles** PParticlesModel()
-      { return &fParticlesModel; };
+    { return &fParticlesModel; };
 
     /**
      * Return the number of model particles.
@@ -345,7 +345,7 @@ namespace KLFitter
     virtual int RemoveInvariantParticlePermutations()
     { return 1; };
 
-      /**
+    /**
      * Remove forbidden particle permutations.
      * @return An error code.
      */
@@ -385,7 +385,7 @@ namespace KLFitter
      * Returns the errors of the best fit parameters from the BCModel class
      * @return The errors of the best fit parameters */
     using BCModel::GetBestFitParameterErrors;
-//
+    //
     /**
      * Returns the best fit parameters, overloaded from BCModel
      * @return The best fit parameters */
@@ -405,7 +405,7 @@ namespace KLFitter
      * Returns the errors of the best fit parameter i from the BCModel class
      * @return The errors of the best fit parameters */
     using BCModel::GetBestFitParameterError;
-//
+    //
     /**
      * Check if the permutation is LH invariant.
      * @param iperm Current permutation
@@ -422,7 +422,7 @@ namespace KLFitter
      * @param iperm Current permutation
      * @return An error code.
      */
-   int GetParametersFromCache(int iperm);
+    int GetParametersFromCache(int iperm);
 
     /**
      * Write parameters to fCachedParametersVector.at(iperm) from GetBestFitParameter()
@@ -444,7 +444,7 @@ namespace KLFitter
      * Resets the values of all parameter cache vectors
      * @return An error code.
      */
-     int ResetCache();
+    int ResetCache();
 
 
 

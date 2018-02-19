@@ -102,39 +102,39 @@ int KLFitter::DetectorBase::SetResMissingET(KLFitter::ResolutionBase * res) {
 // ---------------------------------------------------------
 int KLFitter::DetectorBase::Status() {
   if (!fResEnergyLightJet) {
-      std::cout << "KLFitter::DetectorBase::Status(). Energy resolution of light jets not defined." << std::endl;
-      return 0;
-    }
+    std::cout << "KLFitter::DetectorBase::Status(). Energy resolution of light jets not defined." << std::endl;
+    return 0;
+  }
 
   if (!fResEnergyBJet) {
-      std::cout << "KLFitter::DetectorBase::Status(). Energy resolution of b jets not defined." << std::endl;
-      return 0;
-    }
+    std::cout << "KLFitter::DetectorBase::Status(). Energy resolution of b jets not defined." << std::endl;
+    return 0;
+  }
 
   if (!fResEnergyGluonJet) {
-      std::cout << "KLFitter::DetectorBase::Status(). Energy resolution of gluon jets not defined." << std::endl;
-      return 0;
-    }
+    std::cout << "KLFitter::DetectorBase::Status(). Energy resolution of gluon jets not defined." << std::endl;
+    return 0;
+  }
 
   if (!fResEnergyElectron) {
-      std::cout << "KLFitter::DetectorBase::Status(). Energy resolution of electrons not defined." << std::endl;
-      return 0;
-    }
+    std::cout << "KLFitter::DetectorBase::Status(). Energy resolution of electrons not defined." << std::endl;
+    return 0;
+  }
 
   if (!fResEnergyMuon) {
-      std::cout << "KLFitter::DetectorBase::Status(). Energy resolution of muons not defined." << std::endl;
-      return 0;
-    }
+    std::cout << "KLFitter::DetectorBase::Status(). Energy resolution of muons not defined." << std::endl;
+    return 0;
+  }
 
   if (!fResEnergyPhoton) {
-      std::cout << "KLFitter::DetectorBase::Status(). Energy resolution of photons not defined." << std::endl;
-      return 0;
-    }
+    std::cout << "KLFitter::DetectorBase::Status(). Energy resolution of photons not defined." << std::endl;
+    return 0;
+  }
 
   if (!fResMissingET) {
-      std::cout << "KLFitter::DetectorBase::Status(). Missing ET resolution not defined." << std::endl;
-      return 0;
-    }
+    std::cout << "KLFitter::DetectorBase::Status(). Missing ET resolution not defined." << std::endl;
+    return 0;
+  }
 
   // no error
   return 1;

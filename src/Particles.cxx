@@ -198,9 +198,9 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, f
 
   // check if container exists
   if (!container) {
-      std::cout << "KLFitter::Particles::AddParticle(). Container does not exist." << std::endl;
-      return 0;
-    }
+    std::cout << "KLFitter::Particles::AddParticle(). Container does not exist." << std::endl;
+    return 0;
+  }
 
   // check name
   if (name == "")
@@ -255,9 +255,9 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, K
 
   // check if container exists
   if (!container) {
-      std::cout << "KLFitter::Particles::AddParticle(). Container does not exist." << std::endl;
-      return 0;
-    }
+    std::cout << "KLFitter::Particles::AddParticle(). Container does not exist." << std::endl;
+    return 0;
+  }
 
   // check name
   if (name == "")
@@ -285,11 +285,11 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, K
       fJetDetEta->push_back(DetEta);
       fBTagWeight->push_back(btagweight);
       if (btagweight != 999) {
-  fBTagWeightSet->push_back(true);
-  }
-  else {
-    fBTagWeightSet->push_back(false);
-  }
+        fBTagWeightSet->push_back(true);
+      }
+      else {
+        fBTagWeightSet->push_back(false);
+      }
     }
     else if (ptype == KLFitter::Particles::kElectron) {
       fElectronIndex->push_back(measuredindex);
@@ -620,15 +620,15 @@ std::string KLFitter::Particles::NameParticle(int index, KLFitter::Particles::Pa
 int KLFitter::Particles::CheckIndex(std::vector <TLorentzVector *>* container, int index) {
   // check container
   if (!container) {
-      std::cout << "KLFitter::Particles::CheckIndex(). Container does not exist." << std::endl;
-      return 0;
-    }
+    std::cout << "KLFitter::Particles::CheckIndex(). Container does not exist." << std::endl;
+    return 0;
+  }
 
   // check index
   if (index < 0 || index >= int(container->size())) {
-      std::cout << "KLFitter::Particles::CheckIndex(). Index out of range." << std::endl;
-      return 0;
-    }
+    std::cout << "KLFitter::Particles::CheckIndex(). Index out of range." << std::endl;
+    return 0;
+  }
 
   // no error
   return 1;
@@ -638,28 +638,28 @@ int KLFitter::Particles::CheckIndex(std::vector <TLorentzVector *>* container, i
 std::vector <TLorentzVector *>* KLFitter::Particles::ParticleContainer(KLFitter::Particles::ParticleType ptype) {
   // return particle container
   switch(ptype) {
-    case KLFitter::Particles::kParton:
-      return fPartons;
-      break;
-    case KLFitter::Particles::kElectron:
-      return fElectrons;
-      break;
-    case KLFitter::Particles::kMuon:
-      return fMuons;
-      break;
-    case KLFitter::Particles::kTau:
-      return fTaus;
-      break;
-    case KLFitter::Particles::kNeutrino:
-      return fNeutrinos;
-      break;
-    case KLFitter::Particles::kBoson:
-      return fBosons;
-      break;
-    case KLFitter::Particles::kPhoton:
-      return fPhotons;
-      break;
-    }
+  case KLFitter::Particles::kParton:
+    return fPartons;
+    break;
+  case KLFitter::Particles::kElectron:
+    return fElectrons;
+    break;
+  case KLFitter::Particles::kMuon:
+    return fMuons;
+    break;
+  case KLFitter::Particles::kTau:
+    return fTaus;
+    break;
+  case KLFitter::Particles::kNeutrino:
+    return fNeutrinos;
+    break;
+  case KLFitter::Particles::kBoson:
+    return fBosons;
+    break;
+  case KLFitter::Particles::kPhoton:
+    return fPhotons;
+    break;
+  }
 
   // or null pointer
   std::cout << "KLFitter::Particles::ParticleContainer(). Particle type unknown." << std::endl;
@@ -692,9 +692,9 @@ std::vector <std::string>* KLFitter::Particles::ParticleNameContainer(KLFitter::
 
   // or null pointer
   else {
-      std::cout << "KLFitter::Particles::ParticleNameContainer(). Particle type not known." << std::endl;
-      return 0;
-    }
+    std::cout << "KLFitter::Particles::ParticleNameContainer(). Particle type not known." << std::endl;
+    return 0;
+  }
 }
 
 // ---------------------------------------------------------
@@ -810,9 +810,9 @@ int KLFitter::Particles::PhotonIndex(int index) {
 int KLFitter::Particles::SetIsBTagged(int index, bool isBTagged) {
   // check index
   if (index < 0 || index >= int(fIsBTagged->size())) {
-      std::cout << " KLFitter::SetIsBTagged(). Index out of range." << std::endl;
-      return 0;
-    }
+    std::cout << " KLFitter::SetIsBTagged(). Index out of range." << std::endl;
+    return 0;
+  }
 
   (*fIsBTagged)[index] = isBTagged;
 
@@ -823,9 +823,9 @@ int KLFitter::Particles::SetIsBTagged(int index, bool isBTagged) {
 int KLFitter::Particles::SetBTagWeight(int index, double btagweight) {
   // check index
   if (index < 0 || index >= int(fBTagWeight->size())) {
-      std::cout << " KLFitter::SetBTagWeight(). Index out of range." << std::endl;
-      return 0;
-    }
+    std::cout << " KLFitter::SetBTagWeight(). Index out of range." << std::endl;
+    return 0;
+  }
 
   (*fBTagWeight)[index] = btagweight;
   SetBTagWeightSet(index, true);
@@ -837,9 +837,9 @@ int KLFitter::Particles::SetBTagWeight(int index, double btagweight) {
 int KLFitter::Particles::SetBTagWeightSet(int index, bool btagweightset) {
   // check index
   if (index < 0 || index >= int(fBTagWeightSet->size())) {
-      std::cout << " KLFitter::SetBTagWeightSet(). Index out of range." << std::endl;
-      return 0;
-    }
+    std::cout << " KLFitter::SetBTagWeightSet(). Index out of range." << std::endl;
+    return 0;
+  }
 
   (*fBTagWeightSet)[index] = btagweightset;
 
@@ -850,9 +850,9 @@ int KLFitter::Particles::SetBTagWeightSet(int index, bool btagweightset) {
 int KLFitter::Particles::SetBTaggingEfficiency(int index, double btagEff) {
   // check index
   if (index < 0 || index >= int(fBTaggingEfficiency->size())) {
-      std::cout << " KLFitter::SetBTaggingEfficiency(). Index out of range." << std::endl;
-      return 0;
-    }
+    std::cout << " KLFitter::SetBTaggingEfficiency(). Index out of range." << std::endl;
+    return 0;
+  }
 
   (*fBTaggingEfficiency)[index] = btagEff;
 
@@ -863,9 +863,9 @@ int KLFitter::Particles::SetBTaggingEfficiency(int index, double btagEff) {
 int KLFitter::Particles::SetBTaggingRejection(int index, double btagRej) {
   // check index
   if (index < 0 || index >= int(fBTaggingRejection->size())) {
-      std::cout << " KLFitter::SetBTaggingRejection(). Index out of range." << std::endl;
-      return 0;
-    }
+    std::cout << " KLFitter::SetBTaggingRejection(). Index out of range." << std::endl;
+    return 0;
+  }
 
   (*fBTaggingRejection)[index] = btagRej;
 

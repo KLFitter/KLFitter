@@ -331,7 +331,7 @@ namespace KLFitter
      */
     double DetEta(int index, KLFitter::Particles::ParticleType ptype);
 
-     /**
+    /**
      * Return the charge of the lepton with some index and type.
      * @param index The index of the particle
      * @param ptype The particle type.
@@ -629,7 +629,7 @@ namespace KLFitter
      * Vector containing the detector eta of photons.
      */
     std::vector <double> * fPhotonDetEta;
-   /**
+    /**
      * Vector containing the charge of electrons.
      */
     std::vector <float> * fElectronCharge;

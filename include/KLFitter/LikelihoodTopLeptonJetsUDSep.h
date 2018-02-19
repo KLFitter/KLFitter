@@ -136,7 +136,7 @@ namespace KLFitter
      * @return The probability.
      */
     double BJetTagWeight(double tagweight);
-//
+    //
     /**
      * Returns the probability of a jet to have the tag weight and pT of an up type jet.
      * @return The probability.
@@ -154,7 +154,7 @@ namespace KLFitter
      * @return The probability.
      */
     double BJetProb(double tagweight, double pt);
-//
+    //
 
     /**
      * Set histogram for pT distribution of up jets (reco level).
@@ -251,7 +251,7 @@ namespace KLFitter
      */
     int RemoveInvariantParticlePermutations();
 
-     /**
+    /**
      * Remove forbidden particle permutations.
      * @return An error code.
      */
