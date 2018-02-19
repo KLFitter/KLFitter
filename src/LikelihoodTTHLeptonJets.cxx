@@ -409,7 +409,7 @@ int KLFitter::LikelihoodTTHLeptonJets::RemoveForbiddenParticlePermutations() {
   int err = 1;
 
   // only in b-tagging type kVetoNoFit
-  if (!((fBTagMethod == kVetoNoFit)||(fBTagMethod == kVetoNoFitLight)||(fBTagMethod == kVetoNoFitBoth)))
+  if (!((fBTagMethod == kVetoNoFit) || (fBTagMethod == kVetoNoFitLight) || (fBTagMethod == kVetoNoFitBoth)))
     return err;
 
   // remove all permutations where a b-tagged jet is in the position of a model light quark
@@ -423,11 +423,11 @@ int KLFitter::LikelihoodTTHLeptonJets::RemoveForbiddenParticlePermutations() {
 
     for (int iPartonModel(0); iPartonModel < nPartonsModel; ++iPartonModel) {
       KLFitter::Particles::TrueFlavorType trueFlavor = particlesModel->TrueFlavor(iPartonModel);
-      if ((fBTagMethod == kVetoNoFit)&&((!isBtagged)||(trueFlavor != KLFitter::Particles::kLight)))
+      if ((fBTagMethod == kVetoNoFit)&&((!isBtagged) || (trueFlavor != KLFitter::Particles::kLight)))
         continue;
-      if ((fBTagMethod == kVetoNoFitLight)&&((isBtagged)||(trueFlavor != KLFitter::Particles::kB)))
+      if ((fBTagMethod == kVetoNoFitLight)&&((isBtagged) || (trueFlavor != KLFitter::Particles::kB)))
         continue;
-      if ((fBTagMethod == kVetoNoFitBoth)&&(((isBtagged)&&(trueFlavor != KLFitter::Particles::kLight))||((!isBtagged)&&(trueFlavor != KLFitter::Particles::kB))))
+      if ((fBTagMethod == kVetoNoFitBoth)&&(((isBtagged)&&(trueFlavor != KLFitter::Particles::kLight)) || ((!isBtagged)&&(trueFlavor != KLFitter::Particles::kB))))
         continue;
 
       err *= (*fPermutations)->RemoveParticlePermutations(KLFitter::Particles::kParton, iParton, iPartonModel);
@@ -501,10 +501,10 @@ int KLFitter::LikelihoodTTHLeptonJets::AdjustParameterRanges() {
   }
   else if (fTypeLepton == kMuon) {
     E = (*fParticlesPermuted)->Muon(0)->E();
-    double sintheta= sin((*fParticlesPermuted)->Muon(0)->Theta());
-    double sigrange=nsigmas_lepton* (E*E*sintheta);
-    Emin=std::max(0.001,E -sigrange);
-    Emax=E +sigrange;
+    double sintheta = sin((*fParticlesPermuted)->Muon(0)->Theta());
+    double sigrange = nsigmas_lepton* (E*E*sintheta);
+    Emin = std::max(0.001,E -sigrange);
+    Emax = E +sigrange;
   }
   SetParameterRange(parLepE, Emin, Emax);
 

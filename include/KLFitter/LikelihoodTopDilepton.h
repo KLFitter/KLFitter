@@ -86,8 +86,8 @@ namespace KLFitter {
     /**
      * Enumerator for the parameters.
      */
-    // enum Parameters { parTopM=0, parB1E, parB2E, parLep1E, parLep2E, parNuEta, parAntiNuEta /*parNuPx, parNuPy, parNuPz,parTopM*/ };
-    enum Parameters { parTopM=0, parB1E, parB2E, parLep1E, parLep2E, parAntiNuEta, parNuEta };
+    // enum Parameters { parTopM = 0, parB1E, parB2E, parLep1E, parLep2E, parNuEta, parAntiNuEta /*parNuPx, parNuPy, parNuPz,parTopM*/ };
+    enum Parameters { parTopM = 0, parB1E, parB2E, parLep1E, parLep2E, parAntiNuEta, parNuEta };
 
     /**
      * Set the values for the missing ET x and y components and the SumET.
@@ -397,8 +397,8 @@ namespace KLFitter {
 
     /**
      * vector including nu pseudorapidity sigma
-     * dependency on mtop ( if sigma=a + b*mtop =>
-     * vector[0]=a, vector[1]=b)
+     * dependency on mtop ( if sigma = a + b*mtop = >
+     * vector[0] = a, vector[1] = b)
      */
     std::vector<double> nueta_params;
 

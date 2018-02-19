@@ -37,12 +37,12 @@
 KLFitter::DetectorAtlas_7TeV::DetectorAtlas_7TeV(std::string folder) : DetectorBase() {
   // check: powheg sample with 7TeV? Must use 8!
   if (strstr(folder.c_str(), "mc11c_powheg")) {
-    std::cout<<"ERROR! Don't use PowHeg TFs with the 7TeV Detector class!!! Exiting..."<<std::endl;
+    std::cout << "ERROR! Don't use PowHeg TFs with the 7TeV Detector class!!! Exiting..." << std::endl;
     exit(1);
   }
   // check: MC11b? New parametrization!
-  if ((strstr(folder.c_str(), "mc11b"))||(strstr(folder.c_str(), "mc11c"))) {
-    std::cout<<"Using TF from MC11b or later..."<<std::endl;
+  if ((strstr(folder.c_str(), "mc11b")) || (strstr(folder.c_str(), "mc11c"))) {
+    std::cout << "Using TF from MC11b or later..." << std::endl;
     // energy resolution
     fResEnergyLightJet_eta1 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_lJets_eta1.txt", folder.c_str()));
     fResEnergyBJet_eta1     = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_bJets_eta1.txt", folder.c_str()));
@@ -74,7 +74,7 @@ KLFitter::DetectorAtlas_7TeV::DetectorAtlas_7TeV(std::string folder) : DetectorB
     fResEnergyLightJet_eta5 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_lJets_eta5.txt", folder.c_str()));
     fResEnergyBJet_eta5     = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_bJets_eta5.txt", folder.c_str()));
   } else  {
-    std::cout<<"Using TF from MC11a or earlier..."<<std::endl;
+    std::cout << "Using TF from MC11a or earlier..." << std::endl;
     // energy resolution
     fResEnergyLightJet_eta1 = new KLFitter::ResDoubleGaussE_1(Form("%s/par_energy_lJets_eta1.txt", folder.c_str()));
     fResEnergyBJet_eta1     = new KLFitter::ResDoubleGaussE_2(Form("%s/par_energy_bJets_eta1.txt", folder.c_str()));
@@ -144,7 +144,7 @@ KLFitter::DetectorAtlas_7TeV::DetectorAtlas_7TeV(std::string folder) : DetectorB
   fResPhiLightJet    = fResPhiLightJet_eta1;
   fResPhiBJet        = fResPhiBJet_eta1;
 
-  // Set eta binning for different objects starting with eta=0
+  // Set eta binning for different objects starting with eta = 0
   fJetEtaBin_1 = 0.8;
   fJetEtaBin_2 = 1.37;
   fJetEtaBin_3 = 1.52;

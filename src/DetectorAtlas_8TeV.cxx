@@ -36,7 +36,7 @@
 // ---------------------------------------------------------
 
 KLFitter::DetectorAtlas_8TeV::DetectorAtlas_8TeV(std::string folder) : DetectorBase() {
-  std::cout<<"Using TF from MC12 ..."<<std::endl;
+  std::cout << "Using TF from MC12 ..." << std::endl;
   // energy resolution
   fResEnergyLightJet_eta1 = new KLFitter::ResDoubleGaussE_4(Form("%s/par_energy_lJets_eta1.txt", folder.c_str()));
   fResEnergyBJet_eta1     = new KLFitter::ResDoubleGaussE_4(Form("%s/par_energy_bJets_eta1.txt", folder.c_str()));
@@ -105,7 +105,7 @@ KLFitter::DetectorAtlas_8TeV::DetectorAtlas_8TeV(std::string folder) : DetectorB
   fResPhiLightJet    = fResPhiLightJet_eta1;
   fResPhiBJet        = fResPhiBJet_eta1;
 
-  // Set eta binning for different objects starting with eta=0
+  // Set eta binning for different objects starting with eta = 0
   fJetEtaBin_1 = 0.8;
   fJetEtaBin_2 = 1.37;
   fJetEtaBin_3 = 1.52;

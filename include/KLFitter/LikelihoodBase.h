@@ -236,7 +236,7 @@ namespace KLFitter {
      * @param flag The flag.
      * @return An error flag.
      */
-    int SetFlagIsNan(bool flag) { fFlagIsNan=flag; return 1; }
+    int SetFlagIsNan(bool flag) { fFlagIsNan = flag; return 1; }
 
     /**
      * Get flag FlagIsNan. This Flag should be true if Minuit gave parameters with NaN values to LogLikelihood.

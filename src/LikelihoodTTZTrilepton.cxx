@@ -422,7 +422,7 @@ int KLFitter::LikelihoodTTZTrilepton::RemoveForbiddenParticlePermutations() {
   int err = 1;
 
   // only in b-tagging type kVetoNoFit
-  if (!((fBTagMethod == kVetoNoFit)||(fBTagMethod == kVetoNoFitLight)||(fBTagMethod == kVetoNoFitBoth)))
+  if (!((fBTagMethod == kVetoNoFit) || (fBTagMethod == kVetoNoFitLight) || (fBTagMethod == kVetoNoFitBoth)))
     return err;
 
   // remove all permutations where a b-tagged jet is in the position of a model light quark
@@ -436,11 +436,11 @@ int KLFitter::LikelihoodTTZTrilepton::RemoveForbiddenParticlePermutations() {
 
     for (int iPartonModel(0); iPartonModel < nPartonsModel; ++iPartonModel) {
       KLFitter::Particles::TrueFlavorType trueFlavor = particlesModel->TrueFlavor(iPartonModel);
-      if ((fBTagMethod == kVetoNoFit)&&((!isBtagged)||(trueFlavor != KLFitter::Particles::kLight)))
+      if ((fBTagMethod == kVetoNoFit)&&((!isBtagged) || (trueFlavor != KLFitter::Particles::kLight)))
         continue;
-      if ((fBTagMethod == kVetoNoFitLight)&&((isBtagged)||(trueFlavor != KLFitter::Particles::kB)))
+      if ((fBTagMethod == kVetoNoFitLight)&&((isBtagged) || (trueFlavor != KLFitter::Particles::kB)))
         continue;
-      if ((fBTagMethod == kVetoNoFitBoth)&&(((isBtagged)&&(trueFlavor != KLFitter::Particles::kLight))||((!isBtagged)&&(trueFlavor != KLFitter::Particles::kB))))
+      if ((fBTagMethod == kVetoNoFitBoth)&&(((isBtagged)&&(trueFlavor != KLFitter::Particles::kLight)) || ((!isBtagged)&&(trueFlavor != KLFitter::Particles::kB))))
         continue;
 
       err *= (*fPermutations)->RemoveParticlePermutations(KLFitter::Particles::kParton, iParton, iPartonModel);
@@ -502,11 +502,11 @@ int KLFitter::LikelihoodTTZTrilepton::AdjustParameterRanges() {
   }
   else if (fTypeLepton == kMuon) {
     E = (*fParticlesPermuted)->Muon(0)->E();
-    double sintheta= sin((*fParticlesPermuted)->Muon(0)->Theta());
+    double sintheta = sin((*fParticlesPermuted)->Muon(0)->Theta());
     sigma = fFlagGetParSigmasFromTFs ? fResLepton->GetSigma(E*sintheta)/sintheta : E*E*sintheta;
-    double sigrange=nsigmas_lepton* sigma;
-    Emin=std::max(0.001,E -sigrange);
-    Emax=E +sigrange;
+    double sigrange = nsigmas_lepton* sigma;
+    Emin = std::max(0.001,E -sigrange);
+    Emax = E +sigrange;
   }
   SetParameterRange(parLepE, Emin, Emax);
 
@@ -518,11 +518,11 @@ int KLFitter::LikelihoodTTZTrilepton::AdjustParameterRanges() {
   }
   else if (fTypeLepton == kMuon) {
     E = (*fParticlesPermuted)->Muon(1)->E();
-    double sintheta= sin((*fParticlesPermuted)->Muon(1)->Theta());
+    double sintheta = sin((*fParticlesPermuted)->Muon(1)->Theta());
     sigma = fFlagGetParSigmasFromTFs ? fResLeptonZ1->GetSigma(E*sintheta)/sintheta : E*E*sintheta;
-    double sigrange=nsigmas_lepton* sigma;
-    Emin=std::max(0.001,E -sigrange);
-    Emax=E +sigrange;
+    double sigrange = nsigmas_lepton* sigma;
+    Emin = std::max(0.001,E -sigrange);
+    Emax = E +sigrange;
   }
   SetParameterRange(parLepZ1E, Emin, Emax);
 
@@ -534,11 +534,11 @@ int KLFitter::LikelihoodTTZTrilepton::AdjustParameterRanges() {
   }
   else if (fTypeLepton == kMuon) {
     E = (*fParticlesPermuted)->Muon(2)->E();
-    double sintheta= sin((*fParticlesPermuted)->Muon(2)->Theta());
+    double sintheta = sin((*fParticlesPermuted)->Muon(2)->Theta());
     sigma = fFlagGetParSigmasFromTFs ? fResLeptonZ2->GetSigma(E*sintheta)/sintheta : E*E*sintheta;
-    double sigrange=nsigmas_lepton* sigma;
-    Emin=std::max(0.001,E -sigrange);
-    Emax=E +sigrange;
+    double sigrange = nsigmas_lepton* sigma;
+    Emin = std::max(0.001,E -sigrange);
+    Emax = E +sigrange;
   }
   SetParameterRange(parLepZ2E, Emin, Emax);
 

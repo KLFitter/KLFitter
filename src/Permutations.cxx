@@ -93,11 +93,11 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
 
   bool isDilepton(false);
 
-  if(nelectrons!=0 && (*fParticles)->LeptonCharge(0, KLFitter::Particles::kElectron)!=-9)
-    isDilepton=true;
+  if(nelectrons != 0 && (*fParticles)->LeptonCharge(0, KLFitter::Particles::kElectron) != -9)
+    isDilepton = true;
 
-  if(nmuons!=0 && (*fParticles)->LeptonCharge(0, KLFitter::Particles::kMuon)!=-9)
-    isDilepton=true;
+  if(nmuons != 0 && (*fParticles)->LeptonCharge(0, KLFitter::Particles::kMuon) != -9)
+    isDilepton = true;
 
   // std::cout << "isDilepton? " << isDilepton  << std::endl;
 
@@ -444,7 +444,7 @@ int KLFitter::Permutations::InvariantParticleGroupPermutations(KLFitter::Particl
     return 0;
 
   // check if index vectors have the same size
-  if (indexVectorPosition1.size()!=indexVectorPosition2.size()) {
+  if (indexVectorPosition1.size()!= indexVectorPosition2.size()) {
     std::cout << "KLFitter::Permutations::InvariantParticleGroupPermutations(). Index Vectors need to have the same size." << std::endl;
     return 0;
   }
@@ -532,7 +532,7 @@ int KLFitter::Permutations::InvariantParticleGroupPermutations(KLFitter::Particl
     
         // check indices
         if ((*permutation1)[indexPosition1] == (*permutation2)[indexPosition2] && (*permutation1)[indexPosition2] == (*permutation2)[indexPosition1])
-          numberOfInvariantMatches ++;
+          numberOfInvariantMatches++;
       }
     
       if (numberOfInvariantMatches == indexVectorPosition1.size()) {

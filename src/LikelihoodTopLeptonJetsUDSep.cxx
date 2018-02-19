@@ -201,7 +201,7 @@ double KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityLJetReweight()
 
       int index = fParticlesModel->JetIndex(i);
 
-      if (index<0) {
+      if (index < 0) {
         continue;
       }
       if (!((*fParticlesPermuted)->BTagWeightSet(index))) {
@@ -209,19 +209,19 @@ double KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityLJetReweight()
         return -1e99;
       }
       KLFitter::Particles::TrueFlavorType trueFlavor = fParticlesModel->TrueFlavor(i);
-      if(trueFlavor==KLFitter::Particles::kB) {
+      if(trueFlavor == KLFitter::Particles::kB) {
         logprob += log(BJetPt((*fParticlesPermuted)->Parton(index)->Pt()));   
         logprob += log(BJetTagWeight((*fParticlesPermuted)->BTagWeight(index)));
         // std::cout<<"DEBUG! adding pT weight for b: "<<BJetPt((*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
         // std::cout<<"DEBUG! adding tag weight for b: "<<BJetTagWeight((*fParticlesPermuted)->BTagWeight(index))<<std::endl;
       }
-      if(trueFlavor==KLFitter::Particles::kLightUp) {
+      if(trueFlavor == KLFitter::Particles::kLightUp) {
         logprob += log(UpJetPt((*fParticlesPermuted)->Parton(index)->Pt()));  
         logprob += log(UpJetTagWeight((*fParticlesPermuted)->BTagWeight(index)));
         // std::cout<<"DEBUG! adding pT weight for b: "<<UpJetPt((*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
         // std::cout<<"DEBUG! adding tag weight for b: "<<UpJetTagWeight((*fParticlesPermuted)->BTagWeight(index))<<std::endl;
       }
-      if(trueFlavor==KLFitter::Particles::kLightDown) {
+      if(trueFlavor == KLFitter::Particles::kLightDown) {
         logprob += log(DownJetPt((*fParticlesPermuted)->Parton(index)->Pt()));
         logprob += log(DownJetTagWeight((*fParticlesPermuted)->BTagWeight(index)));
         // std::cout<<"DEBUG! adding pT weight for b: "<<DownJetPt((*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
@@ -242,7 +242,7 @@ double KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityLJetReweight()
 
       int index = fParticlesModel->JetIndex(i);
 
-      if (index<0) {
+      if (index < 0) {
         continue;
       }
       if (!((*fParticlesPermuted)->BTagWeightSet(index))) {
@@ -250,15 +250,15 @@ double KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityLJetReweight()
         return -1e99;
       }
       KLFitter::Particles::TrueFlavorType trueFlavor = fParticlesModel->TrueFlavor(i);
-      if(trueFlavor==KLFitter::Particles::kB) {
+      if(trueFlavor == KLFitter::Particles::kB) {
         logprob += log(BJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt()));
         // std::cout<<"DEBUG! adding prob weight for b: "<<BJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
       }
-      if(trueFlavor==KLFitter::Particles::kLightUp) {
+      if(trueFlavor == KLFitter::Particles::kLightUp) {
         logprob += log(UpJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt()));
         // std::cout<<"DEBUG! adding prob weight for up: "<<UpJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
       }
-      if(trueFlavor==KLFitter::Particles::kLightDown) {
+      if(trueFlavor == KLFitter::Particles::kLightDown) {
         logprob += log(DownJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt()));
         // std::cout<<"DEBUG! adding prob weight for down: "<<DownJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
       }
@@ -289,7 +289,7 @@ double KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityBTag() {
 
       KLFitter::Particles::TrueFlavorType trueFlavor = fParticlesModel->TrueFlavor(i);
       bool isBTagged = fParticlesModel->IsBTagged(i);
-      if (((trueFlavor == KLFitter::Particles::kLightUp)||(trueFlavor == KLFitter::Particles::kLightDown)) && isBTagged == true)
+      if (((trueFlavor == KLFitter::Particles::kLightUp) || (trueFlavor == KLFitter::Particles::kLightDown)) && isBTagged == true)
         probbtag = 0.;
     }
 
@@ -314,9 +314,9 @@ double KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityBTag() {
         return -1e99;
       }
 
-      if(((trueFlavor == KLFitter::Particles::kLightUp)||(trueFlavor == KLFitter::Particles::kLightDown)) && isBTagged)
+      if(((trueFlavor == KLFitter::Particles::kLightUp) || (trueFlavor == KLFitter::Particles::kLightDown)) && isBTagged)
         logprob += log(1./rejection);
-      else if(((trueFlavor == KLFitter::Particles::kLightUp)||(trueFlavor == KLFitter::Particles::kLightDown)) && !isBTagged)
+      else if(((trueFlavor == KLFitter::Particles::kLightUp) || (trueFlavor == KLFitter::Particles::kLightDown)) && !isBTagged)
         logprob += log(1 - 1./rejection);
       else if(trueFlavor == KLFitter::Particles::kB && isBTagged)
         logprob += log(efficiency);

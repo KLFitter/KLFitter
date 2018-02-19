@@ -216,8 +216,8 @@ int KLFitter::Fitter::Fit(int index) {
           }
         }
       }
-      if(fLikelihood->GetFlagIsNan()==true) {
-        fMinuitStatus=508;
+      if(fLikelihood->GetFlagIsNan()== true) {
+        fMinuitStatus = 508;
       }
 
       // re-run if Minuit status bad
@@ -253,13 +253,13 @@ int KLFitter::Fitter::Fit(int index) {
         }
       }
     }
-    if(fLikelihood->GetFlagIsNan()==true) {
-      fMinuitStatus=509;
+    if(fLikelihood->GetFlagIsNan()== true) {
+      fMinuitStatus = 509;
       fConvergenceStatus |= FitAbortedDueToNaNMask;
     }
     else {
       // check if TF problem
-      if (! fLikelihood->NoTFProblem(fLikelihood->GetBestFitParameters())) {
+      if (!fLikelihood->NoTFProblem(fLikelihood->GetBestFitParameters())) {
         fMinuitStatus = 510;
         fConvergenceStatus |= InvalidTransferFunctionAtConvergenceMask;
       }
@@ -345,7 +345,7 @@ int KLFitter::Fitter::GetFitStatusFromCache(int iperm) {
     fConvergenceStatus = fCachedConvergenceStatusVector.at(iperm);
     fMinuitStatus = fCachedMinuitStatusVector.at(iperm);
   } else {
-    std::cout<<"KLFitter::Fitter::GetFitStatusFromCache: size of fCachedConvergenceStatusVector or fCachedMinuitStatusVector too small!"<<std::endl;
+    std::cout << "KLFitter::Fitter::GetFitStatusFromCache: size of fCachedConvergenceStatusVector or fCachedMinuitStatusVector too small!" << std::endl;
   }
 
   return 1;
@@ -354,7 +354,7 @@ int KLFitter::Fitter::GetFitStatusFromCache(int iperm) {
 // ---------------------------------------------------------
 
 int KLFitter::Fitter::SetFitStatusToCache(int iperm, int nperms) {
-  if (iperm==0) {
+  if (iperm == 0) {
     fCachedMinuitStatusVector.clear();
     fCachedMinuitStatusVector.assign(nperms, -1);
 
@@ -362,8 +362,8 @@ int KLFitter::Fitter::SetFitStatusToCache(int iperm, int nperms) {
     fCachedConvergenceStatusVector.assign(nperms, -1);
   } 
 
-  if ((iperm>(int)fCachedMinuitStatusVector.size())||(iperm>(int)fCachedConvergenceStatusVector.size())) {
-    std::cout<<"KLFitter::Fitter::SetFitStatusToCache: iperm > size of fCachedMinuitStatusVector or fCachedConvergenceStatusVector!"<<std::endl;
+  if ((iperm > (int)fCachedMinuitStatusVector.size()) || (iperm > (int)fCachedConvergenceStatusVector.size())) {
+    std::cout << "KLFitter::Fitter::SetFitStatusToCache: iperm > size of fCachedMinuitStatusVector or fCachedConvergenceStatusVector!" << std::endl;
     return 0;
   }
   fCachedMinuitStatusVector.at(iperm) = fMinuitStatus;
@@ -377,7 +377,7 @@ int KLFitter::Fitter::SetFitStatusToCache(int iperm, int nperms) {
       fCachedMinuitStatusVector.at(partner) = fMinuitStatus;
       fCachedConvergenceStatusVector.at(partner) = fConvergenceStatus;
     } else {
-      std::cout<<"KLFitter::Fitter::SetFitStatusToCache: size of fCachedMinuitStatusVector or fCachedConvergenceStatusVector too small!"<<std::endl;
+      std::cout << "KLFitter::Fitter::SetFitStatusToCache: size of fCachedMinuitStatusVector or fCachedConvergenceStatusVector too small!" << std::endl;
     } 
   } 
 

@@ -321,7 +321,7 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, K
 // ---------------------------------------------------------
 int KLFitter::Particles::AddParticle(TLorentzVector * particle, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, TrueFlavorType trueflav, double btagweight) {
   // set default DetEta
-  double DetEta=-999;
+  double DetEta =-999;
 
   this->AddParticle(particle, DetEta, ptype, name, measuredindex, isBtagged, bTagEff, bTagRej, trueflav, btagweight);
 
@@ -332,7 +332,7 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, KLFitter::Partic
 // ---------------------------------------------------------
 int KLFitter::Particles::AddParticle(TLorentzVector * particle, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, TrueFlavorType trueflav, double btagweight) {
   // set default DetEta
-  double DetEta=-999;
+  double DetEta =-999;
 
   this->AddParticle(particle, DetEta, ptype, name, measuredindex, false, -1., -1., trueflav, btagweight);
 
@@ -720,13 +720,13 @@ float KLFitter::Particles::LeptonCharge(int index, KLFitter::Particles::Particle
 
 
   if (ptype == KLFitter::Particles::kElectron) {
-    if (fElectronCharge->size()==0)
+    if (fElectronCharge->size()== 0)
       return -9;
     else
       return (*fElectronCharge)[index];
   }
   else if (ptype == KLFitter::Particles::kMuon) {
-    if (fMuonCharge->size()==0)
+    if (fMuonCharge->size()== 0)
       return -9;
     else
       return (*fMuonCharge)[index];
