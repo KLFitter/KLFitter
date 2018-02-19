@@ -111,7 +111,7 @@ int KLFitter::LikelihoodSgTopWtLJ::DefineModelParticles() {
   /* add model particles */
 
   // create dummy TLorentzVector
-  TLorentzVector * dummy = new TLorentzVector(0,0,0,0); // 4-vector
+  TLorentzVector * dummy = new TLorentzVector(0,0,0,0);  // 4-vector
 
   fParticlesModel->AddParticle(dummy, KLFitter::Particles::kParton,  "b quark", 0, KLFitter::Particles::kB);
 
@@ -248,7 +248,7 @@ int KLFitter::LikelihoodSgTopWtLJ::Initialize() {
   // error code
   int err = 1;
 
-  ResetResults(); // since BAT-0.9.3 no error code produced by this method anymore
+  ResetResults();  // since BAT-0.9.3 no error code produced by this method anymore
 
   // save the current permuted particles
   err *= SavePermutedParticles();

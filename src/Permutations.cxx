@@ -544,8 +544,8 @@ int KLFitter::Permutations::InvariantParticleGroupPermutations(KLFitter::Particl
         fParticlesTable->erase( fParticlesTable->begin() + iperm2 );
         delete p;
       }
-    } // second permutation
-  } // first permutation
+    }  // second permutation
+  }  // first permutation
 
   // return error code
   return err;

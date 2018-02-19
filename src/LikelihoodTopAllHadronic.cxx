@@ -62,9 +62,9 @@ int KLFitter::LikelihoodTopAllHadronic::DefineModelParticles() {
 
   // add model particles
   // create dummy TLorentzVector
-  TLorentzVector * dummy = new TLorentzVector(0,0,0,0); // 4-vector
+  TLorentzVector * dummy = new TLorentzVector(0,0,0,0);  // 4-vector
   fParticlesModel->AddParticle(dummy,
-                               KLFitter::Particles::kParton, // type
+                               KLFitter::Particles::kParton,  // type
                                "hadronic b quark 1",           // name
                                0,                            // index of corresponding particle
                                KLFitter::Particles::kB);     // b jet (truth)
@@ -79,25 +79,25 @@ int KLFitter::LikelihoodTopAllHadronic::DefineModelParticles() {
                                KLFitter::Particles::kParton,
                                "light quark 1",
                                2,                            // index of corresponding particle
-                               KLFitter::Particles::kLight); // light jet (truth)
+                               KLFitter::Particles::kLight);  // light jet (truth)
 
   fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kParton,
                                "light quark 2",
                                3,                            // index of corresponding particle
-                               KLFitter::Particles::kLight); // light jet (truth)
+                               KLFitter::Particles::kLight);  // light jet (truth)
 
   fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kParton,
                                "light quark 3",
                                4,                            // index of corresponding particle
-                               KLFitter::Particles::kLight); // light jet (truth)
+                               KLFitter::Particles::kLight);  // light jet (truth)
 
   fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kParton,
                                "light quark 4",
                                5,                            // index of corresponding particle
-                               KLFitter::Particles::kLight); // light jet (truth)
+                               KLFitter::Particles::kLight);  // light jet (truth)
 
   fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kBoson,
@@ -125,8 +125,8 @@ int KLFitter::LikelihoodTopAllHadronic::DefineModelParticles() {
 // ---------------------------------------------------------
 void KLFitter::LikelihoodTopAllHadronic::DefineParameters() {
   // add parameters of model
-  AddParameter("energy hadronic b 1",       fPhysicsConstants->MassBottom(), 1000.0); // parBhad1E
-  AddParameter("energy hadronic b 2",       fPhysicsConstants->MassBottom(), 1000.0); // parBhad2E
+  AddParameter("energy hadronic b 1",       fPhysicsConstants->MassBottom(), 1000.0);  // parBhad1E
+  AddParameter("energy hadronic b 2",       fPhysicsConstants->MassBottom(), 1000.0);  // parBhad2E
   AddParameter("energy light quark 1",    0.0, 1000.0);                             // parLQ1E
   AddParameter("energy light quark 2",    0.0, 1000.0);                             // parLQ2E
   AddParameter("energy light quark 3",    0.0, 1000.0);                             // parLQ3E
@@ -591,10 +591,10 @@ std::vector<double> KLFitter::LikelihoodTopAllHadronic::LogLikelihoodComponents(
   bool TFgoodTmp(true);
 
   // jet energy resolution terms
-  vecci.push_back(log( fResEnergyBhad1->p(bhad1_fit_e, bhad1_meas_e, TFgoodTmp) )); // comp0
+  vecci.push_back(log( fResEnergyBhad1->p(bhad1_fit_e, bhad1_meas_e, TFgoodTmp) ));  // comp0
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log( fResEnergyBhad2->p(bhad2_fit_e, bhad2_meas_e, TFgoodTmp) )); // comp1
+  vecci.push_back(log( fResEnergyBhad2->p(bhad2_fit_e, bhad2_meas_e, TFgoodTmp) ));  // comp1
   if (!TFgoodTmp) fTFgood = false;
 
   vecci.push_back(log( fResEnergyLQ1->p(lq1_fit_e, lq1_meas_e, TFgoodTmp) ));  // comp2
@@ -618,16 +618,16 @@ std::vector<double> KLFitter::LikelihoodTopAllHadronic::LogLikelihoodComponents(
   double gammaTop = fPhysicsConstants->GammaTop();
 
   // Breit-Wigner of hadronically decaying W-boson1
-  vecci.push_back(BCMath::LogBreitWignerRel(whad1_fit_m, massW, gammaW)); // comp6
+  vecci.push_back(BCMath::LogBreitWignerRel(whad1_fit_m, massW, gammaW));  // comp6
 
   // Breit-Wigner of hadronically decaying W-boson2
-  vecci.push_back(BCMath::LogBreitWignerRel(whad2_fit_m, massW, gammaW)); // comp7
+  vecci.push_back(BCMath::LogBreitWignerRel(whad2_fit_m, massW, gammaW));  // comp7
 
   // Breit-Wigner of hadronically decaying top quark1
-  vecci.push_back(BCMath::LogBreitWignerRel(thad1_fit_m, parameters[parTopM], gammaTop)); // comp8
+  vecci.push_back(BCMath::LogBreitWignerRel(thad1_fit_m, parameters[parTopM], gammaTop));  // comp8
 
   // Breit-Wigner of hadronically decaying top quark
-  vecci.push_back(BCMath::LogBreitWignerRel(thad2_fit_m, parameters[parTopM], gammaTop)); // comp9
+  vecci.push_back(BCMath::LogBreitWignerRel(thad2_fit_m, parameters[parTopM], gammaTop));  // comp9
 
   // return log of likelihood
   return vecci;

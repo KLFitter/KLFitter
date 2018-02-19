@@ -127,9 +127,9 @@ int KLFitter::LikelihoodTopDilepton::DefineModelParticles() {
 
   // add model particles
   // create dummy TLorentzVector
-  TLorentzVector * dummy = new TLorentzVector(0,0,0,0); // 4-vector
+  TLorentzVector * dummy = new TLorentzVector(0,0,0,0);  // 4-vector
   fParticlesModel->AddParticle(dummy,
-                               KLFitter::Particles::kParton, // type
+                               KLFitter::Particles::kParton,  // type
                                "b quark 1",                  // name
                                0,                            // index of corresponding particle
                                KLFitter::Particles::kB);     // b jet (truth)
@@ -722,17 +722,17 @@ double KLFitter::LikelihoodTopDilepton::CalculateWeightPerm(TLorentzVector * l1,
     ++NSolutions;
 
     if (nus.NSolutions==1 && nubars.NSolutions==2) {
-      weight += neutrino_weight(nus.nu1,nubars.nu2);// ***solution 2
+      weight += neutrino_weight(nus.nu1,nubars.nu2);  // ***solution 2
     }
     else if (nus.NSolutions==2 && nubars.NSolutions==1) {
-      weight += neutrino_weight(nus.nu2,nubars.nu1);// ***solution 2
+      weight += neutrino_weight(nus.nu2,nubars.nu1);  // ***solution 2
     }
     else if (nus.NSolutions==2 && nubars.NSolutions==2) {
-      weight += neutrino_weight(nus.nu1,nubars.nu2);// ***solution 2
+      weight += neutrino_weight(nus.nu1,nubars.nu2);  // ***solution 2
 
-      weight += neutrino_weight(nus.nu2,nubars.nu1);// ***solution 3
+      weight += neutrino_weight(nus.nu2,nubars.nu1);  // ***solution 3
 
-      weight += neutrino_weight(nus.nu2,nubars.nu2);// ***solution 4
+      weight += neutrino_weight(nus.nu2,nubars.nu2);  // ***solution 4
 
       NSolutions+=3;
     }
@@ -1080,7 +1080,7 @@ std::vector<double> KLFitter::LikelihoodTopDilepton::LogLikelihoodComponents(std
   if(nuwt_weight == 0.)
     vecci.push_back(log(1e-99));
   else
-    vecci.push_back(log( CalculateWeight(parameters) )); // comp0
+    vecci.push_back(log( CalculateWeight(parameters) ));  // comp0
 
   // jet energy resolution terms
   if( fResEnergyB1->p(b1_fit_e, b1_meas_e, TFgoodTmp) == 0. )
@@ -1113,24 +1113,24 @@ std::vector<double> KLFitter::LikelihoodTopDilepton::LogLikelihoodComponents(std
     if( fResLepton1->p(lep1_fit_e, lep1_meas_e, TFgoodTmp) == 0.)
       vecci.push_back(log(1e-99));
     else
-      vecci.push_back(log( fResLepton1->p(lep1_fit_e, lep1_meas_e, TFgoodTmp) )); // comp3
+      vecci.push_back(log( fResLepton1->p(lep1_fit_e, lep1_meas_e, TFgoodTmp) ));  // comp3
 
     if( fResLepton2->p(lep2_fit_e, lep2_meas_e, TFgoodTmp) == 0.)
       vecci.push_back(log(1e-99));
     else
-      vecci.push_back(log( fResLepton2->p(lep2_fit_e, lep2_meas_e, TFgoodTmp) )); // comp4
+      vecci.push_back(log( fResLepton2->p(lep2_fit_e, lep2_meas_e, TFgoodTmp) ));  // comp4
     if (!TFgoodTmp) fTFgood = false;
   }
   else if (fTypeLepton_1 == kMuon && fTypeLepton_2 == kMuon) {
     if( fResLepton1->p(lep1_fit_e*lep1_meas_sintheta, lep1_meas_pt, TFgoodTmp) == 0.)
       vecci.push_back(log(1e-99));
     else
-      vecci.push_back(log( fResLepton1->p(lep1_fit_e* lep1_meas_sintheta, lep1_meas_pt, TFgoodTmp) )); // comp3
+      vecci.push_back(log( fResLepton1->p(lep1_fit_e* lep1_meas_sintheta, lep1_meas_pt, TFgoodTmp) ));  // comp3
 
     if( fResLepton2->p(lep2_fit_e*lep2_meas_sintheta, lep2_meas_pt, TFgoodTmp) == 0.)
       vecci.push_back(log(1e-99));
     else
-      vecci.push_back(log( fResLepton2->p(lep2_fit_e* lep2_meas_sintheta, lep2_meas_pt, TFgoodTmp) )); // comp4
+      vecci.push_back(log( fResLepton2->p(lep2_fit_e* lep2_meas_sintheta, lep2_meas_pt, TFgoodTmp) ));  // comp4
     if (!TFgoodTmp) fTFgood = false;
   }
 
@@ -1139,12 +1139,12 @@ std::vector<double> KLFitter::LikelihoodTopDilepton::LogLikelihoodComponents(std
   if (GaussAntiNuEta(parameters) == 0.)
     vecci.push_back(log(1e-99));
   else
-    vecci.push_back(log (GaussAntiNuEta(parameters)) ); // comp5
+    vecci.push_back(log (GaussAntiNuEta(parameters)) );  // comp5
 
   if (GaussNuEta(parameters) == 0.)
     vecci.push_back(log(1e-99));
   else
-    vecci.push_back(log (GaussNuEta(parameters)) ); // comp6
+    vecci.push_back(log (GaussNuEta(parameters)) );  // comp6
 
   // sum of invariant masses (lep,jet) term
 
@@ -1152,7 +1152,7 @@ std::vector<double> KLFitter::LikelihoodTopDilepton::LogLikelihoodComponents(std
     vecci.push_back(log(1e-99));
   }
   else
-    vecci.push_back(log( CalculateMLepJet(parameters)) ); // comp7
+    vecci.push_back(log( CalculateMLepJet(parameters)) );  // comp7
 
 
   // return log of likelihood
@@ -1246,7 +1246,7 @@ void KLFitter::LikelihoodTopDilepton::MCMCIterationInterface() {
       std::cout << "ERROR KLFitter::LikelihoodTopDilepton::MCMCIterationInterface -------> NO VALID LEPTON CHARGE!!!" << std::endl;
 
 
-    if (nus.NSolutions > 0 && nubars.NSolutions > 0) { // 1 nu 1 nubar
+    if (nus.NSolutions > 0 && nubars.NSolutions > 0) {  // 1 nu 1 nubar
       if (nus.nu1.M() >= 0 && nubars.nu1.M() >= 0) {
         // mttbar
         mttbar = (MCMC_b1 + MCMC_b2 + MCMC_lep1 + MCMC_lep2 + nus.nu1 + nubars.nu1).M();
@@ -1266,7 +1266,7 @@ void KLFitter::LikelihoodTopDilepton::MCMCIterationInterface() {
         // std::cout << "costheta: " << costheta.first << std::endl;
       }
 
-      if (nus.NSolutions == 1 && nubars.NSolutions == 2) { // 1 nu 2 nubar
+      if (nus.NSolutions == 1 && nubars.NSolutions == 2) {  // 1 nu 2 nubar
         if (nus.nu1.M() >= 0 && nubars.nu2.M() >= 0) {
           // mttbar
           mttbar = (MCMC_b1 + MCMC_b2 + MCMC_lep1 + MCMC_lep2 + nus.nu1 + nubars.nu2).M();
@@ -1285,7 +1285,7 @@ void KLFitter::LikelihoodTopDilepton::MCMCIterationInterface() {
           fHistCosTheta->GetHistogram()->Fill(costheta.second);
           // std::cout << "costheta: " << costheta.first << std::endl;
         } 
-      }// 1 nu 2 nubar
+      }  // 1 nu 2 nubar
       else if (nus.NSolutions == 2 && nubars.NSolutions == 1) {  // 2 nu 1 nubar
         if (nus.nu2.M() >= 0 && nubars.nu1.M() >= 0) {
           // mttbar
@@ -1305,7 +1305,7 @@ void KLFitter::LikelihoodTopDilepton::MCMCIterationInterface() {
           fHistCosTheta->GetHistogram()->Fill(costheta.second);
           // std::cout << "costheta: " << costheta.first << std::endl;
         }
-      }// 2 nu 1 nubar
+      }  // 2 nu 1 nubar
       else if (nus.NSolutions == 2 && nubars.NSolutions == 2) {  // 2 nu 2 nubar
         if (nus.nu1.M() >= 0 && nubars.nu2.M() >= 0) {
           // mttbar
@@ -1363,9 +1363,9 @@ void KLFitter::LikelihoodTopDilepton::MCMCIterationInterface() {
           fHistCosTheta->GetHistogram()->Fill(costheta.second);
           // std::cout << "costheta: " << costheta.first << std::endl;
         }
-      }// 2 nu 2 nubar
-    }// Nsol
-  }// Nchains
+      }  // 2 nu 2 nubar
+    }  // Nsol
+  }  // Nchains
   delete help_ParticleVector;
 }
 

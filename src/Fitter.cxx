@@ -274,7 +274,7 @@ int KLFitter::Fitter::Fit(int index) {
     // caching parameters
     fLikelihood->SetParametersToCache(index, nperms);
     SetFitStatusToCache(index, nperms);
-  } // end of fitting "else"
+  }  // end of fitting "else"
 
   // no error
   return 1;

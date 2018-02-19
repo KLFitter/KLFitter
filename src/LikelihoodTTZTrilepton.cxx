@@ -103,9 +103,9 @@ int KLFitter::LikelihoodTTZTrilepton::DefineModelParticles() {
 
   // add model particles
   // create dummy TLorentzVector
-  TLorentzVector * dummy = new TLorentzVector(0,0,0,0); // 4-vector
+  TLorentzVector * dummy = new TLorentzVector(0,0,0,0);  // 4-vector
   fParticlesModel->AddParticle(dummy,
-                               KLFitter::Particles::kParton, // type
+                               KLFitter::Particles::kParton,  // type
                                "hadronic b quark",           // name
                                0,                            // index of corresponding particle
                                KLFitter::Particles::kB);     // b jet (truth)
@@ -120,13 +120,13 @@ int KLFitter::LikelihoodTTZTrilepton::DefineModelParticles() {
                                KLFitter::Particles::kParton,
                                "light quark 1",
                                2,                            // index of corresponding particle
-                               KLFitter::Particles::kLight); // light jet (truth)
+                               KLFitter::Particles::kLight);  // light jet (truth)
 
   fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kParton,
                                "light quark 2",
                                3,                            // index of corresponding particle
-                               KLFitter::Particles::kLight); // light jet (truth)
+                               KLFitter::Particles::kLight);  // light jet (truth)
 
   if (fTypeLepton == kElectron) {
     fParticlesModel->AddParticle(dummy,
@@ -185,8 +185,8 @@ int KLFitter::LikelihoodTTZTrilepton::DefineModelParticles() {
 // ---------------------------------------------------------
 void KLFitter::LikelihoodTTZTrilepton::DefineParameters() {
   // add parameters of model
-  AddParameter("energy hadronic b",       fPhysicsConstants->MassBottom(), 1000.0); // parBhadE
-  AddParameter("energy leptonic b",       fPhysicsConstants->MassBottom(), 1000.0); // parBlepE
+  AddParameter("energy hadronic b",       fPhysicsConstants->MassBottom(), 1000.0);  // parBhadE
+  AddParameter("energy leptonic b",       fPhysicsConstants->MassBottom(), 1000.0);  // parBlepE
   AddParameter("energy light quark 1",    0.0, 1000.0);                             // parLQ1E
   AddParameter("energy light quark 2",    0.0, 1000.0);                             // parLQ2E
   AddParameter("energy lepton",           0.0, 1000.0);                             // parLepE
@@ -967,10 +967,10 @@ std::vector<double> KLFitter::LikelihoodTTZTrilepton::LogLikelihoodComponents(st
   bool TFgoodTmp(true);
 
   // jet energy resolution terms
-  vecci.push_back(log( fResEnergyBhad->p(bhad_fit_e, bhad_meas_e, TFgoodTmp) )); // comp0
+  vecci.push_back(log( fResEnergyBhad->p(bhad_fit_e, bhad_meas_e, TFgoodTmp) ));  // comp0
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log( fResEnergyBlep->p(blep_fit_e, blep_meas_e, TFgoodTmp) )); // comp1
+  vecci.push_back(log( fResEnergyBlep->p(blep_fit_e, blep_meas_e, TFgoodTmp) ));  // comp1
   if (!TFgoodTmp) fTFgood = false;
 
   vecci.push_back(log( fResEnergyLQ1->p(lq1_fit_e, lq1_meas_e, TFgoodTmp) ));  // comp2
@@ -981,31 +981,31 @@ std::vector<double> KLFitter::LikelihoodTTZTrilepton::LogLikelihoodComponents(st
 
   // lepton energy resolution terms
   if (fTypeLepton == kElectron) {
-    vecci.push_back(log( fResLepton->p(lep_fit_e, lep_meas_e, TFgoodTmp) )); // comp4
+    vecci.push_back(log( fResLepton->p(lep_fit_e, lep_meas_e, TFgoodTmp) ));  // comp4
   }
   else if (fTypeLepton == kMuon)
-    vecci.push_back(log( fResLepton->p(lep_fit_e* lep_meas_sintheta, lep_meas_pt, TFgoodTmp) )); // comp4
+    vecci.push_back(log( fResLepton->p(lep_fit_e* lep_meas_sintheta, lep_meas_pt, TFgoodTmp) ));  // comp4
   if (!TFgoodTmp) fTFgood = false;
 
   if (fTypeLepton == kElectron) {
-    vecci.push_back(log( fResLeptonZ1->p(lepZ1_fit_e, lepZ1_meas_e, TFgoodTmp) )); // comp4
+    vecci.push_back(log( fResLeptonZ1->p(lepZ1_fit_e, lepZ1_meas_e, TFgoodTmp) ));  // comp4
   }
   else if (fTypeLepton == kMuon)
-    vecci.push_back(log( fResLeptonZ1->p(lepZ1_fit_e* lepZ1_meas_sintheta, lepZ1_meas_pt, TFgoodTmp) )); // comp4
+    vecci.push_back(log( fResLeptonZ1->p(lepZ1_fit_e* lepZ1_meas_sintheta, lepZ1_meas_pt, TFgoodTmp) ));  // comp4
   if (!TFgoodTmp) fTFgood = false;
 
   if (fTypeLepton == kElectron) {
-    vecci.push_back(log( fResLeptonZ2->p(lepZ2_fit_e, lepZ2_meas_e, TFgoodTmp) )); // comp4
+    vecci.push_back(log( fResLeptonZ2->p(lepZ2_fit_e, lepZ2_meas_e, TFgoodTmp) ));  // comp4
   }
   else if (fTypeLepton == kMuon)
-    vecci.push_back(log( fResLeptonZ2->p(lepZ2_fit_e* lepZ2_meas_sintheta, lepZ2_meas_pt, TFgoodTmp) )); // comp4
+    vecci.push_back(log( fResLeptonZ2->p(lepZ2_fit_e* lepZ2_meas_sintheta, lepZ2_meas_pt, TFgoodTmp) ));  // comp4
   if (!TFgoodTmp) fTFgood = false;
 
   // neutrino px and py
-  vecci.push_back(log( fResMET->p(nu_fit_px, ETmiss_x, TFgoodTmp, SumET) )); // comp5
+  vecci.push_back(log( fResMET->p(nu_fit_px, ETmiss_x, TFgoodTmp, SumET) ));  // comp5
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log( fResMET->p(nu_fit_py, ETmiss_y, TFgoodTmp, SumET) )); // comp6
+  vecci.push_back(log( fResMET->p(nu_fit_py, ETmiss_y, TFgoodTmp, SumET) ));  // comp6
   if (!TFgoodTmp) fTFgood = false;
 
   // physics constants
@@ -1023,19 +1023,19 @@ std::vector<double> KLFitter::LikelihoodTTZTrilepton::LogLikelihoodComponents(st
   // functions are handled correctly.
 
   // Breit-Wigner of hadronically decaying W-boson
-  vecci.push_back(LogBreitWignerRelNorm(whad_fit_m, massW, gammaW)); // comp7
+  vecci.push_back(LogBreitWignerRelNorm(whad_fit_m, massW, gammaW));  // comp7
 
   // Breit-Wigner of leptonically decaying W-boson
-  vecci.push_back(LogBreitWignerRelNorm(wlep_fit_m, massW, gammaW)); // comp8
+  vecci.push_back(LogBreitWignerRelNorm(wlep_fit_m, massW, gammaW));  // comp8
 
   // Breit-Wigner of hadronically decaying top quark
-  vecci.push_back(LogBreitWignerRelNorm(thad_fit_m, parameters[parTopM], gammaTop)); // comp9
+  vecci.push_back(LogBreitWignerRelNorm(thad_fit_m, parameters[parTopM], gammaTop));  // comp9
 
   // Breit-Wigner of leptonically decaying top quark
-  vecci.push_back(LogBreitWignerRelNorm(tlep_fit_m, parameters[parTopM], gammaTop)); // comp10
+  vecci.push_back(LogBreitWignerRelNorm(tlep_fit_m, parameters[parTopM], gammaTop));  // comp10
 
   // Breit-Wigner of Z decaying into 2 leptons
-  vecci.push_back(LogZCombinedDistribution(Z_fit_m, parameters[parZM], gammaZ)); // comp11
+  vecci.push_back(LogZCombinedDistribution(Z_fit_m, parameters[parZM], gammaZ));  // comp11
 
   // return log of likelihood
   return vecci;
