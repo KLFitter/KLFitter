@@ -64,12 +64,10 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
   /** \name Member functions (Set)  */
   /* @{ */
 
-
   /**
     * Enumerator for the parameters.
     */
   enum Parameters { parBhad1E, parBhad2E, parLQ1E, parLQ2E, parLQ3E, parLQ4E, parTopM };
-
 
   /**
     * Set a flag. If flag is true the invariant top quark mass is
@@ -132,7 +130,6 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
     */
   virtual std::vector<double> GetInitialParameters();
 
-
   /**
     * Check if there are TF problems.
     * @return Return false if TF problem.
@@ -191,7 +188,6 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
     * @return An error code.
     */
   int RemoveForbiddenParticlePermutations();
-
 
   /**
     * Remove forbidden particle permutations - forcing b-jets on the position of a b parton.

@@ -24,19 +24,18 @@
 
 // ---------------------------------------------------------
 KLFitter::PhysicsConstants::PhysicsConstants() {
-  fMassBottom =   4.7;  // bottom quark mass in GeV/c^{2}
-  fMassW      =  80.4;  // W boson mass in GeV/c^{2}
-  fMassTop    = 170.0;  // top quark pole mass in GeV/c^{2}
-  fMassZ      =  91.2;  // Z boson mass in GeV/c^{2}
-  fGammaW     =   2.1;  // W boson width
-  fGammaTop   =   1.5;  // top quark width
-  fGammaZ     =   2.5;  // Z boson width
+  fMassBottom =   4.7;         // bottom quark mass in GeV/c^{2}
+  fMassW      =  80.4;         // W boson mass in GeV/c^{2}
+  fMassTop    = 170.0;         // top quark pole mass in GeV/c^{2}
+  fMassZ      =  91.2;         // Z boson mass in GeV/c^{2}
+  fGammaW     =   2.1;         // W boson width
+  fGammaTop   =   1.5;         // top quark width
+  fGammaZ     =   2.5;         // Z boson width
   fGF         =   1.16637e-5;  // in GeV^{-2}
   fAlphaS     =   0.118;
-  fMassTopUnc =   1.4;  // top quark LHC uncertainty
-  // ++++++++++++++++//
-  fMassHiggs    = 120.0;  // Higgs mass in GeV/c^{2}
-  fGammaHiggs   = 0.003512;  // Higgs width
+  fMassTopUnc =   1.4;         // top quark LHC uncertainty
+  fMassHiggs    = 120.0;       // Higgs mass in GeV/c^{2}
+  fGammaHiggs   = 0.003512;    // Higgs width
 }
 
 // ---------------------------------------------------------

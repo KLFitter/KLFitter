@@ -98,7 +98,6 @@ class LikelihoodTTHLeptonJets : public KLFitter::LikelihoodBase {
     */
   void SetFlagHiggsMassFixed(bool flag) { fFlagHiggsMassFixed = flag; }
 
-
   void SetFlagUseJetMass(bool flag) { fFlagUseJetMass = flag; }
 
   /**

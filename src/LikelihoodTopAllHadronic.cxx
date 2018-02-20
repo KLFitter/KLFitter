@@ -61,41 +61,41 @@ int KLFitter::LikelihoodTopAllHadronic::DefineModelParticles() {
 
   // add model particles
   // create dummy TLorentzVector
-  TLorentzVector * dummy = new TLorentzVector(0, 0, 0, 0);  // 4-vector
+  TLorentzVector * dummy = new TLorentzVector(0, 0, 0, 0);    // 4-vector
   fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kParton,  // type
-                               "hadronic b quark 1",           // name
-                               0,                            // index of corresponding particle
-                               KLFitter::Particles::kB);     // b jet (truth)
+                               "hadronic b quark 1",          // name
+                               0,                             // index of corresponding particle
+                               KLFitter::Particles::kB);      // b jet (truth)
 
   fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kParton,
                                "hadronic b quark 2",
-                               1,                            // index of corresponding particle
-                               KLFitter::Particles::kB);     // b jet (truth)
+                               1,                             // index of corresponding particle
+                               KLFitter::Particles::kB);      // b jet (truth)
 
   fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kParton,
                                "light quark 1",
-                               2,                            // index of corresponding particle
+                               2,                             // index of corresponding particle
                                KLFitter::Particles::kLight);  // light jet (truth)
 
   fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kParton,
                                "light quark 2",
-                               3,                            // index of corresponding particle
+                               3,                             // index of corresponding particle
                                KLFitter::Particles::kLight);  // light jet (truth)
 
   fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kParton,
                                "light quark 3",
-                               4,                            // index of corresponding particle
+                               4,                             // index of corresponding particle
                                KLFitter::Particles::kLight);  // light jet (truth)
 
   fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kParton,
                                "light quark 4",
-                               5,                            // index of corresponding particle
+                               5,                             // index of corresponding particle
                                KLFitter::Particles::kLight);  // light jet (truth)
 
   fParticlesModel->AddParticle(dummy,
@@ -126,11 +126,11 @@ void KLFitter::LikelihoodTopAllHadronic::DefineParameters() {
   // add parameters of model
   AddParameter("energy hadronic b 1",       fPhysicsConstants->MassBottom(), 1000.0);  // parBhad1E
   AddParameter("energy hadronic b 2",       fPhysicsConstants->MassBottom(), 1000.0);  // parBhad2E
-  AddParameter("energy light quark 1",    0.0, 1000.0);                             // parLQ1E
-  AddParameter("energy light quark 2",    0.0, 1000.0);                             // parLQ2E
-  AddParameter("energy light quark 3",    0.0, 1000.0);                             // parLQ3E
-  AddParameter("energy light quark 4",    0.0, 1000.0);                             // parLQ4E
-  AddParameter("top mass",              100.0, 1000.0);                             // parTopM
+  AddParameter("energy light quark 1",    0.0, 1000.0);                                // parLQ1E
+  AddParameter("energy light quark 2",    0.0, 1000.0);                                // parLQ2E
+  AddParameter("energy light quark 3",    0.0, 1000.0);                                // parLQ3E
+  AddParameter("energy light quark 4",    0.0, 1000.0);                                // parLQ4E
+  AddParameter("top mass",              100.0, 1000.0);                                // parTopM
 }
 
 // ---------------------------------------------------------
@@ -223,7 +223,6 @@ int KLFitter::LikelihoodTopAllHadronic::CalculateLorentzVectors(std::vector <dou
   thad2_fit_pz = whad2_fit_pz+bhad2_fit_pz;
   thad2_fit_m = sqrt(thad2_fit_e*thad2_fit_e - (thad2_fit_px*thad2_fit_px + thad2_fit_py*thad2_fit_py + thad2_fit_pz*thad2_fit_pz));
 
-
   // no error
   return 1;
 }
@@ -295,11 +294,9 @@ int KLFitter::LikelihoodTopAllHadronic::RemoveForbiddenParticlePermutations() {
   // error code
   int err = 1;
 
-
   // only in kVetoNoFitAndSoOn mode...
   if (!((fBTagMethod == kVetoNoFit) || (fBTagMethod == kVetoNoFitLight) || (fBTagMethod == kVetoNoFitBoth)))
     return err;
-
 
   // remove all permutations where a b-tagged jet/non-tagged jet is on a wrong position
   KLFitter::Particles * particles = (*fPermutations)->Particles();
@@ -422,7 +419,6 @@ double KLFitter::LikelihoodTopAllHadronic::LogLikelihood(const std::vector<doubl
 
   logprob += log(fResEnergyLQ4->p(lq4_fit_e, lq4_meas_e, &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
-
 
   // physics constants
   double massW = fPhysicsConstants->MassW();
@@ -586,7 +582,6 @@ std::vector<double> KLFitter::LikelihoodTopAllHadronic::LogLikelihoodComponents(
 
   // calculate 4-vectors
   CalculateLorentzVectors(parameters);
-
 
   // temporary flag for a safe use of the transfer functions
   bool TFgoodTmp(true);

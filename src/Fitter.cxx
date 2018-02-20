@@ -85,10 +85,7 @@ int KLFitter::Fitter::SetMyParticlesTruth(KLFitter::Particles * particles) {
   fMyParticlesTruth = particles;
 
   // set pointer to truth particles
-
   fLikelihood->SetMyParticlesTruth(&fMyParticlesTruth);
-
-  // std:: cout << "fMyParticlesTruth set in Fitter!!!!!" << std::endl;
 
   // no error
   return 1;
@@ -126,8 +123,6 @@ int KLFitter::Fitter::SetLikelihood(KLFitter::LikelihoodBase * likelihood) {
 
   // set pointer to permuted particles
   fLikelihood->SetParticlesPermuted(&fParticlesPermuted);
-
-
 
   // remove invariant permutations if particles are defined alreday
   if (fParticles)
@@ -174,7 +169,6 @@ int KLFitter::Fitter::Fit(int index) {
   int nperms = fPermutations->NPermutations();
   int partnerindex = fLikelihood->LHInvariantPermutationPartner(index, nperms, &dummy, &dummy);
 
-
   // check if permutation is LH invariant and has already been calculated
   if ((partnerindex > -1)&&(partnerindex < index)) {
     fLikelihood->GetParametersFromCache(index);
@@ -182,17 +176,12 @@ int KLFitter::Fitter::Fit(int index) {
   } else {
     // Markov Chain MC
     if (fMinimizationMethod == kMarkovChainMC) {
-      // comment out BCLog lines if interested in more BAT details
-      // BCLog * log = new BCLog();
-      // log->OpenLog("help.txt",BCLog::detail,BCLog::detail);
       fLikelihood->MCMCSetFlagFillHistograms(true);
       fLikelihood->MCMCSetNChains(5);
       fLikelihood->MCMCSetNIterationsRun(20000);
       fLikelihood->MCMCSetNIterationsMax(1000000);
       fLikelihood->MCMCSetNIterationsUpdate(100);
       fLikelihood->MarginalizeAll();
-      // log->CloseLog();
-      // delete log;
     } else if (fMinimizationMethod == kSimulatedAnnealing) {
       // simulated annealing
       fLikelihood->SetOptimizationMethod(BCIntegrate::kOptSimAnn);
@@ -203,7 +192,6 @@ int KLFitter::Fitter::Fit(int index) {
       // MINUIT
       fLikelihood->SetOptimizationMethod(BCIntegrate::kOptMinuit);
       fLikelihood->FindMode(fLikelihood->GetInitialParameters());
-      //    fLikelihood->FindMode(fLikelihood->GetBestFitParameters());
 
       fMinuitStatus = fLikelihood->GetMinuitErrorFlag();
 
@@ -224,8 +212,6 @@ int KLFitter::Fitter::Fit(int index) {
       if (fMinuitStatus != 0) {
         fLikelihood->ResetCache();
         fLikelihood->ResetResults();
-        // print to screen
-        //        std::cout << "KLFitter::Fit(). Minuit did not find proper minimum. Rerun with Simulated Annealing."<<std::endl;
         if (!fTurnOffSA) {
           fLikelihood->SetFlagIsNan(false);
           fLikelihood->SetOptimizationMethod(BCIntegrate::kOptSimAnn);
@@ -241,7 +227,6 @@ int KLFitter::Fitter::Fit(int index) {
       if (fMinuitStatus == 4)
         fConvergenceStatus |= MinuitDidNotConvergeMask;
     }
-
 
     // check if any parameter is at its borders->set MINUIT flag to 501
     if (fMinuitStatus == 0) {

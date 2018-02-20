@@ -101,16 +101,13 @@ class PhysicsConstants {
     */
   double GammaTop() { return fGammaTop; }
 
-
   /**
     * Return the width of the Higgs boson in GeV/c2
     * @return The width of the particle in GeV/c2.
     */
   double GammaHiggs() { return fGammaHiggs; }
 
-
   double MassTopUnc() { return fMassTopUnc; }
-
 
   /* @} */
   /** \name Member functions (Set)  */
@@ -172,7 +169,6 @@ class PhysicsConstants {
     */
   int SetGammaTop(double gamma);
 
-
   /**
     * Set the width of the Higgs boson in GeV/c2.
     * @param gamma The width of the particle in GeV/c2.
@@ -188,7 +184,6 @@ class PhysicsConstants {
     * Calculates the top width at NLO.
     */
   void CalculateGammaTop();
-
 
   /**
     * Calculates the Higgs width using HDECAY.

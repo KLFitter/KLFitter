@@ -108,8 +108,6 @@ int KLFitter::LikelihoodSgTopWtLJ::DefineModelParticles() {
   // create the particles of the model
   fParticlesModel = new KLFitter::Particles();
 
-  /* add model particles */
-
   // create dummy TLorentzVector
   TLorentzVector * dummy = new TLorentzVector(0, 0, 0, 0);  // 4-vector
 
@@ -249,7 +247,7 @@ int KLFitter::LikelihoodSgTopWtLJ::Initialize() {
   // error code
   int err = 1;
 
-  ResetResults();  // since BAT-0.9.3 no error code produced by this method anymore
+  ResetResults();
 
   // save the current permuted particles
   err *= SavePermutedParticles();
@@ -287,19 +285,6 @@ int KLFitter::LikelihoodSgTopWtLJ::RemoveInvariantParticlePermutations() {
     indexVector_Jets.push_back(i);
   }
   err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Jets);
-  //
-  //  // remove the permutation from the other lepton type
-  //  std::vector<int> indexVector_Leptons;
-  //  if (fTypeLepton == kEletron) {
-  //    ptype = KLFitter::Particles::kMuon;
-  //    for (int iMuon = 0; iMuon < particles->NMuons(); iMuon++)
-  //      indexVector_Leptons.push_back(iMuon);
-  //  } else if (fTypeLepton == kMuon) {
-  //    ptype = KLFitter::Particles::kElectron;
-  //    for (int iElectron = 0; iElectron < particles->NElectrons(); iElectron++)
-  //      indexVector_Leptons.push_back(iElectron);
-  //  }
-  //  err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Leptons);
 
   // return error code
   return err;
@@ -407,15 +392,6 @@ double KLFitter::LikelihoodSgTopWtLJ::LogLikelihood(const std::vector<double> & 
   // Breit-Wigner of leptonically decaying W-boson
   logprob += BCMath::LogBreitWignerRel(wlep_fit_m, massW, gammaW);
 
-  // Breit-Wigner of top quark - user either leptonic or hadronic W, dependic on fHadronicTop flag.
-  // /* Set fHadronicTop automatically if applicable */
-  // if ((*fParticlesPermuted)->NBosons() == 2) {
-  //   if ((*fParticlesPermuted)->NameBoson(0) == "LepW" && (*fParticlesPermuted)->NameBoson(1) == "HadW") {
-  //     fHadronicTop = true;
-  //   } else if ((*fParticlesPermuted)->NameBoson(0) == "HadW" && (*fParticlesPermuted)->NameBoson(1) == "LepW") {
-  //     fHadronicTop = false;
-  //   }
-  // }
   if (fHadronicTop) {
     logprob += BCMath::LogBreitWignerRel(thad_fit_m, massTop, gammaTop);
   } else {
@@ -469,17 +445,9 @@ std::vector<double> KLFitter::LikelihoodSgTopWtLJ::GetInitialParameters() {
       if (sol1 > sol2) {
         values[parNuPz] = neutrino_pz_solutions.at(0);
       }
-
-      // // Let's see what happens when we fix the neutrino pz
-      // if (std::fabs(neutrino_pz_solutions[0]) < std::fabs(neutrino_pz_solutions[1])) {
-      //   values[parNuPz] = neutrino_pz_solutions[0];
-      // } else {
-      //   values[parNuPz] = neutrino_pz_solutions[1];
-      // }
-      // SetParameterRange(parNuPz, values[parNuPz], values[parNuPz]);
     }
   } else {
-    /* scaleMET method */
+    // scaleMET method
     TLorentzVector* lepton = GetLepton(*fParticlesPermuted);
     KLFitter::PhysicsConstants constants;
     double mW = constants.MassW();

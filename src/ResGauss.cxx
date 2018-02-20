@@ -40,7 +40,7 @@ KLFitter::ResGauss::~ResGauss() {
 }
 
 // ---------------------------------------------------------
-double KLFitter::ResGauss::GetSigma(double /*dummy*/) {
+double KLFitter::ResGauss::GetSigma(double dummy) {
   return fParameters[0];
 }
 

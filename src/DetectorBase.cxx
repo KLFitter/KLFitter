@@ -24,7 +24,7 @@
 #include "KLFitter/ResolutionBase.h"
 
 // ---------------------------------------------------------
-KLFitter::DetectorBase::DetectorBase(std::string /*folder*/) :
+KLFitter::DetectorBase::DetectorBase(std::string folder) :
   fResEnergyLightJet(0),
   fResEnergyBJet(0),
   fResEnergyGluonJet(0),
