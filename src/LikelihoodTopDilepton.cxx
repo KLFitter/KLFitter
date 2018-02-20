@@ -579,7 +579,7 @@ double KLFitter::LikelihoodTopDilepton::LogLikelihood(const std::vector<double> 
 }
 
 // ---------------------------------------------------------
-double KLFitter::LikelihoodTopDilepton::CalculateMLepJet(const std::vector<double> & /*parameters*/) {
+double KLFitter::LikelihoodTopDilepton::CalculateMLepJet(const std::vector<double> & parameters) {
   double sumMinv = 0.;
   double norm = 1.;
 

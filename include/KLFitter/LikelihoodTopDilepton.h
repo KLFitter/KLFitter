@@ -87,7 +87,6 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
   /**
     * Enumerator for the parameters.
     */
-  // enum Parameters { parTopM = 0, parB1E, parB2E, parLep1E, parLep2E, parNuEta, parAntiNuEta /*parNuPx, parNuPy, parNuPz,parTopM*/ };
   enum Parameters { parTopM = 0, parB1E, parB2E, parLep1E, parLep2E, parAntiNuEta, parNuEta };
 
   /**

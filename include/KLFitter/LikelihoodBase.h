@@ -341,7 +341,7 @@ class LikelihoodBase : public BCModel {
     * Check if there are TF problems.
     * @return Return false if TF problem.
     */
-  virtual bool NoTFProblem(std::vector<double> /*parameters*/) { return true; }
+  virtual bool NoTFProblem(std::vector<double> parameters) { return true; }
 
   /**
     * Returns the best fit parameters, overloaded from BCModel

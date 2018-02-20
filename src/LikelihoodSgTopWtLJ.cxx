@@ -447,7 +447,7 @@ std::vector<double> KLFitter::LikelihoodSgTopWtLJ::GetInitialParameters() {
       }
     }
   } else {
-    /* scaleMET method */
+    // scaleMET method
     TLorentzVector* lepton = GetLepton(*fParticlesPermuted);
     KLFitter::PhysicsConstants constants;
     double mW = constants.MassW();
