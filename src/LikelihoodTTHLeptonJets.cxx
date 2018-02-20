@@ -538,40 +538,40 @@ double KLFitter::LikelihoodTTHLeptonJets::LogLikelihood(const std::vector<double
   bool TFgoodTmp(true);
 
   // jet energy resolution terms
-  logprob += log(fResEnergyBhad->p(bhad_fit_e, bhad_meas_e, TFgoodTmp));
+  logprob += log(fResEnergyBhad->p(bhad_fit_e, bhad_meas_e, &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
 
-  logprob += log(fResEnergyBlep->p(blep_fit_e, blep_meas_e, TFgoodTmp));
+  logprob += log(fResEnergyBlep->p(blep_fit_e, blep_meas_e, &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
 
-  logprob += log(fResEnergyLQ1->p(lq1_fit_e, lq1_meas_e, TFgoodTmp));
+  logprob += log(fResEnergyLQ1->p(lq1_fit_e, lq1_meas_e, &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
 
-  logprob += log(fResEnergyLQ2->p(lq2_fit_e, lq2_meas_e, TFgoodTmp));
+  logprob += log(fResEnergyLQ2->p(lq2_fit_e, lq2_meas_e, &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
 
   // ++++++++++++++++//
-  logprob += log(fResEnergyBHiggs1->p(BHiggs1_fit_e, BHiggs1_meas_e, TFgoodTmp));
+  logprob += log(fResEnergyBHiggs1->p(BHiggs1_fit_e, BHiggs1_meas_e, &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
 
-  logprob += log(fResEnergyBHiggs2->p(BHiggs2_fit_e, BHiggs2_meas_e, TFgoodTmp));
+  logprob += log(fResEnergyBHiggs2->p(BHiggs2_fit_e, BHiggs2_meas_e, &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
   // ++++++++++++++++//
 
 
   // lepton energy resolution terms
   if (fTypeLepton == kElectron) {
-    logprob += log(fResLepton->p(lep_fit_e, lep_meas_e, TFgoodTmp));
+    logprob += log(fResLepton->p(lep_fit_e, lep_meas_e, &TFgoodTmp));
   } else if (fTypeLepton == kMuon) {
-    logprob += log(fResLepton->p(lep_fit_e* lep_meas_sintheta, lep_meas_pt, TFgoodTmp));
+    logprob += log(fResLepton->p(lep_fit_e* lep_meas_sintheta, lep_meas_pt, &TFgoodTmp));
   }
   if (!TFgoodTmp) fTFgood = false;
 
   // neutrino px and py
-  logprob += log(fResMET->p(nu_fit_px, ETmiss_x, TFgoodTmp, SumET));
+  logprob += log(fResMET->p(nu_fit_px, ETmiss_x, &TFgoodTmp, SumET));
   if (!TFgoodTmp) fTFgood = false;
 
-  logprob += log(fResMET->p(nu_fit_py, ETmiss_y, TFgoodTmp, SumET));
+  logprob += log(fResMET->p(nu_fit_py, ETmiss_y, &TFgoodTmp, SumET));
   if (!TFgoodTmp) fTFgood = false;
 
   // physics constants
@@ -761,7 +761,7 @@ int KLFitter::LikelihoodTTHLeptonJets::SavePermutedParticles() {
   bhad_meas_px     = (*fParticlesPermuted)->Parton(0)->Px();
   bhad_meas_py     = (*fParticlesPermuted)->Parton(0)->Py();
   bhad_meas_pz     = (*fParticlesPermuted)->Parton(0)->Pz();
-  bhad_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(0)->M(), fPhysicsConstants->MassBottom(), bhad_meas_px, bhad_meas_py, bhad_meas_pz, bhad_meas_e);
+  bhad_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(0)->M(), fPhysicsConstants->MassBottom(), &bhad_meas_px, &bhad_meas_py, &bhad_meas_pz, bhad_meas_e);
   bhad_meas_p      = sqrt(bhad_meas_e*bhad_meas_e - bhad_meas_m*bhad_meas_m);
 
   blep_meas_e      = (*fParticlesPermuted)->Parton(1)->E();
@@ -769,7 +769,7 @@ int KLFitter::LikelihoodTTHLeptonJets::SavePermutedParticles() {
   blep_meas_px     = (*fParticlesPermuted)->Parton(1)->Px();
   blep_meas_py     = (*fParticlesPermuted)->Parton(1)->Py();
   blep_meas_pz     = (*fParticlesPermuted)->Parton(1)->Pz();
-  blep_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(1)->M(), fPhysicsConstants->MassBottom(), blep_meas_px, blep_meas_py, blep_meas_pz, blep_meas_e);
+  blep_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(1)->M(), fPhysicsConstants->MassBottom(), &blep_meas_px, &blep_meas_py, &blep_meas_pz, blep_meas_e);
   blep_meas_p      = sqrt(blep_meas_e*blep_meas_e - blep_meas_m*blep_meas_m);
 
   lq1_meas_e      = (*fParticlesPermuted)->Parton(2)->E();
@@ -777,7 +777,7 @@ int KLFitter::LikelihoodTTHLeptonJets::SavePermutedParticles() {
   lq1_meas_px     = (*fParticlesPermuted)->Parton(2)->Px();
   lq1_meas_py     = (*fParticlesPermuted)->Parton(2)->Py();
   lq1_meas_pz     = (*fParticlesPermuted)->Parton(2)->Pz();
-  lq1_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(2)->M(), 0., lq1_meas_px, lq1_meas_py, lq1_meas_pz, lq1_meas_e);
+  lq1_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(2)->M(), 0., &lq1_meas_px, &lq1_meas_py, &lq1_meas_pz, lq1_meas_e);
   lq1_meas_p      = sqrt(lq1_meas_e*lq1_meas_e - lq1_meas_m*lq1_meas_m);
 
   lq2_meas_e      = (*fParticlesPermuted)->Parton(3)->E();
@@ -785,7 +785,7 @@ int KLFitter::LikelihoodTTHLeptonJets::SavePermutedParticles() {
   lq2_meas_px     = (*fParticlesPermuted)->Parton(3)->Px();
   lq2_meas_py     = (*fParticlesPermuted)->Parton(3)->Py();
   lq2_meas_pz     = (*fParticlesPermuted)->Parton(3)->Pz();
-  lq2_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(3)->M(), 0., lq2_meas_px, lq2_meas_py, lq2_meas_pz, lq2_meas_e);
+  lq2_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(3)->M(), 0., &lq2_meas_px, &lq2_meas_py, &lq2_meas_pz, lq2_meas_e);
   lq2_meas_p      = sqrt(lq2_meas_e*lq2_meas_e - lq2_meas_m*lq2_meas_m);
 
   // ++++++++++++++++//
@@ -794,7 +794,7 @@ int KLFitter::LikelihoodTTHLeptonJets::SavePermutedParticles() {
   BHiggs1_meas_px     = (*fParticlesPermuted)->Parton(4)->Px();
   BHiggs1_meas_py     = (*fParticlesPermuted)->Parton(4)->Py();
   BHiggs1_meas_pz     = (*fParticlesPermuted)->Parton(4)->Pz();
-  BHiggs1_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(4)->M(), fPhysicsConstants->MassBottom(), BHiggs1_meas_px, BHiggs1_meas_py, BHiggs1_meas_pz, BHiggs1_meas_e);
+  BHiggs1_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(4)->M(), fPhysicsConstants->MassBottom(), &BHiggs1_meas_px, &BHiggs1_meas_py, &BHiggs1_meas_pz, BHiggs1_meas_e);
   BHiggs1_meas_p      = sqrt(BHiggs1_meas_e*BHiggs1_meas_e - BHiggs1_meas_m*BHiggs1_meas_m);
 
   BHiggs2_meas_e      = (*fParticlesPermuted)->Parton(5)->E();
@@ -802,7 +802,7 @@ int KLFitter::LikelihoodTTHLeptonJets::SavePermutedParticles() {
   BHiggs2_meas_px     = (*fParticlesPermuted)->Parton(5)->Px();
   BHiggs2_meas_py     = (*fParticlesPermuted)->Parton(5)->Py();
   BHiggs2_meas_pz     = (*fParticlesPermuted)->Parton(5)->Pz();
-  BHiggs2_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(5)->M(), fPhysicsConstants->MassBottom(), BHiggs2_meas_px, BHiggs2_meas_py, BHiggs2_meas_pz, BHiggs2_meas_e);
+  BHiggs2_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(5)->M(), fPhysicsConstants->MassBottom(), &BHiggs2_meas_px, &BHiggs2_meas_py, &BHiggs2_meas_pz, BHiggs2_meas_e);
   BHiggs2_meas_p      = sqrt(BHiggs2_meas_e*BHiggs2_meas_e - BHiggs2_meas_m*BHiggs2_meas_m);
   // ++++++++++++++++//
 
@@ -917,37 +917,37 @@ std::vector<double> KLFitter::LikelihoodTTHLeptonJets::LogLikelihoodComponents(s
   bool TFgoodTmp(true);
 
   // jet energy resolution terms
-  vecci.push_back(log(fResEnergyBhad->p(bhad_fit_e, bhad_meas_e, TFgoodTmp)));  // comp0
+  vecci.push_back(log(fResEnergyBhad->p(bhad_fit_e, bhad_meas_e, &TFgoodTmp)));  // comp0
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log(fResEnergyBlep->p(blep_fit_e, blep_meas_e, TFgoodTmp)));  // comp1
+  vecci.push_back(log(fResEnergyBlep->p(blep_fit_e, blep_meas_e, &TFgoodTmp)));  // comp1
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log(fResEnergyLQ1->p(lq1_fit_e, lq1_meas_e, TFgoodTmp)));  // comp2
+  vecci.push_back(log(fResEnergyLQ1->p(lq1_fit_e, lq1_meas_e, &TFgoodTmp)));  // comp2
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log(fResEnergyLQ2->p(lq2_fit_e, lq2_meas_e, TFgoodTmp)));  // comp3
+  vecci.push_back(log(fResEnergyLQ2->p(lq2_fit_e, lq2_meas_e, &TFgoodTmp)));  // comp3
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log(fResEnergyBHiggs1->p(BHiggs1_fit_e, BHiggs1_meas_e, TFgoodTmp)));  // comp4
+  vecci.push_back(log(fResEnergyBHiggs1->p(BHiggs1_fit_e, BHiggs1_meas_e, &TFgoodTmp)));  // comp4
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log(fResEnergyBHiggs2->p(BHiggs2_fit_e, BHiggs2_meas_e, TFgoodTmp)));  // comp5
+  vecci.push_back(log(fResEnergyBHiggs2->p(BHiggs2_fit_e, BHiggs2_meas_e, &TFgoodTmp)));  // comp5
   if (!TFgoodTmp) fTFgood = false;
 
   // lepton energy resolution terms
   if (fTypeLepton == kElectron) {
-    vecci.push_back(log(fResLepton->p(lep_fit_e, lep_meas_e, TFgoodTmp)));  // comp6
+    vecci.push_back(log(fResLepton->p(lep_fit_e, lep_meas_e, &TFgoodTmp)));  // comp6
   } else if (fTypeLepton == kMuon) {
-    vecci.push_back(log(fResLepton->p(lep_fit_e* lep_meas_sintheta, lep_meas_pt, TFgoodTmp)));  // comp6
+    vecci.push_back(log(fResLepton->p(lep_fit_e* lep_meas_sintheta, lep_meas_pt, &TFgoodTmp)));  // comp6
   }
   if (!TFgoodTmp) fTFgood = false;
 
   // neutrino px and py
-  vecci.push_back(log(fResMET->p(nu_fit_px, ETmiss_x, TFgoodTmp, SumET)));  // comp7
+  vecci.push_back(log(fResMET->p(nu_fit_px, ETmiss_x, &TFgoodTmp, SumET)));  // comp7
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log(fResMET->p(nu_fit_py, ETmiss_y, TFgoodTmp, SumET)));  // comp8
+  vecci.push_back(log(fResMET->p(nu_fit_py, ETmiss_y, &TFgoodTmp, SumET)));  // comp8
   if (!TFgoodTmp) fTFgood = false;
 
   // physics constants

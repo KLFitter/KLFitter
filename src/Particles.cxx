@@ -212,7 +212,7 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, f
   KLFitter::Particles::ParticleType temptype = kParton;
 
   // check if particle with name exists already
-  if (!FindParticle(name, vect, index, temptype)) {
+  if (!FindParticle(name, vect, &index, &temptype)) {
     // add particle
     // create pointer copy of particle content which is owend by Particles
     TLorentzVector * cparticle = new TLorentzVector(particle->Px(), particle->Py(), particle->Pz(), particle->E());
@@ -265,7 +265,7 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, K
   KLFitter::Particles::ParticleType temptype = kParton;
 
   // check if particle with name exists already
-  if (!FindParticle(name, vect, index, temptype)) {
+  if (!FindParticle(name, vect, &index, &temptype)) {
     // add particle
     // create pointer copy of particle content which is owend by Particles
     TLorentzVector * cparticle = new TLorentzVector(particle->Px(), particle->Py(), particle->Pz(), particle->E());
@@ -354,7 +354,7 @@ int KLFitter::Particles::RemoveParticle(std::string name) {
   KLFitter::Particles::ParticleType ptype = kParton;
 
   // remove particle
-  if (FindParticle(name, vect, index, ptype)) {
+  if (FindParticle(name, vect, &index, &ptype)) {
     return RemoveParticle(index, ptype);
   } else {
     std::cout << "KLFitter::Particles::RemoveParticles(). Could not find particle with name " << name << "." << std::endl;
@@ -369,7 +369,7 @@ TLorentzVector* KLFitter::Particles::Particle(std::string name) {
   KLFitter::Particles::ParticleType ptype = kParton;
 
   // find particle
-  if (!FindParticle(name, particle, index, ptype)) {
+  if (!FindParticle(name, particle, &index, &ptype)) {
     std::cout << "KLFitter::Particles::Particle(). Could not find particles." << std::endl;
     return 0;
   }
@@ -393,14 +393,14 @@ TLorentzVector* KLFitter::Particles::Particle(int index, KLFitter::Particles::Pa
 }
 
 // ---------------------------------------------------------
-int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particle, int &index, KLFitter::Particles::ParticleType &ptype) {
+int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particle, int *index, KLFitter::Particles::ParticleType *ptype) {
   // loop over all partons
   unsigned int npartons = fNamePartons->size();
   for (unsigned int i = 0; i < npartons; ++i)
     if (name == (*fNamePartons)[i]) {
       particle = (*fPartons)[i];
-      index = i;
-      ptype = KLFitter::Particles::kParton;
+      *index = i;
+      *ptype = KLFitter::Particles::kParton;
       return 1;
     }
 
@@ -409,8 +409,8 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
   for (unsigned int i = 0; i < nelectrons; ++i)
     if (name == (*fNameElectrons)[i]) {
       particle = (*fElectrons)[i];
-      index = i;
-      ptype = KLFitter::Particles::kElectron;
+      *index = i;
+      *ptype = KLFitter::Particles::kElectron;
       return 1;
     }
 
@@ -419,8 +419,8 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
   for (unsigned int i = 0; i < nmuons; ++i)
     if (name == (*fNameMuons)[i]) {
       particle = (*fMuons)[i];
-      index = i;
-      ptype = KLFitter::Particles::kMuon;
+      *index = i;
+      *ptype = KLFitter::Particles::kMuon;
       return 1;
     }
 
@@ -429,8 +429,8 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
   for (unsigned int i = 0; i < ntaus; ++i)
     if (name == (*fNameTaus)[i]) {
       particle = (*fTaus)[i];
-      index = i;
-      ptype = KLFitter::Particles::kTau;
+      *index = i;
+      *ptype = KLFitter::Particles::kTau;
       return 1;
     }
 
@@ -439,8 +439,8 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
   for (unsigned int i = 0; i < nneutrinos; ++i)
     if (name == (*fNameNeutrinos)[i]) {
       particle = (*fNeutrinos)[i];
-      index = i;
-      ptype = KLFitter::Particles::kNeutrino;
+      *index = i;
+      *ptype = KLFitter::Particles::kNeutrino;
       return 1;
     }
 
@@ -449,8 +449,8 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
   for (unsigned int i = 0; i < nbosons; ++i)
     if (name == (*fNameBosons)[i]) {
       particle = (*fBosons)[i];
-      index = i;
-      ptype = KLFitter::Particles::kBoson;
+      *index = i;
+      *ptype = KLFitter::Particles::kBoson;
       return 1;
     }
 
@@ -459,8 +459,8 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
   for (unsigned int i = 0; i < nphotons; ++i)
     if (name == (*fNamePhotons)[i]) {
       particle = (*fPhotons)[i];
-      index = i;
-      ptype = KLFitter::Particles::kPhoton;
+      *index = i;
+      *ptype = KLFitter::Particles::kPhoton;
       return 1;
     }
 

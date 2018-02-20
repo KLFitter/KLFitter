@@ -51,7 +51,7 @@ KLFitter::ResolutionBase::~ResolutionBase() {
 }
 
 // ---------------------------------------------------------
-int KLFitter::ResolutionBase::Par(int index, double &par) {
+int KLFitter::ResolutionBase::Par(int index, double *par) {
   // check parameter range
   if (index < 0 || index >= fNParameters) {
     std::cout << "KLFitter:ResolutionBase::Par(). Index out of range." << std::endl;
@@ -59,7 +59,7 @@ int KLFitter::ResolutionBase::Par(int index, double &par) {
     return 0;
   }
 
-  par = fParameters[index];
+  *par = fParameters[index];
 
   // no error
   return 1;

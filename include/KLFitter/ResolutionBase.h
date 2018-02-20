@@ -79,7 +79,7 @@ class ResolutionBase {
     * @param good False if problem with TF.
     * @return The probability.
     */
-  virtual double p(double x, double xmeas, bool &good) { good = true; return 0; }
+  virtual double p(double x, double xmeas, bool *good) { *good = true; return 0; }
 
   /**
     * Return the probability of the true value of x given the
@@ -90,7 +90,7 @@ class ResolutionBase {
     * @param par Optional additional parameter (SumET in case of MET TF).
     * @return The probability.
     */
-  virtual double p(double x, double xmeas, bool &good, double par) { good = true; return 0; }
+  virtual double p(double x, double xmeas, bool *good, double par) { *good = true; return 0; }
 
   /**
     * Return a parameter of the parameterization.
@@ -98,7 +98,7 @@ class ResolutionBase {
     * @param par The parameter value.
     * @return An error flag.
     */
-  int Par(int index, double &par);
+  int Par(int index, double *par);
 
   /* @} */
   /** \name Member functions (Set)  */

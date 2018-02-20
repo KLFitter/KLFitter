@@ -117,7 +117,7 @@ class ResDoubleGaussBase : public ResolutionBase {
     * @param good False if problem with TF.
     * @return The probability.
     */
-  virtual double p(double x, double xmeas, bool &good);
+  virtual double p(double x, double xmeas, bool *good);
 
   /**
     * Return the probability of the true value of x given the
@@ -128,7 +128,7 @@ class ResDoubleGaussBase : public ResolutionBase {
     * @param par Optional additional parameter (SumET in case of MET TF).
     * @return The probability.
     */
-  virtual double p(double x, double xmeas, bool &good, double par) { good = true; return 0; }
+  virtual double p(double x, double xmeas, bool *good, double par) { *good = true; return 0; }
 
   /* @} */
 
@@ -139,18 +139,18 @@ class ResDoubleGaussBase : public ResolutionBase {
     * @param sigma2 (the 2nd sigma).
     * @return False if problem with TF.
     */
-  inline static bool CheckDoubleGaussianSanity(double &sigma1, double &amplitude2, double &sigma2) {
-    if (amplitude2 < 0.) amplitude2 = 0.;
-    if (sigma1 < 0.) {
+  inline static bool CheckDoubleGaussianSanity(double *sigma1, double *amplitude2, double *sigma2) {
+    if (*amplitude2 < 0.) *amplitude2 = 0.;
+    if (*sigma1 < 0.) {
       //        std::cout << "KLFitter::ResDoubleGauss::CheckDoubleGaussianSanity() ERROR IN TRANSFERFUNCTIONS the sigma of the 1st Gaussian is < 0  -  FIT RESULT MAY NOT BE RELIABLE" << std::endl;
       //        std::cout << "--> Fitter is in a bad condition! Please check your input files (E out of validation scope?)." << std::endl;
-      sigma1 = 0.00000001;
+      *sigma1 = 0.00000001;
       return false;
     }
-    if (sigma2 < 0.) {
+    if (*sigma2 < 0.) {
       //        std::cout << "KLFitter::ResDoubleGauss::CheckDoubleGaussianSanity() ERROR IN TRANSFERFUNCTIONS the sigma of the 2nd Gaussian is < 0  -  FIT RESULT MAY NOT BE RELIABLE" << std::endl;
       //        std::cout << "--> Fitter is in a bad condition! Please check your input files (E out of validation scope?)." << std::endl;
-      sigma2 = 0.000000001;
+      *sigma2 = 0.000000001;
       return false;
     }
 
