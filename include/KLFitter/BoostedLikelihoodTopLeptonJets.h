@@ -17,415 +17,400 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BOOSTEDLIKELIHOODTOPLEPTONJETS
-#define BOOSTEDLIKELIHOODTOPLEPTONJETS
-
-// --------------------------------------------------------- 
-
-#include "LikelihoodBase.h" 
-#include "TLorentzVector.h"
-#include "ResolutionBase.h"
+#ifndef KLFITTER_BOOSTEDLIKELIHOODTOPLEPTONJETS_H_
+#define KLFITTER_BOOSTEDLIKELIHOODTOPLEPTONJETS_H_
 
 #include <iostream>
+#include <vector>
 
-// --------------------------------------------------------- 
+#include "KLFitter/LikelihoodBase.h"
+#include "KLFitter/ResolutionBase.h"
+#include "TLorentzVector.h"
+
+// ---------------------------------------------------------
 
 /**
  * \namespace KLFitter
  * \brief The KLFitter namespace
  */
-namespace KLFitter
-{
+namespace KLFitter {
+/**
+* \class KLFitter::BoostedLikelihoodTopLeptonJets
+* \brief Add brief description here
+* \author Add author here
+*
+* Add detailed description here.
+*/
+class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
+ public:
+  /** \name Constructors and destructors */
+  /* @{ */
 
   /**
-   * \class KLFitter::BoostedLikelihoodTopLeptonJets
-   * \brief Add brief description here
-   * \author Add author here
-   *
-   * Add detailed description here.
+   * The default constructor.
    */
-  class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase
-  {
-                
-  public: 
-                
-    /** \name Constructors and destructors */ 
-    /* @{ */ 
-                
-    /** 
-     * The default constructor. 
-     */ 
-    BoostedLikelihoodTopLeptonJets(); 
-                
-    /**
-     * The default destructor.
-     */
-    virtual ~BoostedLikelihoodTopLeptonJets(); 
+  BoostedLikelihoodTopLeptonJets();
 
-    /* @} */
-    /** \name Member functions (Get)  */
-    /* @{ */
+  /**
+   * The default destructor.
+   */
+  virtual ~BoostedLikelihoodTopLeptonJets();
 
-    /* @} */
-    /** \name Member functions (Set)  */
-    /* @{ */
+  /* @} */
+  /** \name Member functions (Get)  */
+  /* @{ */
 
-    /**
-     * Enumerator for the lepton type.
-     */
-    enum LeptonType { kElectron, kMuon };
+  /* @} */
+  /** \name Member functions (Set)  */
+  /* @{ */
 
-    /**
-     * Enumerator for the parameters.
-     */
-    enum Parameters { parBhadE, parBlepE, parLQE, parLepE, parNuPx, parNuPy, parNuPz, parTopM };
+  /**
+   * Enumerator for the lepton type.
+   */
+  enum LeptonType { kElectron, kMuon };
 
-    /**
-     * Set the values for the missing ET x and y components and the SumET.
-     * @param etx missing ET x component.
-     * @param ety missing ET y component.
-     * @param sumet total scalar ET.
-     * @return An error flag.
-     */
-    int SetET_miss_XY_SumET(double etx, double ety, double sumet);
+  /**
+   * Enumerator for the parameters.
+   */
+  enum Parameters { parBhadE, parBlepE, parLQE, parLepE, parNuPx, parNuPy, parNuPz, parTopM };
 
-    /**
-     * Set a flag. If flag is true the invariant top quark mass is
-     * fixed to the pole mass. 
-     * @param flag The flag. 
-     */ 
-    void SetFlagTopMassFixed(bool flag)
-    { fFlagTopMassFixed = flag; }; 
+  /**
+   * Set the values for the missing ET x and y components and the SumET.
+   * @param etx missing ET x component.
+   * @param ety missing ET y component.
+   * @param sumet total scalar ET.
+   * @return An error flag.
+   */
+  int SetET_miss_XY_SumET(double etx, double ety, double sumet);
 
-    void SetFlagUseJetMass(bool flag)
-    { fFlagUseJetMass = flag; }; 
+  /**
+   * Set a flag. If flag is true the invariant top quark mass is
+   * fixed to the pole mass.
+   * @param flag The flag.
+   */
+  void SetFlagTopMassFixed(bool flag) { fFlagTopMassFixed = flag; }
 
-    void SetFlagGetParSigmasFromTFs(bool flag)
-    { fFlagGetParSigmasFromTFs = flag; }; 
+  void SetFlagUseJetMass(bool flag) { fFlagUseJetMass = flag; }
 
-    /**
-     * Set the type of lepton 
-     * @param leptontype The type of lepton: kElectron or kMuon
-     */ 
-    void SetLeptonType(LeptonType leptontype); 
+  void SetFlagGetParSigmasFromTFs(bool flag) { fFlagGetParSigmasFromTFs = flag; }
 
-    /**
-     * Set the type of lepton 
-     * @param leptontype The type of lepton: electron(1) or muon (2) 
-     */ 
-    void SetLeptonType(int leptontype); 
+  /**
+   * Set the type of lepton
+   * @param leptontype The type of lepton: kElectron or kMuon
+   */
+  void SetLeptonType(LeptonType leptontype);
 
-    /* @} */
-    /** \name Member functions (misc)  */
-    /* @{ */
+  /**
+   * Set the type of lepton
+   * @param leptontype The type of lepton: electron(1) or muon (2)
+   */
+  void SetLeptonType(int leptontype);
 
-    /* @} */
-    /** \name Member functions (BAT)  */
-    /* @{ */
+  /* @} */
+  /** \name Member functions (misc)  */
+  /* @{ */
 
-    /**
-     * Define the parameters of the fit. 
-     */ 
-    virtual void DefineParameters();
+  /* @} */
+  /** \name Member functions (BAT)  */
+  /* @{ */
 
-    /** 
-     * The prior probability definition, overloaded from BCModel. 
-     * @param parameters A vector of parameters (double values). 
-     * @return The logarithm of the prior probability. 
-     */
-    virtual double LogAPrioriProbability(const std::vector <double> & parameters)
-    { return 0; }; 
-                
-    /** 
-     * The posterior probability definition, overloaded from BCModel. 
-     * @param parameters A vector of parameters (double values). 
-     * @return The logarithm of the prior probability. 
-     */
-    virtual double LogLikelihood(const std::vector <double> & parameters); 
+  /**
+   * Define the parameters of the fit.
+   */
+  virtual void DefineParameters();
 
-    /** 
-     * The posterior probability definition, overloaded from BCModel. Split up into several subcomponents 
-     * @param parameters A vector of parameters (double values). 
-     * @return A vector with the components of the logarithm of the prior probability. Its components are:
-     * 0:  TF_bhad
-     * 1:  TF_blep
-     * 2:  TF_lq
-     * 3:  TF_lep
-     * 4:  TF_METx
-     * 5:  TF_METy
-     * 6:  BW_Wlep
-     * 7:  BW_Thad
-     * 8: BW_Tlep
-     */
-    virtual std::vector<double> LogLikelihoodComponents(std::vector <double> parameters); 
+  /**
+   * The prior probability definition, overloaded from BCModel.
+   * @param parameters A vector of parameters (double values).
+   * @return The logarithm of the prior probability.
+   */
+  virtual double LogAPrioriProbability(const std::vector <double> & parameters) { return 0; }
 
-    /**
-     * Get initial values for the parameters.
-     * @return vector of initial values.
-     */
-    virtual std::vector<double> GetInitialParameters();
+  /**
+   * The posterior probability definition, overloaded from BCModel.
+   * @param parameters A vector of parameters (double values).
+   * @return The logarithm of the prior probability.
+   */
+  virtual double LogLikelihood(const std::vector <double> & parameters);
 
-    /**
-     * Get initial values for the parameters with a dummy of "0.0" for the neutrino pz.
-     * The decision on the initial value for the neutrino pz then needs to be done in
-     * GetInitialParameters().
-     * @return vector of initial values.
-     */
-    virtual std::vector<double> GetInitialParametersWoNeutrinoPz();
+  /**
+   * The posterior probability definition, overloaded from BCModel. Split up into several subcomponents
+   * @param parameters A vector of parameters (double values).
+   * @return A vector with the components of the logarithm of the prior probability. Its components are:
+   * 0:  TF_bhad
+   * 1:  TF_blep
+   * 2:  TF_lq
+   * 3:  TF_lep
+   * 4:  TF_METx
+   * 5:  TF_METy
+   * 6:  BW_Wlep
+   * 7:  BW_Thad
+   * 8: BW_Tlep
+   */
+  virtual std::vector<double> LogLikelihoodComponents(std::vector <double> parameters);
 
-    /**
-     * Check if there are TF problems.
-     * @return Return false if TF problem.
-     */
-    virtual bool NoTFProblem(std::vector<double> parameters);
+  /**
+   * Get initial values for the parameters.
+   * @return vector of initial values.
+   */
+  virtual std::vector<double> GetInitialParameters();
 
-    /**
-     * Return the set of model particles. 
-     * @return A pointer to the particles. 
-     */ 
-    virtual KLFitter::Particles* ParticlesModel() {
-      BuildModelParticles();
-      return fParticlesModel;
-    }; 
-    virtual KLFitter::Particles** PParticlesModel() {
-      BuildModelParticles();
-      return &fParticlesModel;
-    }; 
+  /**
+   * Get initial values for the parameters with a dummy of "0.0" for the neutrino pz.
+   * The decision on the initial value for the neutrino pz then needs to be done in
+   * GetInitialParameters().
+   * @return vector of initial values.
+   */
+  virtual std::vector<double> GetInitialParametersWoNeutrinoPz();
 
-    /* @} */
+  /**
+   * Check if there are TF problems.
+   * @return Return false if TF problem.
+   */
+  virtual bool NoTFProblem(std::vector<double> parameters);
 
-  protected: 
+  /**
+   * Return the set of model particles.
+   * @return A pointer to the particles.
+   */
+  virtual KLFitter::Particles* ParticlesModel() {
+    BuildModelParticles();
+    return fParticlesModel;
+  }
+  virtual KLFitter::Particles** PParticlesModel() {
+    BuildModelParticles();
+    return &fParticlesModel;
+  }
 
-    /** \name Member functions (misc)  */
-    /* @{ */
+  /* @} */
 
-    /**
-     * Update 4-vectors of model particles. 
-     * @return An error flag.
-     */ 
-    virtual int CalculateLorentzVectors(std::vector <double> const& parameters); 
+ protected:
+  /** \name Member functions (misc)  */
+  /* @{ */
 
-    /**
-     * Initialize the likelihood for the event
-     */ 
-    virtual int Initialize(); 
+  /**
+   * Update 4-vectors of model particles.
+   * @return An error flag.
+   */
+  virtual int CalculateLorentzVectors(std::vector <double> const& parameters);
 
-    /**
-     * Adjust parameter ranges 
-     */ 
-    virtual int AdjustParameterRanges(); 
+  /**
+   * Initialize the likelihood for the event
+   */
+  virtual int Initialize();
 
-    /**
-     * Define the model particles
-     * @return An error code.
-     */ 
-    virtual int DefineModelParticles();
+  /**
+   * Adjust parameter ranges
+   */
+  virtual int AdjustParameterRanges();
 
-    /**
-     * Remove invariant particle permutations.
-     * @return An error code. 
-     */ 
-    int RemoveInvariantParticlePermutations(); 
-    
-     /**
-     * Remove forbidden particle permutations.
-     * @return An error code. 
-     */ 
-    int RemoveForbiddenParticlePermutations();      
+  /**
+   * Define the model particles
+   * @return An error code.
+   */
+  virtual int DefineModelParticles();
 
-    /**
-     * Build the model particles from the best fit parameters.
-     * @return An error code.
-     */
-    int BuildModelParticles();
+  /**
+   * Remove invariant particle permutations.
+   * @return An error code.
+   */
+  int RemoveInvariantParticlePermutations();
 
-    /* @} */
+  /**
+   * Remove forbidden particle permutations.
+   * @return An error code.
+   */
+  int RemoveForbiddenParticlePermutations();
 
-  protected: 
-                
-    /**
-     * A flag for using a fixed top mass (true) or not (false).
-     */ 
-    bool fFlagTopMassFixed; 
+  /**
+   * Build the model particles from the best fit parameters.
+   * @return An error code.
+   */
+  int BuildModelParticles();
 
-    /**
-     * A flag for using the measured jet masses (true) instead of
-     * parton masses (false);
-     */ 
-    bool fFlagUseJetMass; 
+  /* @} */
 
-    /**
-     *  Flag for using ResolutionBase::GetSigma() to retrieve the parameter ranges
-     */
-    bool fFlagGetParSigmasFromTFs;
+ protected:
+  /**
+   * A flag for using a fixed top mass (true) or not (false).
+   */
+  bool fFlagTopMassFixed;
 
-    /**
-     * Return the neutrino pz solutions from the measured values
-     * and the W mass.
-     * @return A vector with 0, 1 or 2 neutrino pz solutions.
-     */
-    virtual std::vector<double> GetNeutrinoPzSolutions();
+  /**
+   * A flag for using the measured jet masses (true) instead of
+   * parton masses (false);
+   */
+  bool fFlagUseJetMass;
 
-    /**
-     * Calculates the neutrino pz solutions from the measured values
-     * and the W mass. An additional particle to be added to the 
-     * charged lepton may be specified, for example a photon
-     * in ttbargamma, which is radiated from the leptonic W
-     * or the charged lepton;
-     * @param additionalParticle Pointer to a 4-vector of a particle which is
-     * added to the charged lepton in the calculation
-     * @return A vector with 0, 1 or 2 neutrino pz solutions.
-     */
-    std::vector<double> CalculateNeutrinoPzSolutions(TLorentzVector * additionalParticle = 0x0);
+  /**
+   *  Flag for using ResolutionBase::GetSigma() to retrieve the parameter ranges
+   */
+  bool fFlagGetParSigmasFromTFs;
 
-    /**
-     * Save permuted particles.
-     */
-    int SavePermutedParticles();
+  /**
+   * Return the neutrino pz solutions from the measured values
+   * and the W mass.
+   * @return A vector with 0, 1 or 2 neutrino pz solutions.
+   */
+  virtual std::vector<double> GetNeutrinoPzSolutions();
 
-    /**
-     * Save resolution functions.
-     */
-    int SaveResolutionFunctions();
+  /**
+   * Calculates the neutrino pz solutions from the measured values
+   * and the W mass. An additional particle to be added to the
+   * charged lepton may be specified, for example a photon
+   * in ttbargamma, which is radiated from the leptonic W
+   * or the charged lepton;
+   * @param additionalParticle Pointer to a 4-vector of a particle which is
+   * added to the charged lepton in the calculation
+   * @return A vector with 0, 1 or 2 neutrino pz solutions.
+   */
+  std::vector<double> CalculateNeutrinoPzSolutions(TLorentzVector * additionalParticle = 0x0);
 
-    /**
-     * Set model parton mass according to fFlagUseJetMass.
-     * @param jetmass The jet mass.
-     * @param quarkmass The quark mass.
-     * @param px The parton px (will be modified, if necessary).
-     * @param py The parton py (will be modified, if necessary).
-     * @param pz The parton pz (will be modified, if necessary).
-     * @param e The parton energy (not modified).
-     * @return The parton mass.
-     */
-    inline double SetPartonMass(double jetmass, double quarkmass, double &px, double &py, double &pz, double e) {
-      double mass(0.);
-      if (fFlagUseJetMass)
-        mass = jetmass > 0. ? jetmass : 0.;
-      else
-        mass = quarkmass;
-      double p_orig = sqrt(px*px + py*py + pz*pz);
-      double p_newmass = sqrt(e*e - mass*mass);
-      double scale = p_newmass / p_orig;
-      px *= scale;
-      py *= scale;
-      pz *= scale;
-      return mass;
+  /**
+   * Save permuted particles.
+   */
+  int SavePermutedParticles();
+
+  /**
+   * Save resolution functions.
+   */
+  int SaveResolutionFunctions();
+
+  /**
+   * Set model parton mass according to fFlagUseJetMass.
+   * @param jetmass The jet mass.
+   * @param quarkmass The quark mass.
+   * @param px The parton px (will be modified, if necessary).
+   * @param py The parton py (will be modified, if necessary).
+   * @param pz The parton pz (will be modified, if necessary).
+   * @param e The parton energy (not modified).
+   * @return The parton mass.
+   */
+  inline double SetPartonMass(double jetmass, double quarkmass, double &px, double &py, double &pz, double e) {
+    double mass(0.);
+    if (fFlagUseJetMass) {
+      mass = jetmass > 0. ? jetmass : 0.;
+    } else {
+      mass = quarkmass;
     }
+    double p_orig = sqrt(px*px + py*py + pz*pz);
+    double p_newmass = sqrt(e*e - mass*mass);
+    double scale = p_newmass / p_orig;
+    px *= scale;
+    py *= scale;
+    pz *= scale;
+    return mass;
+  }
 
-    /**
-     * The values of the x component of the missing ET.
-     */
-    double ETmiss_x;
+  /**
+   * The values of the x component of the missing ET.
+   */
+  double ETmiss_x;
 
-    /**
-     * The values of the y component of the missing ET.
-     */
-    double ETmiss_y;
+  /**
+   * The values of the y component of the missing ET.
+   */
+  double ETmiss_y;
 
-    /**
-     * The values of the total scalar ET.
-     */
-    double SumET;
+  /**
+   * The values of the total scalar ET.
+   */
+  double SumET;
 
-    /**
-     * An index deciding if the event is electron (1) or muon (2) plus
-     * jets.
-     */ 
-    LeptonType fTypeLepton; 
+  /**
+   * An index deciding if the event is electron (1) or muon (2) plus
+   * jets.
+   */
+  LeptonType fTypeLepton;
 
-    /**
-     * Global variable for TF problems.
-     */
-    bool fTFgood;
+  /**
+   * Global variable for TF problems.
+   */
+  bool fTFgood;
 
-    /**
-     * Save resolution functions since the eta of the partons is not fitted.
-     */
-    ResolutionBase * fResEnergyBhad;
-    ResolutionBase * fResEnergyBlep;
-    ResolutionBase * fResEnergyLQ;
-    ResolutionBase * fResLepton;
-    ResolutionBase * fResMET;
+  /**
+   * Save resolution functions since the eta of the partons is not fitted.
+   */
+  ResolutionBase * fResEnergyBhad;
+  ResolutionBase * fResEnergyBlep;
+  ResolutionBase * fResEnergyLQ;
+  ResolutionBase * fResLepton;
+  ResolutionBase * fResMET;
 
-    /**
-     * Save measured particle values for frequent calls
-     */
-    double bhad_meas_e;
-    double bhad_meas_p;
-    double bhad_meas_m;
-    double bhad_meas_deteta;
-    double bhad_meas_eta;
-    double bhad_meas_phi;
-    double bhad_meas_px;
-    double bhad_meas_py;
-    double bhad_meas_pz;
+  /**
+   * Save measured particle values for frequent calls
+   */
+  double bhad_meas_e;
+  double bhad_meas_p;
+  double bhad_meas_m;
+  double bhad_meas_deteta;
+  double bhad_meas_eta;
+  double bhad_meas_phi;
+  double bhad_meas_px;
+  double bhad_meas_py;
+  double bhad_meas_pz;
 
-    double blep_meas_e;
-    double blep_meas_p;
-    double blep_meas_m;
-    double blep_meas_deteta;
-    double blep_meas_eta;
-    double blep_meas_phi;
-    double blep_meas_px;
-    double blep_meas_py;
-    double blep_meas_pz;
+  double blep_meas_e;
+  double blep_meas_p;
+  double blep_meas_m;
+  double blep_meas_deteta;
+  double blep_meas_eta;
+  double blep_meas_phi;
+  double blep_meas_px;
+  double blep_meas_py;
+  double blep_meas_pz;
 
-    double lq_meas_e;
-    double lq_meas_p;
-    double lq_meas_m;
-    double lq_meas_deteta;
-    double lq_meas_eta;
-    double lq_meas_phi;
-    double lq_meas_px;
-    double lq_meas_py;
-    double lq_meas_pz;
+  double lq_meas_e;
+  double lq_meas_p;
+  double lq_meas_m;
+  double lq_meas_deteta;
+  double lq_meas_eta;
+  double lq_meas_phi;
+  double lq_meas_px;
+  double lq_meas_py;
+  double lq_meas_pz;
 
-    double lep_meas_e;
-    double lep_meas_deteta;
-    double lep_meas_sintheta;
-    double lep_meas_pt;
-    double lep_meas_px;
-    double lep_meas_py;
-    double lep_meas_pz;
+  double lep_meas_e;
+  double lep_meas_deteta;
+  double lep_meas_sintheta;
+  double lep_meas_pt;
+  double lep_meas_px;
+  double lep_meas_py;
+  double lep_meas_pz;
 
-    /**
-     * Save fit particle values for frequent calls
-     */
-    double bhad_fit_e;
-    double bhad_fit_px;
-    double bhad_fit_py;
-    double bhad_fit_pz;
+  /**
+   * Save fit particle values for frequent calls
+   */
+  double bhad_fit_e;
+  double bhad_fit_px;
+  double bhad_fit_py;
+  double bhad_fit_pz;
 
-    double blep_fit_e;
-    double blep_fit_px;
-    double blep_fit_py;
-    double blep_fit_pz;
+  double blep_fit_e;
+  double blep_fit_px;
+  double blep_fit_py;
+  double blep_fit_pz;
 
-    double lq_fit_e;
-    double lq_fit_px;
-    double lq_fit_py;
-    double lq_fit_pz;
+  double lq_fit_e;
+  double lq_fit_px;
+  double lq_fit_py;
+  double lq_fit_pz;
 
-    double lep_fit_e;
-    double lep_fit_px;
-    double lep_fit_py;
-    double lep_fit_pz;
+  double lep_fit_e;
+  double lep_fit_px;
+  double lep_fit_py;
+  double lep_fit_pz;
 
-    double nu_fit_e;
-    double nu_fit_px;
-    double nu_fit_py;
-    double nu_fit_pz;
+  double nu_fit_e;
+  double nu_fit_px;
+  double nu_fit_py;
+  double nu_fit_pz;
 
-    double whad_fit_m;
-    double wlep_fit_m;
-    double thad_fit_m;
-    double tlep_fit_m;
+  double whad_fit_m;
+  double wlep_fit_m;
+  double thad_fit_m;
+  double tlep_fit_m;
+};
+}  // namespace KLFitter
 
-  }; 
-
-} // namespace KLFitter 
-
-// --------------------------------------------------------- 
-
-#endif 
+#endif  // KLFITTER_BOOSTEDLIKELIHOODTOPLEPTONJETS_H_

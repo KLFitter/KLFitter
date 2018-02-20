@@ -17,107 +17,97 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef RESGAUSS
-#define RESGAUSS
+#ifndef KLFITTER_RESGAUSS_H_
+#define KLFITTER_RESGAUSS_H_
 
-#include "ResolutionBase.h" 
+#include "KLFitter/ResolutionBase.h"
 
-// --------------------------------------------------------- 
+// ---------------------------------------------------------
 
 /**
  * \namespace KLFitter
  * \brief The KLFitter namespace
  */
-namespace KLFitter
-{
+namespace KLFitter {
+/**
+  * \class KLFitter::ResGauss
+  * \brief A class describing a Gaussian resolution.
+  * \author Kevin Kr&ouml;ninger
+  *
+  * This class offers a simple parameterization of a resolution. The
+  * parameterization is a Gaussian with a width of a constant times the
+  * square root of the true parameter.
+  */
+class ResGauss : public ResolutionBase {
+ public:
+  /** \name Constructors and destructors */
+  /* @{ */
 
   /**
-   * \class KLFitter::ResGauss
-   * \brief A class describing a Gaussian resolution. 
-   * \author Kevin Kr&ouml;ninger
-   *
-   * This class offers a simple parameterization of a resolution. The
-   * parameterization is a Gaussian with a width of a constant times the
-   * square root of the true parameter.
-   */
-  class ResGauss : public ResolutionBase
-  {
-                
-  public: 
-                
-    /** \name Constructors and destructors */ 
-    /* @{ */ 
-                
-    /** 
-     * The default constructor. 
-     */ 
-    ResGauss(const char * filename); 
+    * The default constructor.
+    */
+  explicit ResGauss(const char * filename);
 
-    /** 
-     * A constructor. 
-     * @param sigma The width of the Gaussian.
-     */ 
-    ResGauss(double sigma); 
-                
-    /**
-     * The default destructor.
-     */
-    virtual ~ResGauss(); 
+  /**
+    * A constructor.
+    * @param sigma The width of the Gaussian.
+    */
+  explicit ResGauss(double sigma);
 
-    /* @} */
-    /** \name Member functions (Get)  */
-    /* @{ */
+  /**
+    * The default destructor.
+    */
+  virtual ~ResGauss();
 
-    /**
-     * Return the width of the TF depending on the measured value of x.
-     * Used to adjust the range of the fit parameter that correspond to the TF.
-     * @param dummy Dummy parameter. Only needed to satisfy the interface.
-     * @return The width. 
-     */ 
-    virtual double GetSigma(double dummy = 0) ;
+  /* @} */
+  /** \name Member functions (Get)  */
+  /* @{ */
 
-    /**
-     * Return the probability of the true value of x given the
-     * measured value, xmeas.
-     * @param x The true value of x.
-     * @param xmeas The measured value of x.
-     * @param good False if problem with TF.
-     * @return The probability. 
-     */ 
-    double p(double x, double xmeas, bool &good);
+  /**
+    * Return the width of the TF depending on the measured value of x.
+    * Used to adjust the range of the fit parameter that correspond to the TF.
+    * @param dummy Dummy parameter. Only needed to satisfy the interface.
+    * @return The width.
+    */
+  virtual double GetSigma(double dummy = 0);
 
-    /**
-     * Return the probability of the true value of x given the
-     * measured value, xmeas.
-     * @param x The true value of x.
-     * @param xmeas The measured value of x.
-     * @param good False if problem with TF.
-     * @param par Optional additional parameter (SumET in case of MET TF).
-     * @return The probability. 
-     */ 
-    virtual double p(double x, double xmeas, bool &good, double par)
-    { good = true; return 0; } 
+  /**
+    * Return the probability of the true value of x given the
+    * measured value, xmeas.
+    * @param x The true value of x.
+    * @param xmeas The measured value of x.
+    * @param good False if problem with TF.
+    * @return The probability.
+    */
+  double p(double x, double xmeas, bool &good);
 
-    /* @} */
-    /** \name Member functions (Set)  */
-    /* @{ */
+  /**
+    * Return the probability of the true value of x given the
+    * measured value, xmeas.
+    * @param x The true value of x.
+    * @param xmeas The measured value of x.
+    * @param good False if problem with TF.
+    * @param par Optional additional parameter (SumET in case of MET TF).
+    * @return The probability.
+    */
+  virtual double p(double x, double xmeas, bool &good, double par) { good = true; return 0; }
 
-    /**
-     * Set the width of the Gaussian 
-     * @param sigma The width of the Gaussian. 
-     */ 
-    void SetSigma(double sigma)
-    { if (sigma < 0) sigma = - sigma; this -> SetPar(0, sigma); }; 
+  /* @} */
+  /** \name Member functions (Set)  */
+  /* @{ */
 
-    /* @} */
+  /**
+    * Set the width of the Gaussian
+    * @param sigma The width of the Gaussian.
+    */
+  void SetSigma(double sigma) {
+    if (sigma < 0)
+      sigma = - sigma;
+    this -> SetPar(0, sigma);
+  }
 
-  private: 
+  /* @} */
+};
+}  // namespace KLFitter
 
-  }; 
-        
-} // namespace KLFitter 
-
-// --------------------------------------------------------- 
-
-#endif 
-
+#endif  // KLFITTER_RESGAUSS_H_

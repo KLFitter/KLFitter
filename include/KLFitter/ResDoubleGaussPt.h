@@ -17,110 +17,91 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef RESDOUBLEGAUSSPT
-#define RESDOUBLEGAUSSPT
+#ifndef KLFITTER_RESDOUBLEGAUSSPT_H_
+#define KLFITTER_RESDOUBLEGAUSSPT_H_
 
 #include <vector>
-#include "ResDoubleGaussBase.h" 
 
-// --------------------------------------------------------- 
+#include "KLFitter/ResDoubleGaussBase.h"
+
+// ---------------------------------------------------------
 
 /**
  * \namespace KLFitter
  * \brief The KLFitter namespace
  */
-namespace KLFitter
-{
+namespace KLFitter {
+/**
+  * \class KLFitter::ResDoubleGaussPt
+  * \brief A class describing a resolution parameterized with a double Gaussian.
+  * \author Kevin Kr&ouml;ninger
+  *
+  * This class offers a simple parameterization of a resolution. The
+  * parameterization is a double Gaussian with energy dependent
+  * parameters.
+  */
+class ResDoubleGaussPt : public ResDoubleGaussBase {
+ public:
+  /** \name Constructors and destructors */
+  /* @{ */
 
   /**
-   * \class KLFitter::ResDoubleGaussPt
-   * \brief A class describing a resolution parameterized with a double Gaussian. 
-   * \author Kevin Kr&ouml;ninger
-   *
-   * This class offers a simple parameterization of a resolution. The
-   * parameterization is a double Gaussian with energy dependent
-   * parameters.
-   */
-  class ResDoubleGaussPt : public ResDoubleGaussBase
-  {
-                
-  public: 
-                
-    /** \name Constructors and destructors */ 
-    /* @{ */ 
-                
-    /** 
-     * The default constructor. 
-     */ 
-    ResDoubleGaussPt(const char * filename); 
+    * The default constructor.
+    */
+  explicit ResDoubleGaussPt(const char * filename);
 
-    /**
-     * A constructor.
-     * @param parameters The parameters of the parameterization. 
-     */
-    ResDoubleGaussPt(std::vector<double> const& parameters);
+  /**
+    * A constructor.
+    * @param parameters The parameters of the parameterization.
+    */
+  explicit ResDoubleGaussPt(std::vector<double> const& parameters);
 
-    /**
-     * The default destructor.
-     */
-    virtual ~ResDoubleGaussPt(); 
+  /**
+    * The default destructor.
+    */
+  virtual ~ResDoubleGaussPt();
 
-    /* @} */
-    /** \name Member functions (Get)  */
-    /* @{ */
+  /* @} */
+  /** \name Member functions (Get)  */
+  /* @{ */
 
-    /**
-     * Calculate the mean of the first Gaussian from the TF parameters and the value of x.
-     * @param x The value of x.
-     * @return The width. 
-     */ 
-    virtual double GetMean1(double x);
+  /**
+    * Calculate the mean of the first Gaussian from the TF parameters and the value of x.
+    * @param x The value of x.
+    * @return The width.
+    */
+  virtual double GetMean1(double x);
 
-    /**
-     * Calculate the width of the first Gaussian from the TF parameters and the value of x.
-     * @param x The value of x.
-     * @return The width. 
-     */ 
-    virtual double GetSigma1(double x);
+  /**
+    * Calculate the width of the first Gaussian from the TF parameters and the value of x.
+    * @param x The value of x.
+    * @return The width.
+    */
+  virtual double GetSigma1(double x);
 
-    /**
-     * Calculate the amplitude of the second Gaussian from the TF parameters and the value of x.
-     * @param x The value of x.
-     * @return The width. 
-     */ 
-    virtual double GetAmplitude2(double x);
+  /**
+    * Calculate the amplitude of the second Gaussian from the TF parameters and the value of x.
+    * @param x The value of x.
+    * @return The width.
+    */
+  virtual double GetAmplitude2(double x);
 
-    /**
-     * Calculate the mean of the second Gaussian from the TF parameters and the value of x.
-     * @param x The value of x.
-     * @return The width. 
-     */ 
-    virtual double GetMean2(double x);
+  /**
+    * Calculate the mean of the second Gaussian from the TF parameters and the value of x.
+    * @param x The value of x.
+    * @return The width.
+    */
+  virtual double GetMean2(double x);
 
-    /**
-     * Calculate the width of the sedcond Gaussian from the TF parameters and the value of x.
-     * @param x The value of x.
-     * @return The width. 
-     */ 
-    virtual double GetSigma2(double x);
+  /**
+    * Calculate the width of the sedcond Gaussian from the TF parameters and the value of x.
+    * @param x The value of x.
+    * @return The width.
+    */
+  virtual double GetSigma2(double x);
 
-    /* @} */
-    /** \name Member functions (Set)  */
-    /* @{ */
-        
-    /* @} */
-    /** \name Member functions (misc)  */
-    /* @{ */
-                
-    /* @} */
+  /* @} */
+};
+}  // namespace KLFitter
 
-  private: 
-
-  }; 
-        
-} // namespace KLFitter 
-
-// --------------------------------------------------------- 
-
-#endif 
-
+#endif  // KLFITTER_RESDOUBLEGAUSSPT_H_
