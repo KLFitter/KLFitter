@@ -101,29 +101,29 @@ int KLFitter::LikelihoodTopLeptonJets_Angular::DefineModelParticles() {
 
   // add model particles
   // create dummy TLorentzVector
-  TLorentzVector * dummy = new TLorentzVector(0, 0, 0, 0);  // 4-vector
+  TLorentzVector * dummy = new TLorentzVector(0, 0, 0, 0);    // 4-vector
   fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kParton,  // type
-                               "hadronic b quark",           // name
-                               0,                            // index of corresponding particle
-                               KLFitter::Particles::kB);     // b jet (truth)
+                               "hadronic b quark",            // name
+                               0,                             // index of corresponding particle
+                               KLFitter::Particles::kB);      // b jet (truth)
 
   fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kParton,
                                "leptonic b quark",
-                               1,                            // index of corresponding particle
-                               KLFitter::Particles::kB);     // b jet (truth)
+                               1,                             // index of corresponding particle
+                               KLFitter::Particles::kB);      // b jet (truth)
 
   fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kParton,
                                "light quark 1",
-                               2,                            // index of corresponding particle
+                               2,                             // index of corresponding particle
                                KLFitter::Particles::kLight);  // light jet (truth)
 
   fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kParton,
                                "light quark 2",
-                               3,                            // index of corresponding particle
+                               3,                             // index of corresponding particle
                                KLFitter::Particles::kLight);  // light jet (truth)
 
   if (fTypeLepton == kElectron) {
@@ -168,26 +168,18 @@ void KLFitter::LikelihoodTopLeptonJets_Angular::DefineParameters() {
   // add parameters of model
   AddParameter("energy hadronic b",       fPhysicsConstants->MassBottom(), 1000.0);  // parBhadE
   AddParameter("energy leptonic b",       fPhysicsConstants->MassBottom(), 1000.0);  // parBlepE
-  AddParameter("energy light quark 1",    0.0, 1000.0);                             // parLQ1E
-  AddParameter("energy light quark 2",    0.0, 1000.0);                             // parLQ2E
-  AddParameter("energy lepton",           0.0, 1000.0);                             // parLepE
-  AddParameter("p_x neutrino",        -1000.0, 1000.0);                             // parNuPx
-  AddParameter("p_y neutrino",        -1000.0, 1000.0);                             // parNuPy
-  AddParameter("p_z neutrino",        -1000.0, 1000.0);                             // parNuPz
-  AddParameter("top mass",              100.0, 1000.0);                             // parTopM
+  AddParameter("energy light quark 1",    0.0, 1000.0);                              // parLQ1E
+  AddParameter("energy light quark 2",    0.0, 1000.0);                              // parLQ2E
+  AddParameter("energy lepton",           0.0, 1000.0);                              // parLepE
+  AddParameter("p_x neutrino",        -1000.0, 1000.0);                              // parNuPx
+  AddParameter("p_y neutrino",        -1000.0, 1000.0);                              // parNuPy
+  AddParameter("p_z neutrino",        -1000.0, 1000.0);                              // parNuPz
+  AddParameter("top mass",              100.0, 1000.0);                              // parTopM
 }
 
 // ---------------------------------------------------------
 int KLFitter::LikelihoodTopLeptonJets_Angular::CalculateLorentzVectors(std::vector <double> const& parameters) {
   static double scale;
-  //  static double whad_fit_e;
-  //  static double whad_fit_px;
-  //  static double whad_fit_py;
-  //  static double whad_fit_pz;
-  //   static double wlep_fit_e;
-  //   static double wlep_fit_px;
-  //   static double wlep_fit_py;
-  //   static double wlep_fit_pz;
   static double thad_fit_e;
   static double thad_fit_px;
   static double thad_fit_py;
