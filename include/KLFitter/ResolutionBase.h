@@ -98,7 +98,7 @@ class ResolutionBase {
     * @param par The parameter value.
     * @return An error flag.
     */
-  int Par(int index, double &par);
+  int Par(int index, double *par);
 
   /* @} */
   /** \name Member functions (Set)  */

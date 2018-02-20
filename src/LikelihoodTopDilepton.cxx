@@ -368,10 +368,10 @@ int KLFitter::LikelihoodTopDilepton::AdjustParameterRanges() {
   double par2_2 = 0.;
   double par3_2 = 0.;
 
-  fResLepton1->Par(2, par2_1);
-  fResLepton1->Par(3, par3_1);
-  fResLepton2->Par(2, par2_2);
-  fResLepton2->Par(3, par3_2);
+  fResLepton1->Par(2, &par2_1);
+  fResLepton1->Par(3, &par3_1);
+  fResLepton2->Par(2, &par2_2);
+  fResLepton2->Par(3, &par3_2);
 
   double E = (*fParticlesPermuted)->Parton(0)->E();
   double m = fPhysicsConstants->MassBottom();
