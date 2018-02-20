@@ -1,13 +1,13 @@
-#include "KLFitter/DetectorAtlas_8TeV.h"
-#include "KLFitter/Fitter.h"
-#include "KLFitter/LikelihoodTopLeptonJets.h"
-#include "KLFitter/Permutations.h"
-
-#include "TLorentzVector.h"
 #include <iomanip>
 #include <iostream>
 #include <memory>
 #include <vector>
+
+#include "KLFitter/DetectorAtlas_8TeV.h"
+#include "KLFitter/Fitter.h"
+#include "KLFitter/LikelihoodTopLeptonJets.h"
+#include "KLFitter/Permutations.h"
+#include "TLorentzVector.h"
 
 namespace {
   std::unique_ptr<KLFitter::Particles> getExampleParticles(float tag_eff, float tag_ineff) {
