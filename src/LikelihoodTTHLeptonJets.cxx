@@ -173,7 +173,6 @@ int KLFitter::LikelihoodTTHLeptonJets::DefineModelParticles() {
                                KLFitter::Particles::kBoson,
                                "Higgs");
 
-
   // free memory
   delete dummy;
 

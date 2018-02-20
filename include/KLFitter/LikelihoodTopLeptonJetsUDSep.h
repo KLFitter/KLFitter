@@ -224,11 +224,9 @@ class LikelihoodTopLeptonJetsUDSep : public KLFitter::LikelihoodTopLeptonJets {
     */
   int SetBJet2DWeightHisto(TH2F* hist) { fBJet2DWeightHisto = hist; return 1; }
 
-
  protected:
   /** \name Member functions (misc)  */
   /* @{ */
-
 
   /**
     * Define the model particles
@@ -247,7 +245,6 @@ class LikelihoodTopLeptonJetsUDSep : public KLFitter::LikelihoodTopLeptonJets {
     * @return An error code.
     */
   int RemoveForbiddenParticlePermutations() { return 1; }
-
 
   /**
     * A flag for using an additional reweighting of the permutations with the pT and tag weight probability (default: false);

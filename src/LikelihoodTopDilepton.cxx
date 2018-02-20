@@ -433,7 +433,6 @@ int KLFitter::LikelihoodTopDilepton::AdjustParameterRanges() {
   SetParameterRange(parAntiNuEta, -5.0, 5.0);
   SetParameterRange(parNuEta, -5.0, 5.0);
 
-
   // no error
   return 1;
 }
@@ -449,7 +448,6 @@ double KLFitter::LikelihoodTopDilepton::LogLikelihood(const std::vector<double> 
   // temporary flag for a safe use of the transfer functions
   bool TFgoodTmp(true);
 
-
   // NuWT likelihood term
   double nuwt_weight(0.);
   nuwt_weight = CalculateWeight(parameters);
@@ -462,7 +460,6 @@ double KLFitter::LikelihoodTopDilepton::LogLikelihood(const std::vector<double> 
   }
 
   if (logweight + 10 == logweight) std::cout << "NUWT inf! : " << logweight << std::endl;
-
 
   // jet energy resolution terms
   if (fResEnergyB1->p(b1_fit_e, b1_meas_e, &TFgoodTmp) == 0.) {
@@ -1015,7 +1012,6 @@ std::vector<double> KLFitter::LikelihoodTopDilepton::LogLikelihoodComponents(std
     vecci.push_back(log(fResEnergyB1->p(b1_fit_e, b1_meas_e, &TFgoodTmp)));  // comp1
   }
   if (!TFgoodTmp) fTFgood = false;
-
 
   if (fResEnergyB2->p(b2_fit_e, b2_meas_e, &TFgoodTmp) == 0.) {
     vecci.push_back(log(1e-99));

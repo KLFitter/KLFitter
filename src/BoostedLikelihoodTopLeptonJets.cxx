@@ -122,7 +122,6 @@ int KLFitter::BoostedLikelihoodTopLeptonJets::DefineModelParticles() {
                                2,                             // index of corresponding particle
                                KLFitter::Particles::kLight);  // merged light jet (truth)
 
-
   if (fTypeLepton == kElectron) {
     fParticlesModel->AddParticle(dummy,
                                  KLFitter::Particles::kElectron,
@@ -422,7 +421,6 @@ double KLFitter::BoostedLikelihoodTopLeptonJets::LogLikelihood(const std::vector
   logprob += log(fResEnergyLQ->p(lq_fit_e, lq_meas_e, &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
 
-
   // lepton energy resolution terms
   if (fTypeLepton == kElectron) {
     logprob += log(fResLepton->p(lep_fit_e, lep_meas_e, &TFgoodTmp));
@@ -613,7 +611,6 @@ int KLFitter::BoostedLikelihoodTopLeptonJets::SavePermutedParticles() {
   lq_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(2)->M(), 0., &lq_meas_px, &lq_meas_py, &lq_meas_pz, lq_meas_e);
   lq_meas_p      = sqrt(lq_meas_e*lq_meas_e - lq_meas_m*lq_meas_m);
 
-
   TLorentzVector * lepton(0);
   if (fTypeLepton == kElectron) {
     lepton = (*fParticlesPermuted)->Electron(0);
@@ -687,7 +684,6 @@ std::vector<double> KLFitter::BoostedLikelihoodTopLeptonJets::LogLikelihoodCompo
 
   // calculate 4-vectors
   CalculateLorentzVectors(parameters);
-
 
   // temporary flag for a safe use of the transfer functions
   bool TFgoodTmp(true);

@@ -746,7 +746,6 @@ std::vector<double> KLFitter::LikelihoodTopLeptonJets::LogLikelihoodComponents(s
   // calculate 4-vectors
   CalculateLorentzVectors(parameters);
 
-
   // temporary flag for a safe use of the transfer functions
   bool TFgoodTmp(true);
 

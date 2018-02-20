@@ -197,7 +197,6 @@ double KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityLJetReweight()
       return -1e99;
     }
 
-
     for (int i = 0; i < fParticlesModel->NPartons(); ++i) {
       // get index of corresponding measured particle.
 

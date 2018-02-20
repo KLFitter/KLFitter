@@ -169,7 +169,6 @@ class LikelihoodBase : public BCModel {
     */
   int SetMyParticlesTruth(KLFitter::Particles** particles);
 
-
   /**
     * Set the values for the missing ET x and y components and the SumET.
     * @param etx missing ET x component.
@@ -249,7 +248,6 @@ class LikelihoodBase : public BCModel {
   int SetFlagIntegrate(bool flag) { fFlagIntegrate = flag; return 1; }
 
 
-
   /* @} */
   /** \name Member functions (misc)  */
   /* @{ */
@@ -264,7 +262,6 @@ class LikelihoodBase : public BCModel {
     * Propagate the b-tagging information from the permuted (measured) particles to the model particles.
     */
   void PropagateBTaggingInformation();
-
 
 
   /* @} */
@@ -317,7 +314,6 @@ class LikelihoodBase : public BCModel {
     * @return The event probability contribution
     */
   virtual double LogEventProbabilityBTag();
-
 
   /**
     * Remove invariant particle permutations.

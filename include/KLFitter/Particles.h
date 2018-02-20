@@ -406,7 +406,6 @@ class Particles {
     */
   int AddParticle(TLorentzVector * particle, double DetEta, KLFitter::Particles::ParticleType ptype, std::string name = "", int measuredindex = -1, bool isBtagged = false, double bTagEff = -1., double bTagRej = -1., TrueFlavorType trueflav = kNone, double btagweight = 999);
 
-
   /**
     * Add a particle to a list of particles.
     * @param particle A pointer to the particle.
