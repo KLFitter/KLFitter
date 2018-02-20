@@ -88,7 +88,7 @@ if( BUILTIN_BAT )
   message( STATUS "Using a privately downloaded BAT version for the build" )
 else()
   # Look for BAT on the build system.
-  find_package( BAT 0.9.4.1 REQUIRED )
+  find_package( BAT 0.9.4.1 EXACT REQUIRED )
 endif()
 
 # Public header files for the shared/static library.

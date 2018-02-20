@@ -28,7 +28,7 @@ information about BAT and its installation can be found on the
 [library's webpage](http://www.mppmu.mpg.de/bat/). The following versions have
 been tested with KLFitter and are working:
  - ROOT v5.34.10 and above
- - BAT v0.9.4.1 and above
+ - BAT v0.9.4.1
 
 
 ### Obtaining KLFitter
