@@ -22,8 +22,8 @@
 
 // ---------------------------------------------------------
 
-#include "LikelihoodBase.h"
-#include "ResolutionBase.h"
+#include "KLFitter/LikelihoodBase.h"
+#include "KLFitter/ResolutionBase.h"
 
 #include <vector>
 

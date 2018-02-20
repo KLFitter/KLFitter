@@ -22,8 +22,6 @@
 
 // ---------------------------------------------------------
 
-#include "LikelihoodBase.h"
-
 #include <assert.h>
 #include <cmath>
 #include <iostream>
@@ -32,7 +30,8 @@
 
 #include "BAT/BCH1D.h"
 #include "BAT/BCModel.h"
-#include "ResolutionBase.h"
+#include "KLFitter/LikelihoodBase.h"
+#include "KLFitter/ResolutionBase.h"
 #include "TLorentzVector.h"
 
 // ---------------------------------------------------------

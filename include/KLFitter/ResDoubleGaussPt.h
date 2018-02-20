@@ -21,7 +21,7 @@
 #define KLFITTER_RESDOUBLEGAUSSPT_H_
 
 #include <vector>
-#include "ResDoubleGaussBase.h"
+#include "KLFitter/ResDoubleGaussBase.h"
 
 // ---------------------------------------------------------
 

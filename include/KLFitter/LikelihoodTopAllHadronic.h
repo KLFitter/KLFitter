@@ -22,9 +22,9 @@
 
 // ---------------------------------------------------------
 
-#include "LikelihoodBase.h"
+#include "KLFitter/LikelihoodBase.h"
+#include "KLFitter/ResolutionBase.h"
 #include "TLorentzVector.h"
-#include "ResolutionBase.h"
 
 #include <iostream>
 #include <vector>

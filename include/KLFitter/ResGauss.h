@@ -20,7 +20,7 @@
 #ifndef KLFITTER_RESGAUSS_H_
 #define KLFITTER_RESGAUSS_H_
 
-#include "ResolutionBase.h"
+#include "KLFitter/ResolutionBase.h"
 
 // ---------------------------------------------------------
 

@@ -22,13 +22,14 @@
 
 // ---------------------------------------------------------
 
-#include "LikelihoodTopLeptonJets.h"
-#include "TLorentzVector.h"
-#include "ResolutionBase.h"
-#include "TH1F.h"
-#include "TH2F.h"
+#include "KLFitter/LikelihoodTopLeptonJets.h"
+#include "KLFitter/ResolutionBase.h"
 
 #include <iostream>
+
+#include "TH1F.h"
+#include "TH2F.h"
+#include "TLorentzVector.h"
 
 // ---------------------------------------------------------
 

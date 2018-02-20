@@ -20,7 +20,7 @@
 #ifndef KLFITTER_RESDOUBLEGAUSSBASE_H_
 #define KLFITTER_RESDOUBLEGAUSSBASE_H_
 
-#include "ResolutionBase.h"
+#include "KLFitter/ResolutionBase.h"
 #include <iostream>
 #include <vector>
 
