@@ -20,10 +20,10 @@
 #ifndef KLFITTER_LIKELIHOODSGTOPWTLJ_H_
 #define KLFITTER_LIKELIHOODSGTOPWTLJ_H_
 
+#include <vector>
+
 #include "KLFitter/LikelihoodBase.h"
 #include "KLFitter/ResolutionBase.h"
-
-#include <vector>
 
 // ---------------------------------------------------------
 

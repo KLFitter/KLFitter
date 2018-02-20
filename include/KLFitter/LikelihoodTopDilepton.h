@@ -21,6 +21,7 @@
 #define KLFITTER_LIKELIHOODTOPDILEPTON_H_
 
 #include <assert.h>
+
 #include <cmath>
 #include <iostream>
 #include <utility>

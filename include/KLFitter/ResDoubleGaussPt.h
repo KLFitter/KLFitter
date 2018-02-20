@@ -20,9 +20,9 @@
 #ifndef KLFITTER_RESDOUBLEGAUSSPT_H_
 #define KLFITTER_RESDOUBLEGAUSSPT_H_
 
-#include "KLFitter/ResDoubleGaussBase.h"
-
 #include <vector>
+
+#include "KLFitter/ResDoubleGaussBase.h"
 
 // ---------------------------------------------------------
 

@@ -20,12 +20,11 @@
 #ifndef KLFITTER_LIKELIHOODTOPLEPTONJETS_ANGULAR_H_
 #define KLFITTER_LIKELIHOODTOPLEPTONJETS_ANGULAR_H_
 
-#include "KLFitter/LikelihoodBase.h"
-#include "KLFitter/ResolutionBase.h"
-
 #include <iostream>
 #include <vector>
 
+#include "KLFitter/LikelihoodBase.h"
+#include "KLFitter/ResolutionBase.h"
 #include "TLorentzVector.h"
 
 // ---------------------------------------------------------

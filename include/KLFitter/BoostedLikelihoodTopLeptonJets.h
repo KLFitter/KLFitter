@@ -20,12 +20,12 @@
 #ifndef KLFITTER_BOOSTEDLIKELIHOODTOPLEPTONJETS_H_
 #define KLFITTER_BOOSTEDLIKELIHOODTOPLEPTONJETS_H_
 
+#include <iostream>
+#include <vector>
+
 #include "KLFitter/LikelihoodBase.h"
 #include "KLFitter/ResolutionBase.h"
 #include "TLorentzVector.h"
-
-#include <iostream>
-#include <vector>
 
 // ---------------------------------------------------------
 
