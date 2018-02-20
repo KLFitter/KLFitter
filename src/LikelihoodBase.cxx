@@ -139,8 +139,6 @@ int KLFitter::LikelihoodBase::SetMyParticlesTruth(KLFitter::Particles** particle
   // set pointer to pointer of truth particles
   fMyParticlesTruth  = particles;
 
-  // std::cout << "set particlestruth inside likelihoodbase!" << std::endl;
-
   // no error
   return 1;
 }

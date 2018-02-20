@@ -274,9 +274,6 @@ int KLFitter::BoostedLikelihoodTopLeptonJets::RemoveInvariantParticlePermutation
   // there are no invariant particle permutations with this likelihood
   KLFitter::Particles::ParticleType ptype = KLFitter::Particles::kParton;
   std::vector<int> indexVector_Jets;
-  // indexVector_Jets.push_back(2);
-  // indexVector_Jets.push_back(3);
-  // err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Jets);
 
   // remove invariant jet permutations of notevent jets
   KLFitter::Particles* particles = (*fPermutations)->Particles();

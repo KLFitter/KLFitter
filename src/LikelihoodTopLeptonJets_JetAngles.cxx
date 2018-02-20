@@ -450,50 +450,42 @@ int KLFitter::LikelihoodTopLeptonJets_JetAngles::AdjustParameterRanges() {
   double etamin = std::max(-2.5, eta - 0.2);
   double etamax = std::min(2.5, eta + 0.2);
   SetParameterRange(parBhadEta, etamin, etamax);
-  // SetParameterRange(parBhadEta, eta, eta);  // Fix temporarily eta & phi until proper TFs are available
 
   eta = (*fParticlesPermuted)->Parton(1)->Eta();
   etamin = std::max(-2.5, eta - 0.2);
   etamax = std::min(2.5, eta + 0.2);
   SetParameterRange(parBlepEta, etamin, etamax);
-  // SetParameterRange(parBlepEta, eta, eta);  // Fix temporarily eta & phi until proper TFs are available
 
   eta = (*fParticlesPermuted)->Parton(2)->Eta();
   etamin = std::max(-2.5, eta - 0.2);
   etamax = std::min(2.5, eta + 0.2);
   SetParameterRange(parLQ1Eta, etamin, etamax);
-  // SetParameterRange(parLQ1Eta, eta, eta);  // Fix temporarily eta & phi until proper TFs are available
 
   eta = (*fParticlesPermuted)->Parton(3)->Eta();
   etamin = std::max(-2.5, eta - 0.2);
   etamax = std::min(2.5, eta + 0.2);
   SetParameterRange(parLQ2Eta, etamin, etamax);
-  // SetParameterRange(parLQ2Eta, eta, eta);  // Fix temporarily eta & phi until proper TFs are available
 
   // phi
   double phi = (*fParticlesPermuted)->Parton(0)->Phi();
   double phimin = phi - 0.1;
   double phimax = phi + 0.1;
   SetParameterRange(parBhadPhi, phimin, phimax);
-  // SetParameterRange(parBhadPhi, phi, phi);  // Fix temporarily eta & phi until proper TFs are available
 
   phi = (*fParticlesPermuted)->Parton(1)->Phi();
   phimin = phi - 0.1;
   phimax = phi + 0.1;
   SetParameterRange(parBlepPhi, phimin, phimax);
-  // SetParameterRange(parBlepPhi, phi, phi);  // Fix temporarily eta & phi until proper TFs are available
 
   phi = (*fParticlesPermuted)->Parton(2)->Phi();
   phimin = phi - 0.1;
   phimax = phi + 0.1;
   SetParameterRange(parLQ1Phi, phimin, phimax);
-  // SetParameterRange(parLQ1Phi, phi, phi);  // Fix temporarily eta & phi until proper TFs are available
 
   phi = (*fParticlesPermuted)->Parton(3)->Phi();
   phimin = phi - 0.1;
   phimax = phi + 0.1;
   SetParameterRange(parLQ2Phi, phimin, phimax);
-  // SetParameterRange(parLQ2Phi, phi, phi);  // Fix temporarily eta & phi until proper TFs are available
 
   if (fFlagTopMassFixed)
     SetParameterRange(parTopM, fPhysicsConstants->MassTop(), fPhysicsConstants->MassTop());
@@ -554,7 +546,6 @@ double KLFitter::LikelihoodTopLeptonJets_JetAngles::LogLikelihood(const std::vec
   // transform all phi values, so that they are centered around zero, and not around the measured phi
 
   // phi resolution
-  // std::cout << parameters[parBhadPhi] << " | " << (*fParticlesPermuted)->Parton(0)->Phi() << " | " << diffPhi(parameters[parBhadPhi], (*fParticlesPermuted)->Parton(0)->Phi()) << std::endl;
   logprob += log((*fDetector)->ResPhiBJet((*fParticlesPermuted)->DetEta(0, KLFitter::Particles::kParton))->p(diffPhi(parameters[parBhadPhi], (*fParticlesPermuted)->Parton(0)->Phi()), 0., &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
   logprob += log((*fDetector)->ResPhiBJet((*fParticlesPermuted)->DetEta(1, KLFitter::Particles::kParton))->p(diffPhi(parameters[parBlepPhi], (*fParticlesPermuted)->Parton(1)->Phi()), 0., &TFgoodTmp));

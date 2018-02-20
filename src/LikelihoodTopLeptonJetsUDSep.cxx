@@ -214,20 +214,14 @@ double KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityLJetReweight()
       if (trueFlavor == KLFitter::Particles::kB) {
         logprob += log(BJetPt((*fParticlesPermuted)->Parton(index)->Pt()));
         logprob += log(BJetTagWeight((*fParticlesPermuted)->BTagWeight(index)));
-        // std::cout<<"DEBUG! adding pT weight for b: "<<BJetPt((*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
-        // std::cout<<"DEBUG! adding tag weight for b: "<<BJetTagWeight((*fParticlesPermuted)->BTagWeight(index))<<std::endl;
       }
       if (trueFlavor == KLFitter::Particles::kLightUp) {
         logprob += log(UpJetPt((*fParticlesPermuted)->Parton(index)->Pt()));
         logprob += log(UpJetTagWeight((*fParticlesPermuted)->BTagWeight(index)));
-        // std::cout<<"DEBUG! adding pT weight for b: "<<UpJetPt((*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
-        // std::cout<<"DEBUG! adding tag weight for b: "<<UpJetTagWeight((*fParticlesPermuted)->BTagWeight(index))<<std::endl;
       }
       if (trueFlavor == KLFitter::Particles::kLightDown) {
         logprob += log(DownJetPt((*fParticlesPermuted)->Parton(index)->Pt()));
         logprob += log(DownJetTagWeight((*fParticlesPermuted)->BTagWeight(index)));
-        // std::cout<<"DEBUG! adding pT weight for b: "<<DownJetPt((*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
-        // std::cout<<"DEBUG! adding tag weight for b: "<<DownJetTagWeight((*fParticlesPermuted)->BTagWeight(index))<<std::endl;
       }
     }
     return logprob;
@@ -254,15 +248,12 @@ double KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityLJetReweight()
       KLFitter::Particles::TrueFlavorType trueFlavor = fParticlesModel->TrueFlavor(i);
       if (trueFlavor == KLFitter::Particles::kB) {
         logprob += log(BJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt()));
-        // std::cout<<"DEBUG! adding prob weight for b: "<<BJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
       }
       if (trueFlavor == KLFitter::Particles::kLightUp) {
         logprob += log(UpJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt()));
-        // std::cout<<"DEBUG! adding prob weight for up: "<<UpJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
       }
       if (trueFlavor == KLFitter::Particles::kLightDown) {
         logprob += log(DownJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt()));
-        // std::cout<<"DEBUG! adding prob weight for down: "<<DownJetProb((*fParticlesPermuted)->BTagWeight(index), (*fParticlesPermuted)->Parton(index)->Pt())<<std::endl;
       }
     }
     return logprob;
