@@ -44,13 +44,13 @@ KLFitter::ResDoubleGaussBase::~ResDoubleGaussBase() {
 
 // ---------------------------------------------------------
 double KLFitter::ResDoubleGaussBase::GetSigma(double xmeas) {
-  /* Calculate mean width of both gaussians; weight the width of the 2nd one with its amplitude */
+  // Calculate mean width of both gaussians; weight the width of the 2nd one with its amplitude
   double sigma1 = GetSigma1(xmeas);
   double sigma2 = GetSigma2(xmeas);
   double amplitude2 = GetAmplitude2(xmeas);
   double sigma = (sigma1 + amplitude2*sigma2) / (1+amplitude2);
 
-  /* sigma estimates the fractional resolution, but we want absolute */
+  // sigma estimates the fractional resolution, but we want absolute
   return sigma*xmeas;
 }
 

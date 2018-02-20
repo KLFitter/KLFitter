@@ -517,7 +517,6 @@ int KLFitter::Permutations::InvariantParticleGroupPermutations(KLFitter::Particl
       std::vector<int> * permutation2 = (*fPermutationTable)[iperm2];
 
       // loop over index vectors
-
       unsigned int numberOfInvariantMatches(0);
 
       for (unsigned int i = 0, I = indexVectorPosition1.size(); i < I; i++)  {

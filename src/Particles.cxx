@@ -627,7 +627,6 @@ float KLFitter::Particles::LeptonCharge(int index, KLFitter::Particles::Particle
     return 0;
   }
 
-
   if (ptype == KLFitter::Particles::kElectron) {
     if (fElectronCharge->size()== 0) {
       return -9;

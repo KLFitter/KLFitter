@@ -124,8 +124,6 @@ int KLFitter::Fitter::SetLikelihood(KLFitter::LikelihoodBase * likelihood) {
   // set pointer to permuted particles
   fLikelihood->SetParticlesPermuted(&fParticlesPermuted);
 
-
-
   // remove invariant permutations if particles are defined alreday
   if (fParticles)
     fLikelihood->RemoveInvariantParticlePermutations();
@@ -170,7 +168,6 @@ int KLFitter::Fitter::Fit(int index) {
   int dummy;
   int nperms = fPermutations->NPermutations();
   int partnerindex = fLikelihood->LHInvariantPermutationPartner(index, nperms, &dummy, &dummy);
-
 
   // check if permutation is LH invariant and has already been calculated
   if ((partnerindex > -1)&&(partnerindex < index)) {
@@ -230,7 +227,6 @@ int KLFitter::Fitter::Fit(int index) {
       if (fMinuitStatus == 4)
         fConvergenceStatus |= MinuitDidNotConvergeMask;
     }
-
 
     // check if any parameter is at its borders->set MINUIT flag to 501
     if (fMinuitStatus == 0) {
