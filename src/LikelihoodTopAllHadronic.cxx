@@ -489,7 +489,7 @@ int KLFitter::LikelihoodTopAllHadronic::SavePermutedParticles() {
   bhad1_meas_px     = (*fParticlesPermuted)->Parton(0)->Px();
   bhad1_meas_py     = (*fParticlesPermuted)->Parton(0)->Py();
   bhad1_meas_pz     = (*fParticlesPermuted)->Parton(0)->Pz();
-  bhad1_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(0)->M(), fPhysicsConstants->MassBottom(), bhad1_meas_px, bhad1_meas_py, bhad1_meas_pz, bhad1_meas_e);
+  bhad1_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(0)->M(), fPhysicsConstants->MassBottom(), &bhad1_meas_px, &bhad1_meas_py, &bhad1_meas_pz, bhad1_meas_e);
   bhad1_meas_p      = sqrt(bhad1_meas_e*bhad1_meas_e - bhad1_meas_m*bhad1_meas_m);
 
   bhad2_meas_e      = (*fParticlesPermuted)->Parton(1)->E();
@@ -497,7 +497,7 @@ int KLFitter::LikelihoodTopAllHadronic::SavePermutedParticles() {
   bhad2_meas_px     = (*fParticlesPermuted)->Parton(1)->Px();
   bhad2_meas_py     = (*fParticlesPermuted)->Parton(1)->Py();
   bhad2_meas_pz     = (*fParticlesPermuted)->Parton(1)->Pz();
-  bhad2_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(1)->M(), fPhysicsConstants->MassBottom(), bhad2_meas_px, bhad2_meas_py, bhad2_meas_pz, bhad2_meas_e);
+  bhad2_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(1)->M(), fPhysicsConstants->MassBottom(), &bhad2_meas_px, &bhad2_meas_py, &bhad2_meas_pz, bhad2_meas_e);
   bhad2_meas_p      = sqrt(bhad2_meas_e*bhad2_meas_e - bhad2_meas_m*bhad2_meas_m);
 
   lq1_meas_e      = (*fParticlesPermuted)->Parton(2)->E();
@@ -505,7 +505,7 @@ int KLFitter::LikelihoodTopAllHadronic::SavePermutedParticles() {
   lq1_meas_px     = (*fParticlesPermuted)->Parton(2)->Px();
   lq1_meas_py     = (*fParticlesPermuted)->Parton(2)->Py();
   lq1_meas_pz     = (*fParticlesPermuted)->Parton(2)->Pz();
-  lq1_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(2)->M(), 0., lq1_meas_px, lq1_meas_py, lq1_meas_pz, lq1_meas_e);
+  lq1_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(2)->M(), 0., &lq1_meas_px, &lq1_meas_py, &lq1_meas_pz, lq1_meas_e);
   lq1_meas_p      = sqrt(lq1_meas_e*lq1_meas_e - lq1_meas_m*lq1_meas_m);
 
   lq2_meas_e      = (*fParticlesPermuted)->Parton(3)->E();
@@ -513,7 +513,7 @@ int KLFitter::LikelihoodTopAllHadronic::SavePermutedParticles() {
   lq2_meas_px     = (*fParticlesPermuted)->Parton(3)->Px();
   lq2_meas_py     = (*fParticlesPermuted)->Parton(3)->Py();
   lq2_meas_pz     = (*fParticlesPermuted)->Parton(3)->Pz();
-  lq2_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(3)->M(), 0., lq2_meas_px, lq2_meas_py, lq2_meas_pz, lq2_meas_e);
+  lq2_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(3)->M(), 0., &lq2_meas_px, &lq2_meas_py, &lq2_meas_pz, lq2_meas_e);
   lq2_meas_p      = sqrt(lq2_meas_e*lq2_meas_e - lq2_meas_m*lq2_meas_m);
 
   lq3_meas_e      = (*fParticlesPermuted)->Parton(4)->E();
@@ -521,7 +521,7 @@ int KLFitter::LikelihoodTopAllHadronic::SavePermutedParticles() {
   lq3_meas_px     = (*fParticlesPermuted)->Parton(4)->Px();
   lq3_meas_py     = (*fParticlesPermuted)->Parton(4)->Py();
   lq3_meas_pz     = (*fParticlesPermuted)->Parton(4)->Pz();
-  lq3_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(4)->M(), 0., lq3_meas_px, lq3_meas_py, lq3_meas_pz, lq3_meas_e);
+  lq3_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(4)->M(), 0., &lq3_meas_px, &lq3_meas_py, &lq3_meas_pz, lq3_meas_e);
   lq3_meas_p      = sqrt(lq3_meas_e*lq3_meas_e - lq3_meas_m*lq3_meas_m);
 
   lq4_meas_e      = (*fParticlesPermuted)->Parton(5)->E();
@@ -529,7 +529,7 @@ int KLFitter::LikelihoodTopAllHadronic::SavePermutedParticles() {
   lq4_meas_px     = (*fParticlesPermuted)->Parton(5)->Px();
   lq4_meas_py     = (*fParticlesPermuted)->Parton(5)->Py();
   lq4_meas_pz     = (*fParticlesPermuted)->Parton(5)->Pz();
-  lq4_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(5)->M(), 0., lq4_meas_px, lq4_meas_py, lq4_meas_pz, lq4_meas_e);
+  lq4_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(5)->M(), 0., &lq4_meas_px, &lq4_meas_py, &lq4_meas_pz, lq4_meas_e);
   lq4_meas_p      = sqrt(lq4_meas_e*lq4_meas_e - lq4_meas_m*lq4_meas_m);
 
   // no error

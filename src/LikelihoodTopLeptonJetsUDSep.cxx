@@ -381,7 +381,7 @@ double KLFitter::LikelihoodTopLeptonJetsUDSep::BJetProb(double tagweight, double
 }
 
 // ---------------------------------------------------------
-int KLFitter::LikelihoodTopLeptonJetsUDSep::LHInvariantPermutationPartner(int iperm, int nperms, int &switchpar1, int &switchpar2) {
+int KLFitter::LikelihoodTopLeptonJetsUDSep::LHInvariantPermutationPartner(int iperm, int nperms, int *switchpar1, int *switchpar2) {
   int partnerid = -1;
   int cache = iperm%6;
   switch (nperms) {
@@ -403,7 +403,7 @@ int KLFitter::LikelihoodTopLeptonJetsUDSep::LHInvariantPermutationPartner(int ip
 
   default: partnerid = -1;
   }
-  switchpar1 = 2;
-  switchpar2 = 3;
+  *switchpar1 = 2;
+  *switchpar2 = 3;
   return partnerid;
 }

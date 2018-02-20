@@ -933,7 +933,7 @@ int KLFitter::LikelihoodTopDilepton::SavePermutedParticles() {
   b1_meas_px     = (*fParticlesPermuted)->Parton(0)->Px();
   b1_meas_py     = (*fParticlesPermuted)->Parton(0)->Py();
   b1_meas_pz     = (*fParticlesPermuted)->Parton(0)->Pz();
-  b1_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(0)->M(), fPhysicsConstants->MassBottom(), b1_meas_px, b1_meas_py, b1_meas_pz, b1_meas_e);
+  b1_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(0)->M(), fPhysicsConstants->MassBottom(), &b1_meas_px, &b1_meas_py, &b1_meas_pz, b1_meas_e);
   b1_meas_p      = sqrt(b1_meas_e*b1_meas_e - b1_meas_m*b1_meas_m);
 
   b2_meas_e      = (*fParticlesPermuted)->Parton(1)->E();
@@ -941,7 +941,7 @@ int KLFitter::LikelihoodTopDilepton::SavePermutedParticles() {
   b2_meas_px     = (*fParticlesPermuted)->Parton(1)->Px();
   b2_meas_py     = (*fParticlesPermuted)->Parton(1)->Py();
   b2_meas_pz     = (*fParticlesPermuted)->Parton(1)->Pz();
-  b2_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(1)->M(), fPhysicsConstants->MassBottom(), b2_meas_px, b2_meas_py, b2_meas_pz, b2_meas_e);
+  b2_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(1)->M(), fPhysicsConstants->MassBottom(), &b2_meas_px, &b2_meas_py, &b2_meas_pz, b2_meas_e);
   b2_meas_p      = sqrt(b2_meas_e*b2_meas_e - b2_meas_m*b2_meas_m);
 
   TLorentzVector * lepton_1(0);

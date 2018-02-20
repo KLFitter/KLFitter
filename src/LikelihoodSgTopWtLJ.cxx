@@ -547,7 +547,7 @@ int KLFitter::LikelihoodSgTopWtLJ::SavePermutedParticles() {
   b_meas_px     = (*fParticlesPermuted)->Parton(0)->Px();
   b_meas_py     = (*fParticlesPermuted)->Parton(0)->Py();
   b_meas_pz     = (*fParticlesPermuted)->Parton(0)->Pz();
-  b_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(0)->M(), fPhysicsConstants->MassBottom(), b_meas_px, b_meas_py, b_meas_pz, b_meas_e);
+  b_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(0)->M(), fPhysicsConstants->MassBottom(), &b_meas_px, &b_meas_py, &b_meas_pz, b_meas_e);
   b_meas_p      = sqrt(b_meas_e*b_meas_e - b_meas_m*b_meas_m);
 
   lq1_meas_e      = (*fParticlesPermuted)->Parton(1)->E();
@@ -555,7 +555,7 @@ int KLFitter::LikelihoodSgTopWtLJ::SavePermutedParticles() {
   lq1_meas_px     = (*fParticlesPermuted)->Parton(1)->Px();
   lq1_meas_py     = (*fParticlesPermuted)->Parton(1)->Py();
   lq1_meas_pz     = (*fParticlesPermuted)->Parton(1)->Pz();
-  lq1_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(1)->M(), 0., lq1_meas_px, lq1_meas_py, lq1_meas_pz, lq1_meas_e);
+  lq1_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(1)->M(), 0., &lq1_meas_px, &lq1_meas_py, &lq1_meas_pz, lq1_meas_e);
   lq1_meas_p      = sqrt(lq1_meas_e*lq1_meas_e - lq1_meas_m*lq1_meas_m);
 
   lq2_meas_e      = (*fParticlesPermuted)->Parton(2)->E();
@@ -563,7 +563,7 @@ int KLFitter::LikelihoodSgTopWtLJ::SavePermutedParticles() {
   lq2_meas_px     = (*fParticlesPermuted)->Parton(2)->Px();
   lq2_meas_py     = (*fParticlesPermuted)->Parton(2)->Py();
   lq2_meas_pz     = (*fParticlesPermuted)->Parton(2)->Pz();
-  lq2_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(2)->M(), 0., lq2_meas_px, lq2_meas_py, lq2_meas_pz, lq2_meas_e);
+  lq2_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(2)->M(), 0., &lq2_meas_px, &lq2_meas_py, &lq2_meas_pz, lq2_meas_e);
   lq2_meas_p      = sqrt(lq2_meas_e*lq2_meas_e - lq2_meas_m*lq2_meas_m);
 
   TLorentzVector * lepton(0);

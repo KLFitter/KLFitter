@@ -170,7 +170,7 @@ int KLFitter::Fitter::Fit(int index) {
   // Check if LH is invariant
   int dummy;
   int nperms = fPermutations->NPermutations();
-  int partnerindex = fLikelihood->LHInvariantPermutationPartner(index, nperms, dummy, dummy);
+  int partnerindex = fLikelihood->LHInvariantPermutationPartner(index, nperms, &dummy, &dummy);
 
 
   // check if permutation is LH invariant and has already been calculated
@@ -367,7 +367,7 @@ int KLFitter::Fitter::SetFitStatusToCache(int iperm, int nperms) {
   fCachedConvergenceStatusVector.at(iperm) = fConvergenceStatus;
 
   int dummy;
-  int partner = fLikelihood->LHInvariantPermutationPartner(iperm, nperms, dummy, dummy);
+  int partner = fLikelihood->LHInvariantPermutationPartner(iperm, nperms, &dummy, &dummy);
 
   if (partner > iperm) {
     if ((static_cast<int>(fCachedMinuitStatusVector.size()) > partner) && (static_cast<int>(fCachedConvergenceStatusVector.size()) > partner)) {

@@ -204,7 +204,7 @@ class LikelihoodTopLeptonJetsUDSep : public KLFitter::LikelihoodTopLeptonJets {
     * Check if the permutation is LH invariant.
     * @return Permutation of the invariant partner, -1 if there is no one.
     */
-  int LHInvariantPermutationPartner(int iperm, int nperms, int &switchpar1, int &switchpar2);
+  int LHInvariantPermutationPartner(int iperm, int nperms, int *switchpar1, int *switchpar2);
 
   /**
     * Set histogram for tag weight distribution of up type jets.

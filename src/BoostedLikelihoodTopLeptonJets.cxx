@@ -602,7 +602,7 @@ int KLFitter::BoostedLikelihoodTopLeptonJets::SavePermutedParticles() {
   bhad_meas_px     = (*fParticlesPermuted)->Parton(0)->Px();
   bhad_meas_py     = (*fParticlesPermuted)->Parton(0)->Py();
   bhad_meas_pz     = (*fParticlesPermuted)->Parton(0)->Pz();
-  bhad_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(0)->M(), fPhysicsConstants->MassBottom(), bhad_meas_px, bhad_meas_py, bhad_meas_pz, bhad_meas_e);
+  bhad_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(0)->M(), fPhysicsConstants->MassBottom(), &bhad_meas_px, &bhad_meas_py, &bhad_meas_pz, bhad_meas_e);
   bhad_meas_p      = sqrt(bhad_meas_e*bhad_meas_e - bhad_meas_m*bhad_meas_m);
 
   blep_meas_e      = (*fParticlesPermuted)->Parton(1)->E();
@@ -610,7 +610,7 @@ int KLFitter::BoostedLikelihoodTopLeptonJets::SavePermutedParticles() {
   blep_meas_px     = (*fParticlesPermuted)->Parton(1)->Px();
   blep_meas_py     = (*fParticlesPermuted)->Parton(1)->Py();
   blep_meas_pz     = (*fParticlesPermuted)->Parton(1)->Pz();
-  blep_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(1)->M(), fPhysicsConstants->MassBottom(), blep_meas_px, blep_meas_py, blep_meas_pz, blep_meas_e);
+  blep_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(1)->M(), fPhysicsConstants->MassBottom(), &blep_meas_px, &blep_meas_py, &blep_meas_pz, blep_meas_e);
   blep_meas_p      = sqrt(blep_meas_e*blep_meas_e - blep_meas_m*blep_meas_m);
 
   lq_meas_e      = (*fParticlesPermuted)->Parton(2)->E();
@@ -618,7 +618,7 @@ int KLFitter::BoostedLikelihoodTopLeptonJets::SavePermutedParticles() {
   lq_meas_px     = (*fParticlesPermuted)->Parton(2)->Px();
   lq_meas_py     = (*fParticlesPermuted)->Parton(2)->Py();
   lq_meas_pz     = (*fParticlesPermuted)->Parton(2)->Pz();
-  lq_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(2)->M(), 0., lq_meas_px, lq_meas_py, lq_meas_pz, lq_meas_e);
+  lq_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(2)->M(), 0., &lq_meas_px, &lq_meas_py, &lq_meas_pz, lq_meas_e);
   lq_meas_p      = sqrt(lq_meas_e*lq_meas_e - lq_meas_m*lq_meas_m);
 
 

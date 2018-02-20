@@ -372,7 +372,7 @@ int KLFitter::LikelihoodBase::SetParametersToCache(int iperm, int nperms) {
   int switchpar1 = -1;
   int switchpar2 = -1;
   double switchcache = 0;
-  int partner = LHInvariantPermutationPartner(iperm, nperms, switchpar1, switchpar2);
+  int partner = LHInvariantPermutationPartner(iperm, nperms, &switchpar1, &switchpar2);
 
   if (partner > iperm) {
     if ((static_cast<int>(fCachedParametersVector.size()) > partner) && (static_cast<int>(fCachedParameterErrorsVector.size()) > partner)) {
