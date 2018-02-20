@@ -100,8 +100,6 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
   if (nmuons != 0 && (*fParticles)->LeptonCharge(0, KLFitter::Particles::kMuon) != -9)
     isDilepton = true;
 
-  // std::cout << "isDilepton? " << isDilepton  << std::endl;
-
   // create table for parton, electron, muon and photons permutations
   fTablePartons = new std::vector < std::vector<int> * >(0);
   CreateSubTable(npartons, fTablePartons, nPartonsInPermutations);
@@ -616,23 +614,6 @@ int KLFitter::Permutations::CheckParticles() {
 // ---------------------------------------------------------
 std::vector<std::vector<int>* > *KLFitter::Permutations::PermutationTable() {
   return fPermutationTable;
-
-  // // copy the table
-  // std::vector<std::vector<int>* > *permutationTable = new std::vector<std::vector<int>* >(0);
-  // int npartons   = (*fParticles)->NPartons();
-  // int nelectrons = (*fParticles)->NElectrons();
-  // int nmuons     = (*fParticles)->NMuons();
-  // int nphotons     = (*fParticles)->NPhotons();
-  // for (unsigned int iPerm = 0; iPerm < fPermutationTable->size(); iPerm++)
-  // {
-  // std::vector<int> *iVec = new std::vector<int>;
-  // for (int iParticle = 0; iParticle < npartons + nelectrons + nmuons + nphotons; iParticle++)
-  // iVec->push_back(fPermutationTable->at(iPerm)->at(iParticle));
-  // permutationTable->push_back(iVec);
-  // }
-
-  // // return copy
-  // return permutationTable;
 }
 
 // ---------------------------------------------------------

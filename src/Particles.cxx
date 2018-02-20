@@ -193,9 +193,6 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, f
   // get particle container
   std::vector <TLorentzVector *>* container = ParticleContainer(ptype);
 
-  // std::string name = "";
-  // int measuredindex = -1;
-
   // check if container exists
   if (!container) {
     std::cout << "KLFitter::Particles::AddParticle(). Container does not exist." << std::endl;
@@ -472,112 +469,42 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
 TLorentzVector* KLFitter::Particles::Parton(int index) {
   // no check on index range for CPU-time reasons
   return (*fPartons)[index];
-
-  // // check index
-  // if (index < 0 || index >= NPartons())
-  // {
-  // std::cout << "KLFitter::Particles::Parton(). Index out of range." << std::endl;
-  // return 0;
-  // }
-
-  // // return pointer
-  // return fPartons->at(index);
 }
 
 // ---------------------------------------------------------
 TLorentzVector* KLFitter::Particles::Electron(int index) {
   // no check on index range for CPU-time reasons
   return (*fElectrons)[index];
-
-  // // check index
-  // if (index < 0 || index >= NElectrons())
-  // {
-  // std::cout << "KLFitter::Particles::Electron(). Index out of range." << std::endl;
-  // return 0;
-  // }
-
-  // // return pointer
-  // return fElectrons->at(index);
 }
 
 // ---------------------------------------------------------
 TLorentzVector* KLFitter::Particles::Muon(int index) {
   // no check on index range for CPU-time reasons
   return (*fMuons)[index];
-
-  // // check index
-  // if (index < 0 || index >= NMuons())
-  // {
-  // std::cout << "KLFitter::Particles::Muon(). Index out of range." << std::endl;
-  // return 0;
-  // }
-
-  // // return pointer
-  // return fMuons->at(index);
 }
 
 // ---------------------------------------------------------
 TLorentzVector* KLFitter::Particles::Tau(int index) {
   // no check on index range for CPU-time reasons
   return (*fTaus)[index];
-
-  // // check index
-  // if (index < 0 || index >= NTaus())
-  // {
-  // std::cout << "KLFitter::Particles::Tau(). Index out of range." << std::endl;
-  // return 0;
-  // }
-
-  // // return pointer
-  // return fTaus->at(index);
 }
 
 // ---------------------------------------------------------
 TLorentzVector* KLFitter::Particles::Boson(int index) {
   // no check on index range for CPU-time reasons
   return (*fBosons)[index];
-
-  // // check index
-  // if (index < 0 || index >= NBosons())
-  // {
-  // std::cout << "KLFitter::Particles::Boson(). Index out of range." << std::endl;
-  // return 0;
-  // }
-
-  // // return pointer
-  // return fBosons->at(index);
 }
 
 // ---------------------------------------------------------
 TLorentzVector* KLFitter::Particles::Neutrino(int index) {
   // no check on index range for CPU-time reasons
   return (*fNeutrinos)[index];
-
-  // // check index
-  // if (index < 0 || index >= NNeutrinos())
-  // {
-  // std::cout << "KLFitter::Particles::Neutrino(). Index out of range." << std::endl;
-  // return 0;
-  // }
-
-  // // return pointer
-  // return fNeutrinos->at(index);
 }
 
 // ---------------------------------------------------------
 TLorentzVector* KLFitter::Particles::Photon(int index) {
   // no check on index range for CPU-time reasons
   return (*fPhotons)[index];
-
-  // // check index
-  // if (index < 0 || index >= NPhotons())
-  // {
-  // std::cout << "KLFitter::Particles::Photon(). Index out of range." << std::endl;
-  // return 0;
-  // }
-
-  // // return pointer
-  // return fPhotons->at(index);
 }
 
 // ---------------------------------------------------------
@@ -725,60 +652,24 @@ float KLFitter::Particles::LeptonCharge(int index, KLFitter::Particles::Particle
 int KLFitter::Particles::JetIndex(int index) {
   // no check on index range for CPU-time reasons
   return (*fJetIndex)[index];
-
-  // // check index
-  // if (index < 0 || index >= NPartons()) {
-  //   std::cout << "KLFitter::Particles::JetIndex(). Index out of range." << std::endl;
-  //   return 0;
-  // }
-
-  // // return jet index
-  // return fJetIndex->at(index);
 }
 
 // ---------------------------------------------------------
 int KLFitter::Particles::ElectronIndex(int index) {
   // no check on index range for CPU-time reasons
   return (*fElectronIndex)[index];
-
-  // // check index
-  // if (index < 0 || index >= NElectrons()) {
-  //   std::cout << "KLFitter::Particles::ElectronIndex(). Index out of range." << std::endl;
-  //   return 0;
-  // }
-
-  // // return electron index
-  // return fElectronIndex->at(index);
 }
 
 // ---------------------------------------------------------
 int KLFitter::Particles::MuonIndex(int index) {
   // no check on index range for CPU-time reasons
   return (*fMuonIndex)[index];
-
-  // // check index
-  // if (index < 0 || index >= NMuons()) {
-  //   std::cout << "KLFitter::Particles::MuonIndex(). Index out of range." << std::endl;
-  //   return 0;
-  // }
-
-  // // return muon index
-  // return fMuonIndex->at(index);
 }
 
 // ---------------------------------------------------------
 int KLFitter::Particles::PhotonIndex(int index) {
   // no check on index range for CPU-time reasons
   return (*fPhotonIndex)[index];
-
-  // // check index
-  // if (index < 0 || index >= NPhotons()) {}
-  //   std::cout << "KLFitter::Particles::PhotonIndex(). Index out of range." << std::endl;
-  //   return 0;
-  // }
-
-  // // return photon index
-  // return fPhotonIndex->at(index);
 }
 
 // ---------------------------------------------------------

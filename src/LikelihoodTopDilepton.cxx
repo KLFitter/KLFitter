@@ -413,7 +413,6 @@ int KLFitter::LikelihoodTopDilepton::AdjustParameterRanges() {
     sigrange = nsigmas_lepton*std::max(par2_2*sqrt(E), par3_2*E);
     Emin = std::max(0.001, E - sigrange);
     Emax  = E + sigrange;
-    // std::cout << "Emin el 2: " << Emin << " Emax el 2: " << Emax << std::endl;
     SetParameterRange(parLep2E, Emin, Emax);
   } else if (fTypeLepton_1 == kMuon && fTypeLepton_2 == kMuon) {
     E = (*fParticlesPermuted)->Muon(0)->E();
