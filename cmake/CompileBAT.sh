@@ -74,11 +74,11 @@ fi
 # Perform the actual configure and make commands.
 tar xzf "$tar_name"
 cd BAT-0.9.4.1
-./configure --with-rootsys=`root-config --prefix` --prefix=$target_dir
-make -j || make -j || make -j
+./configure --with-rootsys=`root-config --prefix` --prefix=$target_dir --enable-silent-rules
+make -j LIBTOOLFLAGS=--silent || make -j LIBTOOLFLAGS=--silent || make -j LIBTOOLFLAGS=--silent
 
 # Copy built BAT into the installation path ($1).
-make install
+make install LIBTOOLFLAGS=--silent
 
 # Go back to the start and clean up.
 cd $base_dir
