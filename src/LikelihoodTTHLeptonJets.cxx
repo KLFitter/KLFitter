@@ -538,40 +538,40 @@ double KLFitter::LikelihoodTTHLeptonJets::LogLikelihood(const std::vector<double
   bool TFgoodTmp(true);
 
   // jet energy resolution terms
-  logprob += log(fResEnergyBhad->p(bhad_fit_e, bhad_meas_e, TFgoodTmp));
+  logprob += log(fResEnergyBhad->p(bhad_fit_e, bhad_meas_e, &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
 
-  logprob += log(fResEnergyBlep->p(blep_fit_e, blep_meas_e, TFgoodTmp));
+  logprob += log(fResEnergyBlep->p(blep_fit_e, blep_meas_e, &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
 
-  logprob += log(fResEnergyLQ1->p(lq1_fit_e, lq1_meas_e, TFgoodTmp));
+  logprob += log(fResEnergyLQ1->p(lq1_fit_e, lq1_meas_e, &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
 
-  logprob += log(fResEnergyLQ2->p(lq2_fit_e, lq2_meas_e, TFgoodTmp));
+  logprob += log(fResEnergyLQ2->p(lq2_fit_e, lq2_meas_e, &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
 
   // ++++++++++++++++//
-  logprob += log(fResEnergyBHiggs1->p(BHiggs1_fit_e, BHiggs1_meas_e, TFgoodTmp));
+  logprob += log(fResEnergyBHiggs1->p(BHiggs1_fit_e, BHiggs1_meas_e, &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
 
-  logprob += log(fResEnergyBHiggs2->p(BHiggs2_fit_e, BHiggs2_meas_e, TFgoodTmp));
+  logprob += log(fResEnergyBHiggs2->p(BHiggs2_fit_e, BHiggs2_meas_e, &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
   // ++++++++++++++++//
 
 
   // lepton energy resolution terms
   if (fTypeLepton == kElectron) {
-    logprob += log(fResLepton->p(lep_fit_e, lep_meas_e, TFgoodTmp));
+    logprob += log(fResLepton->p(lep_fit_e, lep_meas_e, &TFgoodTmp));
   } else if (fTypeLepton == kMuon) {
-    logprob += log(fResLepton->p(lep_fit_e* lep_meas_sintheta, lep_meas_pt, TFgoodTmp));
+    logprob += log(fResLepton->p(lep_fit_e* lep_meas_sintheta, lep_meas_pt, &TFgoodTmp));
   }
   if (!TFgoodTmp) fTFgood = false;
 
   // neutrino px and py
-  logprob += log(fResMET->p(nu_fit_px, ETmiss_x, TFgoodTmp, SumET));
+  logprob += log(fResMET->p(nu_fit_px, ETmiss_x, &TFgoodTmp, SumET));
   if (!TFgoodTmp) fTFgood = false;
 
-  logprob += log(fResMET->p(nu_fit_py, ETmiss_y, TFgoodTmp, SumET));
+  logprob += log(fResMET->p(nu_fit_py, ETmiss_y, &TFgoodTmp, SumET));
   if (!TFgoodTmp) fTFgood = false;
 
   // physics constants
@@ -917,37 +917,37 @@ std::vector<double> KLFitter::LikelihoodTTHLeptonJets::LogLikelihoodComponents(s
   bool TFgoodTmp(true);
 
   // jet energy resolution terms
-  vecci.push_back(log(fResEnergyBhad->p(bhad_fit_e, bhad_meas_e, TFgoodTmp)));  // comp0
+  vecci.push_back(log(fResEnergyBhad->p(bhad_fit_e, bhad_meas_e, &TFgoodTmp)));  // comp0
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log(fResEnergyBlep->p(blep_fit_e, blep_meas_e, TFgoodTmp)));  // comp1
+  vecci.push_back(log(fResEnergyBlep->p(blep_fit_e, blep_meas_e, &TFgoodTmp)));  // comp1
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log(fResEnergyLQ1->p(lq1_fit_e, lq1_meas_e, TFgoodTmp)));  // comp2
+  vecci.push_back(log(fResEnergyLQ1->p(lq1_fit_e, lq1_meas_e, &TFgoodTmp)));  // comp2
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log(fResEnergyLQ2->p(lq2_fit_e, lq2_meas_e, TFgoodTmp)));  // comp3
+  vecci.push_back(log(fResEnergyLQ2->p(lq2_fit_e, lq2_meas_e, &TFgoodTmp)));  // comp3
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log(fResEnergyBHiggs1->p(BHiggs1_fit_e, BHiggs1_meas_e, TFgoodTmp)));  // comp4
+  vecci.push_back(log(fResEnergyBHiggs1->p(BHiggs1_fit_e, BHiggs1_meas_e, &TFgoodTmp)));  // comp4
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log(fResEnergyBHiggs2->p(BHiggs2_fit_e, BHiggs2_meas_e, TFgoodTmp)));  // comp5
+  vecci.push_back(log(fResEnergyBHiggs2->p(BHiggs2_fit_e, BHiggs2_meas_e, &TFgoodTmp)));  // comp5
   if (!TFgoodTmp) fTFgood = false;
 
   // lepton energy resolution terms
   if (fTypeLepton == kElectron) {
-    vecci.push_back(log(fResLepton->p(lep_fit_e, lep_meas_e, TFgoodTmp)));  // comp6
+    vecci.push_back(log(fResLepton->p(lep_fit_e, lep_meas_e, &TFgoodTmp)));  // comp6
   } else if (fTypeLepton == kMuon) {
-    vecci.push_back(log(fResLepton->p(lep_fit_e* lep_meas_sintheta, lep_meas_pt, TFgoodTmp)));  // comp6
+    vecci.push_back(log(fResLepton->p(lep_fit_e* lep_meas_sintheta, lep_meas_pt, &TFgoodTmp)));  // comp6
   }
   if (!TFgoodTmp) fTFgood = false;
 
   // neutrino px and py
-  vecci.push_back(log(fResMET->p(nu_fit_px, ETmiss_x, TFgoodTmp, SumET)));  // comp7
+  vecci.push_back(log(fResMET->p(nu_fit_px, ETmiss_x, &TFgoodTmp, SumET)));  // comp7
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log(fResMET->p(nu_fit_py, ETmiss_y, TFgoodTmp, SumET)));  // comp8
+  vecci.push_back(log(fResMET->p(nu_fit_py, ETmiss_y, &TFgoodTmp, SumET)));  // comp8
   if (!TFgoodTmp) fTFgood = false;
 
   // physics constants

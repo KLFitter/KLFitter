@@ -81,7 +81,7 @@ class ResGauss_MET : public ResolutionBase {
     * @param good False if problem with TF.
     * @return The probability.
     */
-  virtual double p(double x, double xmeas, bool &good) { good = true; return 0; }
+  virtual double p(double x, double xmeas, bool *good) { *good = true; return 0; }
 
   /**
     * Return the probability of the true value of x given the
@@ -92,7 +92,7 @@ class ResGauss_MET : public ResolutionBase {
     * @param good False if problem with TF.
     * @return The probability.
     */
-  double p(double x, double xmeas, bool &good, double sumet);
+  double p(double x, double xmeas, bool *good, double sumet);
 
   /* @} */
   /** \name Member functions (Set)  */

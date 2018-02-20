@@ -117,7 +117,7 @@ class ResDoubleGaussBase : public ResolutionBase {
     * @param good False if problem with TF.
     * @return The probability.
     */
-  virtual double p(double x, double xmeas, bool &good);
+  virtual double p(double x, double xmeas, bool *good);
 
   /**
     * Return the probability of the true value of x given the
@@ -128,7 +128,7 @@ class ResDoubleGaussBase : public ResolutionBase {
     * @param par Optional additional parameter (SumET in case of MET TF).
     * @return The probability.
     */
-  virtual double p(double x, double xmeas, bool &good, double par) { good = true; return 0; }
+  virtual double p(double x, double xmeas, bool *good, double par) { *good = true; return 0; }
 
   /* @} */
 
