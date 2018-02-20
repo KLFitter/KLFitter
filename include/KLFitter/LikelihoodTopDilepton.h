@@ -20,9 +20,8 @@
 #ifndef KLFITTER_LIKELIHOODTOPDILEPTON_H_
 #define KLFITTER_LIKELIHOODTOPDILEPTON_H_
 
-// ---------------------------------------------------------
-
 #include <assert.h>
+
 #include <cmath>
 #include <iostream>
 #include <utility>
@@ -452,7 +451,6 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
     */
   BCH1D * fHistdRAntiNu;
 
-
   /**
     * Save resolution functions since the eta of the partons is not fitted.
     */
@@ -465,7 +463,6 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
   /**
     * Save measured particle values for frequent calls
     */
-
   double b1_meas_e;
   double b1_meas_p;
   double b1_meas_m;
@@ -507,7 +504,6 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
   /**
     * Save fit particle values for frequent calls
     */
-
   double lep1_fit_e;
   double lep1_fit_px;
   double lep1_fit_py;
@@ -530,7 +526,4 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
 };
 }  // namespace KLFitter
 
-// ---------------------------------------------------------
-
 #endif  // KLFITTER_LIKELIHOODTOPDILEPTON_H_
-

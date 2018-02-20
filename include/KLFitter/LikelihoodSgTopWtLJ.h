@@ -20,12 +20,10 @@
 #ifndef KLFITTER_LIKELIHOODSGTOPWTLJ_H_
 #define KLFITTER_LIKELIHOODSGTOPWTLJ_H_
 
-// ---------------------------------------------------------
+#include <vector>
 
 #include "KLFitter/LikelihoodBase.h"
 #include "KLFitter/ResolutionBase.h"
-
-#include <vector>
 
 // ---------------------------------------------------------
 
@@ -171,7 +169,6 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
     BuildModelParticles();
     return &fParticlesModel;
   }
-
 
   /* @} */
 
@@ -348,7 +345,6 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
   double lep_meas_py;
   double lep_meas_pz;
 
-
   /**
     * Save fit particle values for frequent calls
     */
@@ -384,7 +380,4 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
 };
 }  // namespace KLFitter
 
-// ---------------------------------------------------------
-
 #endif  // KLFITTER_LIKELIHOODSGTOPWTLJ_H_
-

@@ -20,14 +20,11 @@
 #ifndef KLFITTER_LIKELIHOODTOPLEPTONJETS_JETANGLES_H_
 #define KLFITTER_LIKELIHOODTOPLEPTONJETS_JETANGLES_H_
 
-// ---------------------------------------------------------
-
-#include "KLFitter/LikelihoodBase.h"
-#include "KLFitter/ResolutionBase.h"
-
 #include <iostream>
 #include <vector>
 
+#include "KLFitter/LikelihoodBase.h"
+#include "KLFitter/ResolutionBase.h"
 #include "TLorentzVector.h"
 
 // ---------------------------------------------------------
@@ -443,7 +440,4 @@ class LikelihoodTopLeptonJets_JetAngles : public KLFitter::LikelihoodBase {
 };
 }  // namespace KLFitter
 
-// ---------------------------------------------------------
-
 #endif  // KLFITTER_LIKELIHOODTOPLEPTONJETS_JETANGLES_H_
-

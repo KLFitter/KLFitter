@@ -910,8 +910,8 @@ int KLFitter::LikelihoodTTZTrilepton::SaveResolutionFunctions() {
   // no error
   return 1;
 }
-// ---------------------------------------------------------
 
+// ---------------------------------------------------------
 int KLFitter::LikelihoodTTZTrilepton::BuildModelParticles() {
   if (GetBestFitParameters().size() > 0) CalculateLorentzVectors(GetBestFitParameters());
 
@@ -964,7 +964,6 @@ int KLFitter::LikelihoodTTZTrilepton::BuildModelParticles() {
   // no error
   return 1;
 }
-// ---------------------------------------------------------
 
 // ---------------------------------------------------------
 std::vector<double> KLFitter::LikelihoodTTZTrilepton::LogLikelihoodComponents(std::vector<double> parameters) {

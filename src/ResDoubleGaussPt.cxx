@@ -57,5 +57,3 @@ double KLFitter::ResDoubleGaussPt::GetMean2(double x) {
 double KLFitter::ResDoubleGaussPt::GetSigma2(double x) {
   return fParameters[8] + x * fParameters[9];
 }
-
-// ---------------------------------------------------------

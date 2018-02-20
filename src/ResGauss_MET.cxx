@@ -54,5 +54,3 @@ double KLFitter::ResGauss_MET::p(double x, double xmeas, bool &good, double sume
   double sigma = GetSigma(sumet);
   return TMath::Gaus(xmeas, x, sigma, true);
 }
-
-// ---------------------------------------------------------

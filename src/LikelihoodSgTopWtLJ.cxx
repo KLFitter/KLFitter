@@ -600,8 +600,8 @@ int KLFitter::LikelihoodSgTopWtLJ::SaveResolutionFunctions() {
   // no error
   return 1;
 }
-// ---------------------------------------------------------
 
+// ---------------------------------------------------------
 int KLFitter::LikelihoodSgTopWtLJ::BuildModelParticles() {
   if (GetBestFitParameters().size() > 0) CalculateLorentzVectors(GetBestFitParameters());
 
@@ -629,4 +629,3 @@ int KLFitter::LikelihoodSgTopWtLJ::BuildModelParticles() {
   // no error
   return 1;
 }
-// ---------------------------------------------------------

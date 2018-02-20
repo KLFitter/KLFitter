@@ -20,8 +20,6 @@
 #ifndef KLFITTER_DETECTORBASE_H_
 #define KLFITTER_DETECTORBASE_H_
 
-// ---------------------------------------------------------
-
 #include <string>
 
 // ---------------------------------------------------------
@@ -283,7 +281,5 @@ class DetectorBase {
   KLFitter::DetectorBase::BeamCMEnergy fBeamCMEnergy;
 };
 }  // namespace KLFitter
-
-// ---------------------------------------------------------
 
 #endif  // KLFITTER_DETECTORBASE_H_

@@ -48,7 +48,6 @@ KLFitter::LikelihoodTopAllHadronic::LikelihoodTopAllHadronic() : KLFitter::Likel
 KLFitter::LikelihoodTopAllHadronic::~LikelihoodTopAllHadronic() {
 }
 
-
 // ---------------------------------------------------------
 int KLFitter::LikelihoodTopAllHadronic::DefineModelParticles() {
   // check if model particles and lorentz vector container exist and delete
@@ -290,8 +289,8 @@ int KLFitter::LikelihoodTopAllHadronic::RemoveInvariantParticlePermutations() {
   // return error code
   return err;
 }
-// ---------------------------------------------------------
 
+// ---------------------------------------------------------
 int KLFitter::LikelihoodTopAllHadronic::RemoveForbiddenParticlePermutations() {
   // error code
   int err = 1;
@@ -327,6 +326,7 @@ int KLFitter::LikelihoodTopAllHadronic::RemoveForbiddenParticlePermutations() {
   // return error code
   return err;
 }
+
 // ---------------------------------------------------------
 int KLFitter::LikelihoodTopAllHadronic::AdjustParameterRanges() {
   // adjust limits
@@ -448,7 +448,6 @@ double KLFitter::LikelihoodTopAllHadronic::LogLikelihood(const std::vector<doubl
   return logprob;
 }
 
-
 // ---------------------------------------------------------
 std::vector<double> KLFitter::LikelihoodTopAllHadronic::GetInitialParameters() {
   std::vector<double> values(GetNParameters());
@@ -548,8 +547,8 @@ int KLFitter::LikelihoodTopAllHadronic::SaveResolutionFunctions() {
   // no error
   return 1;
 }
-// ---------------------------------------------------------
 
+// ---------------------------------------------------------
 int KLFitter::LikelihoodTopAllHadronic::BuildModelParticles() {
   if (GetBestFitParameters().size() > 0) CalculateLorentzVectors(GetBestFitParameters());
 
@@ -634,7 +633,3 @@ std::vector<double> KLFitter::LikelihoodTopAllHadronic::LogLikelihoodComponents(
   // return log of likelihood
   return vecci;
 }
-
-
-// ---------------------------------------------------------
-

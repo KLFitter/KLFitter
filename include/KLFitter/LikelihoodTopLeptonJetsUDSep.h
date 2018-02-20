@@ -20,13 +20,10 @@
 #ifndef KLFITTER_LIKELIHOODTOPLEPTONJETSUDSEP_H_
 #define KLFITTER_LIKELIHOODTOPLEPTONJETSUDSEP_H_
 
-// ---------------------------------------------------------
+#include <iostream>
 
 #include "KLFitter/LikelihoodTopLeptonJets.h"
 #include "KLFitter/ResolutionBase.h"
-
-#include <iostream>
-
 #include "TH1F.h"
 #include "TH2F.h"
 #include "TLorentzVector.h"
@@ -302,12 +299,8 @@ class LikelihoodTopLeptonJetsUDSep : public KLFitter::LikelihoodTopLeptonJets {
     */
   TH2F* fBJet2DWeightHisto;
 
-
   /* @} */
 };
 }  // namespace KLFitter
 
-// ---------------------------------------------------------
-
 #endif  // KLFITTER_LIKELIHOODTOPLEPTONJETSUDSEP_H_
-

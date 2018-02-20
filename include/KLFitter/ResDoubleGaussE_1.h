@@ -20,9 +20,10 @@
 #ifndef KLFITTER_RESDOUBLEGAUSSE_1_H_
 #define KLFITTER_RESDOUBLEGAUSSE_1_H_
 
-#include "KLFitter/ResDoubleGaussBase.h"
 #include <iostream>
 #include <vector>
+
+#include "KLFitter/ResDoubleGaussBase.h"
 
 // ---------------------------------------------------------
 
@@ -101,18 +102,7 @@ class ResDoubleGaussE_1 : public ResDoubleGaussBase {
   virtual double GetSigma2(double x);
 
   /* @} */
-  /** \name Member functions (Set)  */
-  /* @{ */
-
-  /* @} */
-  /** \name Member functions (misc)  */
-  /* @{ */
-
-  /* @} */
 };
 }  // namespace KLFitter
 
-// ---------------------------------------------------------
-
 #endif  // KLFITTER_RESDOUBLEGAUSSE_1_H_
-

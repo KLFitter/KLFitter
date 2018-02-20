@@ -34,7 +34,6 @@
 #include "TString.h"
 
 // ---------------------------------------------------------
-
 KLFitter::DetectorAtlas_8TeV::DetectorAtlas_8TeV(std::string folder) : DetectorBase() {
   std::cout << "Using TF from MC12 ..." << std::endl;
   // energy resolution
@@ -128,7 +127,6 @@ KLFitter::DetectorAtlas_8TeV::DetectorAtlas_8TeV(std::string folder) : DetectorB
 }
 
 // ---------------------------------------------------------
-
 KLFitter::DetectorAtlas_8TeV::~DetectorAtlas_8TeV() {
   if (fResEnergyLightJet_eta1)
     delete fResEnergyLightJet_eta1;
@@ -444,5 +442,3 @@ KLFitter::ResolutionBase * KLFitter::DetectorAtlas_8TeV::ResPhiBJet(double eta) 
 KLFitter::ResolutionBase * KLFitter::DetectorAtlas_8TeV::ResMissingET() {
   return fResMissingET;
 }
-
-// ---------------------------------------------------------

@@ -20,8 +20,9 @@
 #ifndef KLFITTER_RESGAUSS_MET_H_
 #define KLFITTER_RESGAUSS_MET_H_
 
-#include "KLFitter/ResolutionBase.h"
 #include <vector>
+
+#include "KLFitter/ResolutionBase.h"
 
 // ---------------------------------------------------------
 
@@ -108,12 +109,7 @@ class ResGauss_MET : public ResolutionBase {
   }
 
   /* @} */
-
- private:
 };
 }  // namespace KLFitter
 
-// ---------------------------------------------------------
-
 #endif  // KLFITTER_RESGAUSS_MET_H_
-

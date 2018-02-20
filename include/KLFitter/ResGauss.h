@@ -107,12 +107,7 @@ class ResGauss : public ResolutionBase {
   }
 
   /* @} */
-
- private:
 };
 }  // namespace KLFitter
 
-// ---------------------------------------------------------
-
 #endif  // KLFITTER_RESGAUSS_H_
-

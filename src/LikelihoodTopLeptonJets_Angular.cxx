@@ -751,8 +751,8 @@ int KLFitter::LikelihoodTopLeptonJets_Angular::SaveResolutionFunctions() {
   // no error
   return 1;
 }
-// ---------------------------------------------------------
 
+// ---------------------------------------------------------
 int KLFitter::LikelihoodTopLeptonJets_Angular::BuildModelParticles() {
   if (GetBestFitParameters().size() > 0) CalculateLorentzVectors(GetBestFitParameters());
 
@@ -787,7 +787,6 @@ int KLFitter::LikelihoodTopLeptonJets_Angular::BuildModelParticles() {
   // no error
   return 1;
 }
-// ---------------------------------------------------------
 
 // ---------------------------------------------------------
 std::vector<double> KLFitter::LikelihoodTopLeptonJets_Angular::LogLikelihoodComponents(std::vector<double> parameters) {
@@ -851,4 +850,3 @@ std::vector<double> KLFitter::LikelihoodTopLeptonJets_Angular::LogLikelihoodComp
   // return log of likelihood
   return vecci;
 }
-
