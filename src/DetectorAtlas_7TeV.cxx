@@ -33,9 +33,7 @@
 #include "KLFitter/ResolutionBase.h"
 #include "TString.h"
 
-
 // ---------------------------------------------------------
-
 KLFitter::DetectorAtlas_7TeV::DetectorAtlas_7TeV(std::string folder) : DetectorBase() {
   // check: powheg sample with 7TeV? Must use 8!
   if (strstr(folder.c_str(), "mc11c_powheg")) {
@@ -169,7 +167,6 @@ KLFitter::DetectorAtlas_7TeV::DetectorAtlas_7TeV(std::string folder) : DetectorB
 }
 
 // ---------------------------------------------------------
-
 KLFitter::DetectorAtlas_7TeV::~DetectorAtlas_7TeV() {
   if (fResEnergyLightJet_eta1)
     delete fResEnergyLightJet_eta1;
@@ -485,5 +482,3 @@ KLFitter::ResolutionBase * KLFitter::DetectorAtlas_7TeV::ResPhiBJet(double eta) 
 KLFitter::ResolutionBase * KLFitter::DetectorAtlas_7TeV::ResMissingET() {
   return fResMissingET;
 }
-
-// ---------------------------------------------------------

@@ -49,6 +49,3 @@ double KLFitter::ResGauss::p(double x, double xmeas, bool &good) {
   good = true;
   return TMath::Gaus(xmeas, x, fParameters[0], true);
 }
-
-// ---------------------------------------------------------
-

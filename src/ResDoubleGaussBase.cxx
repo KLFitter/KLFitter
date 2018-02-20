@@ -70,6 +70,3 @@ double KLFitter::ResDoubleGaussBase::p(double x, double xmeas, bool &good) {
   // calculate double-Gaussian
   return 1./sqrt(2.*M_PI) / (s1 + a2 * s2) * (exp(-(dx-m1)*(dx-m1)/(2 * s1*s1)) + a2 * exp(-(dx-m2)*(dx-m2)/(2 * s2 * s2)));
 }
-
-// ---------------------------------------------------------
-

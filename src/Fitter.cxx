@@ -79,6 +79,7 @@ int KLFitter::Fitter::SetParticles(KLFitter::Particles * particles, int nPartons
   // no error
   return 1;
 }
+
 // ---------------------------------------------------------
 int KLFitter::Fitter::SetMyParticlesTruth(KLFitter::Particles * particles) {
   fMyParticlesTruth = particles;
@@ -92,6 +93,7 @@ int KLFitter::Fitter::SetMyParticlesTruth(KLFitter::Particles * particles) {
   // no error
   return 1;
 }
+
 // ---------------------------------------------------------
 int KLFitter::Fitter::SetET_miss_XY_SumET(double etx, double ety, double sumet) {
   // set missing ET x and y component and sumET
@@ -336,7 +338,6 @@ int KLFitter::Fitter::Status() {
 }
 
 // ---------------------------------------------------------
-
 int KLFitter::Fitter::GetFitStatusFromCache(int iperm) {
   if ((static_cast<int>(fCachedConvergenceStatusVector.size()) > iperm) && (static_cast<int>(fCachedMinuitStatusVector.size()) > iperm)) {
     fConvergenceStatus = fCachedConvergenceStatusVector.at(iperm);
@@ -349,7 +350,6 @@ int KLFitter::Fitter::GetFitStatusFromCache(int iperm) {
 }
 
 // ---------------------------------------------------------
-
 int KLFitter::Fitter::SetFitStatusToCache(int iperm, int nperms) {
   if (iperm == 0) {
     fCachedMinuitStatusVector.clear();
@@ -383,7 +383,6 @@ int KLFitter::Fitter::SetFitStatusToCache(int iperm, int nperms) {
 }
 
 // ---------------------------------------------------------.
-
 int KLFitter::Fitter::ResetCache() {
   fMinuitStatus = -1;
   fConvergenceStatus = -1;

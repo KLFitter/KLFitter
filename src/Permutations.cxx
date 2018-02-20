@@ -318,7 +318,6 @@ int KLFitter::Permutations::Reset() {
   return 1;
 }
 
-
 // ---------------------------------------------------------
 int KLFitter::Permutations::CreateSubTable(int Nobj, std::vector < std::vector<int> * > * table, int Nmax) {
   if (Nmax < 0) {
@@ -436,6 +435,7 @@ int KLFitter::Permutations::InvariantParticlePermutations(KLFitter::Particles::P
   // return error code
   return err;
 }
+
 // ---------------------------------------------------------
 int KLFitter::Permutations::InvariantParticleGroupPermutations(KLFitter::Particles::ParticleType ptype, std::vector<int> indexVectorPosition1,  std::vector<int> indexVectorPosition2) {
   // check if particles are defined
@@ -546,8 +546,8 @@ int KLFitter::Permutations::InvariantParticleGroupPermutations(KLFitter::Particl
   // return error code
   return err;
 }
-// ---------------------------------------------------------
 
+// ---------------------------------------------------------
 int KLFitter::Permutations::RemoveParticlePermutations(KLFitter::Particles::ParticleType ptype, int index, int position) {
   // check if particles are defined
   if (!CheckParticles())
@@ -614,7 +614,6 @@ int KLFitter::Permutations::CheckParticles() {
 }
 
 // ---------------------------------------------------------
-
 std::vector<std::vector<int>* > *KLFitter::Permutations::PermutationTable() {
   return fPermutationTable;
 
@@ -637,7 +636,6 @@ std::vector<std::vector<int>* > *KLFitter::Permutations::PermutationTable() {
 }
 
 // ---------------------------------------------------------
-
 std::vector<int> KLFitter::Permutations::Get_int_vector(int i) {
   std::vector<int> vtmp;
   vtmp.push_back(i);
@@ -645,7 +643,6 @@ std::vector<int> KLFitter::Permutations::Get_int_vector(int i) {
 }
 
 // ---------------------------------------------------------
-
 std::vector<int> KLFitter::Permutations::Get_int_plus_vector(int i, std::vector<int> v) {
   std::vector<int> vtmp = Get_int_vector(i);
   for (unsigned int j(0), jend(v.size()); j < jend; ++j) {
@@ -655,7 +652,6 @@ std::vector<int> KLFitter::Permutations::Get_int_plus_vector(int i, std::vector<
 }
 
 // ---------------------------------------------------------
-
 std::vector<std::vector<int> > KLFitter::Permutations::Get_M_from_N(unsigned int N, unsigned int M, unsigned int start) {
   std::vector<std::vector<int> > v(0);
   for (unsigned int i(start); i < N-(M-1); ++i) {
@@ -670,5 +666,3 @@ std::vector<std::vector<int> > KLFitter::Permutations::Get_M_from_N(unsigned int
   }
   return v;
 }
-
-// ---------------------------------------------------------

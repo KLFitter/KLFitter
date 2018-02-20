@@ -114,8 +114,6 @@ void KLFitter::LikelihoodTopDilepton::SetLeptonType(int leptontype_1, int lepton
   }
 }
 
-
-
 // ---------------------------------------------------------
 int KLFitter::LikelihoodTopDilepton::DefineModelParticles() {
   // check if model particles and lorentz vector container exist and delete
@@ -173,7 +171,6 @@ int KLFitter::LikelihoodTopDilepton::DefineModelParticles() {
   return 1;
 }
 
-
 // ---------------------------------------------------------
 void KLFitter::LikelihoodTopDilepton::DefineParameters() {
   // add parameters of model
@@ -188,7 +185,6 @@ void KLFitter::LikelihoodTopDilepton::DefineParameters() {
 }
 
 // ---------------------------------------------------------
-
 void KLFitter::LikelihoodTopDilepton::DefinePrior() {
   // define sharp Gaussian prior for mtop
   if (fFlagTopMassFixed)
@@ -196,7 +192,6 @@ void KLFitter::LikelihoodTopDilepton::DefinePrior() {
 }
 
 // ---------------------------------------------------------
-
 void KLFitter::LikelihoodTopDilepton::DefineHistograms() {
   const char *channel = 0;
 
@@ -252,7 +247,6 @@ int KLFitter::LikelihoodTopDilepton::CalculateLorentzVectors(std::vector <double
   // no error
   return 1;
 }
-
 
 // ---------------------------------------------------------
 int KLFitter::LikelihoodTopDilepton::Initialize() {
@@ -603,6 +597,7 @@ double KLFitter::LikelihoodTopDilepton::LogLikelihood(const std::vector<double> 
   return logweight;
 }
 
+// ---------------------------------------------------------
 double KLFitter::LikelihoodTopDilepton::CalculateMLepJet(const std::vector<double> & /*parameters*/) {
   double sumMinv = 0.;
   double norm = 1.;
@@ -649,7 +644,7 @@ double KLFitter::LikelihoodTopDilepton::CalculateMLepJet(const std::vector<doubl
   return norm*pow(sumMinv, alpha);
 }
 
-
+// ---------------------------------------------------------
 double KLFitter::LikelihoodTopDilepton::CalculateWeight(const std::vector<double> & parameters) {
   double Weight = 0.;
 
@@ -685,6 +680,7 @@ double KLFitter::LikelihoodTopDilepton::CalculateWeight(const std::vector<double
   return Weight;
 }
 
+// ---------------------------------------------------------
 double KLFitter::LikelihoodTopDilepton::CalculateWeightPerm(TLorentzVector * l1, TLorentzVector * l2, TLorentzVector * j1, TLorentzVector * j2, const std::vector<double> & parameters) {
   double weight = 0.;
   int NSolutions = 0;
@@ -731,6 +727,7 @@ double KLFitter::LikelihoodTopDilepton::CalculateWeightPerm(TLorentzVector * l1,
   return weight;
 }
 
+// ---------------------------------------------------------
 double KLFitter::LikelihoodTopDilepton::GaussNuEta(std::vector<double> parameters) {
   double weight = 0.;
 
@@ -754,6 +751,7 @@ double KLFitter::LikelihoodTopDilepton::GaussNuEta(std::vector<double> parameter
   return weight;
 }
 
+// ---------------------------------------------------------
 double KLFitter::LikelihoodTopDilepton::GaussAntiNuEta(std::vector<double> parameters) {
   double weight = 0.;
 
@@ -777,6 +775,7 @@ double KLFitter::LikelihoodTopDilepton::GaussAntiNuEta(std::vector<double> param
   return weight;
 }
 
+// ---------------------------------------------------------
 KLFitter::NuSolutions KLFitter::LikelihoodTopDilepton::SolveForNuMom(TLorentzVector * l, TLorentzVector * b, double mtop, double nueta) {
   NuSolutions ret;
   double Wmass = fPhysicsConstants->MassW();
@@ -864,6 +863,7 @@ KLFitter::NuSolutions KLFitter::LikelihoodTopDilepton::SolveForNuMom(TLorentzVec
   return ret;
 }
 
+// ---------------------------------------------------------
 double KLFitter::LikelihoodTopDilepton::neutrino_weight(TLorentzVector nu, TLorentzVector nubar) {
   static double sigmaX;
   static double sigmaY;
@@ -1010,8 +1010,8 @@ int KLFitter::LikelihoodTopDilepton::SaveResolutionFunctions() {
   // no error
   return 1;
 }
-// ---------------------------------------------------------
 
+// ---------------------------------------------------------
 int KLFitter::LikelihoodTopDilepton::BuildModelParticles() {
   if (GetBestFitParameters().size() > 0) CalculateLorentzVectors(GetBestFitParameters());
 
@@ -1041,7 +1041,6 @@ int KLFitter::LikelihoodTopDilepton::BuildModelParticles() {
 }
 
 // ---------------------------------------------------------
-
 std::vector<double> KLFitter::LikelihoodTopDilepton::LogLikelihoodComponents(std::vector<double> parameters) {
   std::vector<double> vecci(0);
 
@@ -1147,7 +1146,6 @@ std::vector<double> KLFitter::LikelihoodTopDilepton::LogLikelihoodComponents(std
 }
 
 // ---------------------------------------------------------
-
 void KLFitter::LikelihoodTopDilepton::MCMCIterationInterface() {
   TLorentzVector  MCMC_b1(0., 0., 0., 0.);
   TLorentzVector  MCMC_b2(0., 0., 0., 0.);
@@ -1425,4 +1423,3 @@ std::pair<float, float> KLFitter::LikelihoodTopDilepton::CalculateCosTheta(std::
 
   return cos;
 }
-// ---------------------------------------------------------

@@ -141,6 +141,3 @@ int KLFitter::DetectorBase::Status() {
   // no error
   return 1;
 }
-
-// ---------------------------------------------------------
-

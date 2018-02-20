@@ -97,7 +97,6 @@ int KLFitter::PhysicsConstants::SetMassHiggs(double mass) {
   return 1;
 }
 
-
 // ---------------------------------------------------------
 int KLFitter::PhysicsConstants::SetMassW(double mass) {
   // check argument
@@ -194,7 +193,6 @@ int KLFitter::PhysicsConstants::SetGammaHiggs(double gamma) {
   return 1;
 }
 
-
 // ---------------------------------------------------------
 void KLFitter::PhysicsConstants::CalculateGammaTop() {
   // use formula used in:
@@ -213,7 +211,6 @@ void KLFitter::PhysicsConstants::CalculateGammaTop() {
 }
 
 // ---------------------------------------------------------
-
 void KLFitter::PhysicsConstants::CalculateGammaHiggs() {
   // numbers calculated by HDECAY
   // A.Djouadi, J.Kalinowski and M.Spira,
@@ -246,12 +243,3 @@ void KLFitter::PhysicsConstants::CalculateGammaHiggs() {
 
   SetGammaHiggs(gamma);
 }
-
-
-
-
-
-
-
-
-// ---------------------------------------------------------
