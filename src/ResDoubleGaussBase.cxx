@@ -63,7 +63,7 @@ double KLFitter::ResDoubleGaussBase::p(double x, double xmeas, bool *good) {
   double s2 = GetSigma2(x);
 
   // sanity checks for p2, p3 and p5
-  *good = CheckDoubleGaussianSanity(s1, a2, s2);
+  *good = CheckDoubleGaussianSanity(&s1, &a2, &s2);
 
   double dx = (x - xmeas) / x;
 
