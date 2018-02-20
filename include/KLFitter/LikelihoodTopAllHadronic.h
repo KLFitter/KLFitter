@@ -20,8 +20,6 @@
 #ifndef KLFITTER_LIKELIHOODTOPALLHADRONIC_H_
 #define KLFITTER_LIKELIHOODTOPALLHADRONIC_H_
 
-// ---------------------------------------------------------
-
 #include "KLFitter/LikelihoodBase.h"
 #include "KLFitter/ResolutionBase.h"
 #include "TLorentzVector.h"
@@ -262,7 +260,6 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
     return mass;
   }
 
-
   /**
     * Global variable for TF problems.
     */
@@ -381,7 +378,4 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
 };
 }  // namespace KLFitter
 
-// ---------------------------------------------------------
-
 #endif  // KLFITTER_LIKELIHOODTOPALLHADRONIC_H_
-

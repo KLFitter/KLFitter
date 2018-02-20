@@ -20,8 +20,6 @@
 #ifndef KLFITTER_LIKELIHOODTOPLEPTONJETS_H_
 #define KLFITTER_LIKELIHOODTOPLEPTONJETS_H_
 
-// ---------------------------------------------------------
-
 #include "KLFitter/LikelihoodBase.h"
 #include "KLFitter/ResolutionBase.h"
 
@@ -434,7 +432,4 @@ class LikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
 };
 }  // namespace KLFitter
 
-// ---------------------------------------------------------
-
 #endif  // KLFITTER_LIKELIHOODTOPLEPTONJETS_H_
-

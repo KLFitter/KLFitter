@@ -20,8 +20,6 @@
 #ifndef KLFITTER_RESOLUTIONBASE_H_
 #define KLFITTER_RESOLUTIONBASE_H_
 
-// ---------------------------------------------------------
-
 #include <vector>
 
 // ---------------------------------------------------------
@@ -154,7 +152,4 @@ class ResolutionBase {
 };
 }  // namespace KLFitter
 
-// ---------------------------------------------------------
-
 #endif  // KLFITTER_RESOLUTIONBASE_H_
-

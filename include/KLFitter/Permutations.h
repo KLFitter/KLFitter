@@ -20,8 +20,6 @@
 #ifndef KLFITTER_PERMUTATIONS_H_
 #define KLFITTER_PERMUTATIONS_H_
 
-// ---------------------------------------------------------
-
 #include <vector>
 
 #include "KLFitter/Particles.h"
@@ -225,7 +223,4 @@ class Permutations {
 };
 }  // namespace KLFitter
 
-// ---------------------------------------------------------
-
 #endif  // KLFITTER_PERMUTATIONS_H_
-

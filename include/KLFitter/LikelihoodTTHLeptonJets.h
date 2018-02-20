@@ -20,8 +20,6 @@
 #ifndef KLFITTER_LIKELIHOODTTHLEPTONJETS_H_
 #define KLFITTER_LIKELIHOODTTHLEPTONJETS_H_
 
-// ---------------------------------------------------------
-
 #include "KLFitter/LikelihoodBase.h"
 #include "KLFitter/ResolutionBase.h"
 #include "TLorentzVector.h"
@@ -405,7 +403,6 @@ class LikelihoodTTHLeptonJets : public KLFitter::LikelihoodBase {
   double lep_meas_py;
   double lep_meas_pz;
 
-  //++++++++++++++++//
   double BHiggs1_meas_e;
   double BHiggs1_meas_p;
   double BHiggs1_meas_m;
@@ -425,8 +422,6 @@ class LikelihoodTTHLeptonJets : public KLFitter::LikelihoodBase {
   double BHiggs2_meas_px;
   double BHiggs2_meas_py;
   double BHiggs2_meas_pz;
-  //++++++++++++++++//
-
 
   /**
     * Save fit particle values for frequent calls
@@ -466,7 +461,6 @@ class LikelihoodTTHLeptonJets : public KLFitter::LikelihoodBase {
   double thad_fit_m;
   double tlep_fit_m;
 
-  //++++++++++++++++//
   double BHiggs1_fit_e;
   double BHiggs1_fit_px;
   double BHiggs1_fit_py;
@@ -478,11 +472,7 @@ class LikelihoodTTHLeptonJets : public KLFitter::LikelihoodBase {
   double BHiggs2_fit_pz;
 
   double Higgs_fit_m;
-  //++++++++++++++++//
 };
 }  // namespace KLFitter
 
-// ---------------------------------------------------------
-
 #endif  // KLFITTER_LIKELIHOODTTHLEPTONJETS_H_
-

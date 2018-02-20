@@ -296,7 +296,5 @@ class Fitter {
 };
 }  // namespace KLFitter
 
-// ---------------------------------------------------------
-
 #endif  // KLFITTER_FITTER_H_
 
