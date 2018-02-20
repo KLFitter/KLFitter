@@ -18,8 +18,9 @@
  */
 
 #include "KLFitter/ResDoubleGaussPt.h"
-#include <iostream>
+
 #include <cmath>
+#include <iostream>
 
 // ---------------------------------------------------------
 KLFitter::ResDoubleGaussPt::ResDoubleGaussPt(const char * filename) : KLFitter::ResDoubleGaussBase(filename) { }

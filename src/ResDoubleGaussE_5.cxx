@@ -18,10 +18,10 @@
  */
 
 #include "KLFitter/ResDoubleGaussE_5.h"
-#include <iostream>
 
 #include <cmath>
-// used for electrons in mc12
+#include <iostream>
+
 // ---------------------------------------------------------
 KLFitter::ResDoubleGaussE_5::ResDoubleGaussE_5(const char * filename) : KLFitter::ResDoubleGaussBase(filename) { }
 

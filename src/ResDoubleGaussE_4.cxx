@@ -18,10 +18,10 @@
  */
 
 #include "KLFitter/ResDoubleGaussE_4.h"
-#include <iostream>
 
 #include <cmath>
-// used for lJets/bjets in mc12
+#include <iostream>
+
 // ---------------------------------------------------------
 KLFitter::ResDoubleGaussE_4::ResDoubleGaussE_4(const char * filename) : KLFitter::ResDoubleGaussBase(filename) { }
 

@@ -18,9 +18,9 @@
  */
 
 #include "KLFitter/ResDoubleGaussBase.h"
-#include <iostream>
 
 #include <cmath>
+#include <iostream>
 
 // ---------------------------------------------------------
 KLFitter::ResDoubleGaussBase::ResDoubleGaussBase(const char * filename) : KLFitter::ResolutionBase(10) {

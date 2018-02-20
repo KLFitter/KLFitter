@@ -18,8 +18,10 @@
  */
 
 #include "KLFitter/ResGauss.h"
-#include <TMath.h>
+
 #include <iostream>
+
+#include "TMath.h"
 
 // ---------------------------------------------------------
 KLFitter::ResGauss::ResGauss(const char * filename) : KLFitter::ResolutionBase(1) {

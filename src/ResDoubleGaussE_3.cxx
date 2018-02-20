@@ -18,9 +18,9 @@
  */
 
 #include "KLFitter/ResDoubleGaussE_3.h"
-#include <iostream>
 
 #include <cmath>
+#include <iostream>
 
 // ---------------------------------------------------------
 KLFitter::ResDoubleGaussE_3::ResDoubleGaussE_3(const char * filename) : KLFitter::ResDoubleGaussBase(filename) { }

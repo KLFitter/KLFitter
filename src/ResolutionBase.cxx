@@ -18,8 +18,9 @@
  */
 
 #include "KLFitter/ResolutionBase.h"
-#include <iostream>
+
 #include <fstream>
+#include <iostream>
 
 // ---------------------------------------------------------
 KLFitter::ResolutionBase::ResolutionBase(int npar) {
