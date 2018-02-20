@@ -76,9 +76,9 @@ if( BUILTIN_BAT )
     URL "https://github.com/bat/bat/releases/download/v0.9.4.1/BAT-0.9.4.1.tar.gz"
     URL_HASH SHA256=D46C6F834CB5888BBF4DB393887190380132FA48816E0804F79C4A3CC344EF87
     BUILD_IN_SOURCE 1
-    CONFIGURE_COMMAND <SOURCE_DIR>/configure --with-rootsys=${ROOTSYS} --prefix=${_buildDir}
-    BUILD_COMMAND make
-    INSTALL_COMMAND make install
+    CONFIGURE_COMMAND <SOURCE_DIR>/configure --with-rootsys=${ROOTSYS} --prefix=${_buildDir} --enable-silent-rules
+    BUILD_COMMAND make LIBTOOLFLAGS=--silent
+    INSTALL_COMMAND make install LIBTOOLFLAGS=--silent
     COMMAND ${CMAKE_COMMAND} -E copy_directory ${_buildDir}/ <INSTALL_DIR> )
   # Set the include and library paths to use.
   set( BAT_ROOT $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}> )
@@ -88,7 +88,7 @@ if( BUILTIN_BAT )
   message( STATUS "Using a privately downloaded BAT version for the build" )
 else()
   # Look for BAT on the build system.
-  find_package( BAT 0.9.4.1 REQUIRED )
+  find_package( BAT 0.9.4.1 EXACT REQUIRED )
 endif()
 
 # Public header files for the shared/static library.

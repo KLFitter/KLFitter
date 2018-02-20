@@ -67,18 +67,18 @@ cd $build_dir
 tar_name="BAT-0.9.4.1.tar.gz"
 valid_hash="d46c6f834cb5888bbf4db393887190380132fa48816e0804f79c4a3cc344ef87"
 wget https://github.com/bat/bat/releases/download/v0.9.4.1/$tar_name
-if !verify_file_hash "$tar_name" "$valid_hash"; then
+if ! verify_file_hash "$tar_name" "$valid_hash"; then
     exit 1;
 fi
 
 # Perform the actual configure and make commands.
 tar xzf "$tar_name"
 cd BAT-0.9.4.1
-./configure --with-rootsys=`root-config --prefix` --prefix=$target_dir
-make -j || make -j || make -j
+./configure --with-rootsys=`root-config --prefix` --prefix=$target_dir --enable-silent-rules
+make -j LIBTOOLFLAGS=--silent || make -j LIBTOOLFLAGS=--silent || make -j LIBTOOLFLAGS=--silent
 
 # Copy built BAT into the installation path ($1).
-make install
+make install LIBTOOLFLAGS=--silent
 
 # Go back to the start and clean up.
 cd $base_dir
