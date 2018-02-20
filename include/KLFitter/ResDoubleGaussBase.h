@@ -20,9 +20,10 @@
 #ifndef KLFITTER_RESDOUBLEGAUSSBASE_H_
 #define KLFITTER_RESDOUBLEGAUSSBASE_H_
 
-#include "KLFitter/ResolutionBase.h"
 #include <iostream>
 #include <vector>
+
+#include "KLFitter/ResolutionBase.h"
 
 // ---------------------------------------------------------
 
@@ -130,14 +131,6 @@ class ResDoubleGaussBase : public ResolutionBase {
   virtual double p(double x, double xmeas, bool &good, double par) { good = true; return 0; }
 
   /* @} */
-  /** \name Member functions (Set)  */
-  /* @{ */
-
-  /* @} */
-  /** \name Member functions (misc)  */
-  /* @{ */
-
-  /* @} */
 
   /**
     * Sanity check for double gaussian parameters p2, p3 and p5 (1st sigma, scale and 2nd sigma).
@@ -163,12 +156,7 @@ class ResDoubleGaussBase : public ResolutionBase {
 
     return true;
   }
-
- private:
 };
 }  // namespace KLFitter
 
-// ---------------------------------------------------------
-
 #endif  // KLFITTER_RESDOUBLEGAUSSBASE_H_
-

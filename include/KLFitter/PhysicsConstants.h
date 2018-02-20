@@ -22,8 +22,6 @@
 
 // ---------------------------------------------------------
 
-// ---------------------------------------------------------
-
 /**
  * \namespace KLFitter
  * \brief The KLFitter namespace
@@ -262,7 +260,4 @@ class PhysicsConstants {
 };
 }  // namespace KLFitter
 
-// ---------------------------------------------------------
-
 #endif  // KLFITTER_PHYSICSCONSTANTS_H_
-

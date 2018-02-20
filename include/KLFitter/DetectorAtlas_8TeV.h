@@ -20,10 +20,9 @@
 #ifndef KLFITTER_DETECTORATLAS_8TEV_H_
 #define KLFITTER_DETECTORATLAS_8TEV_H_
 
-// ---------------------------------------------------------
+#include <string>
 
 #include "KLFitter/DetectorBase.h"
-#include <string>
 
 // ---------------------------------------------------------
 
@@ -252,7 +251,5 @@ class DetectorAtlas_8TeV : public DetectorBase {
   double fPhotonEtaBin_4;
 };
 }  // namespace KLFitter
-
-// ---------------------------------------------------------
 
 #endif  // KLFITTER_DETECTORATLAS_8TEV_H_

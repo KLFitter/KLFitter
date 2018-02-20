@@ -20,8 +20,6 @@
 #ifndef KLFITTER_PARTICLES_H_
 #define KLFITTER_PARTICLES_H_
 
-// ---------------------------------------------------------
-
 #include <string>
 #include <vector>
 
@@ -623,12 +621,8 @@ class Particles {
 };
 }  // namespace KLFitter
 
-inline
-KLFitter::Particles::ParticleType &operator++(KLFitter::Particles::ParticleType &ptype) {
+inline KLFitter::Particles::ParticleType &operator++(KLFitter::Particles::ParticleType &ptype) {
   return ptype = KLFitter::Particles::ParticleType(ptype + 1);
 }
 
-// ---------------------------------------------------------
-
 #endif  // KLFITTER_PARTICLES_H_
-

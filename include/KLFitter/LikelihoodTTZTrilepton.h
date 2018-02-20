@@ -20,14 +20,12 @@
 #ifndef KLFITTER_LIKELIHOODTTZTRILEPTON_H_
 #define KLFITTER_LIKELIHOODTTZTRILEPTON_H_
 
-// ---------------------------------------------------------
+#include <iostream>
+#include <vector>
 
 #include "KLFitter/LikelihoodBase.h"
 #include "KLFitter/ResolutionBase.h"
 #include "TLorentzVector.h"
-
-#include <iostream>
-#include <vector>
 
 // ---------------------------------------------------------
 
@@ -524,7 +522,5 @@ class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
   double Z_fit_m;
 };
 }  // namespace KLFitter
-
-// ---------------------------------------------------------
 
 #endif  // KLFITTER_LIKELIHOODTTZTRILEPTON_H_

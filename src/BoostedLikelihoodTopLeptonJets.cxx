@@ -89,7 +89,6 @@ void KLFitter::BoostedLikelihoodTopLeptonJets::SetLeptonType(int leptontype) {
   }
 }
 
-
 // ---------------------------------------------------------
 int KLFitter::BoostedLikelihoodTopLeptonJets::DefineModelParticles() {
   // check if model particles and lorentz vector container exist and delete
@@ -656,8 +655,8 @@ int KLFitter::BoostedLikelihoodTopLeptonJets::SaveResolutionFunctions() {
   // no error
   return 1;
 }
-// ---------------------------------------------------------
 
+// ---------------------------------------------------------
 int KLFitter::BoostedLikelihoodTopLeptonJets::BuildModelParticles() {
   if (GetBestFitParameters().size() > 0) CalculateLorentzVectors(GetBestFitParameters());
 
@@ -688,7 +687,6 @@ int KLFitter::BoostedLikelihoodTopLeptonJets::BuildModelParticles() {
   // no error
   return 1;
 }
-// ---------------------------------------------------------
 
 // ---------------------------------------------------------
 std::vector<double> KLFitter::BoostedLikelihoodTopLeptonJets::LogLikelihoodComponents(std::vector<double> parameters) {

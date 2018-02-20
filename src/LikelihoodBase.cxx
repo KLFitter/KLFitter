@@ -29,8 +29,6 @@
 #include "KLFitter/PhysicsConstants.h"
 #include "TRandom3.h"
 
-
-
 // ---------------------------------------------------------
 KLFitter::LikelihoodBase::LikelihoodBase(Particles** particles) : BCModel(),
                                                                   fParticlesPermuted(particles),
@@ -45,7 +43,7 @@ KLFitter::LikelihoodBase::LikelihoodBase(Particles** particles) : BCModel(),
                                                                   fBTagMethod(kNotag) {
   BCLog::SetLogLevel(BCLog::nothing);
   MCMCSetRandomSeed(123456789);
-                                                                  }
+}
 
 // ---------------------------------------------------------
 KLFitter::LikelihoodBase::~LikelihoodBase() {
@@ -135,6 +133,7 @@ int KLFitter::LikelihoodBase::SetParticlesPermuted(KLFitter::Particles** particl
   // no error
   return 1;
 }
+
 // ---------------------------------------------------------
 int KLFitter::LikelihoodBase::SetMyParticlesTruth(KLFitter::Particles** particles) {
   // set pointer to pointer of truth particles
@@ -145,6 +144,7 @@ int KLFitter::LikelihoodBase::SetMyParticlesTruth(KLFitter::Particles** particle
   // no error
   return 1;
 }
+
 // ---------------------------------------------------------
 int KLFitter::LikelihoodBase::SetPermutations(KLFitter::Permutations** permutations) {
   // error code
@@ -200,8 +200,6 @@ double KLFitter::LikelihoodBase::LogEventProbability() {
 
   return logprob;
 }
-
-
 
 // ---------------------------------------------------------
 double KLFitter::LikelihoodBase::LogEventProbabilityBTag() {
@@ -324,8 +322,8 @@ void KLFitter::LikelihoodBase::PropagateBTaggingInformation() {
     fParticlesModel->SetBTaggingRejection(index, (*fParticlesPermuted)->BTaggingRejection(index));
   }
 }
-// ---------------------------------------------------------.
 
+// ---------------------------------------------------------.
 std::vector <double> KLFitter::LikelihoodBase::GetBestFitParameters() {
   if (fCachedParameters.size() > 0) {
     return fCachedParameters;
@@ -334,10 +332,7 @@ std::vector <double> KLFitter::LikelihoodBase::GetBestFitParameters() {
   }
 }
 
-
-
 // ---------------------------------------------------------.
-
 std::vector <double> KLFitter::LikelihoodBase::GetBestFitParameterErrors() {
   if (fCachedParameterErrors.size() > 0) {
     return fCachedParameterErrors;
@@ -347,7 +342,6 @@ std::vector <double> KLFitter::LikelihoodBase::GetBestFitParameterErrors() {
 }
 
 // ---------------------------------------------------------
-
 int KLFitter::LikelihoodBase::SetParametersToCache(int iperm, int nperms) {
   // set correct size of cachevector
   if (iperm == 0) {
@@ -395,8 +389,8 @@ int KLFitter::LikelihoodBase::SetParametersToCache(int iperm, int nperms) {
 
   return 1;
 }
-// ---------------------------------------------------------
 
+// ---------------------------------------------------------
 int KLFitter::LikelihoodBase::GetParametersFromCache(int iperm) {
   if ((static_cast<int>(fCachedParametersVector.size()) > iperm) && (static_cast<int>(fCachedParameterErrorsVector.size()) > iperm)) {
     fCachedParameters = fCachedParametersVector.at(iperm);
@@ -409,7 +403,6 @@ int KLFitter::LikelihoodBase::GetParametersFromCache(int iperm) {
 }
 
 // ---------------------------------------------------------.
-
 double KLFitter::LikelihoodBase::GetIntegral() {
   if (fCachedNormalizationVector.size() > 0) {
     return fCachedNormalization;
@@ -417,8 +410,8 @@ double KLFitter::LikelihoodBase::GetIntegral() {
     return BCIntegrate::GetIntegral();
   }
 }
-// ---------------------------------------------------------.
 
+// ---------------------------------------------------------.
 int KLFitter::LikelihoodBase::ResetCache() {
   fCachedParameters.clear();
   fCachedParameterErrors.clear();
@@ -427,8 +420,8 @@ int KLFitter::LikelihoodBase::ResetCache() {
 
   return 1;
 }
-// ---------------------------------------------------------.
 
+// ---------------------------------------------------------.
 double KLFitter::LikelihoodBase::GetBestFitParameter(unsigned int index) {
   if (fCachedParameters.size() > 0) {
     return fCachedParameters.at(index);
@@ -437,10 +430,7 @@ double KLFitter::LikelihoodBase::GetBestFitParameter(unsigned int index) {
   }
 }
 
-
-
 // ---------------------------------------------------------.
-
 double KLFitter::LikelihoodBase::GetBestFitParameterError(unsigned int index) {
   if (fCachedParameterErrors.size() > 0) {
     return fCachedParameterErrors.at(index);

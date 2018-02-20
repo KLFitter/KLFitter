@@ -20,8 +20,6 @@
 #ifndef KLFITTER_LIKELIHOODBASE_H_
 #define KLFITTER_LIKELIHOODBASE_H_
 
-// ---------------------------------------------------------
-
 #include <iostream>
 #include <vector>
 
@@ -424,9 +422,6 @@ class LikelihoodBase : public BCModel {
     */
   int ResetCache();
 
-
-
-
   /* @} */
 
  protected:
@@ -514,7 +509,4 @@ class LikelihoodBase : public BCModel {
 };
 }  // namespace KLFitter
 
-// ---------------------------------------------------------
-
 #endif  // KLFITTER_LIKELIHOODBASE_H_
-

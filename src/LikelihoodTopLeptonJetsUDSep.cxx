@@ -333,8 +333,6 @@ double KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityBTag() {
   return logprob;
 }
 
-
-
 // ---------------------------------------------------------
 double KLFitter::LikelihoodTopLeptonJetsUDSep::UpJetPt(double pt) {
   return fUpJetPtHisto->GetBinContent(fUpJetPtHisto->GetXaxis()->FindBin(pt));

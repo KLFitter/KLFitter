@@ -130,5 +130,3 @@ int KLFitter::ResolutionBase::ReadParameters(const char * filename, int nparamet
   // no error
   return 1;
 }
-
-// ---------------------------------------------------------

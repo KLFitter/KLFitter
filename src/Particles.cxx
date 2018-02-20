@@ -308,8 +308,6 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, K
   return 1;
 }
 
-
-
 // ---------------------------------------------------------
 int KLFitter::Particles::AddParticle(TLorentzVector * particle, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, TrueFlavorType trueflav, double btagweight) {
   // set default DetEta
@@ -333,7 +331,6 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, KLFitter::Partic
 }
 
 // ---------------------------------------------------------
-
 int KLFitter::Particles::RemoveParticle(int index, KLFitter::Particles::ParticleType ptype) {
   // check container and index
   if (!CheckIndex(ParticleContainer(ptype), index))
@@ -364,7 +361,6 @@ int KLFitter::Particles::RemoveParticle(std::string name) {
     return 0;
   }
 }
-
 
 // ---------------------------------------------------------
 TLorentzVector* KLFitter::Particles::Particle(std::string name) {
@@ -553,7 +549,6 @@ TLorentzVector* KLFitter::Particles::Boson(int index) {
 }
 
 // ---------------------------------------------------------
-
 TLorentzVector* KLFitter::Particles::Neutrino(int index) {
   // no check on index range for CPU-time reasons
   return (*fNeutrinos)[index];
@@ -697,6 +692,7 @@ double KLFitter::Particles::DetEta(int index, KLFitter::Particles::ParticleType 
   // return error value
   return -100;
 }
+
 // ---------------------------------------------------------
 float KLFitter::Particles::LeptonCharge(int index, KLFitter::Particles::ParticleType ptype) {
   if (index < 0 || index > NParticles(ptype)) {
@@ -724,6 +720,7 @@ float KLFitter::Particles::LeptonCharge(int index, KLFitter::Particles::Particle
   // return error value
   return -9;
 }
+
 // ---------------------------------------------------------
 int KLFitter::Particles::JetIndex(int index) {
   // no check on index range for CPU-time reasons
@@ -863,5 +860,3 @@ int KLFitter::Particles::NBTags() {
 
   return sum;
 }
-
-// ---------------------------------------------------------

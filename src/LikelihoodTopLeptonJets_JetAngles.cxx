@@ -794,8 +794,8 @@ int KLFitter::LikelihoodTopLeptonJets_JetAngles::SaveResolutionFunctions() {
   // no error
   return 1;
 }
-// ---------------------------------------------------------
 
+// ---------------------------------------------------------
 int KLFitter::LikelihoodTopLeptonJets_JetAngles::BuildModelParticles() {
   if (GetBestFitParameters().size() > 0) CalculateLorentzVectors(GetBestFitParameters());
 
@@ -830,7 +830,6 @@ int KLFitter::LikelihoodTopLeptonJets_JetAngles::BuildModelParticles() {
   // no error
   return 1;
 }
-// ---------------------------------------------------------
 
 // ---------------------------------------------------------
 std::vector<double> KLFitter::LikelihoodTopLeptonJets_JetAngles::LogLikelihoodComponents(std::vector<double> parameters) {
@@ -916,6 +915,7 @@ std::vector<double> KLFitter::LikelihoodTopLeptonJets_JetAngles::LogLikelihoodCo
   return vecci;
 }
 
+// ---------------------------------------------------------
 double KLFitter::LikelihoodTopLeptonJets_JetAngles::diffPhi(double phi1, double phi2) {
   double delta = phi1 - phi2;
   if (delta > TMath::Pi()) {
