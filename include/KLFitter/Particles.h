@@ -136,11 +136,11 @@ class Particles {
     * Find a particle by name.
     * @param name The name of the particle.
     * @param particle A reference to the pointer to the 4-vector.
-    * @param index The reference of the index.
-    * @param ptype The reference of the particle type.
+    * @param index The pointer to the index.
+    * @param ptype The pointer to the particle type.
     * @return A flag (1: found, 0: not found).
     */
-  int FindParticle(std::string name, TLorentzVector * &particle, int &index, KLFitter::Particles::ParticleType &ptype);
+  int FindParticle(std::string name, TLorentzVector * &particle, int *index, KLFitter::Particles::ParticleType *ptype);
 
   /**
     * Return the parton at some index.
