@@ -84,6 +84,7 @@ clean:
 install: all
 	$(MKDIR) $(DESTDIR)/include
 	$(MKDIR) $(DESTDIR)/lib
+	$(MKDIR) $(DESTDIR)/test-bin
 	$(CP) $(LIBDIR) $(DESTDIR)/
 	$(CP) $(INCDIR) $(DESTDIR)/
-	$(CP) $(TESTEXE) $(DESTDIR)/
+	$(CP) $(TESTEXE) $(DESTDIR)/test-bin
