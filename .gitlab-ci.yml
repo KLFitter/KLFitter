@@ -152,16 +152,9 @@ fork-build-cmake-prebuilt-BAT:
 # this utilises the script ./cmake/CompileBAT.sh to download and install BAT (no
 # use of Makefile). Then the Makefile locates the BAT installation with the
 # $BATINSTALLDIR variable.
-upstream-build-makefile:
-  <<: *exec_on_upstream
+build-makefile:
   <<: *makefile_klfitter
-  allow_failure: true
-  dependencies:
-    - upstream-build-BAT
-
-fork-build-makefile:
-  <<: *exec_on_demand_forks
-  <<: *makefile_klfitter
+  when: manual
   allow_failure: true
   dependencies:
     - fork-build-BAT
