@@ -26,6 +26,7 @@ CXX = g++
 MKDIR = mkdir -p
 RM = rm -f
 CP = cp -r
+AR = ar rvs
 
 ROOTCFLAGS = $(shell root-config --cflags)
 ROOTLIBS   = $(shell root-config --libs) -lMinuit
@@ -37,6 +38,7 @@ SRC = $(wildcard $(SRCDIR)/*.cxx)
 OBJ = $(SRC:$(SRCDIR)/%.cxx=$(OBJDIR)/%.o)
 MAIN = $(wildcard *.c)
 LIBSO = $(LIBDIR)/libKLFitter.so
+LIBA = $(LIBDIR)/libKLFitter.a
 
 TESTSRC = $(wildcard $(TESTDIR)/*.cxx)
 TESTEXE = $(TESTSRC:$(TESTDIR)/%.cxx=%.exe)
@@ -46,7 +48,7 @@ CXXFLAGS = $(ROOTCFLAGS) $(BATCFLAGS) -I$(INCDIR) -Wall -pedantic -O2 -g -std=c+
 LIBS     = $(ROOTLIBS) $(BATLIBS)
 
 # rule for test executables
-%.exe: $(TESTDIR)/%.cxx $(LIBSO)
+%.exe: $(TESTDIR)/%.cxx $(LIBA)
 	$(CXX) $(CXXFLAGS) $(LIBS) $+ -o $@
 
 # rule for shared library
@@ -54,13 +56,17 @@ $(LIBSO): $(OBJ)
 	@if [ ! -e $(LIBDIR) ]; then $(MKDIR) $(LIBDIR); fi
 	$(CXX) $(CXXFLAGS) $(LIBS) $(SOFLAGS) $+ -o $@
 
+# rule for static library
+$(LIBA): $(OBJ)
+	$(AR) $@ $+
+
 $(OBJDIR)/%.o: $(SRCDIR)/%.cxx
 	@if [ ! -e $(OBJDIR) ]; then $(MKDIR) $(OBJDIR); fi
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 .PHONY: all
 
-all: $(LIBSO) $(TESTEXE)
+all: $(LIBSO) $(LIBA) $(TESTEXE)
 
 .PHONY: tests
 
@@ -69,7 +75,7 @@ tests: $(TESTEXE)
 .PHONY: clean
 
 clean:
-	$(RM) $(OBJ) $(LIBSO)
+	$(RM) $(OBJ) $(LIBSO) $(LIBA)
 	$(RM) -r $(DESTDIR)
 	$(RM) $(TESTEXE)
 
