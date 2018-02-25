@@ -148,9 +148,14 @@ fork-build-cmake-prebuilt-BAT:
 # use of Makefile). Then the Makefile locates the BAT installation with the
 # $BATINSTALLDIR variable.
 build-makefile:
+  <<: *exec_on_upstream
   <<: *makefile_klfitter
-  when: manual
-  allow_failure: true
+  dependencies:
+    - build-BAT
+
+fork-build-makefile:
+  <<: *exec_on_demand_forks
+  <<: *makefile_klfitter
   dependencies:
     - fork-build-BAT
 
