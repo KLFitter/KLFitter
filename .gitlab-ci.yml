@@ -46,10 +46,17 @@ variables:
     - build
     - $BATINSTALLDIR
 
-# Templates for execution rules.
-.exec_manual_and_failable: &exec_manual_and_failable
+# Templates for execution rules on forks.
+.exec_on_demand_forks: &exec_on_demand_forks
   when: manual
-  allow_failure: true
+  except:
+    - KLFitter/KLFitter
+
+# Template for execution rules on upstream repository.
+.exec_on_upstream: &exec_on_upstream
+  when: always
+  only:
+    - KLFitter/KLFitter
 
 # Template for building BAT in the build-dependency step.
 .build_bat: &build_bat
@@ -107,7 +114,12 @@ variables:
 # Build the project with cmake. This includes an automatic download of the BAT
 # library, and KLFitter and BAT are compiled and linked against each other. This
 # is the recommended way to build KLFitter.
-cmake-build:
+upstream-build-cmake:
+  <<: *exec_on_upstream
+  <<: *cmake_klfitter
+
+fork-build-cmake:
+  <<: *exec_on_demand_forks
   <<: *cmake_klfitter
 
 
@@ -115,30 +127,53 @@ cmake-build:
 # of the BAT library. For that, we use the script ./cmake/CompileBAT.sh to
 # download and install BAT (without cmake). Then cmake uses the
 # ./cmake/FindBAT.cmake file to locate that external library.
-build-BAT:
+upstream-build-BAT:
+  <<: *exec_on_upstream
   <<: *build_bat
-  <<: *exec_manual_and_failable
 
-cmake-build-with-prebuilt-BAT:
+upstream-build-cmake-prebuilt-BAT:
+  <<: *exec_on_upstream
   <<: *cmake_klfitter_prebuilt_bat
-  <<: *exec_manual_and_failable
   dependencies:
-    - build-BAT
+    - upstream-build-BAT
+
+fork-build-BAT:
+  <<: *exec_on_demand_forks
+  <<: *build_bat
+
+fork-build-cmake-prebuilt-BAT:
+  <<: *exec_on_demand_forks
+  <<: *cmake_klfitter_prebuilt_bat
+  dependencies:
+    - fork-build-BAT
 
 
 # Alternative build 2: build the project with the traditional Makefile. Again
 # this utilises the script ./cmake/CompileBAT.sh to download and install BAT (no
 # use of Makefile). Then the Makefile locates the BAT installation with the
 # $BATINSTALLDIR variable.
-makefile-build:
+upstream-build-makefile:
+  <<: *exec_on_upstream
   <<: *makefile_klfitter
-  <<: *exec_manual_and_failable
   dependencies:
-    - build-BAT
+    - upstream-build-BAT
+
+fork-build-makefile:
+  <<: *exec_on_demand_forks
+  <<: *makefile_klfitter
+  dependencies:
+    - fork-build-BAT
 
 
 # Run unit tests based on the cmake setup.
-cmake-test:
+upstream-unit-tests:
+  <<: *exec_on_upstream
   <<: *run_unit_tests
   dependencies:
-    - cmake-build
+    - upstream-build-cmake
+
+fork-unit-tests:
+  <<: *exec_on_demand_forks
+  <<: *run_unit_tests
+  dependencies:
+    - fork-build-cmake
