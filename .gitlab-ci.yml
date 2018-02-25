@@ -114,12 +114,7 @@ variables:
 # Build the project with cmake. This includes an automatic download of the BAT
 # library, and KLFitter and BAT are compiled and linked against each other. This
 # is the recommended way to build KLFitter.
-upstream-build-cmake:
-  <<: *exec_on_upstream
-  <<: *cmake_klfitter
-
-fork-build-cmake:
-  <<: *exec_on_demand_forks
+build-cmake:
   <<: *cmake_klfitter
 
 
@@ -161,14 +156,7 @@ build-makefile:
 
 
 # Run unit tests based on the cmake setup.
-upstream-unit-tests:
-  <<: *exec_on_upstream
+unit-tests:
   <<: *run_unit_tests
   dependencies:
-    - upstream-build-cmake
-
-fork-unit-tests:
-  <<: *exec_on_demand_forks
-  <<: *run_unit_tests
-  dependencies:
-    - fork-build-cmake
+    - build-cmake
