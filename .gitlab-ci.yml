@@ -18,6 +18,7 @@
 image: rootproject/root-ubuntu16
 
 stages:
+  - build-dependencies
   - build
   - test
 
@@ -52,28 +53,44 @@ cmake-build:
 # of the BAT library. For that, we use the script ./cmake/CompileBAT.sh to
 # download and install BAT (without cmake). Then cmake uses the
 # ./cmake/FindBAT.cmake file to locate that external library.
+build-BAT:
+  stage: build-dependencies
+  when: manual
+  allow_failure: true
+  variables:
+    BATINSTALLDIR: '$CI_PROJECT_DIR/external/BAT'
+  script:
+    - sudo apt-get update
+    - sudo apt-get install wget
+    - ./cmake/CompileBAT.sh $BATINSTALLDIR
+  artifacts:
+    paths:
+    - $BATINSTALLDIR
+    expire_in: 2 days
+
+
 cmake-build-with-prebuilt-BAT:
   stage: build
   when: manual
   allow_failure: true
+  variables:
+    BATINSTALLDIR: '$CI_PROJECT_DIR/external/BAT'
   before_script:
-    - sudo apt-get update
-    - sudo apt-get install wget
-    - export BATINSTALLDIR=$PWD/external/BAT
     - mkdir -p build KLFitter
     - mv CMakeLists.txt cmake include src tests KLFitter/
   after_script:
     - mv KLFitter/* ./
     - rm -rf KLFitter
   script:
-    - ./KLFitter/cmake/CompileBAT.sh $BATINSTALLDIR
     - cd build
     - cmake -DKLFITTER_INSTALL_TESTS=TRUE ../KLFitter
     - make -j || make -j || make -j
+  dependencies:
+    - build-BAT
   artifacts:
     paths:
     - build
-    - external/BAT
+    - $BATINSTALLDIR
     expire_in: 2 days
 
 
@@ -85,19 +102,18 @@ makefile-build:
   stage: build
   when: manual
   allow_failure: true
-  before_script:
-    - sudo apt-get update
-    - sudo apt-get install wget
-    - export BATINSTALLDIR=$PWD/external/BAT
+  variables:
+    BATINSTALLDIR: '$CI_PROJECT_DIR/external/BAT'
   script:
-    - ./cmake/CompileBAT.sh $BATINSTALLDIR
     - make -j || make -j || make -j
     - make -j tests || make -j tests
     - make install || make install
+  dependencies:
+    - build-BAT
   artifacts:
     paths:
     - build
-    - external/BAT
+    - $BATINSTALLDIR
     expire_in: 2 days
 
 
