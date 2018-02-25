@@ -49,7 +49,7 @@ LIBS     = $(ROOTLIBS) $(BATLIBS)
 
 # rule for test executables
 %.exe: $(TESTDIR)/%.cxx $(LIBA)
-	$(CXX) $(CXXFLAGS) $(LIBS) $+ -o $@
+	$(CXX) $(CXXFLAGS) $+ $(LIBS) -o $@
 
 # rule for shared library
 $(LIBSO): $(OBJ)
