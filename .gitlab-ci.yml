@@ -18,87 +18,145 @@
 image: rootproject/root-ubuntu16
 
 stages:
+  - build-dependencies
   - build
   - test
 
+variables:
+  SOURCE_DIR: '$CI_PROJECT_DIR'
+  BUILD_DIR: '$CI_PROJECT_DIR/build'
+  BATINSTALLDIR: '$CI_PROJECT_DIR/external/BAT'
+  CMAKE_OPTION: '-DBUILTIN_BAT=TRUE -DKLFITTER_INSTALL_TESTS=TRUE'
+
+
+# ==========================================================
+# Global anchors and templates
+# ==========================================================
+
+# Template for build artifacts.
+.build_artifacts: &build_artifacts
+  expire_in: 2 days
+  paths:
+  - build
+
+# Template for build artifacts including prebuilt BAT.
+.build_artifacts_prebuilt_bat: &build_artifacts_prebuilt_bat
+  <<: *build_artifacts
+  paths:
+    - build
+    - $BATINSTALLDIR
+
+# Templates for execution rules on forks.
+.exec_on_demand_forks: &exec_on_demand_forks
+  when: manual
+  except:
+    - KLFitter/KLFitter
+
+# Template for execution rules on upstream repository.
+.exec_on_upstream: &exec_on_upstream
+  when: always
+  only:
+    - KLFitter/KLFitter
+
+# Template for building BAT in the build-dependency step.
+.build_bat: &build_bat
+  artifacts: *build_artifacts_prebuilt_bat
+  stage: build-dependencies
+  script:
+    - sudo apt-get update
+    - sudo apt-get install wget
+    - ./cmake/CompileBAT.sh $BATINSTALLDIR
+
+# Template for building KLFitter with cmake.
+.cmake_klfitter: &cmake_klfitter
+  artifacts: *build_artifacts
+  stage: build
+  script:
+    - mkdir -p $BUILD_DIR && cd $BUILD_DIR
+    - cmake $CMAKE_OPTION $SOURCE_DIR
+    - make -j || make -j || make -j
+
+# Template for building KLFitter with cmake and prebuilt BAT.
+.cmake_klfitter_prebuilt_bat: &cmake_klfitter_prebuilt_bat
+  <<: *cmake_klfitter
+  artifacts: *build_artifacts_prebuilt_bat
+  variables:
+    CMAKE_OPTION: '-DBUILTIN_BAT=FALSE -DKLFITTER_INSTALL_TESTS=TRUE'
+    SOURCE_DIR: '$CI_PROJECT_DIR/KLFitter'
+  before_script:
+    - mkdir -p $SOURCE_DIR
+    - mv CMakeLists.txt cmake include src tests $SOURCE_DIR
+  after_script:
+    - mv $SOURCE_DIR/* ./
+    - rm -rf $SOURCE_DIR
+
+.makefile_klfitter: &makefile_klfitter
+  artifacts: *build_artifacts_prebuilt_bat
+  stage: build
+  script:
+    - make -j || make -j || make -j
+    - make -j tests || make -j tests
+    - make install || make install
+
+.run_unit_tests: &run_unit_tests
+  stage: test
+  before_script:
+    - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$BUILD_DIR/lib
+    - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`root-config --libdir`
+  script:
+    - $BUILD_DIR/test-bin/test-ljets-lh $SOURCE_DIR
+
+
+# ==========================================================
+# Definition of the actual CI jobs
+# ==========================================================
 
 # Build the project with cmake. This includes an automatic download of the BAT
 # library, and KLFitter and BAT are compiled and linked against each other. This
 # is the recommended way to build KLFitter.
-cmake-build:
-  stage: build
-  before_script:
-    - mkdir -p build
-  script:
-    - cd build
-    - cmake -DBUILTIN_BAT=TRUE -DKLFITTER_INSTALL_TESTS=TRUE ..
-    - make -j || make -j || make -j
-  artifacts:
-    paths:
-    - build
-    expire_in: 2 days
+build-cmake:
+  <<: *cmake_klfitter
 
 
 # Alternative build 1: build the project with cmake, but use an existing version
 # of the BAT library. For that, we use the script ./cmake/CompileBAT.sh to
 # download and install BAT (without cmake). Then cmake uses the
 # ./cmake/FindBAT.cmake file to locate that external library.
-cmake-build-with-prebuilt-BAT:
-  stage: build
-  when: manual
-  allow_failure: true
-  before_script:
-    - sudo apt-get update
-    - sudo apt-get install wget
-    - export BATINSTALLDIR=$PWD/external/BAT
-    - mkdir -p build KLFitter
-    - mv CMakeLists.txt cmake include src tests KLFitter/
-  after_script:
-    - mv KLFitter/* ./
-    - rm -rf KLFitter
-  script:
-    - ./KLFitter/cmake/CompileBAT.sh $BATINSTALLDIR
-    - cd build
-    - cmake -DKLFITTER_INSTALL_TESTS=TRUE ../KLFitter
-    - make -j || make -j || make -j
-  artifacts:
-    paths:
-    - build
-    - external/BAT
-    expire_in: 2 days
+build-BAT:
+  <<: *exec_on_upstream
+  <<: *build_bat
+
+build-cmake-prebuilt-BAT:
+  <<: *exec_on_upstream
+  <<: *cmake_klfitter_prebuilt_bat
+  dependencies:
+    - build-BAT
+
+fork-build-BAT:
+  <<: *exec_on_demand_forks
+  <<: *build_bat
+
+fork-build-cmake-prebuilt-BAT:
+  <<: *exec_on_demand_forks
+  <<: *cmake_klfitter_prebuilt_bat
+  dependencies:
+    - fork-build-BAT
 
 
 # Alternative build 2: build the project with the traditional Makefile. Again
 # this utilises the script ./cmake/CompileBAT.sh to download and install BAT (no
 # use of Makefile). Then the Makefile locates the BAT installation with the
 # $BATINSTALLDIR variable.
-makefile-build:
-  stage: build
+build-makefile:
+  <<: *makefile_klfitter
   when: manual
   allow_failure: true
-  before_script:
-    - sudo apt-get update
-    - sudo apt-get install wget
-    - export BATINSTALLDIR=$PWD/external/BAT
-  script:
-    - ./cmake/CompileBAT.sh $BATINSTALLDIR
-    - make -j || make -j || make -j
-    - make -j tests || make -j tests
-    - make install || make install
-  artifacts:
-    paths:
-    - build
-    - external/BAT
-    expire_in: 2 days
+  dependencies:
+    - fork-build-BAT
 
 
 # Run unit tests based on the cmake setup.
-cmake-test:
-  stage: test
-  before_script:
-    - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/build/lib
-    - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`root-config --libdir`
-  script:
-    - ./build/test-bin/test-ljets-lh ./
+unit-tests:
+  <<: *run_unit_tests
   dependencies:
-    - cmake-build
+    - build-cmake
