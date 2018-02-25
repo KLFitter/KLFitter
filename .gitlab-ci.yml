@@ -22,21 +22,29 @@ stages:
   - test
 
 
-# Build the project with cmake. This includes an automatic download of the BAT
-# library, and KLFitter and BAT are compiled and linked against each other. This
-# is the recommended way to build KLFitter.
-cmake-build:
+# The basic cmake configuration for making KLFitter.
+.cmake_klfitter: &cmake_klfitter
   stage: build
+  variables:
+    CMAKE_OPTION: '-DKLFITTER_INSTALL_TESTS=TRUE'
   before_script:
-    - mkdir -p build
+    - mkdir -p build && cd build
   script:
-    - cd build
-    - cmake -DBUILTIN_BAT=TRUE -DKLFITTER_INSTALL_TESTS=TRUE ..
+    - cmake $CMAKE_OPTION ..
     - make -j || make -j || make -j
   artifacts:
     paths:
     - build
     expire_in: 2 days
+
+
+# Build the project with cmake. This includes an automatic download of the BAT
+# library, and KLFitter and BAT are compiled and linked against each other. This
+# is the recommended way to build KLFitter.
+cmake-build:
+  <<: *cmake_klfitter
+  variables:
+    CMAKE_OPTION: '-DBUILTIN_BAT=TRUE -DKLFITTER_INSTALL_TESTS=TRUE'
 
 
 # Alternative build 1: build the project with cmake, but use an existing version
