@@ -29,38 +29,77 @@ variables:
   CMAKE_OPTION: '-DKLFITTER_INSTALL_TESTS=TRUE'
 
 
-# Configuration for saving build artifacts.
+# ==========================================================
+# Global anchors and templates
+# ==========================================================
+
+# Template for build artifacts.
 .build_artifacts: &build_artifacts
   expire_in: 2 days
   paths:
   - build
 
-.build_artifacts_ext_bat: &build_artifacts_ext_bat
+# Template for build artifacts including prebuilt BAT.
+.build_artifacts_prebuilt_bat: &build_artifacts_prebuilt_bat
   <<: *build_artifacts
   paths:
     - build
     - $BATINSTALLDIR
 
-# Configuration for CI conditions.
+# Templates for execution rules.
 .exec_manual_and_failable: &exec_manual_and_failable
   when: manual
   allow_failure: true
 
-# The basic cmake configuration for making KLFitter.
+# Template for building BAT in the build-dependency step.
+.build_bat:
+  artifacts: *build_artifacts_prebuilt_bat
+  stage: build-dependencies
+  script:
+    - sudo apt-get update
+    - sudo apt-get install wget
+    - ./cmake/CompileBAT.sh $BATINSTALLDIR
+
+# Template for building KLFitter with cmake.
 .cmake_klfitter: &cmake_klfitter
+  artifacts: *build_artifacts
   stage: build
   script:
     - mkdir -p $BUILD_DIR && cd $BUILD_DIR
     - cmake $CMAKE_OPTION $SOURCE_DIR
     - make -j || make -j || make -j
 
+# Template for building KLFitter with cmake and prebuilt BAT.
+.cmake_klfitter_prebuilt_bat: &cmake_klfitter_prebuilt_bat
+  <<: *cmake_klfitter
+  artifacts: *build_artifacts_prebuilt_bat
+  variables:
+    SOURCE_DIR: '$CI_PROJECT_DIR/KLFitter'
+  before_script:
+    - mkdir -p $SOURCE_DIR
+    - mv CMakeLists.txt cmake include src tests $SOURCE_DIR
+  after_script:
+    - mv $SOURCE_DIR/* ./
+    - rm -rf $SOURCE_DIR
+
+.makefile_klfitter: &makefile_klfitter
+  artifacts: *build_artifacts_prebuilt_bat
+  stage: build
+  script:
+    - make -j || make -j || make -j
+    - make -j tests || make -j tests
+    - make install || make install
+
+
+# ==========================================================
+# Definition of the actual CI jobs
+# ==========================================================
 
 # Build the project with cmake. This includes an automatic download of the BAT
 # library, and KLFitter and BAT are compiled and linked against each other. This
 # is the recommended way to build KLFitter.
 cmake-build:
   <<: *cmake_klfitter
-  artifacts: *build_artifacts
   variables:
     CMAKE_OPTION: '-DBUILTIN_BAT=TRUE -DKLFITTER_INSTALL_TESTS=TRUE'
 
@@ -70,28 +109,12 @@ cmake-build:
 # download and install BAT (without cmake). Then cmake uses the
 # ./cmake/FindBAT.cmake file to locate that external library.
 build-BAT:
+  <<: *build_bat
   <<: *exec_manual_and_failable
-  stage: build-dependencies
-  artifacts: *build_artifacts_ext_bat
-  script:
-    - sudo apt-get update
-    - sudo apt-get install wget
-    - ./cmake/CompileBAT.sh $BATINSTALLDIR
-
 
 cmake-build-with-prebuilt-BAT:
+  <<: *cmake_klfitter_prebuilt_bat
   <<: *exec_manual_and_failable
-  <<: *cmake_klfitter
-  stage: build
-  variables:
-    SOURCE_DIR: '$CI_PROJECT_DIR/KLFitter'
-  artifacts: *build_artifacts_ext_bat
-  before_script:
-    - mkdir -p $SOURCE_DIR
-    - mv CMakeLists.txt cmake include src tests $SOURCE_DIR
-  after_script:
-    - mv $SOURCE_DIR/* ./
-    - rm -rf $SOURCE_DIR
   dependencies:
     - build-BAT
 
@@ -101,13 +124,8 @@ cmake-build-with-prebuilt-BAT:
 # use of Makefile). Then the Makefile locates the BAT installation with the
 # $BATINSTALLDIR variable.
 makefile-build:
+  <<: *makefile_klfitter
   <<: *exec_manual_and_failable
-  stage: build
-  artifacts: *build_artifacts_ext_bat
-  script:
-    - make -j || make -j || make -j
-    - make -j tests || make -j tests
-    - make install || make install
   dependencies:
     - build-BAT
 
