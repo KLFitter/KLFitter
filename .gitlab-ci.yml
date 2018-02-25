@@ -52,7 +52,7 @@ variables:
   allow_failure: true
 
 # Template for building BAT in the build-dependency step.
-.build_bat:
+.build_bat: &build_bat
   artifacts: *build_artifacts_prebuilt_bat
   stage: build-dependencies
   script:
