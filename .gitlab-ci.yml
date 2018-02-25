@@ -22,6 +22,13 @@ stages:
   - build
   - test
 
+variables:
+  SOURCE_DIR: '$CI_PROJECT_DIR'
+  BUILD_DIR: '$CI_PROJECT_DIR/build'
+  BATINSTALLDIR: '$CI_PROJECT_DIR/external/BAT'
+  CMAKE_OPTION: '-DKLFITTER_INSTALL_TESTS=TRUE'
+
+
 # Configuration for saving build artifacts.
 .build_artifacts: &build_artifacts
   expire_in: 2 days
@@ -39,17 +46,12 @@ stages:
   when: manual
   allow_failure: true
 
-
 # The basic cmake configuration for making KLFitter.
 .cmake_klfitter: &cmake_klfitter
   stage: build
-  variables:
-    CMAKE_OPTION: '-DKLFITTER_INSTALL_TESTS=TRUE'
-  before_script:
-    - mkdir -p build && cd build
-    - echo "Building KLFitter with cmake option $CMAKE_OPTION"
   script:
-    - cmake $CMAKE_OPTION ..
+    - mkdir -p $BUILD_DIR && cd $BUILD_DIR
+    - cmake $CMAKE_OPTION $SOURCE_DIR
     - make -j || make -j || make -j
 
 
@@ -70,8 +72,6 @@ cmake-build:
 build-BAT:
   <<: *exec_manual_and_failable
   stage: build-dependencies
-  variables:
-    BATINSTALLDIR: '$CI_PROJECT_DIR/external/BAT'
   artifacts: *build_artifacts_ext_bat
   script:
     - sudo apt-get update
@@ -81,20 +81,17 @@ build-BAT:
 
 cmake-build-with-prebuilt-BAT:
   <<: *exec_manual_and_failable
+  <<: *cmake_klfitter
   stage: build
   variables:
-    BATINSTALLDIR: '$CI_PROJECT_DIR/external/BAT'
+    SOURCE_DIR: '$CI_PROJECT_DIR/KLFitter'
   artifacts: *build_artifacts_ext_bat
   before_script:
-    - mkdir -p build KLFitter
-    - mv CMakeLists.txt cmake include src tests KLFitter/
+    - mkdir -p $SOURCE_DIR
+    - mv CMakeLists.txt cmake include src tests $SOURCE_DIR
   after_script:
-    - mv KLFitter/* ./
-    - rm -rf KLFitter
-  script:
-    - cd build
-    - cmake -DKLFITTER_INSTALL_TESTS=TRUE ../KLFitter
-    - make -j || make -j || make -j
+    - mv $SOURCE_DIR/* ./
+    - rm -rf $SOURCE_DIR
   dependencies:
     - build-BAT
 
@@ -106,8 +103,6 @@ cmake-build-with-prebuilt-BAT:
 makefile-build:
   <<: *exec_manual_and_failable
   stage: build
-  variables:
-    BATINSTALLDIR: '$CI_PROJECT_DIR/external/BAT'
   artifacts: *build_artifacts_ext_bat
   script:
     - make -j || make -j || make -j
@@ -121,7 +116,7 @@ makefile-build:
 cmake-test:
   stage: test
   before_script:
-    - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/build/lib
+    - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$BUILD_DIR/lib
     - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`root-config --libdir`
   script:
     - ./build/test-bin/test-ljets-lh ./
