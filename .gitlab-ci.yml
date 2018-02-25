@@ -34,6 +34,11 @@ stages:
     - build
     - $BATINSTALLDIR
 
+# Configuration for CI conditions.
+.exec_manual_and_failable: &exec_manual_and_failable
+  when: manual
+  allow_failure: true
+
 
 # The basic cmake configuration for making KLFitter.
 .cmake_klfitter: &cmake_klfitter
@@ -63,9 +68,8 @@ cmake-build:
 # download and install BAT (without cmake). Then cmake uses the
 # ./cmake/FindBAT.cmake file to locate that external library.
 build-BAT:
+  <<: *exec_manual_and_failable
   stage: build-dependencies
-  when: manual
-  allow_failure: true
   variables:
     BATINSTALLDIR: '$CI_PROJECT_DIR/external/BAT'
   artifacts: *build_artifacts_ext_bat
@@ -76,9 +80,8 @@ build-BAT:
 
 
 cmake-build-with-prebuilt-BAT:
+  <<: *exec_manual_and_failable
   stage: build
-  when: manual
-  allow_failure: true
   variables:
     BATINSTALLDIR: '$CI_PROJECT_DIR/external/BAT'
   artifacts: *build_artifacts_ext_bat
@@ -101,9 +104,8 @@ cmake-build-with-prebuilt-BAT:
 # use of Makefile). Then the Makefile locates the BAT installation with the
 # $BATINSTALLDIR variable.
 makefile-build:
+  <<: *exec_manual_and_failable
   stage: build
-  when: manual
-  allow_failure: true
   variables:
     BATINSTALLDIR: '$CI_PROJECT_DIR/external/BAT'
   artifacts: *build_artifacts_ext_bat
