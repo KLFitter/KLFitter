@@ -22,6 +22,18 @@ stages:
   - build
   - test
 
+# Configuration for saving build artifacts.
+.build_artifacts: &build_artifacts
+  expire_in: 2 days
+  paths:
+  - build
+
+.build_artifacts_ext_bat: &build_artifacts_ext_bat
+  <<: *build_artifacts
+  paths:
+    - build
+    - $BATINSTALLDIR
+
 
 # The basic cmake configuration for making KLFitter.
 .cmake_klfitter: &cmake_klfitter
@@ -34,10 +46,6 @@ stages:
   script:
     - cmake $CMAKE_OPTION ..
     - make -j || make -j || make -j
-  artifacts:
-    paths:
-    - build
-    expire_in: 2 days
 
 
 # Build the project with cmake. This includes an automatic download of the BAT
@@ -45,6 +53,7 @@ stages:
 # is the recommended way to build KLFitter.
 cmake-build:
   <<: *cmake_klfitter
+  artifacts: *build_artifacts
   variables:
     CMAKE_OPTION: '-DBUILTIN_BAT=TRUE -DKLFITTER_INSTALL_TESTS=TRUE'
 
@@ -59,14 +68,11 @@ build-BAT:
   allow_failure: true
   variables:
     BATINSTALLDIR: '$CI_PROJECT_DIR/external/BAT'
+  artifacts: *build_artifacts_ext_bat
   script:
     - sudo apt-get update
     - sudo apt-get install wget
     - ./cmake/CompileBAT.sh $BATINSTALLDIR
-  artifacts:
-    paths:
-    - $BATINSTALLDIR
-    expire_in: 2 days
 
 
 cmake-build-with-prebuilt-BAT:
@@ -75,6 +81,7 @@ cmake-build-with-prebuilt-BAT:
   allow_failure: true
   variables:
     BATINSTALLDIR: '$CI_PROJECT_DIR/external/BAT'
+  artifacts: *build_artifacts_ext_bat
   before_script:
     - mkdir -p build KLFitter
     - mv CMakeLists.txt cmake include src tests KLFitter/
@@ -87,11 +94,6 @@ cmake-build-with-prebuilt-BAT:
     - make -j || make -j || make -j
   dependencies:
     - build-BAT
-  artifacts:
-    paths:
-    - build
-    - $BATINSTALLDIR
-    expire_in: 2 days
 
 
 # Alternative build 2: build the project with the traditional Makefile. Again
@@ -104,17 +106,13 @@ makefile-build:
   allow_failure: true
   variables:
     BATINSTALLDIR: '$CI_PROJECT_DIR/external/BAT'
+  artifacts: *build_artifacts_ext_bat
   script:
     - make -j || make -j || make -j
     - make -j tests || make -j tests
     - make install || make install
   dependencies:
     - build-BAT
-  artifacts:
-    paths:
-    - build
-    - $BATINSTALLDIR
-    expire_in: 2 days
 
 
 # Run unit tests based on the cmake setup.
