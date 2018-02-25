@@ -29,6 +29,7 @@ stages:
     CMAKE_OPTION: '-DKLFITTER_INSTALL_TESTS=TRUE'
   before_script:
     - mkdir -p build && cd build
+    - echo "Building KLFitter with cmake option $CMAKE_OPTION"
   script:
     - cmake $CMAKE_OPTION ..
     - make -j || make -j || make -j
