@@ -50,13 +50,13 @@ variables:
 .exec_on_demand_forks: &exec_on_demand_forks
   when: manual
   except:
-    - KLFitter/KLFitter
+    - branches@KLFitter/KLFitter
 
 # Template for execution rules on upstream repository.
 .exec_on_upstream: &exec_on_upstream
   when: always
   only:
-    - KLFitter/KLFitter
+    - branches@KLFitter/KLFitter
 
 # Template for building BAT in the build-dependency step.
 .build_bat: &build_bat
