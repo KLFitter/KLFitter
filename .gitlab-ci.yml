@@ -155,12 +155,14 @@ fork-build-cmake-prebuilt-BAT:
 upstream-build-makefile:
   <<: *exec_on_upstream
   <<: *makefile_klfitter
+  allow_failure: true
   dependencies:
     - upstream-build-BAT
 
 fork-build-makefile:
   <<: *exec_on_demand_forks
   <<: *makefile_klfitter
+  allow_failure: true
   dependencies:
     - fork-build-BAT
 
