@@ -91,6 +91,14 @@ variables:
     - make -j tests || make -j tests
     - make install || make install
 
+.run_unit_tests: &run_unit_tests
+  stage: test
+  before_script:
+    - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$BUILD_DIR/lib
+    - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`root-config --libdir`
+  script:
+    - $BUILD_DIR/test-bin/test-ljets-lh $SOURCE_DIR
+
 
 # ==========================================================
 # Definition of the actual CI jobs
@@ -131,11 +139,6 @@ makefile-build:
 
 # Run unit tests based on the cmake setup.
 cmake-test:
-  stage: test
-  before_script:
-    - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$BUILD_DIR/lib
-    - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`root-config --libdir`
-  script:
-    - ./build/test-bin/test-ljets-lh ./
+  <<: *run_unit_tests
   dependencies:
     - cmake-build
