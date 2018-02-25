@@ -122,15 +122,15 @@ build-cmake:
 # of the BAT library. For that, we use the script ./cmake/CompileBAT.sh to
 # download and install BAT (without cmake). Then cmake uses the
 # ./cmake/FindBAT.cmake file to locate that external library.
-upstream-build-BAT:
+build-BAT:
   <<: *exec_on_upstream
   <<: *build_bat
 
-upstream-build-cmake-prebuilt-BAT:
+build-cmake-prebuilt-BAT:
   <<: *exec_on_upstream
   <<: *cmake_klfitter_prebuilt_bat
   dependencies:
-    - upstream-build-BAT
+    - build-BAT
 
 fork-build-BAT:
   <<: *exec_on_demand_forks
