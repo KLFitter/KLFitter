@@ -102,6 +102,7 @@ variables:
   stage: test
   before_script:
     - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$BUILD_DIR/lib
+    - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$BATINSTALLDIR/lib
     - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`root-config --libdir`
   script:
     - $BUILD_DIR/test-bin/test-ljets-lh $SOURCE_DIR
@@ -161,7 +162,31 @@ fork-build-makefile:
 
 
 # Run unit tests based on the cmake setup.
-unit-tests:
+tests-cmake:
   <<: *run_unit_tests
   dependencies:
     - build-cmake
+
+tests-cmake-prebuilt-BAT:
+  <<: *exec_on_upstream
+  <<: *run_unit_tests
+  dependencies:
+    - build-cmake-prebuilt-BAT
+
+fork-tests-cmake-prebuilt-BAT:
+  <<: *exec_on_demand_forks
+  <<: *run_unit_tests
+  dependencies:
+    - fork-build-cmake-prebuilt-BAT
+
+tests-makefile:
+  <<: *exec_on_upstream
+  <<: *run_unit_tests
+  dependencies:
+    - build-makefile
+
+fork-tests-makefile:
+  <<: *exec_on_demand_forks
+  <<: *run_unit_tests
+  dependencies:
+    - fork-build-makefile
