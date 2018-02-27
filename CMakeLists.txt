@@ -125,7 +125,7 @@ add_library( KLFitter SHARED ${lib_headers} ${lib_sources} )
 target_include_directories( KLFitter
    PUBLIC ${ROOT_INCLUDE_DIRS} ${BAT_INCLUDE_DIR}
    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include> )
-target_link_libraries( KLFitter ${ROOT_LIBRARIES} ${BAT_LIBARY} )
+target_link_libraries( KLFitter ${ROOT_LIBRARIES} ${BAT_LIBRARY} )
 set_property( TARGET KLFitter
    PROPERTY PUBLIC_HEADER ${lib_headers} )
 if( BUILTIN_BAT )
