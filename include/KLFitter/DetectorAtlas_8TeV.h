@@ -144,7 +144,6 @@ class DetectorAtlas_8TeV : public DetectorBase {
   KLFitter::ResolutionBase * fResEnergyLightJet_eta2;
   KLFitter::ResolutionBase * fResEnergyLightJet_eta3;
   KLFitter::ResolutionBase * fResEnergyLightJet_eta4;
-  KLFitter::ResolutionBase * fResEnergyLightJet_eta5;
 
   /**
     * The energy resolution of b jets for different eta regions.
@@ -153,7 +152,6 @@ class DetectorAtlas_8TeV : public DetectorBase {
   KLFitter::ResolutionBase * fResEnergyBJet_eta2;
   KLFitter::ResolutionBase * fResEnergyBJet_eta3;
   KLFitter::ResolutionBase * fResEnergyBJet_eta4;
-  KLFitter::ResolutionBase * fResEnergyBJet_eta5;
 
   /**
     * The energy resolution of gluon jets for different eta regions.
@@ -225,7 +223,6 @@ class DetectorAtlas_8TeV : public DetectorBase {
   double fJetEtaBin_2;
   double fJetEtaBin_3;
   double fJetEtaBin_4;
-  double fJetEtaBin_5;
 
   /**
     * The eta binning for electrons
