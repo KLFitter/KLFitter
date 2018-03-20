@@ -1,7 +1,6 @@
 # KLFitter – The Kinematic Likelihood Fitter
 
 [![pipeline status](https://gitlab.cern.ch/KLFitter/KLFitter/badges/master/pipeline.svg)](https://gitlab.cern.ch/KLFitter/KLFitter/commits/master)
-[![coverage report](https://gitlab.cern.ch/KLFitter/KLFitter/badges/master/coverage.svg)](https://gitlab.cern.ch/KLFitter/KLFitter/commits/master)
 
 KLFitter is a library for kinematic fitting using a likelihood approach. It is
 primarily developed for the case of top quark reconstruction, but it can be
@@ -33,7 +32,7 @@ been tested with KLFitter and are working:
 
 ### Obtaining KLFitter
 
-The KLFitter source can be obtained from this repository 
+The KLFitter source code can be obtained from this repository 
 ([https://gitlab.cern.ch/KLFitter/KLFitter/]). A list of all releases of
 KLFitter can be found under 
 [KLFitter/tags](https://gitlab.cern.ch/KLFitter/KLFitter/tags). To download the
@@ -51,7 +50,7 @@ $ git checkout VERSION_TAG
 Before proceeding please make sure that you have a valid installation of ROOT
 on your system and that cmake is correctly configured (version 3.1 or higher is
 required). As cmake does fully automatised configuration, it is possible to
-build KLFitter and the BAT library simultaneously. BAT will be download during
+build KLFitter and the BAT library simultaneously. BAT will be downloaded during
 the cmake build process. For doing so, please change into the KLFitter
 directory and then do:
 
@@ -73,14 +72,14 @@ omitted, i.e. the KLFitter cmake command becomes `cmake ..`.
 If you encounter problems with the cmake configuration, these could be possible
 reasons:
 - If ROOT cannot be found by cmake, include the ROOT binary path to the `PATH`
-variable and make it is exported.
+variable and make sure it is exported and can be picked up by cmake.
 - If you use a local version of BAT (no download via cmake) and it cannot be
 found, make sure to set the `$BATINSTALLDIR` variable and export it. This
 variable is used by cmake to locate the library.
 - If linkage against ROOT or BAT fails: are those libraries compiled with the
 same version of the compiler? Make sure that this is consistent. If you set up
 a custom compiler for the build process, maybe cmake doesn't pick this compiler
-up correctly. Does `whereis c++` and `which c++` point to the same binary? To
+up correctly. Do `whereis c++` and `which c++` point to the same binary? To
 tell cmake to use the latter one, you can export the compiler location:
 
 ```
@@ -95,7 +94,7 @@ The repository also comes with a _Makefile_, although using cmake to build
 KLFitter is the recommended procedure. Compilation via Makefile assumes that
 you have a working installation of ROOT and BAT. The location of the BAT library
 is determined with the `$BATINSTALLDIR` variable, so make sure to set and export
-it. Then switch to the KLFitter repository directoy and call
+it. Then switch to the KLFitter repository directory and call
 
 ```
 make -j && make -j install
