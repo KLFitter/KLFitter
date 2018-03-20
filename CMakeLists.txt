@@ -184,6 +184,10 @@ install( TARGETS KLFitter KLFitter-stat
    LIBRARY DESTINATION lib
    PUBLIC_HEADER DESTINATION include/KLFitter )
 
+# Install the transfer functions.
+install( DIRECTORY data/transferfunctions/
+  DESTINATION share/KLFitter )
+
 # Helper macro for building the project's unit tests.
 macro( KLFitter_add_test name )
    # Build the unit-test executable:
