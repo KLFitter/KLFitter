@@ -109,7 +109,18 @@ set( lib_headers
   include/KLFitter/LikelihoodTopLeptonJets_Angular.h
   include/KLFitter/LikelihoodTopLeptonJets_JetAngles.h
   include/KLFitter/Particles.h
-  include/KLFitter/Permutations.h )
+  include/KLFitter/Permutations.h
+  include/KLFitter/PhysicsConstants.h
+  include/KLFitter/ResDoubleGaussBase.h
+  include/KLFitter/ResDoubleGaussE_1.h
+  include/KLFitter/ResDoubleGaussE_2.h
+  include/KLFitter/ResDoubleGaussE_3.h
+  include/KLFitter/ResDoubleGaussE_4.h
+  include/KLFitter/ResDoubleGaussE_5.h
+  include/KLFitter/ResDoubleGaussPt.h
+  include/KLFitter/ResGauss.h
+  include/KLFitter/ResGauss_MET.h
+  include/KLFitter/ResolutionBase.h )
 
 # Source files for the shared/static library.
 set( lib_sources
