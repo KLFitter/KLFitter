@@ -92,33 +92,66 @@ else()
 endif()
 
 # Public header files for the shared/static library.
-set( lib_headers include/KLFitter/BoostedLikelihoodTopLeptonJets.h
-include/KLFitter/DetectorAtlas_7TeV.h include/KLFitter/DetectorAtlas_8TeV.h
-include/KLFitter/DetectorBase.h include/KLFitter/Fitter.h
-include/KLFitter/LikelihoodBase.h include/KLFitter/LikelihoodSgTopWtLJ.h
-include/KLFitter/LikelihoodTTHLeptonJets.h
-include/KLFitter/LikelihoodTTZTrilepton.h
-include/KLFitter/LikelihoodTopAllHadronic.h
-include/KLFitter/LikelihoodTopDilepton.h
-include/KLFitter/LikelihoodTopLeptonJets.h
-include/KLFitter/LikelihoodTopLeptonJetsUDSep.h
-include/KLFitter/LikelihoodTopLeptonJets_Angular.h
-include/KLFitter/LikelihoodTopLeptonJets_JetAngles.h
-include/KLFitter/Particles.h include/KLFitter/Permutations.h )
+set( lib_headers
+  include/KLFitter/BoostedLikelihoodTopLeptonJets.h
+  include/KLFitter/DetectorAtlas_7TeV.h
+  include/KLFitter/DetectorAtlas_8TeV.h
+  include/KLFitter/DetectorBase.h
+  include/KLFitter/Fitter.h
+  include/KLFitter/LikelihoodBase.h
+  include/KLFitter/LikelihoodSgTopWtLJ.h
+  include/KLFitter/LikelihoodTTHLeptonJets.h
+  include/KLFitter/LikelihoodTTZTrilepton.h
+  include/KLFitter/LikelihoodTopAllHadronic.h
+  include/KLFitter/LikelihoodTopDilepton.h
+  include/KLFitter/LikelihoodTopLeptonJets.h
+  include/KLFitter/LikelihoodTopLeptonJetsUDSep.h
+  include/KLFitter/LikelihoodTopLeptonJets_Angular.h
+  include/KLFitter/LikelihoodTopLeptonJets_JetAngles.h
+  include/KLFitter/Particles.h
+  include/KLFitter/Permutations.h
+  include/KLFitter/PhysicsConstants.h
+  include/KLFitter/ResDoubleGaussBase.h
+  include/KLFitter/ResDoubleGaussE_1.h
+  include/KLFitter/ResDoubleGaussE_2.h
+  include/KLFitter/ResDoubleGaussE_3.h
+  include/KLFitter/ResDoubleGaussE_4.h
+  include/KLFitter/ResDoubleGaussE_5.h
+  include/KLFitter/ResDoubleGaussPt.h
+  include/KLFitter/ResGauss.h
+  include/KLFitter/ResGauss_MET.h
+  include/KLFitter/ResolutionBase.h )
 
 # Source files for the shared/static library.
-set( lib_sources src/BoostedLikelihoodTopLeptonJets.cxx
-src/DetectorAtlas_7TeV.cxx src/DetectorAtlas_8TeV.cxx src/DetectorBase.cxx
-src/Fitter.cxx src/LikelihoodBase.cxx src/LikelihoodSgTopWtLJ.cxx
-src/LikelihoodTTHLeptonJets.cxx src/LikelihoodTTZTrilepton.cxx
-src/LikelihoodTopAllHadronic.cxx src/LikelihoodTopDilepton.cxx
-src/LikelihoodTopLeptonJets.cxx src/LikelihoodTopLeptonJetsUDSep.cxx
-src/LikelihoodTopLeptonJets_Angular.cxx
-src/LikelihoodTopLeptonJets_JetAngles.cxx src/Particles.cxx src/Permutations.cxx
-src/PhysicsConstants.cxx src/ResDoubleGaussBase.cxx src/ResDoubleGaussE_1.cxx
-src/ResDoubleGaussE_2.cxx src/ResDoubleGaussE_3.cxx src/ResDoubleGaussE_4.cxx
-src/ResDoubleGaussE_5.cxx src/ResDoubleGaussPt.cxx src/ResGauss.cxx
-src/ResGauss_MET.cxx src/ResolutionBase.cxx )
+set( lib_sources
+  src/BoostedLikelihoodTopLeptonJets.cxx
+  src/DetectorAtlas_7TeV.cxx
+  src/DetectorAtlas_8TeV.cxx
+  src/DetectorBase.cxx
+  src/Fitter.cxx
+  src/LikelihoodBase.cxx
+  src/LikelihoodSgTopWtLJ.cxx
+  src/LikelihoodTTHLeptonJets.cxx
+  src/LikelihoodTTZTrilepton.cxx
+  src/LikelihoodTopAllHadronic.cxx
+  src/LikelihoodTopDilepton.cxx
+  src/LikelihoodTopLeptonJets.cxx
+  src/LikelihoodTopLeptonJetsUDSep.cxx
+  src/LikelihoodTopLeptonJets_Angular.cxx
+  src/LikelihoodTopLeptonJets_JetAngles.cxx
+  src/Particles.cxx
+  src/Permutations.cxx
+  src/PhysicsConstants.cxx
+  src/ResDoubleGaussBase.cxx
+  src/ResDoubleGaussE_1.cxx
+  src/ResDoubleGaussE_2.cxx
+  src/ResDoubleGaussE_3.cxx
+  src/ResDoubleGaussE_4.cxx
+  src/ResDoubleGaussE_5.cxx
+  src/ResDoubleGaussPt.cxx
+  src/ResGauss.cxx
+  src/ResGauss_MET.cxx
+  src/ResolutionBase.cxx )
 
 # Build the shared library.
 add_library( KLFitter SHARED ${lib_headers} ${lib_sources} )
