@@ -1,24 +1,23 @@
 # KLFitter Authors and Contributors
 
->>>
-14/02/2018: Please note that this author list is _not_ up to date. The list is
-incomplete, no affiliations, incomplete descriptions of contributions.
->>>
+### Authors of the KLFitter paper (NIM A 748 (2014) 18)
 
-Main authors of KLFitter in alphabetical order:
- - Johannes Erdmann
- - Kevin Kroeninger
- - Olaf Nackenhorst
+- Johannes Erdmann (TU Dortmund University): main author
+- Stefan Guindon (CERN): b-tagging methods
+- Kevin Kröninger (TU Dortmund University): main author
+- Boris Lemmer (previously University of Göttingen): transfer functions, `LikelihoodTopLeptonJetsUDSep`
+- Olaf Nackenhorst (TU Dortmund University): main author
+- Arnulf Quadt (University of Göttingen): initiator of KLFitter
+- Philipp Stolte (University of Göttingen): studies for the KLFitter paper
 
-Other contributors to KLFitter in alphabetical order:
- - Stefanie Adomeit
- - Anthony Ciavarella
- - Tomas Dado
- - Stefan Guindon
- - Andrea Knue
- - Fabian Kohn
- - Boris Lemmer
- - Thomas Loddenkoetter
- - Leonid Serkin
- - Tamara Vazquez Schroeder
- - Knut Zoch
+### Current and previous contributors to KLFitter
+
+- Stefanie Adomeit (previously LMU Munich): `LikelihoodTopAllHadronic`
+- Tomas Dado (Comenius University in Bratislava): technical support
+- Andrea Knue (University of Freiburg): user support
+- Fabian Kohn (previously University of Göttingen): `LikelihoodTopLeptonJets_JetAngles`
+- Thomas Loddenkötter (previously Bonn University): `LikelihoodSgTopWtLJ`
+- Leonid Serkin (ICTP Trieste): `LikelihoodTTHLeptonJets`
+- Tamara Vazquez Schroeder (CERN): `LikelihoodTopDilepton`
+- Björn Wendland (TU Dortmund University): `BoostedLikelihoodTopLeptonJets`
+- Knut Zoch (University of Göttingen): technical support, `LikelihoodTTZTrilepton`

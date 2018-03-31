@@ -4,15 +4,12 @@
 
 KLFitter is a library for kinematic fitting using a likelihood approach. It is
 primarily developed for the case of top quark reconstruction, but it can be
-easily modified to fit other processes. KLFitter is experiment-independent,
-that is, different experiments can be parameterized.
+easily modified to fit other processes.
 
- - [List of authors and contributors](doc/Authors.md) to KLFitter
- - [What is KLFitter and how does it work?](doc/WhatIsKLF.md)
- - For implementation and examples and instructions on how to use KLFitter in
-   a software framework, please check out the
-   [KLFitterExtras repository](https://gitlab.cern.ch/KLFitter/KLFitterExtras).
- - KLFitter is licensed under the GNU Lesser General Public License v3.0. More
+- [List of authors and contributors](doc/Authors.md)
+- [What is KLFitter and how does it work?](doc/WhatIsKLF.md)
+- [Out-of-the-box example](doc/Example.md) **I HAVE ADDED A LINK TO A NEW FILE IN THE 'doc' DIRECTORY THAT SHOULD BE USED TO DESCRIBE THE STANDALONE EXAMPLE THAT TOMAS HAS WRITTEN, AND THAT THEN LINKS TO THE KLFitterExtras REPOSITORY. I PREFER NOT TO HAVE KLFitterExtras MENTIONED AT THE TOP OF THE BASIC README FOR KLFitter, BECAUSE IT IS FOR A REASON THAT IT IS NOT PART OF THE KLFitter LIBRARY.**
+- KLFitter is licensed under the GNU Lesser General Public License v3.0. More
    information about the licensing terms and conditions can be found under
    [COPYING](COPYING) and [COPYING.lesser](COPYING.LESSER) for the GNU General
    Public License and the additional terms of the GNU Lesser General Public
@@ -26,14 +23,15 @@ please consult the [ROOT webpage](https://root.cern.ch/). BAT releases and
 information about BAT and its installation can be found on the
 [library's webpage](http://www.mppmu.mpg.de/bat/). The following versions have
 been tested with KLFitter and are working:
- - ROOT v5.34.10 and above
- - BAT v0.9.4.1
+
+- ROOT v5.34.10 or later
+- BAT v0.9.4.1
 
 
 ### Obtaining KLFitter
 
 The KLFitter source code can be obtained from this repository 
-([https://gitlab.cern.ch/KLFitter/KLFitter/]). A list of all releases of
+(https://gitlab.cern.ch/KLFitter/KLFitter/). A list of all releases of
 KLFitter can be found under 
 [KLFitter/tags](https://gitlab.cern.ch/KLFitter/KLFitter/tags). To download the
 source code, you can use the git clone command:
@@ -65,12 +63,13 @@ directory. If you already have an existing installation of BAT, you can also
 link the KLFitter library against that version (and not download BAT during the
 cmake build process). For this, make sure that the environment variable 
 `$BATINSTALLDIR` points to the BAT installation directory and is exported. This
-variable will be used by the _FindBAT.cmake_ that locates the BAT library. With
+variable will be used by _FindBAT.cmake_, which locates the BAT library. With
 a local version of BAT, the `-DBUILTIN_BAT` flag of the cmake command can be 
 omitted, i.e. the KLFitter cmake command becomes `cmake ..`.
 
 If you encounter problems with the cmake configuration, these could be possible
 reasons:
+
 - If ROOT cannot be found by cmake, include the ROOT binary path to the `PATH`
 variable and make sure it is exported and can be picked up by cmake.
 - If you use a local version of BAT (no download via cmake) and it cannot be
