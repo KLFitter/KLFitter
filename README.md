@@ -9,6 +9,7 @@ easily modified to fit other processes.
 - [List of authors and contributors](doc/Authors.md)
 - [What is KLFitter and how does it work?](doc/WhatIsKLF.md)
 - [Out-of-the-box example](doc/Example.md) **I HAVE ADDED A LINK TO A NEW FILE IN THE 'doc' DIRECTORY THAT SHOULD BE USED TO DESCRIBE THE STANDALONE EXAMPLE THAT TOMAS HAS WRITTEN, AND THAT THEN LINKS TO THE KLFitterExtras REPOSITORY. I PREFER NOT TO HAVE KLFitterExtras MENTIONED AT THE TOP OF THE BASIC README FOR KLFitter, BECAUSE IT IS FOR A REASON THAT IT IS NOT PART OF THE KLFitter LIBRARY.**
+- [Frequently Asked Questions](doc/FAQ.md)
 - KLFitter is licensed under the GNU Lesser General Public License v3.0. More
    information about the licensing terms and conditions can be found under
    [COPYING](COPYING) and [COPYING.lesser](COPYING.LESSER) for the GNU General
