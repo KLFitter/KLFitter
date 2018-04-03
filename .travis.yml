@@ -1,0 +1,21 @@
+language: cpp
+sudo: required
+services: docker
+env:
+  global:
+    - DOCKER_IMAGE="rootproject/root-ubuntu16"
+    - DOCKER_CONTAINER="root-docker"
+    - DOCKER_CMD="docker exec -i $DOCKER_CONTAINER /bin/bash -c"
+    - KLF_BUILD_DIR=$TRAVIS_BUILD_DIR/build
+
+before_install:
+  - docker pull $DOCKER_IMAGE
+  - docker run -i -d --name $DOCKER_CONTAINER -v $TRAVIS_BUILD_DIR:$TRAVIS_BUILD_DIR -w $TRAVIS_BUILD_DIR -u $(id -u) $DOCKER_IMAGE /bin/bash
+  - docker ps -a
+  - $DOCKER_CMD "root -b -q"
+  - echo $KLF_BUILD_DIR
+
+script:
+  - mkdir -p $KLF_BUILD_DIR
+  - $DOCKER_CMD "cd $KLF_BUILD_DIR && cmake -DBUILTIN_BAT=TRUE .."
+  - $DOCKER_CMD "cd $KLF_BUILD_DIR && make -j"
