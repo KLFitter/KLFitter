@@ -63,7 +63,7 @@ set to a desired value. In that case, the top-quark width is recalculated.
 
 ```c++
 LikelihoodTopLeptonJets::SetFlagTopMassFixed(bool flag)
-LikelihoodTopLeptonJets::PhysicsConstants()::SetMassTop(double mass)
+LikelihoodTopLeptonJets::PhysicsConstants()->SetMassTop(double mass)
 ```
 
 If more than the minimum number of objects is passed to the likelihood, for
