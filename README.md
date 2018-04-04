@@ -11,6 +11,9 @@ easily modified to fit other processes. Detailed documentation:
 - [Out-of-the-box example](doc/Example.md)
 - [Frequently Asked Questions](doc/FAQ.md)
 
+
+### Licensing terms
+
 KLFitter is licensed under the GNU Lesser General Public License v3.0. For more
 information about the licensing terms and conditions, please refer to
 [COPYING](COPYING) and [COPYING.lesser](COPYING.LESSER) for the GNU General
