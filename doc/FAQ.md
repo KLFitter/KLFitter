@@ -1,5 +1,45 @@
 # Frequently Asked Questions
 
+### Problems during the installation
+
+Please note that we strongly encourage people to use the cmake installation
+procedures described in the [README
+section](../README.md#installation-via-cmake-recommended). Installation via
+Makefile has only been tested on few systems, and might not be cross-platform
+compatible.
+
+##### Why is ROOT not found by cmake?
+
+Include the ROOT binary path to the `PATH` variable and make sure it is
+exported. Only then it can be picked up by cmake correctly. As implemented in
+[FindROOT.cmake](cmake/FindROOT.cmake), the ROOT location is determined by cmake
+by searching for the `root-config` executable.
+
+##### Why is my local BAT version not found by cmake?
+
+The KLFitter cmake configuration allows an integrated build of the BAT library,
+as described in the [README](../README.md#installation-via-cmake-recommended).
+If you use a local version of BAT (no download via cmake) and it cannot be
+found, make sure to set the `$BATINSTALLDIR` variable and export it. This
+variable is used by cmake to locate the library.
+
+##### What to do when linkage against ROOT/BAT fails ...
+
+We have encountered problems with the compiler versions when linking against
+ROOT or BAT, in particular if any of the two libraries was compiled with a
+different version than the one cmake uses. If you set up a custom compiler for
+the build process, maybe cmake doesn't pick this compiler up correctly. This can
+be tested by checking whether `whereis c++` and `which c++` point to the same
+binary. To tell cmake to use the latter one, you can export the compiler
+location:
+
+```
+export CXX=`which c++`
+export CC=`which gcc`
+```
+
+### Questions/problems with the implementation
+
 ##### What is the difference between the top mass parameter and the hadronic/leptonic top mass?
 
 This question refers to `LikelihoodTopLeptonjets`: The top mass parameter is the central value of the top mass Breit-Wigner distribution. The hadronic and leptonic top masses are the invariant masses of the three particles from the hadronic and leptonic top decay, respectively. The hadronic and leptonic top masses are assumed to be Breit-Wigner distributed around a central value, i.e. the top mass parameter, in the definition of the likelihood.
@@ -50,4 +90,4 @@ This answer is specific to `LikelihoodTopLeptonjets`, but it applies to other li
 
 ##### How do I improve speed when using large numbers of jets as input to KLFitter?
 
-Say, you want to use 6 jets in your analysis, but still want to consider more jets within the possible permutations, say up to 8. Then, you can give an additional argument to `KLFitter::SetParticles(KLFitter::Particles * particles, int nPartonsInPermutations = -1)` and set `nPartonsInPermutations` to 6, while you pass up to 8 jets to KLFitter. The calculation of the permutations will not take into account all 8! jet permutations, but efficiently only calculate those needed.
+Say, you want to use 6 jets in your analysis, but still want to consider more jets within the possible permutations, say up to 8. Then, you can give an additional argument to `KLFitter::SetParticles(KLFitter::Particles * particles, int nPartonsInPermutations = -1)` and set `nPartonsInPermutations` to 6, while you pass up to 8 jets to KLFitter. The calculation of the permutations will not take into account all 8! jet permutations, but efficiently only calculate those needed.
