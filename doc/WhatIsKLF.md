@@ -441,11 +441,11 @@ detailed information about the permutation can be retrieved.
 
 ##### Fit convergence status
 
-The fit convergence status can be retrieved and stored in an unsigned integer
+The fit convergence status can be obtained and stored in an unsigned integer
 bit word via:
 
-```
-unsigned int ConvergenceStatusBitWord = fitter.ConvergenceStatus()
+```c++
+unsigned int ConvergenceStatusBitWord = fitter.ConvergenceStatus();
 ```
 
 The bit word contains multiple convergence error bits as defined in
@@ -462,12 +462,49 @@ error bits implemented:
 Each of these error types has a bit mask defined in the `KLFitter::Fitter`
 class, the naming conventions of which are identical to the error bits above,
 with `Mask` appended to it, e.g. `FitAbortedDueToNaNMask`. The status of the
-individual error bits can be saved in a boolean with the bit-wise _or_ operator:
+individual error bits can be extracted from the bit word and stored in a boolean
+with the bit-wise _or_ operator:
 
-```
+```c++
 bool MinuitDidNotConverge = (ConvergenceStatusBitWord & fitter.MinuitDidNotConvergeMask) != 0;
 ```
 
 ##### Retrieving the fit results
 
-To be added ... 
+The instance of the fitter class also allows to retrieve the calculated log
+likelihood value of the fit. This, and the event probability can be extracted
+with
+
+```c++
+double likelihood = fitter.Likelihood()->LogLikelihood(fitter.Likelihood()->GetBestFitParameters());
+double event_probability = std::exp(fitter.Likelihood()->LogEventProbability());
+```
+
+Please note that the latter is _not_ normalized. To obtain the fitted parameters
+of the particles and the permuted particle indices, the following two pointers
+are needed:
+
+```c++
+KLFitter::Particles* modelParticles = fitter.Likelihood()->ParticlesModel();
+KLFitter::Particles** permutedParticles = fitter.Likelihood()->PParticlesPermuted();
+
+```
+
+The fitted kinematic variables of the particles, e.g. of the hadronic b-quark,
+are then accessible via
+
+```c++
+float bhad_pt = modelParticles->Parton(0)->Pt();
+float bhad_eta = modelParticles->Parton(0)->Eta();
+float bhad_phi = modelParticles->Parton(0)->Phi();
+float bhad_e = modelParticles->Parton(0)->E();
+```
+
+assuming that the b-quark was added as the parton with index 0 to the
+`KLFitter::Particles` class. In a similar fashion, the following unsigned
+integer variable contains the index of the jet, that was assigned the b-quark
+jet position in the fitted permutation:
+
+```c++
+unsigned int bhad_index = (*permutedParticles)->JetIndex(0);
+```
