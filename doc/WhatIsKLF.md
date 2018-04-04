@@ -39,9 +39,9 @@ inspire](https://inspirehep.net/search?ln=en&p=refersto%3Arecid%3A1272847).
 
 
 
-### Reconstruction of top-quark events
+## Reconstruction of top-quark events
 
-##### Lepton+jets ttbar events
+### Lepton+jets ttbar events
 
 The following likelihood is implemented in the class `LikelihoodTopLeptonJets`
 for the reconstruction of lepton+jets ttbar events. It uses the four-momenta of
@@ -111,7 +111,7 @@ LikelihoodTopLeptonJetsUDSep::SetDownJetTagWeightHisto(TH1F* hist)
 ```
 
 
-##### Boosted lepton+jets ttbar events
+### Boosted lepton+jets ttbar events
 
 The following likelihood is implemented in the class
 `BoostedLikelihoodTopLeptonJets` for the reconstruction of lepton+jets ttbar
@@ -127,7 +127,7 @@ make use of the mass of the merged jet.
 ![](BoostedLikelihoodTopLeptonJets.png)
 
 
-##### Allhadronic ttbar events
+### Allhadronic ttbar events
 
 The following likelihood is implemented in the class `LikelihoodTopAllHadronic`
 for the reconstruction of allhadronic ttbar events. It consists of Breit-Wigner
@@ -138,7 +138,7 @@ chosen to be fixed or a free parameter in the fit.
 ![](LikelihoodTopAllHadronic.png)
 
 
-##### Dileptonic ttbar events
+### Dileptonic ttbar events
 
 The following likelihood is implemented in the class `LikelihoodTopDilepton` for
 the reconstruction of dileptonic ttbar events. It uses the four-momenta of two
@@ -232,7 +232,7 @@ latter option can be enabled adding the following line in your user's main code:
 `myLikelihood -> SetDoSumLogLik(true)`.
 
 
-##### ttbar+H events
+### ttbar+H events
 
 The following likelihood is implemented in the class `LikelihoodTTHLeptonJets`
 for the reconstruction of lepton+jets ttbar+H events, in which the Higgs boson
@@ -254,7 +254,7 @@ LikelihoodTTHLeptonJets::PhysicsConstants()::SetMassHiggs(double mass)
 ```
 
 
-##### ttbar+Z events
+### ttbar+Z events
 
 The following likelihood is implemented in the class `LikelihoodTTZTrilepton`
 for the reconstruction of lepton+jets ttbar+Z events, in which the Z-boson
@@ -274,7 +274,7 @@ likelihood can be set by the user.
 ![](LikelihoodTTZTrilepton.png)
 
 
-##### Single-top t+W events
+### Single-top t+W events
 
 The following likelihood is implemented in the class `LikelihoodSgTopWtLJ` for
 the reconstruction of the associated production of a single top quark and a W
@@ -338,7 +338,7 @@ require that the b-tagging information for the jets is passed to KLFitter.
 
 
 
-### Transfer functions
+## Transfer functions
 
 The transfer functions W(measured property | true property) are a
 parametrization of the detector response, for example for the measured jet
@@ -352,7 +352,7 @@ for the derivation of double-Gaussian transfer functions,
 
 
 
-### Minimization algorithm
+## Minimization algorithm
 
 During the fit, the negative logarithm of the likelihood is minimized with
 minimization methods that are available from the
@@ -367,7 +367,7 @@ Fitter::SetMinimizationMethod(Fitter::kMarkovChainMC)
 ```
 
 
-### Class structure
+## Class structure
 
 The KLFitter package is build in a modular way so as to allow the implementation
 of different physics processes and parameterizations of the detector response.
@@ -397,9 +397,9 @@ user has to create a class which inherits from `LikelihoodBase`.
 
 
 
-### Using KLFitter
+## Using KLFitter
 
-##### Setting the measured quantities
+### Setting the measured quantities
 
 The measured quantities are the four-vectors of jets and charged leptons, as
 well as the missing transverse momentum components. An object of type
@@ -408,7 +408,7 @@ set by defining `TLorentzVectors` and adding them to Particles object, or by
 using an interface. An example for a ROOT interface exists which reads the data
 from a flat ROOT tree.
 
-##### Combinatorics
+### Combinatorics
 
 The association of jets with partons and of reconstructed and parton-level
 leptons leads to several possible combinations. The class Permutations
@@ -429,7 +429,7 @@ LikelihoodBase::InvariantPartonPermutations(int index1, int index2, int index3 =
 ```
 
 
-##### Output
+### Output
 
 **NEEDS A GENERAL DISCUSSION ABOUT HOW TO RETRIEVE THE OUTPUT FROM THE FIT
 (WITHIN THE USER CODE). IT SHOULD ALSO INCLUDE A BRIEF DESCRIPTION OF THE FIT
