@@ -65,7 +65,7 @@ The mass and width of the W boson are fixed. The top-quark mass can be chosen to
 be fixed or to be a free parameter of the fit. The top-quark mass can also set
 to a desired value. In that case, the top-quark width is recalculated.
 
-```
+```c++
 LikelihoodTopLeptonJets::SetFlagTopMassFixed(bool flag)
 LikelihoodTopLeptonJets::PhysicsConstants()::SetMassTop(double mass)
 ```
@@ -101,7 +101,7 @@ additional information into account in the fit:
   The value of the flavor-tag discriminator needs to be passed to KLFitter for
   each jet. In addition, the probability density functions need to be provided:
 
-```
+```c++
 LikelihoodTopLeptonJetsUDSep::SetBJetPtHisto(TH1F* hist)
 LikelihoodTopLeptonJetsUDSep::SetUpJetPtHisto(TH1F* hist)
 LikelihoodTopLeptonJetsUDSep::SetDownJetPtHisto(TH1F* hist)
@@ -168,7 +168,7 @@ annealing. However, also Markov Chain Monte Carlo (MCMC)can be used. The
 settings of the minimization can be set via (with the values below being the
 default values):
 
-```
+```c++
 LikelihoodTopDilepton::MCMCSetFlagFillHistograms(true);
 LikelihoodTopDilepton::MCMCSetNChains(5);
 LikelihoodTopDilepton::MCMCSetNIterationsRun(20000);
@@ -180,7 +180,7 @@ LikelihoodTopDilepton::MarginalizeAll();
 The user must also set the number of chains (`NChains = 5` above) in the
 `LikelihoodTopDilepton::Initialize()` in `LikelihoodTopDilepton.cxx`:
 
-```
+```c++
 SetInitialParametersNChains( GetInitialParameters(), NChains );
 ```
 
@@ -188,14 +188,14 @@ In order to get the MCMC convergence status after the specified
 `MCMCNIterationsMax`, the following line needs to be included in the user's main
 code:
 
-```
+```c++
 m_convergenceStatusBest = bool((myFitter->Likelihood()->MCMCGetNIterationsConvergenceGlobal() > 0) && myFitter->Likelihood()->MCMCGetFlagRun())
 ```
 
 A marginalized histogram with respect to a certain fit parameter a can be
 obtained in the user's main code by:
 
-```
+```c++
 (TH1D *)myFitter->Likelihood()->GetMarginalized(BCParameter * a)->GetHistogram()
 ```
 
@@ -207,7 +207,7 @@ In case the top mass is fixed, unlike in the Minuit case in
 taken from the LHC top mass combination´s uncertainty, and the allowed parameter
 range is set to 3 times this LHC uncertainty:
 
-```
+```c++
 if (fFlagTopMassFixed)
     SetPriorGauss(0,fPhysicsConstants->MassTop(),fPhysicsConstants->MassTopUnc());
 
@@ -248,7 +248,7 @@ be fixed or a free parameter in the fit. The Higgs-boson mass can also be fixed
 or treated as a free parameter in the fit. It can also be set to a desired
 value. In this case, the Higgs-boson width is recalculated accordingly.
 
-```
+```c++
 LikelihoodTTHLeptonJets::SetFlagHiggsMassFixed(bool flag)
 LikelihoodTTHLeptonJets::PhysicsConstants()::SetMassHiggs(double mass)
 ```
@@ -284,7 +284,7 @@ likelihood are provided: one variant assumes that the top quark decays
 semileptonically, the other variant assumes that it decays full hadronic. The
 user can switch between these two variants by setting:
 
-```
+```c++
 LikelihoodSgTopWtLJ::SetHadronicTop()
 LikelihoodSgTopWtLJ::SetLeptonicTop()
 ```
@@ -360,7 +360,7 @@ minimization methods that are available from the
 minimizaton is Minuit. Alternatively, simulated annealing or Markov Chain Monte
 Carlo can be used:
 
-```
+```c++
 Fitter::SetMinimizationMethod(Fitter::kMinuit)
 Fitter::SetMinimizationMethod(Fitter::kSimulatedAnnealing)
 Fitter::SetMinimizationMethod(Fitter::kMarkovChainMC)
@@ -415,7 +415,7 @@ leptons leads to several possible combinations. The class Permutations
 calculates a table with all possible permutations. A specific combination
 (index) can be set by the user,
 
-```
+```c++
 Permutations::SetPermutation(int index)
 ```
 
@@ -424,7 +424,7 @@ two (several) indices can be defined which are interchangeable (for example for
 the decay products from a hadronically decaying W bosons). The corresponding
 permutations are removed from the table. The indices can be set via
 
-```
+```c++
 LikelihoodBase::InvariantPartonPermutations(int index1, int index2, int index3 = -1)
 ```
 
