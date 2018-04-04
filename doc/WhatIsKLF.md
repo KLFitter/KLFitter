@@ -58,8 +58,8 @@ KLFitter paper, in which a Gaussian was used instead of the second Breit-Wigner
 function.
 
 The mass and width of the W boson are fixed. The top-quark mass can be chosen to
-be fixed or to be a free parameter of the fit. The top-quark mass can also set
-to a desired value. In that case, the top-quark width is recalculated.
+be fixed or to be a free parameter of the fit. The top-quark mass can also be
+set to a desired value. In that case, the top-quark width is recalculated.
 
 ```c++
 LikelihoodTopLeptonJets::SetFlagTopMassFixed(bool flag)
@@ -78,11 +78,11 @@ the logarithm of the likelihood is maximized during the fit, so that the event
 probability is calculated from the exponential of the logarithm of the
 likelihood.
 
-Variants of `LikelihoodTopLeptonJets` have been developed that take take
-additional information into account in the fit:
+Variants of `LikelihoodTopLeptonJets` have been developed that take additional
+information into account in the fit:
 
 - In `LikelihoodTopLeptonJets_JetAngles`, the pseudorapidity and the azimuth
-  angle of the jets are additional parameters during the fit (8 additioal
+  angle of the jets are additional parameters during the fit (8 additional
   parameters). Transfer functions for the jet angles are necessary.
 - In `LikelihoodTopLeptonJets_Angular`, the probability distributions for the
   distribution of cos(theta*) of the leptonically and hadronically decaying W
@@ -112,8 +112,8 @@ LikelihoodTopLeptonJetsUDSep::SetDownJetTagWeightHisto(TH1F* hist)
 The following likelihood is implemented in the class
 `BoostedLikelihoodTopLeptonJets` for the reconstruction of lepton+jets ttbar
 events with a high momentum of the hadronically decaying top quark, in which the
-decay products of from the hadronically decaying W boson are merged to form only
-one jet instead of two. This likelihood has the potential to outperfrom
+decay products of the hadronically decaying W boson are merged to form only one
+jet instead of two. This likelihood has the potential to outperfrom
 `LikelihoodTopLeptonJets` for transverse momenta of the hadronically decaying W
 boson of about 400 GeV. In comparison to `LikelihoodTopLeptonJets`, this
 likelihood only considers three instead of four jets and does not consider any
@@ -160,7 +160,7 @@ charged leptons are paired accordingly.
 ![](LikelihoodTopDilepton.png)
 
 The default minimization method for this likelihood is not Minuit, but simulated
-annealing. However, also Markov Chain Monte Carlo (MCMC)can be used. The
+annealing. However, also Markov Chain Monte Carlo (MCMC) can be used. The
 settings of the minimization can be set via (with the values below being the
 default values):
 
@@ -177,7 +177,7 @@ The user must also set the number of chains (`NChains = 5` above) in the
 `LikelihoodTopDilepton::Initialize()` in `LikelihoodTopDilepton.cxx`:
 
 ```c++
-SetInitialParametersNChains( GetInitialParameters(), NChains );
+SetInitialParametersNChains(GetInitialParameters(), NChains);
 ```
 
 In order to get the MCMC convergence status after the specified
@@ -192,7 +192,7 @@ A marginalized histogram with respect to a certain fit parameter a can be
 obtained in the user's main code by:
 
 ```c++
-(TH1D *)myFitter->Likelihood()->GetMarginalized(BCParameter * a)->GetHistogram()
+(TH1D*)myFitter->Likelihood()->GetMarginalized(BCParameter* a)->GetHistogram()
 ```
 
 where `a = myFitterElEl->Likelihood()->GetParameter(0)`, in case the top mass is
@@ -204,11 +204,13 @@ taken from the LHC top mass combination´s uncertainty, and the allowed paramete
 range is set to 3 times this LHC uncertainty:
 
 ```c++
-if (fFlagTopMassFixed)
-    SetPriorGauss(0,fPhysicsConstants->MassTop(),fPhysicsConstants->MassTopUnc());
+if (fFlagTopMassFixed) {
+  SetPriorGauss(0, fPhysicsConstants->MassTop(), fPhysicsConstants->MassTopUnc());
+}
 
-if (fFlagTopMassFixed)
-    SetParameterRange(parTopM, fPhysicsConstants->MassTop()-3*fPhysicsConstants->MassTopUnc(), fPhysicsConstants->MassTop()+3*fPhysicsConstants->MassTopUnc());
+if (fFlagTopMassFixed) {
+  SetParameterRange(parTopM, fPhysicsConstants->MassTop() - 3 * fPhysicsConstants->MassTopUnc(), fPhysicsConstants->MassTop() + 3 * fPhysicsConstants->MassTopUnc());
+}
 ```
 
 The function `LikelihoodTopDilepton::MCMCIterationInterface()` allows to
@@ -219,10 +221,10 @@ each variable of interest and must be defined in
 `LikelihoodTopDilepton::DefineHistograms()`.
 
 The best permutation option is the one set as default, analogously to
-`LikelihoodTopLeptonJets`: the jet permutation with the highest event
+`LikelihoodTopLeptonJets`, i.e. the jet permutation with the highest event
 probability value is chosen. However another option can be enabled, the
 sum-log-likelihood option, which performs the sum of the two jet permutations
-inside the function `LikelihoodTopDilepton::LogLikelihood(const std::vector &
+inside the function `LikelihoodTopDilepton::LogLikelihood(const std::vector&
 parameters)`, being similar to the original neutrino-weighting method. The
 latter option can be enabled adding the following line in your user's main code:
 `myLikelihood -> SetDoSumLogLik(true)`.
@@ -246,7 +248,7 @@ value. In this case, the Higgs-boson width is recalculated accordingly.
 
 ```c++
 LikelihoodTTHLeptonJets::SetFlagHiggsMassFixed(bool flag)
-LikelihoodTTHLeptonJets::PhysicsConstants()::SetMassHiggs(double mass)
+LikelihoodTTHLeptonJets::PhysicsConstants()->SetMassHiggs(double mass)
 ```
 
 
@@ -258,7 +260,8 @@ decays into two charged leptons with the same flavor as the charged lepton from
 the decay of the top-quark pair. The likelihood is based on
 `LikelihoodTopLeptonJets` (described above) and extends it by two charged
 leptons. The likelihood includes the transfer functions of the additional
-leptons and the sum of two terms that take into account
+leptons as well as a combination of two terms that account for the invariant
+mass of the two leptons:
 
 - the on-shell production of two charged leptons with a Breit-Wigner
   distribution with mass and width of the Z boson, weighted with fraction f, and
@@ -304,7 +307,7 @@ require that the b-tagging information for the jets is passed to KLFitter.
 - Option `LikelihoodBase::kVetoNoFitLight`: Permutations in which a non-b-tagged
   jet is associated with a b-quark from the top-quark decay are removed from the
   fitting procedure.
-- Option `LikelihoodBase::kVetoNoFitBoth`: Permutations in which a either a
+- Option `LikelihoodBase::kVetoNoFitBoth`: Permutations in which either a
   b-tagged jet is associated with a light quark from the top-quark decay or a
   non-b-tagged jet is associated with a b-quark from the top-quark decay are
   removed from the fitting procedure.
@@ -336,7 +339,7 @@ require that the b-tagging information for the jets is passed to KLFitter.
 
 ## Transfer functions
 
-The transfer functions W(measured property | true property) are a
+The transfer functions `W(measured property | true property)` are a
 parametrization of the detector response, for example for the measured jet
 energy given the true energy of a parton. These parametrizations are
 detector-specific and in general need to be derived by the user for their
