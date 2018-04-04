@@ -398,9 +398,10 @@ user has to create a class which inherits from `LikelihoodBase`.
 
 ## Using KLFitter
 
-> We should have an introductory paragraph here that points to the example file
-> currently stored in [KLFitterExtras](KLFitter/KLFitterExtras) and mention,
-> that all the following subsections are implemented in that file.
+An [out-of-the-box example](doc/Example.md), that uses the KLFitter library to
+reconstruct example events and retrieve the fit results, is shipped with the
+library and is extensively documented. The following sections will give a
+general usage overview.
 
 ### Setting the measured quantities
 
@@ -408,8 +409,8 @@ The measured quantities are the four-vectors of jets and charged leptons, as
 well as the missing transverse momentum components. An object of type
 `Particles` is passed to the `Fitter` object. The input quantities can either be
 set by defining `TLorentzVectors` and adding them to Particles object, or by
-using an interface. An example for a ROOT interface exists which reads the data
-from a flat ROOT tree.
+using an interface. Please also refer to the [example](doc/Example.md) for the
+exact implementation.
 
 ### Combinatorics
 
@@ -434,5 +435,39 @@ LikelihoodBase::InvariantPartonPermutations(int index1, int index2, int index3 =
 
 ### Output
 
-> How to retrieve the output from the fit (within the user code), brief
-> description of the fit convergence and other error flags
+For each event and each permutation, after calling the fit method of the
+`KLFitter::Fitter` class, the fit status, the calculated likelihood values, and
+detailed information about the permutation can be retrieved.
+
+##### Fit convergence status
+
+The fit convergence status can be retrieved and stored in an unsigned integer
+bit word via:
+
+```
+unsigned int ConvergenceStatusBitWord = fitter.ConvergenceStatus()
+```
+
+The bit word contains multiple convergence error bits as defined in
+[KLFitter/Fitter.h](include/KLFitter/Fitter.h#L173). There are currently four
+error bits implemented:
+
+1. `MinuitDidNotConverge`: the fit algorithm did not converge,
+2. `FitAbortedDueToNaN`: the fit was aborted due to a NaN,
+3. `AtLeastOneFitParameterAtItsLimit`: at least one of the fit parameters
+   reached its predefined limits,
+4. `InvalidTransferFunctionAtConvergence`: the fit converged, but one of the
+   transfer functions is invalid at the point of convergence.
+
+Each of these error types has a bit mask defined in the `KLFitter::Fitter`
+class, the naming conventions of which are identical to the error bits above,
+with `Mask` appended to it, e.g. `FitAbortedDueToNaNMask`. The status of the
+individual error bits can be saved in a boolean with the bit-wise _or_ operator:
+
+```
+bool MinuitDidNotConverge = (ConvergenceStatusBitWord & fitter.MinuitDidNotConvergeMask) != 0;
+```
+
+##### Retrieving the fit results
+
+To be added ... 
