@@ -4,23 +4,18 @@
 
 KLFitter is a library for kinematic fitting using a likelihood approach. It is
 primarily developed for the case of top quark reconstruction, but it can be
-easily modified to fit other processes. While this page gives a brief overview
-of how the library can be obtained and installed, further information can also
-be found under the following links:
+easily modified to fit other processes. Detailed documentation:
 
 - [List of authors and contributors](doc/Authors.md)
-- [What is KLFitter and how does it work?](doc/WhatIsKLF.md) Among other things,
-  this page introduces the various likelihoods of KLFitter and gives some basic
-  usage instructions.
-- To see KLFitter in action, an [Out-of-the-box example](doc/Example.md) is
-  provided. It includes a very basic interface to retrieve fit information from
-  KLFitter, with detailed documentation of the individual steps.
+- [What is KLFitter and how does it work?](doc/WhatIsKLF.md)
+- [Out-of-the-box example](doc/Example.md)
 - [Frequently Asked Questions](doc/FAQ.md)
-- KLFitter is licensed under the GNU Lesser General Public License v3.0. For
-  more information about the licensing terms and conditions, please refer to
-  [COPYING](COPYING) and [COPYING.lesser](COPYING.LESSER) for the GNU General
-  Public License and the additional terms of the GNU Lesser General Public
-  License, respectively.
+
+KLFitter is licensed under the GNU Lesser General Public License v3.0. For more
+information about the licensing terms and conditions, please refer to
+[COPYING](COPYING) and [COPYING.lesser](COPYING.LESSER) for the GNU General
+Public License and the additional terms of the GNU Lesser General Public
+License, respectively.
 
 
 ### Dependencies
