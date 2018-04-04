@@ -185,14 +185,14 @@ In order to get the MCMC convergence status after the specified
 code:
 
 ```c++
-m_convergenceStatusBest = bool((myFitter->Likelihood()->MCMCGetNIterationsConvergenceGlobal() > 0) && myFitter->Likelihood()->MCMCGetFlagRun())
+m_convergenceStatusBest = static_cast<bool>((myFitter->Likelihood()->MCMCGetNIterationsConvergenceGlobal() > 0) && myFitter->Likelihood()->MCMCGetFlagRun())
 ```
 
 A marginalized histogram with respect to a certain fit parameter a can be
 obtained in the user's main code by:
 
 ```c++
-(TH1D*)myFitter->Likelihood()->GetMarginalized(BCParameter* a)->GetHistogram()
+static_cast<TH1D*>(yFitter->Likelihood()->GetMarginalized(BCParameter* a)->GetHistogram())
 ```
 
 where `a = myFitterElEl->Likelihood()->GetParameter(0)`, in case the top mass is
