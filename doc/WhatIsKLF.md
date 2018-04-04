@@ -224,10 +224,10 @@ The best permutation option is the one set as default, analogously to
 `LikelihoodTopLeptonJets`, i.e. the jet permutation with the highest event
 probability value is chosen. However another option can be enabled, the
 sum-log-likelihood option, which performs the sum of the two jet permutations
-inside the function `LikelihoodTopDilepton::LogLikelihood(const std::vector&
-parameters)`, being similar to the original neutrino-weighting method. The
-latter option can be enabled adding the following line in your user's main code:
-`myLikelihood -> SetDoSumLogLik(true)`.
+inside the function `LikelihoodTopDilepton::LogLikelihood(const
+std::vector<double>& parameters)`, being similar to the original
+neutrino-weighting method. The latter option can be enabled adding the following
+line in your user's main code: `myLikelihood -> SetDoSumLogLik(true)`.
 
 
 ### ttbar+H events
