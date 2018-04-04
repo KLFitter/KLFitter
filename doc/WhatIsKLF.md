@@ -29,7 +29,10 @@ association of objects to decay products within the model.
 
 If you are using KLFitter, please consider citing the KLFitter paper:
 
-J.Erdmann, S.Guindon, K.Kröninger, B.Lemmer, O.Nackenhorst, A.Quadt and P.Stolte, *A likelihood-based reconstruction algorithm for top-quark pairs and the KLFitter framework*, [Nucl. Instrum. Meth. A 748 (2014) 18](https://arxiv.org/ct?url=http%3A%2F%2Fdx.doi.org%2F10%252E1016%2Fj%252Enima%252E2014%252E02%252E029&v=2764f62f).
+> J.Erdmann, S.Guindon, K.Kröninger, B.Lemmer, O.Nackenhorst, A.Quadt and
+> P.Stolte, *A likelihood-based reconstruction algorithm for top-quark pairs and
+> the KLFitter framework*, [Nucl. Instrum. Meth. A 748 (2014)
+> 18](https://arxiv.org/ct?url=http%3A%2F%2Fdx.doi.org%2F10%252E1016%2Fj%252Enima%252E2014%252E02%252E029&v=2764f62f).
 
 A list of works citing the KLFitter paper can be found [on
 inspire](https://inspirehep.net/search?ln=en&p=refersto%3Arecid%3A1272847).
