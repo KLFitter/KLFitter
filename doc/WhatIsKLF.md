@@ -398,6 +398,10 @@ user has to create a class which inherits from `LikelihoodBase`.
 
 ## Using KLFitter
 
+> We should have an introductory paragraph here that points to the example file
+> currently stored in [KLFitterExtras](KLFitter/KLFitterExtras) and mention,
+> that all the following subsections are implemented in that file.
+
 ### Setting the measured quantities
 
 The measured quantities are the four-vectors of jets and charged leptons, as
@@ -430,6 +434,5 @@ LikelihoodBase::InvariantPartonPermutations(int index1, int index2, int index3 =
 
 ### Output
 
-**NEEDS A GENERAL DISCUSSION ABOUT HOW TO RETRIEVE THE OUTPUT FROM THE FIT
-(WITHIN THE USER CODE). IT SHOULD ALSO INCLUDE A BRIEF DESCRIPTION OF THE FIT
-CONVERGENCE AND OTHER ERROR FLAGS.**
+> How to retrieve the output from the fit (within the user code), brief
+> description of the fit convergence and other error flags
