@@ -55,9 +55,7 @@ products of the ttbar pair, and of seven transfer functions W(...) that quantify
 the agreement of the fitted energies and missing-transverse-momentum components
 with their measured values.
 
-
 ![](LikelihoodTopLeptonJets.png)
-
 
 Please note the difference with respect to the likelihood documented in the
 KLFitter paper, in which a Gaussian was used instead of the second Breit-Wigner
@@ -111,6 +109,7 @@ LikelihoodTopLeptonJetsUDSep::SetBJetTagWeightHisto(TH1F* hist)
 LikelihoodTopLeptonJetsUDSep::SetUpJetTagWeightHisto(TH1F* hist)
 LikelihoodTopLeptonJetsUDSep::SetDownJetTagWeightHisto(TH1F* hist)
 ```
+
 
 ##### Boosted lepton+jets ttbar events
 
@@ -170,11 +169,11 @@ settings of the minimization can be set via (with the values below being the
 default values):
 
 ```
-LikelihoodTopDilepton::MCMCSetFlagFillHistograms(true); 
-LikelihoodTopDilepton::MCMCSetNChains(5); 
-LikelihoodTopDilepton::MCMCSetNIterationsRun(20000); 
-LikelihoodTopDilepton::MCMCSetNIterationsMax(1000000); 
-LikelihoodTopDilepton::MCMCSetNIterationsUpdate(100); 
+LikelihoodTopDilepton::MCMCSetFlagFillHistograms(true);
+LikelihoodTopDilepton::MCMCSetNChains(5);
+LikelihoodTopDilepton::MCMCSetNIterationsRun(20000);
+LikelihoodTopDilepton::MCMCSetNIterationsMax(1000000);
+LikelihoodTopDilepton::MCMCSetNIterationsUpdate(100);
 LikelihoodTopDilepton::MarginalizeAll();
 ```
 
@@ -213,7 +212,7 @@ if (fFlagTopMassFixed)
     SetPriorGauss(0,fPhysicsConstants->MassTop(),fPhysicsConstants->MassTopUnc());
 
 if (fFlagTopMassFixed)
-    SetParameterRange(parTopM, fPhysicsConstants->MassTop()-3*fPhysicsConstants->MassTopUnc(), fPhysicsConstants->MassTop()+3*fPhysicsConstants->MassTopUnc()); 
+    SetParameterRange(parTopM, fPhysicsConstants->MassTop()-3*fPhysicsConstants->MassTopUnc(), fPhysicsConstants->MassTop()+3*fPhysicsConstants->MassTopUnc());
 ```
 
 The function `LikelihoodTopDilepton::MCMCIterationInterface()` allows to
@@ -232,6 +231,7 @@ parameters)`, being similar to the original neutrino-weighting method. The
 latter option can be enabled adding the following line in your user's main code:
 `myLikelihood -> SetDoSumLogLik(true)`.
 
+
 ##### ttbar+H events
 
 The following likelihood is implemented in the class `LikelihoodTTHLeptonJets`
@@ -249,8 +249,10 @@ or treated as a free parameter in the fit. It can also be set to a desired
 value. In this case, the Higgs-boson width is recalculated accordingly.
 
 ```
-LikelihoodTTHLeptonJets::SetFlagHiggsMassFixed(bool flag)LikelihoodTTHLeptonJets::PhysicsConstants()::SetMassHiggs(double mass)
+LikelihoodTTHLeptonJets::SetFlagHiggsMassFixed(bool flag)
+LikelihoodTTHLeptonJets::PhysicsConstants()::SetMassHiggs(double mass)
 ```
+
 
 ##### ttbar+Z events
 
@@ -270,6 +272,7 @@ fraction (1-f). The cut-off constant that appears in the off-shell part of the
 likelihood can be set by the user.
 
 ![](LikelihoodTTZTrilepton.png)
+
 
 ##### Single-top t+W events
 
@@ -325,7 +328,7 @@ require that the b-tagging information for the jets is passed to KLFitter.
   - the inverse of the light-quark rejection (one minus the inverse of the
     light-quark rejection) for each b-tagged (non-b-tagged) jet that is in the
     position of a light-quark from the top-quark decay.
-  
+
   The b-tagging efficiency (a number between 0 and 1) and the light-quark
   rejection (a number larger than 1) have to be passed for every jet to
   KLFitter. This allows to take a varying b-tagging efficiency per jet into
@@ -358,7 +361,9 @@ minimizaton is Minuit. Alternatively, simulated annealing or Markov Chain Monte
 Carlo can be used:
 
 ```
-Fitter::SetMinimizationMethod(Fitter::kMinuit)Fitter::SetMinimizationMethod(Fitter::kSimulatedAnnealing)Fitter::SetMinimizationMethod(Fitter::kMarkovChainMC)
+Fitter::SetMinimizationMethod(Fitter::kMinuit)
+Fitter::SetMinimizationMethod(Fitter::kSimulatedAnnealing)
+Fitter::SetMinimizationMethod(Fitter::kMarkovChainMC)
 ```
 
 
