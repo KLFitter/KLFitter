@@ -6,6 +6,7 @@ env:
     - DOCKER_IMAGE="rootproject/root-ubuntu16"
     - DOCKER_CONTAINER="root-docker"
     - DOCKER_CMD="docker exec -i $DOCKER_CONTAINER /bin/bash -c"
+    - KLF_CMAKE_OPTS="-DBUILTIN_BAT=TRUE -DKLFITTER_INSTALL_TESTS=TRUE"
     - KLF_SOURCE_DIR=$TRAVIS_BUILD_DIR
     - KLF_BUILD_DIR=$TRAVIS_BUILD_DIR/build
 
@@ -21,17 +22,18 @@ jobs:
   include:
     - script:
         - mkdir -p $KLF_BUILD_DIR
-        - $DOCKER_CMD "cd $KLF_BUILD_DIR && cmake -DBUILTIN_BAT=TRUE $KLF_SOURCE_DIR"
+        - $DOCKER_CMD "cd $KLF_BUILD_DIR && cmake $KLF_CMAKE_OPTS $KLF_SOURCE_DIR"
         - $DOCKER_CMD "cd $KLF_BUILD_DIR && make -j"
     - env:
         - BATINSTALLDIR=$TRAVIS_BUILD_DIR/external/BAT
+        - KLF_CMAKE_OPTS="-DBUILTIN_BAT=FALSE -DKLFITTER_INSTALL_TESTS=TRUE"
         - KLF_SOURCE_DIR=$KLF_SOURCE_DIR/KLFitter
       script:
         - mkdir -p $KLF_SOURCE_DIR $KLF_BUILD_DIR $BATINSTALLDIR
         - wget https://github.com/bat/bat/releases/download/v0.9.4.1/BAT-0.9.4.1.tar.gz
         - $DOCKER_CMD "$TRAVIS_BUILD_DIR/cmake/CompileBAT.sh $PWD/BAT-0.9.4.1.tar.gz $BATINSTALLDIR"
         - mv CMakeLists.txt cmake include src tests $KLF_SOURCE_DIR
-        - $DOCKER_CMD "export BATINSTALLDIR=$BATINSTALLDIR && cd $KLF_BUILD_DIR && cmake $KLF_SOURCE_DIR"
+        - $DOCKER_CMD "export BATINSTALLDIR=$BATINSTALLDIR && cd $KLF_BUILD_DIR && cmake $KLF_CMAKE_OPTS $KLF_SOURCE_DIR"
         - $DOCKER_CMD "export BATINSTALLDIR=$BATINSTALLDIR && cd $KLF_BUILD_DIR && make -j"
     - env:
         - BATINSTALLDIR=$TRAVIS_BUILD_DIR/external/BAT
@@ -39,5 +41,5 @@ jobs:
         - mkdir -p $KLF_BUILD_DIR $BATINSTALLDIR
         - wget https://github.com/bat/bat/releases/download/v0.9.4.1/BAT-0.9.4.1.tar.gz
         - $DOCKER_CMD "$TRAVIS_BUILD_DIR/cmake/CompileBAT.sh $PWD/BAT-0.9.4.1.tar.gz $BATINSTALLDIR"
-        - $DOCKER_CMD "export BATINSTALLDIR=$BATINSTALLDIR && make -j"
+        - $DOCKER_CMD "export BATINSTALLDIR=$BATINSTALLDIR && make -j && make -j tests"
         - $DOCKER_CMD "export BATINSTALLDIR=$BATINSTALLDIR && make -j install"
