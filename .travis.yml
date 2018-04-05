@@ -24,6 +24,7 @@ jobs:
         - mkdir -p $KLF_BUILD_DIR
         - $DOCKER_CMD "cd $KLF_BUILD_DIR && cmake $KLF_CMAKE_OPTS $KLF_SOURCE_DIR"
         - $DOCKER_CMD "cd $KLF_BUILD_DIR && make -j"
+        - $DOCKER_CMD "cd $KLF_BUILD_DIR && $KLF_BUILD_DIR/test-bin/test-ljets-lh.exe $KLF_SOURCE_DIR"
     - env:
         - BATINSTALLDIR=$TRAVIS_BUILD_DIR/external/BAT
         - KLF_CMAKE_OPTS="-DBUILTIN_BAT=FALSE -DKLFITTER_INSTALL_TESTS=TRUE"
@@ -35,6 +36,7 @@ jobs:
         - mv CMakeLists.txt cmake include src tests $KLF_SOURCE_DIR
         - $DOCKER_CMD "export BATINSTALLDIR=$BATINSTALLDIR && cd $KLF_BUILD_DIR && cmake $KLF_CMAKE_OPTS $KLF_SOURCE_DIR"
         - $DOCKER_CMD "export BATINSTALLDIR=$BATINSTALLDIR && cd $KLF_BUILD_DIR && make -j"
+        - $DOCKER_CMD "export BATINSTALLDIR=$BATINSTALLDIR && export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$BATINSTALLDIR/lib && $KLF_BUILD_DIR/test-bin/test-ljets-lh.exe $KLF_SOURCE_DIR"
     - env:
         - BATINSTALLDIR=$TRAVIS_BUILD_DIR/external/BAT
       script:
@@ -43,3 +45,4 @@ jobs:
         - $DOCKER_CMD "$TRAVIS_BUILD_DIR/cmake/CompileBAT.sh $PWD/BAT-0.9.4.1.tar.gz $BATINSTALLDIR"
         - $DOCKER_CMD "export BATINSTALLDIR=$BATINSTALLDIR && make -j && make -j tests"
         - $DOCKER_CMD "export BATINSTALLDIR=$BATINSTALLDIR && make -j install"
+        - $DOCKER_CMD "export BATINSTALLDIR=$BATINSTALLDIR && export LD_LIBRARY_PATH:$LD_LIBRARY_PATH:$BATINSTALLDIR/lib && $KLF_BUILD_DIR/test-bin/test-ljets-lh.exe $KLF_SOURCE_DIR"
