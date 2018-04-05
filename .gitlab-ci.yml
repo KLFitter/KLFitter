@@ -65,7 +65,8 @@ variables:
   script:
     - sudo apt-get update
     - sudo apt-get install wget
-    - ./cmake/CompileBAT.sh $BATINSTALLDIR
+    - wget https://github.com/bat/bat/releases/download/v0.9.4.1/BAT-0.9.4.1.tar.gz
+    - ./cmake/CompileBAT.sh $PWD/BAT-0.9.4.1.tar.gz $BATINSTALLDIR
 
 # Template for building KLFitter with cmake.
 .cmake_klfitter: &cmake_klfitter
