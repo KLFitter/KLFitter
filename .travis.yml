@@ -27,13 +27,13 @@ jobs:
         - mkdir -p $KLF_BUILD_DIR $BATINSTALLDIR
         - wget https://github.com/bat/bat/releases/download/v0.9.4.1/BAT-0.9.4.1.tar.gz
         - $DOCKER_CMD "$TRAVIS_BUILD_DIR/cmake/CompileBAT.sh $PWD/BAT-0.9.4.1.tar.gz $BATINSTALLDIR"
-        - $DOCKER_CMD "cd $KLF_BUILD_DIR && cmake .."
-        - $DOCKER_CMD "cd $KLF_BUILD_DIR && make -j"
+        - $DOCKER_CMD "export BATINSTALLDIR=$BATINSTALLDIR && cd $KLF_BUILD_DIR && cmake .."
+        - $DOCKER_CMD "export BATINSTALLDIR=$BATINSTALLDIR && cd $KLF_BUILD_DIR && make -j"
     - env:
         - BATINSTALLDIR="$TRAVIS_BUILD_DIR/external/BAT"
       script:
         - mkdir -p $KLF_BUILD_DIR $BATINSTALLDIR
         - wget https://github.com/bat/bat/releases/download/v0.9.4.1/BAT-0.9.4.1.tar.gz
         - $DOCKER_CMD "$TRAVIS_BUILD_DIR/cmake/CompileBAT.sh $PWD/BAT-0.9.4.1.tar.gz $BATINSTALLDIR"
-        - $DOCKER_CMD "make -j"
-        - $DOCKER_CMD "make -j install"
+        - $DOCKER_CMD "export BATINSTALLDIR=$BATINSTALLDIR && make -j"
+        - $DOCKER_CMD "export BATINSTALLDIR=$BATINSTALLDIR && make -j install"
