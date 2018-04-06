@@ -5,10 +5,14 @@ env:
   global:
     - DOCKER_IMAGE="rootproject/root-ubuntu16"
     - DOCKER_CONTAINER="root-docker"
-    - DOCKER_CMD="docker exec -i $DOCKER_CONTAINER /bin/bash -c"
+    - LIBPATH_ORIG='\${LD_LIBRARY_PATH}\${LD_LIBRARY_PATH:+:}'
+    - LIBPATH_ROOT='\`root-config --libdir\`'
+    - LIBPATH_BAT='\${BATINSTALLDIR}\${BATINSTALLDIR:+/lib:}'
     - KLF_CMAKE_OPTS="-DBUILTIN_BAT=TRUE -DKLFITTER_INSTALL_TESTS=TRUE"
     - KLF_SOURCE_DIR=$TRAVIS_BUILD_DIR
     - KLF_BUILD_DIR=$TRAVIS_BUILD_DIR/build
+    - DOCKER_CMD="docker exec -i $DOCKER_CONTAINER /bin/bash -c"
+    - CMD_EXPORT_LIBPATH="export LD_LIBRARY_PATH=${LIBPATH_ORIG}${LIBPATH_ROOT}${LIBPATH_BAT}"
 
 before_install:
   - docker pull $DOCKER_IMAGE
