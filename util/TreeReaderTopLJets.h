@@ -2,7 +2,7 @@
 // This class has been automatically generated on
 // Tue Feb  6 18:16:58 2018 by ROOT version 6.10/08
 // from TTree TreeReaderTopLJets/Example input tree
-// found on file: KLFitter_ljets_example.root
+// found on file: top-ljets-input.root
 //////////////////////////////////////////////////////////
 
 #ifndef TREEREADERTOPLJETS_H_
@@ -68,9 +68,9 @@ TreeReaderTopLJets::TreeReaderTopLJets(TTree *tree) : fChain(0) {
   // if parameter tree is not specified (or zero), connect the file
   // used to generate this class and read the Tree.
   if (tree == 0) {
-    TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("KLFitter_ljets_example.root");
+    TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("top-ljets-input.root");
     if (!f || !f->IsOpen()) {
-      f = new TFile("KLFitter_ljets_example.root");
+      f = new TFile("top-ljets-input.root");
     }
     f->GetObject("Event",tree);
 
