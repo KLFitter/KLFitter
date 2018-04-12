@@ -106,7 +106,8 @@ variables:
     - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$BATINSTALLDIR/lib
     - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`root-config --libdir`
   script:
-    - $BUILD_DIR/test-bin/test-ljets-lh.exe $SOURCE_DIR
+    - $BUILD_DIR/test-bin/test-ljets-lh.exe $SOURCE_DIR 2>&1 |tee output.txt
+    - diff output.txt $SOURCE_DIR/tests/output-ref-ljets-lh.txt
 
 
 # ==========================================================
