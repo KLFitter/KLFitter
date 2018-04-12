@@ -2,6 +2,10 @@
 
 [![pipeline status](https://gitlab.cern.ch/KLFitter/KLFitter/badges/master/pipeline.svg)](https://gitlab.cern.ch/KLFitter/KLFitter/commits/master)
 
+> Please note that, due to currently ongoing works with the transfer functions,
+> the continuous integration tests are _expected_ to fail. This will be fixed
+> a.s.a.p.
+
 KLFitter is a library for kinematic fitting using a likelihood approach. It is
 primarily developed for the case of top quark reconstruction, but it can be
 easily modified to fit other processes. Detailed documentation:
