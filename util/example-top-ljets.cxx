@@ -22,7 +22,7 @@
 
 // c++ includes
 #include <iostream>
-#include <memory>
+#include <vector>
 
 // KLFitter includes
 #include "KLFitter/DetectorAtlas_8TeV.h"
@@ -33,6 +33,7 @@
 
 // ROOT includes
 #include "TFile.h"
+#include "TTree.h"
 
 int main(int argc, char *argv[]) {
   if (argc != 2) {
