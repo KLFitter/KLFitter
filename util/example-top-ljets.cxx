@@ -238,14 +238,17 @@ int main(int argc, char *argv[]) {
     //   convenience)
     KLFitter::Particles particles{};
 
-    // Add leptons.
+    // Add leptons. Depending on the two event variables
+    // "lepton_is_e" and "lepton_is_mu", either an electron or a
+    // lepton is added. Also set the lepton type as a parameter
+    // of the likelihood.
     TLorentzVector lepton;
     lepton.SetPtEtaPhiE(event.lepton_pt, event.lepton_eta, event.lepton_phi, event.lepton_e);
     if (event.lepton_is_e) {
-      likelihood.SetLeptonType(KLFitter::LikelihoodTopLeptonJets::kElectron);  // set lepton type to electron
+      likelihood.SetLeptonType(KLFitter::LikelihoodTopLeptonJets::kElectron);
       particles.AddParticle(&lepton, event.lepton_eta, KLFitter::Particles::kElectron);
     } else if (event.lepton_is_mu) {
-      likelihood.SetLeptonType(KLFitter::LikelihoodTopLeptonJets::kMuon);  // set lepton type to muon
+      likelihood.SetLeptonType(KLFitter::LikelihoodTopLeptonJets::kMuon);
       particles.AddParticle(&lepton, event.lepton_eta, KLFitter::Particles::kMuon);
     } else {
       std::cerr << "WARNING: Event has no electrons or muons. Skipping." << std::endl;
