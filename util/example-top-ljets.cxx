@@ -83,7 +83,8 @@ int main(int argc, char *argv[]) {
 
   // Set the likelihood properties.
   likelihood.PhysicsConstants()->SetMassTop(172.5);  // mass in GeV
-  // Possible options: kNotag, kVeto, kVetoLight, kVetoBoth, kWorkingPoint
+  // Other b-tagging mode options are e.g. 'kNotag' and 'kVeto'.
+  // For all possible options, refer to the documentation.
   likelihood.SetBTagging(KLFitter::LikelihoodBase::BtaggingMethod::kWorkingPoint);
   likelihood.SetFlagTopMassFixed(true);
 
