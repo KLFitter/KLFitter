@@ -32,7 +32,8 @@ set -e
 
 if [ $# -eq 2 ]
 then
-    echo "Installing BAT into $1."
+    echo "Extracting BAT from ${1} ..."
+    echo " ... and installing it into ${2}."
 else
     echo "Usage: $0 /path/to/BAT/tar/archive /path/to/install/BAT"
     exit 1
