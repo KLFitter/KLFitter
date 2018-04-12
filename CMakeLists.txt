@@ -201,7 +201,12 @@ macro( KLFitter_add_test name )
       WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/test-bin )
 endmacro( KLFitter_add_test )
 
-# Helper macro for building the projects' executables.
+# Set up the test(s) of the project.
+if( KLFITTER_INSTALL_TESTS )
+  KLFitter_add_test( test-ljets-lh.exe tests/test-ljets-lh.cxx )
+endif()
+
+# Helper macro for building the project's executables.
 macro( KLFitter_add_executable name )
   add_executable( ${name} util/${name}.cxx )
   target_link_libraries( ${name} KLFitter ${KLFITTER_STAT_LIBRARY} )
@@ -211,11 +216,6 @@ macro( KLFitter_add_executable name )
 endmacro( KLFitter_add_executable )
 
 KLFitter_add_executable( example-top-ljets )
-
-# Set up the test(s) of the project.
-if( KLFITTER_INSTALL_TESTS )
-  KLFitter_add_test( test-ljets-lh.exe tests/test-ljets-lh.cxx )
-endif()
 
 # Install the CMake description of the project.
 install( EXPORT KLFitterTargets
