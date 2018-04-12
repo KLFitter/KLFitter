@@ -208,14 +208,14 @@ endif()
 
 # Helper macro for building the project's executables.
 macro( KLFitter_add_executable name )
-  add_executable( ${name} util/${name}.cxx )
-  target_link_libraries( ${name} KLFitter ${KLFITTER_STAT_LIBRARY} )
+  add_executable( ${name} ${ARGN} )
+  target_link_libraries( ${name} KLFitter-stat )
   install( TARGETS ${name}
     EXPORT KLFitterTargets
     RUNTIME DESTINATION bin )
 endmacro( KLFitter_add_executable )
 
-KLFitter_add_executable( example-top-ljets )
+KLFitter_add_executable( example-top-ljets.exe util/example-top-ljets.cxx )
 
 # Install the CMake description of the project.
 install( EXPORT KLFitterTargets
