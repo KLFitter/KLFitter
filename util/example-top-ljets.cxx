@@ -85,7 +85,6 @@ int main(int argc, char *argv[]) {
   // Possible options: kNotag, kVeto, kVetoLight, kVetoBoth, kWorkingPoint
   likelihood.SetBTagging(KLFitter::LikelihoodBase::BtaggingMethod::kWorkingPoint);
   likelihood.SetFlagTopMassFixed(true);
-  likelihood.SetLeptonType(KLFitter::LikelihoodTopLeptonJets::LeptonType::kMuon);
 
   // Set the likelihood in the fitter instance.
   if (!fitter.SetLikelihood(&likelihood)) {
