@@ -20,6 +20,10 @@
 // Include the interface for ROOT file reading
 #include "TreeReaderTopLJets.h"
 
+// c++ includes
+#include <iostream>
+#include <memory>
+
 // KLFitter includes
 #include "KLFitter/DetectorAtlas_8TeV.h"
 #include "KLFitter/Fitter.h"
@@ -29,10 +33,6 @@
 
 // ROOT includes
 #include "TFile.h"
-
-// c++ includes
-#include <iostream>
-#include <memory>
 
 int main(int argc, char *argv[]) {
   if (argc != 2) {
