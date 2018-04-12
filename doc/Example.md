@@ -51,17 +51,19 @@ detailed comments about every command and substep to use KLFitter.
 ## Input file
 
 The input file for the provided example (data/examples/top-ljets-input.root) is
-a _HepSim sample_ taken [from the
+a _HepSim_ sample taken [from the
 homepage](http://atlaswww.hep.anl.gov/hepsim/info.php?item=142) of the HepSim
 project [1]. The sample simulates ttbar+jet processes in proton-proton
 collisions at a centre-of-mass energy of 13 TeV. The processes are generated
 using the Madgraph matrix element generator interfaced with Herwig6. The
-simulated detector corresponds to the [Snowmass
-detector](https://arxiv.org/abs/1309.1057) which reflects the best performance
-from future ATLAS and CMS detectors.
+simulated detector corresponds to the _Snowmass_ detector [2] which reflects the
+best performance from future ATLAS and CMS detectors.
 
 > [1] S.V.Chekanov. "HepSim: a repository with predictions for high-energy
 > physics experiments", [arXiv:1403.1886](https://arxiv.org/abs/1403.1886)
+> 
+> [2] J.Anderson et. al., "Snowmass Energy Frontier Simulations",
+> [arXiv:1309.1057](https://arxiv.org/abs/1309.1057)
 
 The original Delphes format of the input ROOT files is transformed into a
 standard ROOT tree, the events are skimmed and only variables relevant for the
