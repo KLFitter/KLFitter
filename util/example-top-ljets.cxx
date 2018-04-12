@@ -242,10 +242,10 @@ int main(int argc, char *argv[]) {
     TLorentzVector lepton;
     lepton.SetPtEtaPhiE(event.lepton_pt, event.lepton_eta, event.lepton_phi, event.lepton_e);
     if (event.lepton_is_e) {
-        likelihood.SetLeptonType(1);  // set lepton type to electron
+      likelihood.SetLeptonType(KLFitter::LikelihoodTopLeptonJets::kElectron);  // set lepton type to electron
       particles.AddParticle(&lepton, event.lepton_eta, KLFitter::Particles::kElectron);
     } else if (event.lepton_is_mu) {
-        likelihood.SetLeptonType(2);  // set lepton type to muon
+      likelihood.SetLeptonType(KLFitter::LikelihoodTopLeptonJets::kMuon);  // set lepton type to muon
       particles.AddParticle(&lepton, event.lepton_eta, KLFitter::Particles::kMuon);
     } else {
       std::cerr << "WARNING: Event has no electrons or muons. Skipping." << std::endl;
