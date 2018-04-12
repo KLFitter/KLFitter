@@ -229,8 +229,8 @@ The output variables are also stored in form of a ROOT file,
 ## How to identify permutations with the highest event probability
 
 If you want to use values corresponding to permutations with, for example, the
-highest __event probability_, check the `klf_event_probability` vector and find
+highest _event probability_, check the `klf_event_probability` vector and find
 the position of the element with the highest value. Store the index of this
 permutation in the vector. Then take the values from all variable vectors at
 exactly the same position. These values correspond to the permutation with the
-highest __event probability_.
+highest _event probability_.
