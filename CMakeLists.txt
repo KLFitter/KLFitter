@@ -202,7 +202,7 @@ macro( KLFitter_add_test name )
 endmacro( KLFitter_add_test )
 
 # Set up the test(s) of the project.
-if( KLFITTER_INSTALL_TESTS )
+if( INSTALL_TESTS )
   KLFitter_add_test( test-ljets-lh.exe tests/test-ljets-lh.cxx )
 endif()
 

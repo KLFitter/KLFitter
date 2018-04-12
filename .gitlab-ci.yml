@@ -26,7 +26,7 @@ variables:
   SOURCE_DIR: '$CI_PROJECT_DIR'
   BUILD_DIR: '$CI_PROJECT_DIR/build'
   BATINSTALLDIR: '$CI_PROJECT_DIR/external/BAT'
-  CMAKE_OPTION: '-DBUILTIN_BAT=TRUE -DKLFITTER_INSTALL_TESTS=TRUE'
+  CMAKE_OPTION: '-DBUILTIN_BAT=TRUE -DINSTALL_TESTS=TRUE'
 
 
 # ==========================================================
@@ -82,7 +82,7 @@ variables:
   <<: *cmake_klfitter
   artifacts: *build_artifacts_prebuilt_bat
   variables:
-    CMAKE_OPTION: '-DBUILTIN_BAT=FALSE -DKLFITTER_INSTALL_TESTS=TRUE'
+    CMAKE_OPTION: '-DBUILTIN_BAT=FALSE -DINSTALL_TESTS=TRUE'
     SOURCE_DIR: '$CI_PROJECT_DIR/KLFitter'
   before_script:
     - mkdir -p $SOURCE_DIR
