@@ -95,7 +95,7 @@ int main(int argc, char *argv[]) {
   bool isFirst(true);
 
   // Open the output ROOT file.
-  auto f_output = TFile::Open("top-ljets-output.root","RECREATE");
+  auto f_output = TFile::Open("top-ljets-output.root", "RECREATE");
   TTree *out_tree = new TTree("KLFitter_output", "Example tree with KLFitter output");
 
   // Declare variables to store event information.
@@ -135,40 +135,40 @@ int main(int argc, char *argv[]) {
   std::vector<char> klf_fit_invalid_transfer_function;
 
   // Prepare the output variables as branches of the tree.
-  out_tree->Branch("klf_bhad_pt",&klf_bhad_pt);
-  out_tree->Branch("klf_bhad_eta",&klf_bhad_eta);
-  out_tree->Branch("klf_bhad_phi",&klf_bhad_phi);
-  out_tree->Branch("klf_bhad_e",&klf_bhad_e);
-  out_tree->Branch("klf_bhad_jet_index",&klf_bhad_jet_index);
-  out_tree->Branch("klf_blep_pt",&klf_blep_pt);
-  out_tree->Branch("klf_blep_eta",&klf_blep_eta);
-  out_tree->Branch("klf_blep_phi",&klf_blep_phi);
-  out_tree->Branch("klf_blep_e",&klf_blep_e);
-  out_tree->Branch("klf_blep_jet_index",&klf_blep_jet_index);
-  out_tree->Branch("klf_lquark1_pt",&klf_lquark1_pt);
-  out_tree->Branch("klf_lquark1_eta",&klf_lquark1_eta);
-  out_tree->Branch("klf_lquark1_phi",&klf_lquark1_phi);
-  out_tree->Branch("klf_lquark1_e",&klf_lquark1_e);
-  out_tree->Branch("klf_lquark1_jet_index",&klf_lquark1_jet_index);
-  out_tree->Branch("klf_lquark2_pt",&klf_lquark2_pt);
-  out_tree->Branch("klf_lquark2_eta",&klf_lquark2_eta);
-  out_tree->Branch("klf_lquark2_phi",&klf_lquark2_phi);
-  out_tree->Branch("klf_lquark2_e",&klf_lquark2_e);
-  out_tree->Branch("klf_lquark2_jet_index",&klf_lquark2_jet_index);
-  out_tree->Branch("klf_lepton_pt",&klf_lepton_pt);
-  out_tree->Branch("klf_lepton_eta",&klf_lepton_eta);
-  out_tree->Branch("klf_lepton_phi",&klf_lepton_phi);
-  out_tree->Branch("klf_lepton_e",&klf_lepton_e);
-  out_tree->Branch("klf_neutrino_pt",&klf_neutrino_pt);
-  out_tree->Branch("klf_neutrino_eta",&klf_neutrino_eta);
-  out_tree->Branch("klf_neutrino_phi",&klf_neutrino_phi);
-  out_tree->Branch("klf_neutrino_e",&klf_neutrino_e);
-  out_tree->Branch("klf_loglikelihood",&klf_loglikelihood);
-  out_tree->Branch("klf_event_probability",&klf_event_probability);
-  out_tree->Branch("klf_fit_minuit_did_not_converge",&klf_fit_minuit_did_not_converge);
-  out_tree->Branch("klf_fit_aborted_to_nan",&klf_fit_aborted_to_nan);
-  out_tree->Branch("klf_fit_parameter_at_limit",&klf_fit_parameter_at_limit);
-  out_tree->Branch("klf_fit_invalid_transfer_function",&klf_fit_invalid_transfer_function);
+  out_tree->Branch("klf_bhad_pt", &klf_bhad_pt);
+  out_tree->Branch("klf_bhad_eta", &klf_bhad_eta);
+  out_tree->Branch("klf_bhad_phi", &klf_bhad_phi);
+  out_tree->Branch("klf_bhad_e", &klf_bhad_e);
+  out_tree->Branch("klf_bhad_jet_index", &klf_bhad_jet_index);
+  out_tree->Branch("klf_blep_pt", &klf_blep_pt);
+  out_tree->Branch("klf_blep_eta", &klf_blep_eta);
+  out_tree->Branch("klf_blep_phi", &klf_blep_phi);
+  out_tree->Branch("klf_blep_e", &klf_blep_e);
+  out_tree->Branch("klf_blep_jet_index", &klf_blep_jet_index);
+  out_tree->Branch("klf_lquark1_pt", &klf_lquark1_pt);
+  out_tree->Branch("klf_lquark1_eta", &klf_lquark1_eta);
+  out_tree->Branch("klf_lquark1_phi", &klf_lquark1_phi);
+  out_tree->Branch("klf_lquark1_e", &klf_lquark1_e);
+  out_tree->Branch("klf_lquark1_jet_index", &klf_lquark1_jet_index);
+  out_tree->Branch("klf_lquark2_pt", &klf_lquark2_pt);
+  out_tree->Branch("klf_lquark2_eta", &klf_lquark2_eta);
+  out_tree->Branch("klf_lquark2_phi", &klf_lquark2_phi);
+  out_tree->Branch("klf_lquark2_e", &klf_lquark2_e);
+  out_tree->Branch("klf_lquark2_jet_index", &klf_lquark2_jet_index);
+  out_tree->Branch("klf_lepton_pt", &klf_lepton_pt);
+  out_tree->Branch("klf_lepton_eta", &klf_lepton_eta);
+  out_tree->Branch("klf_lepton_phi", &klf_lepton_phi);
+  out_tree->Branch("klf_lepton_e", &klf_lepton_e);
+  out_tree->Branch("klf_neutrino_pt", &klf_neutrino_pt);
+  out_tree->Branch("klf_neutrino_eta", &klf_neutrino_eta);
+  out_tree->Branch("klf_neutrino_phi", &klf_neutrino_phi);
+  out_tree->Branch("klf_neutrino_e", &klf_neutrino_e);
+  out_tree->Branch("klf_loglikelihood", &klf_loglikelihood);
+  out_tree->Branch("klf_event_probability", &klf_event_probability);
+  out_tree->Branch("klf_fit_minuit_did_not_converge", &klf_fit_minuit_did_not_converge);
+  out_tree->Branch("klf_fit_aborted_to_nan", &klf_fit_aborted_to_nan);
+  out_tree->Branch("klf_fit_parameter_at_limit", &klf_fit_parameter_at_limit);
+  out_tree->Branch("klf_fit_invalid_transfer_function", &klf_fit_invalid_transfer_function);
 
   // Loop over all events in the input tree.
   std::cout << "Started looping over " << nEntries << " entries" << std::endl;
@@ -177,7 +177,7 @@ int main(int argc, char *argv[]) {
       std::cout << "Processing event: " << ievent << " out of " << nEntries << " events" << std::endl;
     }
 
-    //Read the information from the input ROOT file.
+    // Read the information from the input ROOT file.
     event.GetEntry(ievent);
 
     // Clear all vectors for of the variables.
@@ -402,19 +402,19 @@ int main(int argc, char *argv[]) {
       // Print some values for the first event.
       if (isFirst) {
         printf("----------------------------------------------------------------------------------------------\n");
-        printf("----------------------------------------Permutation %2i----------------------------------------\n",iperm);
+        printf("----------------------------------------Permutation %2i----------------------------------------\n", iperm);
         printf("----------------------------------------------------------------------------------------------\n");
         printf("                  | hadronic b quark | leptonic b quark  |  light quark 1   |  light quark 2  |\n");
         printf("Jet index         | %16i | %17i | %16i | %15i |\n",
-        bhad_index, blep_index, lquark1_index, lquark2_index );
+        bhad_index, blep_index, lquark1_index, lquark2_index);
         printf("----------------------------------------------------------------------------------------------\n");
         printf("                  | hadronic b quark | leptonic b quark  |  light quark 1   |  light quark 2  |\n");
         printf("Output Energies   | %16.2f | %17.2f | %16.2f | %15.2f |\n",
-        bhad_e, blep_e, lquark1_e, lquark2_e );
+        bhad_e, blep_e, lquark1_e, lquark2_e);
         printf("----------------------------------------------------------------------------------------------\n");
         printf("                  | lepton energy    | neutrino pz       | loglikelihood    |  probability    |\n");
         printf("Other values      | %16.2f | %17.2f | %16.2f | %15.2e |\n",
-        lepton_e, neutrino_pt, likelihood, event_probability );
+        lepton_e, neutrino_pt, likelihood, event_probability);
         printf("----------------------------------------------------------------------------------------------\n");
         printf("                  | Minuit Not Conv. | Fit Aborted: NaN  | >=1 Par at Limit | Invalid TF@Conv.|\n");
         printf("Status Code       | %16i | %17i | %16i | %15i |\n",
