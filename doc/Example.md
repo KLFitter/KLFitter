@@ -23,7 +23,9 @@ additional argument. For example, if you followed the build instructions of the
 README, the cmake command will store the executable in the `bin` subdirectory.
 Then call
 
-`$ ./bin/example-top-ljets.exe ../`
+```
+$ ./bin/example-top-ljets.exe ../
+```
 
 The location of the KLFitter source directory is needed to locate the input file
 for the example, stored under [data/examples](data/examples), and the transfer
