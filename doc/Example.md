@@ -46,7 +46,7 @@ minimalistic implementation of KLFitter in a toy-analysis. The file contains
 detailed comments about every command and substep to use KLFitter.
 
 
-### Input file
+## Input file
 
 The input file for the provided example (data/examples/top-ljets-input.root) is
 a [HepSim sample](http://atlaswww.hep.anl.gov/hepsim/info.php?item=142). The
@@ -66,7 +66,7 @@ requirements for events to be kept:
   of at least 25 GeV and |eta| < 2.5.
 
 
-#### Input file variables
+### Input file variables
 
 The input ROOT file contains only one ROOT tree, `nominal`. The branches in this
 tree are described below:
@@ -104,7 +104,7 @@ tree are described below:
   corresponding reconstructed jet is b-tagged or not.
 
 
-### Output of the example
+## Output of the example
 
 The example code prints some important variables for the first processed event.
 The output variables are also stored in form of a ROOT file,
@@ -219,7 +219,7 @@ The output variables are also stored in form of a ROOT file,
   valid.
 
 
-### How to identify permutations with the highest event probability
+## How to identify permutations with the highest event probability
 
 If you want to use values corresponding to permutations with, for example, the
 highest __event probability_, check the `klf_event_probability` vector and find
