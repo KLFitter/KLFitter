@@ -49,6 +49,11 @@ mkdir -p $build_dir $target_dir
 # This function verifies the SHA256 ID of a given file.
 # Call with: verify_file_hash [file name] [valid hash]
 verify_file_hash() {
+    # Don't do anything if the executable is not found.
+    if ! `which sha256sum 2>&1 > /dev/null`; then
+        echo "Could not verify SHA256 hash of $1, executable \"sha256sum\" not found. Aborting"
+        return 1
+    fi
     # Extract the SHA256 hash from the file.
     file_hash=`sha256sum "$1"`
     file_hash=${file_hash%$1}
