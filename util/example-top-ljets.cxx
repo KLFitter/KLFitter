@@ -54,7 +54,7 @@ int main(int argc, char *argv[]) {
   // Create and connect the instance of TTree for reading. Name
   // of the input tree is "nominal". Check afterwards if
   // everything went fine.
-  TTree *t = (TTree*)f_input->Get("nominal");
+  auto t = static_cast<TTree*>(f_input->Get("nominal"));
   if (t == nullptr) {
     std::cerr << "ERROR: Cannot read 'nominal' tree from the input file. Aborting" << std::endl;
     return 1;
@@ -273,8 +273,9 @@ int main(int argc, char *argv[]) {
       //  8) 1./tagging inefficiency required for kWorkingPoint
       //  9) true flavour type
       //  10) btag weight
-      particles.AddParticle(&jet, event.jet_eta->at(ijet), KLFitter::Particles::kParton, "", ijet,
-          (int)event.jet_has_btag->at(ijet), 0.6, 145., KLFitter::Particles::kNone, event.jet_btag_weight->at(ijet));
+      particles.AddParticle(&jet, event.jet_eta->at(ijet), KLFitter::Particles::kParton,
+          "", ijet, static_cast<int>(event.jet_has_btag->at(ijet)), 0.6, 145.,
+          KLFitter::Particles::kNone, event.jet_btag_weight->at(ijet));
     }
 
     // Add particles to the likelihood.
