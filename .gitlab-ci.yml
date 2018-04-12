@@ -86,7 +86,7 @@ variables:
     SOURCE_DIR: '$CI_PROJECT_DIR/KLFitter'
   before_script:
     - mkdir -p $SOURCE_DIR
-    - mv CMakeLists.txt cmake include src tests $SOURCE_DIR
+    - mv CMakeLists.txt cmake include src tests util $SOURCE_DIR
   after_script:
     - mv $SOURCE_DIR/* ./
     - rm -rf $SOURCE_DIR
