@@ -51,12 +51,17 @@ detailed comments about every command and substep to use KLFitter.
 ## Input file
 
 The input file for the provided example (data/examples/top-ljets-input.root) is
-a [HepSim sample](http://atlaswww.hep.anl.gov/hepsim/info.php?item=142). The
-samples simulates ttbar+jet processes in proton-proton collisions at a
-centre-of-mass energy of 13 TeV. The processes are generated using the Madgraph
-matrix element generator interfaced with Herwig6. The simulated detector
-corresponds to the [Snowmass detector](https://arxiv.org/abs/1309.1057) which
-reflects the best performance from future ATLAS and CMS detectors.
+a _HepSim sample_ taken [from the
+homepage](http://atlaswww.hep.anl.gov/hepsim/info.php?item=142) of the HepSim
+project [1]. The sample simulates ttbar+jet processes in proton-proton
+collisions at a centre-of-mass energy of 13 TeV. The processes are generated
+using the Madgraph matrix element generator interfaced with Herwig6. The
+simulated detector corresponds to the [Snowmass
+detector](https://arxiv.org/abs/1309.1057) which reflects the best performance
+from future ATLAS and CMS detectors.
+
+> [1] S.V.Chekanov. "HepSim: a repository with predictions for high-energy
+> physics experiments", [arXiv:1403.1886](https://arxiv.org/abs/1403.1886)
 
 The original Delphes format of the input ROOT files is transformed into a
 standard ROOT tree, the events are skimmed and only variables relevant for the
@@ -224,8 +229,8 @@ The output variables are also stored in form of a ROOT file,
 ## How to identify permutations with the highest event probability
 
 If you want to use values corresponding to permutations with, for example, the
-highest __event probability_, check the `klf_event_probability` vector and find
+highest _event probability_, check the `klf_event_probability` vector and find
 the position of the element with the highest value. Store the index of this
 permutation in the vector. Then take the values from all variable vectors at
 exactly the same position. These values correspond to the permutation with the
-highest __event probability_.
+highest _event probability_.
