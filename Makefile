@@ -38,7 +38,6 @@ BATLIBS   = -L$(BATINSTALLDIR)/lib -lBAT
 
 SRC = $(wildcard $(SRCDIR)/*.cxx)
 OBJ = $(SRC:$(SRCDIR)/%.cxx=$(OBJDIR)/%.o)
-MAIN = $(wildcard *.c)
 LIBSO = $(LIBDIR)/libKLFitter.so
 LIBA = $(LIBDIR)/libKLFitter.a
 
