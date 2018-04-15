@@ -1,0 +1,8 @@
+0.08
+1.97
+0.00
+#  # set ResolutionFormula {resolution formula as a function of eta and energy}
+#  set ResolutionFormula { (abs(eta) <= 2.5) * (energy > 0.1   && energy <= 2.5e1) * 
+#                          (abs(eta) <= 2.5) * (energy > 2.5e1)                    * sqrt(energy^2*0.005^2 + energy*0.027^2 + 0.15^2) + \
+#                          (abs(eta) > 2.5 && abs(eta) <= 3.0)                     * sqrt(energy^2*0.005^2 + energy*0.027^2 + 0.15^2) + \
+#                          (abs(eta) > 3.0 && abs(eta) <= 5.0)                     * sqrt(energy^2*0.08^2 + energy*1.97^2)}

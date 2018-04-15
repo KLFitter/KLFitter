@@ -25,7 +25,7 @@
 #include <vector>
 
 // KLFitter includes
-#include "KLFitter/DetectorAtlas_8TeV.h"
+#include "KLFitter/DetectorSnowmass.h"
 #include "KLFitter/Fitter.h"
 #include "KLFitter/LikelihoodTopLeptonJets.h"
 #include "KLFitter/Permutations.h"
@@ -72,7 +72,7 @@ int main(int argc, char *argv[]) {
 
   // Create a detector - this is needed for the transfer
   // functions. If setting the detector fails, abort.
-  KLFitter::DetectorAtlas_8TeV detector{(base_dir + "/data/transferfunctions/8TeV/ttbar/mc12_LCJets_v1").c_str()};
+  KLFitter::DetectorSnowmass detector{(base_dir + "/data/examples/transferfunctions/snowmass").c_str()};
   if (!fitter.SetDetector(&detector)) {
     std::cerr << "ERROR: Failed to set detector! Aborting" << std::endl;
     return 1;
@@ -433,7 +433,7 @@ int main(int argc, char *argv[]) {
 
   // Go to the output file and write it.
   f_output->cd();
-  std::cout << std::endl << "Writing into output root file: " << "ljets_output.root" << std::endl << std::endl;
+  std::cout << std::endl << "Writing into output root file: " << "top-ljets-output.root" << std::endl << std::endl;
   out_tree.Write();
 
   // Close both input and output ROOT files.
