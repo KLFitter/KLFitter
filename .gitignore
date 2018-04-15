@@ -31,5 +31,8 @@
 *.out
 *.app
 
-# Build folder
+# Build folder
 build
+
+# ROOT files (unless added deliberately)
+*.root
