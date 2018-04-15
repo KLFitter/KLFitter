@@ -72,7 +72,7 @@ int main(int argc, char *argv[]) {
 
   // Create a detector - this is needed for the transfer
   // functions. If setting the detector fails, abort.
-  KLFitter::DetectorSnowmass detector{(base_dir + "/data/examples/transferfunctions/snowmass").c_str()};
+  KLFitter::DetectorSnowmass detector{(base_dir + "/data/transferfunctions/snowmass").c_str()};
   if (!fitter.SetDetector(&detector)) {
     std::cerr << "ERROR: Failed to set detector! Aborting" << std::endl;
     return 1;
