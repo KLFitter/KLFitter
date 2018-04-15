@@ -22,7 +22,7 @@
 #include <memory>
 #include <vector>
 
-#include "KLFitter/DetectorAtlas_8TeV.h"
+#include "KLFitter/DetectorSnowmass.h"
 #include "KLFitter/Fitter.h"
 #include "KLFitter/LikelihoodTopLeptonJets.h"
 #include "KLFitter/Permutations.h"
@@ -111,7 +111,7 @@ int main(int argc, char* argv[]) {
   lh.SetBTagging(KLFitter::LikelihoodBase::BtaggingMethod::kWorkingPoint);
   fitter.SetLikelihood(&lh);
 
-  KLFitter::DetectorAtlas_8TeV detector{base_dir + "/data/transferfunctions/8TeV/ttbar/mc12_LCJets_v1"};
+  KLFitter::DetectorSnowmass detector{base_dir + "/data/transferfunctions/snowmass"};
   if (!fitter.SetDetector(&detector)) {
     std::cerr << "Setting up the detector failed" << std::endl;
     return -1;
