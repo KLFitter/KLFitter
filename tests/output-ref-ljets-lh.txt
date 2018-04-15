@@ -1,13 +1,13 @@
-Using TF from MC12 ...
-Permutation: 1  	LogLikelihood: -55.55  	EvtProbability: 0.0000000813
-Permutation: 2  	LogLikelihood: -50.71  	EvtProbability: 0.0029781358
-Permutation: 3  	LogLikelihood: -55.97  	EvtProbability: 0.0000000534
-Permutation: 4  	LogLikelihood: -50.65  	EvtProbability: 0.0000108861
-Permutation: 5  	LogLikelihood: -53.49  	EvtProbability: 0.0001841927
-Permutation: 6  	LogLikelihood: -66.91  	EvtProbability: 0.0000000000
-Permutation: 7  	LogLikelihood: -44.90  	EvtProbability: 0.9872095585
-Permutation: 8  	LogLikelihood: -62.71  	EvtProbability: 0.0000000183
-Permutation: 9  	LogLikelihood: -66.62  	EvtProbability: 0.0000000004
-Permutation: 10  	LogLikelihood: -43.87  	EvtProbability: 0.0095984321
-Permutation: 11  	LogLikelihood: -65.31  	EvtProbability: 0.0000000000
-Permutation: 12  	LogLikelihood: -55.78  	EvtProbability: 0.0000186651
+Using TFs from SnowMass ...
+Permutation: 1  	LogLikelihood: -74.28  	EvtProbability: 0.00000
+Permutation: 2  	LogLikelihood: -68.54  	EvtProbability: 0.01720
+Permutation: 3  	LogLikelihood: -73.69  	EvtProbability: 0.00000
+Permutation: 4  	LogLikelihood: -67.64  	EvtProbability: 0.00015
+Permutation: 5  	LogLikelihood: -71.24  	EvtProbability: 0.00116
+Permutation: 6  	LogLikelihood: -84.55  	EvtProbability: 0.00000
+Permutation: 7  	LogLikelihood: -64.58  	EvtProbability: 0.90221
+Permutation: 8  	LogLikelihood: -80.32  	EvtProbability: 0.00000
+Permutation: 9  	LogLikelihood: -84.29  	EvtProbability: 0.00000
+Permutation: 10  	LogLikelihood: -61.35  	EvtProbability: 0.07917
+Permutation: 11  	LogLikelihood: -82.97  	EvtProbability: 0.00000
+Permutation: 12  	LogLikelihood: -73.64  	EvtProbability: 0.00010

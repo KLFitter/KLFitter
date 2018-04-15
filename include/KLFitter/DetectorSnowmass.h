@@ -64,7 +64,7 @@ class DetectorSnowmass : public DetectorBase {
     * @return A pointer to the energy resolution object.
     */
   KLFitter::ResolutionBase * ResEnergyLightJet(double eta = 0.);
-  
+
   /**
     * Return the energy resolution of b-jets.
     * @param eta The eta of the particle.
@@ -85,7 +85,7 @@ class DetectorSnowmass : public DetectorBase {
     * @return A pointer to the momentum resolution object.
     */
   KLFitter::ResolutionBase * ResEnergyMuon(double eta = 0.);
-  
+
   /**
     * Return the missing ET resolution.
     * @return A pointer to the missing ET resolution.

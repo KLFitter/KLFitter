@@ -36,7 +36,7 @@ namespace KLFitter {
   * \author Olaf Nackenhorst
   *
   * This class offers a simple parameterization of a resolution. The
-  * parameterization is a Gaussian with a width parametrized 
+  * parameterization is a Gaussian with a width parametrized
   * as a function of the true parameter.
   */
 class ResGaussE : public ResolutionBase {
@@ -54,7 +54,7 @@ class ResGaussE : public ResolutionBase {
     * @param sigma The width of the Gaussian.
     */
   explicit ResGaussE(double sigma);
-  
+
   /**
     * A constructor.
     * @param sigma The width of the Gaussian.

@@ -93,7 +93,7 @@ tests: $(TESTEXE)
 
 clean:
 	$(RM) $(OBJ) $(LIBSO) $(LIBA)
-	$(RM) -r $(DESTDIR)
+	$(RM) -r $(MAINTARGETDIR) $(TESTTARGETDIR) $(DESTDIR)
 	$(RM) $(TESTEXE)
 
 .PHONY: install
