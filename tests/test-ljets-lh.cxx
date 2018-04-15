@@ -133,7 +133,7 @@ int main(int argc, char* argv[]) {
     std::cout << "Permutation: " << perm + 1;
     std::cout << std::setprecision(2);
     std::cout << "  \tLogLikelihood: " << lh_values.at(perm);
-    std::cout << std::setprecision(8);
+    std::cout << std::setprecision(5);
     std::cout << "  \tEvtProbability: " << evt_probs.at(perm);
     std::cout << std::endl;
   }
