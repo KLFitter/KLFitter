@@ -50,6 +50,6 @@ double KLFitter::ResGaussPt::GetSigma(double x) {
 // ---------------------------------------------------------
 double KLFitter::ResGaussPt::p(double x, double xmeas, bool *good) {
   *good = true;
-   double sigma = GetSigma(x);
+  double sigma = GetSigma(x);
   return TMath::Gaus(xmeas, x, sigma, true);
 }

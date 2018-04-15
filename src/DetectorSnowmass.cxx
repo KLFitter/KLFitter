@@ -17,7 +17,7 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "KLFitter/DetectorSnowmass.h" 
+#include "KLFitter/DetectorSnowmass.h"
 
 #include <cmath>
 #include <iostream>
@@ -28,25 +28,22 @@
 #include "KLFitter/ResGaussPt.h"
 #include "KLFitter/ResGauss_MET.h"
 #include "TString.h"
-// --------------------------------------------------------- 
-KLFitter::DetectorSnowmass::DetectorSnowmass(std::string folder) : DetectorBase() 
-{
+// ---------------------------------------------------------
+KLFitter::DetectorSnowmass::DetectorSnowmass(std::string folder) : DetectorBase() {
   std::cout << "Using TFs from SnowMass ..." << std::endl;
   fResEnergyJet_eta1      = new KLFitter::ResGaussE(Form("%s/par_energy_jets_eta1.txt", folder.c_str()));
   fResEnergyElectron_eta1 = new KLFitter::ResGaussE(Form("%s/par_energy_electrons_eta1.txt", folder.c_str()));
   fResMomentumMuon_eta1   = new KLFitter::ResGaussPt(Form("%s/par_pt_muons_eta1.txt", folder.c_str()));
-  //fResMomentumMuon_eta1   = new KLFitter::ResGaussE(Form("%s/par_energy_electrons_eta1.txt", folder.c_str()));
-  
+
   fResEnergyJet_eta2      = new KLFitter::ResGaussE(Form("%s/par_energy_jets_eta2.txt", folder.c_str()));
   fResEnergyElectron_eta2 = new KLFitter::ResGaussE(Form("%s/par_energy_electrons_eta2.txt", folder.c_str()));
   fResMomentumMuon_eta2   = new KLFitter::ResGaussPt(Form("%s/par_pt_muons_eta2.txt", folder.c_str()));
-  //fResMomentumMuon_eta2   = new KLFitter::ResGaussE(Form("%s/par_energy_electrons_eta2.txt", folder.c_str()));
-  
+
   fResEnergyJet_eta3      = new KLFitter::ResGaussE(Form("%s/par_energy_jets_eta3.txt", folder.c_str()));
-  
+
   // missing et resolution in x and y
   fResMissingET      = new KLFitter::ResGauss_MET(Form("%s/par_misset.txt", folder.c_str()));
-  
+
   // default settings
   fResEnergyLightJet = fResEnergyJet_eta1;
   fResEnergyBJet     = fResEnergyJet_eta1;
@@ -65,33 +62,32 @@ KLFitter::DetectorSnowmass::DetectorSnowmass(std::string folder) : DetectorBase(
 
   fMuonEtaBin_1 = 1.5;
   fMuonEtaBin_2 = 2.5;
-
 }
-// --------------------------------------------------------- 
-KLFitter::DetectorSnowmass::~DetectorSnowmass() 
-{
+
+// ---------------------------------------------------------
+KLFitter::DetectorSnowmass::~DetectorSnowmass() {
   if (fResEnergyJet_eta1)
     delete fResEnergyJet_eta1;
-  
+
   if (fResEnergyElectron_eta1)
     delete fResEnergyElectron_eta1;
 
   if (fResMomentumMuon_eta1)
     delete fResMomentumMuon_eta1;
-  
+
   if (fResEnergyJet_eta2)
     delete fResEnergyJet_eta2;
-  
+
   if (fResEnergyElectron_eta2)
     delete fResEnergyElectron_eta2;
 
   if (fResMomentumMuon_eta2)
     delete fResMomentumMuon_eta2;
-  
-  if (fResEnergyJet_eta3)
-    delete fResEnergyJet_eta3; 
 
+  if (fResEnergyJet_eta3)
+    delete fResEnergyJet_eta3;
 }
+
 // ---------------------------------------------------------
 KLFitter::ResolutionBase * KLFitter::DetectorSnowmass::ResEnergyLightJet(double eta) {
   if (fabs(eta) < fJetEtaBin_1) {
@@ -107,6 +103,7 @@ KLFitter::ResolutionBase * KLFitter::DetectorSnowmass::ResEnergyLightJet(double 
 
   return fResEnergyLightJet;
 }
+
 // ---------------------------------------------------------
 KLFitter::ResolutionBase * KLFitter::DetectorSnowmass::ResEnergyBJet(double eta) {
   if (fabs(eta) < fJetEtaBin_1) {
@@ -122,6 +119,7 @@ KLFitter::ResolutionBase * KLFitter::DetectorSnowmass::ResEnergyBJet(double eta)
 
   return fResEnergyBJet;
 }
+
 // ---------------------------------------------------------
 KLFitter::ResolutionBase * KLFitter::DetectorSnowmass::ResEnergyElectron(double eta) {
   if (fabs(eta) < fElectronEtaBin_1) {
@@ -134,6 +132,7 @@ KLFitter::ResolutionBase * KLFitter::DetectorSnowmass::ResEnergyElectron(double 
   }
   return fResEnergyElectron;
 }
+
 // ---------------------------------------------------------
 KLFitter::ResolutionBase * KLFitter::DetectorSnowmass::ResEnergyMuon(double eta) {
   if (fabs(eta) < fMuonEtaBin_1) {
@@ -147,6 +146,7 @@ KLFitter::ResolutionBase * KLFitter::DetectorSnowmass::ResEnergyMuon(double eta)
 
   return fResEnergyMuon;
 }
+
 // ---------------------------------------------------------
 KLFitter::ResolutionBase * KLFitter::DetectorSnowmass::ResMissingET() {
   return fResMissingET;
