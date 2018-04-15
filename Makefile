@@ -20,7 +20,12 @@ SRCDIR = src
 OBJDIR = obj
 LIBDIR = lib
 DESTDIR = build
+
+MAINDIR = util
+MAINTARGETDIR = bin
+
 TESTDIR = tests
+TESTTARGETDIR = test-bin
 
 CXX = g++
 MKDIR = mkdir -p
@@ -36,19 +41,27 @@ BATLIBS   = -L$(BATINSTALLDIR)/lib -lBAT
 
 SRC = $(wildcard $(SRCDIR)/*.cxx)
 OBJ = $(SRC:$(SRCDIR)/%.cxx=$(OBJDIR)/%.o)
-MAIN = $(wildcard *.c)
 LIBSO = $(LIBDIR)/libKLFitter.so
 LIBA = $(LIBDIR)/libKLFitter.a
 
+MAINSRC = $(wildcard $(MAINDIR)/*.cxx)
+MAINEXE = $(MAINSRC:$(MAINDIR)/%.cxx=$(MAINTARGETDIR)/%.exe)
+
 TESTSRC = $(wildcard $(TESTDIR)/*.cxx)
-TESTEXE = $(TESTSRC:$(TESTDIR)/%.cxx=%.exe)
+TESTEXE = $(TESTSRC:$(TESTDIR)/%.cxx=$(TESTTARGETDIR)/%.exe)
 
 SOFLAGS = -shared
 CXXFLAGS = $(ROOTCFLAGS) $(BATCFLAGS) -I$(INCDIR) -Wall -pedantic -O2 -g -std=c++11 -fPIC
 LIBS     = $(ROOTLIBS) $(BATLIBS)
 
+# rule for main executables
+$(MAINTARGETDIR)/%.exe: $(MAINDIR)/%.cxx $(LIBA)
+	$(MKDIR) $(MAINTARGETDIR)
+	$(CXX) $(CXXFLAGS) $+ $(LIBS) -o $@
+
 # rule for test executables
-%.exe: $(TESTDIR)/%.cxx $(LIBA)
+$(TESTTARGETDIR)/%.exe: $(TESTDIR)/%.cxx $(LIBA)
+	$(MKDIR) $(TESTTARGETDIR)
 	$(CXX) $(CXXFLAGS) $+ $(LIBS) -o $@
 
 # rule for shared library
@@ -66,7 +79,11 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.cxx
 
 .PHONY: all
 
-all: $(LIBSO) $(LIBA) $(TESTEXE)
+all: $(LIBSO) $(LIBA) $(TESTEXE) $(MAINEXE)
+
+.PHONY: examples
+
+examples: $(MAINEXE)
 
 .PHONY: tests
 
