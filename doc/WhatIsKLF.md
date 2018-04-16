@@ -62,8 +62,8 @@ be fixed or to be a free parameter of the fit. The top-quark mass can also be
 set to a desired value. In that case, the top-quark width is recalculated.
 
 ```c++
-LikelihoodTopLeptonJets::SetFlagTopMassFixed(bool flag)
-LikelihoodTopLeptonJets::PhysicsConstants()->SetMassTop(double mass)
+LikelihoodTopLeptonJets::SetFlagTopMassFixed(bool flag);
+LikelihoodTopLeptonJets::PhysicsConstants()->SetMassTop(double mass);
 ```
 
 If more than the minimum number of objects is passed to the likelihood, for
@@ -98,12 +98,12 @@ information into account in the fit:
   each jet. In addition, the probability density functions need to be provided:
 
 ```c++
-LikelihoodTopLeptonJetsUDSep::SetBJetPtHisto(TH1F* hist)
-LikelihoodTopLeptonJetsUDSep::SetUpJetPtHisto(TH1F* hist)
-LikelihoodTopLeptonJetsUDSep::SetDownJetPtHisto(TH1F* hist)
-LikelihoodTopLeptonJetsUDSep::SetBJetTagWeightHisto(TH1F* hist)
-LikelihoodTopLeptonJetsUDSep::SetUpJetTagWeightHisto(TH1F* hist)
-LikelihoodTopLeptonJetsUDSep::SetDownJetTagWeightHisto(TH1F* hist)
+LikelihoodTopLeptonJetsUDSep::SetBJetPtHisto(TH1F* hist);
+LikelihoodTopLeptonJetsUDSep::SetUpJetPtHisto(TH1F* hist);
+LikelihoodTopLeptonJetsUDSep::SetDownJetPtHisto(TH1F* hist);
+LikelihoodTopLeptonJetsUDSep::SetBJetTagWeightHisto(TH1F* hist);
+LikelihoodTopLeptonJetsUDSep::SetUpJetTagWeightHisto(TH1F* hist);
+LikelihoodTopLeptonJetsUDSep::SetDownJetTagWeightHisto(TH1F* hist);
 ```
 
 
@@ -247,8 +247,8 @@ or treated as a free parameter in the fit. It can also be set to a desired
 value. In this case, the Higgs-boson width is recalculated accordingly.
 
 ```c++
-LikelihoodTTHLeptonJets::SetFlagHiggsMassFixed(bool flag)
-LikelihoodTTHLeptonJets::PhysicsConstants()->SetMassHiggs(double mass)
+LikelihoodTTHLeptonJets::SetFlagHiggsMassFixed(bool flag);
+LikelihoodTTHLeptonJets::PhysicsConstants()->SetMassHiggs(double mass);
 ```
 
 
@@ -284,8 +284,8 @@ semileptonically, the other variant assumes that it decays full hadronic. The
 user can switch between these two variants by setting:
 
 ```c++
-LikelihoodSgTopWtLJ::SetHadronicTop()
-LikelihoodSgTopWtLJ::SetLeptonicTop()
+LikelihoodSgTopWtLJ::SetHadronicTop();
+LikelihoodSgTopWtLJ::SetLeptonicTop();
 ```
 
 ![](LikelihoodSgTopWtLJ.png)
@@ -360,9 +360,9 @@ minimizaton is Minuit. Alternatively, simulated annealing or Markov Chain Monte
 Carlo can be used:
 
 ```c++
-Fitter::SetMinimizationMethod(Fitter::kMinuit)
-Fitter::SetMinimizationMethod(Fitter::kSimulatedAnnealing)
-Fitter::SetMinimizationMethod(Fitter::kMarkovChainMC)
+Fitter::SetMinimizationMethod(Fitter::kMinuit);
+Fitter::SetMinimizationMethod(Fitter::kSimulatedAnnealing);
+Fitter::SetMinimizationMethod(Fitter::kMarkovChainMC);
 ```
 
 
@@ -398,7 +398,7 @@ user has to create a class which inherits from `LikelihoodBase`.
 
 ## Using KLFitter
 
-An [out-of-the-box example](doc/Example.md), that uses the KLFitter library to
+An [out-of-the-box example](Example.md), that uses the KLFitter library to
 reconstruct example events and retrieve the fit results, is shipped with the
 library and is extensively documented. The following sections will give a
 general usage overview.
@@ -409,7 +409,7 @@ The measured quantities are the four-vectors of jets and charged leptons, as
 well as the missing transverse momentum components. An object of type
 `Particles` is passed to the `Fitter` object. The input quantities can either be
 set by defining `TLorentzVectors` and adding them to Particles object, or by
-using an interface. Please also refer to the [example](doc/Example.md) for the
+using an interface. Please also refer to the [example](Example.md) for the
 exact implementation.
 
 ### Combinatorics
@@ -420,7 +420,7 @@ calculates a table with all possible permutations. A specific combination
 (index) can be set by the user,
 
 ```c++
-Permutations::SetPermutation(int index)
+Permutations::SetPermutation(int index);
 ```
 
 In case interchanging two (or several) particles leaves the likelihood invariant
@@ -429,7 +429,7 @@ the decay products from a hadronically decaying W bosons). The corresponding
 permutations are removed from the table. The indices can be set via
 
 ```c++
-LikelihoodBase::InvariantPartonPermutations(int index1, int index2, int index3 = -1)
+LikelihoodBase::InvariantPartonPermutations(int index1, int index2, int index3 = -1);
 ```
 
 
@@ -449,7 +449,7 @@ unsigned int ConvergenceStatusBitWord = fitter.ConvergenceStatus();
 ```
 
 The bit word contains multiple convergence error bits as defined in
-[KLFitter/Fitter.h](include/KLFitter/Fitter.h#L173). There are currently four
+[KLFitter/Fitter.h](../include/KLFitter/Fitter.h#L173). There are currently four
 error bits implemented:
 
 1. `MinuitDidNotConverge`: the fit algorithm did not converge,

@@ -7,17 +7,17 @@ in your analysis. The example code and the input files are designed to provide a
 minimalistic input and implementation. The example also shows how to retrieve
 the output from KLFitter after the fitting. The ttbar lepton+jets likelihood,
 implemented in the class
-[LikelihoodTopLeptonJets](include/KLFitter/LikelihoodTopLeptonJets.h) has been
+[LikelihoodTopLeptonJets](../include/KLFitter/LikelihoodTopLeptonJets.h) has been
 chosen for the example, but from the implementation it should be straightforward
 to extend the implementation to other available likelihoods. Detailed
 explanations of all likelihoods can be found in the [main KLFitter
-documentation](doc/WhatIsKLF.md).
+documentation](WhatIsKLF.md).
 
 
 ### How to run the example
 
 To run the example, compile the KLFitter library first. For build and
-installation instructions, please refer to the [README file](README.md). Then
+installation instructions, please refer to the [README file](../README.md). Then
 run the executable, with the path to the KLFitter source directory as an
 additional argument. For example, if you followed the build instructions of the
 README, the cmake command will store the executable in the `bin` subdirectory.
@@ -28,29 +28,29 @@ $ ./bin/example-top-ljets.exe ../
 ```
 
 The location of the KLFitter source directory is needed to locate the input file
-for the example, stored under [data/examples](data/examples), and the transfer
-functions, stored under [data/transferfunctions](data/transferfunctions).
+for the example, stored under [data/examples](../data/examples), and the transfer
+functions, stored under [data/transferfunctions](../data/transferfunctions).
 
 
 ### Implementation
 
 The implementation of the example consists of three different files:
 
-* An [input ROOT file](data/examples/top-ljets-input.root) with a few hundred
+* An [input ROOT file](../data/examples/top-ljets-input.root) with a few hundred
 ttbar lepton+jets events. The file contains all necessary variables to run the
 KLFitter lepton+jets likelihood (described in detail in the [main
-documentation](doc/WhatIsKLF.md)).
-* A [header file](util/TreeReaderTopLJets.h) for the `TreeReaderTopLJets` class
+documentation](WhatIsKLF.md)).
+* A [header file](../util/TreeReaderTopLJets.h) for the `TreeReaderTopLJets` class
 that provides an interface to read the variables from the input file easily.
 This class is used to loop over all input events and load the event information.
-* An [implementation file](util/example-top-ljets.cxx) that provides a
+* An [implementation file](../util/example-top-ljets.cxx) that provides a
 minimalistic implementation of KLFitter in a toy-analysis. The file contains
 detailed comments about every command and substep to use KLFitter.
 
 
 ## Input file
 
-The input file for the provided example (data/examples/top-ljets-input.root) is
+The input file for the provided example (../data/examples/top-ljets-input.root) is
 a _HepSim_ sample taken [from the
 homepage](http://atlaswww.hep.anl.gov/hepsim/info.php?item=142) of the HepSim
 project [1]. The sample simulates ttbar+jet processes in proton-proton
