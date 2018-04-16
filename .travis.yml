@@ -6,7 +6,7 @@ env:
     - BATINSTALLDIR="$TRAVIS_BUILD_DIR/external/BAT"
     - DOCKER_IMAGE="rootproject/root-ubuntu16"
     - DOCKER_CONTAINER="root-docker"
-    - KLF_CMAKE_OPTS="-DBUILTIN_BAT=TRUE -DKLFITTER_INSTALL_TESTS=TRUE"
+    - KLF_CMAKE_OPTS="-DBUILTIN_BAT=TRUE -DINSTALL_TESTS=TRUE"
     - KLF_SOURCE_DIR="$TRAVIS_BUILD_DIR"
     - KLF_BUILD_DIR="$TRAVIS_BUILD_DIR/build"
     - LIBPATH_ORIG="\${LD_LIBRARY_PATH}\${LD_LIBRARY_PATH:+:}"
@@ -36,7 +36,7 @@ jobs:
         - $CMD_DOCKER "${CMD_EXPORT_LIBPATH} && cd ${KLF_BUILD_DIR} && ${KLF_BUILD_DIR}/test-bin/test-ljets-lh.exe ${KLF_SOURCE_DIR} 2>&1 |tee test-output.txt"
         - diff -u $KLF_BUILD_DIR/test-output.txt $KLF_SOURCE_DIR/tests/output-ref-ljets-lh.txt
     - env:
-        - KLF_CMAKE_OPTS="-DBUILTIN_BAT=FALSE -DKLFITTER_INSTALL_TESTS=TRUE"
+        - KLF_CMAKE_OPTS="-DBUILTIN_BAT=FALSE -DINSTALL_TESTS=TRUE"
         - KLF_SOURCE_DIR=$KLF_SOURCE_DIR/KLFitter
       script:
         - mkdir -p $KLF_SOURCE_DIR $KLF_BUILD_DIR $BATINSTALLDIR
