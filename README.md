@@ -36,13 +36,14 @@ been tested with KLFitter and are working:
 ### Obtaining KLFitter
 
 The KLFitter source code can be obtained from this repository 
-(https://gitlab.cern.ch/KLFitter/KLFitter/). A list of all releases of
+(https://github.com/KLFitter/KLFitter). A list of all releases of
 KLFitter can be found under 
-[KLFitter/tags](https://gitlab.cern.ch/KLFitter/KLFitter/tags). To download the
-source code, you can use the git clone command:
+[KLFitter/releases](https://github.com/KLFitter/KLFitter/releases). To download
+the source code, you can use the git clone command:
 
 ```
-$ git clone https://gitlab.cern.ch/KLFitter/KLFitter.git
+$ git clone https://github.com/KLFitter/KLFitter.git
+
 ```
 and, for checking out a specific release, use the git checkout procedure:
 ```
