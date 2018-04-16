@@ -40,7 +40,7 @@ jobs:
         - KLF_SOURCE_DIR=$KLF_SOURCE_DIR/KLFitter
       script:
         - mkdir -p $KLF_SOURCE_DIR $KLF_BUILD_DIR $BATINSTALLDIR
-        - mv CMakeLists.txt cmake data include src tests $KLF_SOURCE_DIR
+        - mv CMakeLists.txt cmake data include src tests util $KLF_SOURCE_DIR
         - wget https://github.com/bat/bat/releases/download/v0.9.4.1/BAT-0.9.4.1.tar.gz
         - $CMD_DOCKER "${KLF_SOURCE_DIR}/cmake/CompileBAT.sh \$PWD/BAT-0.9.4.1.tar.gz ${BATINSTALLDIR}"
         - $CMD_DOCKER "${CMD_EXPORT_BATINSTALL} && ${CMD_EXPORT_LIBPATH} && cd ${KLF_BUILD_DIR} && cmake ${KLF_CMAKE_OPTS} ${KLF_SOURCE_DIR}"
