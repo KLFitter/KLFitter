@@ -398,7 +398,7 @@ user has to create a class which inherits from `LikelihoodBase`.
 
 ## Using KLFitter
 
-An [out-of-the-box example](doc/Example.md), that uses the KLFitter library to
+An [out-of-the-box example](Example.md), that uses the KLFitter library to
 reconstruct example events and retrieve the fit results, is shipped with the
 library and is extensively documented. The following sections will give a
 general usage overview.
@@ -409,7 +409,7 @@ The measured quantities are the four-vectors of jets and charged leptons, as
 well as the missing transverse momentum components. An object of type
 `Particles` is passed to the `Fitter` object. The input quantities can either be
 set by defining `TLorentzVectors` and adding them to Particles object, or by
-using an interface. Please also refer to the [example](doc/Example.md) for the
+using an interface. Please also refer to the [example](Example.md) for the
 exact implementation.
 
 ### Combinatorics
@@ -449,7 +449,7 @@ unsigned int ConvergenceStatusBitWord = fitter.ConvergenceStatus();
 ```
 
 The bit word contains multiple convergence error bits as defined in
-[KLFitter/Fitter.h](include/KLFitter/Fitter.h#L173). There are currently four
+[KLFitter/Fitter.h](../include/KLFitter/Fitter.h#L173). There are currently four
 error bits implemented:
 
 1. `MinuitDidNotConverge`: the fit algorithm did not converge,
