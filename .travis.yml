@@ -1,0 +1,57 @@
+language: cpp
+sudo: required
+services: docker
+env:
+  global:
+    - BATINSTALLDIR="$TRAVIS_BUILD_DIR/external/BAT"
+    - DOCKER_IMAGE="rootproject/root-ubuntu16"
+    - DOCKER_CONTAINER="root-docker"
+    - KLF_CMAKE_OPTS="-DBUILTIN_BAT=TRUE -DINSTALL_TESTS=TRUE"
+    - KLF_SOURCE_DIR="$TRAVIS_BUILD_DIR"
+    - KLF_BUILD_DIR="$TRAVIS_BUILD_DIR/build"
+    - LIBPATH_ORIG="\${LD_LIBRARY_PATH}\${LD_LIBRARY_PATH:+:}"
+    - LIBPATH_LOCAL="$KLF_BUILD_DIR/lib:"
+    - LIBPATH_ROOT="\`root-config --libdir\`:"
+    - LIBPATH_BAT="${BATINSTALLDIR}${BATINSTALLDIR:+/lib:}"
+    - CMD_DOCKER="docker exec -i $DOCKER_CONTAINER /bin/bash -c"
+    - CMD_EXPORT_BATINSTALL="export BATINSTALLDIR=${BATINSTALLDIR}"
+    - CMD_EXPORT_LIBPATH="export LD_LIBRARY_PATH=${LIBPATH_ORIG}${LIBPATH_ROOT}${LIBPATH_BAT}${LIBPATH_LOCAL}"
+
+before_install:
+  - docker pull $DOCKER_IMAGE
+  - docker run -i -d --name $DOCKER_CONTAINER -v $TRAVIS_BUILD_DIR:$TRAVIS_BUILD_DIR -w $TRAVIS_BUILD_DIR -u $(id -u) $DOCKER_IMAGE /bin/bash
+  - docker ps -a
+  - $CMD_DOCKER "root -b -q"
+  - echo $KLF_SOURCE_DIR
+  - echo $KLF_BUILD_DIR
+
+jobs:
+  include:
+    - env:
+        - BATINSTALLDIR=""
+      script:
+        - mkdir -p $KLF_BUILD_DIR
+        - $CMD_DOCKER "cd ${KLF_BUILD_DIR} && cmake ${KLF_CMAKE_OPTS} ${KLF_SOURCE_DIR}"
+        - $CMD_DOCKER "cd ${KLF_BUILD_DIR} && make"
+        - $CMD_DOCKER "${CMD_EXPORT_LIBPATH} && cd ${KLF_BUILD_DIR} && ${KLF_BUILD_DIR}/test-bin/test-ljets-lh.exe ${KLF_SOURCE_DIR} 2>&1 |tee test-output.txt"
+        - diff -u $KLF_BUILD_DIR/test-output.txt $KLF_SOURCE_DIR/tests/output-ref-ljets-lh.txt
+    - env:
+        - KLF_CMAKE_OPTS="-DBUILTIN_BAT=FALSE -DINSTALL_TESTS=TRUE"
+        - KLF_SOURCE_DIR=$KLF_SOURCE_DIR/KLFitter
+      script:
+        - mkdir -p $KLF_SOURCE_DIR $KLF_BUILD_DIR $BATINSTALLDIR
+        - mv CMakeLists.txt cmake data include src tests util $KLF_SOURCE_DIR
+        - wget https://github.com/bat/bat/releases/download/v0.9.4.1/BAT-0.9.4.1.tar.gz
+        - $CMD_DOCKER "${KLF_SOURCE_DIR}/cmake/CompileBAT.sh \$PWD/BAT-0.9.4.1.tar.gz ${BATINSTALLDIR}"
+        - $CMD_DOCKER "${CMD_EXPORT_BATINSTALL} && ${CMD_EXPORT_LIBPATH} && cd ${KLF_BUILD_DIR} && cmake ${KLF_CMAKE_OPTS} ${KLF_SOURCE_DIR}"
+        - $CMD_DOCKER "${CMD_EXPORT_BATINSTALL} && cd ${KLF_BUILD_DIR} && make"
+        - $CMD_DOCKER "${CMD_EXPORT_BATINSTALL} && ${CMD_EXPORT_LIBPATH} && cd ${KLF_BUILD_DIR} && ${KLF_BUILD_DIR}/test-bin/test-ljets-lh.exe ${KLF_SOURCE_DIR} 2>&1 |tee test-output.txt"
+        - diff -u $KLF_BUILD_DIR/test-output.txt $KLF_SOURCE_DIR/tests/output-ref-ljets-lh.txt
+    - script:
+        - mkdir -p $KLF_BUILD_DIR $BATINSTALLDIR
+        - wget https://github.com/bat/bat/releases/download/v0.9.4.1/BAT-0.9.4.1.tar.gz
+        - $CMD_DOCKER "${KLF_SOURCE_DIR}/cmake/CompileBAT.sh \$PWD/BAT-0.9.4.1.tar.gz ${BATINSTALLDIR}"
+        - $CMD_DOCKER "${CMD_EXPORT_BATINSTALL} && make && make tests"
+        - $CMD_DOCKER "${CMD_EXPORT_BATINSTALL} && make install"
+        - $CMD_DOCKER "${CMD_EXPORT_BATINSTALL} && ${CMD_EXPORT_LIBPATH} && cd ${KLF_BUILD_DIR} && ${KLF_BUILD_DIR}/test-bin/test-ljets-lh.exe ${KLF_SOURCE_DIR} 2>&1 |tee test-output.txt"
+        - diff -u $KLF_BUILD_DIR/test-output.txt $KLF_SOURCE_DIR/tests/output-ref-ljets-lh.txt
