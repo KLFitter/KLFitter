@@ -37,7 +37,6 @@ namespace KLFitter {
 /**
   * \class KLFitter::LikelihoodTopLeptonJets
   * \brief A class implementing a likelihood for the ttbar lepton+jets channel.
-  * \author Kevin Kr&ouml;ninger
   *
   * This class represents a likelihood for the ttbar into lepton+jets.
   */

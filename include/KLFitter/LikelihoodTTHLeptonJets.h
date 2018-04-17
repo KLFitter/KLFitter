@@ -37,11 +37,9 @@ namespace KLFitter {
 /**
   * \class KLFitter::LikelihoodTTHLeptonJets
   * \brief A class implementing a likelihood for the ttH lepton+jets channel.
-  * \author: Leonid Serkin
   *
   * This class represents a likelihood for the ttH in lepton+jets channel. It
-  * is largely based on the LikelihoodTopLeptonJets class authored by Kevin
-  * Kr&ouml;ninger.
+  * is largely based on the LikelihoodTopLeptonJets class.
   */
 class LikelihoodTTHLeptonJets : public KLFitter::LikelihoodBase {
  public:

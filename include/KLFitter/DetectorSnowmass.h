@@ -34,7 +34,6 @@ namespace KLFitter {
 /**
   * \class KLFitter::DetectorSnowmass
   * \brief A class for describing of the Snowmass detector.
-  * \author Olaf Nackenhorst
   *
   * This class holds the description of the Snowmass detector.
   */

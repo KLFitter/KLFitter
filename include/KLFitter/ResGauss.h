@@ -32,7 +32,6 @@ namespace KLFitter {
 /**
   * \class KLFitter::ResGauss
   * \brief A class describing a Gaussian resolution.
-  * \author Kevin Kr&ouml;ninger
   *
   * This class offers a simple parameterization of a resolution. The
   * parameterization is a Gaussian with a width of a constant times the

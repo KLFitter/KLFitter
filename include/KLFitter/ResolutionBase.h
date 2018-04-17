@@ -32,7 +32,6 @@ namespace KLFitter {
 /**
   * \class KLFitter::ResolutionBase
   * \brief A base class for describing resolutions.
-  * \author Kevin Kr&ouml;ninger
   *
   * This base class can be used to decribe resolutions.
   */

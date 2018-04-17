@@ -42,7 +42,6 @@ class DetectorBase;
 /**
   * \class KLFitter::LikelihoodBase
   * \brief A base class for likelihoods.
-  * \author Kevin Kr&ouml;ninger
   */
 class LikelihoodBase : public BCModel {
  public:

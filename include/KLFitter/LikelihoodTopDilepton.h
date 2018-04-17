@@ -52,7 +52,6 @@ class NuSolutions {
 /**
   * \class KLFitter::LikelihoodTopDilepton
   * \brief A class implementing a likelihood for the ttbar dilepton channel.
-  * \author Tamara Vazquez Schröder
   *
   * This class represents a likelihood for the ttbar dilepton channel.
   */

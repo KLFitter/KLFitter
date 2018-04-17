@@ -37,7 +37,6 @@ class Permutations;
 /**
   * \class KLFitter::Fitter
   * \brief The fitter class.
-  * \author Kevin Kr&ouml;ninger
   *
   * This class owns all particles, the detector description, the
   * likelihood, etc. This is the class seen by the user.

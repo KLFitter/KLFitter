@@ -34,7 +34,6 @@ class ResolutionBase;
 /**
   * \class KLFitter::DetectorBase
   * \brief A base class for describing detectors.
-  * \author Kevin Kr&ouml;ninger
   *
   * This base class contains the energy resolution of different
   * objects. More information (angular resolutions, acceptance,
