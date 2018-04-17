@@ -45,6 +45,15 @@ before_install:
   - echo $KLF_SOURCE_DIR
   - echo $KLF_BUILD_DIR
 
+# Rule to run the unit tests and pipe the stdout/stderr into a
+# text file.
+.run_unit_tests: &run_unit_tests
+  $CMD_DOCKER "${CMD_EXPORT_BATINSTALL} && ${CMD_EXPORT_LIBPATH} && cd ${KLF_BUILD_DIR} && ${KLF_BUILD_DIR}/test-bin/test-ljets-lh.exe ${KLF_SOURCE_DIR} 2>&1 |tee test-output.txt"
+
+# Rule to compare the unit test output to a reference file.
+.run_unit_test_diff: &run_unit_test_diff
+  diff -u $KLF_BUILD_DIR/test-output.txt $KLF_SOURCE_DIR/tests/output-ref-ljets-lh.txt
+
 jobs:
   include:
     - env:
@@ -53,8 +62,8 @@ jobs:
         - mkdir -p $KLF_BUILD_DIR
         - $CMD_DOCKER "cd ${KLF_BUILD_DIR} && cmake ${KLF_CMAKE_OPTS} ${KLF_SOURCE_DIR}"
         - $CMD_DOCKER "cd ${KLF_BUILD_DIR} && make"
-        - $CMD_DOCKER "${CMD_EXPORT_LIBPATH} && cd ${KLF_BUILD_DIR} && ${KLF_BUILD_DIR}/test-bin/test-ljets-lh.exe ${KLF_SOURCE_DIR} 2>&1 |tee test-output.txt"
-        - diff -u $KLF_BUILD_DIR/test-output.txt $KLF_SOURCE_DIR/tests/output-ref-ljets-lh.txt
+        - *run_unit_tests
+        - *run_unit_test_diff
     - env:
         - KLF_CMAKE_OPTS="-DBUILTIN_BAT=FALSE -DINSTALL_TESTS=TRUE"
         - KLF_SOURCE_DIR=$KLF_SOURCE_DIR/KLFitter
@@ -65,13 +74,13 @@ jobs:
         - $CMD_DOCKER "${KLF_SOURCE_DIR}/cmake/CompileBAT.sh \$PWD/BAT-0.9.4.1.tar.gz ${BATINSTALLDIR}"
         - $CMD_DOCKER "${CMD_EXPORT_BATINSTALL} && ${CMD_EXPORT_LIBPATH} && cd ${KLF_BUILD_DIR} && cmake ${KLF_CMAKE_OPTS} ${KLF_SOURCE_DIR}"
         - $CMD_DOCKER "${CMD_EXPORT_BATINSTALL} && cd ${KLF_BUILD_DIR} && make"
-        - $CMD_DOCKER "${CMD_EXPORT_BATINSTALL} && ${CMD_EXPORT_LIBPATH} && cd ${KLF_BUILD_DIR} && ${KLF_BUILD_DIR}/test-bin/test-ljets-lh.exe ${KLF_SOURCE_DIR} 2>&1 |tee test-output.txt"
-        - diff -u $KLF_BUILD_DIR/test-output.txt $KLF_SOURCE_DIR/tests/output-ref-ljets-lh.txt
+        - *run_unit_tests
+        - *run_unit_test_diff
     - script:
         - mkdir -p $KLF_BUILD_DIR $BATINSTALLDIR
         - wget https://github.com/bat/bat/releases/download/v0.9.4.1/BAT-0.9.4.1.tar.gz
         - $CMD_DOCKER "${KLF_SOURCE_DIR}/cmake/CompileBAT.sh \$PWD/BAT-0.9.4.1.tar.gz ${BATINSTALLDIR}"
         - $CMD_DOCKER "${CMD_EXPORT_BATINSTALL} && make && make tests"
         - $CMD_DOCKER "${CMD_EXPORT_BATINSTALL} && make install"
-        - $CMD_DOCKER "${CMD_EXPORT_BATINSTALL} && ${CMD_EXPORT_LIBPATH} && cd ${KLF_BUILD_DIR} && ${KLF_BUILD_DIR}/test-bin/test-ljets-lh.exe ${KLF_SOURCE_DIR} 2>&1 |tee test-output.txt"
-        - diff -u $KLF_BUILD_DIR/test-output.txt $KLF_SOURCE_DIR/tests/output-ref-ljets-lh.txt
+        - *run_unit_tests
+        - *run_unit_test_diff
