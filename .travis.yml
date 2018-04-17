@@ -104,7 +104,8 @@ jobs:
       script:
         - *run_download_bat
         - *run_compile_bat
-        - $CMD_DOCKER "${CMD_EXPORT_BATINSTALL} && make && make tests"
+        - $CMD_DOCKER "${CMD_EXPORT_BATINSTALL} && make"
+        - $CMD_DOCKER "${CMD_EXPORT_BATINSTALL} && make tests"
         - $CMD_DOCKER "${CMD_EXPORT_BATINSTALL} && make install"
         - *run_unit_tests
         - *run_unit_test_diff
