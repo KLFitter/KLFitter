@@ -37,7 +37,6 @@ namespace KLFitter {
 /**
   * \class KLFitter::LikelihoodTopLeptonJets_Angular
   * \brief Add brief description here
-  * \author Add author here
   *
   * Add detailed description here.
   */

@@ -35,7 +35,6 @@ namespace KLFitter {
 /**
   * \class KLFitter::ResDoubleGaussBase
   * \brief A class describing a resolution parameterized with a double Gaussian.
-  * \author Kevin Kr&ouml;ninger
   *
   * This class offers a simple parameterization of a resolution. The
   * parameterization is a double Gaussian with energy dependent

@@ -37,7 +37,6 @@ namespace KLFitter {
 /**
   * \class KLFitter::LikelihoodTopLeptonJets_JetAngles
   * \brief Add brief description here
-  * \author Add author here
   *
   * Add a detailed description here.
   */

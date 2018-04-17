@@ -30,7 +30,6 @@ namespace KLFitter {
 /**
   * \class KLFitter::PhysicsConstants
   * \brief A class containing physics constants.
-  * \author Kevin Kr&ouml;ninger
   *
   * This class contains physics constants.
   */

@@ -34,7 +34,6 @@ namespace KLFitter {
 /**
   * \class KLFitter::DetectorAtlas_8TeV
   * \brief A class for describing of the ATLAS detector.
-  * \author Kevin Kr&ouml;ninger
   *
   * This class holds the description of the ATLAS detector.
   */

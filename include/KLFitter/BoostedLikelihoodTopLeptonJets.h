@@ -37,7 +37,6 @@ namespace KLFitter {
 /**
 * \class KLFitter::BoostedLikelihoodTopLeptonJets
 * \brief Add brief description here
-* \author Add author here
 *
 * Add detailed description here.
 */
