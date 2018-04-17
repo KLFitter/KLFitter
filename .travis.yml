@@ -23,6 +23,7 @@ services: docker
 
 env:
   global:
+    - BATINSTALLDIR="$TRAVIS_BUILD_DIR/external/BAT"
     - DOCKER_IMAGE="rootproject/root-ubuntu16"
     - DOCKER_CONTAINER="root-docker"
     - KLF_SOURCE_DIR="$TRAVIS_BUILD_DIR"
@@ -80,7 +81,6 @@ before_install:
 jobs:
   include:
     - env:
-        - BATINSTALLDIR=""
         - KLF_CMAKE_OPTS="-DBUILTIN_BAT=TRUE -DINSTALL_TESTS=TRUE"
       script:
         - *run_cmake_configure
@@ -88,7 +88,6 @@ jobs:
         - *run_unit_tests
         - *run_unit_test_diff
     - env:
-        - BATINSTALLDIR="$TRAVIS_BUILD_DIR/external/BAT"
         - KLF_CMAKE_OPTS="-DBUILTIN_BAT=FALSE -DINSTALL_TESTS=TRUE"
         - KLF_SOURCE_DIR=$KLF_SOURCE_DIR/KLFitter
       script:
@@ -99,9 +98,7 @@ jobs:
         - *run_cmake_build
         - *run_unit_tests
         - *run_unit_test_diff
-    - env:
-        - BATINSTALLDIR="$TRAVIS_BUILD_DIR/external/BAT"
-      script:
+    - script:
         - *run_download_bat
         - *run_compile_bat
         - $CMD_DOCKER "${CMD_EXPORT_BATINSTALL} && make"
