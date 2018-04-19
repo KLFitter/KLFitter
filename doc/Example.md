@@ -64,9 +64,9 @@ standard ROOT tree, the events are skimmed and only variables relevant for the
 KLFitter reconstruction are kept. The event skimming sets the following
 requirements for events to be kept:
 * at least 4 jets with a transverse momentum of at least 25 GeV. The eta of the
-  jets is required to fulfil |eta| < 2.5.
+  jets is required to fulfil |eta| < 4.9.
 * exactly one charged lepton (i.e. electron or muon) with a transverse momentum
-  of at least 25 GeV and |eta| < 2.5.
+  of at least 25 GeV and |eta| < 4.9.
 
 
 ### Input file variables
