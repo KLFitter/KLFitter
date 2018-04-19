@@ -23,8 +23,11 @@
 #include <iostream>
 #include <vector>
 
+namespace KLFitter {
+  class ResolutionBase;
+}
+
 #include "KLFitter/LikelihoodBase.h"
-#include "KLFitter/ResolutionBase.h"
 #include "TLorentzVector.h"
 
 // ---------------------------------------------------------
