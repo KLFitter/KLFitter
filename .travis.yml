@@ -107,6 +107,20 @@ before_install:
   diff -u $KLF_BUILD_DIR/test-output.txt $KLF_SOURCE_DIR/tests/output-ref-ljets-lh.txt
 
 
+# Definiton of the actual CI jobs. We build KLFitter with three
+# different scenarios:
+# 1. Make a fully automatized build of KLFitter and BAT using
+#    cmake. This downloads and compiles BAT via cmake, and builds
+#    and links KLFitter against it. Run unit tests afterwards and
+#    verify their output.
+# 2. Download and compile BAT with the external shell script
+#    CompileBAT.sh. Then configure the KLFitter build via cmake
+#    and pick up that pre-built version of BAT. Run unit tests
+#    afterwards and verify their output.
+# 3. Download and compile BAT with the external shell script
+#    CompileBAT.sh. Then use the Makefile to build KLFitter and
+#    link it against the pre-built version of BAT. Run unit tests
+#    afterwards and verify their output.
 jobs:
   include:
     - env:
