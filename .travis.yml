@@ -17,10 +17,28 @@
 
 language: cpp
 
-sudo: required
 
+# Load the docker service to start a docker image with a recent
+# version of ROOT installed. Require sudo access on the machine.
+sudo: required
 services: docker
 
+
+# Definition of global variables. These include:
+#   - BATINSTALLDIR: the directory to install BAT into.
+#   - DOCKER_IMAGE: the name of the ROOT docker image.
+#   - DOCKER_CONTAINER: internal name to identify the docker
+#       container with the ROOT docker image.
+#   - KLF_SOURCE_DIR: location of the KLFitter source code.
+#   - KLF_BUILD_DIR: directory to be used for the KLFitter build.
+#   - CMD_DOCKER: command to be appended to other shell commands
+#       when executing them in the docker image.
+#   - CMD_EXPORT_BATINSTALL: command to export the variable
+#       BATINSTALLDIR within the docker image.
+#   - CMD_EXPORT_LIBPATH: command to export the library paths
+#       within the docker image. The command appends to an
+#       existing LD_LIBRARY_PATH and adds the library locations
+#       for ROOT, BAT, and KLFitter.
 env:
   global:
     - BATINSTALLDIR="$TRAVIS_BUILD_DIR/external/BAT"
