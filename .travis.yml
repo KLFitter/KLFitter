@@ -54,6 +54,17 @@ env:
     - CMD_EXPORT_BATINSTALL="export BATINSTALLDIR=${BATINSTALLDIR}"
     - CMD_EXPORT_LIBPATH="export LD_LIBRARY_PATH=${LIBPATH_ORIG}${LIBPATH_ROOT}${LIBPATH_BAT}${LIBPATH_LOCAL}"
 
+
+# List of commands to be executed before the CI jobs:
+#   - Pull the ROOT docker image.
+#   - Start a docker container with that image, mount the
+#       TRAVIS_BUILD_DIR within the docker image, and use it as
+#       the working directory.
+#   - List all active docker containers.
+#   - Test commands, such as ROOT within the docker image, and
+#       the exported environment variables KLF_SOURCE_DIR and
+#       KLF_BUILD_DIR.
+#   - Create the necessary directories.
 before_install:
   - docker pull $DOCKER_IMAGE
   - docker run -i -d --name $DOCKER_CONTAINER -v $TRAVIS_BUILD_DIR:$TRAVIS_BUILD_DIR -w $TRAVIS_BUILD_DIR -u $(id -u) $DOCKER_IMAGE /bin/bash
