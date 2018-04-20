@@ -1,6 +1,9 @@
 # KLFitter – The Kinematic Likelihood Fitter
 
 [![Build Status](https://travis-ci.org/KLFitter/KLFitter.svg?branch=master)](https://travis-ci.org/KLFitter/KLFitter)
+[![GitHub release](https://img.shields.io/github/release/KLFitter/KLFitter.svg)](https://github.com/KLFitter/KLFitter/releases)
+[![Github commits (since latest release)](https://img.shields.io/github/commits-since/KLFitter/KLFitter/latest.svg)](https://github.com/KLFitter/KLFitter/commits/)
+
 
 KLFitter is a library for kinematic fitting using a likelihood approach. It is
 primarily developed for the case of top quark reconstruction, but it can be
