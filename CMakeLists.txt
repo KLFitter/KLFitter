@@ -196,6 +196,7 @@ macro( KLFitter_add_test name )
 endmacro( KLFitter_add_test )
 
 # Set up the test(s) of the project.
+option( INSTALL_TESTS "Install the unit tests to validate KLFitter installation" OFF )
 if( INSTALL_TESTS )
   KLFitter_add_test( test-ljets-lh.exe tests/test-ljets-lh.cxx )
 endif()
