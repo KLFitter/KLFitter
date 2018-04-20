@@ -180,7 +180,7 @@ install( TARGETS KLFitter KLFitter-stat
 
 # Install the transfer functions.
 install( DIRECTORY data/transferfunctions/
-  DESTINATION share/KLFitter/TFs )
+  DESTINATION share/KLFitter/transferfunctions )
 
 # Helper macro for building the project's unit tests.
 macro( KLFitter_add_test name )
@@ -196,6 +196,7 @@ macro( KLFitter_add_test name )
 endmacro( KLFitter_add_test )
 
 # Set up the test(s) of the project.
+option( INSTALL_TESTS "Install the unit tests to validate KLFitter installation" OFF )
 if( INSTALL_TESTS )
   KLFitter_add_test( test-ljets-lh.exe tests/test-ljets-lh.cxx )
 endif()
@@ -209,7 +210,11 @@ macro( KLFitter_add_executable name )
     RUNTIME DESTINATION bin )
 endmacro( KLFitter_add_executable )
 
-KLFitter_add_executable( example-top-ljets.exe util/example-top-ljets.cxx )
+# Build the example executable(s) of the project.
+option( INSTALL_EXAMPLES "Install the example executable(s) of KLFitter" ON )
+if( INSTALL_EXAMPLES )
+  KLFitter_add_executable( example-top-ljets.exe util/example-top-ljets.cxx )
+endif()
 
 # Install the CMake description of the project.
 install( EXPORT KLFitterTargets
