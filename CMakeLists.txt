@@ -210,7 +210,11 @@ macro( KLFitter_add_executable name )
     RUNTIME DESTINATION bin )
 endmacro( KLFitter_add_executable )
 
-KLFitter_add_executable( example-top-ljets.exe util/example-top-ljets.cxx )
+# Build the example executable(s) of the project.
+option( INSTALL_EXAMPLES "Install the example executable(s) of KLFitter" ON )
+if( INSTALL_EXAMPLES )
+  KLFitter_add_executable( example-top-ljets.exe util/example-top-ljets.cxx )
+endif()
 
 # Install the CMake description of the project.
 install( EXPORT KLFitterTargets
