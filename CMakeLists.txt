@@ -180,7 +180,7 @@ install( TARGETS KLFitter KLFitter-stat
 
 # Install the transfer functions.
 install( DIRECTORY data/transferfunctions/
-  DESTINATION share/KLFitter/TFs )
+  DESTINATION share/KLFitter/transferfunctions )
 
 # Helper macro for building the project's unit tests.
 macro( KLFitter_add_test name )
