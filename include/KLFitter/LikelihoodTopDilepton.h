@@ -27,10 +27,13 @@
 #include <utility>
 #include <vector>
 
+namespace KLFitter {
+  class ResolutionBase;
+}
+
 #include "BAT/BCH1D.h"
 #include "BAT/BCModel.h"
 #include "KLFitter/LikelihoodBase.h"
-#include "KLFitter/ResolutionBase.h"
 #include "TLorentzVector.h"
 
 // ---------------------------------------------------------
