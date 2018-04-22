@@ -54,6 +54,11 @@ $ cd KLFitter
 $ git checkout $VERSION_TAG
 ```
 
+Before KLFitter was made public, it was maintained in non-public SVN
+repositories. For completeness we also keep a list of all SVN tags of KLFitter
+and their associated commits in [this file](doc/SVN-tags.md).
+
+
 ### Installation via cmake (recommended)
 
 Before proceeding please make sure that you have a valid installation of ROOT on
