@@ -273,7 +273,7 @@ int main(int argc, char *argv[]) {
       //  7) tagging effciency required for kWorkingPoint
       //  8) 1./tagging inefficiency required for kWorkingPoint
       //  9) true flavour type
-      //  10) btag weight
+      //  10) btag discriminant
       particles.AddParticle(&jet, event.jet_eta->at(ijet), KLFitter::Particles::kParton,
           "", ijet, static_cast<int>(event.jet_has_btag->at(ijet)), 0.6, 145.,
           KLFitter::Particles::kNone, event.jet_btag_weight->at(ijet));
