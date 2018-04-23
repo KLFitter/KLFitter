@@ -28,7 +28,7 @@ $ ./bin/example-top-ljets.exe ../
 ```
 
 The location of the KLFitter source directory is needed to locate the input file
-for the example, stoat under [data/examples](../data/examples), and the transfer
+for the example, stored under [data/examples](../data/examples), and the transfer
 functions, stored under [data/transferfunctions](../data/transferfunctions).
 
 
