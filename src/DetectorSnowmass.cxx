@@ -86,6 +86,9 @@ KLFitter::DetectorSnowmass::~DetectorSnowmass() {
 
   if (fResEnergyJet_eta3)
     delete fResEnergyJet_eta3;
+
+  if (fResMissingET)
+    delete fResMissingET;
 }
 
 // ---------------------------------------------------------
