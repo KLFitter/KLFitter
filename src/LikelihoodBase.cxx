@@ -47,6 +47,10 @@ KLFitter::LikelihoodBase::LikelihoodBase(Particles** particles) : BCModel(),
 
 // ---------------------------------------------------------
 KLFitter::LikelihoodBase::~LikelihoodBase() {
+  // Clear the parameters container in the BCModel to circumvent
+  // BAT-internal memory leak (known issue in 0.9.4.1).
+  ClearParameters(true);
+
   if (fParticlesModel)
     delete fParticlesModel;
 
