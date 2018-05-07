@@ -62,34 +62,34 @@ class DetectorSnowmass : public DetectorBase {
     * @param eta The eta of the particle.
     * @return A pointer to the energy resolution object.
     */
-  KLFitter::ResolutionBase * ResEnergyLightJet(double eta = 0.);
+  ResolutionBase* ResEnergyLightJet(double eta = 0.);
 
   /**
     * Return the energy resolution of b-jets.
     * @param eta The eta of the particle.
     * @return A pointer to the energy resolution object.
     */
-  KLFitter::ResolutionBase * ResEnergyBJet(double eta = 0.);
+  ResolutionBase* ResEnergyBJet(double eta = 0.);
 
   /**
     * Return the energy resolution of electrons.
     * @param eta The eta of the particle.
     * @return A pointer to the energy resolution object.
     */
-  KLFitter::ResolutionBase * ResEnergyElectron(double eta = 0.);
+  ResolutionBase* ResEnergyElectron(double eta = 0.);
 
   /**
     * Return the momentum resolution of muons.
     * @param eta The eta of the particle.
     * @return A pointer to the momentum resolution object.
     */
-  KLFitter::ResolutionBase * ResEnergyMuon(double eta = 0.);
+  ResolutionBase* ResEnergyMuon(double eta = 0.);
 
   /**
     * Return the missing ET resolution.
     * @return A pointer to the missing ET resolution.
     */
-  KLFitter::ResolutionBase * ResMissingET();
+  ResolutionBase* ResMissingET();
 
   /* @} */
 
@@ -97,21 +97,21 @@ class DetectorSnowmass : public DetectorBase {
   /**
     * The energy resolution of light jets for different eta regions.
     */
-  KLFitter::ResolutionBase * fResEnergyJet_eta1;
-  KLFitter::ResolutionBase * fResEnergyJet_eta2;
-  KLFitter::ResolutionBase * fResEnergyJet_eta3;
+  ResolutionBase* fResEnergyJet_eta1;
+  ResolutionBase* fResEnergyJet_eta2;
+  ResolutionBase* fResEnergyJet_eta3;
 
   /**
     * The energy resolution of electrons for different eta regions.
     */
-  KLFitter::ResolutionBase * fResEnergyElectron_eta1;
-  KLFitter::ResolutionBase * fResEnergyElectron_eta2;
+  ResolutionBase* fResEnergyElectron_eta1;
+  ResolutionBase* fResEnergyElectron_eta2;
 
   /**
     * The momentum resolution of muons for different eta regions.
     */
-  KLFitter::ResolutionBase * fResMomentumMuon_eta1;
-  KLFitter::ResolutionBase * fResMomentumMuon_eta2;
+  ResolutionBase* fResMomentumMuon_eta1;
+  ResolutionBase* fResMomentumMuon_eta2;
 
   /**
     * The eta binning for jets
