@@ -27,60 +27,12 @@ KLFitter::Particles::Particles() {
 
 // ---------------------------------------------------------
 KLFitter::Particles::~Particles() {
-  while (!fPartons.empty()) {
-    TLorentzVector* lv = fPartons.front();
-    fPartons.erase(fPartons.begin());
-    if (lv)
-      delete lv;
-  }
-
-  while (!fElectrons.empty()) {
-    TLorentzVector* lv = fElectrons.front();
-    fElectrons.erase(fElectrons.begin());
-    if (lv)
-      delete lv;
-  }
-
-  while (!fMuons.empty()) {
-    TLorentzVector* lv = fMuons.front();
-    fMuons.erase(fMuons.begin());
-    if (lv)
-      delete lv;
-  }
-
-  while (!fTaus.empty()) {
-    TLorentzVector* lv = fTaus.front();
-    fTaus.erase(fTaus.begin());
-    if (lv)
-      delete lv;
-  }
-
-  while (!fNeutrinos.empty()) {
-    TLorentzVector* lv = fNeutrinos.front();
-    fNeutrinos.erase(fNeutrinos.begin());
-    if (lv)
-      delete lv;
-  }
-
-  while (!fBosons.empty()) {
-    TLorentzVector* lv = fBosons.front();
-    fBosons.erase(fBosons.begin());
-    if (lv)
-      delete lv;
-  }
-
-  while (!fPhotons.empty()) {
-    TLorentzVector* lv = fPhotons.front();
-    fPhotons.erase(fPhotons.begin());
-    if (lv)
-      delete lv;
-  }
 }
 
 // ---------------------------------------------------------
 int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, float LepCharge, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex) {
   // get particle container
-  std::vector <TLorentzVector *>* container = ParticleContainer(ptype);
+  std::vector <std::unique_ptr<TLorentzVector> >* container = ParticleContainer(ptype);
 
   // check if container exists
   if (!container) {
@@ -101,8 +53,8 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, f
   if (!FindParticle(name, vect, &index, &temptype)) {
     // add particle
     // create pointer copy of particle content which is owend by Particles
-    TLorentzVector * cparticle = new TLorentzVector(particle->Px(), particle->Py(), particle->Pz(), particle->E());
-    container->push_back(cparticle);
+    auto cparticle = std::make_unique<TLorentzVector>(particle->Px(), particle->Py(), particle->Pz(), particle->E());
+    container->emplace_back(std::move(cparticle));
     ParticleNameContainer(ptype)->push_back(name);
     if (ptype == KLFitter::Particles::kElectron) {
       fElectronIndex.push_back(measuredindex);
@@ -133,7 +85,7 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, f
 // ---------------------------------------------------------
 int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, TrueFlavorType trueflav, double btagweight) {
   // get particle container
-  std::vector <TLorentzVector *>* container = ParticleContainer(ptype);
+  std::vector <std::unique_ptr<TLorentzVector> >* container = ParticleContainer(ptype);
 
   // check if container exists
   if (!container) {
@@ -154,8 +106,8 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, K
   if (!FindParticle(name, vect, &index, &temptype)) {
     // add particle
     // create pointer copy of particle content which is owend by Particles
-    TLorentzVector * cparticle = new TLorentzVector(particle->Px(), particle->Py(), particle->Pz(), particle->E());
-    container->push_back(cparticle);
+    auto cparticle = std::make_unique<TLorentzVector>(particle->Px(), particle->Py(), particle->Pz(), particle->E());
+    container->emplace_back(std::move(cparticle));
     ParticleNameContainer(ptype)->push_back(name);
     if (ptype == KLFitter::Particles::kParton) {
       fTrueFlavor.push_back(trueflav);
@@ -223,7 +175,7 @@ int KLFitter::Particles::RemoveParticle(int index, KLFitter::Particles::Particle
     return 0;
 
   // remove particle
-  TLorentzVector* lv = (*ParticleContainer(ptype))[index];
+  TLorentzVector* lv = (*ParticleContainer(ptype))[index].get();
   ParticleContainer(ptype)->erase(ParticleContainer(ptype)->begin() + index);
   delete lv;
   ParticleNameContainer(ptype)->erase(ParticleNameContainer(ptype)->begin() + index);
@@ -267,7 +219,7 @@ TLorentzVector* KLFitter::Particles::Particle(std::string name) {
 // ---------------------------------------------------------
 TLorentzVector* KLFitter::Particles::Particle(int index, KLFitter::Particles::ParticleType ptype) {
   // get particle container
-  std::vector <TLorentzVector*>* container = ParticleContainer(ptype);
+  std::vector <std::unique_ptr<TLorentzVector> >* container = ParticleContainer(ptype);
 
   if (index < 0 || index > NParticles(ptype)) {
     std::cout << "KLFitter::Particles::Particle(). Index out of range." << std::endl;
@@ -275,7 +227,7 @@ TLorentzVector* KLFitter::Particles::Particle(int index, KLFitter::Particles::Pa
   }
 
   // return pointer
-  return (*container)[index];
+  return (*container)[index].get();
 }
 
 // ---------------------------------------------------------
@@ -284,7 +236,7 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
   unsigned int npartons = fNamePartons.size();
   for (unsigned int i = 0; i < npartons; ++i)
     if (name == fNamePartons[i]) {
-      particle = fPartons[i];
+      particle = fPartons[i].get();
       *index = i;
       *ptype = KLFitter::Particles::kParton;
       return 1;
@@ -294,7 +246,7 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
   unsigned int nelectrons = fNameElectrons.size();
   for (unsigned int i = 0; i < nelectrons; ++i)
     if (name == fNameElectrons[i]) {
-      particle = fElectrons[i];
+      particle = fElectrons[i].get();
       *index = i;
       *ptype = KLFitter::Particles::kElectron;
       return 1;
@@ -304,7 +256,7 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
   unsigned int nmuons = fNameMuons.size();
   for (unsigned int i = 0; i < nmuons; ++i)
     if (name == fNameMuons[i]) {
-      particle = fMuons[i];
+      particle = fMuons[i].get();
       *index = i;
       *ptype = KLFitter::Particles::kMuon;
       return 1;
@@ -314,7 +266,7 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
   unsigned int ntaus = fNameTaus.size();
   for (unsigned int i = 0; i < ntaus; ++i)
     if (name == fNameTaus[i]) {
-      particle = fTaus[i];
+      particle = fTaus[i].get();
       *index = i;
       *ptype = KLFitter::Particles::kTau;
       return 1;
@@ -324,7 +276,7 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
   unsigned int nneutrinos = fNameNeutrinos.size();
   for (unsigned int i = 0; i < nneutrinos; ++i)
     if (name == fNameNeutrinos[i]) {
-      particle = fNeutrinos[i];
+      particle = fNeutrinos[i].get();
       *index = i;
       *ptype = KLFitter::Particles::kNeutrino;
       return 1;
@@ -334,7 +286,7 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
   unsigned int nbosons = fNameBosons.size();
   for (unsigned int i = 0; i < nbosons; ++i)
     if (name == fNameBosons[i]) {
-      particle = fBosons[i];
+      particle = fBosons[i].get();
       *index = i;
       *ptype = KLFitter::Particles::kBoson;
       return 1;
@@ -344,7 +296,7 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
   unsigned int nphotons = fNamePhotons.size();
   for (unsigned int i = 0; i < nphotons; ++i)
     if (name == fNamePhotons[i]) {
-      particle = fPhotons[i];
+      particle = fPhotons[i].get();
       *index = i;
       *ptype = KLFitter::Particles::kPhoton;
       return 1;
@@ -357,43 +309,43 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
 // ---------------------------------------------------------
 TLorentzVector* KLFitter::Particles::Parton(int index) {
   // no check on index range for CPU-time reasons
-  return fPartons[index];
+  return fPartons[index].get();
 }
 
 // ---------------------------------------------------------
 TLorentzVector* KLFitter::Particles::Electron(int index) {
   // no check on index range for CPU-time reasons
-  return fElectrons[index];
+  return fElectrons[index].get();
 }
 
 // ---------------------------------------------------------
 TLorentzVector* KLFitter::Particles::Muon(int index) {
   // no check on index range for CPU-time reasons
-  return fMuons[index];
+  return fMuons[index].get();
 }
 
 // ---------------------------------------------------------
 TLorentzVector* KLFitter::Particles::Tau(int index) {
   // no check on index range for CPU-time reasons
-  return fTaus[index];
+  return fTaus[index].get();
 }
 
 // ---------------------------------------------------------
 TLorentzVector* KLFitter::Particles::Boson(int index) {
   // no check on index range for CPU-time reasons
-  return fBosons[index];
+  return fBosons[index].get();
 }
 
 // ---------------------------------------------------------
 TLorentzVector* KLFitter::Particles::Neutrino(int index) {
   // no check on index range for CPU-time reasons
-  return fNeutrinos[index];
+  return fNeutrinos[index].get();
 }
 
 // ---------------------------------------------------------
 TLorentzVector* KLFitter::Particles::Photon(int index) {
   // no check on index range for CPU-time reasons
-  return fPhotons[index];
+  return fPhotons[index].get();
 }
 
 // ---------------------------------------------------------
@@ -404,7 +356,7 @@ int  KLFitter::Particles::NParticles(KLFitter::Particles::ParticleType ptype) {
 // ---------------------------------------------------------
 std::string KLFitter::Particles::NameParticle(int index, KLFitter::Particles::ParticleType ptype) {
   // get particle container
-  std::vector <TLorentzVector *>* container = ParticleContainer(ptype);
+  std::vector <std::unique_ptr<TLorentzVector> >* container = ParticleContainer(ptype);
 
   // check container and index
   if (!CheckIndex(container, index))
@@ -415,7 +367,7 @@ std::string KLFitter::Particles::NameParticle(int index, KLFitter::Particles::Pa
 }
 
 // ---------------------------------------------------------
-int KLFitter::Particles::CheckIndex(std::vector <TLorentzVector *>* container, int index) {
+int KLFitter::Particles::CheckIndex(std::vector <std::unique_ptr<TLorentzVector> >* container, int index) {
   // check container
   if (!container) {
     std::cout << "KLFitter::Particles::CheckIndex(). Container does not exist." << std::endl;
@@ -433,7 +385,7 @@ int KLFitter::Particles::CheckIndex(std::vector <TLorentzVector *>* container, i
 }
 
 // ---------------------------------------------------------
-std::vector <TLorentzVector *>* KLFitter::Particles::ParticleContainer(KLFitter::Particles::ParticleType ptype) {
+std::vector <std::unique_ptr<TLorentzVector> >* KLFitter::Particles::ParticleContainer(KLFitter::Particles::ParticleType ptype) {
   // return particle container
   switch (ptype) {
   case KLFitter::Particles::kParton:

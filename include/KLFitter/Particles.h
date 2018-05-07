@@ -20,6 +20,7 @@
 #ifndef KLFITTER_PARTICLES_H_
 #define KLFITTER_PARTICLES_H_
 
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -452,7 +453,7 @@ class Particles {
     * @param ptype The type of the particle.
     * @return The particle container.
     */
-  std::vector <TLorentzVector *> * ParticleContainer(KLFitter::Particles::ParticleType ptype);
+  std::vector <std::unique_ptr<TLorentzVector> > * ParticleContainer(KLFitter::Particles::ParticleType ptype);
 
   /**
     * Return the particle name container of a type of particles
@@ -467,7 +468,7 @@ class Particles {
     * @param index The index of particle.
     * @return An error flag.
     */
-  int CheckIndex(std::vector <TLorentzVector *> * container, int index);
+  int CheckIndex(std::vector <std::unique_ptr<TLorentzVector> > * container, int index);
 
   /* @} */
 
@@ -475,37 +476,37 @@ class Particles {
   /**
     * A set of quarks and gluons.
     */
-  std::vector <TLorentzVector *> fPartons;
+  std::vector<std::unique_ptr<TLorentzVector> > fPartons;
 
   /**
     * A set of electrons.
     */
-  std::vector <TLorentzVector *> fElectrons;
+  std::vector <std::unique_ptr<TLorentzVector> > fElectrons;
 
   /**
     * A set of muons.
     */
-  std::vector <TLorentzVector *> fMuons;
+  std::vector <std::unique_ptr<TLorentzVector> > fMuons;
 
   /**
     * A set of taus.
     */
-  std::vector <TLorentzVector *> fTaus;
+  std::vector <std::unique_ptr<TLorentzVector> > fTaus;
 
   /**
     * A set of neutrinos.
     */
-  std::vector <TLorentzVector *> fNeutrinos;
+  std::vector <std::unique_ptr<TLorentzVector> > fNeutrinos;
 
   /**
     * A set of bosons.
     */
-  std::vector <TLorentzVector *> fBosons;
+  std::vector <std::unique_ptr<TLorentzVector> > fBosons;
 
   /**
     * A set of photons.
     */
-  std::vector <TLorentzVector *> fPhotons;
+  std::vector <std::unique_ptr<TLorentzVector> > fPhotons;
 
   /**
     * The name of the partons.
