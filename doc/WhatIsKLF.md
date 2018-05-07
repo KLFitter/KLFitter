@@ -1,4 +1,4 @@
-# KLFitter—the Kinematic Likelihood Fitter
+# KLFitter – The Kinematic Likelihood Fitter
 
 ### Introduction
 
@@ -113,7 +113,7 @@ The following likelihood is implemented in the class
 `BoostedLikelihoodTopLeptonJets` for the reconstruction of lepton+jets ttbar
 events with a high momentum of the hadronically decaying top quark, in which the
 decay products of the hadronically decaying W boson are merged to form only one
-jet instead of two. This likelihood has the potential to outperfrom
+jet instead of two. This likelihood has the potential to outperform
 `LikelihoodTopLeptonJets` for transverse momenta of the hadronically decaying W
 boson of about 400 GeV. In comparison to `LikelihoodTopLeptonJets`, this
 likelihood only considers three instead of four jets and does not consider any
@@ -123,10 +123,10 @@ make use of the mass of the merged jet.
 ![](BoostedLikelihoodTopLeptonJets.png)
 
 
-### Allhadronic ttbar events
+### All-hadronic ttbar events
 
 The following likelihood is implemented in the class `LikelihoodTopAllHadronic`
-for the reconstruction of allhadronic ttbar events. It consists of Breit-Wigner
+for the reconstruction of all-hadronic ttbar events. It consists of Breit-Wigner
 distributions for the top-quarks and the W-bosons and transfer functions for the
 six jets. As in the case of `LikelihoodTopLeptonJets`, the top-quark mass can be
 chosen to be fixed or a free parameter in the fit.
@@ -139,7 +139,7 @@ chosen to be fixed or a free parameter in the fit.
 The following likelihood is implemented in the class `LikelihoodTopDilepton` for
 the reconstruction of dileptonic ttbar events. It uses the four-momenta of two
 jets and two charged leptons and the two components and the missing transverse
-momentum in the neutrino-weighting method to solve the underconstrained
+momentum in the neutrino-weighting method to solve the under-constrained
 kinematic system. The likelihood consists of the transfer functions for the two
 charged leptons and the two jets, as well as Gaussian functions G(...) that
 describe the transfer function of the missing transverse momentum as a function
@@ -280,7 +280,7 @@ the reconstruction of the associated production of a single top quark and a W
 boson in the lepton+jets channel. In comparison to `LikelihoodTopLeptonJets`,
 this likelihood contains only three instead of four jets. Two variants of the
 likelihood are provided: one variant assumes that the top quark decays
-semileptonically, the other variant assumes that it decays full hadronic. The
+semi-leptonically, the other variant assumes that it decays full hadronic. The
 user can switch between these two variants by setting:
 
 ```c++
@@ -320,7 +320,7 @@ require that the b-tagging information for the jets is passed to KLFitter.
 - Option `LikelihoodBase::kWorkingPoint`: With this option, b-tagging
   information is not used to veto events, but to multiply the event probability
   with a b-tagging probability. It is calculated from the product of the
-  b-tagging probabilitites of the individual jets by assigning:
+  b-tagging probabilities of the individual jets by assigning:
   - the b-tagging efficiency (one minus the b-tagging efficiency) for each
     b-tagged (non-b-tagged) jet that is in the position of a b-quark from the
     top-quark decay;
@@ -340,12 +340,12 @@ require that the b-tagging information for the jets is passed to KLFitter.
 ## Transfer functions
 
 The transfer functions `W(measured property | true property)` are a
-parametrization of the detector response, for example for the measured jet
-energy given the true energy of a parton. These parametrizations are
+parameterization of the detector response, for example for the measured jet
+energy given the true energy of a parton. These parameterizations are
 detector-specific and in general need to be derived by the user for their
-specific application. Gaussian and double-Gaussian parametrizations are
+specific application. Gaussian and double-Gaussian parameterizations are
 pre-defined in KLFitter with the specific parameters to be determined by the
-user. Alternative parametrizations are in principle possible. A tool is provided
+user. Alternative parameterizations are in principle possible. A tool is provided
 for the derivation of double-Gaussian transfer functions,
 [TFtool](https://gitlab.cern.ch/KLFitter/TFtool).
 
@@ -356,7 +356,7 @@ for the derivation of double-Gaussian transfer functions,
 During the fit, the negative logarithm of the likelihood is minimized with
 minimization methods that are available from the
 [BAT](http://www.mppmu.mpg.de/bat/) library. The default algorithm for
-minimizaton is Minuit. Alternatively, simulated annealing or Markov Chain Monte
+minimization is Minuit. Alternatively, simulated annealing or Markov Chain Monte
 Carlo can be used:
 
 ```c++
