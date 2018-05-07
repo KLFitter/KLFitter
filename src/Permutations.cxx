@@ -19,6 +19,7 @@
 
 #include "KLFitter/Permutations.h"
 
+#include <algorithm>
 #include <iostream>
 #include <set>
 
@@ -326,7 +327,7 @@ int KLFitter::Permutations::CreateSubTable(int Nobj, std::vector < std::vector<i
 
     do {
       table->push_back(new std::vector<int>(vidx));
-    } while (next_permutation(vidx.begin(), vidx.end()));
+    } while (std::next_permutation(vidx.begin(), vidx.end()));
   } else {
     std::vector<std::vector<int> > v = Get_M_from_N(Nobj, Nmax);
 
@@ -334,7 +335,7 @@ int KLFitter::Permutations::CreateSubTable(int Nobj, std::vector < std::vector<i
       std::vector<int> vidx = v[i];
       do {
         table->push_back(new std::vector<int>(vidx));
-      } while (next_permutation(vidx.begin(), vidx.end()));
+      } while (std::next_permutation(vidx.begin(), vidx.end()));
     }
   }
 
