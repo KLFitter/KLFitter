@@ -293,7 +293,7 @@ LikelihoodSgTopWtLJ::SetLeptonicTop();
 
 
 
-### Using flavor-tagging information
+## Using flavor-tagging information
 
 There are several ways of considering flavor-tagging information in KLFitter,
 which can be set for the likelihoods via the
@@ -440,7 +440,7 @@ For each event and each permutation, after calling the fit method of the
 `KLFitter::Fitter` class, the fit status, the calculated likelihood values, and
 detailed information about the permutation can be retrieved.
 
-##### Fit convergence status
+#### Fit convergence status
 
 The fit convergence status can be obtained and stored in an unsigned integer bit
 word via:
@@ -470,7 +470,7 @@ with the bit-wise _or_ operator:
 bool MinuitDidNotConverge = (ConvergenceStatusBitWord & fitter.MinuitDidNotConvergeMask) != 0;
 ```
 
-##### Retrieving the fit results
+#### Retrieving the fit results
 
 The instance of the fitter class also allows to retrieve the calculated log
 likelihood value of the fit. This, and the event probability can be extracted
