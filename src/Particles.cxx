@@ -32,7 +32,7 @@ KLFitter::Particles::~Particles() {
 // ---------------------------------------------------------
 int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, float LepCharge, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex) {
   // get particle container
-  std::vector <std::unique_ptr<TLorentzVector> >* container = ParticleContainer(ptype);
+  auto container = ParticleContainer(ptype);
 
   // check if container exists
   if (!container) {
@@ -85,7 +85,7 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, f
 // ---------------------------------------------------------
 int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, TrueFlavorType trueflav, double btagweight) {
   // get particle container
-  std::vector <std::unique_ptr<TLorentzVector> >* container = ParticleContainer(ptype);
+  auto container = ParticleContainer(ptype);
 
   // check if container exists
   if (!container) {
@@ -219,7 +219,7 @@ TLorentzVector* KLFitter::Particles::Particle(std::string name) {
 // ---------------------------------------------------------
 TLorentzVector* KLFitter::Particles::Particle(int index, KLFitter::Particles::ParticleType ptype) {
   // get particle container
-  std::vector <std::unique_ptr<TLorentzVector> >* container = ParticleContainer(ptype);
+  auto container = ParticleContainer(ptype);
 
   if (index < 0 || index > NParticles(ptype)) {
     std::cout << "KLFitter::Particles::Particle(). Index out of range." << std::endl;
@@ -349,14 +349,14 @@ TLorentzVector* KLFitter::Particles::Photon(int index) {
 }
 
 // ---------------------------------------------------------
-int  KLFitter::Particles::NParticles(KLFitter::Particles::ParticleType ptype) {
+int KLFitter::Particles::NParticles(KLFitter::Particles::ParticleType ptype) {
   return static_cast<int>(ParticleContainer(ptype)->size());
 }
 
 // ---------------------------------------------------------
 std::string KLFitter::Particles::NameParticle(int index, KLFitter::Particles::ParticleType ptype) {
   // get particle container
-  std::vector <std::unique_ptr<TLorentzVector> >* container = ParticleContainer(ptype);
+  auto container = ParticleContainer(ptype);
 
   // check container and index
   if (!CheckIndex(container, index))
@@ -367,7 +367,7 @@ std::string KLFitter::Particles::NameParticle(int index, KLFitter::Particles::Pa
 }
 
 // ---------------------------------------------------------
-int KLFitter::Particles::CheckIndex(std::vector <std::unique_ptr<TLorentzVector> >* container, int index) {
+int KLFitter::Particles::CheckIndex(std::vector<std::unique_ptr<TLorentzVector> >* container, int index) {
   // check container
   if (!container) {
     std::cout << "KLFitter::Particles::CheckIndex(). Container does not exist." << std::endl;
@@ -385,7 +385,7 @@ int KLFitter::Particles::CheckIndex(std::vector <std::unique_ptr<TLorentzVector>
 }
 
 // ---------------------------------------------------------
-std::vector <std::unique_ptr<TLorentzVector> >* KLFitter::Particles::ParticleContainer(KLFitter::Particles::ParticleType ptype) {
+std::vector<std::unique_ptr<TLorentzVector> >* KLFitter::Particles::ParticleContainer(KLFitter::Particles::ParticleType ptype) {
   // return particle container
   switch (ptype) {
   case KLFitter::Particles::kParton:

@@ -453,7 +453,7 @@ class Particles {
     * @param ptype The type of the particle.
     * @return The particle container.
     */
-  std::vector <std::unique_ptr<TLorentzVector> > * ParticleContainer(KLFitter::Particles::ParticleType ptype);
+  std::vector<std::unique_ptr<TLorentzVector> >* ParticleContainer(KLFitter::Particles::ParticleType ptype);
 
   /**
     * Return the particle name container of a type of particles
@@ -468,7 +468,7 @@ class Particles {
     * @param index The index of particle.
     * @return An error flag.
     */
-  int CheckIndex(std::vector <std::unique_ptr<TLorentzVector> > * container, int index);
+  int CheckIndex(std::vector<std::unique_ptr<TLorentzVector> >* container, int index);
 
   /* @} */
 
@@ -481,87 +481,87 @@ class Particles {
   /**
     * A set of electrons.
     */
-  std::vector <std::unique_ptr<TLorentzVector> > fElectrons;
+  std::vector<std::unique_ptr<TLorentzVector> > fElectrons;
 
   /**
     * A set of muons.
     */
-  std::vector <std::unique_ptr<TLorentzVector> > fMuons;
+  std::vector<std::unique_ptr<TLorentzVector> > fMuons;
 
   /**
     * A set of taus.
     */
-  std::vector <std::unique_ptr<TLorentzVector> > fTaus;
+  std::vector<std::unique_ptr<TLorentzVector> > fTaus;
 
   /**
     * A set of neutrinos.
     */
-  std::vector <std::unique_ptr<TLorentzVector> > fNeutrinos;
+  std::vector<std::unique_ptr<TLorentzVector> > fNeutrinos;
 
   /**
     * A set of bosons.
     */
-  std::vector <std::unique_ptr<TLorentzVector> > fBosons;
+  std::vector<std::unique_ptr<TLorentzVector> > fBosons;
 
   /**
     * A set of photons.
     */
-  std::vector <std::unique_ptr<TLorentzVector> > fPhotons;
+  std::vector<std::unique_ptr<TLorentzVector> > fPhotons;
 
   /**
     * The name of the partons.
     */
-  std::vector <std::string> fNamePartons;
+  std::vector<std::string> fNamePartons;
 
   /**
     * The name of the electrons.
     */
-  std::vector <std::string> fNameElectrons;
+  std::vector<std::string> fNameElectrons;
 
   /**
     * The name of the muons.
     */
-  std::vector <std::string> fNameMuons;
+  std::vector<std::string> fNameMuons;
 
   /**
     * The name of the taus.
     */
-  std::vector <std::string> fNameTaus;
+  std::vector<std::string> fNameTaus;
 
   /**
     * The name of the neutrinos.
     */
-  std::vector <std::string> fNameNeutrinos;
+  std::vector<std::string> fNameNeutrinos;
 
   /**
     * The name of the bosons.
     */
-  std::vector <std::string> fNameBosons;
+  std::vector<std::string> fNameBosons;
 
   /**
     * The name of the photons.
     */
-  std::vector <std::string> fNamePhotons;
+  std::vector<std::string> fNamePhotons;
 
   /**
     * The index of the corresponding measured parton.
     */
-  std::vector <int> fJetIndex;
+  std::vector<int> fJetIndex;
 
   /**
     * The index of the corresponding measured electron.
     */
-  std::vector <int> fElectronIndex;
+  std::vector<int> fElectronIndex;
 
   /**
     * The index of the corresponding measured muon.
     */
-  std::vector <int> fMuonIndex;
+  std::vector<int> fMuonIndex;
 
   /**
     * The index of the corresponding measured photon.
     */
-  std::vector <int> fPhotonIndex;
+  std::vector<int> fPhotonIndex;
 
   /**
     * Vector containing the true flavor.
