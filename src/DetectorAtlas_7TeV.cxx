@@ -168,6 +168,7 @@ KLFitter::DetectorAtlas_7TeV::DetectorAtlas_7TeV(std::string folder) : DetectorB
 
 // ---------------------------------------------------------
 KLFitter::DetectorAtlas_7TeV::~DetectorAtlas_7TeV() {
+  delete fResMissingET;
 }
 
 // ---------------------------------------------------------

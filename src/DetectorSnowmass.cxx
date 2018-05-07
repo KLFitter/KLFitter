@@ -66,6 +66,7 @@ KLFitter::DetectorSnowmass::DetectorSnowmass(std::string folder) : DetectorBase(
 
 // ---------------------------------------------------------
 KLFitter::DetectorSnowmass::~DetectorSnowmass() {
+  delete fResMissingET;
 }
 
 // ---------------------------------------------------------
