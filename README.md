@@ -44,14 +44,15 @@ be found under
 [KLFitter/releases](https://github.com/KLFitter/KLFitter/releases). To download
 the source code, you can use the git clone command:
 
+```sh
+> git clone https://github.com/KLFitter/KLFitter.git
 ```
-$ git clone https://github.com/KLFitter/KLFitter.git
 
-```
 and, for checking out a specific release, use the git checkout procedure:
-```
-$ cd KLFitter
-$ git checkout $VERSION_TAG
+
+```sh
+> cd KLFitter
+> git checkout $VERSION_TAG
 ```
 
 Before KLFitter was made public, it was maintained in non-public SVN
@@ -68,10 +69,10 @@ KLFitter and the BAT library simultaneously. BAT will be downloaded during the
 cmake build process. For doing so, change into the KLFitter directory and then
 do:
 
-```
-mkdir build && cd build
-cmake -DBUILTIN_BAT=TRUE ..
-make -j
+```sh
+> mkdir build && cd build
+> cmake -DBUILTIN_BAT=TRUE ..
+> make -j
 ```
 
 This will build both BAT and KLFitter in the _build_ sub-folder of the KLFitter
@@ -83,10 +84,10 @@ variable will be used by _FindBAT.cmake_, which locates the BAT library. With a
 local version of BAT, the `-DBUILTIN_BAT` flag of the cmake command can be
 omitted, i.e. the KLFitter build procedure becomes:
 
-```
-mkdir build && cd build
-cmake ..
-make -j
+```sh
+> mkdir build && cd build
+> cmake ..
+> make -j
 ```
 
 For problems with the cmake configuration, please also refer to the [Frequently
@@ -101,8 +102,8 @@ have a working installation of ROOT and BAT. The location of the BAT library is
 determined with the `$BATINSTALLDIR` variable, so make sure to set and export
 it. Then switch to the KLFitter repository directory and call
 
-```
-make -j && make -j install
+```sh
+> make -j all && make -j install
 ```
 
 to compile KLFitter. The latter command will create a subdirectory _build_ and
