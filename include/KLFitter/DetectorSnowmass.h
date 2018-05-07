@@ -20,6 +20,7 @@
 #ifndef KLFITTER_DETECTORSNOWMASS_H_
 #define KLFITTER_DETECTORSNOWMASS_H_
 
+#include <memory>
 #include <string>
 
 #include "KLFitter/DetectorBase.h"
@@ -97,21 +98,21 @@ class DetectorSnowmass : public DetectorBase {
   /**
     * The energy resolution of light jets for different eta regions.
     */
-  ResolutionBase* fResEnergyJet_eta1;
-  ResolutionBase* fResEnergyJet_eta2;
-  ResolutionBase* fResEnergyJet_eta3;
+  std::unique_ptr<ResolutionBase> fResEnergyJet_eta1;
+  std::unique_ptr<ResolutionBase> fResEnergyJet_eta2;
+  std::unique_ptr<ResolutionBase> fResEnergyJet_eta3;
 
   /**
     * The energy resolution of electrons for different eta regions.
     */
-  ResolutionBase* fResEnergyElectron_eta1;
-  ResolutionBase* fResEnergyElectron_eta2;
+  std::unique_ptr<ResolutionBase> fResEnergyElectron_eta1;
+  std::unique_ptr<ResolutionBase> fResEnergyElectron_eta2;
 
   /**
     * The momentum resolution of muons for different eta regions.
     */
-  ResolutionBase* fResMomentumMuon_eta1;
-  ResolutionBase* fResMomentumMuon_eta2;
+  std::unique_ptr<ResolutionBase> fResMomentumMuon_eta1;
+  std::unique_ptr<ResolutionBase> fResMomentumMuon_eta2;
 
   /**
     * The eta binning for jets
