@@ -26,7 +26,6 @@
 #include "BAT/BCLog.h"
 #include "BAT/BCModel.h"
 #include "KLFitter/Particles.h"
-#include "TLorentzVector.h"
 
 // ---------------------------------------------------------
 

@@ -20,6 +20,7 @@
 #ifndef KLFITTER_LIKELIHOODSGTOPWTLJ_H_
 #define KLFITTER_LIKELIHOODSGTOPWTLJ_H_
 
+#include <cmath>
 #include <vector>
 
 namespace KLFitter {

@@ -20,15 +20,17 @@
 #ifndef KLFITTER_BOOSTEDLIKELIHOODTOPLEPTONJETS_H_
 #define KLFITTER_BOOSTEDLIKELIHOODTOPLEPTONJETS_H_
 
+#include <cmath>
 #include <iostream>
 #include <vector>
+
+class TLorentzVector;
 
 namespace KLFitter {
   class ResolutionBase;
 }
 
 #include "KLFitter/LikelihoodBase.h"
-#include "TLorentzVector.h"
 
 // ---------------------------------------------------------
 

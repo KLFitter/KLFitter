@@ -29,6 +29,7 @@
 #include "KLFitter/Permutations.h"
 #include "KLFitter/PhysicsConstants.h"
 #include "KLFitter/ResolutionBase.h"
+#include "TLorentzVector.h"
 
 // ---------------------------------------------------------
 KLFitter::LikelihoodTopLeptonJets_Angular::LikelihoodTopLeptonJets_Angular() : KLFitter::LikelihoodBase::LikelihoodBase()

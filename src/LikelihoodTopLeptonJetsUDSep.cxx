@@ -29,6 +29,9 @@
 #include "KLFitter/Permutations.h"
 #include "KLFitter/PhysicsConstants.h"
 #include "KLFitter/ResolutionBase.h"
+#include "TH1F.h"
+#include "TH2F.h"
+#include "TLorentzVector.h"
 
 // ---------------------------------------------------------
 KLFitter::LikelihoodTopLeptonJetsUDSep::LikelihoodTopLeptonJetsUDSep() : KLFitter::LikelihoodTopLeptonJets::LikelihoodTopLeptonJets(),

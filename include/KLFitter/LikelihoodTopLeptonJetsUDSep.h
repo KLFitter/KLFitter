@@ -22,14 +22,15 @@
 
 #include <iostream>
 
+class TH1F;
+class TH2F;
+class TLorentzVector;
+
 namespace KLFitter {
   class ResolutionBase;
 }
 
 #include "KLFitter/LikelihoodTopLeptonJets.h"
-#include "TH1F.h"
-#include "TH2F.h"
-#include "TLorentzVector.h"
 
 // ---------------------------------------------------------
 

@@ -29,6 +29,7 @@
 #include "KLFitter/Permutations.h"
 #include "KLFitter/PhysicsConstants.h"
 #include "KLFitter/DetectorBase.h"
+#include "TLorentzVector.h"
 #include "TMath.h"
 
 // ---------------------------------------------------------
