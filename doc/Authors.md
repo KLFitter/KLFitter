@@ -8,12 +8,12 @@
 - Boris Lemmer (previously University of Göttingen): transfer functions, `LikelihoodTopLeptonJetsUDSep`
 - Olaf Nackenhorst (TU Dortmund University): main author
 - Arnulf Quadt (University of Göttingen): initiator of KLFitter
-- Philipp Stolte (University of Göttingen): studies for the KLFitter paper
+- Philipp Stolte (previously University of Göttingen): studies for the KLFitter paper
 
 ### Current and previous contributors to KLFitter
 
 - Stefanie Adomeit (previously LMU Munich): `LikelihoodTopAllHadronic`
-- Tomas Dado (Comenius University in Bratislava): technical support
+- Tomas Dado (Comenius University in Bratislava & University of Göttingen): technical support
 - Andrea Knue (University of Freiburg): user support
 - Fabian Kohn (previously University of Göttingen): `LikelihoodTopLeptonJets_JetAngles`
 - Thomas Loddenkötter (previously Bonn University): `LikelihoodSgTopWtLJ`
