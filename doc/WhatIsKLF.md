@@ -1,4 +1,4 @@
-# KLFitter—the Kinematic Likelihood Fitter
+# KLFitter – The Kinematic Likelihood Fitter
 
 ### Introduction
 
@@ -31,7 +31,8 @@ If you are using KLFitter, please consider citing the KLFitter paper:
 
 > J.Erdmann, S.Guindon, K.Kröninger, B.Lemmer, O.Nackenhorst, A.Quadt and P.Stolte, *A likelihood-based reconstruction algorithm for top-quark pairs and the KLFitter framework*, [Nucl. Instrum. Meth. A 748 (2014) 18](https://doi.org/10.1016/j.nima.2014.02.029).
 
-A list of works citing the KLFitter paper can be found [on inspire](https://inspirehep.net/search?ln=en&p=refersto%3Arecid%3A1272847).
+A list of works citing the KLFitter paper can be found [on
+inspire](https://inspirehep.net/search?ln=en&p=refersto%3Arecid%3A1272847).
 
 
 
@@ -113,7 +114,7 @@ The following likelihood is implemented in the class
 `BoostedLikelihoodTopLeptonJets` for the reconstruction of lepton+jets ttbar
 events with a high momentum of the hadronically decaying top quark, in which the
 decay products of the hadronically decaying W boson are merged to form only one
-jet instead of two. This likelihood has the potential to outperfrom
+jet instead of two. This likelihood has the potential to outperform
 `LikelihoodTopLeptonJets` for transverse momenta of the hadronically decaying W
 boson of about 400 GeV. In comparison to `LikelihoodTopLeptonJets`, this
 likelihood only considers three instead of four jets and does not consider any
@@ -123,10 +124,10 @@ make use of the mass of the merged jet.
 ![](BoostedLikelihoodTopLeptonJets.png)
 
 
-### Allhadronic ttbar events
+### All-hadronic ttbar events
 
 The following likelihood is implemented in the class `LikelihoodTopAllHadronic`
-for the reconstruction of allhadronic ttbar events. It consists of Breit-Wigner
+for the reconstruction of all-hadronic ttbar events. It consists of Breit-Wigner
 distributions for the top-quarks and the W-bosons and transfer functions for the
 six jets. As in the case of `LikelihoodTopLeptonJets`, the top-quark mass can be
 chosen to be fixed or a free parameter in the fit.
@@ -139,7 +140,7 @@ chosen to be fixed or a free parameter in the fit.
 The following likelihood is implemented in the class `LikelihoodTopDilepton` for
 the reconstruction of dileptonic ttbar events. It uses the four-momenta of two
 jets and two charged leptons and the two components and the missing transverse
-momentum in the neutrino-weighting method to solve the underconstrained
+momentum in the neutrino-weighting method to solve the under-constrained
 kinematic system. The likelihood consists of the transfer functions for the two
 charged leptons and the two jets, as well as Gaussian functions G(...) that
 describe the transfer function of the missing transverse momentum as a function
@@ -266,9 +267,9 @@ mass of the two leptons:
 - the on-shell production of two charged leptons with a Breit-Wigner
   distribution with mass and width of the Z boson, weighted with fraction f, and
 - the off-shell production of two charged leptons with the expected inverse
-quadratic dependence on the invariant mass of the two leptons, weighted with the
-fraction (1-f). The cut-off constant that appears in the off-shell part of the
-likelihood can be set by the user.
+  quadratic dependence on the invariant mass of the two leptons, weighted with
+  the fraction (1-f). The cut-off constant that appears in the off-shell part of
+  the likelihood can be set by the user.
 
 ![](LikelihoodTTZTrilepton.png)
 
@@ -280,7 +281,7 @@ the reconstruction of the associated production of a single top quark and a W
 boson in the lepton+jets channel. In comparison to `LikelihoodTopLeptonJets`,
 this likelihood contains only three instead of four jets. Two variants of the
 likelihood are provided: one variant assumes that the top quark decays
-semileptonically, the other variant assumes that it decays full hadronic. The
+semi-leptonically, the other variant assumes that it decays full hadronic. The
 user can switch between these two variants by setting:
 
 ```c++
@@ -292,7 +293,7 @@ LikelihoodSgTopWtLJ::SetLeptonicTop();
 
 
 
-### Using flavor-tagging information
+## Using flavor-tagging information
 
 There are several ways of considering flavor-tagging information in KLFitter,
 which can be set for the likelihoods via the
@@ -320,7 +321,7 @@ require that the b-tagging information for the jets is passed to KLFitter.
 - Option `LikelihoodBase::kWorkingPoint`: With this option, b-tagging
   information is not used to veto events, but to multiply the event probability
   with a b-tagging probability. It is calculated from the product of the
-  b-tagging probabilitites of the individual jets by assigning:
+  b-tagging probabilities of the individual jets by assigning:
   - the b-tagging efficiency (one minus the b-tagging efficiency) for each
     b-tagged (non-b-tagged) jet that is in the position of a b-quark from the
     top-quark decay;
@@ -340,13 +341,13 @@ require that the b-tagging information for the jets is passed to KLFitter.
 ## Transfer functions
 
 The transfer functions `W(measured property | true property)` are a
-parametrization of the detector response, for example for the measured jet
-energy given the true energy of a parton. These parametrizations are
+parameterization of the detector response, for example for the measured jet
+energy given the true energy of a parton. These parameterizations are
 detector-specific and in general need to be derived by the user for their
-specific application. Gaussian and double-Gaussian parametrizations are
+specific application. Gaussian and double-Gaussian parameterizations are
 pre-defined in KLFitter with the specific parameters to be determined by the
-user. Alternative parametrizations are in principle possible. A tool is provided
-for the derivation of double-Gaussian transfer functions,
+user. Alternative parameterizations are in principle possible. A tool is
+provided for the derivation of double-Gaussian transfer functions,
 [TFtool](https://gitlab.cern.ch/KLFitter/TFtool).
 
 
@@ -356,7 +357,7 @@ for the derivation of double-Gaussian transfer functions,
 During the fit, the negative logarithm of the likelihood is minimized with
 minimization methods that are available from the
 [BAT](http://www.mppmu.mpg.de/bat/) library. The default algorithm for
-minimizaton is Minuit. Alternatively, simulated annealing or Markov Chain Monte
+minimization is Minuit. Alternatively, simulated annealing or Markov Chain Monte
 Carlo can be used:
 
 ```c++
@@ -409,8 +410,8 @@ The measured quantities are the four-vectors of jets and charged leptons, as
 well as the missing transverse momentum components. An object of type
 `Particles` is passed to the `Fitter` object. The input quantities can either be
 set by defining `TLorentzVectors` and adding them to Particles object, or by
-using an interface. Please also refer to the [example](Example.md) for the
-exact implementation.
+using an interface. Please also refer to the [example](Example.md) for the exact
+implementation.
 
 ### Combinatorics
 
@@ -439,10 +440,10 @@ For each event and each permutation, after calling the fit method of the
 `KLFitter::Fitter` class, the fit status, the calculated likelihood values, and
 detailed information about the permutation can be retrieved.
 
-##### Fit convergence status
+#### Fit convergence status
 
-The fit convergence status can be obtained and stored in an unsigned integer
-bit word via:
+The fit convergence status can be obtained and stored in an unsigned integer bit
+word via:
 
 ```c++
 unsigned int ConvergenceStatusBitWord = fitter.ConvergenceStatus();
@@ -469,7 +470,7 @@ with the bit-wise _or_ operator:
 bool MinuitDidNotConverge = (ConvergenceStatusBitWord & fitter.MinuitDidNotConvergeMask) != 0;
 ```
 
-##### Retrieving the fit results
+#### Retrieving the fit results
 
 The instance of the fitter class also allows to retrieve the calculated log
 likelihood value of the fit. This, and the event probability can be extracted

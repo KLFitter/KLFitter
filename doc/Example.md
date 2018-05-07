@@ -4,13 +4,13 @@
 
 The purpose of the provided example is to demonstrate how to implement KLFitter
 in your analysis. The example code and the input files are designed to provide a
-minimalistic input and implementation. The example also shows how to retrieve
-the output from KLFitter after the fitting. The ttbar lepton+jets likelihood,
+minimalist input and implementation. The example also shows how to retrieve the
+output from KLFitter after the fitting. The ttbar lepton+jets likelihood,
 implemented in the class
-[LikelihoodTopLeptonJets](../include/KLFitter/LikelihoodTopLeptonJets.h) has been
-chosen for the example, but from the implementation it should be straightforward
-to extend the implementation to other available likelihoods. Detailed
-explanations of all likelihoods can be found in the [main KLFitter
+[LikelihoodTopLeptonJets](../include/KLFitter/LikelihoodTopLeptonJets.h) has
+been chosen for the example, but from the implementation it should be
+straightforward to extend the implementation to other available likelihoods.
+Detailed explanations of all likelihoods can be found in the [main KLFitter
 documentation](WhatIsKLF.md).
 
 
@@ -23,13 +23,14 @@ additional argument. For example, if you followed the build instructions of the
 README, the cmake command will store the executable in the `bin` subdirectory.
 Then call
 
-```
-$ ./bin/example-top-ljets.exe ../
+```sh
+> ./bin/example-top-ljets.exe ../
 ```
 
 The location of the KLFitter source directory is needed to locate the input file
-for the example, stored under [data/examples](../data/examples), and the transfer
-functions, stored under [data/transferfunctions](../data/transferfunctions).
+for the example, stored under [data/examples](../data/examples), and the
+transfer functions, stored under
+[data/transferfunctions](../data/transferfunctions).
 
 
 ### Implementation
@@ -40,30 +41,33 @@ The implementation of the example consists of three different files:
 ttbar lepton+jets events. The file contains all necessary variables to run the
 KLFitter lepton+jets likelihood (described in detail in the [main
 documentation](WhatIsKLF.md)).
-* A [header file](../util/TreeReaderTopLJets.h) for the `TreeReaderTopLJets` class
-that provides an interface to read the variables from the input file easily.
-This class is used to loop over all input events and load the event information.
+* A [header file](../util/TreeReaderTopLJets.h) for the `TreeReaderTopLJets`
+class that provides an interface to read the variables from the input file
+easily. This class is used to loop over all input events and load the event
+information.
 * An [implementation file](../util/example-top-ljets.cxx) that provides a
-minimalistic implementation of KLFitter in a toy-analysis. The file contains
-detailed comments about every command and substep to use KLFitter.
+minimalist implementation of KLFitter in a toy-analysis. The file contains
+detailed comments about every command and sub-step to use KLFitter.
 
 
 ## Input file
 
-The input file for the provided example (../data/examples/top-ljets-input.root) is
-a _HepSim_ sample taken [from the
-homepage](http://atlaswww.hep.anl.gov/hepsim/info.php?item=142) of the HepSim
+The input file for the provided example (../data/examples/top-ljets-input.root)
+is a _HepSim_ sample taken [from the home
+page](http://atlaswww.hep.anl.gov/hepsim/info.php?item=142) of the HepSim
 project [1]. The sample simulates ttbar+jet processes in proton-proton
-collisions at a centre-of-mass energy of 13 TeV. The processes are generated
-using the Madgraph matrix element generator interfaced with Herwig6. The
-simulated detector corresponds to the _Snowmass_ detector [2], which is a toy detector used for the 2013 Snowmass studies.
+collisions at a center-of-mass energy of 13 TeV. The processes are generated
+using the MadGraph matrix element generator interfaced with Herwig6. The
+simulated detector corresponds to the _Snowmass_ detector [2], which is a toy
+detector used for the 2013 Snowmass studies.
 
 The original Delphes format of the input ROOT files is transformed into a
 standard ROOT tree, the events are skimmed and only variables relevant for the
 KLFitter reconstruction are kept. The event skimming sets the following
 requirements for events to be kept:
+
 * at least 4 jets with a transverse momentum of at least 25 GeV. The eta of the
-  jets is required to fulfil |eta| < 4.9.
+  jets is required to fulfill |eta| < 4.9.
 * exactly one charged lepton (i.e. electron or muon) with a transverse momentum
   of at least 25 GeV and |eta| < 4.9.
 
