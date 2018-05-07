@@ -20,6 +20,7 @@
 #ifndef KLFITTER_DETECTORATLAS_7TEV_H_
 #define KLFITTER_DETECTORATLAS_7TEV_H_
 
+#include <memory>
 #include <string>
 
 #include "KLFitter/DetectorBase.h"
@@ -139,83 +140,83 @@ class DetectorAtlas_7TeV : public DetectorBase {
   /**
     * The energy resolution of light jets for different eta regions.
     */
-  ResolutionBase* fResEnergyLightJet_eta1;
-  ResolutionBase* fResEnergyLightJet_eta2;
-  ResolutionBase* fResEnergyLightJet_eta3;
-  ResolutionBase* fResEnergyLightJet_eta4;
-  ResolutionBase* fResEnergyLightJet_eta5;
+  std::unique_ptr<ResolutionBase> fResEnergyLightJet_eta1;
+  std::unique_ptr<ResolutionBase> fResEnergyLightJet_eta2;
+  std::unique_ptr<ResolutionBase> fResEnergyLightJet_eta3;
+  std::unique_ptr<ResolutionBase> fResEnergyLightJet_eta4;
+  std::unique_ptr<ResolutionBase> fResEnergyLightJet_eta5;
 
   /**
     * The energy resolution of b jets for different eta regions.
     */
-  ResolutionBase* fResEnergyBJet_eta1;
-  ResolutionBase* fResEnergyBJet_eta2;
-  ResolutionBase* fResEnergyBJet_eta3;
-  ResolutionBase* fResEnergyBJet_eta4;
-  ResolutionBase* fResEnergyBJet_eta5;
+  std::unique_ptr<ResolutionBase> fResEnergyBJet_eta1;
+  std::unique_ptr<ResolutionBase> fResEnergyBJet_eta2;
+  std::unique_ptr<ResolutionBase> fResEnergyBJet_eta3;
+  std::unique_ptr<ResolutionBase> fResEnergyBJet_eta4;
+  std::unique_ptr<ResolutionBase> fResEnergyBJet_eta5;
 
   /**
     * The energy resolution of gluon jets for different eta regions.
     */
-  ResolutionBase* fResEnergyGluonJet_eta1;
-  ResolutionBase* fResEnergyGluonJet_eta2;
-  ResolutionBase* fResEnergyGluonJet_eta3;
-  ResolutionBase* fResEnergyGluonJet_eta4;
+  std::unique_ptr<ResolutionBase> fResEnergyGluonJet_eta1;
+  std::unique_ptr<ResolutionBase> fResEnergyGluonJet_eta2;
+  std::unique_ptr<ResolutionBase> fResEnergyGluonJet_eta3;
+  std::unique_ptr<ResolutionBase> fResEnergyGluonJet_eta4;
 
   /**
     * The energy resolution of electrons for different eta regions.
     */
-  ResolutionBase* fResEnergyElectron_eta1;
-  ResolutionBase* fResEnergyElectron_eta2;
-  ResolutionBase* fResEnergyElectron_eta3;
-  ResolutionBase* fResEnergyElectron_eta4;
+  std::unique_ptr<ResolutionBase> fResEnergyElectron_eta1;
+  std::unique_ptr<ResolutionBase> fResEnergyElectron_eta2;
+  std::unique_ptr<ResolutionBase> fResEnergyElectron_eta3;
+  std::unique_ptr<ResolutionBase> fResEnergyElectron_eta4;
 
   /**
     * The energy resolution of muons for different eta regions.
     */
-  ResolutionBase* fResEnergyMuon_eta1;
-  ResolutionBase* fResEnergyMuon_eta2;
-  ResolutionBase* fResEnergyMuon_eta3;
+  std::unique_ptr<ResolutionBase> fResEnergyMuon_eta1;
+  std::unique_ptr<ResolutionBase> fResEnergyMuon_eta2;
+  std::unique_ptr<ResolutionBase> fResEnergyMuon_eta3;
 
   /**
     * The energy resolution of photons for different eta regions.
     */
-  ResolutionBase* fResEnergyPhoton_eta1;
-  ResolutionBase* fResEnergyPhoton_eta2;
-  ResolutionBase* fResEnergyPhoton_eta3;
-  ResolutionBase* fResEnergyPhoton_eta4;
+  std::unique_ptr<ResolutionBase> fResEnergyPhoton_eta1;
+  std::unique_ptr<ResolutionBase> fResEnergyPhoton_eta2;
+  std::unique_ptr<ResolutionBase> fResEnergyPhoton_eta3;
+  std::unique_ptr<ResolutionBase> fResEnergyPhoton_eta4;
 
   /**
     * The eta resolution of light jets for different eta regions.
     */
-  ResolutionBase* fResEtaLightJet_eta1;
-  ResolutionBase* fResEtaLightJet_eta2;
-  ResolutionBase* fResEtaLightJet_eta3;
-  ResolutionBase* fResEtaLightJet_eta4;
+  std::unique_ptr<ResolutionBase> fResEtaLightJet_eta1;
+  std::unique_ptr<ResolutionBase> fResEtaLightJet_eta2;
+  std::unique_ptr<ResolutionBase> fResEtaLightJet_eta3;
+  std::unique_ptr<ResolutionBase> fResEtaLightJet_eta4;
 
   /**
     * The eta resolution of b jets for different eta regions.
     */
-  ResolutionBase* fResEtaBJet_eta1;
-  ResolutionBase* fResEtaBJet_eta2;
-  ResolutionBase* fResEtaBJet_eta3;
-  ResolutionBase* fResEtaBJet_eta4;
+  std::unique_ptr<ResolutionBase> fResEtaBJet_eta1;
+  std::unique_ptr<ResolutionBase> fResEtaBJet_eta2;
+  std::unique_ptr<ResolutionBase> fResEtaBJet_eta3;
+  std::unique_ptr<ResolutionBase> fResEtaBJet_eta4;
 
   /**
     * The phi resolution of light jets for different eta regions.
     */
-  ResolutionBase* fResPhiLightJet_eta1;
-  ResolutionBase* fResPhiLightJet_eta2;
-  ResolutionBase* fResPhiLightJet_eta3;
-  ResolutionBase* fResPhiLightJet_eta4;
+  std::unique_ptr<ResolutionBase> fResPhiLightJet_eta1;
+  std::unique_ptr<ResolutionBase> fResPhiLightJet_eta2;
+  std::unique_ptr<ResolutionBase> fResPhiLightJet_eta3;
+  std::unique_ptr<ResolutionBase> fResPhiLightJet_eta4;
 
   /**
     * The phi resolution of b jets for different eta regions.
     */
-  ResolutionBase* fResPhiBJet_eta1;
-  ResolutionBase* fResPhiBJet_eta2;
-  ResolutionBase* fResPhiBJet_eta3;
-  ResolutionBase* fResPhiBJet_eta4;
+  std::unique_ptr<ResolutionBase> fResPhiBJet_eta1;
+  std::unique_ptr<ResolutionBase> fResPhiBJet_eta2;
+  std::unique_ptr<ResolutionBase> fResPhiBJet_eta3;
+  std::unique_ptr<ResolutionBase> fResPhiBJet_eta4;
 
   /**
     * The eta binning for jets
