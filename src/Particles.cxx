@@ -53,7 +53,7 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, f
   if (!FindParticle(name, vect, &index, &temptype)) {
     // add particle
     // create pointer copy of particle content which is owend by Particles
-    auto cparticle = std::make_unique<TLorentzVector>(particle->Px(), particle->Py(), particle->Pz(), particle->E());
+    std::unique_ptr<TLorentzVector> cparticle{new TLorentzVector{particle->Px(), particle->Py(), particle->Pz(), particle->E()}};
     container->emplace_back(std::move(cparticle));
     ParticleNameContainer(ptype)->push_back(name);
     if (ptype == KLFitter::Particles::kElectron) {
@@ -106,7 +106,7 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, K
   if (!FindParticle(name, vect, &index, &temptype)) {
     // add particle
     // create pointer copy of particle content which is owend by Particles
-    auto cparticle = std::make_unique<TLorentzVector>(particle->Px(), particle->Py(), particle->Pz(), particle->E());
+    std::unique_ptr<TLorentzVector> cparticle{new TLorentzVector{particle->Px(), particle->Py(), particle->Pz(), particle->E()}};
     container->emplace_back(std::move(cparticle));
     ParticleNameContainer(ptype)->push_back(name);
     if (ptype == KLFitter::Particles::kParton) {
