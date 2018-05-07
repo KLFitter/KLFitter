@@ -21,6 +21,8 @@
 
 #include <iostream>
 
+#include "TLorentzVector.h"
+
 // ---------------------------------------------------------
 KLFitter::Particles::Particles() {
 }
