@@ -33,6 +33,7 @@
 
 // ROOT includes
 #include "TFile.h"
+#include "TLorentzVector.h"
 #include "TTree.h"
 
 int main(int argc, char *argv[]) {

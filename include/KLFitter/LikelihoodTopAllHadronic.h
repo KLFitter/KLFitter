@@ -20,6 +20,7 @@
 #ifndef KLFITTER_LIKELIHOODTOPALLHADRONIC_H_
 #define KLFITTER_LIKELIHOODTOPALLHADRONIC_H_
 
+#include <cmath>
 #include <iostream>
 #include <vector>
 
@@ -28,7 +29,6 @@ namespace KLFitter {
 }
 
 #include "KLFitter/LikelihoodBase.h"
-#include "TLorentzVector.h"
 
 // ---------------------------------------------------------
 

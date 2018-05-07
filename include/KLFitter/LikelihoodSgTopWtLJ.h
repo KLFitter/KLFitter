@@ -20,6 +20,7 @@
 #ifndef KLFITTER_LIKELIHOODSGTOPWTLJ_H_
 #define KLFITTER_LIKELIHOODSGTOPWTLJ_H_
 
+#include <cmath>
 #include <vector>
 
 namespace KLFitter {
@@ -107,12 +108,12 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
   /**
     * Associate the hadronic leg of the event to the top quark for likelihood calculation.
     */
-  void SetHadronicTop() { fHadronicTop = kTRUE; }
+  void SetHadronicTop() { fHadronicTop = true; }
 
   /**
     * Associate the leptonic leg of the event to the top quark for likelihood calculation.
     */
-  void SetLeptonicTop() { fHadronicTop = kFALSE; }
+  void SetLeptonicTop() { fHadronicTop = false; }
 
   void SetFlagUseJetMass(bool flag) { fFlagUseJetMass = flag; }
 

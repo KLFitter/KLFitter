@@ -33,6 +33,16 @@
 #include "KLFitter/Permutations.h"
 #include "KLFitter/PhysicsConstants.h"
 #include "KLFitter/ResolutionBase.h"
+#include "TLorentzVector.h"
+
+//! Neutrino Solution Set
+class KLFitter::NuSolutions {
+public:
+  TLorentzVector nu1, nu2;
+  int NSolutions;
+  NuSolutions():NSolutions(0) {}
+  ~NuSolutions() {}
+};
 
 // ---------------------------------------------------------
 KLFitter::LikelihoodTopDilepton::LikelihoodTopDilepton() : KLFitter::LikelihoodBase::LikelihoodBase()
