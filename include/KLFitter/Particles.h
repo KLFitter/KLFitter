@@ -20,6 +20,7 @@
 #ifndef KLFITTER_PARTICLES_H_
 #define KLFITTER_PARTICLES_H_
 
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -78,43 +79,43 @@ class Particles {
     * Return the number of partons.
     * @return The number of partons.
     */
-  int NPartons() { return static_cast<int>(fPartons -> size()); }
+  int NPartons() { return static_cast<int>(fPartons.size()); }
 
   /**
     * Return the number of electrons.
     * @return The number of electrons.
     */
-  int NElectrons() { return int (fElectrons -> size()); }
+  int NElectrons() { return int (fElectrons.size()); }
 
   /**
     * Return the number of muons.
     * @return The number of muons.
     */
-  int NMuons() { return int (fMuons -> size()); }
+  int NMuons() { return int (fMuons.size()); }
 
   /**
     * Return the number of taus.
     * @return The number of taus.
     */
-  int NTaus() { return int (fTaus -> size()); }
+  int NTaus() { return int (fTaus.size()); }
 
   /**
     * Return the number of neutrinos.
     * @return The number of neutrinos.
     */
-  int NNeutrinos() { return int (fNeutrinos -> size()); }
+  int NNeutrinos() { return int (fNeutrinos.size()); }
 
   /**
     * Return the number of bosons.
     * @return The number of bosons.
     */
-  int NBosons() { return int (fBosons -> size()); }
+  int NBosons() { return int (fBosons.size()); }
 
   /**
     * Return the number of photons.
     * @return The number of photons.
     */
-  int NPhotons() { return int (fPhotons -> size()); }
+  int NPhotons() { return int (fPhotons.size()); }
 
   /**
     * Return the particle with a certain name
@@ -194,7 +195,7 @@ class Particles {
     * Return the number of particles.
     * @return The number of particles.
     */
-  int NParticles() { return static_cast<int>(fPartons -> size() + fElectrons -> size() + fMuons -> size() + fTaus -> size() + fNeutrinos -> size() + fBosons -> size() + fPhotons -> size()); }
+  int NParticles() { return static_cast<int>(fPartons.size() + fElectrons.size() + fMuons.size() + fTaus.size() + fNeutrinos.size() + fBosons.size() + fPhotons.size()); }
 
   /**
     * Return the number of particles of a certain type.
@@ -271,42 +272,42 @@ class Particles {
     * @param index The parton index
     * @return The parton true flavor.
     */
-  TrueFlavorType TrueFlavor(int index) { return (*fTrueFlavor)[index]; }
+  TrueFlavorType TrueFlavor(int index) { return fTrueFlavor[index]; }
 
   /**
     * Return has the jet been b-tagged?
     * @param index The parton index
     * @return The parton b-tagging boolean.
     */
-  bool IsBTagged(int index) { return (*fIsBTagged)[index]; }
+  bool IsBTagged(int index) { return fIsBTagged[index]; }
 
   /**
     * Return the jet b-tagging efficiency.
     * @param index The parton index
     * @return The jet b-tagging efficiency.
     */
-  double BTaggingEfficiency(int index) { return (*fBTaggingEfficiency)[index]; }
+  double BTaggingEfficiency(int index) { return fBTaggingEfficiency[index]; }
 
   /**
     * Return the jet b-tagging rejection.
     * @param index The parton index
     * @return The jet b-tagging rejection.
     */
-  double BTaggingRejection(int index) { return (*fBTaggingRejection)[index]; }
+  double BTaggingRejection(int index) { return fBTaggingRejection[index]; }
 
   /**
     * Return the jet b-tagging weight.
     * @param index The parton index
     * @return The jet b-tagging weight.
     */
-  double BTagWeight(int index) { return (*fBTagWeight)[index]; }
+  double BTagWeight(int index) { return fBTagWeight[index]; }
 
   /**
     * Return the bool of a set tagging weight.
     * @param index The parton index
     * @return The bool of a set tagging weight
     */
-  bool BTagWeightSet(int index) { return (*fBTagWeightSet)[index]; }
+  bool BTagWeightSet(int index) { return fBTagWeightSet[index]; }
 
   /**
     * Return the detector eta of a particle with some index and type.
@@ -452,7 +453,7 @@ class Particles {
     * @param ptype The type of the particle.
     * @return The particle container.
     */
-  std::vector <TLorentzVector *> * ParticleContainer(KLFitter::Particles::ParticleType ptype);
+  std::vector<std::unique_ptr<TLorentzVector> >* ParticleContainer(KLFitter::Particles::ParticleType ptype);
 
   /**
     * Return the particle name container of a type of particles
@@ -467,7 +468,7 @@ class Particles {
     * @param index The index of particle.
     * @return An error flag.
     */
-  int CheckIndex(std::vector <TLorentzVector *> * container, int index);
+  int CheckIndex(std::vector<std::unique_ptr<TLorentzVector> >* container, int index);
 
   /* @} */
 
@@ -475,147 +476,147 @@ class Particles {
   /**
     * A set of quarks and gluons.
     */
-  std::vector <TLorentzVector *> * fPartons;
+  std::vector<std::unique_ptr<TLorentzVector> > fPartons;
 
   /**
     * A set of electrons.
     */
-  std::vector <TLorentzVector *> * fElectrons;
+  std::vector<std::unique_ptr<TLorentzVector> > fElectrons;
 
   /**
     * A set of muons.
     */
-  std::vector <TLorentzVector *> * fMuons;
+  std::vector<std::unique_ptr<TLorentzVector> > fMuons;
 
   /**
     * A set of taus.
     */
-  std::vector <TLorentzVector *> * fTaus;
+  std::vector<std::unique_ptr<TLorentzVector> > fTaus;
 
   /**
     * A set of neutrinos.
     */
-  std::vector <TLorentzVector *> * fNeutrinos;
+  std::vector<std::unique_ptr<TLorentzVector> > fNeutrinos;
 
   /**
     * A set of bosons.
     */
-  std::vector <TLorentzVector *> * fBosons;
+  std::vector<std::unique_ptr<TLorentzVector> > fBosons;
 
   /**
     * A set of photons.
     */
-  std::vector <TLorentzVector *> * fPhotons;
+  std::vector<std::unique_ptr<TLorentzVector> > fPhotons;
 
   /**
     * The name of the partons.
     */
-  std::vector <std::string> * fNamePartons;
+  std::vector<std::string> fNamePartons;
 
   /**
     * The name of the electrons.
     */
-  std::vector <std::string> * fNameElectrons;
+  std::vector<std::string> fNameElectrons;
 
   /**
     * The name of the muons.
     */
-  std::vector <std::string> * fNameMuons;
+  std::vector<std::string> fNameMuons;
 
   /**
     * The name of the taus.
     */
-  std::vector <std::string> * fNameTaus;
+  std::vector<std::string> fNameTaus;
 
   /**
     * The name of the neutrinos.
     */
-  std::vector <std::string> * fNameNeutrinos;
+  std::vector<std::string> fNameNeutrinos;
 
   /**
     * The name of the bosons.
     */
-  std::vector <std::string> * fNameBosons;
+  std::vector<std::string> fNameBosons;
 
   /**
     * The name of the photons.
     */
-  std::vector <std::string> * fNamePhotons;
+  std::vector<std::string> fNamePhotons;
 
   /**
     * The index of the corresponding measured parton.
     */
-  std::vector <int> * fJetIndex;
+  std::vector<int> fJetIndex;
 
   /**
     * The index of the corresponding measured electron.
     */
-  std::vector <int> * fElectronIndex;
+  std::vector<int> fElectronIndex;
 
   /**
     * The index of the corresponding measured muon.
     */
-  std::vector <int> * fMuonIndex;
+  std::vector<int> fMuonIndex;
 
   /**
     * The index of the corresponding measured photon.
     */
-  std::vector <int> * fPhotonIndex;
+  std::vector<int> fPhotonIndex;
 
   /**
     * Vector containing the true flavor.
     */
-  std::vector<TrueFlavorType> * fTrueFlavor;
+  std::vector<TrueFlavorType> fTrueFlavor;
 
   /**
     * Vector containing a boolean for the b-tagging.
     */
-  std::vector<bool> * fIsBTagged;
+  std::vector<bool> fIsBTagged;
 
   /**
     * Vector containing the b-tagging efficiencies for the jets.
     */
-  std::vector<double> * fBTaggingEfficiency;
+  std::vector<double> fBTaggingEfficiency;
 
   /**
     * Vector containing the b-tagging rejection for the jets.
     */
-  std::vector<double> * fBTaggingRejection;
+  std::vector<double> fBTaggingRejection;
 
   /**
     * Vector containing the b-tagging weights for the jets.
     */
-  std::vector<double> * fBTagWeight;
+  std::vector<double> fBTagWeight;
 
   /**
     * Vector containing the bool if b-tagging weights for the jets were set.
     */
-  std::vector<bool> * fBTagWeightSet;
+  std::vector<bool> fBTagWeightSet;
 
   /**
     * Vector containing the detector eta of electrons.
     */
-  std::vector <double> * fElectronDetEta;
+  std::vector <double> fElectronDetEta;
   /**
     * Vector containing the detector eta of muons.
     */
-  std::vector <double> * fMuonDetEta;
+  std::vector <double> fMuonDetEta;
   /**
     * Vector containing the detector eta of jets.
     */
-  std::vector <double> * fJetDetEta;
+  std::vector <double> fJetDetEta;
   /**
     * Vector containing the detector eta of photons.
     */
-  std::vector <double> * fPhotonDetEta;
+  std::vector <double> fPhotonDetEta;
   /**
     * Vector containing the charge of electrons.
     */
-  std::vector <float> * fElectronCharge;
+  std::vector <float> fElectronCharge;
   /**
     * Vector containing the charge of muons.
     */
-  std::vector <float> * fMuonCharge;
+  std::vector <float> fMuonCharge;
 };
 }  // namespace KLFitter
 

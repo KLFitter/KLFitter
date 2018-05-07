@@ -22,176 +22,17 @@
 #include <iostream>
 
 // ---------------------------------------------------------
-KLFitter::Particles::Particles() :
-  fPartons(new std::vector <TLorentzVector *>(0)),
-  fElectrons(new std::vector <TLorentzVector *>(0)),
-  fMuons(new std::vector <TLorentzVector *>(0)),
-  fTaus(new std::vector <TLorentzVector *>(0)),
-  fNeutrinos(new std::vector <TLorentzVector *>(0)),
-  fBosons(new std::vector <TLorentzVector *>(0)),
-  fPhotons(new std::vector <TLorentzVector *>(0)),
-
-  fNamePartons(new std::vector <std::string>(0)),
-  fNameElectrons(new std::vector <std::string>(0)),
-  fNameMuons(new std::vector <std::string>(0)),
-  fNameTaus(new std::vector <std::string>(0)),
-  fNameNeutrinos(new std::vector <std::string>(0)),
-  fNameBosons(new std::vector <std::string>(0)),
-  fNamePhotons(new std::vector <std::string>(0)),
-
-  fJetIndex(new std::vector <int>(0)),
-  fElectronIndex(new std::vector <int>(0)),
-  fMuonIndex(new std::vector <int>(0)),
-  fPhotonIndex(new std::vector <int>(0)),
-
-  fTrueFlavor(new std::vector<TrueFlavorType>(0)),
-  fIsBTagged(new std::vector<bool>(0)),
-  fBTaggingEfficiency(new std::vector<double>(0)),
-  fBTaggingRejection(new std::vector<double>(0)),
-
-  fBTagWeight(new std::vector<double>(0)),
-  fBTagWeightSet(new std::vector<bool>(0)),
-
-  fElectronDetEta(new std::vector<double>(0)),
-  fMuonDetEta(new std::vector<double>(0)),
-  fJetDetEta(new std::vector<double>(0)),
-  fPhotonDetEta(new std::vector<double>(0)),
-  fElectronCharge(new std::vector<float>(0)),
-  fMuonCharge(new std::vector<float>(0)) {
+KLFitter::Particles::Particles() {
 }
 
 // ---------------------------------------------------------
 KLFitter::Particles::~Particles() {
-  while (!fPartons->empty()) {
-    TLorentzVector* lv = fPartons->front();
-    fPartons->erase(fPartons->begin());
-    if (lv)
-      delete lv;
-  }
-  delete fPartons;
-
-  while (!fElectrons->empty()) {
-    TLorentzVector* lv = fElectrons->front();
-    fElectrons->erase(fElectrons->begin());
-    if (lv)
-      delete lv;
-  }
-  delete fElectrons;
-
-  while (!fMuons->empty()) {
-    TLorentzVector* lv = fMuons->front();
-    fMuons->erase(fMuons->begin());
-    if (lv)
-      delete lv;
-  }
-  delete fMuons;
-
-  while (!fTaus->empty()) {
-    TLorentzVector* lv = fTaus->front();
-    fTaus->erase(fTaus->begin());
-    if (lv)
-      delete lv;
-  }
-  delete fTaus;
-
-  while (!fNeutrinos->empty()) {
-    TLorentzVector* lv = fNeutrinos->front();
-    fNeutrinos->erase(fNeutrinos->begin());
-    if (lv)
-      delete lv;
-  }
-  delete fNeutrinos;
-
-  while (!fBosons->empty()) {
-    TLorentzVector* lv = fBosons->front();
-    fBosons->erase(fBosons->begin());
-    if (lv)
-      delete lv;
-  }
-  delete fBosons;
-
-  while (!fPhotons->empty()) {
-    TLorentzVector* lv = fPhotons->front();
-    fPhotons->erase(fPhotons->begin());
-    if (lv)
-      delete lv;
-  }
-  delete fPhotons;
-
-  if (fNamePartons)
-    delete fNamePartons;
-
-  if (fNameElectrons)
-    delete fNameElectrons;
-
-  if (fNameMuons)
-    delete fNameMuons;
-
-  if (fNameTaus)
-    delete fNameTaus;
-
-  if (fNameNeutrinos)
-    delete fNameNeutrinos;
-
-  if (fNameBosons)
-    delete fNameBosons;
-
-  if (fNamePhotons)
-    delete fNamePhotons;
-
-  if (fJetIndex)
-    delete fJetIndex;
-
-  if (fElectronIndex)
-    delete fElectronIndex;
-
-  if (fMuonIndex)
-    delete fMuonIndex;
-
-  if (fPhotonIndex)
-    delete fPhotonIndex;
-
-  if (fTrueFlavor)
-    delete fTrueFlavor;
-
-  if (fIsBTagged)
-    delete fIsBTagged;
-
-  if (fBTaggingEfficiency)
-    delete fBTaggingEfficiency;
-
-  if (fBTaggingRejection)
-    delete fBTaggingRejection;
-
-  if (fBTagWeight)
-    delete fBTagWeight;
-
-  if (fBTagWeightSet)
-    delete fBTagWeightSet;
-
-  if (fElectronDetEta)
-    delete fElectronDetEta;
-
-  if (fMuonDetEta)
-    delete fMuonDetEta;
-
-  if (fJetDetEta)
-    delete fJetDetEta;
-
-  if (fPhotonDetEta)
-    delete fPhotonDetEta;
-
-  if (fElectronCharge)
-    delete fElectronCharge;
-
-  if (fMuonCharge)
-    delete fMuonCharge;
 }
 
 // ---------------------------------------------------------
 int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, float LepCharge, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex) {
   // get particle container
-  std::vector <TLorentzVector *>* container = ParticleContainer(ptype);
+  auto container = ParticleContainer(ptype);
 
   // check if container exists
   if (!container) {
@@ -212,20 +53,20 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, f
   if (!FindParticle(name, vect, &index, &temptype)) {
     // add particle
     // create pointer copy of particle content which is owend by Particles
-    TLorentzVector * cparticle = new TLorentzVector(particle->Px(), particle->Py(), particle->Pz(), particle->E());
-    container->push_back(cparticle);
+    std::unique_ptr<TLorentzVector> cparticle{new TLorentzVector{particle->Px(), particle->Py(), particle->Pz(), particle->E()}};
+    container->emplace_back(std::move(cparticle));
     ParticleNameContainer(ptype)->push_back(name);
     if (ptype == KLFitter::Particles::kElectron) {
-      fElectronIndex->push_back(measuredindex);
-      fElectronDetEta->push_back(DetEta);
-      fElectronCharge->push_back(LepCharge);
+      fElectronIndex.push_back(measuredindex);
+      fElectronDetEta.push_back(DetEta);
+      fElectronCharge.push_back(LepCharge);
     } else if (ptype == KLFitter::Particles::kMuon) {
-      fMuonIndex->push_back(measuredindex);
-      fMuonDetEta->push_back(DetEta);
-      fMuonCharge->push_back(LepCharge);
+      fMuonIndex.push_back(measuredindex);
+      fMuonDetEta.push_back(DetEta);
+      fMuonCharge.push_back(LepCharge);
     } else if (ptype == KLFitter::Particles::kPhoton) {
-      fPhotonIndex->push_back(measuredindex);
-      fPhotonDetEta->push_back(DetEta);
+      fPhotonIndex.push_back(measuredindex);
+      fPhotonDetEta.push_back(DetEta);
     }
   } else {
     std::cout << "KLFitter::Particles::AddParticle(). Particle with the name " << name << " exists already." << std::endl;
@@ -244,7 +85,7 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, f
 // ---------------------------------------------------------
 int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, TrueFlavorType trueflav, double btagweight) {
   // get particle container
-  std::vector <TLorentzVector *>* container = ParticleContainer(ptype);
+  auto container = ParticleContainer(ptype);
 
   // check if container exists
   if (!container) {
@@ -265,31 +106,31 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, K
   if (!FindParticle(name, vect, &index, &temptype)) {
     // add particle
     // create pointer copy of particle content which is owend by Particles
-    TLorentzVector * cparticle = new TLorentzVector(particle->Px(), particle->Py(), particle->Pz(), particle->E());
-    container->push_back(cparticle);
+    std::unique_ptr<TLorentzVector> cparticle{new TLorentzVector{particle->Px(), particle->Py(), particle->Pz(), particle->E()}};
+    container->emplace_back(std::move(cparticle));
     ParticleNameContainer(ptype)->push_back(name);
     if (ptype == KLFitter::Particles::kParton) {
-      fTrueFlavor->push_back(trueflav);
-      fIsBTagged->push_back(isBtagged);
-      fBTaggingEfficiency->push_back(bTagEff);
-      fBTaggingRejection->push_back(bTagRej);
-      fJetIndex->push_back(measuredindex);
-      fJetDetEta->push_back(DetEta);
-      fBTagWeight->push_back(btagweight);
+      fTrueFlavor.push_back(trueflav);
+      fIsBTagged.push_back(isBtagged);
+      fBTaggingEfficiency.push_back(bTagEff);
+      fBTaggingRejection.push_back(bTagRej);
+      fJetIndex.push_back(measuredindex);
+      fJetDetEta.push_back(DetEta);
+      fBTagWeight.push_back(btagweight);
       if (btagweight != 999) {
-        fBTagWeightSet->push_back(true);
+        fBTagWeightSet.push_back(true);
       } else {
-        fBTagWeightSet->push_back(false);
+        fBTagWeightSet.push_back(false);
       }
     } else if (ptype == KLFitter::Particles::kElectron) {
-      fElectronIndex->push_back(measuredindex);
-      fElectronDetEta->push_back(DetEta);
+      fElectronIndex.push_back(measuredindex);
+      fElectronDetEta.push_back(DetEta);
     } else if (ptype == KLFitter::Particles::kMuon) {
-      fMuonIndex->push_back(measuredindex);
-      fMuonDetEta->push_back(DetEta);
+      fMuonIndex.push_back(measuredindex);
+      fMuonDetEta.push_back(DetEta);
     } else if (ptype == KLFitter::Particles::kPhoton) {
-      fPhotonIndex->push_back(measuredindex);
-      fPhotonDetEta->push_back(DetEta);
+      fPhotonIndex.push_back(measuredindex);
+      fPhotonDetEta.push_back(DetEta);
     }
   } else {
     std::cout << "KLFitter::Particles::AddParticle(). Particle with the name " << name << " exists already." << std::endl;
@@ -334,7 +175,7 @@ int KLFitter::Particles::RemoveParticle(int index, KLFitter::Particles::Particle
     return 0;
 
   // remove particle
-  TLorentzVector* lv = (*ParticleContainer(ptype))[index];
+  TLorentzVector* lv = (*ParticleContainer(ptype))[index].get();
   ParticleContainer(ptype)->erase(ParticleContainer(ptype)->begin() + index);
   delete lv;
   ParticleNameContainer(ptype)->erase(ParticleNameContainer(ptype)->begin() + index);
@@ -378,7 +219,7 @@ TLorentzVector* KLFitter::Particles::Particle(std::string name) {
 // ---------------------------------------------------------
 TLorentzVector* KLFitter::Particles::Particle(int index, KLFitter::Particles::ParticleType ptype) {
   // get particle container
-  std::vector <TLorentzVector*>* container = ParticleContainer(ptype);
+  auto container = ParticleContainer(ptype);
 
   if (index < 0 || index > NParticles(ptype)) {
     std::cout << "KLFitter::Particles::Particle(). Index out of range." << std::endl;
@@ -386,76 +227,76 @@ TLorentzVector* KLFitter::Particles::Particle(int index, KLFitter::Particles::Pa
   }
 
   // return pointer
-  return (*container)[index];
+  return (*container)[index].get();
 }
 
 // ---------------------------------------------------------
 int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particle, int *index, KLFitter::Particles::ParticleType *ptype) {
   // loop over all partons
-  unsigned int npartons = fNamePartons->size();
+  unsigned int npartons = fNamePartons.size();
   for (unsigned int i = 0; i < npartons; ++i)
-    if (name == (*fNamePartons)[i]) {
-      particle = (*fPartons)[i];
+    if (name == fNamePartons[i]) {
+      particle = fPartons[i].get();
       *index = i;
       *ptype = KLFitter::Particles::kParton;
       return 1;
     }
 
   // loop over all electrons
-  unsigned int nelectrons = fNameElectrons->size();
+  unsigned int nelectrons = fNameElectrons.size();
   for (unsigned int i = 0; i < nelectrons; ++i)
-    if (name == (*fNameElectrons)[i]) {
-      particle = (*fElectrons)[i];
+    if (name == fNameElectrons[i]) {
+      particle = fElectrons[i].get();
       *index = i;
       *ptype = KLFitter::Particles::kElectron;
       return 1;
     }
 
   // loop over all muons
-  unsigned int nmuons = fNameMuons->size();
+  unsigned int nmuons = fNameMuons.size();
   for (unsigned int i = 0; i < nmuons; ++i)
-    if (name == (*fNameMuons)[i]) {
-      particle = (*fMuons)[i];
+    if (name == fNameMuons[i]) {
+      particle = fMuons[i].get();
       *index = i;
       *ptype = KLFitter::Particles::kMuon;
       return 1;
     }
 
   // loop over all taus
-  unsigned int ntaus = fNameTaus->size();
+  unsigned int ntaus = fNameTaus.size();
   for (unsigned int i = 0; i < ntaus; ++i)
-    if (name == (*fNameTaus)[i]) {
-      particle = (*fTaus)[i];
+    if (name == fNameTaus[i]) {
+      particle = fTaus[i].get();
       *index = i;
       *ptype = KLFitter::Particles::kTau;
       return 1;
     }
 
   // loop over all neutrinos
-  unsigned int nneutrinos = fNameNeutrinos->size();
+  unsigned int nneutrinos = fNameNeutrinos.size();
   for (unsigned int i = 0; i < nneutrinos; ++i)
-    if (name == (*fNameNeutrinos)[i]) {
-      particle = (*fNeutrinos)[i];
+    if (name == fNameNeutrinos[i]) {
+      particle = fNeutrinos[i].get();
       *index = i;
       *ptype = KLFitter::Particles::kNeutrino;
       return 1;
     }
 
   // loop over all bosons
-  unsigned int nbosons = fNameBosons->size();
+  unsigned int nbosons = fNameBosons.size();
   for (unsigned int i = 0; i < nbosons; ++i)
-    if (name == (*fNameBosons)[i]) {
-      particle = (*fBosons)[i];
+    if (name == fNameBosons[i]) {
+      particle = fBosons[i].get();
       *index = i;
       *ptype = KLFitter::Particles::kBoson;
       return 1;
     }
 
   // loop over all photons
-  unsigned int nphotons = fNamePhotons->size();
+  unsigned int nphotons = fNamePhotons.size();
   for (unsigned int i = 0; i < nphotons; ++i)
-    if (name == (*fNamePhotons)[i]) {
-      particle = (*fPhotons)[i];
+    if (name == fNamePhotons[i]) {
+      particle = fPhotons[i].get();
       *index = i;
       *ptype = KLFitter::Particles::kPhoton;
       return 1;
@@ -468,54 +309,54 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
 // ---------------------------------------------------------
 TLorentzVector* KLFitter::Particles::Parton(int index) {
   // no check on index range for CPU-time reasons
-  return (*fPartons)[index];
+  return fPartons[index].get();
 }
 
 // ---------------------------------------------------------
 TLorentzVector* KLFitter::Particles::Electron(int index) {
   // no check on index range for CPU-time reasons
-  return (*fElectrons)[index];
+  return fElectrons[index].get();
 }
 
 // ---------------------------------------------------------
 TLorentzVector* KLFitter::Particles::Muon(int index) {
   // no check on index range for CPU-time reasons
-  return (*fMuons)[index];
+  return fMuons[index].get();
 }
 
 // ---------------------------------------------------------
 TLorentzVector* KLFitter::Particles::Tau(int index) {
   // no check on index range for CPU-time reasons
-  return (*fTaus)[index];
+  return fTaus[index].get();
 }
 
 // ---------------------------------------------------------
 TLorentzVector* KLFitter::Particles::Boson(int index) {
   // no check on index range for CPU-time reasons
-  return (*fBosons)[index];
+  return fBosons[index].get();
 }
 
 // ---------------------------------------------------------
 TLorentzVector* KLFitter::Particles::Neutrino(int index) {
   // no check on index range for CPU-time reasons
-  return (*fNeutrinos)[index];
+  return fNeutrinos[index].get();
 }
 
 // ---------------------------------------------------------
 TLorentzVector* KLFitter::Particles::Photon(int index) {
   // no check on index range for CPU-time reasons
-  return (*fPhotons)[index];
+  return fPhotons[index].get();
 }
 
 // ---------------------------------------------------------
-int  KLFitter::Particles::NParticles(KLFitter::Particles::ParticleType ptype) {
+int KLFitter::Particles::NParticles(KLFitter::Particles::ParticleType ptype) {
   return static_cast<int>(ParticleContainer(ptype)->size());
 }
 
 // ---------------------------------------------------------
 std::string KLFitter::Particles::NameParticle(int index, KLFitter::Particles::ParticleType ptype) {
   // get particle container
-  std::vector <TLorentzVector *>* container = ParticleContainer(ptype);
+  auto container = ParticleContainer(ptype);
 
   // check container and index
   if (!CheckIndex(container, index))
@@ -526,7 +367,7 @@ std::string KLFitter::Particles::NameParticle(int index, KLFitter::Particles::Pa
 }
 
 // ---------------------------------------------------------
-int KLFitter::Particles::CheckIndex(std::vector <TLorentzVector *>* container, int index) {
+int KLFitter::Particles::CheckIndex(std::vector<std::unique_ptr<TLorentzVector> >* container, int index) {
   // check container
   if (!container) {
     std::cout << "KLFitter::Particles::CheckIndex(). Container does not exist." << std::endl;
@@ -544,29 +385,29 @@ int KLFitter::Particles::CheckIndex(std::vector <TLorentzVector *>* container, i
 }
 
 // ---------------------------------------------------------
-std::vector <TLorentzVector *>* KLFitter::Particles::ParticleContainer(KLFitter::Particles::ParticleType ptype) {
+std::vector<std::unique_ptr<TLorentzVector> >* KLFitter::Particles::ParticleContainer(KLFitter::Particles::ParticleType ptype) {
   // return particle container
   switch (ptype) {
   case KLFitter::Particles::kParton:
-    return fPartons;
+    return &fPartons;
     break;
   case KLFitter::Particles::kElectron:
-    return fElectrons;
+    return &fElectrons;
     break;
   case KLFitter::Particles::kMuon:
-    return fMuons;
+    return &fMuons;
     break;
   case KLFitter::Particles::kTau:
-    return fTaus;
+    return &fTaus;
     break;
   case KLFitter::Particles::kNeutrino:
-    return fNeutrinos;
+    return &fNeutrinos;
     break;
   case KLFitter::Particles::kBoson:
-    return fBosons;
+    return &fBosons;
     break;
   case KLFitter::Particles::kPhoton:
-    return fPhotons;
+    return &fPhotons;
     break;
   }
 
@@ -579,19 +420,19 @@ std::vector <TLorentzVector *>* KLFitter::Particles::ParticleContainer(KLFitter:
 std::vector <std::string>* KLFitter::Particles::ParticleNameContainer(KLFitter::Particles::ParticleType ptype) {
   // return container
   if (ptype == KLFitter::Particles::kParton) {
-    return fNamePartons;
+    return &fNamePartons;
   } else if (ptype == KLFitter::Particles::kElectron) {
-    return fNameElectrons;
+    return &fNameElectrons;
   } else if (ptype == KLFitter::Particles::kMuon) {
-    return fNameMuons;
+    return &fNameMuons;
   } else if (ptype == KLFitter::Particles::kTau) {
-    return fNameTaus;
+    return &fNameTaus;
   } else if (ptype == KLFitter::Particles::kBoson) {
-    return fNameBosons;
+    return &fNameBosons;
   } else if (ptype == KLFitter::Particles::kNeutrino) {
-    return fNameNeutrinos;
+    return &fNameNeutrinos;
   } else if (ptype == KLFitter::Particles::kPhoton) {
-    return fNamePhotons;
+    return &fNamePhotons;
   } else {
     // or null pointer
     std::cout << "KLFitter::Particles::ParticleNameContainer(). Particle type not known." << std::endl;
@@ -607,13 +448,13 @@ double KLFitter::Particles::DetEta(int index, KLFitter::Particles::ParticleType 
   }
 
   if (ptype == KLFitter::Particles::kParton) {
-    return (*fJetDetEta)[index];
+    return fJetDetEta[index];
   } else if (ptype == KLFitter::Particles::kElectron) {
-    return (*fElectronDetEta)[index];
+    return fElectronDetEta[index];
   } else if (ptype == KLFitter::Particles::kMuon) {
-    return (*fMuonDetEta)[index];
+    return fMuonDetEta[index];
   } else if (ptype == KLFitter::Particles::kPhoton) {
-    return (*fPhotonDetEta)[index];
+    return fPhotonDetEta[index];
   }
 
   // return error value
@@ -628,16 +469,16 @@ float KLFitter::Particles::LeptonCharge(int index, KLFitter::Particles::Particle
   }
 
   if (ptype == KLFitter::Particles::kElectron) {
-    if (fElectronCharge->size()== 0) {
+    if (fElectronCharge.size()== 0) {
       return -9;
     } else {
-      return (*fElectronCharge)[index];
+      return fElectronCharge[index];
     }
   } else if (ptype == KLFitter::Particles::kMuon) {
-    if (fMuonCharge->size()== 0) {
+    if (fMuonCharge.size()== 0) {
       return -9;
     } else {
-      return (*fMuonCharge)[index];
+      return fMuonCharge[index];
     }
   } else {
     std::cout << "KLFitter::Particles::LepCharge NO LEPTON TYPE!" << std::endl;
@@ -650,36 +491,36 @@ float KLFitter::Particles::LeptonCharge(int index, KLFitter::Particles::Particle
 // ---------------------------------------------------------
 int KLFitter::Particles::JetIndex(int index) {
   // no check on index range for CPU-time reasons
-  return (*fJetIndex)[index];
+  return fJetIndex[index];
 }
 
 // ---------------------------------------------------------
 int KLFitter::Particles::ElectronIndex(int index) {
   // no check on index range for CPU-time reasons
-  return (*fElectronIndex)[index];
+  return fElectronIndex[index];
 }
 
 // ---------------------------------------------------------
 int KLFitter::Particles::MuonIndex(int index) {
   // no check on index range for CPU-time reasons
-  return (*fMuonIndex)[index];
+  return fMuonIndex[index];
 }
 
 // ---------------------------------------------------------
 int KLFitter::Particles::PhotonIndex(int index) {
   // no check on index range for CPU-time reasons
-  return (*fPhotonIndex)[index];
+  return fPhotonIndex[index];
 }
 
 // ---------------------------------------------------------
 int KLFitter::Particles::SetIsBTagged(int index, bool isBTagged) {
   // check index
-  if (index < 0 || index >= static_cast<int>(fIsBTagged->size())) {
+  if (index < 0 || index >= static_cast<int>(fIsBTagged.size())) {
     std::cout << " KLFitter::SetIsBTagged(). Index out of range." << std::endl;
     return 0;
   }
 
-  (*fIsBTagged)[index] = isBTagged;
+  fIsBTagged[index] = isBTagged;
 
   return 1;
 }
@@ -687,12 +528,12 @@ int KLFitter::Particles::SetIsBTagged(int index, bool isBTagged) {
 // ---------------------------------------------------------
 int KLFitter::Particles::SetBTagWeight(int index, double btagweight) {
   // check index
-  if (index < 0 || index >= static_cast<int>(fBTagWeight->size())) {
+  if (index < 0 || index >= static_cast<int>(fBTagWeight.size())) {
     std::cout << " KLFitter::SetBTagWeight(). Index out of range." << std::endl;
     return 0;
   }
 
-  (*fBTagWeight)[index] = btagweight;
+  fBTagWeight[index] = btagweight;
   SetBTagWeightSet(index, true);
 
   return 1;
@@ -701,12 +542,12 @@ int KLFitter::Particles::SetBTagWeight(int index, double btagweight) {
 // ---------------------------------------------------------
 int KLFitter::Particles::SetBTagWeightSet(int index, bool btagweightset) {
   // check index
-  if (index < 0 || index >= static_cast<int>(fBTagWeightSet->size())) {
+  if (index < 0 || index >= static_cast<int>(fBTagWeightSet.size())) {
     std::cout << " KLFitter::SetBTagWeightSet(). Index out of range." << std::endl;
     return 0;
   }
 
-  (*fBTagWeightSet)[index] = btagweightset;
+  fBTagWeightSet[index] = btagweightset;
 
   return 1;
 }
@@ -714,12 +555,12 @@ int KLFitter::Particles::SetBTagWeightSet(int index, bool btagweightset) {
 // ---------------------------------------------------------
 int KLFitter::Particles::SetBTaggingEfficiency(int index, double btagEff) {
   // check index
-  if (index < 0 || index >= static_cast<int>(fBTaggingEfficiency->size())) {
+  if (index < 0 || index >= static_cast<int>(fBTaggingEfficiency.size())) {
     std::cout << " KLFitter::SetBTaggingEfficiency(). Index out of range." << std::endl;
     return 0;
   }
 
-  (*fBTaggingEfficiency)[index] = btagEff;
+  fBTaggingEfficiency[index] = btagEff;
 
   return 1;
 }
@@ -727,23 +568,23 @@ int KLFitter::Particles::SetBTaggingEfficiency(int index, double btagEff) {
 // ---------------------------------------------------------
 int KLFitter::Particles::SetBTaggingRejection(int index, double btagRej) {
   // check index
-  if (index < 0 || index >= static_cast<int>(fBTaggingRejection->size())) {
+  if (index < 0 || index >= static_cast<int>(fBTaggingRejection.size())) {
     std::cout << " KLFitter::SetBTaggingRejection(). Index out of range." << std::endl;
     return 0;
   }
 
-  (*fBTaggingRejection)[index] = btagRej;
+  fBTaggingRejection[index] = btagRej;
 
   return 1;
 }
 
 // ---------------------------------------------------------
 int KLFitter::Particles::NBTags() {
-  unsigned int n = fIsBTagged->size();
+  unsigned int n = fIsBTagged.size();
   int sum = 0;
 
   for (unsigned int i = 0; i < n; ++i) {
-    if ((*fIsBTagged)[i]) {
+    if (fIsBTagged[i]) {
       sum++;
     }
   }
