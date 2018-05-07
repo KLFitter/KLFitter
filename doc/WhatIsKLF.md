@@ -31,7 +31,8 @@ If you are using KLFitter, please consider citing the KLFitter paper:
 
 > J.Erdmann, S.Guindon, K.Kröninger, B.Lemmer, O.Nackenhorst, A.Quadt and P.Stolte, *A likelihood-based reconstruction algorithm for top-quark pairs and the KLFitter framework*, [Nucl. Instrum. Meth. A 748 (2014) 18](https://doi.org/10.1016/j.nima.2014.02.029).
 
-A list of works citing the KLFitter paper can be found [on inspire](https://inspirehep.net/search?ln=en&p=refersto%3Arecid%3A1272847).
+A list of works citing the KLFitter paper can be found [on
+inspire](https://inspirehep.net/search?ln=en&p=refersto%3Arecid%3A1272847).
 
 
 
@@ -266,9 +267,9 @@ mass of the two leptons:
 - the on-shell production of two charged leptons with a Breit-Wigner
   distribution with mass and width of the Z boson, weighted with fraction f, and
 - the off-shell production of two charged leptons with the expected inverse
-quadratic dependence on the invariant mass of the two leptons, weighted with the
-fraction (1-f). The cut-off constant that appears in the off-shell part of the
-likelihood can be set by the user.
+  quadratic dependence on the invariant mass of the two leptons, weighted with
+  the fraction (1-f). The cut-off constant that appears in the off-shell part of
+  the likelihood can be set by the user.
 
 ![](LikelihoodTTZTrilepton.png)
 
@@ -345,8 +346,8 @@ energy given the true energy of a parton. These parameterizations are
 detector-specific and in general need to be derived by the user for their
 specific application. Gaussian and double-Gaussian parameterizations are
 pre-defined in KLFitter with the specific parameters to be determined by the
-user. Alternative parameterizations are in principle possible. A tool is provided
-for the derivation of double-Gaussian transfer functions,
+user. Alternative parameterizations are in principle possible. A tool is
+provided for the derivation of double-Gaussian transfer functions,
 [TFtool](https://gitlab.cern.ch/KLFitter/TFtool).
 
 
@@ -409,8 +410,8 @@ The measured quantities are the four-vectors of jets and charged leptons, as
 well as the missing transverse momentum components. An object of type
 `Particles` is passed to the `Fitter` object. The input quantities can either be
 set by defining `TLorentzVectors` and adding them to Particles object, or by
-using an interface. Please also refer to the [example](Example.md) for the
-exact implementation.
+using an interface. Please also refer to the [example](Example.md) for the exact
+implementation.
 
 ### Combinatorics
 
@@ -441,8 +442,8 @@ detailed information about the permutation can be retrieved.
 
 ##### Fit convergence status
 
-The fit convergence status can be obtained and stored in an unsigned integer
-bit word via:
+The fit convergence status can be obtained and stored in an unsigned integer bit
+word via:
 
 ```c++
 unsigned int ConvergenceStatusBitWord = fitter.ConvergenceStatus();
