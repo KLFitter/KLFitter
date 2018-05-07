@@ -27,14 +27,16 @@
 #include <utility>
 #include <vector>
 
+class TLorentzVector;
+
 namespace KLFitter {
+  class NuSolutions;  // defined in implementation file
   class ResolutionBase;
 }
 
 #include "BAT/BCH1D.h"
 #include "BAT/BCModel.h"
 #include "KLFitter/LikelihoodBase.h"
-#include "TLorentzVector.h"
 
 // ---------------------------------------------------------
 
@@ -43,15 +45,6 @@ namespace KLFitter {
  * \brief The KLFitter namespace
  */
 namespace KLFitter {
-//! Neutrino Solution Set
-class NuSolutions {
- public:
-  TLorentzVector nu1, nu2;
-  int NSolutions;
-  NuSolutions():NSolutions(0) {}
-  ~NuSolutions() {}
-};
-
 /**
   * \class KLFitter::LikelihoodTopDilepton
   * \brief A class implementing a likelihood for the ttbar dilepton channel.
