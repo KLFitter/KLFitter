@@ -31,26 +31,26 @@
 // ---------------------------------------------------------
 KLFitter::DetectorSnowmass::DetectorSnowmass(std::string folder) : DetectorBase() {
   std::cout << "Using TFs from SnowMass ..." << std::endl;
-  fResEnergyJet_eta1      = new KLFitter::ResGaussE(Form("%s/par_energy_jets_eta1.txt", folder.c_str()));
-  fResEnergyElectron_eta1 = new KLFitter::ResGaussE(Form("%s/par_energy_electrons_eta1.txt", folder.c_str()));
-  fResMomentumMuon_eta1   = new KLFitter::ResGaussPt(Form("%s/par_pt_muons_eta1.txt", folder.c_str()));
+  fResEnergyJet_eta1      = std::unique_ptr<KLFitter::ResolutionBase>(new KLFitter::ResGaussE{Form("%s/par_energy_jets_eta1.txt", folder.c_str())});
+  fResEnergyElectron_eta1 = std::unique_ptr<KLFitter::ResolutionBase>(new KLFitter::ResGaussE{Form("%s/par_energy_electrons_eta1.txt", folder.c_str())});
+  fResMomentumMuon_eta1   = std::unique_ptr<KLFitter::ResolutionBase>(new KLFitter::ResGaussPt{Form("%s/par_pt_muons_eta1.txt", folder.c_str())});
 
-  fResEnergyJet_eta2      = new KLFitter::ResGaussE(Form("%s/par_energy_jets_eta2.txt", folder.c_str()));
-  fResEnergyElectron_eta2 = new KLFitter::ResGaussE(Form("%s/par_energy_electrons_eta2.txt", folder.c_str()));
-  fResMomentumMuon_eta2   = new KLFitter::ResGaussPt(Form("%s/par_pt_muons_eta2.txt", folder.c_str()));
+  fResEnergyJet_eta2      = std::unique_ptr<KLFitter::ResolutionBase>(new KLFitter::ResGaussE{Form("%s/par_energy_jets_eta2.txt", folder.c_str())});
+  fResEnergyElectron_eta2 = std::unique_ptr<KLFitter::ResolutionBase>(new KLFitter::ResGaussE{Form("%s/par_energy_electrons_eta2.txt", folder.c_str())});
+  fResMomentumMuon_eta2   = std::unique_ptr<KLFitter::ResolutionBase>(new KLFitter::ResGaussPt{Form("%s/par_pt_muons_eta2.txt", folder.c_str())});
 
-  fResEnergyJet_eta3      = new KLFitter::ResGaussE(Form("%s/par_energy_jets_eta3.txt", folder.c_str()));
+  fResEnergyJet_eta3      = std::unique_ptr<KLFitter::ResolutionBase>(new KLFitter::ResGaussE{Form("%s/par_energy_jets_eta3.txt", folder.c_str())});
 
-  // missing et resolution in x and y
-  fResMissingET      = new KLFitter::ResGauss_MET(Form("%s/par_misset.txt", folder.c_str()));
+  fResMissingET_eta1      = std::unique_ptr<KLFitter::ResolutionBase>(new KLFitter::ResGauss_MET{Form("%s/par_misset.txt", folder.c_str())});
 
   // default settings
-  fResEnergyLightJet = fResEnergyJet_eta1;
-  fResEnergyBJet     = fResEnergyJet_eta1;
-  fResEnergyGluonJet = fResEnergyJet_eta1;
-  fResEnergyElectron = fResEnergyElectron_eta1;
-  fResEnergyPhoton   = fResEnergyElectron_eta1;
-  fResEnergyMuon     = fResMomentumMuon_eta1;
+  fResEnergyLightJet = fResEnergyJet_eta1.get();
+  fResEnergyBJet     = fResEnergyJet_eta1.get();
+  fResEnergyGluonJet = fResEnergyJet_eta1.get();
+  fResEnergyElectron = fResEnergyElectron_eta1.get();
+  fResEnergyPhoton   = fResEnergyElectron_eta1.get();
+  fResEnergyMuon     = fResMomentumMuon_eta1.get();
+  fResMissingET      = fResMissingET_eta1.get();
 
   // Set eta binning for different objects starting with eta = 0
   fJetEtaBin_1 = 1.7;
@@ -66,39 +66,16 @@ KLFitter::DetectorSnowmass::DetectorSnowmass(std::string folder) : DetectorBase(
 
 // ---------------------------------------------------------
 KLFitter::DetectorSnowmass::~DetectorSnowmass() {
-  if (fResEnergyJet_eta1)
-    delete fResEnergyJet_eta1;
-
-  if (fResEnergyElectron_eta1)
-    delete fResEnergyElectron_eta1;
-
-  if (fResMomentumMuon_eta1)
-    delete fResMomentumMuon_eta1;
-
-  if (fResEnergyJet_eta2)
-    delete fResEnergyJet_eta2;
-
-  if (fResEnergyElectron_eta2)
-    delete fResEnergyElectron_eta2;
-
-  if (fResMomentumMuon_eta2)
-    delete fResMomentumMuon_eta2;
-
-  if (fResEnergyJet_eta3)
-    delete fResEnergyJet_eta3;
-
-  if (fResMissingET)
-    delete fResMissingET;
 }
 
 // ---------------------------------------------------------
 KLFitter::ResolutionBase * KLFitter::DetectorSnowmass::ResEnergyLightJet(double eta) {
   if (fabs(eta) < fJetEtaBin_1) {
-    fResEnergyLightJet = fResEnergyJet_eta1;
+    fResEnergyLightJet = fResEnergyJet_eta1.get();
   } else if (fabs(eta) < fJetEtaBin_2) {
-    fResEnergyLightJet = fResEnergyJet_eta2;
+    fResEnergyLightJet = fResEnergyJet_eta2.get();
   } else if (fabs(eta) < fJetEtaBin_3) {
-    fResEnergyLightJet = fResEnergyJet_eta3;
+    fResEnergyLightJet = fResEnergyJet_eta3.get();
   } else {
     std::cout << "KLFitter::DetectorSnowmass::ResEnergyLightJet(). Eta range exceeded." << std::endl;
     return 0;
@@ -110,11 +87,11 @@ KLFitter::ResolutionBase * KLFitter::DetectorSnowmass::ResEnergyLightJet(double 
 // ---------------------------------------------------------
 KLFitter::ResolutionBase * KLFitter::DetectorSnowmass::ResEnergyBJet(double eta) {
   if (fabs(eta) < fJetEtaBin_1) {
-    fResEnergyBJet = fResEnergyJet_eta1;
+    fResEnergyBJet = fResEnergyJet_eta1.get();
   } else if (fabs(eta) < fJetEtaBin_2) {
-    fResEnergyBJet = fResEnergyJet_eta2;
+    fResEnergyBJet = fResEnergyJet_eta2.get();
   } else if (fabs(eta) < fJetEtaBin_3) {
-    fResEnergyBJet = fResEnergyJet_eta3;
+    fResEnergyBJet = fResEnergyJet_eta3.get();
   } else {
     std::cout << "KLFitter::DetectorSnowmass::ResEnergyBJet(). Eta range exceeded." << std::endl;
     return 0;
@@ -126,9 +103,9 @@ KLFitter::ResolutionBase * KLFitter::DetectorSnowmass::ResEnergyBJet(double eta)
 // ---------------------------------------------------------
 KLFitter::ResolutionBase * KLFitter::DetectorSnowmass::ResEnergyElectron(double eta) {
   if (fabs(eta) < fElectronEtaBin_1) {
-    fResEnergyElectron = fResEnergyElectron_eta1;
+    fResEnergyElectron = fResEnergyElectron_eta1.get();
   } else if (fabs(eta) < fElectronEtaBin_2) {
-    fResEnergyElectron = fResEnergyElectron_eta2;
+    fResEnergyElectron = fResEnergyElectron_eta2.get();
   } else {
     std::cout << "KLFitter::DetectorSnowmass::ResEnergyElectron(). Eta range exceeded." << std::endl;
     return 0;
@@ -139,9 +116,9 @@ KLFitter::ResolutionBase * KLFitter::DetectorSnowmass::ResEnergyElectron(double 
 // ---------------------------------------------------------
 KLFitter::ResolutionBase * KLFitter::DetectorSnowmass::ResEnergyMuon(double eta) {
   if (fabs(eta) < fMuonEtaBin_1) {
-    fResEnergyMuon = fResMomentumMuon_eta1;
+    fResEnergyMuon = fResMomentumMuon_eta1.get();
   } else if (fabs(eta) < fMuonEtaBin_2) {
-    fResEnergyMuon = fResMomentumMuon_eta2;
+    fResEnergyMuon = fResMomentumMuon_eta2.get();
   } else {
     std::cout << "KLFitter::DetectorSnowmass::ResEnergyMuon(). Eta range exceeded." << std::endl;
     return 0;
