@@ -177,9 +177,7 @@ int KLFitter::Particles::RemoveParticle(int index, KLFitter::Particles::Particle
     return 0;
 
   // remove particle
-  TLorentzVector* lv = (*ParticleContainer(ptype))[index].get();
   ParticleContainer(ptype)->erase(ParticleContainer(ptype)->begin() + index);
-  delete lv;
   ParticleNameContainer(ptype)->erase(ParticleNameContainer(ptype)->begin() + index);
 
   // no error
