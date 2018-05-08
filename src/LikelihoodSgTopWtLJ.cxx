@@ -142,7 +142,7 @@ int KLFitter::LikelihoodSgTopWtLJ::DefineModelParticles() {
 // ---------------------------------------------------------
 void KLFitter::LikelihoodSgTopWtLJ::DefineParameters() {
   // add parameters of model
-  this->AddParameter("energy b",                fPhysicsConstants->MassBottom(), 1000.0);   // parBE
+  this->AddParameter("energy b",                fPhysicsConstants.MassBottom(), 1000.0);   // parBE
   this->AddParameter("energy light quark 1",    0.0, 1000.0);                               // parLQ1E
   this->AddParameter("energy light quark 2",    0.0, 1000.0);                               // parLQ2E
   this->AddParameter("energy lepton",           0.0, 1000.0);                               // parLepE
@@ -297,7 +297,7 @@ int KLFitter::LikelihoodSgTopWtLJ::AdjustParameterRanges() {
 
   // energy of b quark
   double E = (*fParticlesPermuted)->Parton(0)->E();
-  double m = fPhysicsConstants->MassBottom();
+  double m = fPhysicsConstants.MassBottom();
   if (fFlagUseJetMass)
     m = TMath::Max(0.0, (*fParticlesPermuted)->Parton(0)->M());
   double Emin = TMath::Max(m, E - nsigmas_jet * sqrt(E));
@@ -380,10 +380,10 @@ double KLFitter::LikelihoodSgTopWtLJ::LogLikelihood(const std::vector<double> & 
   if (!TFgoodTmp) fTFgood = false;
 
   // physics constants
-  double massW = fPhysicsConstants->MassW();
-  double gammaW = fPhysicsConstants->GammaW();
-  double massTop = fPhysicsConstants->MassTop();
-  double gammaTop = fPhysicsConstants->GammaTop();
+  double massW = fPhysicsConstants.MassW();
+  double gammaW = fPhysicsConstants.GammaW();
+  double massTop = fPhysicsConstants.MassTop();
+  double gammaTop = fPhysicsConstants.GammaTop();
 
   // Breit-Wigner of hadronically decaying W-boson
   logprob += BCMath::LogBreitWignerRel(whad_fit_m, massW, gammaW);
@@ -507,7 +507,7 @@ int KLFitter::LikelihoodSgTopWtLJ::SavePermutedParticles() {
   b_meas_px     = (*fParticlesPermuted)->Parton(0)->Px();
   b_meas_py     = (*fParticlesPermuted)->Parton(0)->Py();
   b_meas_pz     = (*fParticlesPermuted)->Parton(0)->Pz();
-  b_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(0)->M(), fPhysicsConstants->MassBottom(), &b_meas_px, &b_meas_py, &b_meas_pz, b_meas_e);
+  b_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(0)->M(), fPhysicsConstants.MassBottom(), &b_meas_px, &b_meas_py, &b_meas_pz, b_meas_e);
   b_meas_p      = sqrt(b_meas_e*b_meas_e - b_meas_m*b_meas_m);
 
   lq1_meas_e      = (*fParticlesPermuted)->Parton(1)->E();

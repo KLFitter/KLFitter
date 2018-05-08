@@ -206,11 +206,11 @@ range is set to 3 times this LHC uncertainty:
 
 ```c++
 if (fFlagTopMassFixed) {
-  SetPriorGauss(0, fPhysicsConstants->MassTop(), fPhysicsConstants->MassTopUnc());
+  SetPriorGauss(0, fPhysicsConstants.MassTop(), fPhysicsConstants.MassTopUnc());
 }
 
 if (fFlagTopMassFixed) {
-  SetParameterRange(parTopM, fPhysicsConstants->MassTop() - 3 * fPhysicsConstants->MassTopUnc(), fPhysicsConstants->MassTop() + 3 * fPhysicsConstants->MassTopUnc());
+  SetParameterRange(parTopM, fPhysicsConstants.MassTop() - 3 * fPhysicsConstants.MassTopUnc(), fPhysicsConstants.MassTop() + 3 * fPhysicsConstants.MassTopUnc());
 }
 ```
 

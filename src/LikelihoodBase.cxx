@@ -36,7 +36,6 @@ KLFitter::LikelihoodBase::LikelihoodBase(Particles** particles) : BCModel(),
                                                                   fPermutations(0),
                                                                   fParticlesModel(0),
                                                                   fMyParticlesTruth(0),
-                                                                  fPhysicsConstants(new KLFitter::PhysicsConstants()),
                                                                   fDetector(0),
                                                                   fEventProbability(std::vector<double>(0)),
                                                                   fFlagIntegrate(0),
@@ -56,14 +55,11 @@ KLFitter::LikelihoodBase::~LikelihoodBase() {
 
   if (fParticlesModel)
     delete fParticlesModel;
-
-  if (fPhysicsConstants)
-    delete fPhysicsConstants;
 }
 
 // ---------------------------------------------------------
 int KLFitter::LikelihoodBase::SetPhysicsConstants(KLFitter::PhysicsConstants* physicsconstants) {
-  fPhysicsConstants = physicsconstants;
+  fPhysicsConstants = *physicsconstants;
 
   // no error
   return 1;

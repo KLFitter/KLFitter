@@ -123,8 +123,8 @@ int KLFitter::LikelihoodTopAllHadronic::DefineModelParticles() {
 // ---------------------------------------------------------
 void KLFitter::LikelihoodTopAllHadronic::DefineParameters() {
   // add parameters of model
-  AddParameter("energy hadronic b 1",       fPhysicsConstants->MassBottom(), 1000.0);  // parBhad1E
-  AddParameter("energy hadronic b 2",       fPhysicsConstants->MassBottom(), 1000.0);  // parBhad2E
+  AddParameter("energy hadronic b 1",       fPhysicsConstants.MassBottom(), 1000.0);  // parBhad1E
+  AddParameter("energy hadronic b 2",       fPhysicsConstants.MassBottom(), 1000.0);  // parBhad2E
   AddParameter("energy light quark 1",    0.0, 1000.0);                                // parLQ1E
   AddParameter("energy light quark 2",    0.0, 1000.0);                                // parLQ2E
   AddParameter("energy light quark 3",    0.0, 1000.0);                                // parLQ3E
@@ -272,7 +272,7 @@ int KLFitter::LikelihoodTopAllHadronic::AdjustParameterRanges() {
   double nsigmas_jet = fFlagGetParSigmasFromTFs ? 10 : 7;
 
   double E = (*fParticlesPermuted)->Parton(0)->E();
-  double m = fPhysicsConstants->MassBottom();
+  double m = fPhysicsConstants.MassBottom();
   if (fFlagUseJetMass)
     m = std::max(0.0, (*fParticlesPermuted)->Parton(0)->M());
   double sigma = fFlagGetParSigmasFromTFs ? fResEnergyBhad1->GetSigma(E) : sqrt(E);
@@ -281,7 +281,7 @@ int KLFitter::LikelihoodTopAllHadronic::AdjustParameterRanges() {
   SetParameterRange(parBhad1E, Emin, Emax);
 
   E = (*fParticlesPermuted)->Parton(1)->E();
-  m = fPhysicsConstants->MassBottom();
+  m = fPhysicsConstants.MassBottom();
   if (fFlagUseJetMass)
     m = std::max(0.0, (*fParticlesPermuted)->Parton(1)->M());
   sigma = fFlagGetParSigmasFromTFs ? fResEnergyBhad2->GetSigma(E) : sqrt(E);
@@ -326,7 +326,7 @@ int KLFitter::LikelihoodTopAllHadronic::AdjustParameterRanges() {
   SetParameterRange(parLQ4E, Emin, Emax);
 
   if (fFlagTopMassFixed)
-    SetParameterRange(parTopM, fPhysicsConstants->MassTop(), fPhysicsConstants->MassTop());
+    SetParameterRange(parTopM, fPhysicsConstants.MassTop(), fPhysicsConstants.MassTop());
 
   // no error
   return 1;
@@ -363,12 +363,12 @@ double KLFitter::LikelihoodTopAllHadronic::LogLikelihood(const std::vector<doubl
   if (!TFgoodTmp) fTFgood = false;
 
   // physics constants
-  double massW = fPhysicsConstants->MassW();
-  double gammaW = fPhysicsConstants->GammaW();
+  double massW = fPhysicsConstants.MassW();
+  double gammaW = fPhysicsConstants.GammaW();
   // note: top mass width should be made DEPENDENT on the top mass at a certain point
-  //    fPhysicsConstants->SetMassTop(parameters[parTopM]);
+  //    fPhysicsConstants.SetMassTop(parameters[parTopM]);
   // (this will also set the correct width for the top)
-  double gammaTop = fPhysicsConstants->GammaTop();
+  double gammaTop = fPhysicsConstants.GammaTop();
 
   // Breit-Wigner of hadronically decaying W-boson
   logprob += BCMath::LogBreitWignerRel(whad1_fit_m, massW, gammaW);
@@ -419,7 +419,7 @@ int KLFitter::LikelihoodTopAllHadronic::SavePermutedParticles() {
   bhad1_meas_px     = (*fParticlesPermuted)->Parton(0)->Px();
   bhad1_meas_py     = (*fParticlesPermuted)->Parton(0)->Py();
   bhad1_meas_pz     = (*fParticlesPermuted)->Parton(0)->Pz();
-  bhad1_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(0)->M(), fPhysicsConstants->MassBottom(), &bhad1_meas_px, &bhad1_meas_py, &bhad1_meas_pz, bhad1_meas_e);
+  bhad1_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(0)->M(), fPhysicsConstants.MassBottom(), &bhad1_meas_px, &bhad1_meas_py, &bhad1_meas_pz, bhad1_meas_e);
   bhad1_meas_p      = sqrt(bhad1_meas_e*bhad1_meas_e - bhad1_meas_m*bhad1_meas_m);
 
   bhad2_meas_e      = (*fParticlesPermuted)->Parton(1)->E();
@@ -427,7 +427,7 @@ int KLFitter::LikelihoodTopAllHadronic::SavePermutedParticles() {
   bhad2_meas_px     = (*fParticlesPermuted)->Parton(1)->Px();
   bhad2_meas_py     = (*fParticlesPermuted)->Parton(1)->Py();
   bhad2_meas_pz     = (*fParticlesPermuted)->Parton(1)->Pz();
-  bhad2_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(1)->M(), fPhysicsConstants->MassBottom(), &bhad2_meas_px, &bhad2_meas_py, &bhad2_meas_pz, bhad2_meas_e);
+  bhad2_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(1)->M(), fPhysicsConstants.MassBottom(), &bhad2_meas_px, &bhad2_meas_py, &bhad2_meas_pz, bhad2_meas_e);
   bhad2_meas_p      = sqrt(bhad2_meas_e*bhad2_meas_e - bhad2_meas_m*bhad2_meas_m);
 
   lq1_meas_e      = (*fParticlesPermuted)->Parton(2)->E();
@@ -541,12 +541,12 @@ std::vector<double> KLFitter::LikelihoodTopAllHadronic::LogLikelihoodComponents(
   if (!TFgoodTmp) fTFgood = false;
 
   // physics constants
-  double massW = fPhysicsConstants->MassW();
-  double gammaW = fPhysicsConstants->GammaW();
+  double massW = fPhysicsConstants.MassW();
+  double gammaW = fPhysicsConstants.GammaW();
   // note: top mass width should be made DEPENDENT on the top mass at a certain point
-  //    fPhysicsConstants->SetMassTop(parameters[parTopM]);
+  //    fPhysicsConstants.SetMassTop(parameters[parTopM]);
   // (this will also set the correct width for the top)
-  double gammaTop = fPhysicsConstants->GammaTop();
+  double gammaTop = fPhysicsConstants.GammaTop();
 
   // Breit-Wigner of hadronically decaying W-boson1
   vecci.push_back(BCMath::LogBreitWignerRel(whad1_fit_m, massW, gammaW));  // comp6

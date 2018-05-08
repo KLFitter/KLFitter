@@ -26,6 +26,7 @@
 #include "BAT/BCLog.h"
 #include "BAT/BCModel.h"
 #include "KLFitter/Particles.h"
+#include "KLFitter/PhysicsConstants.h"
 
 // ---------------------------------------------------------
 
@@ -34,7 +35,6 @@
  * \brief The KLFitter namespace
  */
 namespace KLFitter {
-class PhysicsConstants;
 class Permutations;
 class DetectorBase;
 
@@ -80,7 +80,7 @@ class LikelihoodBase : public BCModel {
     * Return the table of physics constants.
     * @return A pointer to the physics constants.
     */
-  KLFitter::PhysicsConstants* PhysicsConstants() { return fPhysicsConstants; }
+  KLFitter::PhysicsConstants* PhysicsConstants() { return &fPhysicsConstants; }
 
   /**
     * Return the detector.
@@ -498,7 +498,7 @@ class LikelihoodBase : public BCModel {
   /**
     * A pointer to the table of physics constants
     */
-  KLFitter::PhysicsConstants* fPhysicsConstants;
+  KLFitter::PhysicsConstants fPhysicsConstants;
 
   /**
     * A pointer to the detector
