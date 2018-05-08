@@ -129,8 +129,7 @@ KLFitter::DetectorAtlas_7TeV::DetectorAtlas_7TeV(std::string folder) : DetectorB
   fResPhiBJet_eta3 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_phi_bJets_eta3.txt", folder.c_str())});
   fResPhiBJet_eta4 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_phi_bJets_eta4.txt", folder.c_str())});
 
-  // missing et resolution in x and y
-  fResMissingET      = new KLFitter::ResGauss_MET(Form("%s/par_misset.txt", folder.c_str()));
+  fResMissingET_eta1 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss_MET{Form("%s/par_misset.txt", folder.c_str())});
 
   // default settings
   fResEnergyLightJet = fResEnergyLightJet_eta1.get();
@@ -143,6 +142,7 @@ KLFitter::DetectorAtlas_7TeV::DetectorAtlas_7TeV(std::string folder) : DetectorB
   fResEtaBJet        = fResEtaBJet_eta1.get();
   fResPhiLightJet    = fResPhiLightJet_eta1.get();
   fResPhiBJet        = fResPhiBJet_eta1.get();
+  fResMissingET      = fResMissingET_eta1.get();
 
   // Set eta binning for different objects starting with eta = 0
   fJetEtaBin_1 = 0.8;
@@ -168,7 +168,6 @@ KLFitter::DetectorAtlas_7TeV::DetectorAtlas_7TeV(std::string folder) : DetectorB
 
 // ---------------------------------------------------------
 KLFitter::DetectorAtlas_7TeV::~DetectorAtlas_7TeV() {
-  delete fResMissingET;
 }
 
 // ---------------------------------------------------------

@@ -217,6 +217,11 @@ class DetectorAtlas_8TeV : public DetectorBase {
   std::unique_ptr<ResolutionBase> fResPhiBJet_eta4;
 
   /**
+   * Missing ET resolution in x and y
+   */
+  std::unique_ptr<ResolutionBase> fResMissingET_eta1;
+
+  /**
     * The eta binning for jets
     */
   double fJetEtaBin_1;
