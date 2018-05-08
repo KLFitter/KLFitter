@@ -102,10 +102,6 @@ class LikelihoodBase : public BCModel {
     BuildModelParticles();
     return fParticlesModel;
   }
-  KLFitter::Particles** PParticlesModel() {
-    BuildModelParticles();
-    return &fParticlesModel;
-  }
 
   /**
     * Return the number of model particles.
