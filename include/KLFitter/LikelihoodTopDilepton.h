@@ -292,7 +292,7 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
     * Build the model particles from the best fit parameters.
     * @return An error code.
     */
-  int BuildModelParticles();
+  int BuildModelParticles() override;
 
   /**
     * Calculate other variables out of the KLFitter parameters for each MCMCiteration

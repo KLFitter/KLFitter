@@ -331,6 +331,12 @@ class LikelihoodBase : public BCModel {
   virtual int RemoveForbiddenParticlePermutations() { return 1; }
 
   /**
+   * Build the model particles from the best fit parameters.
+   * @return An error code.
+   */
+  virtual int BuildModelParticles() = 0;
+
+  /**
     * Get initial values for the parameters.
     * @return vector of initial values.
     */

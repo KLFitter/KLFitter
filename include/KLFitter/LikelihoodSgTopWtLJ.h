@@ -213,7 +213,7 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
     * Build the model particles from the best fit parameters.
     * @return An error code.
     */
-  int BuildModelParticles();
+  int BuildModelParticles() override;
 
   /* @} */
 
