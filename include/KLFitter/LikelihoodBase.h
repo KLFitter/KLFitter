@@ -98,8 +98,14 @@ class LikelihoodBase : public BCModel {
     * Return the set of model particles.
     * @return A pointer to the particles.
     */
-  virtual KLFitter::Particles* ParticlesModel() = 0;
-  virtual KLFitter::Particles** PParticlesModel() = 0;
+  KLFitter::Particles* ParticlesModel() {
+    BuildModelParticles();
+    return fParticlesModel;
+  }
+  KLFitter::Particles** PParticlesModel() {
+    BuildModelParticles();
+    return &fParticlesModel;
+  }
 
   /**
     * Return the number of model particles.

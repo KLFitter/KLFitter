@@ -180,19 +180,6 @@ class LikelihoodTTHLeptonJets : public KLFitter::LikelihoodBase {
     */
   bool NoTFProblem(std::vector<double> parameters) override;
 
-  /**
-    * Return the set of model particles.
-    * @return A pointer to the particles.
-    */
-  KLFitter::Particles* ParticlesModel() override {
-    BuildModelParticles();
-    return fParticlesModel;
-  }
-  KLFitter::Particles** PParticlesModel() override {
-    BuildModelParticles();
-    return &fParticlesModel;
-  }
-
   /* @} */
 
  protected:
