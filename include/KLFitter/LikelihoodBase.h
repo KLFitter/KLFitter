@@ -271,7 +271,7 @@ class LikelihoodBase : public BCModel {
     * Initialize the likelihood for the event
     * @return An error code
     */
-  virtual int Initialize() = 0;
+  virtual int Initialize();
 
   /**
    * Adjust parameter ranges

@@ -244,28 +244,6 @@ int KLFitter::BoostedLikelihoodTopLeptonJets::CalculateLorentzVectors(std::vecto
 }
 
 // ---------------------------------------------------------
-int KLFitter::BoostedLikelihoodTopLeptonJets::Initialize() {
-  // error code
-  int err = 1;
-
-  // save the current permuted particles
-  err *= SavePermutedParticles();
-
-  // save the corresponding resolution functions
-  err *= SaveResolutionFunctions();
-
-  // adjust parameter ranges
-  err *= AdjustParameterRanges();
-
-  // set initial values
-  // (only for Markov chains - initial parameters for other minimisation methods are set in Fitter.cxx)
-  SetInitialParameters(GetInitialParameters());
-
-  // return error code
-  return err;
-}
-
-// ---------------------------------------------------------
 int KLFitter::BoostedLikelihoodTopLeptonJets::RemoveInvariantParticlePermutations() {
   // error code
   int err = 1;

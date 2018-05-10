@@ -183,11 +183,6 @@ class LikelihoodTopLeptonJets_Angular : public KLFitter::LikelihoodBase {
   int CalculateLorentzVectors(std::vector <double> const& parameters) override;
 
   /**
-    * Initialize the likelihood for the event
-    */
-  int Initialize() override;
-
-  /**
     * Adjust parameter ranges
     */
   int AdjustParameterRanges() override;
