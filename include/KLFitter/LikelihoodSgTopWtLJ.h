@@ -185,7 +185,7 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
     * Update 4-vectors of model particles.
     * @return An error flag.
     */
-  int CalculateLorentzVectors(std::vector <double> parameters) override;
+  int CalculateLorentzVectors(const std::vector <double>& parameters) override;
 
   /**
     * Initialize the likelihood for the event

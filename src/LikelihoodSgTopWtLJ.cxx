@@ -154,7 +154,7 @@ void KLFitter::LikelihoodSgTopWtLJ::DefineParameters() {
 }
 
 // ---------------------------------------------------------
-int KLFitter::LikelihoodSgTopWtLJ::CalculateLorentzVectors(std::vector <double> parameters) {
+int KLFitter::LikelihoodSgTopWtLJ::CalculateLorentzVectors(const std::vector <double>& parameters) {
   // variables
   static double scale;
 
