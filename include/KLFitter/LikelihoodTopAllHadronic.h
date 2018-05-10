@@ -242,7 +242,7 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
     * @param e The parton energy (not modified).
     * @return The parton mass.
     */
-  inline double SetPartonMass(double jetmass, double quarkmass, double *px, double *py, double *pz, double e) {
+  double SetPartonMass(double jetmass, double quarkmass, double *px, double *py, double *pz, double e) {
     double mass(0.);
     if (fFlagUseJetMass) {
       mass = jetmass > 0. ? jetmass : 0.;

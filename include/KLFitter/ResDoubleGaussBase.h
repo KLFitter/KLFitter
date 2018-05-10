@@ -138,7 +138,7 @@ class ResDoubleGaussBase : public ResolutionBase {
     * @param sigma2 (the 2nd sigma).
     * @return False if problem with TF.
     */
-  inline static bool CheckDoubleGaussianSanity(double *sigma1, double *amplitude2, double *sigma2) {
+  static bool CheckDoubleGaussianSanity(double *sigma1, double *amplitude2, double *sigma2) {
     if (*amplitude2 < 0.) *amplitude2 = 0.;
     if (*sigma1 < 0.) {
       //        std::cout << "KLFitter::ResDoubleGauss::CheckDoubleGaussianSanity() ERROR IN TRANSFERFUNCTIONS the sigma of the 1st Gaussian is < 0  -  FIT RESULT MAY NOT BE RELIABLE" << std::endl;

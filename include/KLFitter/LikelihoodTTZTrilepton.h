@@ -66,12 +66,12 @@ class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
   /**
     * Get the cut-off value of the 1/E^2 distribution.
     */
-  inline double GetInvMassCutoff() { return fInvMassCutoff; }
+  double GetInvMassCutoff() { return fInvMassCutoff; }
 
   /**
     * Get the fraction of on-shell events.
     */
-  inline float GetOnShellFraction() { return fOnShellFraction; }
+  float GetOnShellFraction() { return fOnShellFraction; }
 
   /* @} */
   /** \name Member functions (Set)  */
@@ -99,12 +99,12 @@ class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
   /**
     * Set the cut-off value of the 1/E^2 distribution.
     */
-  inline void SetInvMassCutoff(double cutoff) { fInvMassCutoff = cutoff; }
+  void SetInvMassCutoff(double cutoff) { fInvMassCutoff = cutoff; }
 
   /**
     * Set the fraction of on-shell events.
     */
-  inline void SetOnShellFraction(double fraction) { fOnShellFraction = fraction; }
+  void SetOnShellFraction(double fraction) { fOnShellFraction = fraction; }
 
   /**
     * Set a flag. If flag is true the invariant top quark mass is
@@ -338,7 +338,7 @@ class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
     * @param e The parton energy (not modified).
     * @return The parton mass.
     */
-  inline double SetPartonMass(double jetmass, double quarkmass, double *px, double *py, double *pz, double e) {
+  double SetPartonMass(double jetmass, double quarkmass, double *px, double *py, double *pz, double e) {
     double mass(0.);
     if (fFlagUseJetMass) {
       mass = jetmass > 0. ? jetmass : 0.;
