@@ -249,7 +249,7 @@ class LikelihoodBase : public BCModel {
     * Set flag to use measured jet masses (true) instead of
     * parton masses (false);
     */
-  virtual void SetFlagUseJetMass(bool flag) { fFlagUseJetMass = flag; }
+  void SetFlagUseJetMass(bool flag) { fFlagUseJetMass = flag; }
 
   /* @} */
   /** \name Member functions (misc)  */
