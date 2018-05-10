@@ -74,21 +74,21 @@ class LikelihoodTopLeptonJetsUDSep : public KLFitter::LikelihoodTopLeptonJets {
   /**
     * Define the parameters of the fit.
     */
-  virtual void DefineParameters();
+  void DefineParameters() override;
 
   /**
     * Return the log of the event probability fof the current
     * combination
     * @return The event probability
     */
-  double LogEventProbability();
+  double LogEventProbability() override;
 
   /**
     * Return the contribution from b tagging to the log of the
     * event probability for the current combination
     * @return The event probability contribution
     */
-  double LogEventProbabilityBTag();
+  double LogEventProbabilityBTag() override;
 
   /**
     * Return the contribution from pT and b tag weight probability (by LJetSeparationMethod)
@@ -204,7 +204,7 @@ class LikelihoodTopLeptonJetsUDSep : public KLFitter::LikelihoodTopLeptonJets {
     * Check if the permutation is LH invariant.
     * @return Permutation of the invariant partner, -1 if there is no one.
     */
-  int LHInvariantPermutationPartner(int iperm, int nperms, int *switchpar1, int *switchpar2);
+  int LHInvariantPermutationPartner(int iperm, int nperms, int *switchpar1, int *switchpar2) override;
 
   /**
     * Set histogram for tag weight distribution of up type jets.
@@ -235,19 +235,19 @@ class LikelihoodTopLeptonJetsUDSep : public KLFitter::LikelihoodTopLeptonJets {
     * Define the model particles
     * @return An error code.
     */
-  virtual int DefineModelParticles();
+  int DefineModelParticles() override;
 
   /**
     * Remove invariant particle permutations.
     * @return An error code.
     */
-  int RemoveInvariantParticlePermutations();
+  int RemoveInvariantParticlePermutations() override;
 
   /**
     * Remove forbidden particle permutations.
     * @return An error code.
     */
-  int RemoveForbiddenParticlePermutations() { return 1; }
+  int RemoveForbiddenParticlePermutations() override { return 1; }
 
   /**
     * A flag for using an additional reweighting of the permutations with the pT and tag weight probability (default: false);

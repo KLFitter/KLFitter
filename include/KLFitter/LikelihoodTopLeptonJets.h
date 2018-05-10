@@ -85,7 +85,7 @@ class LikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
     * @param sumet total scalar ET.
     * @return An error flag.
     */
-  int SetET_miss_XY_SumET(double etx, double ety, double sumet);
+  int SetET_miss_XY_SumET(double etx, double ety, double sumet) override;
 
   /**
     * Set a flag. If flag is true the invariant top quark mass is
@@ -121,21 +121,21 @@ class LikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
   /**
     * Define the parameters of the fit.
     */
-  virtual void DefineParameters();
+  void DefineParameters() override;
 
   /**
     * The prior probability definition, overloaded from BCModel.
     * @param parameters A vector of parameters (double values).
     * @return The logarithm of the prior probability.
     */
-  virtual double LogAPrioriProbability(const std::vector <double> & parameters) { return 0; }
+  double LogAPrioriProbability(const std::vector <double> & parameters) override { return 0; }
 
   /**
     * The posterior probability definition, overloaded from BCModel.
     * @param parameters A vector of parameters (double values).
     * @return The logarithm of the prior probability.
     */
-  virtual double LogLikelihood(const std::vector <double> & parameters);
+  double LogLikelihood(const std::vector <double> & parameters) override;
 
   /**
     * The posterior probability definition, overloaded from BCModel. Split up into several subcomponents
@@ -153,13 +153,13 @@ class LikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
     * 9:  BW_Thad
     * 10: BW_Tlep
     */
-  virtual std::vector<double> LogLikelihoodComponents(std::vector <double> parameters);
+  std::vector<double> LogLikelihoodComponents(std::vector <double> parameters) override;
 
   /**
     * Get initial values for the parameters.
     * @return vector of initial values.
     */
-  virtual std::vector<double> GetInitialParameters();
+  std::vector<double> GetInitialParameters() override;
 
   /**
     * Get initial values for the parameters with a dummy of "0.0" for the neutrino pz.
@@ -173,17 +173,17 @@ class LikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
     * Check if there are TF problems.
     * @return Return false if TF problem.
     */
-  virtual bool NoTFProblem(std::vector<double> parameters);
+  bool NoTFProblem(std::vector<double> parameters) override;
 
   /**
     * Return the set of model particles.
     * @return A pointer to the particles.
     */
-  virtual KLFitter::Particles* ParticlesModel() {
+  KLFitter::Particles* ParticlesModel() override {
     BuildModelParticles();
     return fParticlesModel;
   }
-  virtual KLFitter::Particles** PParticlesModel() {
+  KLFitter::Particles** PParticlesModel() override {
     BuildModelParticles();
     return &fParticlesModel;
   }
@@ -203,7 +203,7 @@ class LikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
   /**
     * Initialize the likelihood for the event
     */
-  virtual int Initialize();
+  int Initialize() override;
 
   /**
     * Adjust parameter ranges
@@ -220,13 +220,13 @@ class LikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
     * Remove invariant particle permutations.
     * @return An error code.
     */
-  int RemoveInvariantParticlePermutations();
+  int RemoveInvariantParticlePermutations() override;
 
   /**
     * Remove forbidden particle permutations.
     * @return An error code.
     */
-  int RemoveForbiddenParticlePermutations();
+  int RemoveForbiddenParticlePermutations() override;
 
   /**
     * Build the model particles from the best fit parameters.

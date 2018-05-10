@@ -91,7 +91,7 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
     * @param sumet total scalar ET.
     * @return An error flag.
     */
-  int SetET_miss_XY_SumET(double etx, double ety, double sumet);
+  int SetET_miss_XY_SumET(double etx, double ety, double sumet) override;
 
   /**
     * Set a flag. If flag is true the invariant top quark mass is
@@ -133,7 +133,7 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
   /**
     * Define the parameters of the fit.
     */
-  virtual void DefineParameters();
+  void DefineParameters() override;
 
   /**
     * Define sharp gauss prior for mtop par if mtop fixed
@@ -152,14 +152,14 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
     * @return The logarithm of the prior probability.
     */
 
-  virtual double LogAPrioriProbability(const std::vector <double> & parameters) { return 0; }
+  double LogAPrioriProbability(const std::vector <double> & parameters) override { return 0; }
 
   /**
     * The posterior probability definition, overloaded from BCModel.
     * @param parameters A vector of parameters (double values).
     * @return The logarithm of the prior probability.
     */
-  virtual double LogLikelihood(const std::vector <double> & parameters);
+  double LogLikelihood(const std::vector <double> & parameters) override;
 
   /**
     * The posterior probability definition, overloaded from BCModel. Split up into several subcomponents
@@ -174,29 +174,29 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
     * 6:  Nu_Eta
     * 7:  Minv(lep,jet)
     */
-  virtual std::vector<double> LogLikelihoodComponents(std::vector <double> parameters);
+  std::vector<double> LogLikelihoodComponents(std::vector <double> parameters) override;
 
   /**
     * Get initial values for the parameters.
     * @return vector of initial values.
     */
-  virtual std::vector<double> GetInitialParameters();
+  std::vector<double> GetInitialParameters() override;
 
   /**
     * Check if there are TF problems.
     * @return Return false if TF problem.
     */
-  virtual bool NoTFProblem(std::vector<double> parameters);
+  bool NoTFProblem(std::vector<double> parameters) override;
 
   /**
     * Return the set of model particles.
     * @return A pointer to the particles.
     */
-  virtual KLFitter::Particles* ParticlesModel() {
+  KLFitter::Particles* ParticlesModel() override {
     BuildModelParticles();
     return fParticlesModel;
   }
-  virtual KLFitter::Particles** PParticlesModel() {
+  KLFitter::Particles** PParticlesModel() override {
     BuildModelParticles();
     return &fParticlesModel;
   }
@@ -263,7 +263,7 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
   /**
     * Initialize the likelihood for the event
     */
-  virtual int Initialize();
+  int Initialize() override;
 
   /**
     * Adjust parameter ranges
@@ -280,13 +280,13 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
     * Remove invariant particle permutations.
     * @return An error code.
     */
-  int RemoveInvariantParticlePermutations();
+  int RemoveInvariantParticlePermutations() override;
 
   /**
     * Remove forbidden particle permutations.
     * @return An error code.
     */
-  int RemoveForbiddenParticlePermutations();
+  int RemoveForbiddenParticlePermutations() override;
 
   /**
     * Build the model particles from the best fit parameters.
@@ -298,19 +298,19 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
     * Calculate other variables out of the KLFitter parameters for each MCMCiteration
     *
     */
-  void MCMCIterationInterface();
+  void MCMCIterationInterface() override;
 
   /**
     * Get BAT BCH1D histograms of Mttbar
     * @return BCH1D histograms
     */
-  BCH1D * GetHistMttbar() { return fHistMttbar; }
+  BCH1D * GetHistMttbar() override { return fHistMttbar; }
 
   /**
     * Get BAT BCH1D histograms of CosTheta
     * @return BCH1D histograms
     */
-  BCH1D * GetHistCosTheta() { return fHistCosTheta;  }
+  BCH1D * GetHistCosTheta() override { return fHistCosTheta;  }
 
   /**
     * calculate cos(theta*) for both top and antitop
