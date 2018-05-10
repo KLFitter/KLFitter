@@ -251,6 +251,12 @@ class LikelihoodBase : public BCModel {
   /* @{ */
 
   /**
+   * Update 4-vectors of model particles.
+   * @return An error flag.
+   */
+  virtual int CalculateLorentzVectors(std::vector <double> const& parameters) = 0;
+
+  /**
     * Initialize the likelihood for the event
     * @return An error code
     */

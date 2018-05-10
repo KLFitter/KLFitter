@@ -206,7 +206,7 @@ class LikelihoodTopLeptonJets_JetAngles : public KLFitter::LikelihoodBase {
     * Update 4-vectors of model particles.
     * @return An error flag.
     */
-  int CalculateLorentzVectors(std::vector <double> const& parameters);
+  int CalculateLorentzVectors(std::vector <double> const& parameters) override;
 
   /**
     * Initialize the likelihood for the event
