@@ -161,7 +161,7 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
     * Update 4-vectors of model particles.
     * @return An error flag.
     */
-  virtual int CalculateLorentzVectors(std::vector <double> const& parameters);
+  int CalculateLorentzVectors(std::vector <double> const& parameters);
 
   /**
     * Initialize the likelihood for the event
@@ -171,13 +171,13 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
   /**
     * Adjust parameter ranges
     */
-  virtual int AdjustParameterRanges();
+  int AdjustParameterRanges();
 
   /**
     * Define the model particles
     * @return An error code.
     */
-  virtual int DefineModelParticles();
+  int DefineModelParticles();
 
   /**
     * Remove invariant particle permutations.

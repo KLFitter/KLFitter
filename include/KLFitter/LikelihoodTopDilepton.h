@@ -138,7 +138,7 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
   /**
     * Define sharp gauss prior for mtop par if mtop fixed
     */
-  virtual void DefinePrior();
+  void DefinePrior();
 
   /**
     * Define BCH1D and TH1D histograms to be filled
@@ -258,7 +258,7 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
     * Update 4-vectors of model particles.
     * @return An error flag.
     */
-  virtual int CalculateLorentzVectors(std::vector <double> const& parameters);
+  int CalculateLorentzVectors(std::vector <double> const& parameters);
 
   /**
     * Initialize the likelihood for the event
@@ -268,13 +268,13 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
   /**
     * Adjust parameter ranges
     */
-  virtual int AdjustParameterRanges();
+  int AdjustParameterRanges();
 
   /**
     * Define the model particles
     * @return An error code.
     */
-  virtual int DefineModelParticles();
+  int DefineModelParticles();
 
   /**
     * Remove invariant particle permutations.

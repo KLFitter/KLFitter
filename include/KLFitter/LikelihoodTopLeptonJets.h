@@ -167,7 +167,7 @@ class LikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
     * GetInitialParameters().
     * @return vector of initial values.
     */
-  virtual std::vector<double> GetInitialParametersWoNeutrinoPz();
+  std::vector<double> GetInitialParametersWoNeutrinoPz();
 
   /**
     * Check if there are TF problems.
@@ -198,7 +198,7 @@ class LikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
     * Update 4-vectors of model particles.
     * @return An error flag.
     */
-  virtual int CalculateLorentzVectors(std::vector <double> const& parameters);
+  int CalculateLorentzVectors(std::vector <double> const& parameters);
 
   /**
     * Initialize the likelihood for the event
@@ -208,7 +208,7 @@ class LikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
   /**
     * Adjust parameter ranges
     */
-  virtual int AdjustParameterRanges();
+  int AdjustParameterRanges();
 
   /**
     * Define the model particles
@@ -258,7 +258,7 @@ class LikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
     * and the W mass.
     * @return A vector with 0, 1 or 2 neutrino pz solutions.
     */
-  virtual std::vector<double> GetNeutrinoPzSolutions();
+  std::vector<double> GetNeutrinoPzSolutions();
 
   /**
     * Calculates the neutrino pz solutions from the measured values

@@ -185,7 +185,7 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
     * Update 4-vectors of model particles.
     * @return An error flag.
     */
-  virtual int CalculateLorentzVectors(std::vector <double> parameters);
+  int CalculateLorentzVectors(std::vector <double> parameters);
 
   /**
     * Initialize the likelihood for the event
@@ -195,13 +195,13 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
   /**
     * Adjust parameter ranges
     */
-  virtual int AdjustParameterRanges();
+  int AdjustParameterRanges();
 
   /**
     * Define the model particles
     * @return An error code.
     */
-  virtual int DefineModelParticles();
+  int DefineModelParticles();
 
   /**
     * Remove invariant particle permutations.
@@ -236,7 +236,7 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
     * and the W mass.
     * @return A vector with 0, 1 or 2 neutrino pz solutions.
     */
-  virtual std::vector<double> GetNeutrinoPzSolutions();
+  std::vector<double> GetNeutrinoPzSolutions();
 
   /**
     * Save permuted particles.
