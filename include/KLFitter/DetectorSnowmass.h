@@ -63,34 +63,34 @@ class DetectorSnowmass : public DetectorBase {
     * @param eta The eta of the particle.
     * @return A pointer to the energy resolution object.
     */
-  ResolutionBase* ResEnergyLightJet(double eta = 0.);
+  ResolutionBase* ResEnergyLightJet(double eta = 0.) override;
 
   /**
     * Return the energy resolution of b-jets.
     * @param eta The eta of the particle.
     * @return A pointer to the energy resolution object.
     */
-  ResolutionBase* ResEnergyBJet(double eta = 0.);
+  ResolutionBase* ResEnergyBJet(double eta = 0.) override;
 
   /**
     * Return the energy resolution of electrons.
     * @param eta The eta of the particle.
     * @return A pointer to the energy resolution object.
     */
-  ResolutionBase* ResEnergyElectron(double eta = 0.);
+  ResolutionBase* ResEnergyElectron(double eta = 0.) override;
 
   /**
     * Return the momentum resolution of muons.
     * @param eta The eta of the particle.
     * @return A pointer to the momentum resolution object.
     */
-  ResolutionBase* ResEnergyMuon(double eta = 0.);
+  ResolutionBase* ResEnergyMuon(double eta = 0.) override;
 
   /**
     * Return the missing ET resolution.
     * @return A pointer to the missing ET resolution.
     */
-  ResolutionBase* ResMissingET();
+  ResolutionBase* ResMissingET() override;
 
   /* @} */
 
