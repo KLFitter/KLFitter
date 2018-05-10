@@ -282,41 +282,6 @@ int KLFitter::BoostedLikelihoodTopLeptonJets::RemoveInvariantParticlePermutation
 }
 
 // ---------------------------------------------------------
-int KLFitter::BoostedLikelihoodTopLeptonJets::RemoveForbiddenParticlePermutations() {
-  // error code
-  int err = 1;
-
-  // only in b-tagging type kVetoNoFit
-  if (!((fBTagMethod == kVetoNoFit) || (fBTagMethod == kVetoNoFitLight) || (fBTagMethod == kVetoNoFitBoth)))
-    return err;
-
-  // remove all permutations where a b-tagged jet is in the position of a model light quark
-  KLFitter::Particles * particles = (*fPermutations)->Particles();
-  int nPartons = particles->NPartons();
-
-  KLFitter::Particles * particlesModel = fParticlesModel;
-  int nPartonsModel = particlesModel->NPartons();
-  for (int iParton(0); iParton < nPartons; ++iParton) {
-    bool isBtagged = particles->IsBTagged(iParton);
-
-    for (int iPartonModel(0); iPartonModel < nPartonsModel; ++iPartonModel) {
-      KLFitter::Particles::TrueFlavorType trueFlavor = particlesModel->TrueFlavor(iPartonModel);
-      if ((fBTagMethod == kVetoNoFit)&&((!isBtagged) || (trueFlavor != KLFitter::Particles::kLight)))
-        continue;
-      if ((fBTagMethod == kVetoNoFitLight)&&((isBtagged) || (trueFlavor != KLFitter::Particles::kB)))
-        continue;
-      if ((fBTagMethod == kVetoNoFitBoth)&&(((isBtagged)&&(trueFlavor != KLFitter::Particles::kLight)) || ((!isBtagged)&&(trueFlavor != KLFitter::Particles::kB))))
-        continue;
-
-      err *= (*fPermutations)->RemoveParticlePermutations(KLFitter::Particles::kParton, iParton, iPartonModel);
-    }
-  }
-
-  // return error code
-  return err;
-}
-
-// ---------------------------------------------------------
 int KLFitter::BoostedLikelihoodTopLeptonJets::AdjustParameterRanges() {
   // adjust limits
   double nsigmas_jet    = fFlagGetParSigmasFromTFs ? 10 : 7;

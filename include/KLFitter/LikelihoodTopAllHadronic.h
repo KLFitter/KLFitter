@@ -165,12 +165,6 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
   int RemoveInvariantParticlePermutations() override;
 
   /**
-    * Remove forbidden particle permutations.
-    * @return An error code.
-    */
-  int RemoveForbiddenParticlePermutations() override;
-
-  /**
     * Remove forbidden particle permutations - forcing b-jets on the position of a b parton.
     * @return An error code.
     */

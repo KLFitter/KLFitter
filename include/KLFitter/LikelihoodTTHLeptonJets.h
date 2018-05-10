@@ -210,12 +210,6 @@ class LikelihoodTTHLeptonJets : public KLFitter::LikelihoodBase {
   int RemoveInvariantParticlePermutations() override;
 
   /**
-    * Remove forbidden particle permutations.
-    * @return An error code.
-    */
-  int RemoveForbiddenParticlePermutations() override;
-
-  /**
     * Build the model particles from the best fit parameters.
     * @return An error code.
     */
