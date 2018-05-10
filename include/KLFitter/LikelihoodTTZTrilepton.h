@@ -321,7 +321,7 @@ class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
   /**
     * Save permuted particles.
     */
-  int SavePermutedParticles();
+  int SavePermutedParticles() override;
 
   /**
     * Save resolution functions.

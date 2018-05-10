@@ -443,6 +443,11 @@ class LikelihoodBase : public BCModel {
 
  protected:
   /**
+   * Save permuted particles.
+   */
+  virtual int SavePermutedParticles() = 0;
+
+  /**
     * A pointer to the measured particles.
     */
   KLFitter::Particles** fParticlesPermuted;
