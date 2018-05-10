@@ -19,6 +19,7 @@
 
 #include "KLFitter/LikelihoodBase.h"
 
+#include <cmath>
 #include <iostream>
 #include <string>
 
@@ -40,6 +41,7 @@ KLFitter::LikelihoodBase::LikelihoodBase(Particles** particles) : BCModel(),
                                                                   fEventProbability(std::vector<double>(0)),
                                                                   fFlagIntegrate(0),
                                                                   fFlagIsNan(false),
+                                                                  fFlagUseJetMass(false),
                                                                   fBTagMethod(kNotag) {
   BCLog::SetLogLevel(BCLog::nothing);
   MCMCSetRandomSeed(123456789);
@@ -421,6 +423,23 @@ int KLFitter::LikelihoodBase::ResetCache() {
   fCachedNormalization = 0.;
 
   return 1;
+}
+
+// ---------------------------------------------------------.
+double KLFitter::LikelihoodBase::SetPartonMass(double jetmass, double quarkmass, double *px, double *py, double *pz, double e) {
+  double mass(0.);
+  if (fFlagUseJetMass) {
+    mass = jetmass > 0. ? jetmass : 0.;
+  } else {
+    mass = quarkmass;
+  }
+  double p_orig = sqrt(*px * *px + *py * *py + *pz * *pz);
+  double p_newmass = sqrt(e * e - mass * mass);
+  double scale = p_newmass / p_orig;
+  *px *= scale;
+  *py *= scale;
+  *pz *= scale;
+  return mass;
 }
 
 // ---------------------------------------------------------.

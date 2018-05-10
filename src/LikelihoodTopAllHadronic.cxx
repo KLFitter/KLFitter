@@ -35,7 +35,6 @@
 // ---------------------------------------------------------
 KLFitter::LikelihoodTopAllHadronic::LikelihoodTopAllHadronic() : KLFitter::LikelihoodBase::LikelihoodBase()
   , fFlagTopMassFixed(false)
-  , fFlagUseJetMass(false)
   , fFlagGetParSigmasFromTFs(false)
   , fTFgood(true) {
   // define model particles

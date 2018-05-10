@@ -35,7 +35,6 @@
 // ---------------------------------------------------------
 KLFitter::LikelihoodTopLeptonJets_JetAngles::LikelihoodTopLeptonJets_JetAngles() : KLFitter::LikelihoodBase::LikelihoodBase()
   , fFlagTopMassFixed(false)
-  , fFlagUseJetMass(false)
   , fFlagGetParSigmasFromTFs(false)
   , ETmiss_x(0.)
   , ETmiss_y(0.)

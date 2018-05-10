@@ -245,6 +245,11 @@ class LikelihoodBase : public BCModel {
     */
   int SetFlagIntegrate(bool flag) { fFlagIntegrate = flag; return 1; }
 
+  /**
+    * Set flag to use measured jet masses (true) instead of
+    * parton masses (false);
+    */
+  virtual void SetFlagUseJetMass(bool flag) { fFlagUseJetMass = flag; }
 
   /* @} */
   /** \name Member functions (misc)  */
@@ -448,6 +453,18 @@ class LikelihoodBase : public BCModel {
   virtual int SavePermutedParticles() = 0;
 
   /**
+   * Set model parton mass according to fFlagUseJetMass.
+   * @param jetmass The jet mass.
+   * @param quarkmass The quark mass.
+   * @param px The parton px (will be modified, if necessary).
+   * @param py The parton py (will be modified, if necessary).
+   * @param pz The parton pz (will be modified, if necessary).
+   * @param e The parton energy (not modified).
+   * @return The parton mass.
+   */
+  double SetPartonMass(double jetmass, double quarkmass, double *px, double *py, double *pz, double e);
+
+  /**
     * A pointer to the measured particles.
     */
   KLFitter::Particles** fParticlesPermuted;
@@ -491,6 +508,12 @@ class LikelihoodBase : public BCModel {
     * A flag for knowing that Minuit gave parameters with NaN values to LogLikelihood
     */
   bool fFlagIsNan;
+
+  /**
+   * A flag for using the measured jet masses (true) instead of
+   * parton masses (false);
+   */
+  bool fFlagUseJetMass;
 
   /**
     * Name of btagging enum

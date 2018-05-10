@@ -22,7 +22,6 @@
 
 #include <assert.h>
 
-#include <cmath>
 #include <iostream>
 #include <utility>
 #include <vector>
@@ -99,8 +98,6 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
     * @param flag The flag.
     */
   void SetFlagTopMassFixed(bool flag) { fFlagTopMassFixed = flag; }
-
-  void SetFlagUseJetMass(bool flag) { fFlagUseJetMass = flag; }
 
   /**
     * Set the neutrino pseudorapidity sigma linear dependency on mtop
@@ -326,12 +323,6 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
   bool fFlagTopMassFixed;
 
   /**
-    * A flag for using the measured jet masses (true) instead of
-    * parton masses (false);
-    */
-  bool fFlagUseJetMass;
-
-  /**
     * Save permuted particles.
     */
   int SavePermutedParticles() override;
@@ -340,32 +331,6 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
     * Save resolution functions.
     */
   int SaveResolutionFunctions();
-
-  /**
-    * Set model parton mass according to fFlagUseJetMass.
-    * @param jetmass The jet mass.
-    * @param quarkmass The quark mass.
-    * @param px The parton px (will be modified, if necessary).
-    * @param py The parton py (will be modified, if necessary).
-    * @param pz The parton pz (will be modified, if necessary).
-    * @param e The parton energy (not modified).
-    * @return The parton mass.
-    */
-  double SetPartonMass(double jetmass, double quarkmass, double *px, double *py, double *pz, double e) {
-    double mass(0.);
-    if (fFlagUseJetMass) {
-      mass = jetmass > 0. ? jetmass : 0.;
-    } else {
-      mass = quarkmass;
-    }
-    double p_orig = sqrt(*px * *px + *py * *py + *pz * *pz);
-    double p_newmass = sqrt(e * e - mass * mass);
-    double scale = p_newmass / p_orig;
-    *px *= scale;
-    *py *= scale;
-    *pz *= scale;
-    return mass;
-  }
 
   /**
     * The values of the x component of the missing ET.

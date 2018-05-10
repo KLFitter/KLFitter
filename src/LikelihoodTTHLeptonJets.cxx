@@ -35,7 +35,6 @@
 KLFitter::LikelihoodTTHLeptonJets::LikelihoodTTHLeptonJets() : KLFitter::LikelihoodBase::LikelihoodBase()
   , fFlagTopMassFixed(false)
   , fFlagHiggsMassFixed(false)
-  , fFlagUseJetMass(false)
   , ETmiss_x(0.)
   , ETmiss_y(0.)
   , SumET(0.)

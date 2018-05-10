@@ -20,7 +20,6 @@
 #ifndef KLFITTER_LIKELIHOODSGTOPWTLJ_H_
 #define KLFITTER_LIKELIHOODSGTOPWTLJ_H_
 
-#include <cmath>
 #include <vector>
 
 namespace KLFitter {
@@ -114,8 +113,6 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
     * Associate the leptonic leg of the event to the top quark for likelihood calculation.
     */
   void SetLeptonicTop() { fHadronicTop = false; }
-
-  void SetFlagUseJetMass(bool flag) { fFlagUseJetMass = flag; }
 
   /**
     * Set the type of lepton
@@ -226,12 +223,6 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
   bool fHadronicTop;
 
   /**
-    * A flag for using the measured jet masses (true) instead of
-    * parton masses (false);
-    */
-  bool fFlagUseJetMass;
-
-  /**
     * Calculates the neutrino pz solutions from the measured values
     * and the W mass.
     * @return A vector with 0, 1 or 2 neutrino pz solutions.
@@ -247,32 +238,6 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
     * Save resolution functions.
     */
   int SaveResolutionFunctions();
-
-  /**
-    * Set model parton mass according to fFlagUseJetMass.
-    * @param jetmass The jet mass.
-    * @param quarkmass The quark mass.
-    * @param px The parton px (will be modified, if necessary).
-    * @param py The parton py (will be modified, if necessary).
-    * @param pz The parton pz (will be modified, if necessary).
-    * @param e The parton energy (not modified).
-    * @return The parton mass.
-    */
-  double SetPartonMass(double jetmass, double quarkmass, double *px, double *py, double *pz, double e) {
-    double mass(0.);
-    if (fFlagUseJetMass) {
-      mass = jetmass > 0. ? jetmass : 0.;
-    } else {
-      mass = quarkmass;
-    }
-    double p_orig = sqrt(*px * *px + *py * *py + *pz * *pz);
-    double p_newmass = sqrt(e * e - mass * mass);
-    double scale = p_newmass / p_orig;
-    *px *= scale;
-    *py *= scale;
-    *pz *= scale;
-    return mass;
-  }
 
   /**
     * The values of the x component of the missing ET.

@@ -34,7 +34,6 @@
 // ---------------------------------------------------------
 KLFitter::LikelihoodSgTopWtLJ::LikelihoodSgTopWtLJ(): KLFitter::LikelihoodBase::LikelihoodBase()
   , fHadronicTop(true)
-  , fFlagUseJetMass(false)
   , ETmiss_x(0.)
   , ETmiss_y(0.)
   , SumET(0.)
