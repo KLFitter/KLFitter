@@ -98,8 +98,8 @@ class LikelihoodBase : public BCModel {
     * Return the set of model particles.
     * @return A pointer to the particles.
     */
-  virtual KLFitter::Particles* ParticlesModel() { return fParticlesModel; }
-  virtual KLFitter::Particles** PParticlesModel() { return &fParticlesModel; }
+  virtual KLFitter::Particles* ParticlesModel() = 0;
+  virtual KLFitter::Particles** PParticlesModel() = 0;
 
   /**
     * Return the number of model particles.
@@ -174,7 +174,7 @@ class LikelihoodBase : public BCModel {
     * @param sumet total scalar ET.
     * @return An error flag.
     */
-  virtual int SetET_miss_XY_SumET(double etx, double ety, double sumet) { return 0; }
+  virtual int SetET_miss_XY_SumET(double etx, double ety, double sumet) = 0;
 
   /**
     * Set the permutation object.
@@ -265,7 +265,7 @@ class LikelihoodBase : public BCModel {
     * Initialize the likelihood for the event
     * @return An error code
     */
-  virtual int Initialize() { return 1; }
+  virtual int Initialize() = 0;
 
   /**
    * Adjust parameter ranges
@@ -291,28 +291,28 @@ class LikelihoodBase : public BCModel {
   /**
     * Define the parameters of the fit.
     */
-  virtual void DefineParameters() { ; }
+  virtual void DefineParameters() = 0;
 
   /**
     * The prior probability definition, overloaded from BCModel.
     * @param parameters A vector of parameters (double values).
     * @return The logarithm of the prior probability.
     */
-  virtual double LogAPrioriProbability(const std::vector <double> & parameters) { return 0; }
+  virtual double LogAPrioriProbability(const std::vector <double> & parameters) = 0;
 
   /**
     * The posterior probability definition, overloaded from BCModel.
     * @param parameters A vector of parameters (double values).
     * @return The logarithm of the prior probability.
     */
-  virtual double LogLikelihood(const std::vector <double> & parameters) { return 0; }
+  virtual double LogLikelihood(const std::vector <double> & parameters) = 0;
 
   /**
     * The posterior probability definition, overloaded from BCModel. Split up into several subcomponents
     * @param parameters A vector of parameters (double values).
     * @return A vector with the components of the logarithm of the prior probability.
     */
-  virtual std::vector<double> LogLikelihoodComponents(std::vector <double> parameters) { return std::vector<double>(0); }
+  virtual std::vector<double> LogLikelihoodComponents(std::vector <double> parameters) = 0;
 
   /**
     * Return BCH1D histograms calculated inside
@@ -339,13 +339,13 @@ class LikelihoodBase : public BCModel {
     * Remove invariant particle permutations.
     * @return An error code.
     */
-  virtual int RemoveInvariantParticlePermutations() { return 1; }
+  virtual int RemoveInvariantParticlePermutations() = 0;
 
   /**
     * Remove forbidden particle permutations.
     * @return An error code.
     */
-  virtual int RemoveForbiddenParticlePermutations() { return 1; }
+  virtual int RemoveForbiddenParticlePermutations() = 0;
 
   /**
    * Build the model particles from the best fit parameters.
@@ -357,13 +357,13 @@ class LikelihoodBase : public BCModel {
     * Get initial values for the parameters.
     * @return vector of initial values.
     */
-  virtual std::vector<double> GetInitialParameters() { std::vector<double> v; return v; }
+  virtual std::vector<double> GetInitialParameters() = 0;
 
   /**
     * Check if there are TF problems.
     * @return Return false if TF problem.
     */
-  virtual bool NoTFProblem(std::vector<double> parameters) { return true; }
+  virtual bool NoTFProblem(std::vector<double> parameters) = 0;
 
   /**
     * Returns the best fit parameters, overloaded from BCModel
