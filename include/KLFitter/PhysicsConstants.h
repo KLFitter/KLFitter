@@ -33,7 +33,7 @@ namespace KLFitter {
   *
   * This class contains physics constants.
   */
-class PhysicsConstants {
+class PhysicsConstants final {
  public:
   /** \name Constructors and destructors */
   /* @{ */
@@ -46,7 +46,7 @@ class PhysicsConstants {
   /**
     * The default destructor.
     */
-  virtual ~PhysicsConstants();
+  ~PhysicsConstants();
 
   /* @} */
   /** \name Member functions (Get)  */

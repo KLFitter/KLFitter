@@ -40,7 +40,7 @@ namespace KLFitter {
   * This class contains sets of TLorentzVectors for quarks, leptons,
   * etc.
   */
-class Particles {
+class Particles final {
  public:
   /** \name Enumerators */
   /* @{ */
@@ -67,7 +67,7 @@ class Particles {
   /**
     * The default destructor.
     */
-  virtual ~Particles();
+  ~Particles();
 
   /* @} */
   /** \name Member functions (Get)  */

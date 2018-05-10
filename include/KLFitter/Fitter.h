@@ -41,7 +41,7 @@ class Permutations;
   * This class owns all particles, the detector description, the
   * likelihood, etc. This is the class seen by the user.
   */
-class Fitter {
+class Fitter final {
  public:
   /** \name Constructors and destructors */
   /* @{ */
@@ -54,7 +54,7 @@ class Fitter {
   /**
     * The default destructor.
     */
-  virtual ~Fitter();
+  ~Fitter();
 
   /* @} */
   /** \name Member functions (Get)  */
