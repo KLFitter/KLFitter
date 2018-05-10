@@ -453,6 +453,11 @@ class LikelihoodBase : public BCModel {
   virtual int SavePermutedParticles() = 0;
 
   /**
+   * Save resolution functions.
+   */
+  virtual int SaveResolutionFunctions() = 0;
+
+  /**
    * Set model parton mass according to fFlagUseJetMass.
    * @param jetmass The jet mass.
    * @param quarkmass The quark mass.

@@ -221,7 +221,7 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
   /**
     * Save resolution functions.
     */
-  int SaveResolutionFunctions();
+  int SaveResolutionFunctions() override;
 
   /**
     * Global variable for TF problems.

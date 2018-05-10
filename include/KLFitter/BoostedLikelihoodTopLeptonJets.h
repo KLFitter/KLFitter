@@ -269,7 +269,7 @@ class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
   /**
    * Save resolution functions.
    */
-  int SaveResolutionFunctions();
+  int SaveResolutionFunctions() override;
 
   /**
    * The values of the x component of the missing ET.
