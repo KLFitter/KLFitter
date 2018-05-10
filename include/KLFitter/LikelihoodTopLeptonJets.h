@@ -214,7 +214,7 @@ class LikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
     * Define the model particles
     * @return An error code.
     */
-  virtual int DefineModelParticles();
+  virtual int DefineModelParticles() override;
 
   /**
     * Remove invariant particle permutations.

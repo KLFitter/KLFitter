@@ -201,7 +201,7 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
     * Define the model particles
     * @return An error code.
     */
-  int DefineModelParticles();
+  int DefineModelParticles() override;
 
   /**
     * Remove invariant particle permutations.

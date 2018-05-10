@@ -268,6 +268,12 @@ class LikelihoodBase : public BCModel {
   virtual int AdjustParameterRanges() = 0;
 
   /**
+   * Define the model particles
+   * @return An error code.
+   */
+  virtual int DefineModelParticles() = 0;
+
+  /**
     * Propagate the b-tagging information from the permuted (measured) particles to the model particles.
     */
   void PropagateBTaggingInformation();
