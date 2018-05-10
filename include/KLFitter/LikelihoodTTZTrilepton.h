@@ -181,12 +181,6 @@ class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
     */
   std::vector<double> GetInitialParametersWoNeutrinoPz();
 
-  /**
-    * Check if there are TF problems.
-    * @return Return false if TF problem.
-    */
-  bool NoTFProblem(std::vector<double> parameters) override;
-
   /* @} */
 
  protected:
@@ -308,11 +302,6 @@ class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
     * jets.
     */
   LeptonType fTypeLepton;
-
-  /**
-    * Global variable for TF problems.
-    */
-  bool fTFgood;
 
   /**
     * Cut-off value for the 1/E^2 distribution (in GeV).

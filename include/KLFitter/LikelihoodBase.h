@@ -369,7 +369,7 @@ class LikelihoodBase : public BCModel {
     * Check if there are TF problems.
     * @return Return false if TF problem.
     */
-  virtual bool NoTFProblem(std::vector<double> parameters) = 0;
+  virtual bool NoTFProblem(std::vector<double> parameters);
 
   /**
     * Returns the best fit parameters, overloaded from BCModel
@@ -525,6 +525,11 @@ class LikelihoodBase : public BCModel {
    * parton masses (false);
    */
   bool fFlagUseJetMass;
+
+  /**
+   * Global variable for TF problems.
+   */
+  bool fTFgood;
 
   /**
     * Name of btagging enum

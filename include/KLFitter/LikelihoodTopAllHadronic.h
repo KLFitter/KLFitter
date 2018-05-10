@@ -122,12 +122,6 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
     */
   std::vector<double> GetInitialParameters() override;
 
-  /**
-    * Check if there are TF problems.
-    * @return Return false if TF problem.
-    */
-  bool NoTFProblem(std::vector<double> parameters) override;
-
   /* @} */
 
  protected:
@@ -191,11 +185,6 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
     * Save resolution functions.
     */
   int SaveResolutionFunctions() override;
-
-  /**
-    * Global variable for TF problems.
-    */
-  bool fTFgood;
 
   /**
     * Save resolution functions since the eta of the partons is not fitted.

@@ -172,12 +172,6 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
   std::vector<double> GetInitialParameters() override;
 
   /**
-    * Check if there are TF problems.
-    * @return Return false if TF problem.
-    */
-  bool NoTFProblem(std::vector<double> parameters) override;
-
-  /**
     * Return Gaussian term for neutrino
     * pseudorapidity.
     * @return A double.
@@ -340,11 +334,6 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
     * A flag for using sumloglikelihood option
     */
   bool doSumloglik;
-
-  /**
-    * Global variable for TF problems.
-    */
-  bool fTFgood;
 
  public:
   /**

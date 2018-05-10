@@ -157,12 +157,6 @@ class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
    */
   std::vector<double> GetInitialParametersWoNeutrinoPz();
 
-  /**
-   * Check if there are TF problems.
-   * @return Return false if TF problem.
-   */
-  bool NoTFProblem(std::vector<double> parameters) override;
-
   /* @} */
 
  protected:
@@ -260,11 +254,6 @@ class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
    * jets.
    */
   LeptonType fTypeLepton;
-
-  /**
-   * Global variable for TF problems.
-   */
-  bool fTFgood;
 
   /**
    * Save resolution functions since the eta of the partons is not fitted.

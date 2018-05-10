@@ -42,6 +42,7 @@ KLFitter::LikelihoodBase::LikelihoodBase(Particles** particles) : BCModel(),
                                                                   fFlagIntegrate(0),
                                                                   fFlagIsNan(false),
                                                                   fFlagUseJetMass(false),
+                                                                  fTFgood(true),
                                                                   fBTagMethod(kNotag) {
   BCLog::SetLogLevel(BCLog::nothing);
   MCMCSetRandomSeed(123456789);
@@ -327,6 +328,13 @@ double KLFitter::LikelihoodBase::LogEventProbabilityBTag() {
   }
 
   return logprob;
+}
+
+// ---------------------------------------------------------
+bool KLFitter::LikelihoodBase::NoTFProblem(std::vector<double> parameters) {
+  fTFgood = true;
+  this->LogLikelihood(parameters);
+  return fTFgood;
 }
 
 // ---------------------------------------------------------

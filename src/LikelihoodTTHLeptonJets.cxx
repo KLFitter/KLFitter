@@ -38,8 +38,7 @@ KLFitter::LikelihoodTTHLeptonJets::LikelihoodTTHLeptonJets() : KLFitter::Likelih
   , ETmiss_x(0.)
   , ETmiss_y(0.)
   , SumET(0.)
-  , fTypeLepton(kElectron)
-  , fTFgood(true) {
+  , fTypeLepton(kElectron) {
   // define model particles
   this->DefineModelParticles();
 
@@ -648,13 +647,6 @@ std::vector<double> KLFitter::LikelihoodTTHLeptonJets::CalculateNeutrinoPzSoluti
   }
 
   return pz;
-}
-
-// ---------------------------------------------------------
-bool KLFitter::LikelihoodTTHLeptonJets::NoTFProblem(std::vector<double> parameters) {
-  fTFgood = true;
-  this->LogLikelihood(parameters);
-  return fTFgood;
 }
 
 // ---------------------------------------------------------

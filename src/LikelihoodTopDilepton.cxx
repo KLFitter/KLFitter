@@ -54,7 +54,6 @@ KLFitter::LikelihoodTopDilepton::LikelihoodTopDilepton() : KLFitter::LikelihoodB
   , fTypeLepton_2(kElectron)
   , nueta_params(0.)
   , doSumloglik(false)
-  , fTFgood(true)
   , hist_mttbar(new TH1D())
   , hist_costheta(new TH1D())
   , fHistMttbar(new BCH1D())
@@ -835,13 +834,6 @@ std::vector<double> KLFitter::LikelihoodTopDilepton::GetInitialParameters() {
   values[parNuEta] = 0.;
 
   return values;
-}
-
-// ---------------------------------------------------------
-bool KLFitter::LikelihoodTopDilepton::NoTFProblem(std::vector<double> parameters) {
-  fTFgood = true;
-  this->LogLikelihood(parameters);
-  return fTFgood;
 }
 
 // ---------------------------------------------------------

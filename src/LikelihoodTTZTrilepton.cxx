@@ -39,7 +39,6 @@ KLFitter::LikelihoodTTZTrilepton::LikelihoodTTZTrilepton() : KLFitter::Likelihoo
   , ETmiss_y(0.)
   , SumET(0.)
   , fTypeLepton(kElectron)
-  , fTFgood(true)
   , fInvMassCutoff(5.)
   , fOnShellFraction(0.869) {
   // define model particles
@@ -734,13 +733,6 @@ std::vector<double> KLFitter::LikelihoodTTZTrilepton::CalculateNeutrinoPzSolutio
   }
 
   return pz;
-}
-
-// ---------------------------------------------------------
-bool KLFitter::LikelihoodTTZTrilepton::NoTFProblem(std::vector<double> parameters) {
-  fTFgood = true;
-  this->LogLikelihood(parameters);
-  return fTFgood;
 }
 
 // ---------------------------------------------------------

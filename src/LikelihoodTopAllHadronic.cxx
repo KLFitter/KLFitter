@@ -35,8 +35,7 @@
 // ---------------------------------------------------------
 KLFitter::LikelihoodTopAllHadronic::LikelihoodTopAllHadronic() : KLFitter::LikelihoodBase::LikelihoodBase()
   , fFlagTopMassFixed(false)
-  , fFlagGetParSigmasFromTFs(false)
-  , fTFgood(true) {
+  , fFlagGetParSigmasFromTFs(false) {
   // define model particles
   DefineModelParticles();
 
@@ -411,13 +410,6 @@ std::vector<double> KLFitter::LikelihoodTopAllHadronic::GetInitialParameters() {
 
   // return the vector
   return values;
-}
-
-// ---------------------------------------------------------
-bool KLFitter::LikelihoodTopAllHadronic::NoTFProblem(std::vector<double> parameters) {
-  fTFgood = true;
-  this->LogLikelihood(parameters);
-  return fTFgood;
 }
 
 // ---------------------------------------------------------
