@@ -121,13 +121,6 @@ class LikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
   void DefineParameters() override;
 
   /**
-    * The prior probability definition, overloaded from BCModel.
-    * @param parameters A vector of parameters (double values).
-    * @return The logarithm of the prior probability.
-    */
-  double LogAPrioriProbability(const std::vector <double> & parameters) override { return 0; }
-
-  /**
     * The posterior probability definition, overloaded from BCModel.
     * @param parameters A vector of parameters (double values).
     * @return The logarithm of the prior probability.
