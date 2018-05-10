@@ -216,7 +216,7 @@ class LikelihoodTTHLeptonJets : public KLFitter::LikelihoodBase {
   /**
     * Adjust parameter ranges
     */
-  int AdjustParameterRanges();
+  int AdjustParameterRanges() override;
 
   /**
     * Define the model particles
