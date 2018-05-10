@@ -75,7 +75,7 @@ class ResGaussPt : public ResolutionBase {
     * @param x true energy as parameter of the TF.
     * @return The width.
     */
-  virtual double GetSigma(double x);
+  double GetSigma(double x) override;
 
   /**
     * Return the probability of the true value of x given the
@@ -86,7 +86,7 @@ class ResGaussPt : public ResolutionBase {
     * @param par Optional additional parameter (SumET in case of MET TF).
     * @return The probability.
     */
-  double p(double x, double xmeas, bool *good);
+  double p(double x, double xmeas, bool *good) override;
 
   /* @} */
   /** \name Member functions (Set)  */

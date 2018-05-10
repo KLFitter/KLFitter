@@ -68,7 +68,7 @@ class ResGauss : public ResolutionBase {
     * @param dummy Dummy parameter. Only needed to satisfy the interface.
     * @return The width.
     */
-  virtual double GetSigma(double dummy = 0);
+  double GetSigma(double dummy = 0) override;
 
   /**
     * Return the probability of the true value of x given the
@@ -78,7 +78,7 @@ class ResGauss : public ResolutionBase {
     * @param good False if problem with TF.
     * @return The probability.
     */
-  double p(double x, double xmeas, bool *good);
+  double p(double x, double xmeas, bool *good) override;
 
   /**
     * Return the probability of the true value of x given the
@@ -89,7 +89,7 @@ class ResGauss : public ResolutionBase {
     * @param par Optional additional parameter (SumET in case of MET TF).
     * @return The probability.
     */
-  virtual double p(double x, double xmeas, bool *good, double par) { *good = true; return 0; }
+  double p(double x, double xmeas, bool *good, double par) override { *good = true; return 0; }
 
   /* @} */
   /** \name Member functions (Set)  */
