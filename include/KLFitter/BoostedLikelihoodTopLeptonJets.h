@@ -58,7 +58,7 @@ class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
   /**
    * The default destructor.
    */
-  virtual ~BoostedLikelihoodTopLeptonJets();
+  ~BoostedLikelihoodTopLeptonJets();
 
   /* @} */
   /** \name Member functions (Get)  */

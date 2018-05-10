@@ -63,7 +63,7 @@ class ResGaussPt : public ResolutionBase {
   /**
     * The default destructor.
     */
-  virtual ~ResGaussPt();
+  ~ResGaussPt();
 
   /* @} */
   /** \name Member functions (Get)  */

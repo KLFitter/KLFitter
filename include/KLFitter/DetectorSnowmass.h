@@ -52,7 +52,7 @@ class DetectorSnowmass : public DetectorBase {
   /**
     * The default destructor.
     */
-  virtual ~DetectorSnowmass();
+  ~DetectorSnowmass();
 
   /* @} */
   /** \name Member functions (Get)  */

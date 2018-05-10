@@ -56,7 +56,7 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
   /**
     * The default destructor.
     */
-  virtual ~LikelihoodTopAllHadronic();
+  ~LikelihoodTopAllHadronic();
 
   /* @} */
   /** \name Member functions (Get)  */

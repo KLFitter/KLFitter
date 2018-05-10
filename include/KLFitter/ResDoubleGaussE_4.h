@@ -58,7 +58,7 @@ class ResDoubleGaussE_4 : public ResDoubleGaussBase {
   /**
     * The default destructor.
     */
-  virtual ~ResDoubleGaussE_4();
+  ~ResDoubleGaussE_4();
 
   /* @} */
   /** \name Member functions (Get)  */

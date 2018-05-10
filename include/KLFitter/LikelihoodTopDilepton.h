@@ -64,7 +64,7 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
   /**
     * The default destructor.
     */
-  virtual ~LikelihoodTopDilepton();
+  ~LikelihoodTopDilepton();
 
   /* @} */
   /** \name Member functions (Get)  */

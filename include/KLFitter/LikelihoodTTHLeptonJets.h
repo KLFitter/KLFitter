@@ -59,7 +59,7 @@ class LikelihoodTTHLeptonJets : public KLFitter::LikelihoodBase {
   /**
     * The default destructor.
     */
-  virtual ~LikelihoodTTHLeptonJets();
+  ~LikelihoodTTHLeptonJets();
 
   /* @} */
   /** \name Member functions (Get)  */

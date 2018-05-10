@@ -52,7 +52,7 @@ class DetectorAtlas_8TeV : public DetectorBase {
   /**
     * The default destructor.
     */
-  virtual ~DetectorAtlas_8TeV();
+  ~DetectorAtlas_8TeV();
 
   /* @} */
   /** \name Member functions (Get)  */

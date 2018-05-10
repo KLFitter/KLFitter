@@ -58,7 +58,7 @@ class ResDoubleGaussPt : public ResDoubleGaussBase {
   /**
     * The default destructor.
     */
-  virtual ~ResDoubleGaussPt();
+  ~ResDoubleGaussPt();
 
   /* @} */
   /** \name Member functions (Get)  */

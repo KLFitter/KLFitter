@@ -63,7 +63,7 @@ class ResGaussE : public ResolutionBase {
   /**
     * The default destructor.
     */
-  virtual ~ResGaussE();
+  ~ResGaussE();
 
   /* @} */
   /** \name Member functions (Get)  */

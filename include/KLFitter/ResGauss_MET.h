@@ -58,7 +58,7 @@ class ResGauss_MET : public ResolutionBase {
   /**
     * The default destructor.
     */
-  virtual ~ResGauss_MET();
+  ~ResGauss_MET();
 
   /* @} */
   /** \name Member functions (Get)  */
