@@ -317,13 +317,6 @@ class LikelihoodBase : public BCModel {
   virtual std::vector<double> LogLikelihoodComponents(std::vector <double> parameters) = 0;
 
   /**
-    * Return BCH1D histograms calculated inside
-    * LikelihoodTopDilepton::MCMCIterationsInterface per event
-    */
-  virtual BCH1D * GetHistMttbar() { BCH1D * h(0); return h; }
-  virtual BCH1D * GetHistCosTheta() { BCH1D * h(0); return h; }
-
-  /**
     * Return the log of the event probability fof the current
     * combination
     * @return The event probability

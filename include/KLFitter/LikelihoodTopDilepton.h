@@ -268,13 +268,13 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
     * Get BAT BCH1D histograms of Mttbar
     * @return BCH1D histograms
     */
-  BCH1D * GetHistMttbar() override { return fHistMttbar; }
+  BCH1D * GetHistMttbar() { return fHistMttbar; }
 
   /**
     * Get BAT BCH1D histograms of CosTheta
     * @return BCH1D histograms
     */
-  BCH1D * GetHistCosTheta() override { return fHistCosTheta;  }
+  BCH1D * GetHistCosTheta() { return fHistCosTheta; }
 
   /**
     * calculate cos(theta*) for both top and antitop
