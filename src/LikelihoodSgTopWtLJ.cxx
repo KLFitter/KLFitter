@@ -98,14 +98,8 @@ void KLFitter::LikelihoodSgTopWtLJ::SetLeptonType(int leptontype) {
 
 // ---------------------------------------------------------
 int KLFitter::LikelihoodSgTopWtLJ::DefineModelParticles() {
-  // check if model particles exist and delete
-  if (fParticlesModel) {
-    delete fParticlesModel;
-    fParticlesModel = 0;
-  }
-
   // create the particles of the model
-  fParticlesModel = new KLFitter::Particles();
+  fParticlesModel.reset(new KLFitter::Particles{});
 
   // create dummy TLorentzVector
   TLorentzVector dummy{0, 0, 0, 0};  // 4-vector
@@ -565,7 +559,7 @@ int KLFitter::LikelihoodSgTopWtLJ::BuildModelParticles() {
   TLorentzVector * b = fParticlesModel->Parton(0);
   TLorentzVector * lq1  = fParticlesModel->Parton(1);
   TLorentzVector * lq2  = fParticlesModel->Parton(2);
-  TLorentzVector * lep = GetLepton(fParticlesModel);
+  TLorentzVector * lep = GetLepton(fParticlesModel.get());
   TLorentzVector * nu   = fParticlesModel->Neutrino(0);
   TLorentzVector * whad  = fParticlesModel->Boson(0);
   TLorentzVector * wlep  = fParticlesModel->Boson(1);

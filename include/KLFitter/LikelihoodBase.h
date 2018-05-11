@@ -100,7 +100,7 @@ class LikelihoodBase : public BCModel {
     */
   KLFitter::Particles* ParticlesModel() {
     BuildModelParticles();
-    return fParticlesModel;
+    return fParticlesModel.get();
   }
 
   /**
@@ -484,7 +484,7 @@ class LikelihoodBase : public BCModel {
   /**
     * A pointer to the model particles.
     */
-  KLFitter::Particles* fParticlesModel;
+  std::unique_ptr<KLFitter::Particles> fParticlesModel;
 
   /**
     * A pointer to the measured particles.

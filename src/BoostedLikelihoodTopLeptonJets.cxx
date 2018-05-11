@@ -90,14 +90,8 @@ void KLFitter::BoostedLikelihoodTopLeptonJets::SetLeptonType(int leptontype) {
 
 // ---------------------------------------------------------
 int KLFitter::BoostedLikelihoodTopLeptonJets::DefineModelParticles() {
-  // check if model particles and lorentz vector container exist and delete
-  if (fParticlesModel) {
-    delete fParticlesModel;
-    fParticlesModel = 0;
-  }
-
   // create the particles of the model
-  fParticlesModel = new KLFitter::Particles();
+  fParticlesModel.reset(new KLFitter::Particles{});
 
   // add model particles
   // create dummy TLorentzVector

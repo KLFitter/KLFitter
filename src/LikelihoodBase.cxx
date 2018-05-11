@@ -34,7 +34,6 @@
 KLFitter::LikelihoodBase::LikelihoodBase(Particles** particles) : BCModel(),
                                                                   fParticlesPermuted(particles),
                                                                   fPermutations(0),
-                                                                  fParticlesModel(0),
                                                                   fMyParticlesTruth(0),
                                                                   fDetector(0),
                                                                   fEventProbability(std::vector<double>(0)),
@@ -52,9 +51,6 @@ KLFitter::LikelihoodBase::~LikelihoodBase() {
   // Clear the parameters container in the BCModel to circumvent
   // BAT-internal memory leak (known issue in 0.9.4.1).
   ClearParameters(true);
-
-  if (fParticlesModel)
-    delete fParticlesModel;
 }
 
 // ---------------------------------------------------------
@@ -384,13 +380,12 @@ int KLFitter::LikelihoodBase::RemoveForbiddenParticlePermutations() {
   KLFitter::Particles * particles = (*fPermutations)->Particles();
   int nPartons = particles->NPartons();
 
-  KLFitter::Particles * particlesModel = fParticlesModel;
-  int nPartonsModel = particlesModel->NPartons();
+  int nPartonsModel = fParticlesModel->NPartons();
   for (int iParton(0); iParton < nPartons; ++iParton) {
     bool isBtagged = particles->IsBTagged(iParton);
 
     for (int iPartonModel(0); iPartonModel < nPartonsModel; ++iPartonModel) {
-      KLFitter::Particles::TrueFlavorType trueFlavor = particlesModel->TrueFlavor(iPartonModel);
+      KLFitter::Particles::TrueFlavorType trueFlavor = fParticlesModel->TrueFlavor(iPartonModel);
       if ((fBTagMethod == kVetoNoFit)&&((!isBtagged) || (trueFlavor != KLFitter::Particles::kLight)))
         continue;
       if ((fBTagMethod == kVetoNoFitLight)&&((isBtagged) || (trueFlavor != KLFitter::Particles::kB)))
