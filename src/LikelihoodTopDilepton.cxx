@@ -586,31 +586,26 @@ double KLFitter::LikelihoodTopDilepton::CalculateWeight(const std::vector<double
   double Weight = 0.;
 
   // charged leptons
-  TLorentzVector * l1 = new TLorentzVector();
-  TLorentzVector * l2 = new TLorentzVector();
+  TLorentzVector l1{};
+  TLorentzVector l2{};
 
   // include parLep1E, parLep2E
-  l1->SetPxPyPzE(lep1_fit_px,  lep1_fit_py,  lep1_fit_pz,  lep1_fit_e);
-  l2->SetPxPyPzE(lep2_fit_px,  lep2_fit_py,  lep2_fit_pz,  lep2_fit_e);
+  l1.SetPxPyPzE(lep1_fit_px,  lep1_fit_py,  lep1_fit_pz,  lep1_fit_e);
+  l2.SetPxPyPzE(lep2_fit_px,  lep2_fit_py,  lep2_fit_pz,  lep2_fit_e);
 
   // jet1 and jet2:
-  TLorentzVector * j1 = new TLorentzVector();
-  TLorentzVector * j2 = new TLorentzVector();
+  TLorentzVector j1{};
+  TLorentzVector j2{};
 
   // include parB1E, parB2E
-  j1->SetPxPyPzE(b1_fit_px, b1_fit_py, b1_fit_pz, b1_fit_e);
-  j2->SetPxPyPzE(b2_fit_px, b2_fit_py, b2_fit_pz, b2_fit_e);
+  j1.SetPxPyPzE(b1_fit_px, b1_fit_py, b1_fit_pz, b1_fit_e);
+  j2.SetPxPyPzE(b2_fit_px, b2_fit_py, b2_fit_pz, b2_fit_e);
 
-  Weight += CalculateWeightPerm(l1, l2, j1, j2, parameters);
+  Weight += CalculateWeightPerm(&l1, &l2, &j1, &j2, parameters);
 
   // if sumloglik option, sum over jet permutations
   if (doSumloglik)
-    Weight += CalculateWeightPerm(l1, l2, j2, j1, parameters);
-
-  delete l1;
-  delete l2;
-  delete j1;
-  delete j2;
+    Weight += CalculateWeightPerm(&l1, &l2, &j2, &j1, parameters);
 
   return Weight;
 }
