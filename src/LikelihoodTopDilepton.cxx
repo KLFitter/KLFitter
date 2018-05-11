@@ -70,8 +70,6 @@ KLFitter::LikelihoodTopDilepton::LikelihoodTopDilepton() : KLFitter::LikelihoodB
 
 // ---------------------------------------------------------
 KLFitter::LikelihoodTopDilepton::~LikelihoodTopDilepton() {
-  delete fHistMttbar;
-  delete fHistCosTheta;
 }
 
 // ---------------------------------------------------------
