@@ -91,74 +91,65 @@ void KLFitter::LikelihoodTopLeptonJets_JetAngles::SetLeptonType(int leptontype) 
 
 // ---------------------------------------------------------
 int KLFitter::LikelihoodTopLeptonJets_JetAngles::DefineModelParticles() {
-  // check if model particles and lorentz vector container exist and delete
-  if (fParticlesModel) {
-    delete fParticlesModel;
-    fParticlesModel = 0;
-  }
-
   // create the particles of the model
-  fParticlesModel = new KLFitter::Particles();
+  fParticlesModel.reset(new KLFitter::Particles{});
 
   // add model particles
   // create dummy TLorentzVector
-  TLorentzVector * dummy = new TLorentzVector(0, 0, 0, 0);    // 4-vector
-  fParticlesModel->AddParticle(dummy,
+  TLorentzVector dummy{0, 0, 0, 0};  // 4-vector
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kParton,  // type
                                "hadronic b quark",            // name
                                0,                             // index of corresponding particle
                                KLFitter::Particles::kB);      // b jet (truth)
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kParton,
                                "leptonic b quark",
                                1,                             // index of corresponding particle
                                KLFitter::Particles::kB);      // b jet (truth)
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kParton,
                                "light quark 1",
                                2,                             // index of corresponding particle
                                KLFitter::Particles::kLight);  // light jet (truth)
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kParton,
                                "light quark 2",
                                3,                             // index of corresponding particle
                                KLFitter::Particles::kLight);  // light jet (truth)
 
   if (fTypeLepton == kElectron) {
-    fParticlesModel->AddParticle(dummy,
+    fParticlesModel->AddParticle(&dummy,
                                  KLFitter::Particles::kElectron,
                                  "electron");
   } else if (fTypeLepton == kMuon) {
-    fParticlesModel->AddParticle(dummy,
+    fParticlesModel->AddParticle(&dummy,
                                  KLFitter::Particles::kMuon,
                                  "muon");
   }
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kNeutrino,
                                "neutrino");
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kBoson,
                                "hadronic W");
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kBoson,
                                "leptonic W");
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kParton,
                                "hadronic top");
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kParton,
                                "leptonic top");
-
-  // free memory
-  delete dummy;
 
   // no error
   return 1;
@@ -167,8 +158,8 @@ int KLFitter::LikelihoodTopLeptonJets_JetAngles::DefineModelParticles() {
 // ---------------------------------------------------------
 void KLFitter::LikelihoodTopLeptonJets_JetAngles::DefineParameters() {
   // add parameters of model
-  AddParameter("energy hadronic b",       fPhysicsConstants->MassBottom(), 1000.0);  // parBhadE
-  AddParameter("energy leptonic b",       fPhysicsConstants->MassBottom(), 1000.0);  // parBlepE
+  AddParameter("energy hadronic b",       fPhysicsConstants.MassBottom(), 1000.0);  // parBhadE
+  AddParameter("energy leptonic b",       fPhysicsConstants.MassBottom(), 1000.0);  // parBlepE
   AddParameter("energy light quark 1",    0.0, 1000.0);                              // parLQ1E
   AddParameter("energy light quark 2",    0.0, 1000.0);                              // parLQ2E
   AddParameter("energy lepton",           0.0, 1000.0);                              // parLepE
@@ -330,7 +321,7 @@ int KLFitter::LikelihoodTopLeptonJets_JetAngles::AdjustParameterRanges() {
   double nsigmas_met    = fFlagGetParSigmasFromTFs ? 10 : 1;
 
   double E = (*fParticlesPermuted)->Parton(0)->E();
-  double m = fPhysicsConstants->MassBottom();
+  double m = fPhysicsConstants.MassBottom();
   if (fFlagUseJetMass)
     m = std::max(0.0, (*fParticlesPermuted)->Parton(0)->M());
   double sigma = fFlagGetParSigmasFromTFs ? (*fDetector)->ResEnergyBJet((*fParticlesPermuted)->DetEta(0, KLFitter::Particles::kParton))->GetSigma(E) : sqrt(E);
@@ -339,7 +330,7 @@ int KLFitter::LikelihoodTopLeptonJets_JetAngles::AdjustParameterRanges() {
   SetParameterRange(parBhadE, Emin, Emax);
 
   E = (*fParticlesPermuted)->Parton(1)->E();
-  m = fPhysicsConstants->MassBottom();
+  m = fPhysicsConstants.MassBottom();
   if (fFlagUseJetMass)
     m = std::max(0.0, (*fParticlesPermuted)->Parton(1)->M());
   sigma = fFlagGetParSigmasFromTFs ? (*fDetector)->ResEnergyBJet((*fParticlesPermuted)->DetEta(1, KLFitter::Particles::kParton))->GetSigma(E) : sqrt(E);
@@ -430,7 +421,7 @@ int KLFitter::LikelihoodTopLeptonJets_JetAngles::AdjustParameterRanges() {
   SetParameterRange(parLQ2Phi, phimin, phimax);
 
   if (fFlagTopMassFixed)
-    SetParameterRange(parTopM, fPhysicsConstants->MassTop(), fPhysicsConstants->MassTop());
+    SetParameterRange(parTopM, fPhysicsConstants.MassTop(), fPhysicsConstants.MassTop());
 
   // no error
   return 1;
@@ -498,12 +489,12 @@ double KLFitter::LikelihoodTopLeptonJets_JetAngles::LogLikelihood(const std::vec
   if (!TFgoodTmp) fTFgood = false;
 
   // physics constants
-  double massW = fPhysicsConstants->MassW();
-  double gammaW = fPhysicsConstants->GammaW();
+  double massW = fPhysicsConstants.MassW();
+  double gammaW = fPhysicsConstants.GammaW();
   // note: top mass width should be made DEPENDENT on the top mass at a certain point
-  //    fPhysicsConstants->SetMassTop(parameters[parTopM]);
+  //    fPhysicsConstants.SetMassTop(parameters[parTopM]);
   // (this will also set the correct width for the top)
-  double gammaTop = fPhysicsConstants->GammaTop();
+  double gammaTop = fPhysicsConstants.GammaTop();
 
   // Breit-Wigner of hadronically decaying W-boson
   logprob += BCMath::LogBreitWignerRel(whad_fit_m, massW, gammaW);
@@ -662,7 +653,7 @@ int KLFitter::LikelihoodTopLeptonJets_JetAngles::SavePermutedParticles() {
   bhad_meas_px     = (*fParticlesPermuted)->Parton(0)->Px();
   bhad_meas_py     = (*fParticlesPermuted)->Parton(0)->Py();
   bhad_meas_pz     = (*fParticlesPermuted)->Parton(0)->Pz();
-  bhad_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(0)->M(), fPhysicsConstants->MassBottom(), &bhad_meas_px, &bhad_meas_py, &bhad_meas_pz, bhad_meas_e);
+  bhad_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(0)->M(), fPhysicsConstants.MassBottom(), &bhad_meas_px, &bhad_meas_py, &bhad_meas_pz, bhad_meas_e);
   bhad_meas_p      = sqrt(bhad_meas_e*bhad_meas_e - bhad_meas_m*bhad_meas_m);
 
   blep_meas_e      = (*fParticlesPermuted)->Parton(1)->E();
@@ -670,7 +661,7 @@ int KLFitter::LikelihoodTopLeptonJets_JetAngles::SavePermutedParticles() {
   blep_meas_px     = (*fParticlesPermuted)->Parton(1)->Px();
   blep_meas_py     = (*fParticlesPermuted)->Parton(1)->Py();
   blep_meas_pz     = (*fParticlesPermuted)->Parton(1)->Pz();
-  blep_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(1)->M(), fPhysicsConstants->MassBottom(), &blep_meas_px, &blep_meas_py, &blep_meas_pz, blep_meas_e);
+  blep_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(1)->M(), fPhysicsConstants.MassBottom(), &blep_meas_px, &blep_meas_py, &blep_meas_pz, blep_meas_e);
   blep_meas_p      = sqrt(blep_meas_e*blep_meas_e - blep_meas_m*blep_meas_m);
 
   lq1_meas_e      = (*fParticlesPermuted)->Parton(2)->E();
@@ -816,12 +807,12 @@ std::vector<double> KLFitter::LikelihoodTopLeptonJets_JetAngles::LogLikelihoodCo
   if (!TFgoodTmp) fTFgood = false;
 
   // physics constants
-  double massW = fPhysicsConstants->MassW();
-  double gammaW = fPhysicsConstants->GammaW();
+  double massW = fPhysicsConstants.MassW();
+  double gammaW = fPhysicsConstants.GammaW();
   // note: top mass width should be made DEPENDENT on the top mass at a certain point
-  //    fPhysicsConstants->SetMassTop(parameters[parTopM]);
+  //    fPhysicsConstants.SetMassTop(parameters[parTopM]);
   // (this will also set the correct width for the top)
-  double gammaTop = fPhysicsConstants->GammaTop();
+  double gammaTop = fPhysicsConstants.GammaTop();
 
   // Breit-Wigner of hadronically decaying W-boson
   vecci.push_back(BCMath::LogBreitWignerRel(whad_fit_m, massW, gammaW));  // comp7

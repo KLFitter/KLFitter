@@ -90,90 +90,81 @@ void KLFitter::LikelihoodTTHLeptonJets::SetLeptonType(int leptontype) {
 
 // ---------------------------------------------------------
 int KLFitter::LikelihoodTTHLeptonJets::DefineModelParticles() {
-  // check if model particles and lorentz vector container exist and delete
-  if (fParticlesModel) {
-    delete fParticlesModel;
-    fParticlesModel = 0;
-  }
-
   // create the particles of the model
-  fParticlesModel = new KLFitter::Particles();
+  fParticlesModel.reset(new KLFitter::Particles{});
 
   // add model particles
   // create dummy TLorentzVector
-  TLorentzVector * dummy = new TLorentzVector(0, 0, 0, 0);  // 4-vector
-  fParticlesModel->AddParticle(dummy,
+  TLorentzVector dummy{0, 0, 0, 0};  // 4-vector
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kParton,  // type
                                "hadronic b quark",            // name
                                0,                             // index of corresponding particle
                                KLFitter::Particles::kB);      // b jet (truth)
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kParton,
                                "leptonic b quark",
                                1,                             // index of corresponding particle
                                KLFitter::Particles::kB);      // b jet (truth)
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kParton,
                                "light quark 1",
                                2,                             // index of corresponding particle
                                KLFitter::Particles::kLight);  // light jet (truth)
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kParton,
                                "light quark 2",
                                3,                             // index of corresponding particle
                                KLFitter::Particles::kLight);  // light jet (truth)
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kParton,  // type
                                "Higgs b quark 1",             // name
                                4,                             // index of corresponding particle
                                KLFitter::Particles::kB);      // b jet (truth)
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kParton,
                                "Higgs b quark 2",
                                5,                             // index of corresponding particle
                                KLFitter::Particles::kB);      // b jet (truth)
 
   if (fTypeLepton == kElectron) {
-    fParticlesModel->AddParticle(dummy,
+    fParticlesModel->AddParticle(&dummy,
                                  KLFitter::Particles::kElectron,
                                  "electron");
   } else if (fTypeLepton == kMuon) {
-    fParticlesModel->AddParticle(dummy,
+    fParticlesModel->AddParticle(&dummy,
                                  KLFitter::Particles::kMuon,
                                  "muon");
   }
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kNeutrino,
                                "neutrino");
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kBoson,
                                "hadronic W");
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kBoson,
                                "leptonic W");
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kParton,
                                "hadronic top");
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kParton,
                                "leptonic top");
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kBoson,
                                "Higgs");
-
-  // free memory
-  delete dummy;
 
   // no error
   return 1;
@@ -182,8 +173,8 @@ int KLFitter::LikelihoodTTHLeptonJets::DefineModelParticles() {
 // ---------------------------------------------------------
 void KLFitter::LikelihoodTTHLeptonJets::DefineParameters() {
   // add parameters of model
-  AddParameter("energy hadronic b",       fPhysicsConstants->MassBottom(), 1000.0);  // parBhadE
-  AddParameter("energy leptonic b",       fPhysicsConstants->MassBottom(), 1000.0);  // parBlepE
+  AddParameter("energy hadronic b",       fPhysicsConstants.MassBottom(), 1000.0);  // parBhadE
+  AddParameter("energy leptonic b",       fPhysicsConstants.MassBottom(), 1000.0);  // parBlepE
   AddParameter("energy light quark 1",    0.0, 1000.0);                              // parLQ1E
   AddParameter("energy light quark 2",    0.0, 1000.0);                              // parLQ2E
   AddParameter("energy lepton",           0.0, 1000.0);                              // parLepE
@@ -191,8 +182,8 @@ void KLFitter::LikelihoodTTHLeptonJets::DefineParameters() {
   AddParameter("p_y neutrino",        -1000.0, 1000.0);                              // parNuPy
   AddParameter("p_z neutrino",        -1000.0, 1000.0);                              // parNuPz
   AddParameter("top mass",              100.0, 1000.0);                              // parTopM
-  AddParameter("energy Higgs b quark 1",  fPhysicsConstants->MassBottom(), 1000.0);  // parBHiggs1E
-  AddParameter("energy Higgs b quark 2",  fPhysicsConstants->MassBottom(), 1000.0);  // parBHiggs2E
+  AddParameter("energy Higgs b quark 1",  fPhysicsConstants.MassBottom(), 1000.0);  // parBHiggs1E
+  AddParameter("energy Higgs b quark 2",  fPhysicsConstants.MassBottom(), 1000.0);  // parBHiggs2E
   if (fFlagHiggsMassFixed)  AddParameter("Higgs mass",              100.0, 1000.0);  // parHiggsM
 }
 
@@ -369,7 +360,7 @@ int KLFitter::LikelihoodTTHLeptonJets::AdjustParameterRanges() {
   double nsigmas_lepton = 2.0;
 
   double E = (*fParticlesPermuted)->Parton(0)->E();
-  double m = fPhysicsConstants->MassBottom();
+  double m = fPhysicsConstants.MassBottom();
   if (fFlagUseJetMass)
     m = std::max(0.0, (*fParticlesPermuted)->Parton(0)->M());
   double Emin = std::max(m, E - nsigmas_jet* sqrt(E));
@@ -377,7 +368,7 @@ int KLFitter::LikelihoodTTHLeptonJets::AdjustParameterRanges() {
   SetParameterRange(parBhadE, Emin, Emax);
 
   E = (*fParticlesPermuted)->Parton(1)->E();
-  m = fPhysicsConstants->MassBottom();
+  m = fPhysicsConstants.MassBottom();
   if (fFlagUseJetMass)
     m = std::max(0.0, (*fParticlesPermuted)->Parton(1)->M());
   Emin = std::max(m, E - nsigmas_jet* sqrt(E));
@@ -401,7 +392,7 @@ int KLFitter::LikelihoodTTHLeptonJets::AdjustParameterRanges() {
   SetParameterRange(parLQ2E, Emin, Emax);
 
   E = (*fParticlesPermuted)->Parton(4)->E();
-  m = fPhysicsConstants->MassBottom();
+  m = fPhysicsConstants.MassBottom();
   if (fFlagUseJetMass)
     m = std::max(0.0, (*fParticlesPermuted)->Parton(4)->M());
   Emin = std::max(m, E - nsigmas_jet* sqrt(E));
@@ -409,7 +400,7 @@ int KLFitter::LikelihoodTTHLeptonJets::AdjustParameterRanges() {
   SetParameterRange(parBHiggs1E, Emin, Emax);
 
   E = (*fParticlesPermuted)->Parton(5)->E();
-  m = fPhysicsConstants->MassBottom();
+  m = fPhysicsConstants.MassBottom();
   if (fFlagUseJetMass)
     m = std::max(0.0, (*fParticlesPermuted)->Parton(5)->M());
   Emin = std::max(m, E - nsigmas_jet* sqrt(E));
@@ -435,10 +426,10 @@ int KLFitter::LikelihoodTTHLeptonJets::AdjustParameterRanges() {
   SetParameterRange(parNuPy, ETmiss_y-100.0, ETmiss_y+100);
 
   if (fFlagTopMassFixed)
-    SetParameterRange(parTopM, fPhysicsConstants->MassTop(), fPhysicsConstants->MassTop());
+    SetParameterRange(parTopM, fPhysicsConstants.MassTop(), fPhysicsConstants.MassTop());
 
   if (fFlagHiggsMassFixed)
-    SetParameterRange(parHiggsM, fPhysicsConstants->MassHiggs(), fPhysicsConstants->MassHiggs());
+    SetParameterRange(parHiggsM, fPhysicsConstants.MassHiggs(), fPhysicsConstants.MassHiggs());
 
   // no error
   return 1;
@@ -490,10 +481,10 @@ double KLFitter::LikelihoodTTHLeptonJets::LogLikelihood(const std::vector<double
   if (!TFgoodTmp) fTFgood = false;
 
   // physics constants
-  double massW = fPhysicsConstants->MassW();
-  double gammaW = fPhysicsConstants->GammaW();
-  double gammaTop = fPhysicsConstants->GammaTop();
-  double gammaHiggs = fPhysicsConstants->GammaHiggs();
+  double massW = fPhysicsConstants.MassW();
+  double gammaW = fPhysicsConstants.GammaW();
+  double gammaTop = fPhysicsConstants.GammaTop();
+  double gammaHiggs = fPhysicsConstants.GammaHiggs();
 
   // Breit-Wigner of hadronically decaying W-boson
   logprob += BCMath::LogBreitWignerRel(whad_fit_m, massW, gammaW);
@@ -656,7 +647,7 @@ int KLFitter::LikelihoodTTHLeptonJets::SavePermutedParticles() {
   bhad_meas_px     = (*fParticlesPermuted)->Parton(0)->Px();
   bhad_meas_py     = (*fParticlesPermuted)->Parton(0)->Py();
   bhad_meas_pz     = (*fParticlesPermuted)->Parton(0)->Pz();
-  bhad_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(0)->M(), fPhysicsConstants->MassBottom(), &bhad_meas_px, &bhad_meas_py, &bhad_meas_pz, bhad_meas_e);
+  bhad_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(0)->M(), fPhysicsConstants.MassBottom(), &bhad_meas_px, &bhad_meas_py, &bhad_meas_pz, bhad_meas_e);
   bhad_meas_p      = sqrt(bhad_meas_e*bhad_meas_e - bhad_meas_m*bhad_meas_m);
 
   blep_meas_e      = (*fParticlesPermuted)->Parton(1)->E();
@@ -664,7 +655,7 @@ int KLFitter::LikelihoodTTHLeptonJets::SavePermutedParticles() {
   blep_meas_px     = (*fParticlesPermuted)->Parton(1)->Px();
   blep_meas_py     = (*fParticlesPermuted)->Parton(1)->Py();
   blep_meas_pz     = (*fParticlesPermuted)->Parton(1)->Pz();
-  blep_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(1)->M(), fPhysicsConstants->MassBottom(), &blep_meas_px, &blep_meas_py, &blep_meas_pz, blep_meas_e);
+  blep_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(1)->M(), fPhysicsConstants.MassBottom(), &blep_meas_px, &blep_meas_py, &blep_meas_pz, blep_meas_e);
   blep_meas_p      = sqrt(blep_meas_e*blep_meas_e - blep_meas_m*blep_meas_m);
 
   lq1_meas_e      = (*fParticlesPermuted)->Parton(2)->E();
@@ -688,7 +679,7 @@ int KLFitter::LikelihoodTTHLeptonJets::SavePermutedParticles() {
   BHiggs1_meas_px     = (*fParticlesPermuted)->Parton(4)->Px();
   BHiggs1_meas_py     = (*fParticlesPermuted)->Parton(4)->Py();
   BHiggs1_meas_pz     = (*fParticlesPermuted)->Parton(4)->Pz();
-  BHiggs1_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(4)->M(), fPhysicsConstants->MassBottom(), &BHiggs1_meas_px, &BHiggs1_meas_py, &BHiggs1_meas_pz, BHiggs1_meas_e);
+  BHiggs1_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(4)->M(), fPhysicsConstants.MassBottom(), &BHiggs1_meas_px, &BHiggs1_meas_py, &BHiggs1_meas_pz, BHiggs1_meas_e);
   BHiggs1_meas_p      = sqrt(BHiggs1_meas_e*BHiggs1_meas_e - BHiggs1_meas_m*BHiggs1_meas_m);
 
   BHiggs2_meas_e      = (*fParticlesPermuted)->Parton(5)->E();
@@ -696,7 +687,7 @@ int KLFitter::LikelihoodTTHLeptonJets::SavePermutedParticles() {
   BHiggs2_meas_px     = (*fParticlesPermuted)->Parton(5)->Px();
   BHiggs2_meas_py     = (*fParticlesPermuted)->Parton(5)->Py();
   BHiggs2_meas_pz     = (*fParticlesPermuted)->Parton(5)->Pz();
-  BHiggs2_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(5)->M(), fPhysicsConstants->MassBottom(), &BHiggs2_meas_px, &BHiggs2_meas_py, &BHiggs2_meas_pz, BHiggs2_meas_e);
+  BHiggs2_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(5)->M(), fPhysicsConstants.MassBottom(), &BHiggs2_meas_px, &BHiggs2_meas_py, &BHiggs2_meas_pz, BHiggs2_meas_e);
   BHiggs2_meas_p      = sqrt(BHiggs2_meas_e*BHiggs2_meas_e - BHiggs2_meas_m*BHiggs2_meas_m);
 
   TLorentzVector * lepton(0);
@@ -829,10 +820,10 @@ std::vector<double> KLFitter::LikelihoodTTHLeptonJets::LogLikelihoodComponents(s
   if (!TFgoodTmp) fTFgood = false;
 
   // physics constants
-  double massW = fPhysicsConstants->MassW();
-  double gammaW = fPhysicsConstants->GammaW();
-  double gammaTop = fPhysicsConstants->GammaTop();
-  double gammaHiggs = fPhysicsConstants->GammaHiggs();
+  double massW = fPhysicsConstants.MassW();
+  double gammaW = fPhysicsConstants.GammaW();
+  double gammaTop = fPhysicsConstants.GammaTop();
+  double gammaHiggs = fPhysicsConstants.GammaHiggs();
 
   // Breit-Wigner of hadronically decaying W-boson
   vecci.push_back(BCMath::LogBreitWignerRel(whad_fit_m, massW, gammaW));  // comp9

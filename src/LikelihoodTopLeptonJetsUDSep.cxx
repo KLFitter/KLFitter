@@ -49,74 +49,65 @@ KLFitter::LikelihoodTopLeptonJetsUDSep::~LikelihoodTopLeptonJetsUDSep() {
 
 // ---------------------------------------------------------
 int KLFitter::LikelihoodTopLeptonJetsUDSep::DefineModelParticles() {
-  // check if model particles and lorentz vector container exist and delete
-  if (fParticlesModel) {
-    delete fParticlesModel;
-    fParticlesModel = 0;
-  }
-
   // create the particles of the model
-  fParticlesModel = new KLFitter::Particles();
+  fParticlesModel.reset(new KLFitter::Particles{});
 
   // add model particles
   // create dummy TLorentzVector
-  TLorentzVector * dummy = new TLorentzVector(0, 0, 0, 0);        // 4-vector
-  fParticlesModel->AddParticle(dummy,
+  TLorentzVector dummy{0, 0, 0, 0};  // 4-vector
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kParton,      // type
                                "hadronic b quark",                // name
                                0,                                 // index of corresponding particle
                                KLFitter::Particles::kB);          // b jet (truth)
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kParton,
                                "leptonic b quark",
                                1,                                 // index of corresponding particle
                                KLFitter::Particles::kB);          // b jet (truth)
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kParton,
                                "light up type quark",
                                2,                                 // index of corresponding particle
                                KLFitter::Particles::kLightUp);    // light up type jet (truth)
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kParton,
                                "light down type quark",
                                3,                                 // index of corresponding particle
                                KLFitter::Particles::kLightDown);  // light down type jet (truth)
 
   if (fTypeLepton == kElectron) {
-    fParticlesModel->AddParticle(dummy,
+    fParticlesModel->AddParticle(&dummy,
                                  KLFitter::Particles::kElectron,
                                  "electron");
   } else if (fTypeLepton == kMuon) {
-    fParticlesModel->AddParticle(dummy,
+    fParticlesModel->AddParticle(&dummy,
                                  KLFitter::Particles::kMuon,
                                  "muon");
   }
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kNeutrino,
                                "neutrino");
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kBoson,
                                "hadronic W");
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kBoson,
                                "leptonic W");
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kParton,
                                "hadronic top");
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kParton,
                                "leptonic top");
-
-  // free memory
-  delete dummy;
 
   // no error
   return 1;

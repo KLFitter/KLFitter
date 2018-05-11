@@ -26,6 +26,7 @@
 #include "BAT/BCLog.h"
 #include "BAT/BCModel.h"
 #include "KLFitter/Particles.h"
+#include "KLFitter/PhysicsConstants.h"
 
 // ---------------------------------------------------------
 
@@ -34,7 +35,6 @@
  * \brief The KLFitter namespace
  */
 namespace KLFitter {
-class PhysicsConstants;
 class Permutations;
 class DetectorBase;
 
@@ -80,7 +80,7 @@ class LikelihoodBase : public BCModel {
     * Return the table of physics constants.
     * @return A pointer to the physics constants.
     */
-  KLFitter::PhysicsConstants* PhysicsConstants() { return fPhysicsConstants; }
+  KLFitter::PhysicsConstants* PhysicsConstants() { return &fPhysicsConstants; }
 
   /**
     * Return the detector.
@@ -100,11 +100,7 @@ class LikelihoodBase : public BCModel {
     */
   KLFitter::Particles* ParticlesModel() {
     BuildModelParticles();
-    return fParticlesModel;
-  }
-  KLFitter::Particles** PParticlesModel() {
-    BuildModelParticles();
-    return &fParticlesModel;
+    return fParticlesModel.get();
   }
 
   /**
@@ -321,13 +317,6 @@ class LikelihoodBase : public BCModel {
   virtual std::vector<double> LogLikelihoodComponents(std::vector <double> parameters) = 0;
 
   /**
-    * Return BCH1D histograms calculated inside
-    * LikelihoodTopDilepton::MCMCIterationsInterface per event
-    */
-  virtual BCH1D * GetHistMttbar() { BCH1D * h(0); return h; }
-  virtual BCH1D * GetHistCosTheta() { BCH1D * h(0); return h; }
-
-  /**
     * Return the log of the event probability fof the current
     * combination
     * @return The event probability
@@ -488,7 +477,7 @@ class LikelihoodBase : public BCModel {
   /**
     * A pointer to the model particles.
     */
-  KLFitter::Particles* fParticlesModel;
+  std::unique_ptr<KLFitter::Particles> fParticlesModel;
 
   /**
     * A pointer to the measured particles.
@@ -498,7 +487,7 @@ class LikelihoodBase : public BCModel {
   /**
     * A pointer to the table of physics constants
     */
-  KLFitter::PhysicsConstants* fPhysicsConstants;
+  KLFitter::PhysicsConstants fPhysicsConstants;
 
   /**
     * A pointer to the detector

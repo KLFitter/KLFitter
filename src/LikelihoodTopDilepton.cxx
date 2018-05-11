@@ -70,8 +70,6 @@ KLFitter::LikelihoodTopDilepton::LikelihoodTopDilepton() : KLFitter::LikelihoodB
 
 // ---------------------------------------------------------
 KLFitter::LikelihoodTopDilepton::~LikelihoodTopDilepton() {
-  delete fHistMttbar;
-  delete fHistCosTheta;
 }
 
 // ---------------------------------------------------------
@@ -124,56 +122,47 @@ void KLFitter::LikelihoodTopDilepton::SetLeptonType(int leptontype_1, int lepton
 
 // ---------------------------------------------------------
 int KLFitter::LikelihoodTopDilepton::DefineModelParticles() {
-  // check if model particles and lorentz vector container exist and delete
-  if (fParticlesModel) {
-    delete fParticlesModel;
-    fParticlesModel = 0;
-  }
-
   // create the particles of the model
-  fParticlesModel = new KLFitter::Particles();
+  fParticlesModel.reset(new KLFitter::Particles{});
 
   // add model particles
   // create dummy TLorentzVector
-  TLorentzVector * dummy = new TLorentzVector(0, 0, 0, 0);    // 4-vector
-  fParticlesModel->AddParticle(dummy,
+  TLorentzVector dummy{0, 0, 0, 0};  // 4-vector
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kParton,  // type
                                "b quark 1",                   // name
                                0,                             // index of corresponding particle
                                KLFitter::Particles::kB);      // b jet (truth)
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kParton,
                                "b quark 2",
                                1,                             // index of corresponding particle
                                KLFitter::Particles::kB);      // b jet (truth)
 
   if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kMuon) {
-    fParticlesModel->AddParticle(dummy,
+    fParticlesModel->AddParticle(&dummy,
                                  KLFitter::Particles::kElectron,
                                  "electron");
 
-    fParticlesModel->AddParticle(dummy,
+    fParticlesModel->AddParticle(&dummy,
                                  KLFitter::Particles::kMuon,
                                  "muon");
   } else if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kElectron) {
-    fParticlesModel->AddParticle(dummy,
+    fParticlesModel->AddParticle(&dummy,
                                  KLFitter::Particles::kElectron,
                                  "electron 1");
-    fParticlesModel->AddParticle(dummy,
+    fParticlesModel->AddParticle(&dummy,
                                  KLFitter::Particles::kElectron,
                                  "electron 2");
   } else if (fTypeLepton_1 == kMuon && fTypeLepton_2 == kMuon) {
-    fParticlesModel->AddParticle(dummy,
+    fParticlesModel->AddParticle(&dummy,
                                  KLFitter::Particles::kMuon,
                                  "muon 1");
-    fParticlesModel->AddParticle(dummy,
+    fParticlesModel->AddParticle(&dummy,
                                  KLFitter::Particles::kMuon,
                                  "muon 2");
   }
-
-  // free memory
-  delete dummy;
 
   // no error
   return 1;
@@ -184,8 +173,8 @@ void KLFitter::LikelihoodTopDilepton::DefineParameters() {
   // add parameters of model
 
   AddParameter("top mass",              100.0, 700.0);                             // parTopM
-  AddParameter("energy b1",       fPhysicsConstants->MassBottom(), 1000.0);        // parB1E
-  AddParameter("energy b2",       fPhysicsConstants->MassBottom(), 1000.0);        // parB2E
+  AddParameter("energy b1",       fPhysicsConstants.MassBottom(), 1000.0);        // parB1E
+  AddParameter("energy b2",       fPhysicsConstants.MassBottom(), 1000.0);        // parB2E
   AddParameter("energy lepton1",           0.0, 1000.0);                           // parLep1E
   AddParameter("energy lepton2",           0.0, 1000.0);                           // parLep2E
   AddParameter("antinueta",               -5.0, 5.0);                              // parAntiNuEta
@@ -196,7 +185,7 @@ void KLFitter::LikelihoodTopDilepton::DefineParameters() {
 void KLFitter::LikelihoodTopDilepton::DefinePrior() {
   // define sharp Gaussian prior for mtop
   if (fFlagTopMassFixed)
-    SetPriorGauss(0, fPhysicsConstants->MassTop(), fPhysicsConstants->MassTopUnc());
+    SetPriorGauss(0, fPhysicsConstants.MassTop(), fPhysicsConstants.MassTopUnc());
 }
 
 // ---------------------------------------------------------
@@ -328,7 +317,7 @@ int KLFitter::LikelihoodTopDilepton::RemoveInvariantParticlePermutations() {
 int KLFitter::LikelihoodTopDilepton::AdjustParameterRanges() {
   // adjust limits
   if (fFlagTopMassFixed)
-    SetParameterRange(parTopM, fPhysicsConstants->MassTop()-3*fPhysicsConstants->MassTopUnc(), fPhysicsConstants->MassTop()+3*fPhysicsConstants->MassTopUnc());
+    SetParameterRange(parTopM, fPhysicsConstants.MassTop()-3*fPhysicsConstants.MassTopUnc(), fPhysicsConstants.MassTop()+3*fPhysicsConstants.MassTopUnc());
 
   double nsigmas_jet = 7.0;
   double nsigmas_lepton = 7.0;
@@ -346,7 +335,7 @@ int KLFitter::LikelihoodTopDilepton::AdjustParameterRanges() {
   fResLepton2->Par(3, &par3_2);
 
   double E = (*fParticlesPermuted)->Parton(0)->E();
-  double m = fPhysicsConstants->MassBottom();
+  double m = fPhysicsConstants.MassBottom();
   if (fFlagUseJetMass)
     m = std::max(0.0, (*fParticlesPermuted)->Parton(0)->M());
   double Emin = std::max(m, E - nsigmas_jet* sqrt(E));
@@ -354,7 +343,7 @@ int KLFitter::LikelihoodTopDilepton::AdjustParameterRanges() {
   SetParameterRange(parB1E, Emin, Emax);
 
   E = (*fParticlesPermuted)->Parton(1)->E();
-  m = fPhysicsConstants->MassBottom();
+  m = fPhysicsConstants.MassBottom();
   if (fFlagUseJetMass)
     m = std::max(0.0, (*fParticlesPermuted)->Parton(1)->M());
   Emin = std::max(m, E - nsigmas_jet* sqrt(E));
@@ -595,31 +584,26 @@ double KLFitter::LikelihoodTopDilepton::CalculateWeight(const std::vector<double
   double Weight = 0.;
 
   // charged leptons
-  TLorentzVector * l1 = new TLorentzVector();
-  TLorentzVector * l2 = new TLorentzVector();
+  TLorentzVector l1{};
+  TLorentzVector l2{};
 
   // include parLep1E, parLep2E
-  l1->SetPxPyPzE(lep1_fit_px,  lep1_fit_py,  lep1_fit_pz,  lep1_fit_e);
-  l2->SetPxPyPzE(lep2_fit_px,  lep2_fit_py,  lep2_fit_pz,  lep2_fit_e);
+  l1.SetPxPyPzE(lep1_fit_px,  lep1_fit_py,  lep1_fit_pz,  lep1_fit_e);
+  l2.SetPxPyPzE(lep2_fit_px,  lep2_fit_py,  lep2_fit_pz,  lep2_fit_e);
 
   // jet1 and jet2:
-  TLorentzVector * j1 = new TLorentzVector();
-  TLorentzVector * j2 = new TLorentzVector();
+  TLorentzVector j1{};
+  TLorentzVector j2{};
 
   // include parB1E, parB2E
-  j1->SetPxPyPzE(b1_fit_px, b1_fit_py, b1_fit_pz, b1_fit_e);
-  j2->SetPxPyPzE(b2_fit_px, b2_fit_py, b2_fit_pz, b2_fit_e);
+  j1.SetPxPyPzE(b1_fit_px, b1_fit_py, b1_fit_pz, b1_fit_e);
+  j2.SetPxPyPzE(b2_fit_px, b2_fit_py, b2_fit_pz, b2_fit_e);
 
-  Weight += CalculateWeightPerm(l1, l2, j1, j2, parameters);
+  Weight += CalculateWeightPerm(&l1, &l2, &j1, &j2, parameters);
 
   // if sumloglik option, sum over jet permutations
   if (doSumloglik)
-    Weight += CalculateWeightPerm(l1, l2, j2, j1, parameters);
-
-  delete l1;
-  delete l2;
-  delete j1;
-  delete j2;
+    Weight += CalculateWeightPerm(&l1, &l2, &j2, &j1, parameters);
 
   return Weight;
 }
@@ -711,10 +695,10 @@ double KLFitter::LikelihoodTopDilepton::GaussAntiNuEta(std::vector<double> param
 // ---------------------------------------------------------
 KLFitter::NuSolutions KLFitter::LikelihoodTopDilepton::SolveForNuMom(TLorentzVector * l, TLorentzVector * b, double mtop, double nueta) {
   NuSolutions ret;
-  double Wmass = fPhysicsConstants->MassW();
+  double Wmass = fPhysicsConstants.MassW();
   double Wmass2 = Wmass*Wmass;
 
-  double bmass = fPhysicsConstants->MassBottom();
+  double bmass = fPhysicsConstants.MassBottom();
 
   double coshnueta;
   double sinhnueta;
@@ -812,7 +796,7 @@ std::vector<double> KLFitter::LikelihoodTopDilepton::GetInitialParameters() {
   std::vector<double> values(GetNParameters());
 
   // mtop
-  values[parTopM] = fPhysicsConstants->MassTop();
+  values[parTopM] = fPhysicsConstants.MassTop();
 
   // energies of the quarks
   values[parB1E] = b1_meas_e;
@@ -843,7 +827,7 @@ int KLFitter::LikelihoodTopDilepton::SavePermutedParticles() {
   b1_meas_px     = (*fParticlesPermuted)->Parton(0)->Px();
   b1_meas_py     = (*fParticlesPermuted)->Parton(0)->Py();
   b1_meas_pz     = (*fParticlesPermuted)->Parton(0)->Pz();
-  b1_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(0)->M(), fPhysicsConstants->MassBottom(), &b1_meas_px, &b1_meas_py, &b1_meas_pz, b1_meas_e);
+  b1_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(0)->M(), fPhysicsConstants.MassBottom(), &b1_meas_px, &b1_meas_py, &b1_meas_pz, b1_meas_e);
   b1_meas_p      = sqrt(b1_meas_e*b1_meas_e - b1_meas_m*b1_meas_m);
 
   b2_meas_e      = (*fParticlesPermuted)->Parton(1)->E();
@@ -851,7 +835,7 @@ int KLFitter::LikelihoodTopDilepton::SavePermutedParticles() {
   b2_meas_px     = (*fParticlesPermuted)->Parton(1)->Px();
   b2_meas_py     = (*fParticlesPermuted)->Parton(1)->Py();
   b2_meas_pz     = (*fParticlesPermuted)->Parton(1)->Pz();
-  b2_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(1)->M(), fPhysicsConstants->MassBottom(), &b2_meas_px, &b2_meas_py, &b2_meas_pz, b2_meas_e);
+  b2_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(1)->M(), fPhysicsConstants.MassBottom(), &b2_meas_px, &b2_meas_py, &b2_meas_pz, b2_meas_e);
   b2_meas_p      = sqrt(b2_meas_e*b2_meas_e - b2_meas_m*b2_meas_m);
 
   TLorentzVector * lepton_1(0);
@@ -1076,7 +1060,7 @@ void KLFitter::LikelihoodTopDilepton::MCMCIterationInterface() {
 
   // for costheta
   std::pair<float, float> costheta(0., 0.);
-  std::vector <TLorentzVector> * help_ParticleVector  = new std::vector<TLorentzVector>(0);
+  auto help_ParticleVector = std::unique_ptr<std::vector<TLorentzVector> >(new std::vector<TLorentzVector>{});
 
   // get number of chains
   int nchains = MCMCGetNChains();
@@ -1136,7 +1120,7 @@ void KLFitter::LikelihoodTopDilepton::MCMCIterationInterface() {
         help_ParticleVector -> push_back(nubars.nu1);
         help_ParticleVector -> push_back(MCMC_b1);
         help_ParticleVector -> push_back(MCMC_b2);
-        costheta = CalculateCosTheta(help_ParticleVector);
+        costheta = CalculateCosTheta(help_ParticleVector.get());
         fHistCosTheta->GetHistogram()->Fill(costheta.first);
         fHistCosTheta->GetHistogram()->Fill(costheta.second);
       }
@@ -1154,7 +1138,7 @@ void KLFitter::LikelihoodTopDilepton::MCMCIterationInterface() {
           help_ParticleVector -> push_back(nubars.nu2);
           help_ParticleVector -> push_back(MCMC_b1);
           help_ParticleVector -> push_back(MCMC_b2);
-          costheta = CalculateCosTheta(help_ParticleVector);
+          costheta = CalculateCosTheta(help_ParticleVector.get());
           fHistCosTheta->GetHistogram()->Fill(costheta.first);
           fHistCosTheta->GetHistogram()->Fill(costheta.second);
         }
@@ -1171,7 +1155,7 @@ void KLFitter::LikelihoodTopDilepton::MCMCIterationInterface() {
           help_ParticleVector -> push_back(nubars.nu1);
           help_ParticleVector -> push_back(MCMC_b1);
           help_ParticleVector -> push_back(MCMC_b2);
-          costheta = CalculateCosTheta(help_ParticleVector);
+          costheta = CalculateCosTheta(help_ParticleVector.get());
           fHistCosTheta->GetHistogram()->Fill(costheta.first);
           fHistCosTheta->GetHistogram()->Fill(costheta.second);
         }
@@ -1188,7 +1172,7 @@ void KLFitter::LikelihoodTopDilepton::MCMCIterationInterface() {
           help_ParticleVector -> push_back(nubars.nu2);
           help_ParticleVector -> push_back(MCMC_b1);
           help_ParticleVector -> push_back(MCMC_b2);
-          costheta = CalculateCosTheta(help_ParticleVector);
+          costheta = CalculateCosTheta(help_ParticleVector.get());
           fHistCosTheta->GetHistogram()->Fill(costheta.first);
           fHistCosTheta->GetHistogram()->Fill(costheta.second);
         }
@@ -1205,7 +1189,7 @@ void KLFitter::LikelihoodTopDilepton::MCMCIterationInterface() {
           help_ParticleVector -> push_back(nubars.nu1);
           help_ParticleVector -> push_back(MCMC_b1);
           help_ParticleVector -> push_back(MCMC_b2);
-          costheta = CalculateCosTheta(help_ParticleVector);
+          costheta = CalculateCosTheta(help_ParticleVector.get());
           fHistCosTheta->GetHistogram()->Fill(costheta.first);
           fHistCosTheta->GetHistogram()->Fill(costheta.second);
         }
@@ -1222,14 +1206,13 @@ void KLFitter::LikelihoodTopDilepton::MCMCIterationInterface() {
           help_ParticleVector -> push_back(nubars.nu2);
           help_ParticleVector -> push_back(MCMC_b1);
           help_ParticleVector -> push_back(MCMC_b2);
-          costheta = CalculateCosTheta(help_ParticleVector);
+          costheta = CalculateCosTheta(help_ParticleVector.get());
           fHistCosTheta->GetHistogram()->Fill(costheta.first);
           fHistCosTheta->GetHistogram()->Fill(costheta.second);
         }
       }  // 2 nu 2 nubar
     }  // Nsol
   }  // Nchains
-  delete help_ParticleVector;
 }
 
 // ---------------------------------------------------------

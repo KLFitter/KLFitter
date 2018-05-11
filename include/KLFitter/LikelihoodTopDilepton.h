@@ -23,6 +23,7 @@
 #include <assert.h>
 
 #include <iostream>
+#include <memory>
 #include <utility>
 #include <vector>
 
@@ -268,13 +269,13 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
     * Get BAT BCH1D histograms of Mttbar
     * @return BCH1D histograms
     */
-  BCH1D * GetHistMttbar() override { return fHistMttbar; }
+  BCH1D * GetHistMttbar() { return fHistMttbar.get(); }
 
   /**
     * Get BAT BCH1D histograms of CosTheta
     * @return BCH1D histograms
     */
-  BCH1D * GetHistCosTheta() override { return fHistCosTheta;  }
+  BCH1D * GetHistCosTheta() { return fHistCosTheta.get(); }
 
   /**
     * calculate cos(theta*) for both top and antitop
@@ -348,12 +349,12 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
   /**
     * BAT BCH1D Histogram for mttbar
     */
-  BCH1D * fHistMttbar;
+  std::unique_ptr<BCH1D> fHistMttbar;
 
   /**
     * BAT BCH1D Histogram cos(theta*)
     */
-  BCH1D * fHistCosTheta;
+  std::unique_ptr<BCH1D> fHistCosTheta;
 
   /**
     * BAT BCH1D Histogram for dR(truth top, fit top)
