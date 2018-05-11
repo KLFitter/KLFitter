@@ -40,7 +40,7 @@ namespace KLFitter {
   * permutations and created a table. The pointer of the current
   * permutation is set to the entry in the table.
   */
-class Permutations {
+class Permutations final {
  public:
   /** \name Constructors and destructors */
   /* @{ */
@@ -55,7 +55,7 @@ class Permutations {
   /**
     * The default destructor.
     */
-  virtual ~Permutations();
+  ~Permutations();
 
   /* @} */
   /** \name Member functions (Get)  */

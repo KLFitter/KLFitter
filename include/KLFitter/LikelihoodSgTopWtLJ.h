@@ -57,7 +57,7 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
   /**
     * The default destructor.
     */
-  virtual ~LikelihoodSgTopWtLJ();
+  ~LikelihoodSgTopWtLJ();
 
   /* @} */
   /** \name Member functions (Get)  */
@@ -103,7 +103,7 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
     * @param sumet total scalar ET.
     * @return An error flag.
     */
-  int SetET_miss_XY_SumET(double etx, double ety, double sumet);
+  int SetET_miss_XY_SumET(double etx, double ety, double sumet) override;
 
   /**
     * Associate the hadronic leg of the event to the top quark for likelihood calculation.
@@ -134,43 +134,43 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
   /**
     * Define the parameters of the fit.
     */
-  virtual void DefineParameters();
+  void DefineParameters() override;
 
   /**
     * The prior probability definition, overloaded from BCModel.
     * @param parameters A vector of parameters (double values).
     * @return The logarithm of the prior probability.
     */
-  virtual double LogAPrioriProbability(const std::vector <double> & parameters) { return 0; }
+  double LogAPrioriProbability(const std::vector <double> & parameters) override { return 0; }
 
   /**
     * The posterior probability definition, overloaded from BCModel.
     * @param parameters A vector of parameters (double values).
     * @return The logarithm of the prior probability.
     */
-  virtual double LogLikelihood(const std::vector<double> & parameters);
+  double LogLikelihood(const std::vector<double> & parameters) override;
 
   /**
     * Get initial values for the parameters.
     * @return vector of initial values.
     */
-  virtual std::vector<double> GetInitialParameters();
+  std::vector<double> GetInitialParameters() override;
 
   /**
     * Check if there are TF problems.
     * @return Return false if TF problem.
     */
-  virtual bool NoTFProblem(std::vector<double> parameters);
+  bool NoTFProblem(std::vector<double> parameters) override;
 
   /**
     * Return the set of model particles.
     * @return A pointer to the particles.
     */
-  virtual KLFitter::Particles* ParticlesModel() {
+  KLFitter::Particles* ParticlesModel() override {
     BuildModelParticles();
     return fParticlesModel;
   }
-  virtual KLFitter::Particles** PParticlesModel() {
+  KLFitter::Particles** PParticlesModel() override {
     BuildModelParticles();
     return &fParticlesModel;
   }
@@ -185,29 +185,29 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
     * Update 4-vectors of model particles.
     * @return An error flag.
     */
-  virtual int CalculateLorentzVectors(std::vector <double> parameters);
+  int CalculateLorentzVectors(std::vector <double> parameters);
 
   /**
     * Initialize the likelihood for the event
     */
-  virtual int Initialize();
+  int Initialize() override;
 
   /**
     * Adjust parameter ranges
     */
-  virtual int AdjustParameterRanges();
+  int AdjustParameterRanges();
 
   /**
     * Define the model particles
     * @return An error code.
     */
-  virtual int DefineModelParticles();
+  int DefineModelParticles();
 
   /**
     * Remove invariant particle permutations.
     * @return An error code.
     */
-  int RemoveInvariantParticlePermutations();
+  int RemoveInvariantParticlePermutations() override;
 
   /**
     * Build the model particles from the best fit parameters.
@@ -236,7 +236,7 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
     * and the W mass.
     * @return A vector with 0, 1 or 2 neutrino pz solutions.
     */
-  virtual std::vector<double> GetNeutrinoPzSolutions();
+  std::vector<double> GetNeutrinoPzSolutions();
 
   /**
     * Save permuted particles.
@@ -258,7 +258,7 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
     * @param e The parton energy (not modified).
     * @return The parton mass.
     */
-  inline double SetPartonMass(double jetmass, double quarkmass, double *px, double *py, double *pz, double e) {
+  double SetPartonMass(double jetmass, double quarkmass, double *px, double *py, double *pz, double e) {
     double mass(0.);
     if (fFlagUseJetMass) {
       mass = jetmass > 0. ? jetmass : 0.;

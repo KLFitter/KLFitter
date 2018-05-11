@@ -59,7 +59,7 @@ class ResDoubleGaussE_1 : public ResDoubleGaussBase {
   /**
     * The default destructor.
     */
-  virtual ~ResDoubleGaussE_1();
+  ~ResDoubleGaussE_1();
 
   /* @} */
   /** \name Member functions (Get)  */
@@ -70,35 +70,35 @@ class ResDoubleGaussE_1 : public ResDoubleGaussBase {
     * @param x The value of x.
     * @return The width.
     */
-  virtual double GetMean1(double x);
+  double GetMean1(double x) override;
 
   /**
     * Calculate the width of the first Gaussian from the TF parameters and the value of x.
     * @param x The value of x.
     * @return The width.
     */
-  virtual double GetSigma1(double x);
+  double GetSigma1(double x) override;
 
   /**
     * Calculate the amplitude of the second Gaussian from the TF parameters and the value of x.
     * @param x The value of x.
     * @return The width.
     */
-  virtual double GetAmplitude2(double x);
+  double GetAmplitude2(double x) override;
 
   /**
     * Calculate the mean of the second Gaussian from the TF parameters and the value of x.
     * @param x The value of x.
     * @return The width.
     */
-  virtual double GetMean2(double x);
+  double GetMean2(double x) override;
 
   /**
     * Calculate the width of the sedcond Gaussian from the TF parameters and the value of x.
     * @param x The value of x.
     * @return The width.
     */
-  virtual double GetSigma2(double x);
+  double GetSigma2(double x) override;
 
   /* @} */
 };

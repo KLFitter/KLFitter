@@ -52,7 +52,7 @@ class DetectorAtlas_8TeV : public DetectorBase {
   /**
     * The default destructor.
     */
-  virtual ~DetectorAtlas_8TeV();
+  ~DetectorAtlas_8TeV();
 
   /* @} */
   /** \name Member functions (Get)  */
@@ -63,76 +63,76 @@ class DetectorAtlas_8TeV : public DetectorBase {
     * @param eta The eta of the particle.
     * @return A pointer to the energy resolution object.
     */
-  ResolutionBase* ResEnergyLightJet(double eta = 0.);
+  ResolutionBase* ResEnergyLightJet(double eta = 0.) override;
 
   /**
     * Return the energy resolution of b jets.
     * @param eta The eta of the particle.
     * @return A pointer to the energy resolution object.
     */
-  ResolutionBase* ResEnergyBJet(double eta = 0.);
+  ResolutionBase* ResEnergyBJet(double eta = 0.) override;
 
   /**
     * Return the energy resolution of gluon jets.
     * @param eta The eta of the particle.
     * @return A pointer to the energy resolution object.
     */
-  ResolutionBase* ResEnergyGluonJet(double eta = 0.);
+  ResolutionBase* ResEnergyGluonJet(double eta = 0.) override;
 
   /**
     * Return the energy resolution of electrons.
     * @param eta The eta of the particle.
     * @return A pointer to the energy resolution object.
     */
-  ResolutionBase* ResEnergyElectron(double eta = 0.);
+  ResolutionBase* ResEnergyElectron(double eta = 0.) override;
 
   /**
     * Return the energy resolution of muons.
     * @param eta The eta of the particle.
     * @return A pointer to the energy resolution object.
     */
-  ResolutionBase* ResEnergyMuon(double eta = 0.);
+  ResolutionBase* ResEnergyMuon(double eta = 0.) override;
 
   /**
     * Return the energy resolution of photons.
     * @param eta The eta of the particle.
     * @return A pointer to the energy resolution object.
     */
-  ResolutionBase* ResEnergyPhoton(double eta = 0.);
+  ResolutionBase* ResEnergyPhoton(double eta = 0.) override;
 
   /**
     * Return the missing ET resolution.
     * @return A pointer to the missing ET resolution.
     */
-  ResolutionBase* ResMissingET();
+  ResolutionBase* ResMissingET() override;
 
   /**
     * Return the eta resolution of light jets.
     * @param eta The eta of the particle.
     * @return A pointer to the eta resolution object.
     */
-  ResolutionBase* ResEtaLightJet(double eta = 0.);
+  ResolutionBase* ResEtaLightJet(double eta = 0.) override;
 
   /**
     * Return the eta resolution of b jets.
     * @param eta The eta of the particle.
     * @return A pointer to the eta resolution object.
     */
-  ResolutionBase* ResEtaBJet(double eta = 0.);
+  ResolutionBase* ResEtaBJet(double eta = 0.) override;
 
   /**
     * Return the phi resolution of light jets.
     * @param eta The phi of the particle.
     * @return A pointer to the phi resolution object.
     */
-  ResolutionBase* ResPhiLightJet(double eta = 0.);
+  ResolutionBase* ResPhiLightJet(double eta = 0.) override;
 
   /**
     * Return the phi resolution of b jets.
     * @param eta The phi of the particle.
     * @return A pointer to the phi resolution object.
     */
-  ResolutionBase* ResPhiBJet(double eta = 0.);
+  ResolutionBase* ResPhiBJet(double eta = 0.) override;
 
   /* @} */
 
