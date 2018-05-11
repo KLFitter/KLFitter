@@ -22,7 +22,6 @@
 
 #include <assert.h>
 
-#include <cmath>
 #include <iostream>
 #include <utility>
 #include <vector>
@@ -100,8 +99,6 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
     */
   void SetFlagTopMassFixed(bool flag) { fFlagTopMassFixed = flag; }
 
-  void SetFlagUseJetMass(bool flag) { fFlagUseJetMass = flag; }
-
   /**
     * Set the neutrino pseudorapidity sigma linear dependency on mtop
     * according to SM expectations
@@ -147,14 +144,6 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
   void DefineHistograms();
 
   /**
-    * The prior probability definition, overloaded from BCModel.
-    * @param parameters A vector of parameters (double values).
-    * @return The logarithm of the prior probability.
-    */
-
-  double LogAPrioriProbability(const std::vector <double> & parameters) override { return 0; }
-
-  /**
     * The posterior probability definition, overloaded from BCModel.
     * @param parameters A vector of parameters (double values).
     * @return The logarithm of the prior probability.
@@ -181,25 +170,6 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
     * @return vector of initial values.
     */
   std::vector<double> GetInitialParameters() override;
-
-  /**
-    * Check if there are TF problems.
-    * @return Return false if TF problem.
-    */
-  bool NoTFProblem(std::vector<double> parameters) override;
-
-  /**
-    * Return the set of model particles.
-    * @return A pointer to the particles.
-    */
-  KLFitter::Particles* ParticlesModel() override {
-    BuildModelParticles();
-    return fParticlesModel;
-  }
-  KLFitter::Particles** PParticlesModel() override {
-    BuildModelParticles();
-    return &fParticlesModel;
-  }
 
   /**
     * Return Gaussian term for neutrino
@@ -258,7 +228,7 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
     * Update 4-vectors of model particles.
     * @return An error flag.
     */
-  int CalculateLorentzVectors(std::vector <double> const& parameters);
+  int CalculateLorentzVectors(std::vector <double> const& parameters) override;
 
   /**
     * Initialize the likelihood for the event
@@ -268,13 +238,13 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
   /**
     * Adjust parameter ranges
     */
-  int AdjustParameterRanges();
+  int AdjustParameterRanges() override;
 
   /**
     * Define the model particles
     * @return An error code.
     */
-  int DefineModelParticles();
+  int DefineModelParticles() override;
 
   /**
     * Remove invariant particle permutations.
@@ -283,16 +253,10 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
   int RemoveInvariantParticlePermutations() override;
 
   /**
-    * Remove forbidden particle permutations.
-    * @return An error code.
-    */
-  int RemoveForbiddenParticlePermutations() override;
-
-  /**
     * Build the model particles from the best fit parameters.
     * @return An error code.
     */
-  int BuildModelParticles();
+  int BuildModelParticles() override;
 
   /**
     * Calculate other variables out of the KLFitter parameters for each MCMCiteration
@@ -326,46 +290,14 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
   bool fFlagTopMassFixed;
 
   /**
-    * A flag for using the measured jet masses (true) instead of
-    * parton masses (false);
-    */
-  bool fFlagUseJetMass;
-
-  /**
     * Save permuted particles.
     */
-  int SavePermutedParticles();
+  int SavePermutedParticles() override;
 
   /**
     * Save resolution functions.
     */
-  int SaveResolutionFunctions();
-
-  /**
-    * Set model parton mass according to fFlagUseJetMass.
-    * @param jetmass The jet mass.
-    * @param quarkmass The quark mass.
-    * @param px The parton px (will be modified, if necessary).
-    * @param py The parton py (will be modified, if necessary).
-    * @param pz The parton pz (will be modified, if necessary).
-    * @param e The parton energy (not modified).
-    * @return The parton mass.
-    */
-  double SetPartonMass(double jetmass, double quarkmass, double *px, double *py, double *pz, double e) {
-    double mass(0.);
-    if (fFlagUseJetMass) {
-      mass = jetmass > 0. ? jetmass : 0.;
-    } else {
-      mass = quarkmass;
-    }
-    double p_orig = sqrt(*px * *px + *py * *py + *pz * *pz);
-    double p_newmass = sqrt(e * e - mass * mass);
-    double scale = p_newmass / p_orig;
-    *px *= scale;
-    *py *= scale;
-    *pz *= scale;
-    return mass;
-  }
+  int SaveResolutionFunctions() override;
 
   /**
     * The values of the x component of the missing ET.
@@ -402,11 +334,6 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
     * A flag for using sumloglikelihood option
     */
   bool doSumloglik;
-
-  /**
-    * Global variable for TF problems.
-    */
-  bool fTFgood;
 
  public:
   /**

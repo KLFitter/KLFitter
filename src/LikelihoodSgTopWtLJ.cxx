@@ -34,12 +34,10 @@
 // ---------------------------------------------------------
 KLFitter::LikelihoodSgTopWtLJ::LikelihoodSgTopWtLJ(): KLFitter::LikelihoodBase::LikelihoodBase()
   , fHadronicTop(true)
-  , fFlagUseJetMass(false)
   , ETmiss_x(0.)
   , ETmiss_y(0.)
   , SumET(0.)
-  , fTypeLepton(kElectron)
-  , fTFgood(true) {
+  , fTypeLepton(kElectron) {
   // define model particles
   this->DefineModelParticles();
 
@@ -154,7 +152,7 @@ void KLFitter::LikelihoodSgTopWtLJ::DefineParameters() {
 }
 
 // ---------------------------------------------------------
-int KLFitter::LikelihoodSgTopWtLJ::CalculateLorentzVectors(std::vector <double> parameters) {
+int KLFitter::LikelihoodSgTopWtLJ::CalculateLorentzVectors(const std::vector <double>& parameters) {
   // variables
   static double scale;
 
@@ -500,13 +498,6 @@ std::vector<double> KLFitter::LikelihoodSgTopWtLJ::GetNeutrinoPzSolutions() {
   }
 
   return pz;
-}
-
-// ---------------------------------------------------------
-bool KLFitter::LikelihoodSgTopWtLJ::NoTFProblem(std::vector<double> parameters) {
-  fTFgood = true;
-  this->LogLikelihood(parameters);
-  return fTFgood;
 }
 
 // ---------------------------------------------------------

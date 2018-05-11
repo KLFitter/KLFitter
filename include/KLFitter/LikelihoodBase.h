@@ -98,8 +98,14 @@ class LikelihoodBase : public BCModel {
     * Return the set of model particles.
     * @return A pointer to the particles.
     */
-  virtual KLFitter::Particles* ParticlesModel() { return fParticlesModel; }
-  virtual KLFitter::Particles** PParticlesModel() { return &fParticlesModel; }
+  KLFitter::Particles* ParticlesModel() {
+    BuildModelParticles();
+    return fParticlesModel;
+  }
+  KLFitter::Particles** PParticlesModel() {
+    BuildModelParticles();
+    return &fParticlesModel;
+  }
 
   /**
     * Return the number of model particles.
@@ -174,7 +180,7 @@ class LikelihoodBase : public BCModel {
     * @param sumet total scalar ET.
     * @return An error flag.
     */
-  virtual int SetET_miss_XY_SumET(double etx, double ety, double sumet) { return 0; }
+  virtual int SetET_miss_XY_SumET(double etx, double ety, double sumet) = 0;
 
   /**
     * Set the permutation object.
@@ -245,16 +251,38 @@ class LikelihoodBase : public BCModel {
     */
   int SetFlagIntegrate(bool flag) { fFlagIntegrate = flag; return 1; }
 
+  /**
+    * Set flag to use measured jet masses (true) instead of
+    * parton masses (false);
+    */
+  void SetFlagUseJetMass(bool flag) { fFlagUseJetMass = flag; }
 
   /* @} */
   /** \name Member functions (misc)  */
   /* @{ */
 
   /**
+   * Update 4-vectors of model particles.
+   * @return An error flag.
+   */
+  virtual int CalculateLorentzVectors(std::vector <double> const& parameters) = 0;
+
+  /**
     * Initialize the likelihood for the event
     * @return An error code
     */
-  virtual int Initialize() { return 1; }
+  virtual int Initialize();
+
+  /**
+   * Adjust parameter ranges
+   */
+  virtual int AdjustParameterRanges() = 0;
+
+  /**
+   * Define the model particles
+   * @return An error code.
+   */
+  virtual int DefineModelParticles() = 0;
 
   /**
     * Propagate the b-tagging information from the permuted (measured) particles to the model particles.
@@ -269,7 +297,7 @@ class LikelihoodBase : public BCModel {
   /**
     * Define the parameters of the fit.
     */
-  virtual void DefineParameters() { ; }
+  virtual void DefineParameters() = 0;
 
   /**
     * The prior probability definition, overloaded from BCModel.
@@ -283,14 +311,14 @@ class LikelihoodBase : public BCModel {
     * @param parameters A vector of parameters (double values).
     * @return The logarithm of the prior probability.
     */
-  virtual double LogLikelihood(const std::vector <double> & parameters) { return 0; }
+  virtual double LogLikelihood(const std::vector <double> & parameters) = 0;
 
   /**
     * The posterior probability definition, overloaded from BCModel. Split up into several subcomponents
     * @param parameters A vector of parameters (double values).
     * @return A vector with the components of the logarithm of the prior probability.
     */
-  virtual std::vector<double> LogLikelihoodComponents(std::vector <double> parameters) { return std::vector<double>(0); }
+  virtual std::vector<double> LogLikelihoodComponents(std::vector <double> parameters) = 0;
 
   /**
     * Return BCH1D histograms calculated inside
@@ -317,25 +345,31 @@ class LikelihoodBase : public BCModel {
     * Remove invariant particle permutations.
     * @return An error code.
     */
-  virtual int RemoveInvariantParticlePermutations() { return 1; }
+  virtual int RemoveInvariantParticlePermutations() = 0;
 
   /**
     * Remove forbidden particle permutations.
     * @return An error code.
     */
-  virtual int RemoveForbiddenParticlePermutations() { return 1; }
+  virtual int RemoveForbiddenParticlePermutations();
+
+  /**
+   * Build the model particles from the best fit parameters.
+   * @return An error code.
+   */
+  virtual int BuildModelParticles() = 0;
 
   /**
     * Get initial values for the parameters.
     * @return vector of initial values.
     */
-  virtual std::vector<double> GetInitialParameters() { std::vector<double> v; return v; }
+  virtual std::vector<double> GetInitialParameters() = 0;
 
   /**
     * Check if there are TF problems.
     * @return Return false if TF problem.
     */
-  virtual bool NoTFProblem(std::vector<double> parameters) { return true; }
+  virtual bool NoTFProblem(std::vector<double> parameters);
 
   /**
     * Returns the best fit parameters, overloaded from BCModel
@@ -420,6 +454,28 @@ class LikelihoodBase : public BCModel {
 
  protected:
   /**
+   * Save permuted particles.
+   */
+  virtual int SavePermutedParticles() = 0;
+
+  /**
+   * Save resolution functions.
+   */
+  virtual int SaveResolutionFunctions() = 0;
+
+  /**
+   * Set model parton mass according to fFlagUseJetMass.
+   * @param jetmass The jet mass.
+   * @param quarkmass The quark mass.
+   * @param px The parton px (will be modified, if necessary).
+   * @param py The parton py (will be modified, if necessary).
+   * @param pz The parton pz (will be modified, if necessary).
+   * @param e The parton energy (not modified).
+   * @return The parton mass.
+   */
+  double SetPartonMass(double jetmass, double quarkmass, double *px, double *py, double *pz, double e);
+
+  /**
     * A pointer to the measured particles.
     */
   KLFitter::Particles** fParticlesPermuted;
@@ -463,6 +519,17 @@ class LikelihoodBase : public BCModel {
     * A flag for knowing that Minuit gave parameters with NaN values to LogLikelihood
     */
   bool fFlagIsNan;
+
+  /**
+   * A flag for using the measured jet masses (true) instead of
+   * parton masses (false);
+   */
+  bool fFlagUseJetMass;
+
+  /**
+   * Global variable for TF problems.
+   */
+  bool fTFgood;
 
   /**
     * Name of btagging enum

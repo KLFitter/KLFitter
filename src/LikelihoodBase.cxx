@@ -19,6 +19,7 @@
 
 #include "KLFitter/LikelihoodBase.h"
 
+#include <cmath>
 #include <iostream>
 #include <string>
 
@@ -40,6 +41,8 @@ KLFitter::LikelihoodBase::LikelihoodBase(Particles** particles) : BCModel(),
                                                                   fEventProbability(std::vector<double>(0)),
                                                                   fFlagIntegrate(0),
                                                                   fFlagIsNan(false),
+                                                                  fFlagUseJetMass(false),
+                                                                  fTFgood(true),
                                                                   fBTagMethod(kNotag) {
   BCLog::SetLogLevel(BCLog::nothing);
   MCMCSetRandomSeed(123456789);
@@ -184,6 +187,28 @@ double KLFitter::LikelihoodBase::ParMax(int index) {
 }
 
 // ---------------------------------------------------------
+int KLFitter::LikelihoodBase::Initialize() {
+  // error code
+  int err = 1;
+
+  // save the current permuted particles
+  err *= SavePermutedParticles();
+
+  // save the corresponding resolution functions
+  err *= SaveResolutionFunctions();
+
+  // adjust parameter ranges
+  err *= AdjustParameterRanges();
+
+  // set initial values
+  // (only for Markov chains - initial parameters for other minimisation methods are set in Fitter.cxx)
+  SetInitialParameters(GetInitialParameters());
+
+  // return error code
+  return err;
+}
+
+// ---------------------------------------------------------
 double KLFitter::LikelihoodBase::LogEventProbability() {
   double logprob = 0;
 
@@ -306,6 +331,13 @@ double KLFitter::LikelihoodBase::LogEventProbabilityBTag() {
 }
 
 // ---------------------------------------------------------
+bool KLFitter::LikelihoodBase::NoTFProblem(std::vector<double> parameters) {
+  fTFgood = true;
+  this->LogLikelihood(parameters);
+  return fTFgood;
+}
+
+// ---------------------------------------------------------
 void KLFitter::LikelihoodBase::PropagateBTaggingInformation() {
   // get number of partons
   unsigned int npartons = fParticlesModel->NPartons();
@@ -341,6 +373,41 @@ std::vector <double> KLFitter::LikelihoodBase::GetBestFitParameterErrors() {
   } else {
     return BCModel::GetBestFitParameterErrors();
   }
+}
+
+// ---------------------------------------------------------
+int KLFitter::LikelihoodBase::RemoveForbiddenParticlePermutations() {
+  // error code
+  int err = 1;
+
+  // only in b-tagging type kVetoNoFit
+  if (!((fBTagMethod == kVetoNoFit) || (fBTagMethod == kVetoNoFitLight) || (fBTagMethod == kVetoNoFitBoth)))
+    return err;
+
+  // remove all permutations where a b-tagged jet is in the position of a model light quark
+  KLFitter::Particles * particles = (*fPermutations)->Particles();
+  int nPartons = particles->NPartons();
+
+  KLFitter::Particles * particlesModel = fParticlesModel;
+  int nPartonsModel = particlesModel->NPartons();
+  for (int iParton(0); iParton < nPartons; ++iParton) {
+    bool isBtagged = particles->IsBTagged(iParton);
+
+    for (int iPartonModel(0); iPartonModel < nPartonsModel; ++iPartonModel) {
+      KLFitter::Particles::TrueFlavorType trueFlavor = particlesModel->TrueFlavor(iPartonModel);
+      if ((fBTagMethod == kVetoNoFit)&&((!isBtagged) || (trueFlavor != KLFitter::Particles::kLight)))
+        continue;
+      if ((fBTagMethod == kVetoNoFitLight)&&((isBtagged) || (trueFlavor != KLFitter::Particles::kB)))
+        continue;
+      if ((fBTagMethod == kVetoNoFitBoth)&&(((isBtagged)&&(trueFlavor != KLFitter::Particles::kLight)) || ((!isBtagged)&&(trueFlavor != KLFitter::Particles::kB))))
+        continue;
+
+      err *= (*fPermutations)->RemoveParticlePermutations(KLFitter::Particles::kParton, iParton, iPartonModel);
+    }
+  }
+
+  // return error code
+  return err;
 }
 
 // ---------------------------------------------------------
@@ -421,6 +488,23 @@ int KLFitter::LikelihoodBase::ResetCache() {
   fCachedNormalization = 0.;
 
   return 1;
+}
+
+// ---------------------------------------------------------.
+double KLFitter::LikelihoodBase::SetPartonMass(double jetmass, double quarkmass, double *px, double *py, double *pz, double e) {
+  double mass(0.);
+  if (fFlagUseJetMass) {
+    mass = jetmass > 0. ? jetmass : 0.;
+  } else {
+    mass = quarkmass;
+  }
+  double p_orig = sqrt(*px * *px + *py * *py + *pz * *pz);
+  double p_newmass = sqrt(e * e - mass * mass);
+  double scale = p_newmass / p_orig;
+  *px *= scale;
+  *py *= scale;
+  *pz *= scale;
+  return mass;
 }
 
 // ---------------------------------------------------------.

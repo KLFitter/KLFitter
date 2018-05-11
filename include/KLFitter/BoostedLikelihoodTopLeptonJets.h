@@ -20,7 +20,6 @@
 #ifndef KLFITTER_BOOSTEDLIKELIHOODTOPLEPTONJETS_H_
 #define KLFITTER_BOOSTEDLIKELIHOODTOPLEPTONJETS_H_
 
-#include <cmath>
 #include <iostream>
 #include <vector>
 
@@ -94,8 +93,6 @@ class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
    */
   void SetFlagTopMassFixed(bool flag) { fFlagTopMassFixed = flag; }
 
-  void SetFlagUseJetMass(bool flag) { fFlagUseJetMass = flag; }
-
   void SetFlagGetParSigmasFromTFs(bool flag) { fFlagGetParSigmasFromTFs = flag; }
 
   /**
@@ -122,13 +119,6 @@ class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
    * Define the parameters of the fit.
    */
   void DefineParameters() override;
-
-  /**
-   * The prior probability definition, overloaded from BCModel.
-   * @param parameters A vector of parameters (double values).
-   * @return The logarithm of the prior probability.
-   */
-  double LogAPrioriProbability(const std::vector <double> & parameters) override { return 0; }
 
   /**
    * The posterior probability definition, overloaded from BCModel.
@@ -167,25 +157,6 @@ class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
    */
   std::vector<double> GetInitialParametersWoNeutrinoPz();
 
-  /**
-   * Check if there are TF problems.
-   * @return Return false if TF problem.
-   */
-  bool NoTFProblem(std::vector<double> parameters) override;
-
-  /**
-   * Return the set of model particles.
-   * @return A pointer to the particles.
-   */
-  KLFitter::Particles* ParticlesModel() override {
-    BuildModelParticles();
-    return fParticlesModel;
-  }
-  KLFitter::Particles** PParticlesModel() override {
-    BuildModelParticles();
-    return &fParticlesModel;
-  }
-
   /* @} */
 
  protected:
@@ -196,23 +167,18 @@ class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
    * Update 4-vectors of model particles.
    * @return An error flag.
    */
-  int CalculateLorentzVectors(std::vector <double> const& parameters);
-
-  /**
-   * Initialize the likelihood for the event
-   */
-  int Initialize() override;
+  int CalculateLorentzVectors(std::vector <double> const& parameters) override;
 
   /**
    * Adjust parameter ranges
    */
-  int AdjustParameterRanges();
+  int AdjustParameterRanges() override;
 
   /**
    * Define the model particles
    * @return An error code.
    */
-  int DefineModelParticles();
+  int DefineModelParticles() override;
 
   /**
    * Remove invariant particle permutations.
@@ -221,16 +187,10 @@ class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
   int RemoveInvariantParticlePermutations() override;
 
   /**
-   * Remove forbidden particle permutations.
-   * @return An error code.
-   */
-  int RemoveForbiddenParticlePermutations() override;
-
-  /**
    * Build the model particles from the best fit parameters.
    * @return An error code.
    */
-  int BuildModelParticles();
+  int BuildModelParticles() override;
 
   /* @} */
 
@@ -239,12 +199,6 @@ class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
    * A flag for using a fixed top mass (true) or not (false).
    */
   bool fFlagTopMassFixed;
-
-  /**
-   * A flag for using the measured jet masses (true) instead of
-   * parton masses (false);
-   */
-  bool fFlagUseJetMass;
 
   /**
    *  Flag for using ResolutionBase::GetSigma() to retrieve the parameter ranges
@@ -273,38 +227,12 @@ class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
   /**
    * Save permuted particles.
    */
-  int SavePermutedParticles();
+  int SavePermutedParticles() override;
 
   /**
    * Save resolution functions.
    */
-  int SaveResolutionFunctions();
-
-  /**
-   * Set model parton mass according to fFlagUseJetMass.
-   * @param jetmass The jet mass.
-   * @param quarkmass The quark mass.
-   * @param px The parton px (will be modified, if necessary).
-   * @param py The parton py (will be modified, if necessary).
-   * @param pz The parton pz (will be modified, if necessary).
-   * @param e The parton energy (not modified).
-   * @return The parton mass.
-   */
-  double SetPartonMass(double jetmass, double quarkmass, double *px, double *py, double *pz, double e) {
-    double mass(0.);
-    if (fFlagUseJetMass) {
-      mass = jetmass > 0. ? jetmass : 0.;
-    } else {
-      mass = quarkmass;
-    }
-    double p_orig = sqrt(*px * *px + *py * *py + *pz * *pz);
-    double p_newmass = sqrt(e * e - mass * mass);
-    double scale = p_newmass / p_orig;
-    *px *= scale;
-    *py *= scale;
-    *pz *= scale;
-    return mass;
-  }
+  int SaveResolutionFunctions() override;
 
   /**
    * The values of the x component of the missing ET.
@@ -326,11 +254,6 @@ class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
    * jets.
    */
   LeptonType fTypeLepton;
-
-  /**
-   * Global variable for TF problems.
-   */
-  bool fTFgood;
 
   /**
    * Save resolution functions since the eta of the partons is not fitted.

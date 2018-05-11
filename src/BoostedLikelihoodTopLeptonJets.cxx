@@ -34,13 +34,11 @@
 // ---------------------------------------------------------
 KLFitter::BoostedLikelihoodTopLeptonJets::BoostedLikelihoodTopLeptonJets() : KLFitter::LikelihoodBase::LikelihoodBase()
   , fFlagTopMassFixed(false)
-  , fFlagUseJetMass(false)
   , fFlagGetParSigmasFromTFs(false)
   , ETmiss_x(0.)
   , ETmiss_y(0.)
   , SumET(0.)
-  , fTypeLepton(kElectron)
-  , fTFgood(true) {
+  , fTypeLepton(kElectron) {
   // define model particles
   this->DefineModelParticles();
 
@@ -245,28 +243,6 @@ int KLFitter::BoostedLikelihoodTopLeptonJets::CalculateLorentzVectors(std::vecto
 }
 
 // ---------------------------------------------------------
-int KLFitter::BoostedLikelihoodTopLeptonJets::Initialize() {
-  // error code
-  int err = 1;
-
-  // save the current permuted particles
-  err *= SavePermutedParticles();
-
-  // save the corresponding resolution functions
-  err *= SaveResolutionFunctions();
-
-  // adjust parameter ranges
-  err *= AdjustParameterRanges();
-
-  // set initial values
-  // (only for Markov chains - initial parameters for other minimisation methods are set in Fitter.cxx)
-  SetInitialParameters(GetInitialParameters());
-
-  // return error code
-  return err;
-}
-
-// ---------------------------------------------------------
 int KLFitter::BoostedLikelihoodTopLeptonJets::RemoveInvariantParticlePermutations() {
   // error code
   int err = 1;
@@ -298,41 +274,6 @@ int KLFitter::BoostedLikelihoodTopLeptonJets::RemoveInvariantParticlePermutation
       indexVector_Electrons.push_back(iElectron);
     }
     err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Electrons);
-  }
-
-  // return error code
-  return err;
-}
-
-// ---------------------------------------------------------
-int KLFitter::BoostedLikelihoodTopLeptonJets::RemoveForbiddenParticlePermutations() {
-  // error code
-  int err = 1;
-
-  // only in b-tagging type kVetoNoFit
-  if (!((fBTagMethod == kVetoNoFit) || (fBTagMethod == kVetoNoFitLight) || (fBTagMethod == kVetoNoFitBoth)))
-    return err;
-
-  // remove all permutations where a b-tagged jet is in the position of a model light quark
-  KLFitter::Particles * particles = (*fPermutations)->Particles();
-  int nPartons = particles->NPartons();
-
-  KLFitter::Particles * particlesModel = fParticlesModel;
-  int nPartonsModel = particlesModel->NPartons();
-  for (int iParton(0); iParton < nPartons; ++iParton) {
-    bool isBtagged = particles->IsBTagged(iParton);
-
-    for (int iPartonModel(0); iPartonModel < nPartonsModel; ++iPartonModel) {
-      KLFitter::Particles::TrueFlavorType trueFlavor = particlesModel->TrueFlavor(iPartonModel);
-      if ((fBTagMethod == kVetoNoFit)&&((!isBtagged) || (trueFlavor != KLFitter::Particles::kLight)))
-        continue;
-      if ((fBTagMethod == kVetoNoFitLight)&&((isBtagged) || (trueFlavor != KLFitter::Particles::kB)))
-        continue;
-      if ((fBTagMethod == kVetoNoFitBoth)&&(((isBtagged)&&(trueFlavor != KLFitter::Particles::kLight)) || ((!isBtagged)&&(trueFlavor != KLFitter::Particles::kB))))
-        continue;
-
-      err *= (*fPermutations)->RemoveParticlePermutations(KLFitter::Particles::kParton, iParton, iPartonModel);
-    }
   }
 
   // return error code
@@ -577,13 +518,6 @@ std::vector<double> KLFitter::BoostedLikelihoodTopLeptonJets::CalculateNeutrinoP
   }
 
   return pz;
-}
-
-// ---------------------------------------------------------
-bool KLFitter::BoostedLikelihoodTopLeptonJets::NoTFProblem(std::vector<double> parameters) {
-  fTFgood = true;
-  this->LogLikelihood(parameters);
-  return fTFgood;
 }
 
 // ---------------------------------------------------------

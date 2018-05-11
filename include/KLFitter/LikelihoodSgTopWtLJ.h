@@ -20,7 +20,6 @@
 #ifndef KLFITTER_LIKELIHOODSGTOPWTLJ_H_
 #define KLFITTER_LIKELIHOODSGTOPWTLJ_H_
 
-#include <cmath>
 #include <vector>
 
 namespace KLFitter {
@@ -115,8 +114,6 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
     */
   void SetLeptonicTop() { fHadronicTop = false; }
 
-  void SetFlagUseJetMass(bool flag) { fFlagUseJetMass = flag; }
-
   /**
     * Set the type of lepton
     * @param leptontype The type of lepton: electron(1) or muon (2)
@@ -137,13 +134,6 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
   void DefineParameters() override;
 
   /**
-    * The prior probability definition, overloaded from BCModel.
-    * @param parameters A vector of parameters (double values).
-    * @return The logarithm of the prior probability.
-    */
-  double LogAPrioriProbability(const std::vector <double> & parameters) override { return 0; }
-
-  /**
     * The posterior probability definition, overloaded from BCModel.
     * @param parameters A vector of parameters (double values).
     * @return The logarithm of the prior probability.
@@ -156,25 +146,6 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
     */
   std::vector<double> GetInitialParameters() override;
 
-  /**
-    * Check if there are TF problems.
-    * @return Return false if TF problem.
-    */
-  bool NoTFProblem(std::vector<double> parameters) override;
-
-  /**
-    * Return the set of model particles.
-    * @return A pointer to the particles.
-    */
-  KLFitter::Particles* ParticlesModel() override {
-    BuildModelParticles();
-    return fParticlesModel;
-  }
-  KLFitter::Particles** PParticlesModel() override {
-    BuildModelParticles();
-    return &fParticlesModel;
-  }
-
   /* @} */
 
  protected:
@@ -185,7 +156,7 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
     * Update 4-vectors of model particles.
     * @return An error flag.
     */
-  int CalculateLorentzVectors(std::vector <double> parameters);
+  int CalculateLorentzVectors(const std::vector <double>& parameters) override;
 
   /**
     * Initialize the likelihood for the event
@@ -195,13 +166,13 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
   /**
     * Adjust parameter ranges
     */
-  int AdjustParameterRanges();
+  int AdjustParameterRanges() override;
 
   /**
     * Define the model particles
     * @return An error code.
     */
-  int DefineModelParticles();
+  int DefineModelParticles() override;
 
   /**
     * Remove invariant particle permutations.
@@ -213,7 +184,7 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
     * Build the model particles from the best fit parameters.
     * @return An error code.
     */
-  int BuildModelParticles();
+  int BuildModelParticles() override;
 
   /* @} */
 
@@ -226,12 +197,6 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
   bool fHadronicTop;
 
   /**
-    * A flag for using the measured jet masses (true) instead of
-    * parton masses (false);
-    */
-  bool fFlagUseJetMass;
-
-  /**
     * Calculates the neutrino pz solutions from the measured values
     * and the W mass.
     * @return A vector with 0, 1 or 2 neutrino pz solutions.
@@ -241,38 +206,12 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
   /**
     * Save permuted particles.
     */
-  int SavePermutedParticles();
+  int SavePermutedParticles() override;
 
   /**
     * Save resolution functions.
     */
-  int SaveResolutionFunctions();
-
-  /**
-    * Set model parton mass according to fFlagUseJetMass.
-    * @param jetmass The jet mass.
-    * @param quarkmass The quark mass.
-    * @param px The parton px (will be modified, if necessary).
-    * @param py The parton py (will be modified, if necessary).
-    * @param pz The parton pz (will be modified, if necessary).
-    * @param e The parton energy (not modified).
-    * @return The parton mass.
-    */
-  double SetPartonMass(double jetmass, double quarkmass, double *px, double *py, double *pz, double e) {
-    double mass(0.);
-    if (fFlagUseJetMass) {
-      mass = jetmass > 0. ? jetmass : 0.;
-    } else {
-      mass = quarkmass;
-    }
-    double p_orig = sqrt(*px * *px + *py * *py + *pz * *pz);
-    double p_newmass = sqrt(e * e - mass * mass);
-    double scale = p_newmass / p_orig;
-    *px *= scale;
-    *py *= scale;
-    *pz *= scale;
-    return mass;
-  }
+  int SaveResolutionFunctions() override;
 
   /**
     * The values of the x component of the missing ET.
@@ -294,11 +233,6 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
     * jets.
     */
   int fTypeLepton;
-
-  /**
-    * Global variable for TF problems.
-    */
-  bool fTFgood;
 
   /**
     * Save resolution functions since the eta of the partons is not fitted.

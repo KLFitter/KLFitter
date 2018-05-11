@@ -35,9 +35,7 @@
 // ---------------------------------------------------------
 KLFitter::LikelihoodTopAllHadronic::LikelihoodTopAllHadronic() : KLFitter::LikelihoodBase::LikelihoodBase()
   , fFlagTopMassFixed(false)
-  , fFlagUseJetMass(false)
-  , fFlagGetParSigmasFromTFs(false)
-  , fTFgood(true) {
+  , fFlagGetParSigmasFromTFs(false) {
   // define model particles
   DefineModelParticles();
 
@@ -229,28 +227,6 @@ int KLFitter::LikelihoodTopAllHadronic::CalculateLorentzVectors(std::vector <dou
 }
 
 // ---------------------------------------------------------
-int KLFitter::LikelihoodTopAllHadronic::Initialize() {
-  // error code
-  int err = 1;
-
-  // save the current permuted particles
-  err *= SavePermutedParticles();
-
-  // save the corresponding resolution functions
-  err *= SaveResolutionFunctions();
-
-  // adjust parameter ranges
-  err *= AdjustParameterRanges();
-
-  // set initial values
-  // (only for Markov chains - initial parameters for other minimisation methods are set in Fitter.cxx)
-  SetInitialParameters(GetInitialParameters());
-
-  // return error code
-  return err;
-}
-
-// ---------------------------------------------------------
 int KLFitter::LikelihoodTopAllHadronic::RemoveInvariantParticlePermutations() {
   // error code
   int err = 1;
@@ -285,41 +261,6 @@ int KLFitter::LikelihoodTopAllHadronic::RemoveInvariantParticlePermutations() {
     indexVector_Jets.push_back(iPartons);
   }
   err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Jets);
-
-  // return error code
-  return err;
-}
-
-// ---------------------------------------------------------
-int KLFitter::LikelihoodTopAllHadronic::RemoveForbiddenParticlePermutations() {
-  // error code
-  int err = 1;
-
-  // only in kVetoNoFitAndSoOn mode...
-  if (!((fBTagMethod == kVetoNoFit) || (fBTagMethod == kVetoNoFitLight) || (fBTagMethod == kVetoNoFitBoth)))
-    return err;
-
-  // remove all permutations where a b-tagged jet/non-tagged jet is on a wrong position
-  KLFitter::Particles * particles = (*fPermutations)->Particles();
-  int nPartons = particles->NPartons();
-
-  KLFitter::Particles * particlesModel = fParticlesModel;
-  int nPartonsModel = particlesModel->NPartons();
-  for (int iParton(0); iParton < nPartons; ++iParton) {
-    bool isBtagged = particles->IsBTagged(iParton);
-
-    for (int iPartonModel(0); iPartonModel < nPartonsModel; ++iPartonModel) {
-      KLFitter::Particles::TrueFlavorType trueFlavor = particlesModel->TrueFlavor(iPartonModel);
-      if ((fBTagMethod == kVetoNoFit)&&((!isBtagged) || (trueFlavor != KLFitter::Particles::kLight)))
-        continue;
-      if ((fBTagMethod == kVetoNoFitLight)&&((isBtagged) || (trueFlavor != KLFitter::Particles::kB)))
-        continue;
-      if ((fBTagMethod == kVetoNoFitBoth)&&(((isBtagged)&&(trueFlavor != KLFitter::Particles::kLight)) || ((!isBtagged)&&(trueFlavor != KLFitter::Particles::kB))))
-        continue;
-
-      err *= (*fPermutations)->RemoveParticlePermutations(KLFitter::Particles::kParton, iParton, iPartonModel);
-    }
-  }
 
   // return error code
   return err;
@@ -469,13 +410,6 @@ std::vector<double> KLFitter::LikelihoodTopAllHadronic::GetInitialParameters() {
 
   // return the vector
   return values;
-}
-
-// ---------------------------------------------------------
-bool KLFitter::LikelihoodTopAllHadronic::NoTFProblem(std::vector<double> parameters) {
-  fTFgood = true;
-  this->LogLikelihood(parameters);
-  return fTFgood;
 }
 
 // ---------------------------------------------------------
