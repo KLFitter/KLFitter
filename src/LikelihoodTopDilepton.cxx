@@ -135,45 +135,42 @@ int KLFitter::LikelihoodTopDilepton::DefineModelParticles() {
 
   // add model particles
   // create dummy TLorentzVector
-  TLorentzVector * dummy = new TLorentzVector(0, 0, 0, 0);    // 4-vector
-  fParticlesModel->AddParticle(dummy,
+  TLorentzVector dummy{0, 0, 0, 0};  // 4-vector
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kParton,  // type
                                "b quark 1",                   // name
                                0,                             // index of corresponding particle
                                KLFitter::Particles::kB);      // b jet (truth)
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kParton,
                                "b quark 2",
                                1,                             // index of corresponding particle
                                KLFitter::Particles::kB);      // b jet (truth)
 
   if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kMuon) {
-    fParticlesModel->AddParticle(dummy,
+    fParticlesModel->AddParticle(&dummy,
                                  KLFitter::Particles::kElectron,
                                  "electron");
 
-    fParticlesModel->AddParticle(dummy,
+    fParticlesModel->AddParticle(&dummy,
                                  KLFitter::Particles::kMuon,
                                  "muon");
   } else if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kElectron) {
-    fParticlesModel->AddParticle(dummy,
+    fParticlesModel->AddParticle(&dummy,
                                  KLFitter::Particles::kElectron,
                                  "electron 1");
-    fParticlesModel->AddParticle(dummy,
+    fParticlesModel->AddParticle(&dummy,
                                  KLFitter::Particles::kElectron,
                                  "electron 2");
   } else if (fTypeLepton_1 == kMuon && fTypeLepton_2 == kMuon) {
-    fParticlesModel->AddParticle(dummy,
+    fParticlesModel->AddParticle(&dummy,
                                  KLFitter::Particles::kMuon,
                                  "muon 1");
-    fParticlesModel->AddParticle(dummy,
+    fParticlesModel->AddParticle(&dummy,
                                  KLFitter::Particles::kMuon,
                                  "muon 2");
   }
-
-  // free memory
-  delete dummy;
 
   // no error
   return 1;

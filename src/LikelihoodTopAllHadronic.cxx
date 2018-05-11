@@ -60,61 +60,58 @@ int KLFitter::LikelihoodTopAllHadronic::DefineModelParticles() {
 
   // add model particles
   // create dummy TLorentzVector
-  TLorentzVector * dummy = new TLorentzVector(0, 0, 0, 0);    // 4-vector
-  fParticlesModel->AddParticle(dummy,
+  TLorentzVector dummy{0, 0, 0, 0};  // 4-vector
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kParton,  // type
                                "hadronic b quark 1",          // name
                                0,                             // index of corresponding particle
                                KLFitter::Particles::kB);      // b jet (truth)
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kParton,
                                "hadronic b quark 2",
                                1,                             // index of corresponding particle
                                KLFitter::Particles::kB);      // b jet (truth)
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kParton,
                                "light quark 1",
                                2,                             // index of corresponding particle
                                KLFitter::Particles::kLight);  // light jet (truth)
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kParton,
                                "light quark 2",
                                3,                             // index of corresponding particle
                                KLFitter::Particles::kLight);  // light jet (truth)
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kParton,
                                "light quark 3",
                                4,                             // index of corresponding particle
                                KLFitter::Particles::kLight);  // light jet (truth)
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kParton,
                                "light quark 4",
                                5,                             // index of corresponding particle
                                KLFitter::Particles::kLight);  // light jet (truth)
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kBoson,
                                "hadronic W 1");
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kBoson,
                                "hadronic W 2");
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kParton,
                                "hadronic top 1");
 
-  fParticlesModel->AddParticle(dummy,
+  fParticlesModel->AddParticle(&dummy,
                                KLFitter::Particles::kParton,
                                "hadronic top 2");
-
-  // free memory
-  delete dummy;
 
   // no error
   return 1;

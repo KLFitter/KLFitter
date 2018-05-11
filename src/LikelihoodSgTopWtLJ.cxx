@@ -108,32 +108,29 @@ int KLFitter::LikelihoodSgTopWtLJ::DefineModelParticles() {
   fParticlesModel = new KLFitter::Particles();
 
   // create dummy TLorentzVector
-  TLorentzVector * dummy = new TLorentzVector(0, 0, 0, 0);  // 4-vector
+  TLorentzVector dummy{0, 0, 0, 0};  // 4-vector
 
-  fParticlesModel->AddParticle(dummy, KLFitter::Particles::kParton,  "b quark", 0, KLFitter::Particles::kB);
+  fParticlesModel->AddParticle(&dummy, KLFitter::Particles::kParton,  "b quark", 0, KLFitter::Particles::kB);
 
-  fParticlesModel->AddParticle(dummy, KLFitter::Particles::kParton, "light quark 1", 1, KLFitter::Particles::kLight);
+  fParticlesModel->AddParticle(&dummy, KLFitter::Particles::kParton, "light quark 1", 1, KLFitter::Particles::kLight);
 
-  fParticlesModel->AddParticle(dummy, KLFitter::Particles::kParton, "light quark 2", 2, KLFitter::Particles::kLight);
+  fParticlesModel->AddParticle(&dummy, KLFitter::Particles::kParton, "light quark 2", 2, KLFitter::Particles::kLight);
 
   if (fTypeLepton == kElectron) {
-    fParticlesModel->AddParticle(dummy, KLFitter::Particles::kElectron, "electron");
+    fParticlesModel->AddParticle(&dummy, KLFitter::Particles::kElectron, "electron");
   } else if (fTypeLepton == kMuon) {
-    fParticlesModel->AddParticle(dummy, KLFitter::Particles::kMuon, "muon");
+    fParticlesModel->AddParticle(&dummy, KLFitter::Particles::kMuon, "muon");
   }
 
-  fParticlesModel->AddParticle(dummy, KLFitter::Particles::kNeutrino, "neutrino");
+  fParticlesModel->AddParticle(&dummy, KLFitter::Particles::kNeutrino, "neutrino");
 
-  fParticlesModel->AddParticle(dummy, KLFitter::Particles::kBoson, "hadronic W");
+  fParticlesModel->AddParticle(&dummy, KLFitter::Particles::kBoson, "hadronic W");
 
-  fParticlesModel->AddParticle(dummy, KLFitter::Particles::kBoson, "leptonic W");
+  fParticlesModel->AddParticle(&dummy, KLFitter::Particles::kBoson, "leptonic W");
 
-  fParticlesModel->AddParticle(dummy, KLFitter::Particles::kParton, "hadronic top");
+  fParticlesModel->AddParticle(&dummy, KLFitter::Particles::kParton, "hadronic top");
 
-  fParticlesModel->AddParticle(dummy, KLFitter::Particles::kParton, "leptonic top");
-
-  // free memory
-  delete dummy;
+  fParticlesModel->AddParticle(&dummy, KLFitter::Particles::kParton, "leptonic top");
 
   // no error
   return 1;
