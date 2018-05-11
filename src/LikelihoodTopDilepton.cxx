@@ -1062,7 +1062,7 @@ void KLFitter::LikelihoodTopDilepton::MCMCIterationInterface() {
 
   // for costheta
   std::pair<float, float> costheta(0., 0.);
-  std::vector <TLorentzVector> * help_ParticleVector  = new std::vector<TLorentzVector>(0);
+  auto help_ParticleVector = std::unique_ptr<std::vector<TLorentzVector> >(new std::vector<TLorentzVector>{});
 
   // get number of chains
   int nchains = MCMCGetNChains();
@@ -1122,7 +1122,7 @@ void KLFitter::LikelihoodTopDilepton::MCMCIterationInterface() {
         help_ParticleVector -> push_back(nubars.nu1);
         help_ParticleVector -> push_back(MCMC_b1);
         help_ParticleVector -> push_back(MCMC_b2);
-        costheta = CalculateCosTheta(help_ParticleVector);
+        costheta = CalculateCosTheta(help_ParticleVector.get());
         fHistCosTheta->GetHistogram()->Fill(costheta.first);
         fHistCosTheta->GetHistogram()->Fill(costheta.second);
       }
@@ -1140,7 +1140,7 @@ void KLFitter::LikelihoodTopDilepton::MCMCIterationInterface() {
           help_ParticleVector -> push_back(nubars.nu2);
           help_ParticleVector -> push_back(MCMC_b1);
           help_ParticleVector -> push_back(MCMC_b2);
-          costheta = CalculateCosTheta(help_ParticleVector);
+          costheta = CalculateCosTheta(help_ParticleVector.get());
           fHistCosTheta->GetHistogram()->Fill(costheta.first);
           fHistCosTheta->GetHistogram()->Fill(costheta.second);
         }
@@ -1157,7 +1157,7 @@ void KLFitter::LikelihoodTopDilepton::MCMCIterationInterface() {
           help_ParticleVector -> push_back(nubars.nu1);
           help_ParticleVector -> push_back(MCMC_b1);
           help_ParticleVector -> push_back(MCMC_b2);
-          costheta = CalculateCosTheta(help_ParticleVector);
+          costheta = CalculateCosTheta(help_ParticleVector.get());
           fHistCosTheta->GetHistogram()->Fill(costheta.first);
           fHistCosTheta->GetHistogram()->Fill(costheta.second);
         }
@@ -1174,7 +1174,7 @@ void KLFitter::LikelihoodTopDilepton::MCMCIterationInterface() {
           help_ParticleVector -> push_back(nubars.nu2);
           help_ParticleVector -> push_back(MCMC_b1);
           help_ParticleVector -> push_back(MCMC_b2);
-          costheta = CalculateCosTheta(help_ParticleVector);
+          costheta = CalculateCosTheta(help_ParticleVector.get());
           fHistCosTheta->GetHistogram()->Fill(costheta.first);
           fHistCosTheta->GetHistogram()->Fill(costheta.second);
         }
@@ -1191,7 +1191,7 @@ void KLFitter::LikelihoodTopDilepton::MCMCIterationInterface() {
           help_ParticleVector -> push_back(nubars.nu1);
           help_ParticleVector -> push_back(MCMC_b1);
           help_ParticleVector -> push_back(MCMC_b2);
-          costheta = CalculateCosTheta(help_ParticleVector);
+          costheta = CalculateCosTheta(help_ParticleVector.get());
           fHistCosTheta->GetHistogram()->Fill(costheta.first);
           fHistCosTheta->GetHistogram()->Fill(costheta.second);
         }
@@ -1208,14 +1208,13 @@ void KLFitter::LikelihoodTopDilepton::MCMCIterationInterface() {
           help_ParticleVector -> push_back(nubars.nu2);
           help_ParticleVector -> push_back(MCMC_b1);
           help_ParticleVector -> push_back(MCMC_b2);
-          costheta = CalculateCosTheta(help_ParticleVector);
+          costheta = CalculateCosTheta(help_ParticleVector.get());
           fHistCosTheta->GetHistogram()->Fill(costheta.first);
           fHistCosTheta->GetHistogram()->Fill(costheta.second);
         }
       }  // 2 nu 2 nubar
     }  // Nsol
   }  // Nchains
-  delete help_ParticleVector;
 }
 
 // ---------------------------------------------------------
