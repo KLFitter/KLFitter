@@ -34,7 +34,6 @@
 KLFitter::LikelihoodBase::LikelihoodBase(Particles** particles) : BCModel(),
                                                                   fParticlesPermuted(particles),
                                                                   fPermutations(0),
-                                                                  fMyParticlesTruth(0),
                                                                   fDetector(0),
                                                                   fEventProbability(std::vector<double>(0)),
                                                                   fFlagIntegrate(0),
@@ -128,15 +127,6 @@ int KLFitter::LikelihoodBase::SetDetector(KLFitter::DetectorBase** detector) {
 int KLFitter::LikelihoodBase::SetParticlesPermuted(KLFitter::Particles** particles) {
   // set pointer to pointer of permuted particles
   fParticlesPermuted  = particles;
-
-  // no error
-  return 1;
-}
-
-// ---------------------------------------------------------
-int KLFitter::LikelihoodBase::SetMyParticlesTruth(KLFitter::Particles** particles) {
-  // set pointer to pointer of truth particles
-  fMyParticlesTruth  = particles;
 
   // no error
   return 1;
