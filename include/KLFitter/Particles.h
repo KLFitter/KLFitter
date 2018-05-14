@@ -65,6 +65,11 @@ class Particles final {
   Particles();
 
   /**
+    * The copy constructor
+    */
+  Particles(const Particles& obj);
+
+  /**
     * The default destructor.
     */
   ~Particles();
