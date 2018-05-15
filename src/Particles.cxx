@@ -24,8 +24,7 @@
 #include "TLorentzVector.h"
 
 // ---------------------------------------------------------
-KLFitter::Particles::Particles() {
-}
+KLFitter::Particles::Particles() = default;
 
 // ---------------------------------------------------------
 KLFitter::Particles::Particles(const KLFitter::Particles& o) :
@@ -92,8 +91,7 @@ KLFitter::Particles::Particles(const KLFitter::Particles& o) :
 }
 
 // ---------------------------------------------------------
-KLFitter::Particles::~Particles() {
-}
+KLFitter::Particles::~Particles() = default;
 
 // ---------------------------------------------------------
 KLFitter::Particles& KLFitter::Particles::operator=(const KLFitter::Particles& o) {
