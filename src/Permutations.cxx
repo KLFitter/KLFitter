@@ -32,8 +32,6 @@ KLFitter::Permutations::Permutations(KLFitter::Particles ** p, KLFitter::Particl
 
 // ---------------------------------------------------------
 KLFitter::Permutations::~Permutations() {
-  // delete particles and permutations tables
-  Reset();
 }
 
 // ---------------------------------------------------------
@@ -238,10 +236,8 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
 
 // ---------------------------------------------------------
 int KLFitter::Permutations::Reset() {
-  // delete table of particles
+  // Clear particle and permutation tables.
   fParticlesTable.clear();
-
-  // delete permutation table
   fPermutationTable.clear();
 
   // no error
