@@ -53,9 +53,19 @@ class Permutations final {
   Permutations(KLFitter::Particles** p, KLFitter::Particles** pp);
 
   /**
+    * The (defaulted) copy constructor.
+    */
+  explicit Permutations(const Permutations& o) = default;
+
+  /**
     * The default destructor.
     */
   ~Permutations();
+
+  /**
+    * The (defaulted) assignment operator.
+    */
+  Permutations& operator=(const Permutations& obj) = default;
 
   /* @} */
   /** \name Member functions (Get)  */
