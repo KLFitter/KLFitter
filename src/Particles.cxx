@@ -28,6 +28,70 @@ KLFitter::Particles::Particles() {
 }
 
 // ---------------------------------------------------------
+KLFitter::Particles::Particles(const KLFitter::Particles& o) :
+    fPartons(std::vector<std::unique_ptr<TLorentzVector> >{}),
+    fElectrons(std::vector<std::unique_ptr<TLorentzVector> >{}),
+    fMuons(std::vector<std::unique_ptr<TLorentzVector> >{}),
+    fTaus(std::vector<std::unique_ptr<TLorentzVector> >{}),
+    fNeutrinos(std::vector<std::unique_ptr<TLorentzVector> >{}),
+    fBosons(std::vector<std::unique_ptr<TLorentzVector> >{}),
+    fPhotons(std::vector<std::unique_ptr<TLorentzVector> >{}),
+
+    fNamePartons(std::vector<std::string>{o.fNamePartons}),
+    fNameElectrons(std::vector<std::string>{o.fNameElectrons}),
+    fNameMuons(std::vector<std::string>{o.fNameMuons}),
+    fNameTaus(std::vector<std::string>{o.fNameTaus}),
+    fNameNeutrinos(std::vector<std::string>{o.fNameNeutrinos}),
+    fNameBosons(std::vector<std::string>{o.fNameBosons}),
+    fNamePhotons(std::vector<std::string>{o.fNamePhotons}),
+    fJetIndex(std::vector<int>{o.fJetIndex}),
+    fElectronIndex(std::vector<int>{o.fElectronIndex}),
+    fMuonIndex(std::vector<int>{o.fMuonIndex}),
+    fPhotonIndex(std::vector<int>{o.fPhotonIndex}),
+    fTrueFlavor(std::vector<TrueFlavorType>{o.fTrueFlavor}),
+    fIsBTagged(std::vector<bool>{o.fIsBTagged}),
+    fBTaggingEfficiency(std::vector<double>{o.fBTaggingEfficiency}),
+    fBTaggingRejection(std::vector<double>{o.fBTaggingRejection}),
+    fBTagWeight(std::vector<double>{o.fBTagWeight}),
+    fBTagWeightSet(std::vector<bool>{o.fBTagWeightSet}),
+    fElectronDetEta(std::vector<double>{o.fElectronDetEta}),
+    fMuonDetEta(std::vector<double>{o.fMuonDetEta}),
+    fJetDetEta(std::vector<double>{o.fJetDetEta}),
+    fPhotonDetEta(std::vector<double>{o.fPhotonDetEta}),
+    fElectronCharge(std::vector<float>{o.fElectronCharge}),
+    fMuonCharge(std::vector<float>{o.fMuonCharge}) {
+
+  // Make deep copies of the vectors of unique pointers.
+  for (const auto& i : o.fPartons) {
+    fPartons.emplace_back(new TLorentzVector{*i});
+  }
+
+  for (const auto& i : o.fElectrons) {
+    fElectrons.emplace_back(new TLorentzVector{*i});
+  }
+
+  for (const auto& i : o.fMuons) {
+    fMuons.emplace_back(new TLorentzVector{*i});
+  }
+
+  for (const auto& i : o.fTaus) {
+    fTaus.emplace_back(new TLorentzVector{*i});
+  }
+
+  for (const auto& i : o.fNeutrinos) {
+    fNeutrinos.emplace_back(new TLorentzVector{*i});
+  }
+
+  for (const auto& i : o.fBosons) {
+    fBosons.emplace_back(new TLorentzVector{*i});
+  }
+
+  for (const auto& i : o.fPhotons) {
+    fPhotons.emplace_back(new TLorentzVector{*i});
+  }
+}
+
+// ---------------------------------------------------------
 KLFitter::Particles::~Particles() {
 }
 
