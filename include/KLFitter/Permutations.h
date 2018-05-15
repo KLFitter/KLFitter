@@ -90,13 +90,13 @@ class Permutations final {
     */
   int PermutationIndex() { return fPermutationIndex; }
 
-  std::vector<std::vector<int>*>* TablePartons() { return fTablePartons; }
+  std::vector<std::vector<int> >* TablePartons() { return &fTablePartons; }
 
-  std::vector<std::vector<int>*>* TableElectrons() { return fTableElectrons; }
+  std::vector<std::vector<int> >* TableElectrons() { return &fTableElectrons; }
 
-  std::vector<std::vector<int>*>* TableMuons() { return fTableMuons; }
+  std::vector<std::vector<int> >* TableMuons() { return &fTableMuons; }
 
-  std::vector<std::vector<int>*>* TablePhotons() { return fTablePhotons; }
+  std::vector<std::vector<int> >* TablePhotons() { return &fTablePhotons; }
 
   /* @} */
   /** \name Member functions (Set)  */
@@ -171,7 +171,7 @@ class Permutations final {
   /**
     * Creates table of permutations.
     */
-  int CreateSubTable(int Nobj,  std::vector<std::vector<int>*>* table, int Nmax = -1);
+  int CreateSubTable(int Nobj, std::vector<std::vector<int> >* table, int Nmax = -1);
 
   /* @} */
 
@@ -215,10 +215,10 @@ class Permutations final {
     */
   int fPermutationIndex;
 
-  std::vector<std::vector<int>*>* fTablePartons;
-  std::vector<std::vector<int>*>* fTableElectrons;
-  std::vector<std::vector<int>*>* fTableMuons;
-  std::vector<std::vector<int>*>* fTablePhotons;
+  std::vector<std::vector<int> > fTablePartons;
+  std::vector<std::vector<int> > fTableElectrons;
+  std::vector<std::vector<int> > fTableMuons;
+  std::vector<std::vector<int> > fTablePhotons;
 };
 }  // namespace KLFitter
 

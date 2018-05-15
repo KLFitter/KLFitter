@@ -30,10 +30,6 @@ KLFitter::Permutations::Permutations(KLFitter::Particles ** p, KLFitter::Particl
   fParticlesTable = new std::vector <KLFitter::Particles *>(0);
   fPermutationTable = new std::vector < std::vector<int> *>(0);
   fPermutationIndex = -1;
-  fTablePartons = 0;
-  fTableElectrons = 0;
-  fTableMuons = 0;
-  fTablePhotons = 0;
 }
 
 // ---------------------------------------------------------
@@ -102,27 +98,27 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
     isDilepton = true;
 
   // create table for parton, electron, muon and photons permutations
-  fTablePartons = new std::vector < std::vector<int> * >(0);
-  CreateSubTable(npartons, fTablePartons, nPartonsInPermutations);
+  fTablePartons = std::vector<std::vector<int> >{};
+  CreateSubTable(npartons, &fTablePartons, nPartonsInPermutations);
 
-  fTableElectrons = new std::vector < std::vector<int> * >(0);
-  CreateSubTable(nelectrons, fTableElectrons);
+  fTableElectrons = std::vector<std::vector<int> >{};
+  CreateSubTable(nelectrons, &fTableElectrons);
 
-  fTableMuons = new std::vector < std::vector<int> * >(0);
-  CreateSubTable(nmuons, fTableMuons);
+  fTableMuons = std::vector<std::vector<int> >{};
+  CreateSubTable(nmuons, &fTableMuons);
 
-  fTablePhotons = new std::vector < std::vector<int> * >(0);
-  CreateSubTable(nphotons, fTablePhotons);
+  fTablePhotons = std::vector<std::vector<int> >{};
+  CreateSubTable(nphotons, &fTablePhotons);
 
   int npartonsPerm = npartons;
   if (nPartonsInPermutations >= 0)
     npartonsPerm = nPartonsInPermutations;
 
   // get number of possible permutations for each category
-  int npermpartons   = fTablePartons->size() <= 0 ? 1 : fTablePartons->size();
-  int npermelectrons = fTableElectrons->size() <= 0 ? 1 : fTableElectrons->size();
-  int npermmuons     = fTableMuons->size() <= 0 ? 1 : fTableMuons->size();
-  int npermphotons     = fTablePhotons->size() <= 0 ? 1 : fTablePhotons->size();
+  int npermpartons   = fTablePartons.size() <= 0 ? 1 : fTablePartons.size();
+  int npermelectrons = fTableElectrons.size() <= 0 ? 1 : fTableElectrons.size();
+  int npermmuons     = fTableMuons.size() <= 0 ? 1 : fTableMuons.size();
+  int npermphotons     = fTablePhotons.size() <= 0 ? 1 : fTablePhotons.size();
   int npermoverall   = npartonsPerm + nelectrons + nmuons + nphotons;
 
   // loop over all parton permutations
@@ -142,7 +138,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
           // loop over all partons
           for (int i = 0; i < npartonsPerm; ++i) {
             // get index
-            int index = (*(*fTablePartons)[ipermparton])[i];
+            int index = fTablePartons[ipermparton][i];
 
             // add parton
             particles->AddParticle((*fParticles)->Parton(index),
@@ -163,7 +159,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
           // loop over all electrons
           for (int i = 0; i < nelectrons; ++i) {
             // get index
-            int index = (*(*fTableElectrons)[ipermelectron])[i];
+            int index = fTableElectrons[ipermelectron][i];
 
             // if isDilepton include charge of the lepton
             if (isDilepton) {
@@ -190,7 +186,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
           // loop over all muons
           for (int i = 0; i < nmuons; ++i) {
             // get index
-            int index = (*(*fTableMuons)[ipermmuon])[i];
+            int index = fTableMuons[ipermmuon][i];
 
             // if isDilepton include charge of the lepton
             if (isDilepton) {
@@ -217,7 +213,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
           // loop over all photons
           for (int i = 0; i < nphotons; ++i) {
             // get index
-            int index = (*(*fTablePhotons)[ipermphoton])[i];
+            int index = fTablePhotons[ipermphoton][i];
 
             // add photon
             particles->AddParticle((*fParticles)->Photon(index),
@@ -268,57 +264,12 @@ int KLFitter::Permutations::Reset() {
     fPermutationTable = 0;
   }
 
-  // free memory
-  if (fTablePartons) {
-    while (!fTablePartons->empty()) {
-      std::vector<int> * l = fTablePartons->front();
-      fTablePartons->erase(fTablePartons->begin());
-      l->clear();
-      delete l;
-    }
-    delete fTablePartons;
-    fTablePartons = 0;
-  }
-
-  if (fTableElectrons) {
-    while (!fTableElectrons->empty()) {
-      std::vector<int> * l = fTableElectrons->front();
-      fTableElectrons->erase(fTableElectrons->begin());
-      l->clear();
-      delete l;
-    }
-    delete fTableElectrons;
-    fTableElectrons = 0;
-  }
-
-  if (fTableMuons) {
-    while (!fTableMuons->empty()) {
-      std::vector<int> * l = fTableMuons->front();
-      fTableMuons->erase(fTableMuons->begin());
-      l->clear();
-      delete l;
-    }
-    delete fTableMuons;
-    fTableMuons = 0;
-  }
-
-  if (fTablePhotons) {
-    while (!fTablePhotons->empty()) {
-      std::vector<int> * l = fTablePhotons->front();
-      fTablePhotons->erase(fTablePhotons->begin());
-      l->clear();
-      delete l;
-    }
-    delete fTablePhotons;
-    fTablePhotons = 0;
-  }
-
   // no error
   return 1;
 }
 
 // ---------------------------------------------------------
-int KLFitter::Permutations::CreateSubTable(int Nobj, std::vector < std::vector<int> * > * table, int Nmax) {
+int KLFitter::Permutations::CreateSubTable(int Nobj, std::vector<std::vector<int> >* table, int Nmax) {
   if (Nmax < 0) {
     std::vector<int> vidx;
     for (int i(0); i < Nobj; ++i) {
@@ -326,7 +277,7 @@ int KLFitter::Permutations::CreateSubTable(int Nobj, std::vector < std::vector<i
     }
 
     do {
-      table->push_back(new std::vector<int>(vidx));
+      table->emplace_back(std::vector<int>(vidx));
     } while (std::next_permutation(vidx.begin(), vidx.end()));
   } else {
     std::vector<std::vector<int> > v = Get_M_from_N(Nobj, Nmax);
@@ -334,7 +285,7 @@ int KLFitter::Permutations::CreateSubTable(int Nobj, std::vector < std::vector<i
     for (unsigned int i(0), n(v.size()); i < n; ++i) {
       std::vector<int> vidx = v[i];
       do {
-        table->push_back(new std::vector<int>(vidx));
+        table->emplace_back(std::vector<int>(vidx));
       } while (std::next_permutation(vidx.begin(), vidx.end()));
     }
   }
