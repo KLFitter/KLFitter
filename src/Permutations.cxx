@@ -24,15 +24,15 @@
 #include <set>
 
 // ---------------------------------------------------------
-KLFitter::Permutations::Permutations(KLFitter::Particles ** p, KLFitter::Particles ** pp) {
-  fParticles = p;
-  fParticlesPermuted = pp;
-  fPermutationIndex = -1;
+KLFitter::Permutations::Permutations(KLFitter::Particles ** p, KLFitter::Particles ** pp) :
+    fParticles(p),
+    fParticlesPermuted(pp),
+    fPermutationIndex(-1) {
+  // empty
 }
 
 // ---------------------------------------------------------
-KLFitter::Permutations::~Permutations() {
-}
+KLFitter::Permutations::~Permutations() = default;
 
 // ---------------------------------------------------------
 int KLFitter::Permutations::SetPermutation(int index) {

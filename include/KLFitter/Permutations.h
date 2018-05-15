@@ -58,7 +58,7 @@ class Permutations final {
   explicit Permutations(const Permutations& o) = default;
 
   /**
-    * The default destructor.
+    * The (defaulted) destructor.
     */
   ~Permutations();
 
