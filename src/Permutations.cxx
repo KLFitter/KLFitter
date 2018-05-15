@@ -32,7 +32,13 @@ KLFitter::Permutations::Permutations(KLFitter::Particles ** p, KLFitter::Particl
 }
 
 // ---------------------------------------------------------
+KLFitter::Permutations::Permutations(const Permutations& o) = default;
+
+// ---------------------------------------------------------
 KLFitter::Permutations::~Permutations() = default;
+
+// ---------------------------------------------------------
+KLFitter::Permutations& KLFitter::Permutations::operator=(const KLFitter::Permutations& obj) = default;
 
 // ---------------------------------------------------------
 int KLFitter::Permutations::SetPermutation(int index) {

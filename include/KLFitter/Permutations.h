@@ -55,7 +55,7 @@ class Permutations final {
   /**
     * The (defaulted) copy constructor.
     */
-  explicit Permutations(const Permutations& o) = default;
+  explicit Permutations(const Permutations& o);
 
   /**
     * The (defaulted) destructor.
@@ -65,7 +65,7 @@ class Permutations final {
   /**
     * The (defaulted) assignment operator.
     */
-  Permutations& operator=(const Permutations& obj) = default;
+  Permutations& operator=(const Permutations& obj);
 
   /* @} */
   /** \name Member functions (Get)  */
