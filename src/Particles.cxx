@@ -96,6 +96,72 @@ KLFitter::Particles::~Particles() {
 }
 
 // ---------------------------------------------------------
+KLFitter::Particles& KLFitter::Particles::operator=(const KLFitter::Particles& o) {
+  fNamePartons = o.fNamePartons;
+  fNameElectrons = o.fNameElectrons;
+  fNameMuons = o.fNameMuons;
+  fNameTaus = o.fNameTaus;
+  fNameNeutrinos = o.fNameNeutrinos;
+  fNameBosons = o.fNameBosons;
+  fNamePhotons = o.fNamePhotons;
+
+  fJetIndex = o.fJetIndex;
+  fElectronIndex = o.fElectronIndex;
+  fMuonIndex = o.fMuonIndex;
+  fPhotonIndex = o.fPhotonIndex;
+  fTrueFlavor = o.fTrueFlavor;
+  fIsBTagged = o.fIsBTagged;
+  fBTaggingEfficiency = o.fBTaggingEfficiency;
+  fBTaggingRejection = o.fBTaggingRejection;
+  fBTagWeight = o.fBTagWeight;
+  fBTagWeightSet = o.fBTagWeightSet;
+  fElectronDetEta = o.fElectronDetEta;
+  fMuonDetEta = o.fMuonDetEta;
+  fJetDetEta = o.fJetDetEta;
+  fPhotonDetEta = o.fPhotonDetEta;
+  fElectronCharge = o.fElectronCharge;
+  fMuonCharge = o.fMuonCharge;
+
+  // Make deep copies of the vectors of unique pointers.
+  fPartons = std::vector<std::unique_ptr<TLorentzVector> >(o.fPartons.size());
+  for (const auto& i : o.fPartons) {
+    fPartons.emplace_back(new TLorentzVector{*i});
+  }
+
+  fElectrons = std::vector<std::unique_ptr<TLorentzVector> >(o.fElectrons.size());
+  for (const auto& i : o.fElectrons) {
+    fElectrons.emplace_back(new TLorentzVector{*i});
+  }
+
+  fMuons = std::vector<std::unique_ptr<TLorentzVector> >(o.fMuons.size());
+  for (const auto& i : o.fMuons) {
+    fMuons.emplace_back(new TLorentzVector{*i});
+  }
+
+  fTaus = std::vector<std::unique_ptr<TLorentzVector> >(o.fTaus.size());
+  for (const auto& i : o.fTaus) {
+    fTaus.emplace_back(new TLorentzVector{*i});
+  }
+
+  fNeutrinos = std::vector<std::unique_ptr<TLorentzVector> >(o.fNeutrinos.size());
+  for (const auto& i : o.fNeutrinos) {
+    fNeutrinos.emplace_back(new TLorentzVector{*i});
+  }
+
+  fBosons = std::vector<std::unique_ptr<TLorentzVector> >(o.fBosons.size());
+  for (const auto& i : o.fBosons) {
+    fBosons.emplace_back(new TLorentzVector{*i});
+  }
+
+  fPhotons = std::vector<std::unique_ptr<TLorentzVector> >(o.fPhotons.size());
+  for (const auto& i : o.fPhotons) {
+    fPhotons.emplace_back(new TLorentzVector{*i});
+  }
+
+  return *this;
+}
+
+// ---------------------------------------------------------
 int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, float LepCharge, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex) {
   // get particle container
   auto container = ParticleContainer(ptype);

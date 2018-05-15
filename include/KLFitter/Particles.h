@@ -74,6 +74,11 @@ class Particles final {
     */
   ~Particles();
 
+  /**
+   * The assignment operator.
+   */
+  Particles& operator=(const Particles& o);
+
   /* @} */
   /** \name Member functions (Get)  */
   /* @{ */
