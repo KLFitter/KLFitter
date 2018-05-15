@@ -82,7 +82,7 @@ class Permutations final {
   /**
     * Return the number of permutations.
     */
-  int NPermutations() { return static_cast<int>(fParticlesTable -> size()); }
+  int NPermutations() { return static_cast<int>(fParticlesTable.size()); }
 
   /**
     * Return the current permutation index.
@@ -183,7 +183,7 @@ class Permutations final {
 
  private:
   /**
-    * Helper functions to efficienctly create permutations of N particles of only M selected particles.
+    * Helper functions to efficiently create permutations of N particles of only M selected particles.
     */
 
   std::vector<int> Get_int_vector(int i);
@@ -203,7 +203,7 @@ class Permutations final {
   /**
     * A table of permuted particles (jets and leptons).
     */
-  std::vector <KLFitter::Particles*>* fParticlesTable;
+  std::vector<KLFitter::Particles> fParticlesTable;
 
   /**
     * A table of permutations. Needed for the math.
