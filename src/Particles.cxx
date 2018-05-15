@@ -28,14 +28,6 @@ KLFitter::Particles::Particles() = default;
 
 // ---------------------------------------------------------
 KLFitter::Particles::Particles(const KLFitter::Particles& o) :
-    fPartons(std::vector<std::unique_ptr<TLorentzVector> >{}),
-    fElectrons(std::vector<std::unique_ptr<TLorentzVector> >{}),
-    fMuons(std::vector<std::unique_ptr<TLorentzVector> >{}),
-    fTaus(std::vector<std::unique_ptr<TLorentzVector> >{}),
-    fNeutrinos(std::vector<std::unique_ptr<TLorentzVector> >{}),
-    fBosons(std::vector<std::unique_ptr<TLorentzVector> >{}),
-    fPhotons(std::vector<std::unique_ptr<TLorentzVector> >{}),
-
     fNamePartons(std::vector<std::string>{o.fNamePartons}),
     fNameElectrons(std::vector<std::string>{o.fNameElectrons}),
     fNameMuons(std::vector<std::string>{o.fNameMuons}),
