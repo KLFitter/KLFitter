@@ -28,7 +28,6 @@ KLFitter::Permutations::Permutations(KLFitter::Particles ** p, KLFitter::Particl
   fParticles = p;
   fParticlesPermuted = pp;
   fParticlesTable = new std::vector <KLFitter::Particles *>(0);
-  fPermutationTable = new std::vector < std::vector<int> *>(0);
   fPermutationIndex = -1;
 }
 
@@ -77,8 +76,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
     fParticlesTable = new std::vector <KLFitter::Particles *>(0);
 
   // create new table of permutations
-  if (!fPermutationTable)
-    fPermutationTable = new std::vector < std::vector<int> *>(0);
+  fPermutationTable = std::vector<std::vector<int> >{};
 
   // check particles
   CheckParticles();
@@ -133,7 +131,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
           KLFitter::Particles * particles = new KLFitter::Particles();
 
           // create new permutation
-          std::vector <int> * permutation = new std::vector <int>(npermoverall);
+          std::vector<int> permutation(npermoverall);
 
           // loop over all partons
           for (int i = 0; i < npartonsPerm; ++i) {
@@ -153,7 +151,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
                                    (*fParticles)->BTagWeight(index));
 
             // set permutation
-            (*permutation)[i] = index;
+            permutation[i] = index;
           }
 
           // loop over all electrons
@@ -180,7 +178,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
             }
 
             // set permutation
-            (*permutation)[npartonsPerm + i] = index;
+            permutation[npartonsPerm + i] = index;
           }
 
           // loop over all muons
@@ -207,7 +205,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
             }
 
             // set permutation
-            (*permutation)[npartonsPerm + nelectrons + i] = index;
+            permutation[npartonsPerm + nelectrons + i] = index;
           }
 
           // loop over all photons
@@ -223,14 +221,14 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
                                    (*fParticles)->PhotonIndex(index));
 
             // set permutation
-            (*permutation)[npartonsPerm + nelectrons + nmuons + i] = index;
+            permutation[npartonsPerm + nelectrons + nmuons + i] = index;
           }
 
           // add particles to table
           fParticlesTable->push_back(particles);
 
           // add permutation to table
-          fPermutationTable->push_back(permutation);
+          fPermutationTable.emplace_back(permutation);
         }
       }
     }
@@ -254,15 +252,7 @@ int KLFitter::Permutations::Reset() {
   }
 
   // delete permutation table
-  if (fPermutationTable) {
-    while (!fPermutationTable->empty()) {
-      std::vector <int> * p = fPermutationTable->front();
-      fPermutationTable->erase(fPermutationTable->begin());
-      delete p;
-    }
-    delete fPermutationTable;
-    fPermutationTable = 0;
-  }
+  fPermutationTable.clear();
 
   // no error
   return 1;
@@ -333,7 +323,7 @@ int KLFitter::Permutations::InvariantParticlePermutations(KLFitter::Particles::P
   }
 
   // check permutation table
-  if (!fPermutationTable) {
+  if (fPermutationTable.empty()) {
     std::cout << "KLFitter::Permutations::InvariantParticlePermutations(). Table of parton permutations doesn ot exist." << std::endl;
     return 0;
   }
@@ -354,13 +344,11 @@ int KLFitter::Permutations::InvariantParticlePermutations(KLFitter::Particles::P
       int index2 = indexVector[1] + offset;
 
       // get permutation
-      std::vector<int> * permutation = (*fPermutationTable)[iperm];
+      const std::vector<int>& permutation = fPermutationTable[iperm];
 
       // check indices
-      if ((*permutation)[index1] >= (*permutation)[index2]) {
-        std::vector <int> * pt = (*fPermutationTable)[iperm];
-        fPermutationTable->erase(fPermutationTable->begin() + iperm);
-        delete pt;
+      if (permutation[index1] >= permutation[index2]) {
+        fPermutationTable.erase(fPermutationTable.begin() + iperm);
 
         KLFitter::Particles * p = (*fParticlesTable)[iperm];
         fParticlesTable->erase(fParticlesTable->begin() + iperm);
@@ -444,7 +432,7 @@ int KLFitter::Permutations::InvariantParticleGroupPermutations(KLFitter::Particl
   }
 
   // check permutation table
-  if (!fPermutationTable) {
+  if (fPermutationTable.empty()) {
     std::cout << "KLFitter::Permutations::InvariantParticleGroupPermutations(). Table of parton permutations doesn ot exist." << std::endl;
     return 0;
   }
@@ -462,11 +450,11 @@ int KLFitter::Permutations::InvariantParticleGroupPermutations(KLFitter::Particl
       offset += (*fParticles)->NParticles(itype);
 
     // get permutation
-    std::vector<int> * permutation1 = (*fPermutationTable)[iperm1];
+    const std::vector<int>& permutation1 = fPermutationTable[iperm1];
 
     for (int iperm2 = iperm1-1; iperm2 >= 0; --iperm2) {
       // get second permutation
-      std::vector<int> * permutation2 = (*fPermutationTable)[iperm2];
+      const std::vector<int>& permutation2 = fPermutationTable[iperm2];
 
       // loop over index vectors
       unsigned int numberOfInvariantMatches(0);
@@ -476,14 +464,12 @@ int KLFitter::Permutations::InvariantParticleGroupPermutations(KLFitter::Particl
         int indexPosition2 = indexVectorPosition2[i] + offset;
 
         // check indices
-        if ((*permutation1)[indexPosition1] == (*permutation2)[indexPosition2] && (*permutation1)[indexPosition2] == (*permutation2)[indexPosition1])
+        if (permutation1[indexPosition1] == permutation2[indexPosition2] && permutation1[indexPosition2] == permutation2[indexPosition1])
           numberOfInvariantMatches++;
       }
 
       if (numberOfInvariantMatches == indexVectorPosition1.size()) {
-        std::vector <int> * pt = (*fPermutationTable)[iperm2];
-        fPermutationTable->erase(fPermutationTable->begin() + iperm2);
-        delete pt;
+        fPermutationTable.erase(fPermutationTable.begin() + iperm2);
 
         KLFitter::Particles * p = (*fParticlesTable)[iperm2];
         fParticlesTable->erase(fParticlesTable->begin() + iperm2);
@@ -515,7 +501,7 @@ int KLFitter::Permutations::RemoveParticlePermutations(KLFitter::Particles::Part
   }
 
   // check permutation table
-  if (!fPermutationTable) {
+  if (fPermutationTable.empty()) {
     std::cout << "KLFitter::Permutations::RemoveParticlePermutations(). Table of parton permutations does not exist." << std::endl;
     return 0;
   }
@@ -528,12 +514,10 @@ int KLFitter::Permutations::RemoveParticlePermutations(KLFitter::Particles::Part
 
   // loop over all permutations
   for (int iPerm(NPermutations()-1); iPerm >= 0; --iPerm) {
-    std::vector<int> * permutation = (*fPermutationTable)[iPerm];
+    const std::vector<int>& permutation = fPermutationTable[iPerm];
 
-    if ((*permutation)[position] == index) {
-      std::vector<int> * pt = (*fPermutationTable)[iPerm];
-      fPermutationTable->erase(fPermutationTable->begin() + iPerm);
-      delete pt;
+    if (permutation[position] == index) {
+      fPermutationTable.erase(fPermutationTable.begin() + iPerm);
 
       KLFitter::Particles * p = (*fParticlesTable)[iPerm];
       fParticlesTable->erase(fParticlesTable->begin() + iPerm);
@@ -563,8 +547,8 @@ int KLFitter::Permutations::CheckParticles() {
 }
 
 // ---------------------------------------------------------
-std::vector<std::vector<int>* > *KLFitter::Permutations::PermutationTable() {
-  return fPermutationTable;
+std::vector<std::vector<int> >* KLFitter::Permutations::PermutationTable() {
+  return &fPermutationTable;
 }
 
 // ---------------------------------------------------------

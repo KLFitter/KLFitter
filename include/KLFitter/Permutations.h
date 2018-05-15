@@ -77,7 +77,7 @@ class Permutations final {
     * Return the permutation table.
     * @return A pointer to the permutation table.
     */
-  std::vector<std::vector<int>* >* PermutationTable();
+  std::vector<std::vector<int> >* PermutationTable();
 
   /**
     * Return the number of permutations.
@@ -208,7 +208,7 @@ class Permutations final {
   /**
     * A table of permutations. Needed for the math.
     */
-  std::vector < std::vector <int>*>* fPermutationTable;
+  std::vector<std::vector<int> > fPermutationTable;
 
   /**
     * The permutation index
