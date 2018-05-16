@@ -113,37 +113,44 @@ KLFitter::Particles& KLFitter::Particles::operator=(const KLFitter::Particles& o
   fMuonCharge = o.fMuonCharge;
 
   // Make deep copies of the vectors of unique pointers.
-  fPartons = std::vector<std::unique_ptr<TLorentzVector> >(o.fPartons.size());
+  fPartons = std::vector<std::unique_ptr<TLorentzVector> >{};
+  fPartons.reserve(o.fPartons.size());
   for (const auto& i : o.fPartons) {
     fPartons.emplace_back(new TLorentzVector{*i});
   }
 
-  fElectrons = std::vector<std::unique_ptr<TLorentzVector> >(o.fElectrons.size());
+  fElectrons = std::vector<std::unique_ptr<TLorentzVector> >{};
+  fElectrons.reserve(o.fElectrons.size());
   for (const auto& i : o.fElectrons) {
     fElectrons.emplace_back(new TLorentzVector{*i});
   }
 
-  fMuons = std::vector<std::unique_ptr<TLorentzVector> >(o.fMuons.size());
+  fMuons = std::vector<std::unique_ptr<TLorentzVector> >{};
+  fMuons.reserve(o.fMuons.size());
   for (const auto& i : o.fMuons) {
     fMuons.emplace_back(new TLorentzVector{*i});
   }
 
-  fTaus = std::vector<std::unique_ptr<TLorentzVector> >(o.fTaus.size());
+  fTaus = std::vector<std::unique_ptr<TLorentzVector> >{};
+  fTaus.reserve(o.fTaus.size());
   for (const auto& i : o.fTaus) {
     fTaus.emplace_back(new TLorentzVector{*i});
   }
 
-  fNeutrinos = std::vector<std::unique_ptr<TLorentzVector> >(o.fNeutrinos.size());
+  fNeutrinos = std::vector<std::unique_ptr<TLorentzVector> >{};
+  fNeutrinos.reserve(o.fNeutrinos.size());
   for (const auto& i : o.fNeutrinos) {
     fNeutrinos.emplace_back(new TLorentzVector{*i});
   }
 
-  fBosons = std::vector<std::unique_ptr<TLorentzVector> >(o.fBosons.size());
+  fBosons = std::vector<std::unique_ptr<TLorentzVector> >{};
+  fBosons.reserve(o.fBosons.size());
   for (const auto& i : o.fBosons) {
     fBosons.emplace_back(new TLorentzVector{*i});
   }
 
-  fPhotons = std::vector<std::unique_ptr<TLorentzVector> >(o.fPhotons.size());
+  fPhotons = std::vector<std::unique_ptr<TLorentzVector> >{};
+  fPhotons.reserve(o.fPhotons.size());
   for (const auto& i : o.fPhotons) {
     fPhotons.emplace_back(new TLorentzVector{*i});
   }
