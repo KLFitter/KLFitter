@@ -53,30 +53,37 @@ KLFitter::Particles::Particles(const KLFitter::Particles& o) :
     fMuonCharge(std::vector<float>{o.fMuonCharge}) {
 
   // Make deep copies of the vectors of unique pointers.
+  fPartons.reserve(o.fPartons.size());
   for (const auto& i : o.fPartons) {
     fPartons.emplace_back(new TLorentzVector{*i});
   }
 
+  fElectrons.reserve(o.fElectrons.size());
   for (const auto& i : o.fElectrons) {
     fElectrons.emplace_back(new TLorentzVector{*i});
   }
 
+  fMuons.reserve(o.fMuons.size());
   for (const auto& i : o.fMuons) {
     fMuons.emplace_back(new TLorentzVector{*i});
   }
 
+  fTaus.reserve(o.fTaus.size());
   for (const auto& i : o.fTaus) {
     fTaus.emplace_back(new TLorentzVector{*i});
   }
 
+  fNeutrinos.reserve(o.fNeutrinos.size());
   for (const auto& i : o.fNeutrinos) {
     fNeutrinos.emplace_back(new TLorentzVector{*i});
   }
 
+  fBosons.reserve(o.fBosons.size());
   for (const auto& i : o.fBosons) {
     fBosons.emplace_back(new TLorentzVector{*i});
   }
 
+  fPhotons.reserve(o.fPhotons.size());
   for (const auto& i : o.fPhotons) {
     fPhotons.emplace_back(new TLorentzVector{*i});
   }
