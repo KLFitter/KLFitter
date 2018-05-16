@@ -71,21 +71,18 @@ class Fitter final {
     * @return A pointer to the particles.
     */
   KLFitter::Particles * Particles() { return fParticles; }
-  KLFitter::Particles ** PParticles() { return &fParticles; }
 
   /**
     * Return the permutation object.
     * @return A pointer to the permutation object.
     **/
   KLFitter::Permutations * Permutations() { return fPermutations; }
-  KLFitter::Permutations ** PPermutations() { return &fPermutations; }
 
   /**
     * Return the lieklihood .
     * @return A pointer to the likelihood object.
     **/
   KLFitter::LikelihoodBase * Likelihood() { return fLikelihood; }
-  KLFitter::LikelihoodBase ** PLikelihood() { return &fLikelihood; }
 
   /**
     * Return the Minuit status

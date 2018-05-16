@@ -53,9 +53,19 @@ class Permutations final {
   Permutations(KLFitter::Particles** p, KLFitter::Particles** pp);
 
   /**
-    * The default destructor.
+    * The (defaulted) copy constructor.
+    */
+  explicit Permutations(const Permutations& o);
+
+  /**
+    * The (defaulted) destructor.
     */
   ~Permutations();
+
+  /**
+    * The (defaulted) assignment operator.
+    */
+  Permutations& operator=(const Permutations& obj);
 
   /* @} */
   /** \name Member functions (Get)  */
@@ -77,12 +87,12 @@ class Permutations final {
     * Return the permutation table.
     * @return A pointer to the permutation table.
     */
-  std::vector<std::vector<int>* >* PermutationTable();
+  std::vector<std::vector<int> >* PermutationTable();
 
   /**
     * Return the number of permutations.
     */
-  int NPermutations() { return static_cast<int>(fParticlesTable -> size()); }
+  int NPermutations() { return static_cast<int>(fParticlesTable.size()); }
 
   /**
     * Return the current permutation index.
@@ -90,13 +100,13 @@ class Permutations final {
     */
   int PermutationIndex() { return fPermutationIndex; }
 
-  std::vector<std::vector<int>*>* TablePartons() { return fTablePartons; }
+  std::vector<std::vector<int> >* TablePartons() { return &fTablePartons; }
 
-  std::vector<std::vector<int>*>* TableElectrons() { return fTableElectrons; }
+  std::vector<std::vector<int> >* TableElectrons() { return &fTableElectrons; }
 
-  std::vector<std::vector<int>*>* TableMuons() { return fTableMuons; }
+  std::vector<std::vector<int> >* TableMuons() { return &fTableMuons; }
 
-  std::vector<std::vector<int>*>* TablePhotons() { return fTablePhotons; }
+  std::vector<std::vector<int> >* TablePhotons() { return &fTablePhotons; }
 
   /* @} */
   /** \name Member functions (Set)  */
@@ -171,7 +181,7 @@ class Permutations final {
   /**
     * Creates table of permutations.
     */
-  int CreateSubTable(int Nobj,  std::vector<std::vector<int>*>* table, int Nmax = -1);
+  int CreateSubTable(int Nobj, std::vector<std::vector<int> >* table, int Nmax = -1);
 
   /* @} */
 
@@ -183,7 +193,7 @@ class Permutations final {
 
  private:
   /**
-    * Helper functions to efficienctly create permutations of N particles of only M selected particles.
+    * Helper functions to efficiently create permutations of N particles of only M selected particles.
     */
 
   std::vector<int> Get_int_vector(int i);
@@ -203,22 +213,22 @@ class Permutations final {
   /**
     * A table of permuted particles (jets and leptons).
     */
-  std::vector <KLFitter::Particles*>* fParticlesTable;
+  std::vector<KLFitter::Particles> fParticlesTable;
 
   /**
     * A table of permutations. Needed for the math.
     */
-  std::vector < std::vector <int>*>* fPermutationTable;
+  std::vector<std::vector<int> > fPermutationTable;
 
   /**
     * The permutation index
     */
   int fPermutationIndex;
 
-  std::vector<std::vector<int>*>* fTablePartons;
-  std::vector<std::vector<int>*>* fTableElectrons;
-  std::vector<std::vector<int>*>* fTableMuons;
-  std::vector<std::vector<int>*>* fTablePhotons;
+  std::vector<std::vector<int> > fTablePartons;
+  std::vector<std::vector<int> > fTableElectrons;
+  std::vector<std::vector<int> > fTableMuons;
+  std::vector<std::vector<int> > fTablePhotons;
 };
 }  // namespace KLFitter
 

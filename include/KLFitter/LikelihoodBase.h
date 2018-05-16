@@ -163,13 +163,6 @@ class LikelihoodBase : public BCModel {
   int SetParticlesPermuted(KLFitter::Particles** particles);
 
   /**
-    * Set the truth particles.
-    * @param particles The truth particles.
-    * @return An error flag.
-    */
-  int SetMyParticlesTruth(KLFitter::Particles** particles);
-
-  /**
     * Set the values for the missing ET x and y components and the SumET.
     * @param etx missing ET x component.
     * @param ety missing ET y component.
@@ -478,11 +471,6 @@ class LikelihoodBase : public BCModel {
     * A pointer to the model particles.
     */
   std::unique_ptr<KLFitter::Particles> fParticlesModel;
-
-  /**
-    * A pointer to the measured particles.
-    */
-  KLFitter::Particles** fMyParticlesTruth;
 
   /**
     * A pointer to the table of physics constants

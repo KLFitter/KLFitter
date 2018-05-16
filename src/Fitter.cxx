@@ -84,9 +84,6 @@ int KLFitter::Fitter::SetParticles(KLFitter::Particles * particles, int nPartons
 int KLFitter::Fitter::SetMyParticlesTruth(KLFitter::Particles * particles) {
   fMyParticlesTruth = particles;
 
-  // set pointer to truth particles
-  fLikelihood->SetMyParticlesTruth(&fMyParticlesTruth);
-
   // no error
   return 1;
 }

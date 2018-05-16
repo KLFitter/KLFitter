@@ -24,11 +24,145 @@
 #include "TLorentzVector.h"
 
 // ---------------------------------------------------------
-KLFitter::Particles::Particles() {
+KLFitter::Particles::Particles() = default;
+
+// ---------------------------------------------------------
+KLFitter::Particles::Particles(const KLFitter::Particles& o) :
+    fNamePartons(std::vector<std::string>{o.fNamePartons}),
+    fNameElectrons(std::vector<std::string>{o.fNameElectrons}),
+    fNameMuons(std::vector<std::string>{o.fNameMuons}),
+    fNameTaus(std::vector<std::string>{o.fNameTaus}),
+    fNameNeutrinos(std::vector<std::string>{o.fNameNeutrinos}),
+    fNameBosons(std::vector<std::string>{o.fNameBosons}),
+    fNamePhotons(std::vector<std::string>{o.fNamePhotons}),
+    fJetIndex(std::vector<int>{o.fJetIndex}),
+    fElectronIndex(std::vector<int>{o.fElectronIndex}),
+    fMuonIndex(std::vector<int>{o.fMuonIndex}),
+    fPhotonIndex(std::vector<int>{o.fPhotonIndex}),
+    fTrueFlavor(std::vector<TrueFlavorType>{o.fTrueFlavor}),
+    fIsBTagged(std::vector<bool>{o.fIsBTagged}),
+    fBTaggingEfficiency(std::vector<double>{o.fBTaggingEfficiency}),
+    fBTaggingRejection(std::vector<double>{o.fBTaggingRejection}),
+    fBTagWeight(std::vector<double>{o.fBTagWeight}),
+    fBTagWeightSet(std::vector<bool>{o.fBTagWeightSet}),
+    fElectronDetEta(std::vector<double>{o.fElectronDetEta}),
+    fMuonDetEta(std::vector<double>{o.fMuonDetEta}),
+    fJetDetEta(std::vector<double>{o.fJetDetEta}),
+    fPhotonDetEta(std::vector<double>{o.fPhotonDetEta}),
+    fElectronCharge(std::vector<float>{o.fElectronCharge}),
+    fMuonCharge(std::vector<float>{o.fMuonCharge}) {
+
+  // Make deep copies of the vectors of unique pointers.
+  fPartons.reserve(o.fPartons.size());
+  for (const auto& i : o.fPartons) {
+    fPartons.emplace_back(new TLorentzVector{*i});
+  }
+
+  fElectrons.reserve(o.fElectrons.size());
+  for (const auto& i : o.fElectrons) {
+    fElectrons.emplace_back(new TLorentzVector{*i});
+  }
+
+  fMuons.reserve(o.fMuons.size());
+  for (const auto& i : o.fMuons) {
+    fMuons.emplace_back(new TLorentzVector{*i});
+  }
+
+  fTaus.reserve(o.fTaus.size());
+  for (const auto& i : o.fTaus) {
+    fTaus.emplace_back(new TLorentzVector{*i});
+  }
+
+  fNeutrinos.reserve(o.fNeutrinos.size());
+  for (const auto& i : o.fNeutrinos) {
+    fNeutrinos.emplace_back(new TLorentzVector{*i});
+  }
+
+  fBosons.reserve(o.fBosons.size());
+  for (const auto& i : o.fBosons) {
+    fBosons.emplace_back(new TLorentzVector{*i});
+  }
+
+  fPhotons.reserve(o.fPhotons.size());
+  for (const auto& i : o.fPhotons) {
+    fPhotons.emplace_back(new TLorentzVector{*i});
+  }
 }
 
 // ---------------------------------------------------------
-KLFitter::Particles::~Particles() {
+KLFitter::Particles::~Particles() = default;
+
+// ---------------------------------------------------------
+KLFitter::Particles& KLFitter::Particles::operator=(const KLFitter::Particles& o) {
+  fNamePartons = o.fNamePartons;
+  fNameElectrons = o.fNameElectrons;
+  fNameMuons = o.fNameMuons;
+  fNameTaus = o.fNameTaus;
+  fNameNeutrinos = o.fNameNeutrinos;
+  fNameBosons = o.fNameBosons;
+  fNamePhotons = o.fNamePhotons;
+
+  fJetIndex = o.fJetIndex;
+  fElectronIndex = o.fElectronIndex;
+  fMuonIndex = o.fMuonIndex;
+  fPhotonIndex = o.fPhotonIndex;
+  fTrueFlavor = o.fTrueFlavor;
+  fIsBTagged = o.fIsBTagged;
+  fBTaggingEfficiency = o.fBTaggingEfficiency;
+  fBTaggingRejection = o.fBTaggingRejection;
+  fBTagWeight = o.fBTagWeight;
+  fBTagWeightSet = o.fBTagWeightSet;
+  fElectronDetEta = o.fElectronDetEta;
+  fMuonDetEta = o.fMuonDetEta;
+  fJetDetEta = o.fJetDetEta;
+  fPhotonDetEta = o.fPhotonDetEta;
+  fElectronCharge = o.fElectronCharge;
+  fMuonCharge = o.fMuonCharge;
+
+  // Make deep copies of the vectors of unique pointers.
+  fPartons = std::vector<std::unique_ptr<TLorentzVector> >{};
+  fPartons.reserve(o.fPartons.size());
+  for (const auto& i : o.fPartons) {
+    fPartons.emplace_back(new TLorentzVector{*i});
+  }
+
+  fElectrons = std::vector<std::unique_ptr<TLorentzVector> >{};
+  fElectrons.reserve(o.fElectrons.size());
+  for (const auto& i : o.fElectrons) {
+    fElectrons.emplace_back(new TLorentzVector{*i});
+  }
+
+  fMuons = std::vector<std::unique_ptr<TLorentzVector> >{};
+  fMuons.reserve(o.fMuons.size());
+  for (const auto& i : o.fMuons) {
+    fMuons.emplace_back(new TLorentzVector{*i});
+  }
+
+  fTaus = std::vector<std::unique_ptr<TLorentzVector> >{};
+  fTaus.reserve(o.fTaus.size());
+  for (const auto& i : o.fTaus) {
+    fTaus.emplace_back(new TLorentzVector{*i});
+  }
+
+  fNeutrinos = std::vector<std::unique_ptr<TLorentzVector> >{};
+  fNeutrinos.reserve(o.fNeutrinos.size());
+  for (const auto& i : o.fNeutrinos) {
+    fNeutrinos.emplace_back(new TLorentzVector{*i});
+  }
+
+  fBosons = std::vector<std::unique_ptr<TLorentzVector> >{};
+  fBosons.reserve(o.fBosons.size());
+  for (const auto& i : o.fBosons) {
+    fBosons.emplace_back(new TLorentzVector{*i});
+  }
+
+  fPhotons = std::vector<std::unique_ptr<TLorentzVector> >{};
+  fPhotons.reserve(o.fPhotons.size());
+  for (const auto& i : o.fPhotons) {
+    fPhotons.emplace_back(new TLorentzVector{*i});
+  }
+
+  return *this;
 }
 
 // ---------------------------------------------------------
