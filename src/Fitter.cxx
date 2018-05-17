@@ -69,6 +69,12 @@ int KLFitter::Fitter::SetParticles(KLFitter::Particles * particles, int nPartons
   if (fLikelihood)
     fLikelihood->RemoveForbiddenParticlePermutations();
 
+  // check if any permutations are left
+  if (fPermutations->NPermutations() == 0) {
+    std::cout << "KLFitter::Fitter::SetParticles(). No permutations left to fit. Are you vetoing?" << std::endl;
+    return 0;
+  }
+
   // set first permutation
   if (!fPermutations->SetPermutation(0))
     return 0;
