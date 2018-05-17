@@ -42,12 +42,6 @@ KLFitter::Permutations& KLFitter::Permutations::operator=(const KLFitter::Permut
 
 // ---------------------------------------------------------
 int KLFitter::Permutations::SetPermutation(int index) {
-  // check if permutation table exists
-  if (fParticlesTable.empty()) {
-    std::cout << "KLFitter::Permutations::SetPermutation(). Table does not exist yet." << std::endl;
-    return 0;
-  }
-
   // check index
   if (index < 0 || index >= NPermutations()) {
     std::cout << "KLFitter::Permutations::SetPermutation(). Index out of range." << std::endl;
@@ -308,18 +302,6 @@ int KLFitter::Permutations::InvariantParticlePermutations(KLFitter::Particles::P
   for (; it_indexSetBegin != it_indexSetEnd; it_indexSetBegin++)
     indexVector.push_back(*it_indexSetBegin);
 
-  // check particles table
-  if (fParticlesTable.empty()) {
-    std::cout << "KLFitter::Permutations::InvariantParticlePermutations(). Table does not exist yet." << std::endl;
-    return 0;
-  }
-
-  // check permutation table
-  if (fPermutationTable.empty()) {
-    std::cout << "KLFitter::Permutations::InvariantParticlePermutations(). Table of parton permutations doesn ot exist." << std::endl;
-    return 0;
-  }
-
   // no error
   int err = 1;
 
@@ -415,18 +397,6 @@ int KLFitter::Permutations::InvariantParticleGroupPermutations(KLFitter::Particl
   for (; it_indexSetPosition1Begin != it_indexSetPosition1End; it_indexSetPosition1Begin++)
     indexVectorPosition1.push_back(*it_indexSetPosition1Begin);
 
-  // check particles table
-  if (fParticlesTable.empty()) {
-    std::cout << "KLFitter::Permutations::InvariantParticleGroupPermutations(). Table does not exist yet." << std::endl;
-    return 0;
-  }
-
-  // check permutation table
-  if (fPermutationTable.empty()) {
-    std::cout << "KLFitter::Permutations::InvariantParticleGroupPermutations(). Table of parton permutations doesn ot exist." << std::endl;
-    return 0;
-  }
-
   // no error
   int err = 1;
 
@@ -479,18 +449,6 @@ int KLFitter::Permutations::RemoveParticlePermutations(KLFitter::Particles::Part
   // check index
   if (index < 0 || index >= (*fParticles)->NParticles(ptype)) {
     std::cout << "KLFitter::Permutations::RemoveParticlePermutations(). Index out of range." << std::endl;
-    return 0;
-  }
-
-  // check particles table
-  if (fParticlesTable.empty()) {
-    std::cout << "KLFitter::Permutations::RemoveParticlePermutations(). Table does not exist yet." << std::endl;
-    return 0;
-  }
-
-  // check permutation table
-  if (fPermutationTable.empty()) {
-    std::cout << "KLFitter::Permutations::RemoveParticlePermutations(). Table of parton permutations does not exist." << std::endl;
     return 0;
   }
 
