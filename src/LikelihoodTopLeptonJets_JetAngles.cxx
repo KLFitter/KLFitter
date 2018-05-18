@@ -33,7 +33,8 @@
 #include "TMath.h"
 
 // ---------------------------------------------------------
-KLFitter::LikelihoodTopLeptonJets_JetAngles::LikelihoodTopLeptonJets_JetAngles() : KLFitter::LikelihoodBase::LikelihoodBase()
+KLFitter::LikelihoodTopLeptonJets_JetAngles::LikelihoodTopLeptonJets_JetAngles()
+  : KLFitter::LikelihoodBase::LikelihoodBase()
   , fFlagTopMassFixed(false)
   , fFlagGetParSigmasFromTFs(false)
   , ETmiss_x(0.)

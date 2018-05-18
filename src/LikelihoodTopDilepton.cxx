@@ -45,7 +45,8 @@ public:
 };
 
 // ---------------------------------------------------------
-KLFitter::LikelihoodTopDilepton::LikelihoodTopDilepton() : KLFitter::LikelihoodBase::LikelihoodBase()
+KLFitter::LikelihoodTopDilepton::LikelihoodTopDilepton()
+  : KLFitter::LikelihoodBase::LikelihoodBase()
   , fFlagTopMassFixed(false)
   , ETmiss_x(0.)
   , ETmiss_y(0.)

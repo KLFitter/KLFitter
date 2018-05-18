@@ -32,7 +32,8 @@
 #include "TLorentzVector.h"
 
 // ---------------------------------------------------------
-KLFitter::LikelihoodTopLeptonJets_Angular::LikelihoodTopLeptonJets_Angular() : KLFitter::LikelihoodBase::LikelihoodBase()
+KLFitter::LikelihoodTopLeptonJets_Angular::LikelihoodTopLeptonJets_Angular()
+  : KLFitter::LikelihoodBase::LikelihoodBase()
   , fFlagTopMassFixed(false)
   , ETmiss_x(0.)
   , ETmiss_y(0.)

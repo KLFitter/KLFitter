@@ -24,14 +24,14 @@
 #include "KLFitter/ResolutionBase.h"
 
 // ---------------------------------------------------------
-KLFitter::DetectorBase::DetectorBase(std::string folder) :
-  fResEnergyLightJet(0),
-  fResEnergyBJet(0),
-  fResEnergyGluonJet(0),
-  fResEnergyElectron(0),
-  fResEnergyMuon(0),
-  fResEnergyPhoton(0),
-  fResMissingET(0) {
+KLFitter::DetectorBase::DetectorBase(std::string folder)
+  : fResEnergyLightJet(0)
+  , fResEnergyBJet(0)
+  , fResEnergyGluonJet(0)
+  , fResEnergyElectron(0)
+  , fResEnergyMuon(0)
+  , fResEnergyPhoton(0)
+  , fResMissingET(0) {
 }
 
 // ---------------------------------------------------------
