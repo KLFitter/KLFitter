@@ -55,7 +55,7 @@ class LikelihoodTopLeptonJets_JetAngles : public KLFitter::LikelihoodBase {
   LikelihoodTopLeptonJets_JetAngles();
 
   /**
-    * The default destructor.
+    * The (defaulted) destructor.
     */
   ~LikelihoodTopLeptonJets_JetAngles();
 

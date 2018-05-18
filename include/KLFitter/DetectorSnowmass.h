@@ -50,7 +50,7 @@ class DetectorSnowmass : public DetectorBase {
   explicit DetectorSnowmass(std::string folder = "");
 
   /**
-    * The default destructor.
+    * The (defaulted) destructor.
     */
   ~DetectorSnowmass();
 

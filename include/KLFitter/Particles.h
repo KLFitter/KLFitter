@@ -70,7 +70,7 @@ class Particles final {
   explicit Particles(const Particles& o);
 
   /**
-    * The default destructor.
+    * The (defaulted) destructor.
     */
   ~Particles();
 

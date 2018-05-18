@@ -127,8 +127,7 @@ KLFitter::DetectorAtlas_8TeV::DetectorAtlas_8TeV(std::string folder) : DetectorB
 }
 
 // ---------------------------------------------------------
-KLFitter::DetectorAtlas_8TeV::~DetectorAtlas_8TeV() {
-}
+KLFitter::DetectorAtlas_8TeV::~DetectorAtlas_8TeV() = default;
 
 // ---------------------------------------------------------
 KLFitter::ResolutionBase * KLFitter::DetectorAtlas_8TeV::ResEnergyLightJet(double eta) {

@@ -24,10 +24,10 @@
 #include <set>
 
 // ---------------------------------------------------------
-KLFitter::Permutations::Permutations(KLFitter::Particles ** p, KLFitter::Particles ** pp) :
-    fParticles(p),
-    fParticlesPermuted(pp),
-    fPermutationIndex(-1) {
+KLFitter::Permutations::Permutations(KLFitter::Particles ** p, KLFitter::Particles ** pp)
+  : fParticles(p)
+  , fParticlesPermuted(pp)
+  , fPermutationIndex(-1) {
   // empty
 }
 

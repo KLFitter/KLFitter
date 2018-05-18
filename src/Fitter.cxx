@@ -28,20 +28,20 @@
 #include "KLFitter/Permutations.h"
 
 // ---------------------------------------------------------
-KLFitter::Fitter::Fitter() :
-    fDetector(nullptr),
-    fParticles(nullptr),
-    ETmiss_x(0.),
-    ETmiss_y(0.),
-    SumET(0.),
-    fParticlesPermuted(nullptr),
-    fMyParticlesTruth(nullptr),
-    fLikelihood(nullptr),
-    fPermutations(std::unique_ptr<KLFitter::Permutations>(new KLFitter::Permutations{&fParticles, &fParticlesPermuted})),
-    fMinuitStatus(0),
-    fConvergenceStatus(0),
-    fTurnOffSA(false),
-    fMinimizationMethod(kMinuit) {
+KLFitter::Fitter::Fitter()
+  : fDetector(nullptr)
+  , fParticles(nullptr)
+  , ETmiss_x(0.)
+  , ETmiss_y(0.)
+  , SumET(0.)
+  , fParticlesPermuted(nullptr)
+  , fMyParticlesTruth(nullptr)
+  , fLikelihood(nullptr)
+  , fPermutations(std::unique_ptr<KLFitter::Permutations>(new KLFitter::Permutations{&fParticles, &fParticlesPermuted}))
+  , fMinuitStatus(0)
+  , fConvergenceStatus(0)
+  , fTurnOffSA(false)
+  , fMinimizationMethod(kMinuit) {
   // empty
 }
 

@@ -61,7 +61,7 @@ class DetectorBase {
   explicit DetectorBase(std::string folder = "");
 
   /**
-    * The default destructor.
+    * The (defaulted) destructor.
     */
   virtual ~DetectorBase();
 

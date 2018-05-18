@@ -45,7 +45,8 @@ public:
 };
 
 // ---------------------------------------------------------
-KLFitter::LikelihoodTopDilepton::LikelihoodTopDilepton() : KLFitter::LikelihoodBase::LikelihoodBase()
+KLFitter::LikelihoodTopDilepton::LikelihoodTopDilepton()
+  : KLFitter::LikelihoodBase::LikelihoodBase()
   , fFlagTopMassFixed(false)
   , ETmiss_x(0.)
   , ETmiss_y(0.)
@@ -69,8 +70,7 @@ KLFitter::LikelihoodTopDilepton::LikelihoodTopDilepton() : KLFitter::LikelihoodB
 }
 
 // ---------------------------------------------------------
-KLFitter::LikelihoodTopDilepton::~LikelihoodTopDilepton() {
-}
+KLFitter::LikelihoodTopDilepton::~LikelihoodTopDilepton() = default;
 
 // ---------------------------------------------------------
 int KLFitter::LikelihoodTopDilepton::SetET_miss_XY_SumET(double etx, double ety, double sumet) {

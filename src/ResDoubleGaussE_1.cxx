@@ -29,9 +29,7 @@ KLFitter::ResDoubleGaussE_1::ResDoubleGaussE_1(const char * filename) : KLFitter
 KLFitter::ResDoubleGaussE_1::ResDoubleGaussE_1(std::vector<double> const& parameters) : KLFitter::ResDoubleGaussBase(parameters) { }
 
 // ---------------------------------------------------------
-KLFitter::ResDoubleGaussE_1::~ResDoubleGaussE_1() {
-  // empty destructor
-}
+KLFitter::ResDoubleGaussE_1::~ResDoubleGaussE_1() = default;
 
 // ---------------------------------------------------------
 double KLFitter::ResDoubleGaussE_1::GetMean1(double x) {

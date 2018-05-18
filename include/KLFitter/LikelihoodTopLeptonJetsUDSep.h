@@ -65,7 +65,7 @@ class LikelihoodTopLeptonJetsUDSep : public KLFitter::LikelihoodTopLeptonJets {
   LikelihoodTopLeptonJetsUDSep();
 
   /**
-    * The default destructor.
+    * The (defaulted) destructor.
     */
   ~LikelihoodTopLeptonJetsUDSep();
 

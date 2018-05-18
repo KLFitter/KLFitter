@@ -29,9 +29,7 @@ KLFitter::ResDoubleGaussPt::ResDoubleGaussPt(const char * filename) : KLFitter::
 KLFitter::ResDoubleGaussPt::ResDoubleGaussPt(std::vector<double> const& parameters) : KLFitter::ResDoubleGaussBase(parameters) { }
 
 // ---------------------------------------------------------
-KLFitter::ResDoubleGaussPt::~ResDoubleGaussPt() {
-  // empty destructor
-}
+KLFitter::ResDoubleGaussPt::~ResDoubleGaussPt() = default;
 
 // ---------------------------------------------------------
 double KLFitter::ResDoubleGaussPt::GetMean1(double x) {

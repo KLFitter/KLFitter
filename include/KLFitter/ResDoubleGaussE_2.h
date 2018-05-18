@@ -56,7 +56,7 @@ class ResDoubleGaussE_2 : public ResDoubleGaussBase {
   explicit ResDoubleGaussE_2(std::vector<double> const& parameters);
 
   /**
-    * The default destructor.
+    * The (defaulted) destructor.
     */
   ~ResDoubleGaussE_2();
 
