@@ -133,7 +133,7 @@ int KLFitter::LikelihoodBase::SetParticlesPermuted(KLFitter::Particles** particl
 }
 
 // ---------------------------------------------------------
-int KLFitter::LikelihoodBase::SetPermutations(KLFitter::Permutations** permutations) {
+int KLFitter::LikelihoodBase::SetPermutations(std::unique_ptr<KLFitter::Permutations>* permutations) {
   // error code
   int err = 1;
 
