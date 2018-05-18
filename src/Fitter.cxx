@@ -37,7 +37,7 @@ KLFitter::Fitter::Fitter() {
   SumET = 0.;
   fParticlesPermuted = 0;
   fMyParticlesTruth = 0;
-  fPermutations = new KLFitter::Permutations(&fParticles, &fParticlesPermuted);
+  fPermutations = std::unique_ptr<KLFitter::Permutations>(new KLFitter::Permutations{&fParticles, &fParticlesPermuted});
   fMinuitStatus = 0;
   fConvergenceStatus = 0;
   fTurnOffSA = false;
@@ -46,8 +46,6 @@ KLFitter::Fitter::Fitter() {
 
 // ---------------------------------------------------------
 KLFitter::Fitter::~Fitter() {
-  if (fPermutations)
-    delete fPermutations;
 }
 
 // ---------------------------------------------------------

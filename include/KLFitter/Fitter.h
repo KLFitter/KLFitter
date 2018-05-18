@@ -20,6 +20,7 @@
 #ifndef KLFITTER_FITTER_H_
 #define KLFITTER_FITTER_H_
 
+#include <memory>
 #include <vector>
 
 // ---------------------------------------------------------
@@ -76,7 +77,7 @@ class Fitter final {
     * Return the permutation object.
     * @return A pointer to the permutation object.
     **/
-  KLFitter::Permutations * Permutations() { return fPermutations; }
+  KLFitter::Permutations * Permutations() { return fPermutations.get(); }
 
   /**
     * Return the lieklihood .
@@ -252,7 +253,7 @@ class Fitter final {
   /**
     * A pointer to the permutation object.
     */
-  KLFitter::Permutations * fPermutations;
+  std::unique_ptr<KLFitter::Permutations> fPermutations;
 
   /**
     * The TMinuit status
