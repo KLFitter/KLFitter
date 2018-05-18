@@ -57,7 +57,7 @@ class ResDoubleGaussBase : public ResolutionBase {
   explicit ResDoubleGaussBase(std::vector<double> const& parameters);
 
   /**
-    * The default destructor.
+    * The (defaulted) destructor.
     */
   virtual ~ResDoubleGaussBase();
 

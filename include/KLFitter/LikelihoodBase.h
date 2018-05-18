@@ -177,7 +177,7 @@ class LikelihoodBase : public BCModel {
     * @param permutations The permutation object.
     * @return An error flag.
     */
-  int SetPermutations(KLFitter::Permutations ** permutations);
+  int SetPermutations(std::unique_ptr<KLFitter::Permutations>* permutations);
 
   /**
     * Set the range of a model parameter.
@@ -466,7 +466,7 @@ class LikelihoodBase : public BCModel {
   /**
     * A pointer to the permutation object.
     */
-  KLFitter::Permutations** fPermutations;
+  std::unique_ptr<KLFitter::Permutations>* fPermutations;
 
   /**
     * A pointer to the model particles.

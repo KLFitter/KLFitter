@@ -34,8 +34,9 @@
 #include "TLorentzVector.h"
 
 // ---------------------------------------------------------
-KLFitter::LikelihoodTopLeptonJetsUDSep::LikelihoodTopLeptonJetsUDSep() : KLFitter::LikelihoodTopLeptonJets::LikelihoodTopLeptonJets(),
-  fLJetSeparationMethod(KLFitter::LikelihoodTopLeptonJetsUDSep::kNone) {
+KLFitter::LikelihoodTopLeptonJetsUDSep::LikelihoodTopLeptonJetsUDSep()
+  : KLFitter::LikelihoodTopLeptonJets::LikelihoodTopLeptonJets()
+  , fLJetSeparationMethod(KLFitter::LikelihoodTopLeptonJetsUDSep::kNone) {
   // define model particles
   this->DefineModelParticles();
 
@@ -44,8 +45,7 @@ KLFitter::LikelihoodTopLeptonJetsUDSep::LikelihoodTopLeptonJetsUDSep() : KLFitte
   }
 
 // ---------------------------------------------------------
-KLFitter::LikelihoodTopLeptonJetsUDSep::~LikelihoodTopLeptonJetsUDSep() {
-}
+KLFitter::LikelihoodTopLeptonJetsUDSep::~LikelihoodTopLeptonJetsUDSep() = default;
 
 // ---------------------------------------------------------
 int KLFitter::LikelihoodTopLeptonJetsUDSep::DefineModelParticles() {

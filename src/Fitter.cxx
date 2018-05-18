@@ -28,27 +28,25 @@
 #include "KLFitter/Permutations.h"
 
 // ---------------------------------------------------------
-KLFitter::Fitter::Fitter() {
-  fDetector = 0;
-  fLikelihood = 0;
-  fParticles = 0;
-  ETmiss_x = 0.;
-  ETmiss_y = 0.;
-  SumET = 0.;
-  fParticlesPermuted = 0;
-  fMyParticlesTruth = 0;
-  fPermutations = new KLFitter::Permutations(&fParticles, &fParticlesPermuted);
-  fMinuitStatus = 0;
-  fConvergenceStatus = 0;
-  fTurnOffSA = false;
-  fMinimizationMethod = kMinuit;
+KLFitter::Fitter::Fitter()
+  : fDetector(nullptr)
+  , fParticles(nullptr)
+  , ETmiss_x(0.)
+  , ETmiss_y(0.)
+  , SumET(0.)
+  , fParticlesPermuted(nullptr)
+  , fMyParticlesTruth(nullptr)
+  , fLikelihood(nullptr)
+  , fPermutations(std::unique_ptr<KLFitter::Permutations>(new KLFitter::Permutations{&fParticles, &fParticlesPermuted}))
+  , fMinuitStatus(0)
+  , fConvergenceStatus(0)
+  , fTurnOffSA(false)
+  , fMinimizationMethod(kMinuit) {
+  // empty
 }
 
 // ---------------------------------------------------------
-KLFitter::Fitter::~Fitter() {
-  if (fPermutations)
-    delete fPermutations;
-}
+KLFitter::Fitter::~Fitter() = default;
 
 // ---------------------------------------------------------
 int KLFitter::Fitter::SetParticles(KLFitter::Particles * particles, int nPartonsInPermutations) {
@@ -68,6 +66,12 @@ int KLFitter::Fitter::SetParticles(KLFitter::Particles * particles, int nPartons
   // remove forbidden permutations
   if (fLikelihood)
     fLikelihood->RemoveForbiddenParticlePermutations();
+
+  // check if any permutations are left
+  if (fPermutations->NPermutations() == 0) {
+    std::cout << "KLFitter::Fitter::SetParticles(). No permutations left to fit. Are you vetoing?" << std::endl;
+    return 0;
+  }
 
   // set first permutation
   if (!fPermutations->SetPermutation(0))

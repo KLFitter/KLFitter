@@ -33,7 +33,8 @@
 #include "TLorentzVector.h"
 
 // ---------------------------------------------------------
-KLFitter::LikelihoodTopAllHadronic::LikelihoodTopAllHadronic() : KLFitter::LikelihoodBase::LikelihoodBase()
+KLFitter::LikelihoodTopAllHadronic::LikelihoodTopAllHadronic()
+  : KLFitter::LikelihoodBase::LikelihoodBase()
   , fFlagTopMassFixed(false)
   , fFlagGetParSigmasFromTFs(false) {
   // define model particles
@@ -44,8 +45,7 @@ KLFitter::LikelihoodTopAllHadronic::LikelihoodTopAllHadronic() : KLFitter::Likel
 }
 
 // ---------------------------------------------------------
-KLFitter::LikelihoodTopAllHadronic::~LikelihoodTopAllHadronic() {
-}
+KLFitter::LikelihoodTopAllHadronic::~LikelihoodTopAllHadronic() = default;
 
 // ---------------------------------------------------------
 int KLFitter::LikelihoodTopAllHadronic::DefineModelParticles() {

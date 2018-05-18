@@ -32,7 +32,8 @@
 #include "TLorentzVector.h"
 
 // ---------------------------------------------------------
-KLFitter::BoostedLikelihoodTopLeptonJets::BoostedLikelihoodTopLeptonJets() : KLFitter::LikelihoodBase::LikelihoodBase()
+KLFitter::BoostedLikelihoodTopLeptonJets::BoostedLikelihoodTopLeptonJets()
+  : KLFitter::LikelihoodBase::LikelihoodBase()
   , fFlagTopMassFixed(false)
   , fFlagGetParSigmasFromTFs(false)
   , ETmiss_x(0.)
@@ -47,8 +48,7 @@ KLFitter::BoostedLikelihoodTopLeptonJets::BoostedLikelihoodTopLeptonJets() : KLF
 }
 
 // ---------------------------------------------------------
-KLFitter::BoostedLikelihoodTopLeptonJets::~BoostedLikelihoodTopLeptonJets() {
-}
+KLFitter::BoostedLikelihoodTopLeptonJets::~BoostedLikelihoodTopLeptonJets() = default;
 
 // ---------------------------------------------------------
 int KLFitter::BoostedLikelihoodTopLeptonJets::SetET_miss_XY_SumET(double etx, double ety, double sumet) {

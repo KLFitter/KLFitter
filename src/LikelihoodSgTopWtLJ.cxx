@@ -32,7 +32,8 @@
 #include "TLorentzVector.h"
 
 // ---------------------------------------------------------
-KLFitter::LikelihoodSgTopWtLJ::LikelihoodSgTopWtLJ(): KLFitter::LikelihoodBase::LikelihoodBase()
+KLFitter::LikelihoodSgTopWtLJ::LikelihoodSgTopWtLJ()
+  : KLFitter::LikelihoodBase::LikelihoodBase()
   , fHadronicTop(true)
   , ETmiss_x(0.)
   , ETmiss_y(0.)
@@ -46,8 +47,7 @@ KLFitter::LikelihoodSgTopWtLJ::LikelihoodSgTopWtLJ(): KLFitter::LikelihoodBase::
 }
 
 // ---------------------------------------------------------
-KLFitter::LikelihoodSgTopWtLJ::~LikelihoodSgTopWtLJ() {
-}
+KLFitter::LikelihoodSgTopWtLJ::~LikelihoodSgTopWtLJ() = default;
 
 // ---------------------------------------------------------
 TLorentzVector* KLFitter::LikelihoodSgTopWtLJ::GetLepton(KLFitter::Particles* particles) {

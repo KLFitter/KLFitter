@@ -46,9 +46,7 @@ KLFitter::ResolutionBase::ResolutionBase(std::vector <double> parameters) {
 }
 
 // ---------------------------------------------------------
-KLFitter::ResolutionBase::~ResolutionBase() {
-  fParameters.clear();
-}
+KLFitter::ResolutionBase::~ResolutionBase() = default;
 
 // ---------------------------------------------------------
 int KLFitter::ResolutionBase::Par(int index, double *par) {

@@ -65,8 +65,7 @@ KLFitter::DetectorSnowmass::DetectorSnowmass(std::string folder) : DetectorBase(
 }
 
 // ---------------------------------------------------------
-KLFitter::DetectorSnowmass::~DetectorSnowmass() {
-}
+KLFitter::DetectorSnowmass::~DetectorSnowmass() = default;
 
 // ---------------------------------------------------------
 KLFitter::ResolutionBase * KLFitter::DetectorSnowmass::ResEnergyLightJet(double eta) {

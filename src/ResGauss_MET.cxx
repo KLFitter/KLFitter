@@ -39,8 +39,7 @@ KLFitter::ResGauss_MET::ResGauss_MET(std::vector<double> const& parameters) :KLF
 }
 
 // ---------------------------------------------------------
-KLFitter::ResGauss_MET::~ResGauss_MET() {
-}
+KLFitter::ResGauss_MET::~ResGauss_MET() = default;
 
 // ---------------------------------------------------------
 double KLFitter::ResGauss_MET::GetSigma(double sumet) {

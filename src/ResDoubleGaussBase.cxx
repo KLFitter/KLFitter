@@ -38,9 +38,7 @@ KLFitter::ResDoubleGaussBase::ResDoubleGaussBase(std::vector<double> const& para
 }
 
 // ---------------------------------------------------------
-KLFitter::ResDoubleGaussBase::~ResDoubleGaussBase() {
-  // empty destructor
-}
+KLFitter::ResDoubleGaussBase::~ResDoubleGaussBase() = default;
 
 // ---------------------------------------------------------
 double KLFitter::ResDoubleGaussBase::GetSigma(double xmeas) {

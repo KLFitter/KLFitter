@@ -32,7 +32,8 @@
 #include "TLorentzVector.h"
 
 // ---------------------------------------------------------
-KLFitter::LikelihoodTTZTrilepton::LikelihoodTTZTrilepton() : KLFitter::LikelihoodBase::LikelihoodBase()
+KLFitter::LikelihoodTTZTrilepton::LikelihoodTTZTrilepton()
+  : KLFitter::LikelihoodBase::LikelihoodBase()
   , fFlagTopMassFixed(false)
   , fFlagGetParSigmasFromTFs(false)
   , ETmiss_x(0.)
@@ -49,8 +50,7 @@ KLFitter::LikelihoodTTZTrilepton::LikelihoodTTZTrilepton() : KLFitter::Likelihoo
 }
 
 // ---------------------------------------------------------
-KLFitter::LikelihoodTTZTrilepton::~LikelihoodTTZTrilepton() {
-}
+KLFitter::LikelihoodTTZTrilepton::~LikelihoodTTZTrilepton() = default;
 
 // ---------------------------------------------------------
 int KLFitter::LikelihoodTTZTrilepton::SetET_miss_XY_SumET(double etx, double ety, double sumet) {

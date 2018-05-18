@@ -61,7 +61,7 @@ class ResGaussE : public ResolutionBase {
   explicit ResGaussE(std::vector<double> const& parameters);
 
   /**
-    * The default destructor.
+    * The (defaulted) destructor.
     */
   ~ResGaussE();
 

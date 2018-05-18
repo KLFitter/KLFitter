@@ -56,7 +56,7 @@ class ResGauss_MET : public ResolutionBase {
   explicit ResGauss_MET(std::vector<double> const& parameters);
 
   /**
-    * The default destructor.
+    * The (defaulted) destructor.
     */
   ~ResGauss_MET();
 

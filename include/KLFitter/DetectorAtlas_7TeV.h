@@ -50,7 +50,7 @@ class DetectorAtlas_7TeV : public DetectorBase {
   explicit DetectorAtlas_7TeV(std::string folder = "");
 
   /**
-    * The default destructor.
+    * The (defaulted) destructor.
     */
   ~DetectorAtlas_7TeV();
 

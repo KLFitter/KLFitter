@@ -31,16 +31,17 @@
 #include "TRandom3.h"
 
 // ---------------------------------------------------------
-KLFitter::LikelihoodBase::LikelihoodBase(Particles** particles) : BCModel(),
-                                                                  fParticlesPermuted(particles),
-                                                                  fPermutations(0),
-                                                                  fDetector(0),
-                                                                  fEventProbability(std::vector<double>(0)),
-                                                                  fFlagIntegrate(0),
-                                                                  fFlagIsNan(false),
-                                                                  fFlagUseJetMass(false),
-                                                                  fTFgood(true),
-                                                                  fBTagMethod(kNotag) {
+KLFitter::LikelihoodBase::LikelihoodBase(Particles** particles)
+  : BCModel()
+  , fParticlesPermuted(particles)
+  , fPermutations(0)
+  , fDetector(0)
+  , fEventProbability(std::vector<double>(0))
+  , fFlagIntegrate(0)
+  , fFlagIsNan(false)
+  , fFlagUseJetMass(false)
+  , fTFgood(true)
+  , fBTagMethod(kNotag) {
   BCLog::SetLogLevel(BCLog::nothing);
   MCMCSetRandomSeed(123456789);
 }
@@ -133,7 +134,7 @@ int KLFitter::LikelihoodBase::SetParticlesPermuted(KLFitter::Particles** particl
 }
 
 // ---------------------------------------------------------
-int KLFitter::LikelihoodBase::SetPermutations(KLFitter::Permutations** permutations) {
+int KLFitter::LikelihoodBase::SetPermutations(std::unique_ptr<KLFitter::Permutations>* permutations) {
   // error code
   int err = 1;
 
