@@ -44,8 +44,7 @@ KLFitter::LikelihoodTopLeptonJetsUDSep::LikelihoodTopLeptonJetsUDSep() : KLFitte
   }
 
 // ---------------------------------------------------------
-KLFitter::LikelihoodTopLeptonJetsUDSep::~LikelihoodTopLeptonJetsUDSep() {
-}
+KLFitter::LikelihoodTopLeptonJetsUDSep::~LikelihoodTopLeptonJetsUDSep() = default;
 
 // ---------------------------------------------------------
 int KLFitter::LikelihoodTopLeptonJetsUDSep::DefineModelParticles() {

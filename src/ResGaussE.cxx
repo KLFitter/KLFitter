@@ -36,8 +36,7 @@ KLFitter::ResGaussE::ResGaussE(std::vector<double> const& parameters) :KLFitter:
   }
 }
 // ---------------------------------------------------------1
-KLFitter::ResGaussE::~ResGaussE() {
-}
+KLFitter::ResGaussE::~ResGaussE() = default;
 
 // ---------------------------------------------------------
 double KLFitter::ResGaussE::GetSigma(double x) {

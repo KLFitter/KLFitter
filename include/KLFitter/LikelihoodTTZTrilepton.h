@@ -54,7 +54,7 @@ class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
   LikelihoodTTZTrilepton();
 
   /**
-    * The default destructor.
+    * The (defaulted) destructor.
     */
   ~LikelihoodTTZTrilepton();
 

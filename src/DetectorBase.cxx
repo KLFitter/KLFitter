@@ -35,8 +35,7 @@ KLFitter::DetectorBase::DetectorBase(std::string folder) :
 }
 
 // ---------------------------------------------------------
-KLFitter::DetectorBase::~DetectorBase() {
-}
+KLFitter::DetectorBase::~DetectorBase() = default;
 
 // ---------------------------------------------------------
 int KLFitter::DetectorBase::SetResEnergyBJet(KLFitter::ResolutionBase * res) {

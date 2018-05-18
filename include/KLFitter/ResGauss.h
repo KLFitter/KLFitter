@@ -54,7 +54,7 @@ class ResGauss : public ResolutionBase {
   explicit ResGauss(double sigma);
 
   /**
-    * The default destructor.
+    * The (defaulted) destructor.
     */
   ~ResGauss();
 

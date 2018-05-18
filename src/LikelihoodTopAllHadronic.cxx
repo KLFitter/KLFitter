@@ -44,8 +44,7 @@ KLFitter::LikelihoodTopAllHadronic::LikelihoodTopAllHadronic() : KLFitter::Likel
 }
 
 // ---------------------------------------------------------
-KLFitter::LikelihoodTopAllHadronic::~LikelihoodTopAllHadronic() {
-}
+KLFitter::LikelihoodTopAllHadronic::~LikelihoodTopAllHadronic() = default;
 
 // ---------------------------------------------------------
 int KLFitter::LikelihoodTopAllHadronic::DefineModelParticles() {

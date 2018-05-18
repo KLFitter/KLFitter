@@ -54,7 +54,7 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
   LikelihoodSgTopWtLJ();
 
   /**
-    * The default destructor.
+    * The (defaulted) destructor.
     */
   ~LikelihoodSgTopWtLJ();
 

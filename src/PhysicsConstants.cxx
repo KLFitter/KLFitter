@@ -39,8 +39,7 @@ KLFitter::PhysicsConstants::PhysicsConstants() {
 }
 
 // ---------------------------------------------------------
-KLFitter::PhysicsConstants::~PhysicsConstants() {
-}
+KLFitter::PhysicsConstants::~PhysicsConstants() = default;
 
 // ---------------------------------------------------------
 int KLFitter::PhysicsConstants::SetMassBottom(double mass) {

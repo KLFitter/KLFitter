@@ -46,8 +46,7 @@ KLFitter::LikelihoodSgTopWtLJ::LikelihoodSgTopWtLJ(): KLFitter::LikelihoodBase::
 }
 
 // ---------------------------------------------------------
-KLFitter::LikelihoodSgTopWtLJ::~LikelihoodSgTopWtLJ() {
-}
+KLFitter::LikelihoodSgTopWtLJ::~LikelihoodSgTopWtLJ() = default;
 
 // ---------------------------------------------------------
 TLorentzVector* KLFitter::LikelihoodSgTopWtLJ::GetLepton(KLFitter::Particles* particles) {

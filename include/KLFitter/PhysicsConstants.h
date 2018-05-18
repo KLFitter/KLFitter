@@ -44,7 +44,7 @@ class PhysicsConstants final {
   PhysicsConstants();
 
   /**
-    * The default destructor.
+    * The (defaulted) destructor.
     */
   ~PhysicsConstants();
 

@@ -55,7 +55,7 @@ class LikelihoodTopLeptonJets_Angular : public KLFitter::LikelihoodBase {
   LikelihoodTopLeptonJets_Angular();
 
   /**
-    * The default destructor.
+    * The (defaulted) destructor.
     */
   ~LikelihoodTopLeptonJets_Angular();
 

@@ -46,8 +46,7 @@ KLFitter::LikelihoodTopLeptonJets_Angular::LikelihoodTopLeptonJets_Angular() : K
 }
 
 // ---------------------------------------------------------
-KLFitter::LikelihoodTopLeptonJets_Angular::~LikelihoodTopLeptonJets_Angular() {
-}
+KLFitter::LikelihoodTopLeptonJets_Angular::~LikelihoodTopLeptonJets_Angular() = default;
 
 // ---------------------------------------------------------
 int KLFitter::LikelihoodTopLeptonJets_Angular::SetET_miss_XY_SumET(double etx, double ety, double sumet) {

@@ -53,7 +53,7 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
   LikelihoodTopAllHadronic();
 
   /**
-    * The default destructor.
+    * The (defaulted) destructor.
     */
   ~LikelihoodTopAllHadronic();
 

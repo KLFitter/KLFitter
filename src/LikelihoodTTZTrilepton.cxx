@@ -49,8 +49,7 @@ KLFitter::LikelihoodTTZTrilepton::LikelihoodTTZTrilepton() : KLFitter::Likelihoo
 }
 
 // ---------------------------------------------------------
-KLFitter::LikelihoodTTZTrilepton::~LikelihoodTTZTrilepton() {
-}
+KLFitter::LikelihoodTTZTrilepton::~LikelihoodTTZTrilepton() = default;
 
 // ---------------------------------------------------------
 int KLFitter::LikelihoodTTZTrilepton::SetET_miss_XY_SumET(double etx, double ety, double sumet) {
