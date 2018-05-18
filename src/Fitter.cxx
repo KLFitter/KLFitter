@@ -46,8 +46,7 @@ KLFitter::Fitter::Fitter() :
 }
 
 // ---------------------------------------------------------
-KLFitter::Fitter::~Fitter() {
-}
+KLFitter::Fitter::~Fitter() = default;
 
 // ---------------------------------------------------------
 int KLFitter::Fitter::SetParticles(KLFitter::Particles * particles, int nPartonsInPermutations) {

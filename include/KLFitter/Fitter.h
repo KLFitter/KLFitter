@@ -53,7 +53,7 @@ class Fitter final {
   Fitter();
 
   /**
-    * The default destructor.
+    * The (defaulted) destructor.
     */
   ~Fitter();
 
