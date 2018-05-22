@@ -24,7 +24,7 @@ README, the cmake command will store the executable in the `bin` subdirectory.
 Then call
 
 ```sh
-> ./bin/example-top-ljets.exe ../
+./bin/example-top-ljets.exe ../
 ```
 
 The location of the KLFitter source directory is needed to locate the input file

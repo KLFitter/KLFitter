@@ -371,13 +371,13 @@ int KLFitter::LikelihoodBase::RemoveForbiddenParticlePermutations() {
   KLFitter::Particles * particles = (*fPermutations)->Particles();
   int nPartons = particles->NPartons();
 
+  // When using kVetoHybridNoFit, copy the Permutations object and try to run
+  // with the kVetoNoFit option. If all permutations are vetoed, use the backup
+  // Permutations object and run with the kVetoNoFitLight option.
   int nPartonsModel = fParticlesModel->NPartons();
-  //When using kVetoHybridNoFit copy the Permutations object and try to run with kVetoNoFit option
-  //if there are no allowed permutations left then use the backup Permutations object and run with
-  //kVetoNoFitLight option - this will never fail
   if (fBTagMethod == kVetoHybridNoFit) {
     KLFitter::Permutations permutationsCopy(**fPermutations);
-    for (int iParton(0); iParton < nPartons; ++iParton){
+    for (int iParton(0); iParton < nPartons; ++iParton) {
       bool isBtagged = particles->IsBTagged(iParton);
 
       for (int iPartonModel(0); iPartonModel < nPartonsModel; ++iPartonModel) {

@@ -34,8 +34,8 @@ binary. To tell cmake to use the latter one, you can export the compiler
 location:
 
 ```sh
-> export CXX=`which c++`
-> export CC=`which gcc`
+export CXX=`which c++`
+export CC=`which gcc`
 ```
 
 ## Questions/problems with the implementation
