@@ -45,14 +45,14 @@ be found under
 the source code, you can use the git clone command:
 
 ```sh
-> git clone https://github.com/KLFitter/KLFitter.git
+git clone https://github.com/KLFitter/KLFitter.git
 ```
 
 and, for checking out a specific release, use the git checkout procedure:
 
 ```sh
-> cd KLFitter
-> git checkout $VERSION_TAG
+cd KLFitter
+git checkout $VERSION_TAG
 ```
 
 Before KLFitter was made public, it was maintained in non-public SVN
@@ -70,9 +70,9 @@ cmake build process. For doing so, change into the KLFitter directory and then
 do:
 
 ```sh
-> mkdir build && cd build
-> cmake -DBUILTIN_BAT=TRUE ..
-> make -j
+mkdir build && cd build
+cmake -DBUILTIN_BAT=TRUE ..
+make -j
 ```
 
 This will build both BAT and KLFitter in the _build_ sub-folder of the KLFitter
@@ -85,9 +85,9 @@ local version of BAT, the `-DBUILTIN_BAT` flag of the cmake command can be
 omitted, i.e. the KLFitter build procedure becomes:
 
 ```sh
-> mkdir build && cd build
-> cmake ..
-> make -j
+mkdir build && cd build
+cmake ..
+make -j
 ```
 
 For problems with the cmake configuration, please also refer to the [Frequently
@@ -103,7 +103,7 @@ determined with the `$BATINSTALLDIR` variable, so make sure to set and export
 it. Then switch to the KLFitter repository directory and call
 
 ```sh
-> make -j all && make -j install
+make -j all && make -j install
 ```
 
 to compile KLFitter. The latter command will create a subdirectory _build_ and
