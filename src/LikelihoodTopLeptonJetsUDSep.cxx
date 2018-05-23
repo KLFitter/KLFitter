@@ -79,11 +79,11 @@ int KLFitter::LikelihoodTopLeptonJetsUDSep::DefineModelParticles() {
                                3,                                 // index of corresponding particle
                                KLFitter::Particles::kLightDown);  // light down type jet (truth)
 
-  if (fTypeLepton == kElectron) {
+  if (m_lepton_type == kElectron) {
     fParticlesModel->AddParticle(&dummy,
                                  KLFitter::Particles::kElectron,
                                  "electron");
-  } else if (fTypeLepton == kMuon) {
+  } else if (m_lepton_type == kMuon) {
     fParticlesModel->AddParticle(&dummy,
                                  KLFitter::Particles::kMuon,
                                  "muon");
@@ -136,14 +136,14 @@ int KLFitter::LikelihoodTopLeptonJetsUDSep::RemoveInvariantParticlePermutations(
   err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Jets);
 
   // remove the permutation from the other lepton
-  if (fTypeLepton == kElectron) {
+  if (m_lepton_type == kElectron) {
     ptype = KLFitter::Particles::kMuon;
     std::vector<int> indexVector_Muons;
     for (int iMuon = 0; iMuon < particles->NMuons(); iMuon++) {
       indexVector_Muons.push_back(iMuon);
     }
     err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Muons);
-  } else if (fTypeLepton == kMuon) {
+  } else if (m_lepton_type == kMuon) {
     ptype = KLFitter::Particles::kElectron;
     std::vector<int> indexVector_Electrons;
     for (int iElectron = 0; iElectron < particles->NElectrons(); iElectron++) {

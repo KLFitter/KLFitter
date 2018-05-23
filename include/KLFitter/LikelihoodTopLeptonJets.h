@@ -77,14 +77,14 @@ class LikelihoodTopLeptonJets : public LikelihoodBase {
    * fixed to the pole mass.
    * @param flag The flag.
    */
-  void SetFlagTopMassFixed(bool flag) { fFlagTopMassFixed = flag; }
+  void SetFlagTopMassFixed(bool flag) { m_flag_top_mass_fixed = flag; }
 
   /**
    * Set a flag. If flag is true, take the parameter sigma values from the
    * transfer functions.
    * @param flag The flag.
    */
-  void SetFlagGetParSigmasFromTFs(bool flag) { fFlagGetParSigmasFromTFs = flag; }
+  void SetFlagGetParSigmasFromTFs(bool flag) { m_flag_get_par_sigmas_from_TFs = flag; }
 
   /**
    * Set the type of lepton
@@ -157,8 +157,8 @@ class LikelihoodTopLeptonJets : public LikelihoodBase {
   /// @{
 
   /**
-   * Set the values for the missing ET x and y components and the SumET. This
-   * sets the internal variables #ETmiss_x, #ETmiss_y and #SumET to the
+   * Set the values for the missing ET x and y components and the m_et_miss_sum. This
+   * sets the internal variables #m_et_miss_x, #m_et_miss_y and #m_et_miss_sum to the
    * given values.
    * @param etx missing ET x component.
    * @param ety missing ET y component.
@@ -172,9 +172,9 @@ class LikelihoodTopLeptonJets : public LikelihoodBase {
  protected:
   /**
    * Adjust ranges of the parameters. This either takes the parameter sigmas
-   * from the transfer functions, if #fFlagGetParSigmasFromTFs is set.
+   * from the transfer functions, if #m_flag_get_par_sigmas_from_TFs is set.
    * Otherwise, a fixed sigma is used to calculate the parameter ranges. Then,
-   * SetParameterRange() is called to set the range. If #fFlagTopMassFixed is
+   * SetParameterRange() is called to set the range. If #m_flag_top_mass_fixed is
    * set, the top mass will be fixed to the pole mass.
    * @return An error code.
    */
@@ -190,7 +190,7 @@ class LikelihoodTopLeptonJets : public LikelihoodBase {
 
   /**
    * Update 4-vector values of the model particles. This updates the internal
-   * variables, such as #bhad_fit_px or #thad_fit_m to the latest values from
+   * variables, such as #m_bhad_fit_px or #m_thad_fit_m to the latest values from
    * the fit. These variables are for example used in the log likelihood
    * calculation.
    * @return An error flag.
@@ -226,7 +226,7 @@ class LikelihoodTopLeptonJets : public LikelihoodBase {
    * Remove the invariant particle permutations. In particular, this removes
    * permutations where the two light jets are swapped. In addition, in case
    * two types of leptons were added, only permutations with leptons of type
-   * #fTypeLepton are kept.
+   * #m_lepton_type are kept.
    * @return An error code.
    */
   int RemoveInvariantParticlePermutations() override;
@@ -234,14 +234,14 @@ class LikelihoodTopLeptonJets : public LikelihoodBase {
   /**
    * Save permuted particles. This takes the permuted particles, stored in
    * #fParticlesPermuted, and saves their values in the internal variables,
-   * such as #bhad_meas_eta.
+   * such as #m_bhad_meas_eta.
    * @return An error code.
    */
   int SavePermutedParticles() override;
 
   /**
    * Save the resolution functions from the detector to the internal pointers.
-   * This sets the internal pointers, such as #fResEnergyBhad to the resolution
+   * This sets the internal pointers, such as #m_res_energy_bhad to the resolution
    * objects stored in the detector.
    * @return An error code.
    */
@@ -251,141 +251,141 @@ class LikelihoodTopLeptonJets : public LikelihoodBase {
   /// @{
 
   /// A flag for using a fixed top mass (true) or not (false).
-  bool fFlagTopMassFixed;
+  bool m_flag_top_mass_fixed;
 
   /// Flag for using ResolutionBase::GetSigma() to retrieve the parameter ranges
-  bool fFlagGetParSigmasFromTFs;
+  bool m_flag_get_par_sigmas_from_TFs;
 
   /// The values of the x component of the missing ET.
-  double ETmiss_x;
+  double m_et_miss_x;
 
   /// The values of the y component of the missing ET.
-  double ETmiss_y;
+  double m_et_miss_y;
 
   /// The values of the total scalar ET.
-  double SumET;
+  double m_et_miss_sum;
 
   /// An index deciding if the event is electron (1) or muon (2) plus jets.
-  LeptonType fTypeLepton;
+  LeptonType m_lepton_type;
 
   /// Pointer to resolution function for hadronic b quark.
-  ResolutionBase* fResEnergyBhad;
+  ResolutionBase* m_res_energy_bhad;
 
   /// Pointer to resolution function for leptonic b quark.
-  ResolutionBase* fResEnergyBlep;
+  ResolutionBase* m_res_energy_blep;
 
   /// Pointer to resolution function for first light quark jet.
-  ResolutionBase* fResEnergyLQ1;
+  ResolutionBase* m_res_energy_lq1;
 
   /// Pointer to resolution function for second light quark jet.
-  ResolutionBase* fResEnergyLQ2;
+  ResolutionBase* m_res_energy_lq2;
 
   /// Pointer to resolution function for the lepton.
-  ResolutionBase* fResLepton;
+  ResolutionBase* m_res_lepton;
 
   /// Pointer to resolution function for MET.
-  ResolutionBase* fResMET;
+  ResolutionBase* m_res_met;
 
   /// @}
   /// \name Member attributes (measured parameters)
   /// @{
 
-  double bhad_meas_e;
-  double bhad_meas_p;
-  double bhad_meas_m;
-  double bhad_meas_deteta;
-  double bhad_meas_eta;
-  double bhad_meas_phi;
-  double bhad_meas_px;
-  double bhad_meas_py;
-  double bhad_meas_pz;
+  double m_bhad_meas_e;
+  double m_bhad_meas_p;
+  double m_bhad_meas_m;
+  double m_bhad_meas_deteta;
+  double m_bhad_meas_eta;
+  double m_bhad_meas_phi;
+  double m_bhad_meas_px;
+  double m_bhad_meas_py;
+  double m_bhad_meas_pz;
 
-  double blep_meas_e;
-  double blep_meas_p;
-  double blep_meas_m;
-  double blep_meas_deteta;
-  double blep_meas_eta;
-  double blep_meas_phi;
-  double blep_meas_px;
-  double blep_meas_py;
-  double blep_meas_pz;
+  double m_blep_meas_e;
+  double m_blep_meas_p;
+  double m_blep_meas_m;
+  double m_blep_meas_deteta;
+  double m_blep_meas_eta;
+  double m_blep_meas_phi;
+  double m_blep_meas_px;
+  double m_blep_meas_py;
+  double m_blep_meas_pz;
 
-  double lq1_meas_e;
-  double lq1_meas_p;
-  double lq1_meas_m;
-  double lq1_meas_deteta;
-  double lq1_meas_eta;
-  double lq1_meas_phi;
-  double lq1_meas_px;
-  double lq1_meas_py;
-  double lq1_meas_pz;
+  double m_lq1_meas_e;
+  double m_lq1_meas_p;
+  double m_lq1_meas_m;
+  double m_lq1_meas_deteta;
+  double m_lq1_meas_eta;
+  double m_lq1_meas_phi;
+  double m_lq1_meas_px;
+  double m_lq1_meas_py;
+  double m_lq1_meas_pz;
 
-  double lq2_meas_e;
-  double lq2_meas_p;
-  double lq2_meas_m;
-  double lq2_meas_deteta;
-  double lq2_meas_eta;
-  double lq2_meas_phi;
-  double lq2_meas_px;
-  double lq2_meas_py;
-  double lq2_meas_pz;
+  double m_lq2_meas_e;
+  double m_lq2_meas_p;
+  double m_lq2_meas_m;
+  double m_lq2_meas_deteta;
+  double m_lq2_meas_eta;
+  double m_lq2_meas_phi;
+  double m_lq2_meas_px;
+  double m_lq2_meas_py;
+  double m_lq2_meas_pz;
 
-  double lep_meas_e;
-  double lep_meas_deteta;
-  double lep_meas_sintheta;
-  double lep_meas_pt;
-  double lep_meas_px;
-  double lep_meas_py;
-  double lep_meas_pz;
+  double m_lep_meas_e;
+  double m_lep_meas_deteta;
+  double m_lep_meas_sintheta;
+  double m_lep_meas_pt;
+  double m_lep_meas_px;
+  double m_lep_meas_py;
+  double m_lep_meas_pz;
 
   /// @}
   /// \name Member attributes (fitted parameters)
   /// @{
 
-  double bhad_fit_e;
-  double bhad_fit_px;
-  double bhad_fit_py;
-  double bhad_fit_pz;
+  double m_bhad_fit_e;
+  double m_bhad_fit_px;
+  double m_bhad_fit_py;
+  double m_bhad_fit_pz;
 
-  double blep_fit_e;
-  double blep_fit_px;
-  double blep_fit_py;
-  double blep_fit_pz;
+  double m_blep_fit_e;
+  double m_blep_fit_px;
+  double m_blep_fit_py;
+  double m_blep_fit_pz;
 
-  double lq1_fit_e;
-  double lq1_fit_px;
-  double lq1_fit_py;
-  double lq1_fit_pz;
+  double m_lq1_fit_e;
+  double m_lq1_fit_px;
+  double m_lq1_fit_py;
+  double m_lq1_fit_pz;
 
-  double lq2_fit_e;
-  double lq2_fit_px;
-  double lq2_fit_py;
-  double lq2_fit_pz;
+  double m_lq2_fit_e;
+  double m_lq2_fit_px;
+  double m_lq2_fit_py;
+  double m_lq2_fit_pz;
 
-  double lep_fit_e;
-  double lep_fit_px;
-  double lep_fit_py;
-  double lep_fit_pz;
+  double m_lep_fit_e;
+  double m_lep_fit_px;
+  double m_lep_fit_py;
+  double m_lep_fit_pz;
 
-  double nu_fit_e;
-  double nu_fit_px;
-  double nu_fit_py;
-  double nu_fit_pz;
+  double m_nu_fit_e;
+  double m_nu_fit_px;
+  double m_nu_fit_py;
+  double m_nu_fit_pz;
 
-  double wlep_fit_e;
-  double wlep_fit_px;
-  double wlep_fit_py;
-  double wlep_fit_pz;
+  double m_wlep_fit_e;
+  double m_wlep_fit_px;
+  double m_wlep_fit_py;
+  double m_wlep_fit_pz;
 
-  double whad_fit_e;
-  double whad_fit_px;
-  double whad_fit_py;
-  double whad_fit_pz;
+  double m_whad_fit_e;
+  double m_whad_fit_px;
+  double m_whad_fit_py;
+  double m_whad_fit_pz;
 
-  double whad_fit_m;
-  double wlep_fit_m;
-  double thad_fit_m;
-  double tlep_fit_m;
+  double m_whad_fit_m;
+  double m_wlep_fit_m;
+  double m_thad_fit_m;
+  double m_tlep_fit_m;
 
   /// @}
 };

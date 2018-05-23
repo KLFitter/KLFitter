@@ -135,10 +135,10 @@ class LikelihoodTopLeptonJets_JetAngles : public KLFitter::LikelihoodTopLeptonJe
  protected:
   /**
    * Adjust ranges of the parameters. This either takes the parameter sigmas
-   * from the transfer functions, if #fFlagGetParSigmasFromTFs is set.
+   * from the transfer functions, if #m_flag_get_par_sigmas_from_TFs is set.
    * Otherwise, a fixed sigma is used to calculate the parameter ranges. Then,
-   * SetParameterRange() is called to set the range. If #fFlagTopMassFixed is
-   * set, the top mass will be fixed to the pole mass. Reimplemented with
+   * SetParameterRange() is called to set the range. If #m_flag_top_mass_fixed
+   * is set, the top mass will be fixed to the pole mass. Reimplemented with
    * respect to LikelihoodTopLeptonJets::AdjustParameterRanges() due to
    * additional parameters in #Parameters.
    * @return An error code.
