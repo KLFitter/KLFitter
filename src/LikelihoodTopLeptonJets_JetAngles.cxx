@@ -74,17 +74,17 @@ void KLFitter::LikelihoodTopLeptonJets_JetAngles::DefineParameters() {
 
 // ---------------------------------------------------------
 int KLFitter::LikelihoodTopLeptonJets_JetAngles::CalculateLorentzVectors(std::vector <double> const& parameters) {
-  static double scale;
-  static double thad_fit_e;
-  static double thad_fit_px;
-  static double thad_fit_py;
-  static double thad_fit_pz;
-  static double tlep_fit_e;
-  static double tlep_fit_px;
-  static double tlep_fit_py;
-  static double tlep_fit_pz;
+  double scale;
+  double thad_fit_e;
+  double thad_fit_px;
+  double thad_fit_py;
+  double thad_fit_pz;
+  double tlep_fit_e;
+  double tlep_fit_px;
+  double tlep_fit_py;
+  double tlep_fit_pz;
 
-  static TLorentzVector v;
+  TLorentzVector v;
 
   // hadronic b quark
   v.SetPtEtaPhiE(sqrt(parameters[parBhadE]*parameters[parBhadE]-bhad_meas_m*bhad_meas_m)/cosh(parameters[parBhadEta]), parameters[parBhadEta], parameters[parBhadPhi], parameters[parBhadE]);
