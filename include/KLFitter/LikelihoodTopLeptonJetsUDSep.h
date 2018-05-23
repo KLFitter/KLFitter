@@ -22,30 +22,24 @@
 
 #include <iostream>
 
+#include "KLFitter/LikelihoodTopLeptonJets.h"
+
 class TH1F;
 class TH2F;
 class TLorentzVector;
 
-namespace KLFitter {
-  class ResolutionBase;
-}
-
-#include "KLFitter/LikelihoodTopLeptonJets.h"
-
 // ---------------------------------------------------------
 
-/**
- * \namespace KLFitter
- * \brief The KLFitter namespace
- */
 namespace KLFitter {
+class ResolutionBase;
+
 /**
   * \class KLFitter::LikelihoodTopLeptonJetsUDSep
   * \brief A class implementing a likelihood for the ttbar lepton+jets channel.
   *
   * This class represents a likelihood for the ttbar into lepton+jets.
   */
-class LikelihoodTopLeptonJetsUDSep : public KLFitter::LikelihoodTopLeptonJets {
+class LikelihoodTopLeptonJetsUDSep : public LikelihoodTopLeptonJets {
  public:
   /**
     * Enumerate for lJet reweighting methods
@@ -198,7 +192,7 @@ class LikelihoodTopLeptonJetsUDSep : public KLFitter::LikelihoodTopLeptonJets {
     * Set a flag. If flag is true the permutations are reweighted with the pT and tag weight probabilities.
     * @param flag The flag.
     */
-  void SetLJetSeparationMethod(KLFitter::LikelihoodTopLeptonJetsUDSep::LJetSeparationMethod flag) { fLJetSeparationMethod = flag; }
+  void SetLJetSeparationMethod(LikelihoodTopLeptonJetsUDSep::LJetSeparationMethod flag) { fLJetSeparationMethod = flag; }
 
   /**
     * Check if the permutation is LH invariant.
@@ -252,7 +246,7 @@ class LikelihoodTopLeptonJetsUDSep : public KLFitter::LikelihoodTopLeptonJets {
   /**
     * A flag for using an additional reweighting of the permutations with the pT and tag weight probability (default: false);
     */
-  KLFitter::LikelihoodTopLeptonJetsUDSep::LJetSeparationMethod fLJetSeparationMethod;
+  LikelihoodTopLeptonJetsUDSep::LJetSeparationMethod fLJetSeparationMethod;
 
   /**
     * A pointer to the histogram of the up type jet pT distribution.
