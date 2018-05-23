@@ -29,26 +29,20 @@ class TLorentzVector;
 
 // ---------------------------------------------------------
 
-/**
- * \namespace KLFitter
- * \brief The KLFitter namespace
- */
 namespace KLFitter {
 class ResolutionBase;
 
 /**
-  * \class KLFitter::LikelihoodTopLeptonJets_Angular
-  * \brief Add brief description here
-  *
-  * Add detailed description here.
+  * This is an extension of LikelihoodTopLeptonJets, which adds angular
+  * information to the likelihood.
   */
 class LikelihoodTopLeptonJets_Angular : public KLFitter::LikelihoodTopLeptonJets {
  public:
-  /** \name Constructors and destructors */
-  /* @{ */
+  /// \name Constructors and destructors
+  /// @{
 
   /**
-    * The default constructor.
+    * The (defaulted) constructor.
     */
   LikelihoodTopLeptonJets_Angular();
 
@@ -57,29 +51,31 @@ class LikelihoodTopLeptonJets_Angular : public KLFitter::LikelihoodTopLeptonJets
     */
   ~LikelihoodTopLeptonJets_Angular();
 
-  /* @} */
-  /** \name Member functions (misc)  */
-  /* @{ */
+  /// @}
+  /// \name Member functions (misc)
+  /// @{
 
   /**
-    * The posterior probability definition, overloaded from BCModel.
-    * @param parameters A vector of parameters (double values).
-    * @return The logarithm of the prior probability.
-    */
+   * The posterior probability definition, overloaded from BCModel. In addition
+   * to what is implemented in LikelihoodTopLeptonJets::LogLikelihood(), this
+   * also includes angular information in the calculation of the log likelihood.
+   * @param parameters A vector of parameters (double values).
+   * @return The logarithm of the prior probability.
+   */
   double LogLikelihood(const std::vector <double> & parameters) override;
 
-  /* @} */
+  /// @}
 
  protected:
-  /** \name Member functions (misc)  */
-  /* @{ */
-
   /**
-    * Adjust parameter ranges
-    */
+   * Adjust ranges of the parameters. As opposed to
+   * LikelihoodTopLeptonJets::AdjustParameterRanges(), this does \emph not
+   * utilize the flag #fFlagGetParSigmasFromTFs, but only uses a fixed sigma to
+   * calculate the parameter range and set it with SetParameterRange(). If
+   * #fFlagTopMassFixed is set, the top mass will be fixed to the pole mass.
+   * @return An error code.
+   */
   int AdjustParameterRanges() override;
-
-  /* @} */
 };
 }  // namespace KLFitter
 
