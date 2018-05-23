@@ -42,16 +42,18 @@ double diffPhi(double phi1, double phi2) {
   }
   return delta;
 }
-}
+}  // namespace
+
+
+namespace KLFitter {
+// ---------------------------------------------------------
+LikelihoodTopLeptonJets_JetAngles::LikelihoodTopLeptonJets_JetAngles() = default;
 
 // ---------------------------------------------------------
-KLFitter::LikelihoodTopLeptonJets_JetAngles::LikelihoodTopLeptonJets_JetAngles() = default;
+LikelihoodTopLeptonJets_JetAngles::~LikelihoodTopLeptonJets_JetAngles() = default;
 
 // ---------------------------------------------------------
-KLFitter::LikelihoodTopLeptonJets_JetAngles::~LikelihoodTopLeptonJets_JetAngles() = default;
-
-// ---------------------------------------------------------
-void KLFitter::LikelihoodTopLeptonJets_JetAngles::DefineParameters() {
+void LikelihoodTopLeptonJets_JetAngles::DefineParameters() {
   // add parameters of model
   AddParameter("energy hadronic b",       fPhysicsConstants.MassBottom(), 1000.0);  // parBhadE
   AddParameter("energy leptonic b",       fPhysicsConstants.MassBottom(), 1000.0);  // parBlepE
@@ -73,7 +75,7 @@ void KLFitter::LikelihoodTopLeptonJets_JetAngles::DefineParameters() {
 }
 
 // ---------------------------------------------------------
-int KLFitter::LikelihoodTopLeptonJets_JetAngles::CalculateLorentzVectors(std::vector <double> const& parameters) {
+int LikelihoodTopLeptonJets_JetAngles::CalculateLorentzVectors(std::vector <double> const& parameters) {
   double scale;
   double thad_fit_e;
   double thad_fit_px;
@@ -160,7 +162,7 @@ int KLFitter::LikelihoodTopLeptonJets_JetAngles::CalculateLorentzVectors(std::ve
 }
 
 // ---------------------------------------------------------
-int KLFitter::LikelihoodTopLeptonJets_JetAngles::AdjustParameterRanges() {
+int LikelihoodTopLeptonJets_JetAngles::AdjustParameterRanges() {
   // adjust limits
   double nsigmas_jet    = fFlagGetParSigmasFromTFs ? 10 : 7;
   double nsigmas_lepton = fFlagGetParSigmasFromTFs ? 10 : 2;
@@ -274,7 +276,7 @@ int KLFitter::LikelihoodTopLeptonJets_JetAngles::AdjustParameterRanges() {
 }
 
 // ---------------------------------------------------------
-double KLFitter::LikelihoodTopLeptonJets_JetAngles::LogLikelihood(const std::vector<double> & parameters) {
+double LikelihoodTopLeptonJets_JetAngles::LogLikelihood(const std::vector<double> & parameters) {
   // calculate 4-vectors
   CalculateLorentzVectors(parameters);
 
@@ -313,25 +315,25 @@ double KLFitter::LikelihoodTopLeptonJets_JetAngles::LogLikelihood(const std::vec
   if (!TFgoodTmp) fTFgood = false;
 
   // eta resolution
-  logprob += log((*fDetector)->ResEtaBJet((*fParticlesPermuted)->DetEta(0, KLFitter::Particles::kParton))->p(parameters[parBhadEta], (*fParticlesPermuted)->Parton(0)->Eta(), &TFgoodTmp));
+  logprob += log((*fDetector)->ResEtaBJet((*fParticlesPermuted)->DetEta(0, Particles::kParton))->p(parameters[parBhadEta], (*fParticlesPermuted)->Parton(0)->Eta(), &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
-  logprob += log((*fDetector)->ResEtaBJet((*fParticlesPermuted)->DetEta(1, KLFitter::Particles::kParton))->p(parameters[parBlepEta], (*fParticlesPermuted)->Parton(1)->Eta(), &TFgoodTmp));
+  logprob += log((*fDetector)->ResEtaBJet((*fParticlesPermuted)->DetEta(1, Particles::kParton))->p(parameters[parBlepEta], (*fParticlesPermuted)->Parton(1)->Eta(), &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
-  logprob += log((*fDetector)->ResEtaLightJet((*fParticlesPermuted)->DetEta(2, KLFitter::Particles::kParton))->p(parameters[parLQ1Eta], (*fParticlesPermuted)->Parton(2)->Eta(), &TFgoodTmp));
+  logprob += log((*fDetector)->ResEtaLightJet((*fParticlesPermuted)->DetEta(2, Particles::kParton))->p(parameters[parLQ1Eta], (*fParticlesPermuted)->Parton(2)->Eta(), &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
-  logprob += log((*fDetector)->ResEtaLightJet((*fParticlesPermuted)->DetEta(3, KLFitter::Particles::kParton))->p(parameters[parLQ2Eta], (*fParticlesPermuted)->Parton(3)->Eta(), &TFgoodTmp));
+  logprob += log((*fDetector)->ResEtaLightJet((*fParticlesPermuted)->DetEta(3, Particles::kParton))->p(parameters[parLQ2Eta], (*fParticlesPermuted)->Parton(3)->Eta(), &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
 
   // transform all phi values, so that they are centered around zero, and not around the measured phi
 
   // phi resolution
-  logprob += log((*fDetector)->ResPhiBJet((*fParticlesPermuted)->DetEta(0, KLFitter::Particles::kParton))->p(diffPhi(parameters[parBhadPhi], (*fParticlesPermuted)->Parton(0)->Phi()), 0., &TFgoodTmp));
+  logprob += log((*fDetector)->ResPhiBJet((*fParticlesPermuted)->DetEta(0, Particles::kParton))->p(diffPhi(parameters[parBhadPhi], (*fParticlesPermuted)->Parton(0)->Phi()), 0., &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
-  logprob += log((*fDetector)->ResPhiBJet((*fParticlesPermuted)->DetEta(1, KLFitter::Particles::kParton))->p(diffPhi(parameters[parBlepPhi], (*fParticlesPermuted)->Parton(1)->Phi()), 0., &TFgoodTmp));
+  logprob += log((*fDetector)->ResPhiBJet((*fParticlesPermuted)->DetEta(1, Particles::kParton))->p(diffPhi(parameters[parBlepPhi], (*fParticlesPermuted)->Parton(1)->Phi()), 0., &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
-  logprob += log((*fDetector)->ResPhiLightJet((*fParticlesPermuted)->DetEta(2, KLFitter::Particles::kParton))->p(diffPhi(parameters[parLQ1Phi], (*fParticlesPermuted)->Parton(2)->Phi()), 0., &TFgoodTmp));
+  logprob += log((*fDetector)->ResPhiLightJet((*fParticlesPermuted)->DetEta(2, Particles::kParton))->p(diffPhi(parameters[parLQ1Phi], (*fParticlesPermuted)->Parton(2)->Phi()), 0., &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
-  logprob += log((*fDetector)->ResPhiLightJet((*fParticlesPermuted)->DetEta(3, KLFitter::Particles::kParton))->p(diffPhi(parameters[parLQ2Phi], (*fParticlesPermuted)->Parton(3)->Phi()), 0., &TFgoodTmp));
+  logprob += log((*fDetector)->ResPhiLightJet((*fParticlesPermuted)->DetEta(3, Particles::kParton))->p(diffPhi(parameters[parLQ2Phi], (*fParticlesPermuted)->Parton(3)->Phi()), 0., &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
 
   // physics constants
@@ -359,7 +361,7 @@ double KLFitter::LikelihoodTopLeptonJets_JetAngles::LogLikelihood(const std::vec
 }
 
 // ---------------------------------------------------------
-std::vector<double> KLFitter::LikelihoodTopLeptonJets_JetAngles::GetInitialParametersWoNeutrinoPz() {
+std::vector<double> LikelihoodTopLeptonJets_JetAngles::GetInitialParametersWoNeutrinoPz() {
   std::vector<double> values(GetNParameters());
 
   // energies of the quarks
@@ -408,7 +410,7 @@ std::vector<double> KLFitter::LikelihoodTopLeptonJets_JetAngles::GetInitialParam
 }
 
 // ---------------------------------------------------------
-std::vector<double> KLFitter::LikelihoodTopLeptonJets_JetAngles::LogLikelihoodComponents(std::vector<double> parameters) {
+std::vector<double> LikelihoodTopLeptonJets_JetAngles::LogLikelihoodComponents(std::vector<double> parameters) {
   std::vector<double> vecci;
 
   // calculate 4-vectors
@@ -446,23 +448,23 @@ std::vector<double> KLFitter::LikelihoodTopLeptonJets_JetAngles::LogLikelihoodCo
   if (!TFgoodTmp) fTFgood = false;
 
   // jet eta resolution terms
-  vecci.push_back(log((*fDetector)->ResEtaBJet((*fParticlesPermuted)->DetEta(0, KLFitter::Particles::kParton))->p(parameters[parBhadEta], (*fParticlesPermuted)->Parton(0)->Eta(), &TFgoodTmp)));
+  vecci.push_back(log((*fDetector)->ResEtaBJet((*fParticlesPermuted)->DetEta(0, Particles::kParton))->p(parameters[parBhadEta], (*fParticlesPermuted)->Parton(0)->Eta(), &TFgoodTmp)));
   if (!TFgoodTmp) fTFgood = false;
-  vecci.push_back(log((*fDetector)->ResEtaBJet((*fParticlesPermuted)->DetEta(1, KLFitter::Particles::kParton))->p(parameters[parBlepEta], (*fParticlesPermuted)->Parton(1)->Eta(), &TFgoodTmp)));
+  vecci.push_back(log((*fDetector)->ResEtaBJet((*fParticlesPermuted)->DetEta(1, Particles::kParton))->p(parameters[parBlepEta], (*fParticlesPermuted)->Parton(1)->Eta(), &TFgoodTmp)));
   if (!TFgoodTmp) fTFgood = false;
-  vecci.push_back(log((*fDetector)->ResEtaLightJet((*fParticlesPermuted)->DetEta(2, KLFitter::Particles::kParton))->p(parameters[parLQ1Eta], (*fParticlesPermuted)->Parton(2)->Eta(), &TFgoodTmp)));
+  vecci.push_back(log((*fDetector)->ResEtaLightJet((*fParticlesPermuted)->DetEta(2, Particles::kParton))->p(parameters[parLQ1Eta], (*fParticlesPermuted)->Parton(2)->Eta(), &TFgoodTmp)));
   if (!TFgoodTmp) fTFgood = false;
-  vecci.push_back(log((*fDetector)->ResEtaLightJet((*fParticlesPermuted)->DetEta(3, KLFitter::Particles::kParton))->p(parameters[parLQ2Eta], (*fParticlesPermuted)->Parton(3)->Eta(), &TFgoodTmp)));
+  vecci.push_back(log((*fDetector)->ResEtaLightJet((*fParticlesPermuted)->DetEta(3, Particles::kParton))->p(parameters[parLQ2Eta], (*fParticlesPermuted)->Parton(3)->Eta(), &TFgoodTmp)));
   if (!TFgoodTmp) fTFgood = false;
 
   // jet phi resolution terms
-  vecci.push_back(log((*fDetector)->ResPhiBJet((*fParticlesPermuted)->DetEta(0, KLFitter::Particles::kParton))->p(diffPhi(parameters[parBhadPhi], (*fParticlesPermuted)->Parton(0)->Phi()), 0., &TFgoodTmp)));
+  vecci.push_back(log((*fDetector)->ResPhiBJet((*fParticlesPermuted)->DetEta(0, Particles::kParton))->p(diffPhi(parameters[parBhadPhi], (*fParticlesPermuted)->Parton(0)->Phi()), 0., &TFgoodTmp)));
   if (!TFgoodTmp) fTFgood = false;
-  vecci.push_back(log((*fDetector)->ResPhiBJet((*fParticlesPermuted)->DetEta(1, KLFitter::Particles::kParton))->p(diffPhi(parameters[parBlepPhi], (*fParticlesPermuted)->Parton(1)->Phi()), 0., &TFgoodTmp)));
+  vecci.push_back(log((*fDetector)->ResPhiBJet((*fParticlesPermuted)->DetEta(1, Particles::kParton))->p(diffPhi(parameters[parBlepPhi], (*fParticlesPermuted)->Parton(1)->Phi()), 0., &TFgoodTmp)));
   if (!TFgoodTmp) fTFgood = false;
-  vecci.push_back(log((*fDetector)->ResPhiLightJet((*fParticlesPermuted)->DetEta(2, KLFitter::Particles::kParton))->p(diffPhi(parameters[parLQ1Phi], (*fParticlesPermuted)->Parton(2)->Phi()), 0., &TFgoodTmp)));
+  vecci.push_back(log((*fDetector)->ResPhiLightJet((*fParticlesPermuted)->DetEta(2, Particles::kParton))->p(diffPhi(parameters[parLQ1Phi], (*fParticlesPermuted)->Parton(2)->Phi()), 0., &TFgoodTmp)));
   if (!TFgoodTmp) fTFgood = false;
-  vecci.push_back(log((*fDetector)->ResPhiLightJet((*fParticlesPermuted)->DetEta(3, KLFitter::Particles::kParton))->p(diffPhi(parameters[parLQ2Phi], (*fParticlesPermuted)->Parton(3)->Phi()), 0., &TFgoodTmp)));
+  vecci.push_back(log((*fDetector)->ResPhiLightJet((*fParticlesPermuted)->DetEta(3, Particles::kParton))->p(diffPhi(parameters[parLQ2Phi], (*fParticlesPermuted)->Parton(3)->Phi()), 0., &TFgoodTmp)));
   if (!TFgoodTmp) fTFgood = false;
 
   // physics constants
@@ -488,3 +490,4 @@ std::vector<double> KLFitter::LikelihoodTopLeptonJets_JetAngles::LogLikelihoodCo
   // return log of likelihood
   return vecci;
 }
+}  // namespace KLFitter

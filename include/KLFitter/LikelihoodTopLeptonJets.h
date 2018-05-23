@@ -36,7 +36,7 @@ class ResolutionBase;
  * A class implementing a likelihood for the ttbar lepton+jets channel. This
  * class represents a likelihood for the ttbar into lepton+jets.
  */
-class LikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
+class LikelihoodTopLeptonJets : public LikelihoodBase {
  public:
   /// \name Constructors and destructors
   /// @{

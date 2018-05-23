@@ -23,22 +23,21 @@
 #include <iostream>
 
 #include "BAT/BCMath.h"
-#include "BAT/BCParameter.h"
-#include "KLFitter/DetectorBase.h"
 #include "KLFitter/Particles.h"
 #include "KLFitter/Permutations.h"
 #include "KLFitter/PhysicsConstants.h"
 #include "KLFitter/ResolutionBase.h"
 #include "TLorentzVector.h"
 
+namespace KLFitter {
 // ---------------------------------------------------------
-KLFitter::LikelihoodTopLeptonJets_Angular::LikelihoodTopLeptonJets_Angular() = default;
+LikelihoodTopLeptonJets_Angular::LikelihoodTopLeptonJets_Angular() = default;
 
 // ---------------------------------------------------------
-KLFitter::LikelihoodTopLeptonJets_Angular::~LikelihoodTopLeptonJets_Angular() = default;
+LikelihoodTopLeptonJets_Angular::~LikelihoodTopLeptonJets_Angular() = default;
 
 // ---------------------------------------------------------
-int KLFitter::LikelihoodTopLeptonJets_Angular::AdjustParameterRanges() {
+int LikelihoodTopLeptonJets_Angular::AdjustParameterRanges() {
   // adjust limits
   double nsigmas_jet = 7.0;
   double nsigmas_lepton = 2.0;
@@ -101,7 +100,7 @@ int KLFitter::LikelihoodTopLeptonJets_Angular::AdjustParameterRanges() {
 }
 
 // ---------------------------------------------------------
-double KLFitter::LikelihoodTopLeptonJets_Angular::LogLikelihood(const std::vector<double> & parameters) {
+double LikelihoodTopLeptonJets_Angular::LogLikelihood(const std::vector<double> & parameters) {
   // calculate 4-vectors
   CalculateLorentzVectors(parameters);
 
@@ -221,3 +220,4 @@ double KLFitter::LikelihoodTopLeptonJets_Angular::LogLikelihood(const std::vecto
   // return log of likelihood
   return logprob;
 }
+}  // namespace KLFitter
