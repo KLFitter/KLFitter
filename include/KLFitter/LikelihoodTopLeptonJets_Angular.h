@@ -41,14 +41,10 @@ class LikelihoodTopLeptonJets_Angular : public KLFitter::LikelihoodTopLeptonJets
   /// \name Constructors and destructors
   /// @{
 
-  /**
-    * The (defaulted) constructor.
-    */
+  /// The (defaulted) constructor.
   LikelihoodTopLeptonJets_Angular();
 
-  /**
-    * The (defaulted) destructor.
-    */
+  /// The (defaulted) destructor.
   ~LikelihoodTopLeptonJets_Angular();
 
   /// @}

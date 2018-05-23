@@ -47,9 +47,7 @@ class LikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
    */
   LikelihoodTopLeptonJets();
 
-  /**
-   * The (defaulted) destructor.
-   */
+  /// The (defaulted) destructor.
   ~LikelihoodTopLeptonJets();
 
   /// @}
@@ -89,15 +87,15 @@ class LikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
   void SetFlagGetParSigmasFromTFs(bool flag) { fFlagGetParSigmasFromTFs = flag; }
 
   /**
-    * Set the type of lepton
-    * @param leptontype The type of lepton: kElectron or kMuon
-    */
+   * Set the type of lepton
+   * @param leptontype The type of lepton: kElectron or kMuon
+   */
   void SetLeptonType(LeptonType leptontype);
 
   /**
-    * Set the type of lepton
-    * @param leptontype The type of lepton: electron(1) or muon (2)
-    */
+   * Set the type of lepton
+   * @param leptontype The type of lepton: electron(1) or muon (2)
+   */
   void SetLeptonType(int leptontype);
 
   /// @}
@@ -127,31 +125,31 @@ class LikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
   virtual std::vector<double> GetInitialParametersWoNeutrinoPz();
 
   /**
-    * The posterior probability definition, overloaded from BCModel.
-    * @param parameters A vector of parameters (double values).
-    * @return The logarithm of the prior probability.
-    */
+   * The posterior probability definition, overloaded from BCModel.
+   * @param parameters A vector of parameters (double values).
+   * @return The logarithm of the prior probability.
+   */
   double LogLikelihood(const std::vector <double> & parameters) override;
 
   /**
-    * The posterior probability definition, overloaded from BCModel. Instead of
-    * the final log likelihood value as in LogLikelihood(), this returns all
-    * subcomponents.
-    * @param parameters A vector of parameters (double values).
-    * @return A vector with the components of the logarithm of the prior
-    * probability. Its components are: \n
-    *   0) TF_bhad \n
-    *   1) TF_blep \n
-    *   2) TF_lq1 \n
-    *   3) TF_lq2 \n
-    *   4) TF_lep \n
-    *   5) TF_METx \n
-    *   6) TF_METy \n
-    *   7) BW_Whad \n
-    *   8) BW_Wlep \n
-    *   9) BW_Thad \n
-    *   10) BW_Tlep
-    */
+   * The posterior probability definition, overloaded from BCModel. Instead of
+   * the final log likelihood value as in LogLikelihood(), this returns all
+   * subcomponents.
+   * @param parameters A vector of parameters (double values).
+   * @return A vector with the components of the logarithm of the prior
+   * probability. Its components are: \n
+   *   0) TF_bhad \n
+   *   1) TF_blep \n
+   *   2) TF_lq1 \n
+   *   3) TF_lq2 \n
+   *   4) TF_lep \n
+   *   5) TF_METx \n
+   *   6) TF_METy \n
+   *   7) BW_Whad \n
+   *   8) BW_Wlep \n
+   *   9) BW_Thad \n
+   *   10) BW_Tlep
+   */
   std::vector<double> LogLikelihoodComponents(std::vector <double> parameters) override;
 
   /// @}
@@ -173,13 +171,13 @@ class LikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
 
  protected:
   /**
-    * Adjust ranges of the parameters. This either takes the parameter sigmas
-    * from the transfer functions, if #fFlagGetParSigmasFromTFs is set.
-    * Otherwise, a fixed sigma is used to calculate the parameter ranges. Then,
-    * SetParameterRange() is called to set the range. If #fFlagTopMassFixed is
-    * set, the top mass will be fixed to the pole mass.
-    * @return An error code.
-    */
+   * Adjust ranges of the parameters. This either takes the parameter sigmas
+   * from the transfer functions, if #fFlagGetParSigmasFromTFs is set.
+   * Otherwise, a fixed sigma is used to calculate the parameter ranges. Then,
+   * SetParameterRange() is called to set the range. If #fFlagTopMassFixed is
+   * set, the top mass will be fixed to the pole mass.
+   * @return An error code.
+   */
   int AdjustParameterRanges() override;
 
   /**
@@ -211,10 +209,10 @@ class LikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
   std::vector<double> CalculateNeutrinoPzSolutions(TLorentzVector* additionalParticle = nullptr);
 
   /**
-    * Define the model particles. Create the object #fParticlesModel and add all
-    * particles of this likelihood. The 4-vector components are set to zero.
-    * @return An error code.
-    */
+   * Define the model particles. Create the object #fParticlesModel and add all
+   * particles of this likelihood. The 4-vector components are set to zero.
+   * @return An error code.
+   */
   int DefineModelParticles() override;
 
   /**
@@ -225,28 +223,28 @@ class LikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
   std::vector<double> GetNeutrinoPzSolutions();
 
   /**
-    * Remove the invariant particle permutations. In particular, this removes
-    * permutations where the two light jets are swapped. In addition, in case
-    * two types of leptons were added, only permutations with leptons of type
-    * #fTypeLepton are kept.
-    * @return An error code.
-    */
+   * Remove the invariant particle permutations. In particular, this removes
+   * permutations where the two light jets are swapped. In addition, in case
+   * two types of leptons were added, only permutations with leptons of type
+   * #fTypeLepton are kept.
+   * @return An error code.
+   */
   int RemoveInvariantParticlePermutations() override;
 
   /**
-    * Save permuted particles. This takes the permuted particles, stored in
-    * #fParticlesPermuted, and saves their values in the internal variables,
-    * such as #bhad_meas_eta.
-    * @return An error code.
-    */
+   * Save permuted particles. This takes the permuted particles, stored in
+   * #fParticlesPermuted, and saves their values in the internal variables,
+   * such as #bhad_meas_eta.
+   * @return An error code.
+   */
   int SavePermutedParticles() override;
 
   /**
-    * Save the resolution functions from the detector to the internal pointers.
-    * This sets the internal pointers, such as #fResEnergyBhad to the resolution
-    * objects stored in the detector.
-    * @return An error code.
-    */
+   * Save the resolution functions from the detector to the internal pointers.
+   * This sets the internal pointers, such as #fResEnergyBhad to the resolution
+   * objects stored in the detector.
+   * @return An error code.
+   */
   int SaveResolutionFunctions() override;
 
   /// \name Member attributes
