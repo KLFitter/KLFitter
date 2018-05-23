@@ -171,14 +171,6 @@ void KLFitter::LikelihoodTopLeptonJets::DefineParameters() {
 // ---------------------------------------------------------
 int KLFitter::LikelihoodTopLeptonJets::CalculateLorentzVectors(std::vector <double> const& parameters) {
   static double scale;
-  static double whad_fit_e;
-  static double whad_fit_px;
-  static double whad_fit_py;
-  static double whad_fit_pz;
-  static double wlep_fit_e;
-  static double wlep_fit_px;
-  static double wlep_fit_py;
-  static double wlep_fit_pz;
   static double thad_fit_e;
   static double thad_fit_px;
   static double thad_fit_py;

@@ -75,28 +75,11 @@ class LikelihoodTopLeptonJets_Angular : public KLFitter::LikelihoodTopLeptonJets
   /* @{ */
 
   /**
-    * Update 4-vectors of model particles.
-    * @return An error flag.
-    */
-  int CalculateLorentzVectors(std::vector <double> const& parameters) override;
-
-  /**
     * Adjust parameter ranges
     */
   int AdjustParameterRanges() override;
 
   /* @} */
-
- protected:
-  double wlep_fit_e;
-  double wlep_fit_px;
-  double wlep_fit_py;
-  double wlep_fit_pz;
-
-  double whad_fit_e;
-  double whad_fit_px;
-  double whad_fit_py;
-  double whad_fit_pz;
 };
 }  // namespace KLFitter
 
