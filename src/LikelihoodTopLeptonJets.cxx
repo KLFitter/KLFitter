@@ -64,7 +64,7 @@ int LikelihoodTopLeptonJets::SetET_miss_XY_SumET(double etx, double ety, double 
 // ---------------------------------------------------------
 void LikelihoodTopLeptonJets::SetLeptonType(LeptonType leptontype) {
   if (leptontype != kElectron && leptontype != kMuon) {
-    std::cout << "KLFitter::SetLeptonTyp(). Warning: lepton type not defined. Set electron as lepton type." << std::endl;
+    std::cout << "KLFitter::SetLeptonType(). Warning: lepton type not defined. Set electron as lepton type." << std::endl;
     fTypeLepton = kElectron;
   } else {
     fTypeLepton = leptontype;
@@ -77,7 +77,7 @@ void LikelihoodTopLeptonJets::SetLeptonType(LeptonType leptontype) {
 // ---------------------------------------------------------
 void LikelihoodTopLeptonJets::SetLeptonType(int leptontype) {
   if (leptontype != 1 && leptontype != 2) {
-    std::cout << "KLFitter::SetLeptonTyp(). Warning: lepton type not defined. Set electron as lepton type." << std::endl;
+    std::cout << "KLFitter::SetLeptonType(). Warning: lepton type not defined. Set electron as lepton type." << std::endl;
     leptontype = 1;
   }
 
@@ -94,8 +94,7 @@ int LikelihoodTopLeptonJets::DefineModelParticles() {
   fParticlesModel.reset(new Particles{});
 
   // add model particles
-  // create dummy TLorentzVector
-  TLorentzVector dummy{0, 0, 0, 0};  // 4-vector
+  TLorentzVector dummy{0, 0, 0, 0};
   fParticlesModel->AddParticle(&dummy,
                                Particles::kParton,  // type
                                "hadronic b quark",  // name
@@ -129,11 +128,9 @@ int LikelihoodTopLeptonJets::DefineModelParticles() {
   fParticlesModel->AddParticle(&dummy, Particles::kNeutrino, "neutrino");
 
   fParticlesModel->AddParticle(&dummy, Particles::kBoson, "hadronic W");
-
   fParticlesModel->AddParticle(&dummy, Particles::kBoson, "leptonic W");
 
   fParticlesModel->AddParticle(&dummy, Particles::kParton, "hadronic top");
-
   fParticlesModel->AddParticle(&dummy, Particles::kParton, "leptonic top");
 
   // no error
@@ -143,15 +140,15 @@ int LikelihoodTopLeptonJets::DefineModelParticles() {
 // ---------------------------------------------------------
 void LikelihoodTopLeptonJets::DefineParameters() {
   // add parameters of model
-  AddParameter("energy hadronic b",       fPhysicsConstants.MassBottom(), 1000.0);  // parBhadE
-  AddParameter("energy leptonic b",       fPhysicsConstants.MassBottom(), 1000.0);  // parBlepE
-  AddParameter("energy light quark 1",    0.0, 1000.0);                              // parLQ1E
-  AddParameter("energy light quark 2",    0.0, 1000.0);                              // parLQ2E
-  AddParameter("energy lepton",           0.0, 1000.0);                              // parLepE
-  AddParameter("p_x neutrino",        -1000.0, 1000.0);                              // parNuPx
-  AddParameter("p_y neutrino",        -1000.0, 1000.0);                              // parNuPy
-  AddParameter("p_z neutrino",        -1000.0, 1000.0);                              // parNuPz
-  AddParameter("top mass",              100.0, 1000.0);                              // parTopM
+  AddParameter("energy hadronic b", fPhysicsConstants.MassBottom(), 1000.0);  // parBhadE
+  AddParameter("energy leptonic b", fPhysicsConstants.MassBottom(), 1000.0);  // parBlepE
+  AddParameter("energy light quark 1", 0.0, 1000.0);                          // parLQ1E
+  AddParameter("energy light quark 2", 0.0, 1000.0);                          // parLQ2E
+  AddParameter("energy lepton", 0.0, 1000.0);                                 // parLepE
+  AddParameter("p_x neutrino", -1000.0, 1000.0);                              // parNuPx
+  AddParameter("p_y neutrino", -1000.0, 1000.0);                              // parNuPy
+  AddParameter("p_z neutrino", -1000.0, 1000.0);                              // parNuPz
+  AddParameter("top mass", 100.0, 1000.0);                                   // parTopM
 }
 
 // ---------------------------------------------------------
@@ -168,28 +165,28 @@ int LikelihoodTopLeptonJets::CalculateLorentzVectors(std::vector <double> const&
 
   // hadronic b quark
   bhad_fit_e = parameters[parBhadE];
-  scale = sqrt(bhad_fit_e*bhad_fit_e - bhad_meas_m*bhad_meas_m) / bhad_meas_p;
+  scale = sqrt(bhad_fit_e * bhad_fit_e - bhad_meas_m * bhad_meas_m) / bhad_meas_p;
   bhad_fit_px = scale * bhad_meas_px;
   bhad_fit_py = scale * bhad_meas_py;
   bhad_fit_pz = scale * bhad_meas_pz;
 
   // leptonic b quark
   blep_fit_e = parameters[parBlepE];
-  scale = sqrt(blep_fit_e*blep_fit_e - blep_meas_m*blep_meas_m) / blep_meas_p;
+  scale = sqrt(blep_fit_e * blep_fit_e - blep_meas_m * blep_meas_m) / blep_meas_p;
   blep_fit_px = scale * blep_meas_px;
   blep_fit_py = scale * blep_meas_py;
   blep_fit_pz = scale * blep_meas_pz;
 
   // light quark 1
   lq1_fit_e = parameters[parLQ1E];
-  scale = sqrt(lq1_fit_e*lq1_fit_e - lq1_meas_m*lq1_meas_m) / lq1_meas_p;
+  scale = sqrt(lq1_fit_e * lq1_fit_e - lq1_meas_m * lq1_meas_m) / lq1_meas_p;
   lq1_fit_px = scale * lq1_meas_px;
   lq1_fit_py = scale * lq1_meas_py;
   lq1_fit_pz = scale * lq1_meas_pz;
 
   // light quark 2
   lq2_fit_e = parameters[parLQ2E];
-  scale = sqrt(lq2_fit_e*lq2_fit_e - lq2_meas_m*lq2_meas_m) / lq2_meas_p;
+  scale = sqrt(lq2_fit_e * lq2_fit_e - lq2_meas_m * lq2_meas_m) / lq2_meas_p;
   lq2_fit_px  = scale * lq2_meas_px;
   lq2_fit_py  = scale * lq2_meas_py;
   lq2_fit_pz  = scale * lq2_meas_pz;
@@ -205,35 +202,35 @@ int LikelihoodTopLeptonJets::CalculateLorentzVectors(std::vector <double> const&
   nu_fit_px = parameters[parNuPx];
   nu_fit_py = parameters[parNuPy];
   nu_fit_pz = parameters[parNuPz];
-  nu_fit_e  = sqrt(nu_fit_px*nu_fit_px + nu_fit_py*nu_fit_py + nu_fit_pz*nu_fit_pz);
+  nu_fit_e  = sqrt(nu_fit_px * nu_fit_px + nu_fit_py * nu_fit_py + nu_fit_pz * nu_fit_pz);
 
   // hadronic W
-  whad_fit_e  = lq1_fit_e +lq2_fit_e;
-  whad_fit_px = lq1_fit_px+lq2_fit_px;
-  whad_fit_py = lq1_fit_py+lq2_fit_py;
-  whad_fit_pz = lq1_fit_pz+lq2_fit_pz;
-  whad_fit_m = sqrt(whad_fit_e*whad_fit_e - (whad_fit_px*whad_fit_px + whad_fit_py*whad_fit_py + whad_fit_pz*whad_fit_pz));
+  whad_fit_e  = lq1_fit_e + lq2_fit_e;
+  whad_fit_px = lq1_fit_px + lq2_fit_px;
+  whad_fit_py = lq1_fit_py + lq2_fit_py;
+  whad_fit_pz = lq1_fit_pz + lq2_fit_pz;
+  whad_fit_m = sqrt(whad_fit_e * whad_fit_e - (whad_fit_px * whad_fit_px + whad_fit_py * whad_fit_py + whad_fit_pz * whad_fit_pz));
 
   // leptonic W
-  wlep_fit_e  = lep_fit_e +nu_fit_e;
-  wlep_fit_px = lep_fit_px+nu_fit_px;
-  wlep_fit_py = lep_fit_py+nu_fit_py;
-  wlep_fit_pz = lep_fit_pz+nu_fit_pz;
-  wlep_fit_m = sqrt(wlep_fit_e*wlep_fit_e - (wlep_fit_px*wlep_fit_px + wlep_fit_py*wlep_fit_py + wlep_fit_pz*wlep_fit_pz));
+  wlep_fit_e  = lep_fit_e + nu_fit_e;
+  wlep_fit_px = lep_fit_px + nu_fit_px;
+  wlep_fit_py = lep_fit_py + nu_fit_py;
+  wlep_fit_pz = lep_fit_pz + nu_fit_pz;
+  wlep_fit_m = sqrt(wlep_fit_e * wlep_fit_e - (wlep_fit_px * wlep_fit_px + wlep_fit_py * wlep_fit_py + wlep_fit_pz * wlep_fit_pz));
 
   // hadronic top
-  thad_fit_e = whad_fit_e+bhad_fit_e;
-  thad_fit_px = whad_fit_px+bhad_fit_px;
-  thad_fit_py = whad_fit_py+bhad_fit_py;
-  thad_fit_pz = whad_fit_pz+bhad_fit_pz;
-  thad_fit_m = sqrt(thad_fit_e*thad_fit_e - (thad_fit_px*thad_fit_px + thad_fit_py*thad_fit_py + thad_fit_pz*thad_fit_pz));
+  thad_fit_e = whad_fit_e + bhad_fit_e;
+  thad_fit_px = whad_fit_px + bhad_fit_px;
+  thad_fit_py = whad_fit_py + bhad_fit_py;
+  thad_fit_pz = whad_fit_pz + bhad_fit_pz;
+  thad_fit_m = sqrt(thad_fit_e * thad_fit_e - (thad_fit_px * thad_fit_px + thad_fit_py * thad_fit_py + thad_fit_pz * thad_fit_pz));
 
   // leptonic top
-  tlep_fit_e = wlep_fit_e+blep_fit_e;
-  tlep_fit_px = wlep_fit_px+blep_fit_px;
-  tlep_fit_py = wlep_fit_py+blep_fit_py;
-  tlep_fit_pz = wlep_fit_pz+blep_fit_pz;
-  tlep_fit_m = sqrt(tlep_fit_e*tlep_fit_e - (tlep_fit_px*tlep_fit_px + tlep_fit_py*tlep_fit_py + tlep_fit_pz*tlep_fit_pz));
+  tlep_fit_e = wlep_fit_e + blep_fit_e;
+  tlep_fit_px = wlep_fit_px + blep_fit_px;
+  tlep_fit_py = wlep_fit_py + blep_fit_py;
+  tlep_fit_pz = wlep_fit_pz + blep_fit_pz;
+  tlep_fit_m = sqrt(tlep_fit_e * tlep_fit_e - (tlep_fit_px * tlep_fit_px + tlep_fit_py * tlep_fit_py + tlep_fit_pz * tlep_fit_pz));
 
   // no error
   return 1;
@@ -251,7 +248,7 @@ int LikelihoodTopLeptonJets::RemoveInvariantParticlePermutations() {
   indexVector_Jets.push_back(3);
   err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Jets);
 
-  // remove invariant jet permutations of notevent jets
+  // remove invariant jet permutations of all jets not considered
   Particles* particles = (*fPermutations)->Particles();
   indexVector_Jets.clear();
   for (int iPartons = 4; iPartons < particles->NPartons(); iPartons++) {
@@ -289,61 +286,55 @@ int LikelihoodTopLeptonJets::AdjustParameterRanges() {
 
   double E = (*fParticlesPermuted)->Parton(0)->E();
   double m = fPhysicsConstants.MassBottom();
-  if (fFlagUseJetMass)
-    m = std::max(0.0, (*fParticlesPermuted)->Parton(0)->M());
+  if (fFlagUseJetMass) m = std::max(0.0, (*fParticlesPermuted)->Parton(0)->M());
   double sigma = fFlagGetParSigmasFromTFs ? fResEnergyBhad->GetSigma(E) : sqrt(E);
-  double Emin = std::max(m, E - nsigmas_jet* sigma);
-  double Emax  = E + nsigmas_jet* sigma;
+  double Emin = std::max(m, E - nsigmas_jet * sigma);
+  double Emax = E + nsigmas_jet * sigma;
   SetParameterRange(parBhadE, Emin, Emax);
 
   E = (*fParticlesPermuted)->Parton(1)->E();
   m = fPhysicsConstants.MassBottom();
-  if (fFlagUseJetMass)
-    m = std::max(0.0, (*fParticlesPermuted)->Parton(1)->M());
+  if (fFlagUseJetMass) m = std::max(0.0, (*fParticlesPermuted)->Parton(1)->M());
   sigma = fFlagGetParSigmasFromTFs ? fResEnergyBlep->GetSigma(E) : sqrt(E);
-  Emin = std::max(m, E - nsigmas_jet* sigma);
-  Emax  = E + nsigmas_jet* sigma;
+  Emin = std::max(m, E - nsigmas_jet * sigma);
+  Emax = E + nsigmas_jet * sigma;
   SetParameterRange(parBlepE, Emin, Emax);
 
   E = (*fParticlesPermuted)->Parton(2)->E();
   m = 0.001;
-  if (fFlagUseJetMass)
-    m = std::max(0.0, (*fParticlesPermuted)->Parton(2)->M());
+  if (fFlagUseJetMass) m = std::max(0.0, (*fParticlesPermuted)->Parton(2)->M());
   sigma = fFlagGetParSigmasFromTFs ? fResEnergyLQ1->GetSigma(E) : sqrt(E);
-  Emin = std::max(m, E - nsigmas_jet* sigma);
-  Emax  = E + nsigmas_jet* sigma;
+  Emin = std::max(m, E - nsigmas_jet * sigma);
+  Emax = E + nsigmas_jet * sigma;
   SetParameterRange(parLQ1E, Emin, Emax);
 
   E = (*fParticlesPermuted)->Parton(3)->E();
   m = 0.001;
-  if (fFlagUseJetMass)
-    m = std::max(0.0, (*fParticlesPermuted)->Parton(3)->M());
+  if (fFlagUseJetMass) m = std::max(0.0, (*fParticlesPermuted)->Parton(3)->M());
   sigma = fFlagGetParSigmasFromTFs ? fResEnergyLQ2->GetSigma(E) : sqrt(E);
-  Emin = std::max(m, E - nsigmas_jet* sigma);
-  Emax  = E + nsigmas_jet* sigma;
+  Emin = std::max(m, E - nsigmas_jet * sigma);
+  Emax = E + nsigmas_jet * sigma;
   SetParameterRange(parLQ2E, Emin, Emax);
 
   if (fTypeLepton == kElectron) {
     E = (*fParticlesPermuted)->Electron(0)->E();
     sigma = fFlagGetParSigmasFromTFs ? fResLepton->GetSigma(E) : sqrt(E);
-    Emin = std::max(0.001, E - nsigmas_lepton* sigma);
-    Emax  = E + nsigmas_lepton* sigma;
+    Emin = std::max(0.001, E - nsigmas_lepton * sigma);
+    Emax = E + nsigmas_lepton * sigma;
   } else if (fTypeLepton == kMuon) {
     E = (*fParticlesPermuted)->Muon(0)->E();
     double sintheta = sin((*fParticlesPermuted)->Muon(0)->Theta());
-    sigma = fFlagGetParSigmasFromTFs ? fResLepton->GetSigma(E*sintheta)/sintheta : E*E*sintheta;
-    double sigrange = nsigmas_lepton* sigma;
-    Emin = std::max(0.001, E -sigrange);
-    Emax = E +sigrange;
+    sigma = fFlagGetParSigmasFromTFs ? fResLepton->GetSigma(E * sintheta) / sintheta : E * E * sintheta;
+    double sigrange = nsigmas_lepton * sigma;
+    Emin = std::max(0.001, E - sigrange);
+    Emax = E + sigrange;
   }
   SetParameterRange(parLepE, Emin, Emax);
 
-  // note: this is hard-coded in the momement
-
   sigma = fFlagGetParSigmasFromTFs ? fResMET->GetSigma(SumET) : 100;
-  double sigrange = nsigmas_met*sigma;
-  SetParameterRange(parNuPx, ETmiss_x-sigrange, ETmiss_x+sigrange);
-  SetParameterRange(parNuPy, ETmiss_y-sigrange, ETmiss_y+sigrange);
+  double sigrange = nsigmas_met * sigma;
+  SetParameterRange(parNuPx, ETmiss_x - sigrange, ETmiss_x + sigrange);
+  SetParameterRange(parNuPy, ETmiss_y - sigrange, ETmiss_y + sigrange);
 
   if (fFlagTopMassFixed)
     SetParameterRange(parTopM, fPhysicsConstants.MassTop(), fPhysicsConstants.MassTop());
@@ -380,7 +371,7 @@ double LikelihoodTopLeptonJets::LogLikelihood(const std::vector<double> & parame
   if (fTypeLepton == kElectron) {
     logprob += log(fResLepton->p(lep_fit_e, lep_meas_e, &TFgoodTmp));
   } else if (fTypeLepton == kMuon) {
-    logprob += log(fResLepton->p(lep_fit_e* lep_meas_sintheta, lep_meas_pt, &TFgoodTmp));
+    logprob += log(fResLepton->p(lep_fit_e * lep_meas_sintheta, lep_meas_pt, &TFgoodTmp));
   }
   if (!TFgoodTmp) fTFgood = false;
 
@@ -394,9 +385,6 @@ double LikelihoodTopLeptonJets::LogLikelihood(const std::vector<double> & parame
   // physics constants
   double massW = fPhysicsConstants.MassW();
   double gammaW = fPhysicsConstants.GammaW();
-  // note: top mass width should be made DEPENDENT on the top mass at a certain point
-  //    fPhysicsConstants.SetMassTop(parameters[parTopM]);
-  // (this will also set the correct width for the top)
   double gammaTop = fPhysicsConstants.GammaTop();
 
   // Breit-Wigner of hadronically decaying W-boson
@@ -430,8 +418,7 @@ std::vector<double> LikelihoodTopLeptonJets::GetInitialParameters() {
     values[parNuPz] = neutrino_pz_solutions[1];
     sol2 = LogLikelihood(values);
 
-    if (sol1 > sol2)
-      values[parNuPz] = neutrino_pz_solutions[0];
+    if (sol1 > sol2) values[parNuPz] = neutrino_pz_solutions[0];
   }
 
   return values;
@@ -514,24 +501,23 @@ std::vector<double> LikelihoodTopLeptonJets::CalculateNeutrinoPzSolutions(TLoren
 
   double px_nu = ETmiss_x;
   double py_nu = ETmiss_y;
-  double alpha = constants.MassW()*constants.MassW() - mE*mE + 2*(px_c*px_nu + py_c*py_nu);
+  double alpha = constants.MassW() * constants.MassW() - mE * mE + 2 * (px_c * px_nu + py_c * py_nu);
 
-  double a = pz_c*pz_c - Ec*Ec;
-  double b = alpha* pz_c;
-  double c = - Ec*Ec* (px_nu*px_nu + py_nu*py_nu) + alpha*alpha/4.;
+  double a = pz_c * pz_c - Ec * Ec;
+  double b = alpha * pz_c;
+  double c = - Ec * Ec * (px_nu * px_nu + py_nu * py_nu) + alpha * alpha / 4.;
 
-  double discriminant = b*b - 4*a*c;
-  if (discriminant < 0.)
-    return pz;
+  double discriminant = b * b - 4 * a * c;
+  if (discriminant < 0.) return pz;
 
-  double pz_offset = - b / (2*a);
+  double pz_offset = - b / (2 * a);
 
   double squareRoot = sqrt(discriminant);
   if (squareRoot < 1.e-6) {
     pz.push_back(pz_offset);
   } else {
-    pz.push_back(pz_offset + squareRoot / (2*a));
-    pz.push_back(pz_offset - squareRoot / (2*a));
+    pz.push_back(pz_offset + squareRoot / (2 * a));
+    pz.push_back(pz_offset - squareRoot / (2 * a));
   }
 
   return pz;
@@ -571,7 +557,7 @@ int LikelihoodTopLeptonJets::SavePermutedParticles() {
   lq2_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(3)->M(), 0., &lq2_meas_px, &lq2_meas_py, &lq2_meas_pz, lq2_meas_e);
   lq2_meas_p      = sqrt(lq2_meas_e*lq2_meas_e - lq2_meas_m*lq2_meas_m);
 
-  TLorentzVector * lepton(0);
+  TLorentzVector* lepton(0);
   if (fTypeLepton == kElectron) {
     lepton = (*fParticlesPermuted)->Electron(0);
     lep_meas_deteta = (*fParticlesPermuted)->DetEta(0, Particles::kElectron);
@@ -611,21 +597,21 @@ int LikelihoodTopLeptonJets::SaveResolutionFunctions() {
 int LikelihoodTopLeptonJets::BuildModelParticles() {
   if (GetBestFitParameters().size() > 0) CalculateLorentzVectors(GetBestFitParameters());
 
-  TLorentzVector * bhad = fParticlesModel->Parton(0);
-  TLorentzVector * blep = fParticlesModel->Parton(1);
-  TLorentzVector * lq1  = fParticlesModel->Parton(2);
-  TLorentzVector * lq2  = fParticlesModel->Parton(3);
-  TLorentzVector * lep(0);
+  TLorentzVector* bhad = fParticlesModel->Parton(0);
+  TLorentzVector* blep = fParticlesModel->Parton(1);
+  TLorentzVector* lq1  = fParticlesModel->Parton(2);
+  TLorentzVector* lq2  = fParticlesModel->Parton(3);
+  TLorentzVector* lep(0);
   if (fTypeLepton == kElectron) {
     lep  = fParticlesModel->Electron(0);
   } else if (fTypeLepton == kMuon) {
     lep  = fParticlesModel->Muon(0);
   }
-  TLorentzVector * nu   = fParticlesModel->Neutrino(0);
-  TLorentzVector * whad  = fParticlesModel->Boson(0);
-  TLorentzVector * wlep  = fParticlesModel->Boson(1);
-  TLorentzVector * thad  = fParticlesModel->Parton(4);
-  TLorentzVector * tlep  = fParticlesModel->Parton(5);
+  TLorentzVector* nu   = fParticlesModel->Neutrino(0);
+  TLorentzVector* whad  = fParticlesModel->Boson(0);
+  TLorentzVector* wlep  = fParticlesModel->Boson(1);
+  TLorentzVector* thad  = fParticlesModel->Parton(4);
+  TLorentzVector* tlep  = fParticlesModel->Parton(5);
 
   bhad->SetPxPyPzE(bhad_fit_px, bhad_fit_py, bhad_fit_pz, bhad_fit_e);
   blep->SetPxPyPzE(blep_fit_px, blep_fit_py, blep_fit_pz, blep_fit_e);
@@ -684,9 +670,6 @@ std::vector<double> LikelihoodTopLeptonJets::LogLikelihoodComponents(std::vector
   // physics constants
   double massW = fPhysicsConstants.MassW();
   double gammaW = fPhysicsConstants.GammaW();
-  // note: top mass width should be made DEPENDENT on the top mass at a certain point
-  //    fPhysicsConstants.SetMassTop(parameters[parTopM]);
-  // (this will also set the correct width for the top)
   double gammaTop = fPhysicsConstants.GammaTop();
 
   // Breit-Wigner of hadronically decaying W-boson
