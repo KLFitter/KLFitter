@@ -157,7 +157,7 @@ class LikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
     * GetInitialParameters().
     * @return vector of initial values.
     */
-  std::vector<double> GetInitialParametersWoNeutrinoPz();
+  virtual std::vector<double> GetInitialParametersWoNeutrinoPz();
 
   /* @} */
 
