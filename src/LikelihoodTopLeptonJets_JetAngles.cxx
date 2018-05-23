@@ -31,6 +31,19 @@
 #include "KLFitter/ResolutionBase.h"
 #include "TLorentzVector.h"
 
+namespace {
+// A helper for calculating delta(phi1, phi2)
+double diffPhi(double phi1, double phi2) {
+  double delta = phi1 - phi2;
+  if (delta > TMath::Pi()) {
+    delta -= TMath::TwoPi();
+  } else if (delta < -TMath::Pi()) {
+    delta += TMath::TwoPi();
+  }
+  return delta;
+}
+}
+
 // ---------------------------------------------------------
 KLFitter::LikelihoodTopLeptonJets_JetAngles::LikelihoodTopLeptonJets_JetAngles() = default;
 
@@ -157,7 +170,7 @@ int KLFitter::LikelihoodTopLeptonJets_JetAngles::AdjustParameterRanges() {
   double m = fPhysicsConstants.MassBottom();
   if (fFlagUseJetMass)
     m = std::max(0.0, (*fParticlesPermuted)->Parton(0)->M());
-  double sigma = fFlagGetParSigmasFromTFs ? (*fDetector)->ResEnergyBJet((*fParticlesPermuted)->DetEta(0, KLFitter::Particles::kParton))->GetSigma(E) : sqrt(E);
+  double sigma = fFlagGetParSigmasFromTFs ? fResEnergyBhad->GetSigma(E) : sqrt(E);
   double Emin = std::max(m, E - nsigmas_jet* sigma);
   double Emax  = E + nsigmas_jet* sigma;
   SetParameterRange(parBhadE, Emin, Emax);
@@ -166,7 +179,7 @@ int KLFitter::LikelihoodTopLeptonJets_JetAngles::AdjustParameterRanges() {
   m = fPhysicsConstants.MassBottom();
   if (fFlagUseJetMass)
     m = std::max(0.0, (*fParticlesPermuted)->Parton(1)->M());
-  sigma = fFlagGetParSigmasFromTFs ? (*fDetector)->ResEnergyBJet((*fParticlesPermuted)->DetEta(1, KLFitter::Particles::kParton))->GetSigma(E) : sqrt(E);
+  sigma = fFlagGetParSigmasFromTFs ? fResEnergyBlep->GetSigma(E) : sqrt(E);
   Emin = std::max(m, E - nsigmas_jet* sigma);
   Emax  = E + nsigmas_jet* sigma;
   SetParameterRange(parBlepE, Emin, Emax);
@@ -175,7 +188,7 @@ int KLFitter::LikelihoodTopLeptonJets_JetAngles::AdjustParameterRanges() {
   m = 0.001;
   if (fFlagUseJetMass)
     m = std::max(0.0, (*fParticlesPermuted)->Parton(2)->M());
-  sigma = fFlagGetParSigmasFromTFs ? (*fDetector)->ResEnergyLightJet((*fParticlesPermuted)->DetEta(2, KLFitter::Particles::kParton))->GetSigma(E) : sqrt(E);
+  sigma = fFlagGetParSigmasFromTFs ? fResEnergyLQ1->GetSigma(E) : sqrt(E);
   Emin = std::max(m, E - nsigmas_jet* sigma);
   Emax  = E + nsigmas_jet* sigma;
   SetParameterRange(parLQ1E, Emin, Emax);
@@ -184,7 +197,7 @@ int KLFitter::LikelihoodTopLeptonJets_JetAngles::AdjustParameterRanges() {
   m = 0.001;
   if (fFlagUseJetMass)
     m = std::max(0.0, (*fParticlesPermuted)->Parton(3)->M());
-  sigma = fFlagGetParSigmasFromTFs ? (*fDetector)->ResEnergyLightJet((*fParticlesPermuted)->DetEta(3, KLFitter::Particles::kParton))->GetSigma(E) : sqrt(E);
+  sigma = fFlagGetParSigmasFromTFs ? fResEnergyLQ2->GetSigma(E) : sqrt(E);
   Emin = std::max(m, E - nsigmas_jet* sigma);
   Emax  = E + nsigmas_jet* sigma;
   SetParameterRange(parLQ2E, Emin, Emax);
@@ -272,16 +285,16 @@ double KLFitter::LikelihoodTopLeptonJets_JetAngles::LogLikelihood(const std::vec
   bool TFgoodTmp(true);
 
   // jet energy resolution terms
-  logprob += log((*fDetector)->ResEnergyBJet((*fParticlesPermuted)->DetEta(0, KLFitter::Particles::kParton))->p(bhad_fit_e, bhad_meas_e, &TFgoodTmp));
+  logprob += log(fResEnergyBhad->p(bhad_fit_e, bhad_meas_e, &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
 
-  logprob += log((*fDetector)->ResEnergyBJet((*fParticlesPermuted)->DetEta(1, KLFitter::Particles::kParton))->p(blep_fit_e, blep_meas_e, &TFgoodTmp));
+  logprob += log(fResEnergyBlep->p(blep_fit_e, blep_meas_e, &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
 
-  logprob += log((*fDetector)->ResEnergyLightJet((*fParticlesPermuted)->DetEta(2, KLFitter::Particles::kParton))->p(lq1_fit_e, lq1_meas_e, &TFgoodTmp));
+  logprob += log(fResEnergyLQ1->p(lq1_fit_e, lq1_meas_e, &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
 
-  logprob += log((*fDetector)->ResEnergyLightJet((*fParticlesPermuted)->DetEta(3, KLFitter::Particles::kParton))->p(lq2_fit_e, lq2_meas_e, &TFgoodTmp));
+  logprob += log(fResEnergyLQ2->p(lq2_fit_e, lq2_meas_e, &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
 
   // lepton energy resolution terms
@@ -395,19 +408,6 @@ std::vector<double> KLFitter::LikelihoodTopLeptonJets_JetAngles::GetInitialParam
 }
 
 // ---------------------------------------------------------
-int KLFitter::LikelihoodTopLeptonJets_JetAngles::SaveResolutionFunctions() {
-  if (fTypeLepton == kElectron) {
-    fResLepton = (*fDetector)->ResEnergyElectron(lep_meas_deteta);
-  } else if (fTypeLepton == kMuon) {
-    fResLepton = (*fDetector)->ResEnergyMuon(lep_meas_deteta);
-  }
-  fResMET = (*fDetector)->ResMissingET();
-
-  // no error
-  return 1;
-}
-
-// ---------------------------------------------------------
 std::vector<double> KLFitter::LikelihoodTopLeptonJets_JetAngles::LogLikelihoodComponents(std::vector<double> parameters) {
   std::vector<double> vecci;
 
@@ -418,16 +418,16 @@ std::vector<double> KLFitter::LikelihoodTopLeptonJets_JetAngles::LogLikelihoodCo
   bool TFgoodTmp(true);
 
   // jet energy resolution terms
-  vecci.push_back(log((*fDetector)->ResEnergyBJet((*fParticlesPermuted)->DetEta(0, KLFitter::Particles::kParton))->p(bhad_fit_e, bhad_meas_e, &TFgoodTmp)));  // comp0
+  vecci.push_back(log(fResEnergyBhad->p(bhad_fit_e, bhad_meas_e, &TFgoodTmp)));  // comp0
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log((*fDetector)->ResEnergyBJet((*fParticlesPermuted)->DetEta(1, KLFitter::Particles::kParton))->p(blep_fit_e, blep_meas_e, &TFgoodTmp)));  // comp1
+  vecci.push_back(log(fResEnergyBlep->p(blep_fit_e, blep_meas_e, &TFgoodTmp)));  // comp1
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log((*fDetector)->ResEnergyLightJet((*fParticlesPermuted)->DetEta(2, KLFitter::Particles::kParton))->p(lq1_fit_e, lq1_meas_e, &TFgoodTmp)));  // comp2
+  vecci.push_back(log(fResEnergyLQ1->p(lq1_fit_e, lq1_meas_e, &TFgoodTmp)));  // comp2
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log((*fDetector)->ResEnergyLightJet((*fParticlesPermuted)->DetEta(3, KLFitter::Particles::kParton))->p(lq2_fit_e, lq2_meas_e, &TFgoodTmp)));  // comp3
+  vecci.push_back(log(fResEnergyLQ2->p(lq2_fit_e, lq2_meas_e, &TFgoodTmp)));  // comp3
   if (!TFgoodTmp) fTFgood = false;
 
   // lepton energy resolution terms
@@ -487,15 +487,4 @@ std::vector<double> KLFitter::LikelihoodTopLeptonJets_JetAngles::LogLikelihoodCo
 
   // return log of likelihood
   return vecci;
-}
-
-// ---------------------------------------------------------
-double KLFitter::LikelihoodTopLeptonJets_JetAngles::diffPhi(double phi1, double phi2) {
-  double delta = phi1 - phi2;
-  if (delta > TMath::Pi()) {
-    delta -= TMath::TwoPi();
-  } else if (delta < -TMath::Pi()) {
-    delta += TMath::TwoPi();
-  }
-  return delta;
 }

@@ -65,6 +65,7 @@ class LikelihoodTopLeptonJets_JetAngles : public KLFitter::LikelihoodTopLeptonJe
     * Enumerator for the parameters.
     */
   enum Parameters { parBhadE, parBlepE, parLQ1E, parLQ2E, parLepE, parNuPx, parNuPy, parNuPz, parBhadEta, parBlepEta, parLQ1Eta, parLQ2Eta, parBhadPhi, parBlepPhi, parLQ1Phi, parLQ2Phi, parTopM };
+
   /* @} */
   /** \name Member functions (misc)  */
   /* @{ */
@@ -133,16 +134,6 @@ class LikelihoodTopLeptonJets_JetAngles : public KLFitter::LikelihoodTopLeptonJe
   int AdjustParameterRanges() override;
 
   /* @} */
-
-  /**
-    * A helper for calculating delta(phi1, phi2)
-    */
-  double diffPhi(double phi1, double phi2);
-
-  /**
-    * Save resolution functions.
-    */
-  int SaveResolutionFunctions() override;
 };
 }  // namespace KLFitter
 
