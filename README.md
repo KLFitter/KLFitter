@@ -14,6 +14,8 @@ easily modified to fit other processes. Detailed documentation:
 - [Out-of-the-box example](doc/Example.md)
 - [Frequently Asked Questions](doc/FAQ.md)
 
+An auto-generated class reference guide for the KLFitter library is also uploaded to https://KLFitter.github.io. The uploaded version always corresponds to the latest version of the master branch.
+
 
 ### Licensing terms
 
