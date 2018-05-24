@@ -149,3 +149,8 @@ jobs:
         - $CMD_DOCKER "${CMD_EXPORT_BATINSTALL} && make install"
         - *run_unit_tests
         - *run_unit_test_diff
+
+after_success:
+  - cd $TRAVIS_BUILD_DIR
+  - chmod +x cmake/DeployDoxygen.sh
+  - ./cmake/DeployDoxygen.sh
