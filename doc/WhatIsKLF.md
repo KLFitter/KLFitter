@@ -312,6 +312,9 @@ require that the b-tagging information for the jets is passed to KLFitter.
   b-tagged jet is associated with a light quark from the top-quark decay or a
   non-b-tagged jet is associated with a b-quark from the top-quark decay are
   removed from the fitting procedure.
+- Option `LikelihoodBase::kVetoHybridNoFit`: Works like `kVetoNoFit` option unless
+  all permutations are vetoed, then it switches to `kVetoNoFitLight`. This ensures
+  that every event will have at least one allowed permutation. 
 - Option `LikelihoodBase::kVeto`: Same as `kVetoNoFit`, but the fit is performed
   and the event probability for that permutation is set to zero.
 - Option `LikelihoodBase::kVetoLight`: Same as `kVetoNoFitLight`, but the fit is
