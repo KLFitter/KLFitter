@@ -128,9 +128,6 @@ before_install:
   skip-cleanup: true
   github-token: $DOC_TOKEN
   keep-history: true
-  on:
-    repo: KLFitter/KLFitter
-    branch: master
 
 
 # Before the deployment step, build the doxygen documentation
@@ -184,5 +181,6 @@ jobs:
         - *run_unit_test_diff
     - stage: deploy
       script: skip
+      if: branch = master AND repo = KLFitter/KLFitter AND NOT type = pull_request
       deploy:
         <<: *deploy_documentation
