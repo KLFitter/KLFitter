@@ -143,6 +143,7 @@ int LikelihoodTopLeptonJetsUDSep::RemoveInvariantParticlePermutations() {
 // ---------------------------------------------------------
 double LikelihoodTopLeptonJetsUDSep::LogEventProbability() {
   double logprob = 0;
+
   if (fBTagMethod != kNotag) {
     double logprobbtag = LogEventProbabilityBTag();
     if (logprobbtag <= -1e99) return -1e99;
@@ -160,6 +161,7 @@ double LikelihoodTopLeptonJetsUDSep::LogEventProbability() {
   } else {
     logprob += LogLikelihood(GetBestFitParameters());
   }
+
   return logprob;
 }
 
@@ -268,6 +270,8 @@ double LikelihoodTopLeptonJetsUDSep::LogEventProbabilityBTag() {
       return -1e99;
     }
   } else if (fBTagMethod == kWorkingPoint) {
+    // loop over all model particles.  calculate the overall b-tagging
+    // probability which is the product of all probabilities.
     for (int i = 0; i < fParticlesModel->NPartons(); ++i) {
       // get index of corresponding measured particle.
       int index = fParticlesModel->JetIndex(i);

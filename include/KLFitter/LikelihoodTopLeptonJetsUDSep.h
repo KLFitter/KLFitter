@@ -165,20 +165,26 @@ class LikelihoodTopLeptonJetsUDSep : public LikelihoodTopLeptonJets {
   /// @{
 
   /**
-   * Define the parameters of the fit.
+   * Define the parameters of the fit. In addition to
+   * LikelihoodTopLeptonJets::DefineParameters(), this renames the two energy
+   * parameters of the light quarks to "up-type" and "down-type".
    */
   void DefineParameters() override;
 
   /**
-   * Return the log of the event probability fof the current
-   * combination
+   * Return the log of the event probability for the current combination.
+   * Basically identical to LikelihoodBase::LogEventProbability(), but adds an
+   * additional term for the light jets to the probability calculation.
    * @return The event probability
    */
   double LogEventProbability() override;
 
   /**
-   * Return the contribution from b tagging to the log of the
-   * event probability for the current combination
+   * Return the contribution from b tagging to the log of the event probability
+   * for the current combination. Basically identical to
+   * LikelihoodBase::LogEventProbabilityBTag(), but corrections were made to use
+   * kLightUp and kLightDown from #KLFitter::Particles::TrueFlavorType instead
+   * of just kLight.
    * @return The event probability contribution
    */
   double LogEventProbabilityBTag() override;
@@ -188,14 +194,20 @@ class LikelihoodTopLeptonJetsUDSep : public LikelihoodTopLeptonJets {
   /// @{
 
   /**
-   * Check if the permutation is LH invariant.
+   * Check if the permutation is LH invariant. A documentation, as to \a why
+   * this needs to be reimplemented, needs to be added.
+   * @param iperm Current permutation
+   * @param nperms Total number of permutations
+   * @param switchpar1 ???
+   * @param switchpar2 ???
    * @return Permutation of the invariant partner, -1 if there is no one.
    */
   int LHInvariantPermutationPartner(int iperm, int nperms, int *switchpar1, int *switchpar2) override;
 
   /**
-   * Return the contribution from pT and b tag weight probability (by LJetSeparationMethod)
-   * to the log of the event probability for the current combination
+   * Return the contribution from pT and b tag weight probability (by
+   * #LJetSeparationMethod) to the log of the event probability for the current
+   * combination.
    * @return The event probability contribution
    */
   double LogEventProbabilityLJetReweight();
@@ -210,13 +222,17 @@ class LikelihoodTopLeptonJetsUDSep : public LikelihoodTopLeptonJets {
   int DefineModelParticles() override;
 
   /**
-   * Remove forbidden particle permutations.
+   * Remove forbidden particle permutations. Reimplemented, because there are \a
+   * no forbidden particle permutations, if up-type and down-type quarks are
+   * distinguished, i.e. this function doesn't do anything.
    * @return An error code.
    */
   int RemoveForbiddenParticlePermutations() override { return 1; }
 
   /**
-   * Remove invariant particle permutations.
+   * Remove invariant particle permutations. Reimplemented, because particle
+   * permutations with the two light jets swapped are \a not invariant in this
+   * likelihood.
    * @return An error code.
    */
   int RemoveInvariantParticlePermutations() override;
