@@ -1,0 +1,20 @@
+/**
+ * \mainpage
+ *
+ * This is the auto-generated documentation to the KLFitter library. KLFitter is
+ * hosted on github.com under <A
+ * HREF="https://github.com/KLFitter/KLFitter">https://github.com/KLFitter/KLFitter</A>.
+ * The repository contains installation instructions on the front page and
+ * cross-links to other pages containing brief summaries of the KLFitter
+ * functionality. Specifically, <A
+ * HREF="https://github.com/KLFitter/KLFitter/doc/WhatIsKLF.md">WhatIsKLF.md</A>
+ * introduces all KLFitter likelihoods and their usage, lists options for using
+ * flavor-tagging information and contains many more information about how to
+ * use KLFitter.
+ *
+ * On the other hand, these web pages are a reference guide to all namespaces,
+ * classes, methods etc. implemented in KLFitter. They are auto-generated using
+ * doxygen and provide a more visual way of the comments written in the KLFitter
+ * library header files. Maybe a good starting point would be the <A
+ * HREF="annotated.html">page listing all classes</A>.
+ */
