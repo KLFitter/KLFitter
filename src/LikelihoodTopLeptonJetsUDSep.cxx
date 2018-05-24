@@ -37,7 +37,7 @@ namespace KLFitter {
 // ---------------------------------------------------------
 LikelihoodTopLeptonJetsUDSep::LikelihoodTopLeptonJetsUDSep()
   : LikelihoodTopLeptonJets::LikelihoodTopLeptonJets()
-  , fLJetSeparationMethod(LikelihoodTopLeptonJetsUDSep::kNone) {
+  , m_ljet_separation_method(LikelihoodTopLeptonJetsUDSep::kNone) {
   // define model particles
   this->DefineModelParticles();
 
@@ -148,7 +148,7 @@ double LikelihoodTopLeptonJetsUDSep::LogEventProbability() {
     if (logprobbtag <= -1e99) return -1e99;
     logprob += logprobbtag;
   }
-  if (fLJetSeparationMethod != kNone) {
+  if (m_ljet_separation_method != kNone) {
     double logprobljetweight = LogEventProbabilityLJetReweight();
     if (logprobljetweight <= -1e99) return -1e99;
     logprob += logprobljetweight;
@@ -166,10 +166,10 @@ double LikelihoodTopLeptonJetsUDSep::LogEventProbability() {
 // ---------------------------------------------------------
 double LikelihoodTopLeptonJetsUDSep::LogEventProbabilityLJetReweight() {
   double logprob = 0;
-  switch (fLJetSeparationMethod) {
+  switch (m_ljet_separation_method) {
   case kPermReweight:
 
-    if (!(fUpJetPtHisto && fDownJetPtHisto&& fBJetPtHisto && fUpJetTagWeightHisto && fDownJetTagWeightHisto && fBJetTagWeightHisto)) {
+    if (!(m_up_jet_pt_histo && m_down_jet_pt_histo&& m_bjet_pt_histo && m_up_jet_tag_weight_histo && m_down_jet_tag_weight_histo && m_bjet_tag_weight_histo)) {
       std::cout <<  " KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityLJetReweight() : Histograms were not set properly! " << std::endl;
       return -1e99;
     }
@@ -204,7 +204,7 @@ double LikelihoodTopLeptonJetsUDSep::LogEventProbabilityLJetReweight() {
     break;
 
   case kPermReweight2D:
-    if (!(fUpJet2DWeightHisto && fDownJet2DWeightHisto && fBJet2DWeightHisto)) {
+    if (!(m_up_jet_2d_weight_histo && m_down_jet_2d_weight_histo && m_bjet_2d_weight_histo)) {
       std::cout <<  " KLFitter::LikelihoodTopLeptonJetsUDSep::LogEventProbabilityLJetReweight() : 2D Histograms were not set properly! " << std::endl;
       return -1e99;
     }
@@ -302,47 +302,47 @@ double LikelihoodTopLeptonJetsUDSep::LogEventProbabilityBTag() {
 
 // ---------------------------------------------------------
 double LikelihoodTopLeptonJetsUDSep::UpJetPt(double pt) {
-  return fUpJetPtHisto->GetBinContent(fUpJetPtHisto->GetXaxis()->FindBin(pt));
+  return m_up_jet_pt_histo->GetBinContent(m_up_jet_pt_histo->GetXaxis()->FindBin(pt));
 }
 
 // ---------------------------------------------------------
 double LikelihoodTopLeptonJetsUDSep::DownJetPt(double pt) {
-  return fDownJetPtHisto->GetBinContent(fDownJetPtHisto->GetXaxis()->FindBin(pt));
+  return m_down_jet_pt_histo->GetBinContent(m_down_jet_pt_histo->GetXaxis()->FindBin(pt));
 }
 
 // ---------------------------------------------------------
 double LikelihoodTopLeptonJetsUDSep::BJetPt(double pt) {
-  return fBJetPtHisto->GetBinContent(fBJetPtHisto->GetXaxis()->FindBin(pt));
+  return m_bjet_pt_histo->GetBinContent(m_bjet_pt_histo->GetXaxis()->FindBin(pt));
 }
 
 // ---------------------------------------------------------
 double LikelihoodTopLeptonJetsUDSep::UpJetTagWeight(double tagweight) {
-  return fUpJetTagWeightHisto->GetBinContent(fUpJetTagWeightHisto->GetXaxis()->FindBin(tagweight));
+  return m_up_jet_tag_weight_histo->GetBinContent(m_up_jet_tag_weight_histo->GetXaxis()->FindBin(tagweight));
 }
 
 // ---------------------------------------------------------
 double LikelihoodTopLeptonJetsUDSep::DownJetTagWeight(double tagweight) {
-  return fDownJetTagWeightHisto->GetBinContent(fDownJetTagWeightHisto->GetXaxis()->FindBin(tagweight));
+  return m_down_jet_tag_weight_histo->GetBinContent(m_down_jet_tag_weight_histo->GetXaxis()->FindBin(tagweight));
 }
 
 // ---------------------------------------------------------
 double LikelihoodTopLeptonJetsUDSep::BJetTagWeight(double tagweight) {
-  return fBJetTagWeightHisto->GetBinContent(fBJetTagWeightHisto->GetXaxis()->FindBin(tagweight));
+  return m_bjet_tag_weight_histo->GetBinContent(m_bjet_tag_weight_histo->GetXaxis()->FindBin(tagweight));
 }
 
 // ---------------------------------------------------------
 double LikelihoodTopLeptonJetsUDSep::UpJetProb(double tagweight, double pt) {
-  return fUpJet2DWeightHisto->GetBinContent(fUpJet2DWeightHisto->GetXaxis()->FindBin(tagweight), fUpJet2DWeightHisto->GetYaxis()->FindBin(pt));
+  return m_up_jet_2d_weight_histo->GetBinContent(m_up_jet_2d_weight_histo->GetXaxis()->FindBin(tagweight), m_up_jet_2d_weight_histo->GetYaxis()->FindBin(pt));
 }
 
 // ---------------------------------------------------------
 double LikelihoodTopLeptonJetsUDSep::DownJetProb(double tagweight, double pt) {
-  return fDownJet2DWeightHisto->GetBinContent(fDownJet2DWeightHisto->GetXaxis()->FindBin(tagweight), fDownJet2DWeightHisto->GetYaxis()->FindBin(pt));
+  return m_down_jet_2d_weight_histo->GetBinContent(m_down_jet_2d_weight_histo->GetXaxis()->FindBin(tagweight), m_down_jet_2d_weight_histo->GetYaxis()->FindBin(pt));
 }
 
 // ---------------------------------------------------------
 double LikelihoodTopLeptonJetsUDSep::BJetProb(double tagweight, double pt) {
-  return fBJet2DWeightHisto->GetBinContent(fBJet2DWeightHisto->GetXaxis()->FindBin(tagweight), fBJet2DWeightHisto->GetYaxis()->FindBin(pt));
+  return m_bjet_2d_weight_histo->GetBinContent(m_bjet_2d_weight_histo->GetXaxis()->FindBin(tagweight), m_bjet_2d_weight_histo->GetYaxis()->FindBin(pt));
 }
 
 // ---------------------------------------------------------
