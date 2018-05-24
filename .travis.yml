@@ -128,6 +128,9 @@ before_install:
   skip-cleanup: true
   github-token: $DOC_TOKEN
   keep-history: true
+  on:
+    repo: KLFitter/KLFitter
+    branch: master
 
 
 # Before the deployment step, build the doxygen documentation
