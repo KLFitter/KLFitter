@@ -65,7 +65,7 @@ class LikelihoodTopLeptonJets_Angular : public KLFitter::LikelihoodTopLeptonJets
  protected:
   /**
    * Adjust ranges of the parameters. As opposed to
-   * LikelihoodTopLeptonJets::AdjustParameterRanges(), this does \emph not
+   * LikelihoodTopLeptonJets::AdjustParameterRanges(), this does \a not
    * utilize the flag #m_flag_get_par_sigmas_from_TFs, but only uses a fixed
    * sigma to calculate the parameter range and set it with SetParameterRange().
    * If #m_flag_top_mass_fixed is set, the top mass will be fixed to the pole
