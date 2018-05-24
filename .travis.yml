@@ -128,6 +128,8 @@ before_install:
   skip-cleanup: true
   github-token: $DOC_TOKEN
   keep-history: true
+  verbose: true
+  allow-empty-commit: true
 
 
 # Before the deployment step, build the doxygen documentation
