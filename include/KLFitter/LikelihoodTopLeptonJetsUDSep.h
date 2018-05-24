@@ -20,19 +20,14 @@
 #ifndef KLFITTER_LIKELIHOODTOPLEPTONJETSUDSEP_H_
 #define KLFITTER_LIKELIHOODTOPLEPTONJETSUDSEP_H_
 
-#include <iostream>
-
 #include "KLFitter/LikelihoodTopLeptonJets.h"
 
 class TH1F;
 class TH2F;
-class TLorentzVector;
 
 // ---------------------------------------------------------
 
 namespace KLFitter {
-class ResolutionBase;
-
 /**
   * \class KLFitter::LikelihoodTopLeptonJetsUDSep
   * \brief A class implementing a likelihood for the ttbar lepton+jets channel.

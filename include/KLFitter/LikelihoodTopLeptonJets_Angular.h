@@ -20,18 +20,13 @@
 #ifndef KLFITTER_LIKELIHOODTOPLEPTONJETS_ANGULAR_H_
 #define KLFITTER_LIKELIHOODTOPLEPTONJETS_ANGULAR_H_
 
-#include <iostream>
 #include <vector>
 
 #include "KLFitter/LikelihoodTopLeptonJets.h"
 
-class TLorentzVector;
-
 // ---------------------------------------------------------
 
 namespace KLFitter {
-class ResolutionBase;
-
 /**
   * This is an extension of LikelihoodTopLeptonJets, which adds angular
   * information to the likelihood.

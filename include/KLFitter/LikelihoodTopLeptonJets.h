@@ -20,7 +20,6 @@
 #ifndef KLFITTER_LIKELIHOODTOPLEPTONJETS_H_
 #define KLFITTER_LIKELIHOODTOPLEPTONJETS_H_
 
-#include <iostream>
 #include <vector>
 
 #include "KLFitter/LikelihoodBase.h"

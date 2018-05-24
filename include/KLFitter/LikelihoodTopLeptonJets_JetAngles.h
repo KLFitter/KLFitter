@@ -20,12 +20,9 @@
 #ifndef KLFITTER_LIKELIHOODTOPLEPTONJETS_JETANGLES_H_
 #define KLFITTER_LIKELIHOODTOPLEPTONJETS_JETANGLES_H_
 
-#include <iostream>
 #include <vector>
 
 #include "KLFitter/LikelihoodTopLeptonJets.h"
-
-class TLorentzVector;
 
 // ---------------------------------------------------------
 
