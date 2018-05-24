@@ -32,6 +32,7 @@
 #include "TLorentzVector.h"
 
 namespace KLFitter {
+// ---------------------------------------------------------
 LikelihoodTopLeptonJets::LikelihoodTopLeptonJets()
   : LikelihoodBase::LikelihoodBase()
   , m_flag_top_mass_fixed(false)

@@ -29,11 +29,10 @@ class TH2F;
 
 namespace KLFitter {
 /**
-  * \class KLFitter::LikelihoodTopLeptonJetsUDSep
-  * \brief A class implementing a likelihood for the ttbar lepton+jets channel.
-  *
-  * This class represents a likelihood for the ttbar into lepton+jets.
-  */
+ * This class is a variation of LikelihoodTopLeptonJets. It adds methods to
+ * distinguish up-type and down-type quarks, i.e. their permutations are not
+ * invariant in this likelihood.
+ */
 class LikelihoodTopLeptonJetsUDSep : public LikelihoodTopLeptonJets {
  public:
   /// Enumerate for light-jet reweighting methods
@@ -46,9 +45,8 @@ class LikelihoodTopLeptonJetsUDSep : public LikelihoodTopLeptonJets {
   /// \name Constructors and destructors
   /// @{
 
-  /**
-   * The default constructor.
-   */
+  /// The default constructor. In addition to LikelihoodTopLeptonJets(), this
+  /// initializes #m_ljet_separation_method to kNone.
   LikelihoodTopLeptonJetsUDSep();
 
   /// The (defaulted) destructor.
@@ -58,38 +56,39 @@ class LikelihoodTopLeptonJetsUDSep : public LikelihoodTopLeptonJets {
   /// \name Member functions (Get)
   /// @{
 
-  /// Returns the probability of a jet to have the tag weight and pT of an b type jet.
+  /// Probability of a jet to have the tag weight and pT of a b jet.
   double BJetProb(double tagweight, double pt);
 
-  /// Returns the probability of a jet to have the pT of an b type jet.
+  /// Probability of a jet to have the pT of a b jet.
   double BJetPt(double pt);
 
-  /// Returns the probability of a jet to have the tag weight of an b type jet.
+  /// Probability of a jet to have the tag weight of a b jet.
   double BJetTagWeight(double tagweight);
 
-  /// Returns the probability of a jet to have the tag weight and pT of an down type jet.
+  /// Probability of a jet to have the tag weight and pT of a down-type jet.
   double DownJetProb(double tagweight, double pt);
 
-  /// Returns the probability of a jet to have the pT of an down type jet.
+  /// Probability of a jet to have the pT of a down-type jet.
   double DownJetPt(double pt);
 
-  /// Returns the probability of a jet to have the tag weight of an down type jet.
+  /// Probability of a jet to have the tag weight of a down-type jet.
   double DownJetTagWeight(double tagweight);
 
-  /// Returns the probability of a jet to have the tag weight and pT of an up type jet.
+  /// Probability of a jet to have the tag weight and pT of an up-type jet.
   double UpJetProb(double tagweight, double pt);
 
-  /// Returns the probability of a jet to have the pT of an up type jet.
+  /// Probability of a jet to have the pT of an up-type jet.
   double UpJetPt(double pt);
 
-  /// Returns the probability of a jet to have the tag weight of an up type jet.
+  /// Probability of a jet to have the tag weight of an up-type jet.
   double UpJetTagWeight(double tagweight);
 
   /// @}
   /// \name Member functions (Set)
   /// @{
 
-  /// Set a flag. If flag is true the permutations are reweighted with the pT and tag weight probabilities.
+  /// Set a flag. If flag is true the permutations are reweighted with the pT
+  /// and tag weight probabilities.
   void SetLJetSeparationMethod(LJetSeparationMethod flag) { m_ljet_separation_method = flag; }
 
   /**
@@ -211,7 +210,7 @@ class LikelihoodTopLeptonJetsUDSep : public LikelihoodTopLeptonJets {
 
  protected:
   /**
-   * Define the model particles
+   * Define the model particles.
    * @return An error code.
    */
   int DefineModelParticles() override;

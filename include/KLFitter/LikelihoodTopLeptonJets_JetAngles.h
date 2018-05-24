@@ -26,13 +26,7 @@
 
 // ---------------------------------------------------------
 
-/**
- * \namespace KLFitter
- * \brief The KLFitter namespace
- */
 namespace KLFitter {
-class ResolutionBase;
-
 /**
   * This is an extension of LikelihoodTopLeptonJets, which adds eta and phi
   * values of the jets to the fit. The additional parameters need the
@@ -40,17 +34,6 @@ class ResolutionBase;
   */
 class LikelihoodTopLeptonJets_JetAngles : public KLFitter::LikelihoodTopLeptonJets {
  public:
-  /// \name Constructors and destructors
-  /// @{
-
-  /// The (defaulted) constructor.
-  LikelihoodTopLeptonJets_JetAngles();
-
-  /// The (defaulted) destructor.
-  ~LikelihoodTopLeptonJets_JetAngles();
-
-  /// @}
-
   /// Enumerator for the fitted parameters of this likelihood.
   enum Parameters { parBhadE,     ///< Energy of the hadronic b quark
                     parBlepE,     ///< Energy of the leptonic b quark
@@ -71,6 +54,16 @@ class LikelihoodTopLeptonJets_JetAngles : public KLFitter::LikelihoodTopLeptonJe
                     parTopM       ///< Mass of the top quark
   };
 
+  /// \name Constructors and destructors
+  /// @{
+
+  /// The (defaulted) constructor.
+  LikelihoodTopLeptonJets_JetAngles();
+
+  /// The (defaulted) destructor.
+  ~LikelihoodTopLeptonJets_JetAngles();
+
+  /// @}
   /// \name Member functions (misc)
   /// @{
 
