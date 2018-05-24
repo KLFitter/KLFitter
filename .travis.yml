@@ -116,6 +116,27 @@ before_install:
   diff -u $KLF_BUILD_DIR/test-output.txt $KLF_SOURCE_DIR/tests/output-ref-ljets-lh.txt
 
 
+# Deploy the documentation under doc/html/ into the github pages
+# repository under https://KLFitter.github.io. To point out
+# changes in the documentation, every deployment adds a new
+# commit (instead of force-pushing).
+.deploy_documentation: &deploy_documentation
+  provider: pages
+  repo: KLFitter/KLFitter.github.io
+  target-branch: master
+  local-dir: doc/html
+  skip-cleanup: true
+  github-token: $DOC_TOKEN
+  keep-history: true
+
+
+# Before the deployment step, build the doxygen documentation
+# into the doc/html/ subdirectory.
+before_deploy:
+  - cd $TRAVIS_BUILD_DIR
+  - doxygen doc/Doxyfile 2>&1
+
+
 # Definiton of the actual CI jobs. We build KLFitter with three
 # different scenarios:
 # 1. Make a fully automatized build of KLFitter and BAT using
@@ -158,24 +179,7 @@ jobs:
         - $CMD_DOCKER "${CMD_EXPORT_BATINSTALL} && make install"
         - *run_unit_tests
         - *run_unit_test_diff
-
-
-# Before the deployment step, build the doxygen documentation
-# into the doc/html/ subdirectory.
-before_deploy:
-  - cd $TRAVIS_BUILD_DIR
-  - doxygen doc/Doxyfile 2>&1
-
-
-# Deploy the documentation under doc/html/ into the github pages
-# repository under https://KLFitter.github.io. To point out
-# changes in the documentation, every deployment adds a new
-# commit (instead of force-pushing).
-deploy:
-  provider: pages
-  repo: KLFitter/KLFitter.github.io
-  target-branch: master
-  local-dir: doc/html
-  skip-cleanup: true
-  github-token: $DOC_TOKEN
-  keep-history: true
+    - stage: deploy
+      script: skip
+      deploy:
+        <<: *deploy_documentation
