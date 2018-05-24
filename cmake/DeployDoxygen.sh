@@ -25,7 +25,7 @@ if [ -d "html" ] && [ -f "html/index.html" ]; then
 
     echo 'Uploading documentation to the repository ...'
     git add --all
-    git commit -m "Deploy documentation; travis build: ${TRAVIS_BUILD_NUMBER}" -m "Commit: ${TRAVIS_COMMIT}"
+    git commit --allow-empty -m "Deploy documentation; travis build: ${TRAVIS_BUILD_NUMBER}" -m "Commit: ${TRAVIS_COMMIT}"
     git push --force "https://${DOC_TOKEN}@github.com/KLFitter/${DOC_REPO}" > /dev/null 2>&1
 else
     echo '' >&2
