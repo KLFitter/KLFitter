@@ -106,34 +106,6 @@ class DetectorAtlas_8TeV : public DetectorBase {
     */
   ResolutionBase* ResMissingET() override;
 
-  /**
-    * Return the eta resolution of light jets.
-    * @param eta The eta of the particle.
-    * @return A pointer to the eta resolution object.
-    */
-  ResolutionBase* ResEtaLightJet(double eta = 0.) override;
-
-  /**
-    * Return the eta resolution of b jets.
-    * @param eta The eta of the particle.
-    * @return A pointer to the eta resolution object.
-    */
-  ResolutionBase* ResEtaBJet(double eta = 0.) override;
-
-  /**
-    * Return the phi resolution of light jets.
-    * @param eta The phi of the particle.
-    * @return A pointer to the phi resolution object.
-    */
-  ResolutionBase* ResPhiLightJet(double eta = 0.) override;
-
-  /**
-    * Return the phi resolution of b jets.
-    * @param eta The phi of the particle.
-    * @return A pointer to the phi resolution object.
-    */
-  ResolutionBase* ResPhiBJet(double eta = 0.) override;
-
   /* @} */
 
  private:
@@ -183,38 +155,6 @@ class DetectorAtlas_8TeV : public DetectorBase {
   std::unique_ptr<ResolutionBase> fResEnergyPhoton_eta2;
   std::unique_ptr<ResolutionBase> fResEnergyPhoton_eta3;
   std::unique_ptr<ResolutionBase> fResEnergyPhoton_eta4;
-
-  /**
-    * The eta resolution of light jets for different eta regions.
-    */
-  std::unique_ptr<ResolutionBase> fResEtaLightJet_eta1;
-  std::unique_ptr<ResolutionBase> fResEtaLightJet_eta2;
-  std::unique_ptr<ResolutionBase> fResEtaLightJet_eta3;
-  std::unique_ptr<ResolutionBase> fResEtaLightJet_eta4;
-
-  /**
-    * The eta resolution of b jets for different eta regions.
-    */
-  std::unique_ptr<ResolutionBase> fResEtaBJet_eta1;
-  std::unique_ptr<ResolutionBase> fResEtaBJet_eta2;
-  std::unique_ptr<ResolutionBase> fResEtaBJet_eta3;
-  std::unique_ptr<ResolutionBase> fResEtaBJet_eta4;
-
-  /**
-    * The phi resolution of light jets for different eta regions.
-    */
-  std::unique_ptr<ResolutionBase> fResPhiLightJet_eta1;
-  std::unique_ptr<ResolutionBase> fResPhiLightJet_eta2;
-  std::unique_ptr<ResolutionBase> fResPhiLightJet_eta3;
-  std::unique_ptr<ResolutionBase> fResPhiLightJet_eta4;
-
-  /**
-    * The phi resolution of b jets for different eta regions.
-    */
-  std::unique_ptr<ResolutionBase> fResPhiBJet_eta1;
-  std::unique_ptr<ResolutionBase> fResPhiBJet_eta2;
-  std::unique_ptr<ResolutionBase> fResPhiBJet_eta3;
-  std::unique_ptr<ResolutionBase> fResPhiBJet_eta4;
 
   /**
    * Missing ET resolution in x and y
