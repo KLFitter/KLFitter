@@ -109,6 +109,10 @@ class DetectorAtlas_8TeV : public DetectorBase {
   /* @} */
 
  private:
+  /// Declare the angular version a friend to give it access to
+  /// the following private member attributes.
+  friend class DetectorAtlas_8TeV_Angular;
+
   /**
     * The energy resolution of light jets for different eta regions.
     */
