@@ -7,7 +7,7 @@
  * The repository contains installation instructions on the front page and
  * cross-links to other pages containing brief summaries of the KLFitter
  * functionality. Specifically, <A
- * HREF="https://github.com/KLFitter/KLFitter/doc/WhatIsKLF.md">WhatIsKLF.md</A>
+ * HREF="https://github.com/KLFitter/KLFitter/blob/master/doc/WhatIsKLF.md">WhatIsKLF.md</A>
  * introduces all KLFitter likelihoods and their usage, lists options for using
  * flavor-tagging information and contains many more information about how to
  * use KLFitter.
