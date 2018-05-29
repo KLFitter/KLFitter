@@ -63,6 +63,28 @@ int KLFitter::LikelihoodTopLeptonJets_JetAngles::SetET_miss_XY_SumET(double etx,
 }
 
 // ---------------------------------------------------------
+int KLFitter::LikelihoodTopLeptonJets_JetAngles::SetDetector(KLFitter::DetectorBase** detector) {
+  // set pointer to pointer of detector
+  fDetector = detector;
+
+  // Before continuing, make sure that the set detector
+  // implements eta and phi resolutions.
+  bool res_defined{true};
+  res_defined &= static_cast<bool>((*fDetector)->ResEtaLightJet());
+  res_defined &= static_cast<bool>((*fDetector)->ResEtaBJet());
+  res_defined &= static_cast<bool>((*fDetector)->ResPhiLightJet());
+  res_defined &= static_cast<bool>((*fDetector)->ResPhiBJet());
+
+  if (!res_defined) {
+    std::cerr << "LikelihoodTopLeptonJets_JetAngles::SetDetector(): Resolution functions in eta and phi not defined. Aborting" << std::endl;
+    return 0;
+  }
+
+  // no error
+  return 1;
+}
+
+// ---------------------------------------------------------
 void KLFitter::LikelihoodTopLeptonJets_JetAngles::SetLeptonType(LeptonType leptontype) {
   if (leptontype != kElectron && leptontype != kMuon) {
     std::cout << "KLFitter::SetLeptonTyp(). Warning: lepton type not defined. Set electron as lepton type." << std::endl;

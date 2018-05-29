@@ -154,7 +154,7 @@ class LikelihoodBase : public BCModel {
     * @param detector A pointer to a pointer of the detector.
     * @return An error flag
     */
-  int SetDetector(KLFitter::DetectorBase** detector);
+  virtual int SetDetector(KLFitter::DetectorBase** detector);
 
   /**
     * Set the measured particles.
