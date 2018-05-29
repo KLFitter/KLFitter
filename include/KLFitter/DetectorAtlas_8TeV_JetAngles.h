@@ -35,7 +35,7 @@ namespace KLFitter {
  * This version of the detector adds additional functionality for
  * eta and phi resolutions.
  */
-class DetectorAtlas_8TeV_Angular : public DetectorAtlas_8TeV {
+class DetectorAtlas_8TeV_JetAngles : public DetectorAtlas_8TeV {
  public:
   /// \name Constructors and destructors
   /// @{
@@ -45,10 +45,10 @@ class DetectorAtlas_8TeV_Angular : public DetectorAtlas_8TeV {
    * DetectorAtlas_8TeV() by eta and phi resolutions.
    * @param folder The folder with transfer function parameters.
    */
-  explicit DetectorAtlas_8TeV_Angular(std::string folder = "");
+  explicit DetectorAtlas_8TeV_JetAngles(std::string folder = "");
 
   /// The (defaulted) destructor.
-  ~DetectorAtlas_8TeV_Angular();
+  ~DetectorAtlas_8TeV_JetAngles();
 
   /// @}
   /// \name Member functions (Get)

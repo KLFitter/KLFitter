@@ -17,7 +17,7 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "KLFitter/DetectorAtlas_8TeV_Angular.h"
+#include "KLFitter/DetectorAtlas_8TeV_JetAngles.h"
 
 #include <iostream>
 
@@ -27,7 +27,7 @@
 
 namespace KLFitter {
 // ---------------------------------------------------------
-DetectorAtlas_8TeV_Angular::DetectorAtlas_8TeV_Angular(std::string folder) : DetectorAtlas_8TeV::DetectorAtlas_8TeV(folder) {
+DetectorAtlas_8TeV_JetAngles::DetectorAtlas_8TeV_JetAngles(std::string folder) : DetectorAtlas_8TeV::DetectorAtlas_8TeV(folder) {
   // eta resolution
   fResEtaLightJet_eta1 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_eta_lJets_eta1.txt", folder.c_str())});
   fResEtaLightJet_eta2 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_eta_lJets_eta2.txt", folder.c_str())});
@@ -58,10 +58,10 @@ DetectorAtlas_8TeV_Angular::DetectorAtlas_8TeV_Angular(std::string folder) : Det
 }
 
 // ---------------------------------------------------------
-DetectorAtlas_8TeV_Angular::~DetectorAtlas_8TeV_Angular() = default;
+DetectorAtlas_8TeV_JetAngles::~DetectorAtlas_8TeV_JetAngles() = default;
 
 // ---------------------------------------------------------
-ResolutionBase * DetectorAtlas_8TeV_Angular::ResEtaLightJet(double eta) {
+ResolutionBase * DetectorAtlas_8TeV_JetAngles::ResEtaLightJet(double eta) {
   if (fabs(eta) < fJetEtaBin_1) {
     fResEtaLightJet = fResEtaLightJet_eta1.get();
   } else if (fabs(eta) < fJetEtaBin_2) {
@@ -71,7 +71,7 @@ ResolutionBase * DetectorAtlas_8TeV_Angular::ResEtaLightJet(double eta) {
   } else if (fabs(eta) <= fJetEtaBin_4) {
     fResEtaLightJet = fResEtaLightJet_eta4.get();
   } else {
-    std::cout << "DetectorAtlas_8TeV_Angular::ResEtaLightJet(). Eta range exceeded." << std::endl;
+    std::cout << "DetectorAtlas_8TeV_JetAngles::ResEtaLightJet(). Eta range exceeded." << std::endl;
     return 0;
   }
 
@@ -79,7 +79,7 @@ ResolutionBase * DetectorAtlas_8TeV_Angular::ResEtaLightJet(double eta) {
 }
 
 // ---------------------------------------------------------
-ResolutionBase * DetectorAtlas_8TeV_Angular::ResEtaBJet(double eta) {
+ResolutionBase * DetectorAtlas_8TeV_JetAngles::ResEtaBJet(double eta) {
   if (fabs(eta) < fJetEtaBin_1) {
     fResEtaBJet = fResEtaBJet_eta1.get();
   } else if (fabs(eta) < fJetEtaBin_2) {
@@ -89,7 +89,7 @@ ResolutionBase * DetectorAtlas_8TeV_Angular::ResEtaBJet(double eta) {
   } else if (fabs(eta) <= fJetEtaBin_4) {
     fResEtaBJet = fResEtaBJet_eta4.get();
   } else {
-    std::cout << "DetectorAtlas_8TeV_Angular::ResEtaBJet(). Eta range exceeded." << std::endl;
+    std::cout << "DetectorAtlas_8TeV_JetAngles::ResEtaBJet(). Eta range exceeded." << std::endl;
     return 0;
   }
 
@@ -97,7 +97,7 @@ ResolutionBase * DetectorAtlas_8TeV_Angular::ResEtaBJet(double eta) {
 }
 
 // ---------------------------------------------------------
-ResolutionBase * DetectorAtlas_8TeV_Angular::ResPhiLightJet(double eta) {
+ResolutionBase * DetectorAtlas_8TeV_JetAngles::ResPhiLightJet(double eta) {
   if (fabs(eta) < fJetEtaBin_1) {
     fResPhiLightJet = fResPhiLightJet_eta1.get();
   } else if (fabs(eta) < fJetEtaBin_2) {
@@ -107,7 +107,7 @@ ResolutionBase * DetectorAtlas_8TeV_Angular::ResPhiLightJet(double eta) {
   } else if (fabs(eta) <= fJetEtaBin_4) {
     fResPhiLightJet = fResPhiLightJet_eta4.get();
   } else {
-    std::cout << "DetectorAtlas_8TeV_Angular::ResPhiLightJet(). Eta range exceeded." << std::endl;
+    std::cout << "DetectorAtlas_8TeV_JetAngles::ResPhiLightJet(). Eta range exceeded." << std::endl;
     return 0;
   }
 
@@ -115,7 +115,7 @@ ResolutionBase * DetectorAtlas_8TeV_Angular::ResPhiLightJet(double eta) {
 }
 
 // ---------------------------------------------------------
-ResolutionBase * DetectorAtlas_8TeV_Angular::ResPhiBJet(double eta) {
+ResolutionBase * DetectorAtlas_8TeV_JetAngles::ResPhiBJet(double eta) {
   if (fabs(eta) < fJetEtaBin_1) {
     fResPhiBJet = fResPhiBJet_eta1.get();
   } else if (fabs(eta) < fJetEtaBin_2) {
@@ -125,7 +125,7 @@ ResolutionBase * DetectorAtlas_8TeV_Angular::ResPhiBJet(double eta) {
   } else if (fabs(eta) <= fJetEtaBin_4) {
     fResPhiLightJet = fResPhiLightJet_eta4.get();
   } else {
-    std::cout << "DetectorAtlas_8TeV_Angular::ResPhiBJet(). Eta range exceeded." << std::endl;
+    std::cout << "DetectorAtlas_8TeV_JetAngles::ResPhiBJet(). Eta range exceeded." << std::endl;
     return 0;
   }
 

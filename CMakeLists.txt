@@ -96,7 +96,7 @@ set( lib_headers
   include/KLFitter/BoostedLikelihoodTopLeptonJets.h
   include/KLFitter/DetectorAtlas_7TeV.h
   include/KLFitter/DetectorAtlas_8TeV.h
-  include/KLFitter/DetectorAtlas_8TeV_Angular.h
+  include/KLFitter/DetectorAtlas_8TeV_JetAngles.h
   include/KLFitter/DetectorSnowmass.h
   include/KLFitter/DetectorBase.h
   include/KLFitter/Fitter.h
@@ -119,7 +119,7 @@ set( lib_sources
   src/BoostedLikelihoodTopLeptonJets.cxx
   src/DetectorAtlas_7TeV.cxx
   src/DetectorAtlas_8TeV.cxx
-  src/DetectorAtlas_8TeV_Angular.cxx
+  src/DetectorAtlas_8TeV_JetAngles.cxx
   src/DetectorSnowmass.cxx
   src/DetectorBase.cxx
   src/Fitter.cxx
