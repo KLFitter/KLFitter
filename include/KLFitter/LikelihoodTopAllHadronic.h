@@ -71,6 +71,17 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
   enum Parameters { parBhad1E, parBhad2E, parLQ1E, parLQ2E, parLQ3E, parLQ4E, parTopM };
 
   /**
+   * Set the values for the missing ET x and y components and the SumET.
+   * Reimplemented with dummy implementation to overwrite purely virtual
+   * function in base class.
+   * @param etx missing ET x component.
+   * @param ety missing ET y component.
+   * @param sumet total scalar ET.
+   * @return An error flag.
+   */
+  int SetET_miss_XY_SumET(double etx, double ety, double sumet) override { return 1; }
+
+  /**
     * Set a flag. If flag is true the invariant top quark mass is
     * fixed to the pole mass.
     * @param flag The flag.
