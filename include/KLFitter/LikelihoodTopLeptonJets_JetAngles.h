@@ -107,6 +107,15 @@ class LikelihoodTopLeptonJets_JetAngles : public KLFitter::LikelihoodBase {
     */
   void SetLeptonType(int leptontype);
 
+  /**
+   * Set the detector. This needs a reimplementation, because for
+   * this likelihood we need to check whether the chosen detector
+   * includes eta and phi transfer functions.
+   * @param detector A pointer to a pointer of the detector.
+   * @return An error flag
+   */
+  int SetDetector(KLFitter::DetectorBase** detector) override;
+
   /* @} */
   /** \name Member functions (misc)  */
   /* @{ */

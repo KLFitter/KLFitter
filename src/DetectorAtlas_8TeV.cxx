@@ -67,28 +67,6 @@ KLFitter::DetectorAtlas_8TeV::DetectorAtlas_8TeV(std::string folder) : DetectorB
   //  fResEnergyLightJet_eta5 = std::unique_ptr<ResolutionBase>(new KLFitter::ResDoubleGaussE_4{Form("%s/par_energy_lJets_eta5.txt", folder.c_str())});
   //  fResEnergyBJet_eta5     = std::unique_ptr<ResolutionBase>(new KLFitter::ResDoubleGaussE_4{Form("%s/par_energy_bJets_eta5.txt", folder.c_str())});
 
-  // eta resolution
-  fResEtaLightJet_eta1 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_eta_lJets_eta1.txt", folder.c_str())});
-  fResEtaLightJet_eta2 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_eta_lJets_eta2.txt", folder.c_str())});
-  fResEtaLightJet_eta3 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_eta_lJets_eta3.txt", folder.c_str())});
-  fResEtaLightJet_eta4 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_eta_lJets_eta4.txt", folder.c_str())});
-
-  fResEtaBJet_eta1 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_eta_bJets_eta1.txt", folder.c_str())});
-  fResEtaBJet_eta2 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_eta_bJets_eta2.txt", folder.c_str())});
-  fResEtaBJet_eta3 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_eta_bJets_eta3.txt", folder.c_str())});
-  fResEtaBJet_eta4 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_eta_bJets_eta4.txt", folder.c_str())});
-
-  // phi resolution
-  fResPhiLightJet_eta1 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_phi_lJets_eta1.txt", folder.c_str())});
-  fResPhiLightJet_eta2 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_phi_lJets_eta2.txt", folder.c_str())});
-  fResPhiLightJet_eta3 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_phi_lJets_eta3.txt", folder.c_str())});
-  fResPhiLightJet_eta4 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_phi_lJets_eta4.txt", folder.c_str())});
-
-  fResPhiBJet_eta1 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_phi_bJets_eta1.txt", folder.c_str())});
-  fResPhiBJet_eta2 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_phi_bJets_eta2.txt", folder.c_str())});
-  fResPhiBJet_eta3 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_phi_bJets_eta3.txt", folder.c_str())});
-  fResPhiBJet_eta4 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_phi_bJets_eta4.txt", folder.c_str())});
-
   fResMissingET_eta1 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss_MET{Form("%s/par_misset.txt", folder.c_str())});
 
   // default settings
@@ -98,10 +76,6 @@ KLFitter::DetectorAtlas_8TeV::DetectorAtlas_8TeV(std::string folder) : DetectorB
   fResEnergyElectron = fResEnergyElectron_eta1.get();
   fResEnergyMuon     = fResEnergyMuon_eta1.get();
   fResEnergyPhoton   = fResEnergyPhoton_eta1.get();
-  fResEtaLightJet    = fResEtaLightJet_eta1.get();
-  fResEtaBJet        = fResEtaBJet_eta1.get();
-  fResPhiLightJet    = fResPhiLightJet_eta1.get();
-  fResPhiBJet        = fResPhiBJet_eta1.get();
   fResMissingET      = fResMissingET_eta1.get();
 
   // Set eta binning for different objects starting with eta = 0
@@ -234,78 +208,6 @@ KLFitter::ResolutionBase * KLFitter::DetectorAtlas_8TeV::ResEnergyPhoton(double 
   }
 
   return fResEnergyPhoton;
-}
-
-// ---------------------------------------------------------
-KLFitter::ResolutionBase * KLFitter::DetectorAtlas_8TeV::ResEtaLightJet(double eta) {
-  if (fabs(eta) < fJetEtaBin_1) {
-    fResEtaLightJet = fResEtaLightJet_eta1.get();
-  } else if (fabs(eta) < fJetEtaBin_2) {
-    fResEtaLightJet = fResEtaLightJet_eta2.get();
-  } else if (fabs(eta) < fJetEtaBin_3) {
-    fResEtaLightJet = fResEtaLightJet_eta3.get();
-  } else if (fabs(eta) <= fJetEtaBin_4) {
-    fResEtaLightJet = fResEtaLightJet_eta4.get();
-  } else {
-    std::cout << "KLFitter::DetectorAtlas_8TeV::ResEtaLightJet(). Eta range exceeded." << std::endl;
-    return 0;
-  }
-
-  return fResEtaLightJet;
-}
-
-// ---------------------------------------------------------
-KLFitter::ResolutionBase * KLFitter::DetectorAtlas_8TeV::ResEtaBJet(double eta) {
-  if (fabs(eta) < fJetEtaBin_1) {
-    fResEtaBJet = fResEtaBJet_eta1.get();
-  } else if (fabs(eta) < fJetEtaBin_2) {
-    fResEtaBJet = fResEtaBJet_eta2.get();
-  } else if (fabs(eta) < fJetEtaBin_3) {
-    fResEtaBJet = fResEtaBJet_eta3.get();
-  } else if (fabs(eta) <= fJetEtaBin_4) {
-    fResEtaBJet = fResEtaBJet_eta4.get();
-  } else {
-    std::cout << "KLFitter::DetectorAtlas_8TeV::ResEtaBJet(). Eta range exceeded." << std::endl;
-    return 0;
-  }
-
-  return fResEtaBJet;
-}
-
-// ---------------------------------------------------------
-KLFitter::ResolutionBase * KLFitter::DetectorAtlas_8TeV::ResPhiLightJet(double eta) {
-  if (fabs(eta) < fJetEtaBin_1) {
-    fResPhiLightJet = fResPhiLightJet_eta1.get();
-  } else if (fabs(eta) < fJetEtaBin_2) {
-    fResPhiLightJet = fResPhiLightJet_eta2.get();
-  } else if (fabs(eta) < fJetEtaBin_3) {
-    fResPhiLightJet = fResPhiLightJet_eta3.get();
-  } else if (fabs(eta) <= fJetEtaBin_4) {
-    fResPhiLightJet = fResPhiLightJet_eta4.get();
-  } else {
-    std::cout << "KLFitter::DetectorAtlas_8TeV::ResPhiLightJet(). Eta range exceeded." << std::endl;
-    return 0;
-  }
-
-  return fResPhiLightJet;
-}
-
-// ---------------------------------------------------------
-KLFitter::ResolutionBase * KLFitter::DetectorAtlas_8TeV::ResPhiBJet(double eta) {
-  if (fabs(eta) < fJetEtaBin_1) {
-    fResPhiBJet = fResPhiBJet_eta1.get();
-  } else if (fabs(eta) < fJetEtaBin_2) {
-    fResPhiBJet = fResPhiBJet_eta2.get();
-  } else if (fabs(eta) < fJetEtaBin_3) {
-    fResPhiBJet = fResPhiBJet_eta3.get();
-  } else if (fabs(eta) <= fJetEtaBin_4) {
-    fResPhiLightJet = fResPhiLightJet_eta4.get();
-  } else {
-    std::cout << "KLFitter::DetectorAtlas_8TeV::ResPhiBJet(). Eta range exceeded." << std::endl;
-    return 0;
-  }
-
-  return fResPhiBJet;
 }
 
 // ---------------------------------------------------------

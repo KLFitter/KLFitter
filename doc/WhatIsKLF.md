@@ -84,7 +84,9 @@ information into account in the fit:
 
 - In `LikelihoodTopLeptonJets_JetAngles`, the pseudorapidity and the azimuth
   angle of the jets are additional parameters during the fit (8 additional
-  parameters). Transfer functions for the jet angles are necessary.
+  parameters). Transfer functions for the jet angles are necessary, which are
+  _not_ provided by all detector classes and parameter sets. If they are
+  missing, the likelihood will issue an error.
 - In `LikelihoodTopLeptonJets_Angular`, the probability distributions for the
   distribution of cos(theta*) of the leptonically and hadronically decaying W
   boson, as predicted in the Standard Model, are multiplied to the likelihood
@@ -352,6 +354,15 @@ pre-defined in KLFitter with the specific parameters to be determined by the
 user. Alternative parameterizations are in principle possible. A tool is
 provided for the derivation of double-Gaussian transfer functions,
 [TFtool](https://gitlab.cern.ch/KLFitter/TFtool).
+
+KLFitter comes with a number of pre-defined detector classes that implement
+detector responses to particles. Each of them requires parameter sets which are
+stored in separate plain text files. Specific likelihoods, such as the
+`LikelihoodTopLeptonJets_JetAngles`, needs specific parameterizations (in this
+case of the jet angles), which are not supported by all detector classes and
+parameter sets. Please cross-check compatibility between the likelihood and the
+detector (although the above likelihood will check this upon initialization
+itself).
 
 
 

@@ -209,6 +209,10 @@ class DetectorBase {
   /** \name Member functions (misc)  */
   /* @{ */
 
+  /**
+   * Check the status of the detector, and whether the individual resolutions are defined.
+   * @return An error code.
+   */
   int Status();
 
   /**

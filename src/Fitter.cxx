@@ -113,24 +113,25 @@ int KLFitter::Fitter::SetDetector(KLFitter::DetectorBase * detector) {
 
 // ---------------------------------------------------------
 int KLFitter::Fitter::SetLikelihood(KLFitter::LikelihoodBase * likelihood) {
+  // error code
+  int err = 1;
+
   // set likelihood
   fLikelihood = likelihood;
 
   // set pointer to pointer of detector
-  fLikelihood->SetDetector(&fDetector);
+  err *= fLikelihood->SetDetector(&fDetector);
 
   // set pointer to pointer of permutation object
-  fLikelihood->SetPermutations(&fPermutations);
+  err *= fLikelihood->SetPermutations(&fPermutations);
 
   // set pointer to permuted particles
-  fLikelihood->SetParticlesPermuted(&fParticlesPermuted);
+  err *= fLikelihood->SetParticlesPermuted(&fParticlesPermuted);
 
   // remove invariant permutations if particles are defined alreday
-  if (fParticles)
-    fLikelihood->RemoveInvariantParticlePermutations();
+  if (fParticles) fLikelihood->RemoveInvariantParticlePermutations();
 
-  // no error
-  return 1;
+  return err;
 }
 
 // ---------------------------------------------------------
