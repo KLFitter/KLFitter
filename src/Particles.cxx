@@ -166,7 +166,7 @@ KLFitter::Particles& KLFitter::Particles::operator=(const KLFitter::Particles& o
 }
 
 // ---------------------------------------------------------
-int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, float LepCharge, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex) {
+int KLFitter::Particles::AddParticle(const TLorentzVector* const particle, double DetEta, float LepCharge, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex) {
   // get particle container
   auto container = ParticleContainer(ptype);
 
@@ -219,7 +219,7 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, f
 }
 
 // ---------------------------------------------------------
-int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, TrueFlavorType trueflav, double btagweight) {
+int KLFitter::Particles::AddParticle(const TLorentzVector* const particle, double DetEta, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, TrueFlavorType trueflav, double btagweight) {
   // get particle container
   auto container = ParticleContainer(ptype);
 
@@ -283,7 +283,7 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, double DetEta, K
 }
 
 // ---------------------------------------------------------
-int KLFitter::Particles::AddParticle(TLorentzVector * particle, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, TrueFlavorType trueflav, double btagweight) {
+int KLFitter::Particles::AddParticle(const TLorentzVector* const particle, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, TrueFlavorType trueflav, double btagweight) {
   // set default DetEta
   double DetEta =-999;
 
@@ -294,7 +294,7 @@ int KLFitter::Particles::AddParticle(TLorentzVector * particle, KLFitter::Partic
 }
 
 // ---------------------------------------------------------
-int KLFitter::Particles::AddParticle(TLorentzVector * particle, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, TrueFlavorType trueflav, double btagweight) {
+int KLFitter::Particles::AddParticle(const TLorentzVector* const particle, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, TrueFlavorType trueflav, double btagweight) {
   // set default DetEta
   double DetEta =-999;
 
