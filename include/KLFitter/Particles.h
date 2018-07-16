@@ -419,6 +419,13 @@ class Particles final {
     * @param btagweight The b tagger weight).
     * @return An error code.
     */
+  int AddParticle(const TLorentzVector& particle, double DetEta, KLFitter::Particles::ParticleType ptype, std::string name = "", int measuredindex = -1, bool isBtagged = false, double bTagEff = -1., double bTagRej = -1., TrueFlavorType trueflav = kNone, double btagweight = 999);
+
+  /**
+   * Overloaded implementation of the previous function. This
+   * function is deprecated and only kept for compatibility
+   * reasons, but is to be _removed_ in the next major release.
+   */
   int AddParticle(const TLorentzVector* const particle, double DetEta, KLFitter::Particles::ParticleType ptype, std::string name = "", int measuredindex = -1, bool isBtagged = false, double bTagEff = -1., double bTagRej = -1., TrueFlavorType trueflav = kNone, double btagweight = 999);
 
   /**

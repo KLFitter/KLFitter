@@ -224,7 +224,7 @@ int KLFitter::Particles::AddParticle(const TLorentzVector* const particle, doubl
 }
 
 // ---------------------------------------------------------
-int KLFitter::Particles::AddParticle(const TLorentzVector* const particle, double DetEta, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, TrueFlavorType trueflav, double btagweight) {
+int KLFitter::Particles::AddParticle(const TLorentzVector& particle, double DetEta, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, TrueFlavorType trueflav, double btagweight) {
   // get particle container
   auto container = ParticleContainer(ptype);
 
@@ -247,7 +247,7 @@ int KLFitter::Particles::AddParticle(const TLorentzVector* const particle, doubl
   if (!FindParticle(name, vect, &index, &temptype)) {
     // add particle
     // create pointer copy of particle content which is owend by Particles
-    std::unique_ptr<TLorentzVector> cparticle{new TLorentzVector{particle->Px(), particle->Py(), particle->Pz(), particle->E()}};
+    std::unique_ptr<TLorentzVector> cparticle{new TLorentzVector{particle.Px(), particle.Py(), particle.Pz(), particle.E()}};
     container->emplace_back(std::move(cparticle));
     ParticleNameContainer(ptype)->push_back(name);
     if (ptype == KLFitter::Particles::kParton) {
@@ -278,13 +278,18 @@ int KLFitter::Particles::AddParticle(const TLorentzVector* const particle, doubl
     return 0;
   }
 
-  if (fabs(particle->P()/particle->E()-1) > 1.e-6 && particle->M() < 0) {  // No Warning if P differs less than 1e-6 from E
-    std::cout << "KLFitter::Particles::AddParticle(). WARNING : A particle with negative mass " << particle->M() << " of type " << ptype << " was added." << std::endl;
+  if (fabs(particle.P()/particle.E()-1) > 1.e-6 && particle.M() < 0) {  // No Warning if P differs less than 1e-6 from E
+    std::cout << "KLFitter::Particles::AddParticle(). WARNING : A particle with negative mass " << particle.M() << " of type " << ptype << " was added." << std::endl;
     return 1;
   }
 
   // no error
   return 1;
+}
+
+// --------------------------------------------------------- // THIS FUNCTION IS TO BE REMOVED IN THE NEXT MAJOR RELEASE
+int KLFitter::Particles::AddParticle(const TLorentzVector* const particle, double DetEta, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, TrueFlavorType trueflav, double btagweight) {
+  return AddParticle(*particle, DetEta, ptype, name, measuredindex, isBtagged, bTagEff, bTagRej, trueflav, btagweight);
 }
 
 // ---------------------------------------------------------
