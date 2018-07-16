@@ -42,8 +42,8 @@ class LikelihoodTopLeptonJetsUDSep : public LikelihoodTopLeptonJets {
     kPermReweight2D  ///< description here
   };
 
-  /// \name Constructors and destructors
-  /// @{
+  /** \name Constructors and destructors */
+  /* @{ */
 
   /// The default constructor. In addition to LikelihoodTopLeptonJets(), this
   /// initializes #m_ljet_separation_method to kNone.
@@ -52,9 +52,9 @@ class LikelihoodTopLeptonJetsUDSep : public LikelihoodTopLeptonJets {
   /// The (defaulted) destructor.
   ~LikelihoodTopLeptonJetsUDSep();
 
-  /// @}
-  /// \name Member functions (Get)
-  /// @{
+  /* @} */
+  /** \name Member functions (Get)  */
+  /* @{ */
 
   /// Probability of a jet to have the tag weight and pT of a b jet.
   double BJetProb(double tagweight, double pt);
@@ -83,9 +83,9 @@ class LikelihoodTopLeptonJetsUDSep : public LikelihoodTopLeptonJets {
   /// Probability of a jet to have the tag weight of an up-type jet.
   double UpJetTagWeight(double tagweight);
 
-  /// @}
-  /// \name Member functions (Set)
-  /// @{
+  /* @} */
+  /** \name Member functions (Set)  */
+  /* @{ */
 
   /// Set a flag. If flag is true the permutations are reweighted with the pT
   /// and tag weight probabilities.
@@ -154,9 +154,9 @@ class LikelihoodTopLeptonJetsUDSep : public LikelihoodTopLeptonJets {
    */
   int SetUpJetTagWeightHisto(TH1F* hist) { m_up_jet_tag_weight_histo = hist; return 1; }
 
-  /// @}
-  /// \name Member functions (BAT)
-  /// @{
+  /* @} */
+  /** \name Member functions (BAT)  */
+  /* @{ */
 
   /**
    * Define the parameters of the fit. In addition to
@@ -183,9 +183,9 @@ class LikelihoodTopLeptonJetsUDSep : public LikelihoodTopLeptonJets {
    */
   double LogEventProbabilityBTag() override;
 
-  /// @}
-  /// \name Member functions (misc)
-  /// @{
+  /* @} */
+  /** \name Member functions (misc)  */
+  /* @{ */
 
   /**
    * Check if the permutation is LH invariant. A documentation, as to \a why
@@ -206,7 +206,7 @@ class LikelihoodTopLeptonJetsUDSep : public LikelihoodTopLeptonJets {
    */
   double LogEventProbabilityLJetReweight();
 
-  /// @}
+  /* @} */
 
  protected:
   /**
@@ -231,8 +231,8 @@ class LikelihoodTopLeptonJetsUDSep : public LikelihoodTopLeptonJets {
    */
   int RemoveInvariantParticlePermutations() override;
 
-  /// @{
-  /// \name Member attributes
+  /* @{ */
+  /** \name Member attributes */
 
   /// A flag for using an additional reweighting of the permutations with the pT
   /// and tag weight probability (default: false);
@@ -265,7 +265,7 @@ class LikelihoodTopLeptonJetsUDSep : public LikelihoodTopLeptonJets {
   /// A pointer to the histogram of the up quark tag weight distribution.
   TH1F* m_up_jet_tag_weight_histo;
 
-  /// @}
+  /* @} */
 };
 }  // namespace KLFitter
 

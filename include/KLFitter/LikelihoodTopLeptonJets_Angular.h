@@ -33,8 +33,8 @@ namespace KLFitter {
   */
 class LikelihoodTopLeptonJets_Angular : public KLFitter::LikelihoodTopLeptonJets {
  public:
-  /// \name Constructors and destructors
-  /// @{
+  /** \name Constructors and destructors */
+  /* @{ */
 
   /// The (defaulted) constructor.
   LikelihoodTopLeptonJets_Angular();
@@ -42,9 +42,9 @@ class LikelihoodTopLeptonJets_Angular : public KLFitter::LikelihoodTopLeptonJets
   /// The (defaulted) destructor.
   ~LikelihoodTopLeptonJets_Angular();
 
-  /// @}
-  /// \name Member functions (misc)
-  /// @{
+  /* @} */
+  /** \name Member functions (misc)  */
+  /* @{ */
 
   /**
    * The posterior probability definition, overloaded from BCModel. In addition
@@ -55,7 +55,7 @@ class LikelihoodTopLeptonJets_Angular : public KLFitter::LikelihoodTopLeptonJets
    */
   double LogLikelihood(const std::vector <double> & parameters) override;
 
-  /// @}
+  /* @} */
 
  protected:
   /**
