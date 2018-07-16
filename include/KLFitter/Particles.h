@@ -396,6 +396,13 @@ class Particles final {
     * @param measuredindex The index of the associated measured particle.
     * @return An error code.
     */
+  int AddParticle(const TLorentzVector& particle, double DetEta, float LepCharge, KLFitter::Particles::ParticleType ptype, std::string name = "", int measuredindex = -1);
+
+  /**
+   * Overloaded implementation of the previous function. This
+   * function is deprecated and only kept for compatibility
+   * reasons, but is to be _removed_ in the next major release.
+   */
   int AddParticle(const TLorentzVector* const particle, double DetEta, float LepCharge, KLFitter::Particles::ParticleType ptype, std::string name = "", int measuredindex = -1);
 
   /**
