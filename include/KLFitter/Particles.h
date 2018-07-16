@@ -399,9 +399,11 @@ class Particles final {
   int AddParticle(const TLorentzVector& particle, double DetEta, float LepCharge, KLFitter::Particles::ParticleType ptype, std::string name = "", int measuredindex = -1);
 
   /**
-   * Overloaded implementation of the previous function. This
-   * function is deprecated and only kept for compatibility
-   * reasons, but is to be _removed_ in the next major release.
+   * DEPRECATED FUNCTION. This is an overloaded implementation of
+   * the previous function using TLorentzVector pointers instead
+   * of const ref. The usage of this function is deprecated and
+   * it will be removed in the next major release. Please switch
+   * to the above implementation.
    */
   int AddParticle(const TLorentzVector* const particle, double DetEta, float LepCharge, KLFitter::Particles::ParticleType ptype, std::string name = "", int measuredindex = -1);
 
@@ -422,9 +424,11 @@ class Particles final {
   int AddParticle(const TLorentzVector& particle, double DetEta, KLFitter::Particles::ParticleType ptype, std::string name = "", int measuredindex = -1, bool isBtagged = false, double bTagEff = -1., double bTagRej = -1., TrueFlavorType trueflav = kNone, double btagweight = 999);
 
   /**
-   * Overloaded implementation of the previous function. This
-   * function is deprecated and only kept for compatibility
-   * reasons, but is to be _removed_ in the next major release.
+   * DEPRECATED FUNCTION. This is an overloaded implementation of
+   * the previous function using TLorentzVector pointers instead
+   * of const ref. The usage of this function is deprecated and
+   * it will be removed in the next major release. Please switch
+   * to the above implementation.
    */
   int AddParticle(const TLorentzVector* const particle, double DetEta, KLFitter::Particles::ParticleType ptype, std::string name = "", int measuredindex = -1, bool isBtagged = false, double bTagEff = -1., double bTagRej = -1., TrueFlavorType trueflav = kNone, double btagweight = 999);
 
@@ -444,9 +448,11 @@ class Particles final {
   int AddParticle(const TLorentzVector& particle, KLFitter::Particles::ParticleType ptype, std::string name = "", int measuredindex = -1, bool isBtagged = false, double bTagEff = -1., double bTagRej = -1., TrueFlavorType trueflav = kNone, double btagweight = 999);
 
   /**
-   * Overloaded implementation of the previous function. This
-   * function is deprecated and only kept for compatibility
-   * reasons, but is to be _removed_ in the next major release.
+   * DEPRECATED FUNCTION. This is an overloaded implementation of
+   * the previous function using TLorentzVector pointers instead
+   * of const ref. The usage of this function is deprecated and
+   * it will be removed in the next major release. Please switch
+   * to the above implementation.
    */
   int AddParticle(const TLorentzVector* const particle, KLFitter::Particles::ParticleType ptype, std::string name = "", int measuredindex = -1, bool isBtagged = false, double bTagEff = -1., double bTagRej = -1., TrueFlavorType trueflav = kNone, double btagweight = 999);
 
@@ -463,9 +469,11 @@ class Particles final {
   int AddParticle(const TLorentzVector& particle, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, TrueFlavorType trueflav, double btagweight = 999);
 
   /**
-   * Overloaded implementation of the previous function. This
-   * function is deprecated and only kept for compatibility
-   * reasons, but is to be _removed_ in the next major release.
+   * DEPRECATED FUNCTION. This is an overloaded implementation of
+   * the previous function using TLorentzVector pointers instead
+   * of const ref. The usage of this function is deprecated and
+   * it will be removed in the next major release. Please switch
+   * to the above implementation.
    */
   int AddParticle(const TLorentzVector* const particle, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, TrueFlavorType trueflav, double btagweight = 999);
 
