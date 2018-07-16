@@ -294,13 +294,7 @@ int KLFitter::Particles::AddParticle(const TLorentzVector* const particle, doubl
 
 // ---------------------------------------------------------
 int KLFitter::Particles::AddParticle(const TLorentzVector& particle, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, TrueFlavorType trueflav, double btagweight) {
-  // set default DetEta
-  double DetEta =-999;
-
-  this->AddParticle(particle, DetEta, ptype, name, measuredindex, isBtagged, bTagEff, bTagRej, trueflav, btagweight);
-
-  // no error
-  return 1;
+  return AddParticle(particle, -999, ptype, name, measuredindex, isBtagged, bTagEff, bTagRej, trueflav, btagweight);
 }
 
 // --------------------------------------------------------- // THIS FUNCTION IS TO BE REMOVED IN THE NEXT MAJOR RELEASE
@@ -310,13 +304,7 @@ int KLFitter::Particles::AddParticle(const TLorentzVector* const particle, KLFit
 
 // ---------------------------------------------------------
 int KLFitter::Particles::AddParticle(const TLorentzVector& particle, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, TrueFlavorType trueflav, double btagweight) {
-  // set default DetEta
-  double DetEta =-999;
-
-  this->AddParticle(particle, DetEta, ptype, name, measuredindex, false, -1., -1., trueflav, btagweight);
-
-  // no error
-  return 1;
+  return AddParticle(particle, -999, ptype, name, measuredindex, false, -1., -1., trueflav, btagweight);
 }
 
 // --------------------------------------------------------- // THIS FUNCTION IS TO BE REMOVED IN THE NEXT MAJOR RELEASE
