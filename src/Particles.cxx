@@ -293,7 +293,7 @@ int KLFitter::Particles::AddParticle(const TLorentzVector* const particle, doubl
 }
 
 // ---------------------------------------------------------
-int KLFitter::Particles::AddParticle(const TLorentzVector* const particle, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, TrueFlavorType trueflav, double btagweight) {
+int KLFitter::Particles::AddParticle(const TLorentzVector& particle, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, TrueFlavorType trueflav, double btagweight) {
   // set default DetEta
   double DetEta =-999;
 
@@ -303,8 +303,13 @@ int KLFitter::Particles::AddParticle(const TLorentzVector* const particle, KLFit
   return 1;
 }
 
+// --------------------------------------------------------- // THIS FUNCTION IS TO BE REMOVED IN THE NEXT MAJOR RELEASE
+int KLFitter::Particles::AddParticle(const TLorentzVector* const particle, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, TrueFlavorType trueflav, double btagweight) {
+  return AddParticle(*particle, ptype, name, measuredindex, isBtagged, bTagEff, bTagRej, trueflav, btagweight);
+}
+
 // ---------------------------------------------------------
-int KLFitter::Particles::AddParticle(const TLorentzVector* const particle, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, TrueFlavorType trueflav, double btagweight) {
+int KLFitter::Particles::AddParticle(const TLorentzVector& particle, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, TrueFlavorType trueflav, double btagweight) {
   // set default DetEta
   double DetEta =-999;
 
@@ -312,6 +317,11 @@ int KLFitter::Particles::AddParticle(const TLorentzVector* const particle, KLFit
 
   // no error
   return 1;
+}
+
+// --------------------------------------------------------- // THIS FUNCTION IS TO BE REMOVED IN THE NEXT MAJOR RELEASE
+int KLFitter::Particles::AddParticle(const TLorentzVector* const particle, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, TrueFlavorType trueflav, double btagweight) {
+  return AddParticle(*particle, ptype, name, measuredindex, trueflav, btagweight);
 }
 
 // ---------------------------------------------------------
