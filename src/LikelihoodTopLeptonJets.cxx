@@ -170,23 +170,15 @@ void KLFitter::LikelihoodTopLeptonJets::DefineParameters() {
 
 // ---------------------------------------------------------
 int KLFitter::LikelihoodTopLeptonJets::CalculateLorentzVectors(std::vector <double> const& parameters) {
-  static double scale;
-  static double whad_fit_e;
-  static double whad_fit_px;
-  static double whad_fit_py;
-  static double whad_fit_pz;
-  static double wlep_fit_e;
-  static double wlep_fit_px;
-  static double wlep_fit_py;
-  static double wlep_fit_pz;
-  static double thad_fit_e;
-  static double thad_fit_px;
-  static double thad_fit_py;
-  static double thad_fit_pz;
-  static double tlep_fit_e;
-  static double tlep_fit_px;
-  static double tlep_fit_py;
-  static double tlep_fit_pz;
+  double scale;
+  double thad_fit_e;
+  double thad_fit_px;
+  double thad_fit_py;
+  double thad_fit_pz;
+  double tlep_fit_e;
+  double tlep_fit_px;
+  double tlep_fit_py;
+  double tlep_fit_pz;
 
   // hadronic b quark
   bhad_fit_e = parameters[parBhadE];

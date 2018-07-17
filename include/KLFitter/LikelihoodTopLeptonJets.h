@@ -157,7 +157,7 @@ class LikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
     * GetInitialParameters().
     * @return vector of initial values.
     */
-  std::vector<double> GetInitialParametersWoNeutrinoPz();
+  virtual std::vector<double> GetInitialParametersWoNeutrinoPz();
 
   /* @} */
 
@@ -180,7 +180,7 @@ class LikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
     * Define the model particles
     * @return An error code.
     */
-  virtual int DefineModelParticles() override;
+  int DefineModelParticles() override;
 
   /**
     * Remove invariant particle permutations.
@@ -350,6 +350,16 @@ class LikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
   double nu_fit_px;
   double nu_fit_py;
   double nu_fit_pz;
+
+  double wlep_fit_e;
+  double wlep_fit_px;
+  double wlep_fit_py;
+  double wlep_fit_pz;
+
+  double whad_fit_e;
+  double whad_fit_px;
+  double whad_fit_py;
+  double whad_fit_pz;
 
   double whad_fit_m;
   double wlep_fit_m;
