@@ -520,14 +520,14 @@ double KLFitter::LikelihoodTopDilepton::LogLikelihood(const std::vector<double> 
   if (logweight + 10 == logweight) std::cout << "Gauss NuEta inf! : " << log(GaussNuEta(parameters)) << std::endl;
 
   // Sum of invariant masses (lep, jet) term
-  if (CalculateMLepJet(parameters) == 0.) {
+  if (CalculateMLepJet() == 0.) {
     logweight = log(1e-99);
     return logweight;
   } else {
-    logweight += log(CalculateMLepJet(parameters));
+    logweight += log(CalculateMLepJet());
   }
 
-  if (logweight + 10 == logweight) std::cout << "CalculateMLepJet inf! : "  << log(CalculateMLepJet(parameters)) << std::endl;
+  if (logweight + 10 == logweight) std::cout << "CalculateMLepJet inf! : "  << log(CalculateMLepJet()) << std::endl;
 
   // check if total logweight is inf
   if (logweight + 10 == logweight) std::cout << "logweight TOT = " << logweight << std::endl;
@@ -537,7 +537,7 @@ double KLFitter::LikelihoodTopDilepton::LogLikelihood(const std::vector<double> 
 }
 
 // ---------------------------------------------------------
-double KLFitter::LikelihoodTopDilepton::CalculateMLepJet(const std::vector<double> & parameters) {
+double KLFitter::LikelihoodTopDilepton::CalculateMLepJet() {
   double sumMinv = 0.;
   double norm = 1.;
 
@@ -1025,10 +1025,10 @@ std::vector<double> KLFitter::LikelihoodTopDilepton::LogLikelihoodComponents(std
   }
 
   // sum of invariant masses (lep, jet) term
-  if (CalculateMLepJet(parameters) == 0.) {
+  if (CalculateMLepJet() == 0.) {
     vecci.push_back(log(1e-99));
   } else {
-    vecci.push_back(log(CalculateMLepJet(parameters)));  // comp7
+    vecci.push_back(log(CalculateMLepJet()));  // comp7
   }
 
   // return log of likelihood

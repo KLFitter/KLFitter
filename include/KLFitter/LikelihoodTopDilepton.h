@@ -210,7 +210,7 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
     * including a tuning factor alpha.
     * @return A double.
     */
-  double CalculateMLepJet(const std::vector<double> & parameters);
+  double CalculateMLepJet();
 
   /**
     * Set a flag. If flag is true the sumloglikelihood
