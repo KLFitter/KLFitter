@@ -395,7 +395,7 @@ class LikelihoodBase : public BCModel {
     * @param switchpar2 ???
     * @return Permutation of the invariant partner, -1 if there is no one.
     */
-  virtual int LHInvariantPermutationPartner(int iperm, int nperms, int *switchpar1, int *switchpar2) { return -1; }
+  virtual int LHInvariantPermutationPartner(int /*iperm*/, int /*nperms*/, int* /*switchpar1*/, int* /*switchpar2*/) { return -1; }
 
   /**
     * Write parameters from fCachedParametersVector.at(iperm) to fCachedParameters
