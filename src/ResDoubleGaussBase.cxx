@@ -41,15 +41,15 @@ KLFitter::ResDoubleGaussBase::ResDoubleGaussBase(std::vector<double> const& para
 KLFitter::ResDoubleGaussBase::~ResDoubleGaussBase() = default;
 
 // ---------------------------------------------------------
-double KLFitter::ResDoubleGaussBase::GetSigma(double xmeas) {
+double KLFitter::ResDoubleGaussBase::GetSigma(double par) {
   // Calculate mean width of both gaussians; weight the width of the 2nd one with its amplitude
-  double sigma1 = GetSigma1(xmeas);
-  double sigma2 = GetSigma2(xmeas);
-  double amplitude2 = GetAmplitude2(xmeas);
+  double sigma1 = GetSigma1(par);
+  double sigma2 = GetSigma2(par);
+  double amplitude2 = GetAmplitude2(par);
   double sigma = (sigma1 + amplitude2*sigma2) / (1+amplitude2);
 
   // sigma estimates the fractional resolution, but we want absolute
-  return sigma*xmeas;
+  return sigma*par;
 }
 
 // ---------------------------------------------------------

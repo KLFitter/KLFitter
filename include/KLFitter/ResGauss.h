@@ -65,10 +65,10 @@ class ResGauss : public ResolutionBase {
   /**
     * Return the width of the TF depending on the measured value of x.
     * Used to adjust the range of the fit parameter that correspond to the TF.
-    * @param dummy Dummy parameter. Only needed to satisfy the interface.
+    * @param par Dummy parameter. Only needed to satisfy the interface.
     * @return The width.
     */
-  double GetSigma(double dummy = 0) override;
+  double GetSigma(double par = 0) override;
 
   /**
     * Return the probability of the true value of x given the

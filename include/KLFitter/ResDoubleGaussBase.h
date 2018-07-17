@@ -103,10 +103,10 @@ class ResDoubleGaussBase : public ResolutionBase {
   /**
     * Return the approximate width of the TF depending on the measured value of x.
     * Used to adjust the range of the fit parameter that correspond to the TF.
-    * @param xmeas The measured value of x.
+    * @param par The measured value of x.
     * @return The width.
     */
-  double GetSigma(double xmeas) override;
+  double GetSigma(double par) override;
 
   /**
     * Return the probability of the true value of x given the
