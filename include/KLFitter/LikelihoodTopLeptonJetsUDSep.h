@@ -20,284 +20,250 @@
 #ifndef KLFITTER_LIKELIHOODTOPLEPTONJETSUDSEP_H_
 #define KLFITTER_LIKELIHOODTOPLEPTONJETSUDSEP_H_
 
-#include <iostream>
+#include "KLFitter/LikelihoodTopLeptonJets.h"
 
 class TH1F;
 class TH2F;
-class TLorentzVector;
-
-namespace KLFitter {
-  class ResolutionBase;
-}
-
-#include "KLFitter/LikelihoodTopLeptonJets.h"
 
 // ---------------------------------------------------------
 
-/**
- * \namespace KLFitter
- * \brief The KLFitter namespace
- */
 namespace KLFitter {
 /**
-  * \class KLFitter::LikelihoodTopLeptonJetsUDSep
-  * \brief A class implementing a likelihood for the ttbar lepton+jets channel.
-  *
-  * This class represents a likelihood for the ttbar into lepton+jets.
-  */
-class LikelihoodTopLeptonJetsUDSep : public KLFitter::LikelihoodTopLeptonJets {
+ * This class is a variation of LikelihoodTopLeptonJets. It adds methods to
+ * distinguish up-type and down-type quarks, i.e. their permutations are not
+ * invariant in this likelihood.
+ */
+class LikelihoodTopLeptonJetsUDSep : public LikelihoodTopLeptonJets {
  public:
-  /**
-    * Enumerate for lJet reweighting methods
-    */
-  enum LJetSeparationMethod{
-    kNone,
-    kPermReweight,
-    kPermReweight2D
+  /// Enumerate for light-jet reweighting methods
+  enum LJetSeparationMethod {
+    kNone,           ///< description here
+    kPermReweight,   ///< description here
+    kPermReweight2D  ///< description here
   };
 
   /** \name Constructors and destructors */
   /* @{ */
 
-  /**
-    * The default constructor.
-    */
+  /// The default constructor. In addition to LikelihoodTopLeptonJets(), this
+  /// initializes #m_ljet_separation_method to kNone.
   LikelihoodTopLeptonJetsUDSep();
 
-  /**
-    * The (defaulted) destructor.
-    */
+  /// The (defaulted) destructor.
   ~LikelihoodTopLeptonJetsUDSep();
 
   /* @} */
+  /** \name Member functions (Get)  */
+  /* @{ */
+
+  /// Probability of a jet to have the tag weight and pT of a b jet.
+  double BJetProb(double tagweight, double pt);
+
+  /// Probability of a jet to have the pT of a b jet.
+  double BJetPt(double pt);
+
+  /// Probability of a jet to have the tag weight of a b jet.
+  double BJetTagWeight(double tagweight);
+
+  /// Probability of a jet to have the tag weight and pT of a down-type jet.
+  double DownJetProb(double tagweight, double pt);
+
+  /// Probability of a jet to have the pT of a down-type jet.
+  double DownJetPt(double pt);
+
+  /// Probability of a jet to have the tag weight of a down-type jet.
+  double DownJetTagWeight(double tagweight);
+
+  /// Probability of a jet to have the tag weight and pT of an up-type jet.
+  double UpJetProb(double tagweight, double pt);
+
+  /// Probability of a jet to have the pT of an up-type jet.
+  double UpJetPt(double pt);
+
+  /// Probability of a jet to have the tag weight of an up-type jet.
+  double UpJetTagWeight(double tagweight);
+
+  /* @} */
+  /** \name Member functions (Set)  */
+  /* @{ */
+
+  /// Set a flag. If flag is true the permutations are reweighted with the pT
+  /// and tag weight probabilities.
+  void SetLJetSeparationMethod(LJetSeparationMethod flag) { m_ljet_separation_method = flag; }
 
   /**
-    * Define the parameters of the fit.
-    */
+   * Set histogram for tag weight distribution of b jets.
+   * @param hist Pointer to histogram.
+   * @return An error flag.
+   */
+  int SetBJet2DWeightHisto(TH2F* hist) { m_bjet_2d_weight_histo = hist; return 1; }
+
+  /**
+   * Set histogram for pT distribution of b jets (reco level).
+   * @param hist Pointer to histogram.
+   * @return An error flag.
+   */
+  int SetBJetPtHisto(TH1F* hist) { m_bjet_pt_histo = hist; return 1; }
+
+  /**
+   * Set histogram for tag weight distribution of b jets.
+   * @param hist Pointer to histogram.
+   * @return An error flag.
+   */
+  int SetBJetTagWeightHisto(TH1F* hist) { m_bjet_tag_weight_histo = hist; return 1; }
+
+  /**
+   * Set histogram for tag weight distribution of down type jets.
+   * @param hist Pointer to histogram.
+   * @return An error flag.
+   */
+  int SetDownJet2DWeightHisto(TH2F* hist) { m_down_jet_2d_weight_histo = hist; return 1; }
+
+  /**
+   * Set histogram for pT distribution of down jets (reco level).
+   * @param hist Pointer to histogram.
+   * @return An error flag.
+   */
+  int SetDownJetPtHisto(TH1F* hist) { m_down_jet_pt_histo = hist; return 1; }
+
+  /**
+   * Set histogram for tag weight distribution of down type jets.
+   * @param hist Pointer to histogram.
+   * @return An error flag.
+   */
+  int SetDownJetTagWeightHisto(TH1F* hist) { m_down_jet_tag_weight_histo = hist; return 1; }
+
+  /**
+   * Set histogram for tag weight distribution of up type jets.
+   * @param hist Pointer to histogram.
+   * @return An error flag.
+   */
+  int SetUpJet2DWeightHisto(TH2F* hist) { m_up_jet_2d_weight_histo = hist; return 1; }
+
+  /**
+   * Set histogram for pT distribution of up jets (reco level).
+   * @param hist Pointer to histogram.
+   * @return An error flag.
+   */
+  int SetUpJetPtHisto(TH1F* hist) { m_up_jet_pt_histo = hist; return 1; }
+
+  /**
+   * Set histogram for tag weight distribution of up type jets.
+   * @param hist Pointer to histogram.
+   * @return An error flag.
+   */
+  int SetUpJetTagWeightHisto(TH1F* hist) { m_up_jet_tag_weight_histo = hist; return 1; }
+
+  /* @} */
+  /** \name Member functions (BAT)  */
+  /* @{ */
+
+  /**
+   * Define the parameters of the fit. In addition to
+   * LikelihoodTopLeptonJets::DefineParameters(), this renames the two energy
+   * parameters of the light quarks to "up-type" and "down-type".
+   */
   void DefineParameters() override;
 
   /**
-    * Return the log of the event probability fof the current
-    * combination
-    * @return The event probability
-    */
+   * Return the log of the event probability for the current combination.
+   * Basically identical to LikelihoodBase::LogEventProbability(), but adds an
+   * additional term for the light jets to the probability calculation.
+   * @return The event probability
+   */
   double LogEventProbability() override;
 
   /**
-    * Return the contribution from b tagging to the log of the
-    * event probability for the current combination
-    * @return The event probability contribution
-    */
+   * Return the contribution from b tagging to the log of the event probability
+   * for the current combination. Basically identical to
+   * LikelihoodBase::LogEventProbabilityBTag(), but corrections were made to use
+   * kLightUp and kLightDown from #KLFitter::Particles::TrueFlavorType instead
+   * of just kLight.
+   * @return The event probability contribution
+   */
   double LogEventProbabilityBTag() override;
 
-  /**
-    * Return the contribution from pT and b tag weight probability (by LJetSeparationMethod)
-    * to the log of the event probability for the current combination
-    * @return The event probability contribution
-    */
-  double LogEventProbabilityLJetReweight();
-
-  /**
-    * Returns the probability of a jet to have the pT of an up type jet.
-    * @return The probability.
-    */
-  double UpJetPt(double pt);
-
-  /**
-    * Returns the probability of a jet to have the pT of an down type jet.
-    * @return The probability.
-    */
-  double DownJetPt(double pt);
-
-  /**
-    * Returns the probability of a jet to have the pT of an b type jet.
-    * @return The probability.
-    */
-  double BJetPt(double pt);
-
-  /**
-    * Returns the probability of a jet to have the tag weight of an up type jet.
-    * @return The probability.
-    */
-  double UpJetTagWeight(double tagweight);
-
-  /**
-    * Returns the probability of a jet to have the tag weight of an down type jet.
-    * @return The probability.
-    */
-  double DownJetTagWeight(double tagweight);
-
-  /**
-    * Returns the probability of a jet to have the tag weight of an b type jet.
-    * @return The probability.
-    */
-  double BJetTagWeight(double tagweight);
-  //
-  /**
-    * Returns the probability of a jet to have the tag weight and pT of an up type jet.
-    * @return The probability.
-    */
-  double UpJetProb(double tagweight, double pt);
-
-  /**
-    * Returns the probability of a jet to have the tag weight and pT of an down type jet.
-    * @return The probability.
-    */
-  double DownJetProb(double tagweight, double pt);
-
-  /**
-    * Returns the probability of a jet to have the tag weight and pT of an b type jet.
-    * @return The probability.
-    */
-  double BJetProb(double tagweight, double pt);
-  //
-
-  /**
-    * Set histogram for pT distribution of up jets (reco level).
-    * @param hist Pointer to histogram.
-    * @return An error flag.
-    */
-  int SetUpJetPtHisto(TH1F* hist) { fUpJetPtHisto = hist; return 1; }
-
-  /**
-    * Set histogram for pT distribution of down jets (reco level).
-    * @param hist Pointer to histogram.
-    * @return An error flag.
-    */
-  int SetDownJetPtHisto(TH1F* hist) { fDownJetPtHisto = hist; return 1; }
-
-  /**
-    * Set histogram for pT distribution of b jets (reco level).
-    * @param hist Pointer to histogram.
-    * @return An error flag.
-    */
-  int SetBJetPtHisto(TH1F* hist) { fBJetPtHisto = hist; return 1; }
-
-  /**
-    * Set histogram for tag weight distribution of up type jets.
-    * @param hist Pointer to histogram.
-    * @return An error flag.
-    */
-  int SetUpJetTagWeightHisto(TH1F* hist) { fUpJetTagWeightHisto = hist; return 1; }
-
-  /**
-    * Set histogram for tag weight distribution of down type jets.
-    * @param hist Pointer to histogram.
-    * @return An error flag.
-    */
-  int SetDownJetTagWeightHisto(TH1F* hist) { fDownJetTagWeightHisto = hist; return 1; }
-
-  /**
-    * Set histogram for tag weight distribution of b jets.
-    * @param hist Pointer to histogram.
-    * @return An error flag.
-    */
-  int SetBJetTagWeightHisto(TH1F* hist) { fBJetTagWeightHisto = hist; return 1; }
-
-  /**
-    * Set a flag. If flag is true the permutations are reweighted with the pT and tag weight probabilities.
-    * @param flag The flag.
-    */
-  void SetLJetSeparationMethod(KLFitter::LikelihoodTopLeptonJetsUDSep::LJetSeparationMethod flag) { fLJetSeparationMethod = flag; }
-
-  /**
-    * Check if the permutation is LH invariant.
-    * @return Permutation of the invariant partner, -1 if there is no one.
-    */
-  int LHInvariantPermutationPartner(int iperm, int nperms, int *switchpar1, int *switchpar2) override;
-
-  /**
-    * Set histogram for tag weight distribution of up type jets.
-    * @param hist Pointer to histogram.
-    * @return An error flag.
-    */
-  int SetUpJet2DWeightHisto(TH2F* hist) { fUpJet2DWeightHisto = hist; return 1; }
-
-  /**
-    * Set histogram for tag weight distribution of down type jets.
-    * @param hist Pointer to histogram.
-    * @return An error flag.
-    */
-  int SetDownJet2DWeightHisto(TH2F* hist) { fDownJet2DWeightHisto = hist; return 1; }
-
-  /**
-    * Set histogram for tag weight distribution of b jets.
-    * @param hist Pointer to histogram.
-    * @return An error flag.
-    */
-  int SetBJet2DWeightHisto(TH2F* hist) { fBJet2DWeightHisto = hist; return 1; }
-
- protected:
+  /* @} */
   /** \name Member functions (misc)  */
   /* @{ */
 
   /**
-    * Define the model particles
-    * @return An error code.
-    */
+   * Check if the permutation is LH invariant. A documentation, as to \a why
+   * this needs to be reimplemented, needs to be added.
+   * @param iperm Current permutation
+   * @param nperms Total number of permutations
+   * @param switchpar1 ???
+   * @param switchpar2 ???
+   * @return Permutation of the invariant partner, -1 if there is no one.
+   */
+  int LHInvariantPermutationPartner(int iperm, int nperms, int *switchpar1, int *switchpar2) override;
+
+  /**
+   * Return the contribution from pT and b tag weight probability (by
+   * #LJetSeparationMethod) to the log of the event probability for the current
+   * combination.
+   * @return The event probability contribution
+   */
+  double LogEventProbabilityLJetReweight();
+
+  /* @} */
+
+ protected:
+  /**
+   * Define the model particles.
+   * @return An error code.
+   */
   int DefineModelParticles() override;
 
   /**
-    * Remove invariant particle permutations.
-    * @return An error code.
-    */
-  int RemoveInvariantParticlePermutations() override;
-
-  /**
-    * Remove forbidden particle permutations.
-    * @return An error code.
-    */
+   * Remove forbidden particle permutations. Reimplemented, because there are \a
+   * no forbidden particle permutations, if up-type and down-type quarks are
+   * distinguished, i.e. this function doesn't do anything.
+   * @return An error code.
+   */
   int RemoveForbiddenParticlePermutations() override { return 1; }
 
   /**
-    * A flag for using an additional reweighting of the permutations with the pT and tag weight probability (default: false);
-    */
-  KLFitter::LikelihoodTopLeptonJetsUDSep::LJetSeparationMethod fLJetSeparationMethod;
+   * Remove invariant particle permutations. Reimplemented, because particle
+   * permutations with the two light jets swapped are \a not invariant in this
+   * likelihood.
+   * @return An error code.
+   */
+  int RemoveInvariantParticlePermutations() override;
 
-  /**
-    * A pointer to the histogram of the up type jet pT distribution.
-    */
-  TH1F* fUpJetPtHisto;
+  /* @{ */
+  /** \name Member attributes */
 
-  /**
-    * A pointer to the histogram of the down type jet pT distribution.
-    */
-  TH1F* fDownJetPtHisto;
+  /// A flag for using an additional reweighting of the permutations with the pT
+  /// and tag weight probability (default: false);
+  LJetSeparationMethod m_ljet_separation_method;
 
-  /**
-    * A pointer to the histogram of the down b jet pT distribution.
-    */
-  TH1F* fBJetPtHisto;
+  /// A pointer to the 2d histogram "tag weight vs. pT for bQuarks"
+  TH2F* m_bjet_2d_weight_histo;
 
-  /**
-    * A pointer to the histogram of the up quark tag weight distribution.
-    */
-  TH1F* fUpJetTagWeightHisto;
+  /// A pointer to the histogram of the down b jet pT distribution.
+  TH1F* m_bjet_pt_histo;
 
-  /**
-    * A pointer to the histogram of the down quark tag weight distribution.
-    */
-  TH1F* fDownJetTagWeightHisto;
+  /// A pointer to the histogram of the up b tag weight distribution.
+  TH1F* m_bjet_tag_weight_histo;
 
-  /**
-    * A pointer to the histogram of the up b tag weight distribution.
-    */
-  TH1F* fBJetTagWeightHisto;
+  /// A pointer to the 2d histogram "tag weight vs. pT for downQuarks"
+  TH2F* m_down_jet_2d_weight_histo;
 
-  /**
-    * A pointer to the 2d histogram "tag weight vs. pT for upQuarks"
-    */
-  TH2F* fUpJet2DWeightHisto;
+  /// A pointer to the histogram of the down type jet pT distribution.
+  TH1F* m_down_jet_pt_histo;
 
-  /**
-    * A pointer to the 2d histogram "tag weight vs. pT for downQuarks"
-    */
-  TH2F* fDownJet2DWeightHisto;
+  /// A pointer to the histogram of the down quark tag weight distribution.
+  TH1F* m_down_jet_tag_weight_histo;
 
-  /**
-    * A pointer to the 2d histogram "tag weight vs. pT for bQuarks"
-    */
-  TH2F* fBJet2DWeightHisto;
+  /// A pointer to the 2d histogram "tag weight vs. pT for upQuarks"
+  TH2F* m_up_jet_2d_weight_histo;
+
+  /// A pointer to the histogram of the up type jet pT distribution.
+  TH1F* m_up_jet_pt_histo;
+
+  /// A pointer to the histogram of the up quark tag weight distribution.
+  TH1F* m_up_jet_tag_weight_histo;
 
   /* @} */
 };

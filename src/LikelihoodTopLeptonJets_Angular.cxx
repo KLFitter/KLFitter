@@ -23,77 +23,70 @@
 #include <iostream>
 
 #include "BAT/BCMath.h"
-#include "BAT/BCParameter.h"
-#include "KLFitter/DetectorBase.h"
 #include "KLFitter/Particles.h"
 #include "KLFitter/Permutations.h"
 #include "KLFitter/PhysicsConstants.h"
 #include "KLFitter/ResolutionBase.h"
 #include "TLorentzVector.h"
 
+namespace KLFitter {
 // ---------------------------------------------------------
-KLFitter::LikelihoodTopLeptonJets_Angular::LikelihoodTopLeptonJets_Angular() = default;
+LikelihoodTopLeptonJets_Angular::LikelihoodTopLeptonJets_Angular() = default;
 
 // ---------------------------------------------------------
-KLFitter::LikelihoodTopLeptonJets_Angular::~LikelihoodTopLeptonJets_Angular() = default;
+LikelihoodTopLeptonJets_Angular::~LikelihoodTopLeptonJets_Angular() = default;
 
 // ---------------------------------------------------------
-int KLFitter::LikelihoodTopLeptonJets_Angular::AdjustParameterRanges() {
+int LikelihoodTopLeptonJets_Angular::AdjustParameterRanges() {
   // adjust limits
   double nsigmas_jet = 7.0;
   double nsigmas_lepton = 2.0;
 
   double E = (*fParticlesPermuted)->Parton(0)->E();
   double m = fPhysicsConstants.MassBottom();
-  if (fFlagUseJetMass)
-    m = std::max(0.0, (*fParticlesPermuted)->Parton(0)->M());
-  double Emin = std::max(m, E - nsigmas_jet* sqrt(E));
-  double Emax  = E + nsigmas_jet* sqrt(E);
+  if (fFlagUseJetMass) m = std::max(0.0, (*fParticlesPermuted)->Parton(0)->M());
+  double Emin = std::max(m, E - nsigmas_jet * sqrt(E));
+  double Emax = E + nsigmas_jet * sqrt(E);
   SetParameterRange(parBhadE, Emin, Emax);
 
   E = (*fParticlesPermuted)->Parton(1)->E();
   m = fPhysicsConstants.MassBottom();
-  if (fFlagUseJetMass)
-    m = std::max(0.0, (*fParticlesPermuted)->Parton(1)->M());
-  Emin = std::max(m, E - nsigmas_jet* sqrt(E));
-  Emax  = E + nsigmas_jet* sqrt(E);
+  if (fFlagUseJetMass) m = std::max(0.0, (*fParticlesPermuted)->Parton(1)->M());
+  Emin = std::max(m, E - nsigmas_jet * sqrt(E));
+  Emax = E + nsigmas_jet * sqrt(E);
   SetParameterRange(parBlepE, Emin, Emax);
 
   E = (*fParticlesPermuted)->Parton(2)->E();
   m = 0.001;
-  if (fFlagUseJetMass)
-    m = std::max(0.0, (*fParticlesPermuted)->Parton(2)->M());
-  Emin = std::max(m, E - nsigmas_jet* sqrt(E));
-  Emax  = E + nsigmas_jet* sqrt(E);
+  if (fFlagUseJetMass) m = std::max(0.0, (*fParticlesPermuted)->Parton(2)->M());
+  Emin = std::max(m, E - nsigmas_jet * sqrt(E));
+  Emax = E + nsigmas_jet * sqrt(E);
   SetParameterRange(parLQ1E, Emin, Emax);
 
   E = (*fParticlesPermuted)->Parton(3)->E();
   m = 0.001;
-  if (fFlagUseJetMass)
-    m = std::max(0.0, (*fParticlesPermuted)->Parton(3)->M());
-  Emin = std::max(m, E - nsigmas_jet* sqrt(E));
-  Emax  = E + nsigmas_jet* sqrt(E);
+  if (fFlagUseJetMass) m = std::max(0.0, (*fParticlesPermuted)->Parton(3)->M());
+  Emin = std::max(m, E - nsigmas_jet * sqrt(E));
+  Emax = E + nsigmas_jet * sqrt(E);
   SetParameterRange(parLQ2E, Emin, Emax);
 
-  if (fTypeLepton == kElectron) {
+  if (m_lepton_type == kElectron) {
     E = (*fParticlesPermuted)->Electron(0)->E();
-    Emin = std::max(0.001, E - nsigmas_lepton* sqrt(E));
-    Emax  = E + nsigmas_lepton* sqrt(E);
-  } else if (fTypeLepton == kMuon) {
+    Emin = std::max(0.001, E - nsigmas_lepton * sqrt(E));
+    Emax = E + nsigmas_lepton * sqrt(E);
+  } else if (m_lepton_type == kMuon) {
     E = (*fParticlesPermuted)->Muon(0)->E();
     double sintheta = sin((*fParticlesPermuted)->Muon(0)->Theta());
-    double sigrange = nsigmas_lepton* (E*E*sintheta);
-    Emin = std::max(0.001, E -sigrange);
-    Emax = E +sigrange;
+    double sigrange = nsigmas_lepton * (E * E * sintheta);
+    Emin = std::max(0.001, E - sigrange);
+    Emax = E + sigrange;
   }
   SetParameterRange(parLepE, Emin, Emax);
 
-  // note: this is hard-coded in the momement
+  SetParameterRange(parNuPx, m_et_miss_x - 100.0, m_et_miss_x + 100);
+  SetParameterRange(parNuPy, m_et_miss_y - 100.0, m_et_miss_y + 100);
 
-  SetParameterRange(parNuPx, ETmiss_x-100.0, ETmiss_x+100);
-  SetParameterRange(parNuPy, ETmiss_y-100.0, ETmiss_y+100);
-
-  if (fFlagTopMassFixed)
+  if (m_flag_top_mass_fixed)
     SetParameterRange(parTopM, fPhysicsConstants.MassTop(), fPhysicsConstants.MassTop());
 
   // no error
@@ -101,7 +94,7 @@ int KLFitter::LikelihoodTopLeptonJets_Angular::AdjustParameterRanges() {
 }
 
 // ---------------------------------------------------------
-double KLFitter::LikelihoodTopLeptonJets_Angular::LogLikelihood(const std::vector<double> & parameters) {
+double LikelihoodTopLeptonJets_Angular::LogLikelihood(const std::vector<double> & parameters) {
   // calculate 4-vectors
   CalculateLorentzVectors(parameters);
 
@@ -112,63 +105,60 @@ double KLFitter::LikelihoodTopLeptonJets_Angular::LogLikelihood(const std::vecto
   bool TFgoodTmp(true);
 
   // jet energy resolution terms
-  logprob += log(fResEnergyBhad->p(bhad_fit_e, bhad_meas_e, &TFgoodTmp));
+  logprob += log(m_res_energy_bhad->p(m_bhad_fit_e, m_bhad_meas_e, &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
 
-  logprob += log(fResEnergyBlep->p(blep_fit_e, blep_meas_e, &TFgoodTmp));
+  logprob += log(m_res_energy_blep->p(m_blep_fit_e, m_blep_meas_e, &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
 
-  logprob += log(fResEnergyLQ1->p(lq1_fit_e, lq1_meas_e, &TFgoodTmp));
+  logprob += log(m_res_energy_lq1->p(m_lq1_fit_e, m_lq1_meas_e, &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
 
-  logprob += log(fResEnergyLQ2->p(lq2_fit_e, lq2_meas_e, &TFgoodTmp));
+  logprob += log(m_res_energy_lq2->p(m_lq2_fit_e, m_lq2_meas_e, &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
 
   // lepton energy resolution terms
-  if (fTypeLepton == kElectron) {
-    logprob += log(fResLepton->p(lep_fit_e, lep_meas_e, &TFgoodTmp));
-  } else if (fTypeLepton == kMuon) {
-    logprob += log(fResLepton->p(lep_fit_e* lep_meas_sintheta, lep_meas_pt, &TFgoodTmp));
+  if (m_lepton_type == kElectron) {
+    logprob += log(m_res_lepton->p(m_lep_fit_e, m_lep_meas_e, &TFgoodTmp));
+  } else if (m_lepton_type == kMuon) {
+    logprob += log(m_res_lepton->p(m_lep_fit_e * m_lep_meas_sintheta, m_lep_meas_pt, &TFgoodTmp));
   }
   if (!TFgoodTmp) fTFgood = false;
 
   // neutrino px and py
-  logprob += log(fResMET->p(nu_fit_px, ETmiss_x, &TFgoodTmp, SumET));
+  logprob += log(m_res_met->p(m_nu_fit_px, m_et_miss_x, &TFgoodTmp, m_et_miss_sum));
   if (!TFgoodTmp) fTFgood = false;
 
-  logprob += log(fResMET->p(nu_fit_py, ETmiss_y, &TFgoodTmp, SumET));
+  logprob += log(m_res_met->p(m_nu_fit_py, m_et_miss_y, &TFgoodTmp, m_et_miss_sum));
   if (!TFgoodTmp) fTFgood = false;
 
   // physics constants
   double massW = fPhysicsConstants.MassW();
   double gammaW = fPhysicsConstants.GammaW();
-  // note: top mass width should be made DEPENDENT on the top mass at a certain point
-  //    fPhysicsConstants.SetMassTop(parameters[parTopM]);
-  // (this will also set the correct width for the top)
   double gammaTop = fPhysicsConstants.GammaTop();
 
   // Breit-Wigner of hadronically decaying W-boson
-  logprob += BCMath::LogBreitWignerRel(whad_fit_m, massW, gammaW);
+  logprob += BCMath::LogBreitWignerRel(m_whad_fit_m, massW, gammaW);
 
   // Breit-Wigner of leptonically decaying W-boson
-  logprob += BCMath::LogBreitWignerRel(wlep_fit_m, massW, gammaW);
+  logprob += BCMath::LogBreitWignerRel(m_wlep_fit_m, massW, gammaW);
 
   // Breit-Wigner of hadronically decaying top quark
-  logprob += BCMath::LogBreitWignerRel(thad_fit_m, parameters[parTopM], gammaTop);
+  logprob += BCMath::LogBreitWignerRel(m_thad_fit_m, parameters[parTopM], gammaTop);
 
   // Breit-Wigner of leptonically decaying top quark
-  logprob += BCMath::LogBreitWignerRel(tlep_fit_m, parameters[parTopM], gammaTop);
+  logprob += BCMath::LogBreitWignerRel(m_tlep_fit_m, parameters[parTopM], gammaTop);
 
   // angular information of leptonic decay
 
   // create 4-vector for leptonically decaying W boson, charge lepton and corresponding b quark
-  TLorentzVector Wlep(wlep_fit_px, wlep_fit_py, wlep_fit_pz, wlep_fit_e);
-  TLorentzVector Whad(whad_fit_px, whad_fit_py, whad_fit_pz, whad_fit_e);
-  TLorentzVector lep(lep_fit_px,  lep_fit_py,  lep_fit_pz,  lep_fit_e);
-  TLorentzVector blep(blep_fit_px, blep_fit_py, blep_fit_pz, blep_fit_e);
-  TLorentzVector bhad(bhad_fit_px, bhad_fit_py, bhad_fit_pz, bhad_fit_e);
-  TLorentzVector lq1(lq1_fit_px, lq1_fit_py, lq1_fit_pz, lq1_fit_e);
-  TLorentzVector lq2(lq2_fit_px, lq2_fit_py, lq2_fit_pz, lq2_fit_e);
+  TLorentzVector Wlep(m_wlep_fit_px, m_wlep_fit_py, m_wlep_fit_pz, m_wlep_fit_e);
+  TLorentzVector Whad(m_whad_fit_px, m_whad_fit_py, m_whad_fit_pz, m_whad_fit_e);
+  TLorentzVector lep(m_lep_fit_px,   m_lep_fit_py,  m_lep_fit_pz,  m_lep_fit_e);
+  TLorentzVector blep(m_blep_fit_px, m_blep_fit_py, m_blep_fit_pz, m_blep_fit_e);
+  TLorentzVector bhad(m_bhad_fit_px, m_bhad_fit_py, m_bhad_fit_pz, m_bhad_fit_e);
+  TLorentzVector lq1(m_lq1_fit_px,   m_lq1_fit_py,  m_lq1_fit_pz,  m_lq1_fit_e);
+  TLorentzVector lq2(m_lq2_fit_px,   m_lq2_fit_py,  m_lq2_fit_pz,  m_lq2_fit_e);
 
   // get boost vectors
   TVector3  Wlep_bo(0.0, 0.0, 0.0);
@@ -208,12 +198,12 @@ double KLFitter::LikelihoodTopLeptonJets_Angular::LogLikelihood(const std::vecto
   double FR = 0.0017;
 
   // calculate probability
-  double p_angular_lep = (3./4.*(1.-cos_theta*cos_theta) * F0 +
-                           3./8.*(1.-cos_theta)*(1.-cos_theta) * FL +
-                           3./8.*(1.+cos_theta)*(1.+cos_theta) * FR);
+  double p_angular_lep = (3. / 4. * (1. - cos_theta * cos_theta) * F0 +
+                          3. / 8. * (1. - cos_theta) * (1. - cos_theta) * FL +
+                          3. / 8. * (1. + cos_theta) * (1. + cos_theta) * FR);
 
-  double p_angular_had = (3./4.*(1.-cos_theta_had*cos_theta_had) * F0 +
-                           3./8.*(1.+cos_theta_had*cos_theta_had) * (FL + FR));
+  double p_angular_had = (3. / 4. * (1. - cos_theta_had * cos_theta_had) * F0 +
+                          3. / 8. * (1. + cos_theta_had * cos_theta_had) * (FL + FR));
 
   logprob += log(p_angular_lep);
   logprob += log(p_angular_had);
@@ -221,3 +211,4 @@ double KLFitter::LikelihoodTopLeptonJets_Angular::LogLikelihood(const std::vecto
   // return log of likelihood
   return logprob;
 }
+}  // namespace KLFitter

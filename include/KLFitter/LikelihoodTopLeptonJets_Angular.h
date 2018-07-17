@@ -20,41 +20,26 @@
 #ifndef KLFITTER_LIKELIHOODTOPLEPTONJETS_ANGULAR_H_
 #define KLFITTER_LIKELIHOODTOPLEPTONJETS_ANGULAR_H_
 
-#include <iostream>
 #include <vector>
 
 #include "KLFitter/LikelihoodTopLeptonJets.h"
 
-class TLorentzVector;
-
 // ---------------------------------------------------------
 
-/**
- * \namespace KLFitter
- * \brief The KLFitter namespace
- */
 namespace KLFitter {
-class ResolutionBase;
-
 /**
-  * \class KLFitter::LikelihoodTopLeptonJets_Angular
-  * \brief Add brief description here
-  *
-  * Add detailed description here.
+  * This is an extension of LikelihoodTopLeptonJets, which adds angular
+  * information to the likelihood.
   */
 class LikelihoodTopLeptonJets_Angular : public KLFitter::LikelihoodTopLeptonJets {
  public:
   /** \name Constructors and destructors */
   /* @{ */
 
-  /**
-    * The default constructor.
-    */
+  /// The (defaulted) constructor.
   LikelihoodTopLeptonJets_Angular();
 
-  /**
-    * The (defaulted) destructor.
-    */
+  /// The (defaulted) destructor.
   ~LikelihoodTopLeptonJets_Angular();
 
   /* @} */
@@ -62,24 +47,27 @@ class LikelihoodTopLeptonJets_Angular : public KLFitter::LikelihoodTopLeptonJets
   /* @{ */
 
   /**
-    * The posterior probability definition, overloaded from BCModel.
-    * @param parameters A vector of parameters (double values).
-    * @return The logarithm of the prior probability.
-    */
+   * The posterior probability definition, overloaded from BCModel. In addition
+   * to what is implemented in LikelihoodTopLeptonJets::LogLikelihood(), this
+   * also includes angular information in the calculation of the log likelihood.
+   * @param parameters A vector of parameters (double values).
+   * @return The logarithm of the prior probability.
+   */
   double LogLikelihood(const std::vector <double> & parameters) override;
 
   /* @} */
 
  protected:
-  /** \name Member functions (misc)  */
-  /* @{ */
-
   /**
-    * Adjust parameter ranges
-    */
+   * Adjust ranges of the parameters. As opposed to
+   * LikelihoodTopLeptonJets::AdjustParameterRanges(), this does \a not
+   * utilize the flag #m_flag_get_par_sigmas_from_TFs, but only uses a fixed
+   * sigma to calculate the parameter range and set it with SetParameterRange().
+   * If #m_flag_top_mass_fixed is set, the top mass will be fixed to the pole
+   * mass.
+   * @return An error code.
+   */
   int AdjustParameterRanges() override;
-
-  /* @} */
 };
 }  // namespace KLFitter
 
