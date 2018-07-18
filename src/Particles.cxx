@@ -49,8 +49,8 @@ KLFitter::Particles::Particles(const KLFitter::Particles& o) :
     m_muon_det_etas(std::vector<double>{o.m_muon_det_etas}),
     m_jet_det_etas(std::vector<double>{o.m_jet_det_etas}),
     m_photon_det_etas(std::vector<double>{o.m_photon_det_etas}),
-    fElectronCharge(std::vector<float>{o.fElectronCharge}),
-    fMuonCharge(std::vector<float>{o.fMuonCharge}) {
+    m_electron_charges(std::vector<float>{o.m_electron_charges}),
+    m_muon_charges(std::vector<float>{o.m_muon_charges}) {
 
   // Make deep copies of the vectors of unique pointers.
   m_partons.reserve(o.m_partons.size());
@@ -116,8 +116,8 @@ KLFitter::Particles& KLFitter::Particles::operator=(const KLFitter::Particles& o
   m_muon_det_etas = o.m_muon_det_etas;
   m_jet_det_etas = o.m_jet_det_etas;
   m_photon_det_etas = o.m_photon_det_etas;
-  fElectronCharge = o.fElectronCharge;
-  fMuonCharge = o.fMuonCharge;
+  m_electron_charges = o.m_electron_charges;
+  m_muon_charges = o.m_muon_charges;
 
   // Make deep copies of the vectors of unique pointers.
   m_partons = std::vector<std::unique_ptr<TLorentzVector> >{};
@@ -195,11 +195,11 @@ int KLFitter::Particles::AddParticle(const TLorentzVector& particle, double DetE
     if (ptype == KLFitter::Particles::kElectron) {
       m_electron_indices.push_back(measuredindex);
       m_electron_det_etas.push_back(DetEta);
-      fElectronCharge.push_back(LepCharge);
+      m_electron_charges.push_back(LepCharge);
     } else if (ptype == KLFitter::Particles::kMuon) {
       m_muon_indices.push_back(measuredindex);
       m_muon_det_etas.push_back(DetEta);
-      fMuonCharge.push_back(LepCharge);
+      m_muon_charges.push_back(LepCharge);
     } else if (ptype == KLFitter::Particles::kPhoton) {
       m_photon_indices.push_back(measuredindex);
       m_photon_det_etas.push_back(DetEta);
@@ -611,16 +611,16 @@ float KLFitter::Particles::LeptonCharge(int index, KLFitter::Particles::Particle
   }
 
   if (ptype == KLFitter::Particles::kElectron) {
-    if (fElectronCharge.size()== 0) {
+    if (m_electron_charges.size()== 0) {
       return -9;
     } else {
-      return fElectronCharge[index];
+      return m_electron_charges[index];
     }
   } else if (ptype == KLFitter::Particles::kMuon) {
-    if (fMuonCharge.size()== 0) {
+    if (m_muon_charges.size()== 0) {
       return -9;
     } else {
-      return fMuonCharge[index];
+      return m_muon_charges[index];
     }
   } else {
     std::cout << "KLFitter::Particles::LepCharge NO LEPTON TYPE!" << std::endl;

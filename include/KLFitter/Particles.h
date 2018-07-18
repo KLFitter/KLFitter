@@ -656,11 +656,11 @@ class Particles final {
   /**
     * Vector containing the charge of electrons.
     */
-  std::vector <float> fElectronCharge;
+  std::vector <float> m_electron_charges;
   /**
     * Vector containing the charge of muons.
     */
-  std::vector <float> fMuonCharge;
+  std::vector <float> m_muon_charges;
 };
 }  // namespace KLFitter
 
