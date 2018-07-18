@@ -374,7 +374,7 @@ TLorentzVector* Particles::Particle(int index, Particles::ParticleType ptype) {
 }
 
 // ---------------------------------------------------------
-int Particles::FindParticle(const std::string& name, TLorentzVector* &particle, int *index, Particles::ParticleType *ptype) {
+int Particles::FindParticle(const std::string& name, TLorentzVector* &particle, int *index, Particles::ParticleType *ptype) const {
   // loop over all partons
   unsigned int npartons = m_parton_names.size();
   for (unsigned int i = 0; i < npartons; ++i)
@@ -510,7 +510,7 @@ std::string Particles::NameParticle(int index, Particles::ParticleType ptype) {
 }
 
 // ---------------------------------------------------------
-int Particles::CheckIndex(std::vector<std::unique_ptr<TLorentzVector> >* container, int index) {
+int Particles::CheckIndex(std::vector<std::unique_ptr<TLorentzVector> >* container, int index) const {
   // check container
   if (!container) {
     std::cout << "KLFitter::Particles::CheckIndex(). Container does not exist." << std::endl;
@@ -632,25 +632,25 @@ float Particles::LeptonCharge(int index, Particles::ParticleType ptype) {
 }
 
 // ---------------------------------------------------------
-int Particles::JetIndex(int index) {
+int Particles::JetIndex(int index) const {
   // no check on index range for CPU-time reasons
   return m_jet_indices[index];
 }
 
 // ---------------------------------------------------------
-int Particles::ElectronIndex(int index) {
+int Particles::ElectronIndex(int index) const {
   // no check on index range for CPU-time reasons
   return m_electron_indices[index];
 }
 
 // ---------------------------------------------------------
-int Particles::MuonIndex(int index) {
+int Particles::MuonIndex(int index) const {
   // no check on index range for CPU-time reasons
   return m_muon_indices[index];
 }
 
 // ---------------------------------------------------------
-int Particles::PhotonIndex(int index) {
+int Particles::PhotonIndex(int index) const {
   // no check on index range for CPU-time reasons
   return m_photon_indices[index];
 }
@@ -722,7 +722,7 @@ int Particles::SetBTaggingRejection(int index, double btagRej) {
 }
 
 // ---------------------------------------------------------
-int Particles::NBTags() {
+int Particles::NBTags() const {
   unsigned int n = m_jet_btagged_bools.size();
   int sum = 0;
 

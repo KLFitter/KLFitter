@@ -83,43 +83,43 @@ class Particles final {
    * Return the number of partons.
    * @return The number of partons.
    */
-  int NPartons() { return static_cast<int>(m_partons.size()); }
+  int NPartons() const { return static_cast<int>(m_partons.size()); }
 
   /**
    * Return the number of electrons.
    * @return The number of electrons.
    */
-  int NElectrons() { return int (m_electrons.size()); }
+  int NElectrons() const { return int (m_electrons.size()); }
 
   /**
    * Return the number of muons.
    * @return The number of muons.
    */
-  int NMuons() { return int (m_muons.size()); }
+  int NMuons() const { return int (m_muons.size()); }
 
   /**
    * Return the number of taus.
    * @return The number of taus.
    */
-  int NTaus() { return int (m_taus.size()); }
+  int NTaus() const { return int (m_taus.size()); }
 
   /**
    * Return the number of neutrinos.
    * @return The number of neutrinos.
    */
-  int NNeutrinos() { return int (m_neutrinos.size()); }
+  int NNeutrinos() const { return int (m_neutrinos.size()); }
 
   /**
    * Return the number of bosons.
    * @return The number of bosons.
    */
-  int NBosons() { return int (m_bosons.size()); }
+  int NBosons() const { return int (m_bosons.size()); }
 
   /**
    * Return the number of photons.
    * @return The number of photons.
    */
-  int NPhotons() { return int (m_photons.size()); }
+  int NPhotons() const { return int (m_photons.size()); }
 
   /**
    * Return the particle with a certain name
@@ -144,7 +144,7 @@ class Particles final {
    * @param ptype The pointer to the particle type.
    * @return A flag (1: found, 0: not found).
    */
-  int FindParticle(const std::string& name, TLorentzVector* &particle, int* index, KLFitter::Particles::ParticleType* ptype);
+  int FindParticle(const std::string& name, TLorentzVector* &particle, int* index, KLFitter::Particles::ParticleType* ptype) const;
 
   /**
    * Return the parton at some index.
@@ -199,7 +199,7 @@ class Particles final {
    * Return the number of particles.
    * @return The number of particles.
    */
-  int NParticles() { return static_cast<int>(m_partons.size() + m_electrons.size() + m_muons.size() + m_taus.size() + m_neutrinos.size() + m_bosons.size() + m_photons.size()); }
+  int NParticles() const { return static_cast<int>(m_partons.size() + m_electrons.size() + m_muons.size() + m_taus.size() + m_neutrinos.size() + m_bosons.size() + m_photons.size()); }
 
   /**
    * Return the number of particles of a certain type.
@@ -221,97 +221,97 @@ class Particles final {
    * @param index The index of the electron.
    * @return The name of the electron.
    */
-  std::string NameElectron(int index);
+  std::string NameElectron(int index) const;
 
   /**
    * Return the name of a muon.
    * @param index The index of the muon.
    * @return The name of the muon.
    */
-  std::string NameMuon(int index);
+  std::string NameMuon(int index) const;
 
   /**
    * Return the name of a tau.
    * @param index The index of the tau.
    * @return The name of the tau.
    */
-  std::string NameTau(int index);
+  std::string NameTau(int index) const;
 
   /**
    * Return the name of a boson.
    * @param index The index of the boson.
    * @return The name of the boson.
    */
-  std::string NameBoson(int index);
+  std::string NameBoson(int index) const;
 
   /**
    * Return the name of a neutrino.
    * @param index The index of the neutrino.
    * @return The name of the neutrino.
    */
-  std::string NameNeutrino(int index);
+  std::string NameNeutrino(int index) const;
 
   /**
    * Return the name of a photon.
    * @param index The index of the photon.
    * @return The name of the photon.
    */
-  std::string NamePhoton(int index);
+  std::string NamePhoton(int index) const;
 
   /**
    * Return the corresponding measured particle.
    * @param index The index of the model particle.
    * @param index The index of the measured particle.
    */
-  int JetIndex(int index);
+  int JetIndex(int index) const;
 
-  int ElectronIndex(int index);
+  int ElectronIndex(int index) const;
 
-  int MuonIndex(int index);
+  int MuonIndex(int index) const;
 
-  int PhotonIndex(int index);
+  int PhotonIndex(int index) const;
 
   /**
    * Return the true flavor of a parton.
    * @param index The parton index
    * @return The parton true flavor.
    */
-  TrueFlavorType TrueFlavor(int index) { return m_true_flavors[index]; }
+  TrueFlavorType TrueFlavor(int index) const { return m_true_flavors[index]; }
 
   /**
    * Return has the jet been b-tagged?
    * @param index The parton index
    * @return The parton b-tagging boolean.
    */
-  bool IsBTagged(int index) { return m_jet_btagged_bools[index]; }
+  bool IsBTagged(int index) const { return m_jet_btagged_bools[index]; }
 
   /**
    * Return the jet b-tagging efficiency.
    * @param index The parton index
    * @return The jet b-tagging efficiency.
    */
-  double BTaggingEfficiency(int index) { return m_btag_efficiencies[index]; }
+  double BTaggingEfficiency(int index) const { return m_btag_efficiencies[index]; }
 
   /**
    * Return the jet b-tagging rejection.
    * @param index The parton index
    * @return The jet b-tagging rejection.
    */
-  double BTaggingRejection(int index) { return m_btag_rejections[index]; }
+  double BTaggingRejection(int index) const { return m_btag_rejections[index]; }
 
   /**
    * Return the jet b-tagging weight.
    * @param index The parton index
    * @return The jet b-tagging weight.
    */
-  double BTagWeight(int index) { return m_btag_weights[index]; }
+  double BTagWeight(int index) const { return m_btag_weights[index]; }
 
   /**
    * Return the bool of a set tagging weight.
    * @param index The parton index
    * @return The bool of a set tagging weight
    */
-  bool BTagWeightSet(int index) { return m_btag_weights_set[index]; }
+  bool BTagWeightSet(int index) const { return m_btag_weights_set[index]; }
 
   /**
    * Return the detector eta of a particle with some index and type.
@@ -330,7 +330,7 @@ class Particles final {
   float LeptonCharge(int index, KLFitter::Particles::ParticleType ptype);
 
   /// Return the number of b-tags.
-  int NBTags();
+  int NBTags() const;
 
   /* @} */
   /** \name Member functions (Set)  */
@@ -506,7 +506,7 @@ class Particles final {
    * @param index The index of particle.
    * @return An error flag.
    */
-  int CheckIndex(std::vector<std::unique_ptr<TLorentzVector> >* container, int index);
+  int CheckIndex(std::vector<std::unique_ptr<TLorentzVector> >* container, int index) const;
 
   /* @} */
 
