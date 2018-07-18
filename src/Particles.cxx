@@ -35,10 +35,10 @@ KLFitter::Particles::Particles(const KLFitter::Particles& o) :
     m_neutrino_names(std::vector<std::string>{o.m_neutrino_names}),
     m_boson_names(std::vector<std::string>{o.m_boson_names}),
     m_photon_names(std::vector<std::string>{o.m_photon_names}),
-    fJetIndex(std::vector<int>{o.fJetIndex}),
-    fElectronIndex(std::vector<int>{o.fElectronIndex}),
-    fMuonIndex(std::vector<int>{o.fMuonIndex}),
-    fPhotonIndex(std::vector<int>{o.fPhotonIndex}),
+    m_jet_indices(std::vector<int>{o.m_jet_indices}),
+    m_electron_indices(std::vector<int>{o.m_electron_indices}),
+    m_muon_indices(std::vector<int>{o.m_muon_indices}),
+    m_photon_indices(std::vector<int>{o.m_photon_indices}),
     fTrueFlavor(std::vector<TrueFlavorType>{o.fTrueFlavor}),
     fIsBTagged(std::vector<bool>{o.fIsBTagged}),
     fBTaggingEfficiency(std::vector<double>{o.fBTaggingEfficiency}),
@@ -102,10 +102,10 @@ KLFitter::Particles& KLFitter::Particles::operator=(const KLFitter::Particles& o
   m_boson_names = o.m_boson_names;
   m_photon_names = o.m_photon_names;
 
-  fJetIndex = o.fJetIndex;
-  fElectronIndex = o.fElectronIndex;
-  fMuonIndex = o.fMuonIndex;
-  fPhotonIndex = o.fPhotonIndex;
+  m_jet_indices = o.m_jet_indices;
+  m_electron_indices = o.m_electron_indices;
+  m_muon_indices = o.m_muon_indices;
+  m_photon_indices = o.m_photon_indices;
   fTrueFlavor = o.fTrueFlavor;
   fIsBTagged = o.fIsBTagged;
   fBTaggingEfficiency = o.fBTaggingEfficiency;
@@ -193,15 +193,15 @@ int KLFitter::Particles::AddParticle(const TLorentzVector& particle, double DetE
     container->emplace_back(std::move(cparticle));
     ParticleNameContainer(ptype)->push_back(name);
     if (ptype == KLFitter::Particles::kElectron) {
-      fElectronIndex.push_back(measuredindex);
+      m_electron_indices.push_back(measuredindex);
       fElectronDetEta.push_back(DetEta);
       fElectronCharge.push_back(LepCharge);
     } else if (ptype == KLFitter::Particles::kMuon) {
-      fMuonIndex.push_back(measuredindex);
+      m_muon_indices.push_back(measuredindex);
       fMuonDetEta.push_back(DetEta);
       fMuonCharge.push_back(LepCharge);
     } else if (ptype == KLFitter::Particles::kPhoton) {
-      fPhotonIndex.push_back(measuredindex);
+      m_photon_indices.push_back(measuredindex);
       fPhotonDetEta.push_back(DetEta);
     }
   } else {
@@ -255,7 +255,7 @@ int KLFitter::Particles::AddParticle(const TLorentzVector& particle, double DetE
       fIsBTagged.push_back(isBtagged);
       fBTaggingEfficiency.push_back(bTagEff);
       fBTaggingRejection.push_back(bTagRej);
-      fJetIndex.push_back(measuredindex);
+      m_jet_indices.push_back(measuredindex);
       fJetDetEta.push_back(DetEta);
       fBTagWeight.push_back(btagweight);
       if (btagweight != 999) {
@@ -264,13 +264,13 @@ int KLFitter::Particles::AddParticle(const TLorentzVector& particle, double DetE
         fBTagWeightSet.push_back(false);
       }
     } else if (ptype == KLFitter::Particles::kElectron) {
-      fElectronIndex.push_back(measuredindex);
+      m_electron_indices.push_back(measuredindex);
       fElectronDetEta.push_back(DetEta);
     } else if (ptype == KLFitter::Particles::kMuon) {
-      fMuonIndex.push_back(measuredindex);
+      m_muon_indices.push_back(measuredindex);
       fMuonDetEta.push_back(DetEta);
     } else if (ptype == KLFitter::Particles::kPhoton) {
-      fPhotonIndex.push_back(measuredindex);
+      m_photon_indices.push_back(measuredindex);
       fPhotonDetEta.push_back(DetEta);
     }
   } else {
@@ -633,25 +633,25 @@ float KLFitter::Particles::LeptonCharge(int index, KLFitter::Particles::Particle
 // ---------------------------------------------------------
 int KLFitter::Particles::JetIndex(int index) {
   // no check on index range for CPU-time reasons
-  return fJetIndex[index];
+  return m_jet_indices[index];
 }
 
 // ---------------------------------------------------------
 int KLFitter::Particles::ElectronIndex(int index) {
   // no check on index range for CPU-time reasons
-  return fElectronIndex[index];
+  return m_electron_indices[index];
 }
 
 // ---------------------------------------------------------
 int KLFitter::Particles::MuonIndex(int index) {
   // no check on index range for CPU-time reasons
-  return fMuonIndex[index];
+  return m_muon_indices[index];
 }
 
 // ---------------------------------------------------------
 int KLFitter::Particles::PhotonIndex(int index) {
   // no check on index range for CPU-time reasons
-  return fPhotonIndex[index];
+  return m_photon_indices[index];
 }
 
 // ---------------------------------------------------------

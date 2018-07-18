@@ -590,22 +590,22 @@ class Particles final {
   /**
     * The index of the corresponding measured parton.
     */
-  std::vector<int> fJetIndex;
+  std::vector<int> m_jet_indices;
 
   /**
     * The index of the corresponding measured electron.
     */
-  std::vector<int> fElectronIndex;
+  std::vector<int> m_electron_indices;
 
   /**
     * The index of the corresponding measured muon.
     */
-  std::vector<int> fMuonIndex;
+  std::vector<int> m_muon_indices;
 
   /**
     * The index of the corresponding measured photon.
     */
-  std::vector<int> fPhotonIndex;
+  std::vector<int> m_photon_indices;
 
   /**
     * Vector containing the true flavor.
