@@ -506,7 +506,7 @@ class Particles final {
    * @param index The index of particle.
    * @return An error flag.
    */
-  int CheckIndex(std::vector<std::unique_ptr<TLorentzVector> >* container, int index) const;
+  int CheckIndex(const std::vector<std::unique_ptr<TLorentzVector> >& container, int index) const;
 
   /* @} */
 

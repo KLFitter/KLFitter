@@ -316,7 +316,7 @@ int Particles::AddParticle(const TLorentzVector* const particle, Particles::Part
 // ---------------------------------------------------------
 int Particles::RemoveParticle(int index, Particles::ParticleType ptype) {
   // check container and index
-  if (!CheckIndex(ParticleContainer(ptype), index))
+  if (!CheckIndex(*ParticleContainer(ptype), index))
     return 0;
 
   // remove particle
@@ -502,23 +502,17 @@ std::string Particles::NameParticle(int index, Particles::ParticleType ptype) {
   auto container = ParticleContainer(ptype);
 
   // check container and index
-  if (!CheckIndex(container, index))
+  if (!CheckIndex(*container, index))
     return "";
 
   // return name
-  return (*ParticleNameContainer(ptype))[index];
+  return ParticleNameContainer(ptype)->at(index);
 }
 
 // ---------------------------------------------------------
-int Particles::CheckIndex(std::vector<std::unique_ptr<TLorentzVector> >* container, int index) const {
-  // check container
-  if (!container) {
-    std::cout << "KLFitter::Particles::CheckIndex(). Container does not exist." << std::endl;
-    return 0;
-  }
-
+int Particles::CheckIndex(const std::vector<std::unique_ptr<TLorentzVector> >& container, int index) const {
   // check index
-  if (index < 0 || index >= static_cast<int>(container->size())) {
+  if (index < 0 || index >= static_cast<int>(container.size())) {
     std::cout << "KLFitter::Particles::CheckIndex(). Index out of range." << std::endl;
     return 0;
   }
