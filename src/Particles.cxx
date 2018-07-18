@@ -53,39 +53,39 @@ KLFitter::Particles::Particles(const KLFitter::Particles& o) :
     fMuonCharge(std::vector<float>{o.fMuonCharge}) {
 
   // Make deep copies of the vectors of unique pointers.
-  fPartons.reserve(o.fPartons.size());
-  for (const auto& i : o.fPartons) {
-    fPartons.emplace_back(new TLorentzVector{*i});
+  m_partons.reserve(o.m_partons.size());
+  for (const auto& i : o.m_partons) {
+    m_partons.emplace_back(new TLorentzVector{*i});
   }
 
-  fElectrons.reserve(o.fElectrons.size());
-  for (const auto& i : o.fElectrons) {
-    fElectrons.emplace_back(new TLorentzVector{*i});
+  m_electrons.reserve(o.m_electrons.size());
+  for (const auto& i : o.m_electrons) {
+    m_electrons.emplace_back(new TLorentzVector{*i});
   }
 
-  fMuons.reserve(o.fMuons.size());
-  for (const auto& i : o.fMuons) {
-    fMuons.emplace_back(new TLorentzVector{*i});
+  m_muons.reserve(o.m_muons.size());
+  for (const auto& i : o.m_muons) {
+    m_muons.emplace_back(new TLorentzVector{*i});
   }
 
-  fTaus.reserve(o.fTaus.size());
-  for (const auto& i : o.fTaus) {
-    fTaus.emplace_back(new TLorentzVector{*i});
+  m_taus.reserve(o.m_taus.size());
+  for (const auto& i : o.m_taus) {
+    m_taus.emplace_back(new TLorentzVector{*i});
   }
 
-  fNeutrinos.reserve(o.fNeutrinos.size());
-  for (const auto& i : o.fNeutrinos) {
-    fNeutrinos.emplace_back(new TLorentzVector{*i});
+  m_neutrinos.reserve(o.m_neutrinos.size());
+  for (const auto& i : o.m_neutrinos) {
+    m_neutrinos.emplace_back(new TLorentzVector{*i});
   }
 
-  fBosons.reserve(o.fBosons.size());
-  for (const auto& i : o.fBosons) {
-    fBosons.emplace_back(new TLorentzVector{*i});
+  m_bosons.reserve(o.m_bosons.size());
+  for (const auto& i : o.m_bosons) {
+    m_bosons.emplace_back(new TLorentzVector{*i});
   }
 
-  fPhotons.reserve(o.fPhotons.size());
-  for (const auto& i : o.fPhotons) {
-    fPhotons.emplace_back(new TLorentzVector{*i});
+  m_photons.reserve(o.m_photons.size());
+  for (const auto& i : o.m_photons) {
+    m_photons.emplace_back(new TLorentzVector{*i});
   }
 }
 
@@ -120,46 +120,46 @@ KLFitter::Particles& KLFitter::Particles::operator=(const KLFitter::Particles& o
   fMuonCharge = o.fMuonCharge;
 
   // Make deep copies of the vectors of unique pointers.
-  fPartons = std::vector<std::unique_ptr<TLorentzVector> >{};
-  fPartons.reserve(o.fPartons.size());
-  for (const auto& i : o.fPartons) {
-    fPartons.emplace_back(new TLorentzVector{*i});
+  m_partons = std::vector<std::unique_ptr<TLorentzVector> >{};
+  m_partons.reserve(o.m_partons.size());
+  for (const auto& i : o.m_partons) {
+    m_partons.emplace_back(new TLorentzVector{*i});
   }
 
-  fElectrons = std::vector<std::unique_ptr<TLorentzVector> >{};
-  fElectrons.reserve(o.fElectrons.size());
-  for (const auto& i : o.fElectrons) {
-    fElectrons.emplace_back(new TLorentzVector{*i});
+  m_electrons = std::vector<std::unique_ptr<TLorentzVector> >{};
+  m_electrons.reserve(o.m_electrons.size());
+  for (const auto& i : o.m_electrons) {
+    m_electrons.emplace_back(new TLorentzVector{*i});
   }
 
-  fMuons = std::vector<std::unique_ptr<TLorentzVector> >{};
-  fMuons.reserve(o.fMuons.size());
-  for (const auto& i : o.fMuons) {
-    fMuons.emplace_back(new TLorentzVector{*i});
+  m_muons = std::vector<std::unique_ptr<TLorentzVector> >{};
+  m_muons.reserve(o.m_muons.size());
+  for (const auto& i : o.m_muons) {
+    m_muons.emplace_back(new TLorentzVector{*i});
   }
 
-  fTaus = std::vector<std::unique_ptr<TLorentzVector> >{};
-  fTaus.reserve(o.fTaus.size());
-  for (const auto& i : o.fTaus) {
-    fTaus.emplace_back(new TLorentzVector{*i});
+  m_taus = std::vector<std::unique_ptr<TLorentzVector> >{};
+  m_taus.reserve(o.m_taus.size());
+  for (const auto& i : o.m_taus) {
+    m_taus.emplace_back(new TLorentzVector{*i});
   }
 
-  fNeutrinos = std::vector<std::unique_ptr<TLorentzVector> >{};
-  fNeutrinos.reserve(o.fNeutrinos.size());
-  for (const auto& i : o.fNeutrinos) {
-    fNeutrinos.emplace_back(new TLorentzVector{*i});
+  m_neutrinos = std::vector<std::unique_ptr<TLorentzVector> >{};
+  m_neutrinos.reserve(o.m_neutrinos.size());
+  for (const auto& i : o.m_neutrinos) {
+    m_neutrinos.emplace_back(new TLorentzVector{*i});
   }
 
-  fBosons = std::vector<std::unique_ptr<TLorentzVector> >{};
-  fBosons.reserve(o.fBosons.size());
-  for (const auto& i : o.fBosons) {
-    fBosons.emplace_back(new TLorentzVector{*i});
+  m_bosons = std::vector<std::unique_ptr<TLorentzVector> >{};
+  m_bosons.reserve(o.m_bosons.size());
+  for (const auto& i : o.m_bosons) {
+    m_bosons.emplace_back(new TLorentzVector{*i});
   }
 
-  fPhotons = std::vector<std::unique_ptr<TLorentzVector> >{};
-  fPhotons.reserve(o.fPhotons.size());
-  for (const auto& i : o.fPhotons) {
-    fPhotons.emplace_back(new TLorentzVector{*i});
+  m_photons = std::vector<std::unique_ptr<TLorentzVector> >{};
+  m_photons.reserve(o.m_photons.size());
+  for (const auto& i : o.m_photons) {
+    m_photons.emplace_back(new TLorentzVector{*i});
   }
 
   return *this;
@@ -378,7 +378,7 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
   unsigned int npartons = fNamePartons.size();
   for (unsigned int i = 0; i < npartons; ++i)
     if (name == fNamePartons[i]) {
-      particle = fPartons[i].get();
+      particle = m_partons[i].get();
       *index = i;
       *ptype = KLFitter::Particles::kParton;
       return 1;
@@ -388,7 +388,7 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
   unsigned int nelectrons = fNameElectrons.size();
   for (unsigned int i = 0; i < nelectrons; ++i)
     if (name == fNameElectrons[i]) {
-      particle = fElectrons[i].get();
+      particle = m_electrons[i].get();
       *index = i;
       *ptype = KLFitter::Particles::kElectron;
       return 1;
@@ -398,7 +398,7 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
   unsigned int nmuons = fNameMuons.size();
   for (unsigned int i = 0; i < nmuons; ++i)
     if (name == fNameMuons[i]) {
-      particle = fMuons[i].get();
+      particle = m_muons[i].get();
       *index = i;
       *ptype = KLFitter::Particles::kMuon;
       return 1;
@@ -408,7 +408,7 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
   unsigned int ntaus = fNameTaus.size();
   for (unsigned int i = 0; i < ntaus; ++i)
     if (name == fNameTaus[i]) {
-      particle = fTaus[i].get();
+      particle = m_taus[i].get();
       *index = i;
       *ptype = KLFitter::Particles::kTau;
       return 1;
@@ -418,7 +418,7 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
   unsigned int nneutrinos = fNameNeutrinos.size();
   for (unsigned int i = 0; i < nneutrinos; ++i)
     if (name == fNameNeutrinos[i]) {
-      particle = fNeutrinos[i].get();
+      particle = m_neutrinos[i].get();
       *index = i;
       *ptype = KLFitter::Particles::kNeutrino;
       return 1;
@@ -428,7 +428,7 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
   unsigned int nbosons = fNameBosons.size();
   for (unsigned int i = 0; i < nbosons; ++i)
     if (name == fNameBosons[i]) {
-      particle = fBosons[i].get();
+      particle = m_bosons[i].get();
       *index = i;
       *ptype = KLFitter::Particles::kBoson;
       return 1;
@@ -438,7 +438,7 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
   unsigned int nphotons = fNamePhotons.size();
   for (unsigned int i = 0; i < nphotons; ++i)
     if (name == fNamePhotons[i]) {
-      particle = fPhotons[i].get();
+      particle = m_photons[i].get();
       *index = i;
       *ptype = KLFitter::Particles::kPhoton;
       return 1;
@@ -451,43 +451,43 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
 // ---------------------------------------------------------
 TLorentzVector* KLFitter::Particles::Parton(int index) {
   // no check on index range for CPU-time reasons
-  return fPartons[index].get();
+  return m_partons[index].get();
 }
 
 // ---------------------------------------------------------
 TLorentzVector* KLFitter::Particles::Electron(int index) {
   // no check on index range for CPU-time reasons
-  return fElectrons[index].get();
+  return m_electrons[index].get();
 }
 
 // ---------------------------------------------------------
 TLorentzVector* KLFitter::Particles::Muon(int index) {
   // no check on index range for CPU-time reasons
-  return fMuons[index].get();
+  return m_muons[index].get();
 }
 
 // ---------------------------------------------------------
 TLorentzVector* KLFitter::Particles::Tau(int index) {
   // no check on index range for CPU-time reasons
-  return fTaus[index].get();
+  return m_taus[index].get();
 }
 
 // ---------------------------------------------------------
 TLorentzVector* KLFitter::Particles::Boson(int index) {
   // no check on index range for CPU-time reasons
-  return fBosons[index].get();
+  return m_bosons[index].get();
 }
 
 // ---------------------------------------------------------
 TLorentzVector* KLFitter::Particles::Neutrino(int index) {
   // no check on index range for CPU-time reasons
-  return fNeutrinos[index].get();
+  return m_neutrinos[index].get();
 }
 
 // ---------------------------------------------------------
 TLorentzVector* KLFitter::Particles::Photon(int index) {
   // no check on index range for CPU-time reasons
-  return fPhotons[index].get();
+  return m_photons[index].get();
 }
 
 // ---------------------------------------------------------
@@ -531,25 +531,25 @@ std::vector<std::unique_ptr<TLorentzVector> >* KLFitter::Particles::ParticleCont
   // return particle container
   switch (ptype) {
   case KLFitter::Particles::kParton:
-    return &fPartons;
+    return &m_partons;
     break;
   case KLFitter::Particles::kElectron:
-    return &fElectrons;
+    return &m_electrons;
     break;
   case KLFitter::Particles::kMuon:
-    return &fMuons;
+    return &m_muons;
     break;
   case KLFitter::Particles::kTau:
-    return &fTaus;
+    return &m_taus;
     break;
   case KLFitter::Particles::kNeutrino:
-    return &fNeutrinos;
+    return &m_neutrinos;
     break;
   case KLFitter::Particles::kBoson:
-    return &fBosons;
+    return &m_bosons;
     break;
   case KLFitter::Particles::kPhoton:
-    return &fPhotons;
+    return &m_photons;
     break;
   }
 
