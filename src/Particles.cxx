@@ -39,12 +39,12 @@ KLFitter::Particles::Particles(const KLFitter::Particles& o) :
     m_electron_indices(std::vector<int>{o.m_electron_indices}),
     m_muon_indices(std::vector<int>{o.m_muon_indices}),
     m_photon_indices(std::vector<int>{o.m_photon_indices}),
-    fTrueFlavor(std::vector<TrueFlavorType>{o.fTrueFlavor}),
-    fIsBTagged(std::vector<bool>{o.fIsBTagged}),
-    fBTaggingEfficiency(std::vector<double>{o.fBTaggingEfficiency}),
-    fBTaggingRejection(std::vector<double>{o.fBTaggingRejection}),
-    fBTagWeight(std::vector<double>{o.fBTagWeight}),
-    fBTagWeightSet(std::vector<bool>{o.fBTagWeightSet}),
+    m_true_flavors(std::vector<TrueFlavorType>{o.m_true_flavors}),
+    m_jet_btagged_bools(std::vector<bool>{o.m_jet_btagged_bools}),
+    m_btag_efficiencies(std::vector<double>{o.m_btag_efficiencies}),
+    m_btag_rejections(std::vector<double>{o.m_btag_rejections}),
+    m_btag_weights(std::vector<double>{o.m_btag_weights}),
+    m_btag_weights_set(std::vector<bool>{o.m_btag_weights_set}),
     m_electron_det_etas(std::vector<double>{o.m_electron_det_etas}),
     m_muon_det_etas(std::vector<double>{o.m_muon_det_etas}),
     m_jet_det_etas(std::vector<double>{o.m_jet_det_etas}),
@@ -106,12 +106,12 @@ KLFitter::Particles& KLFitter::Particles::operator=(const KLFitter::Particles& o
   m_electron_indices = o.m_electron_indices;
   m_muon_indices = o.m_muon_indices;
   m_photon_indices = o.m_photon_indices;
-  fTrueFlavor = o.fTrueFlavor;
-  fIsBTagged = o.fIsBTagged;
-  fBTaggingEfficiency = o.fBTaggingEfficiency;
-  fBTaggingRejection = o.fBTaggingRejection;
-  fBTagWeight = o.fBTagWeight;
-  fBTagWeightSet = o.fBTagWeightSet;
+  m_true_flavors = o.m_true_flavors;
+  m_jet_btagged_bools = o.m_jet_btagged_bools;
+  m_btag_efficiencies = o.m_btag_efficiencies;
+  m_btag_rejections = o.m_btag_rejections;
+  m_btag_weights = o.m_btag_weights;
+  m_btag_weights_set = o.m_btag_weights_set;
   m_electron_det_etas = o.m_electron_det_etas;
   m_muon_det_etas = o.m_muon_det_etas;
   m_jet_det_etas = o.m_jet_det_etas;
@@ -251,17 +251,17 @@ int KLFitter::Particles::AddParticle(const TLorentzVector& particle, double DetE
     container->emplace_back(std::move(cparticle));
     ParticleNameContainer(ptype)->push_back(name);
     if (ptype == KLFitter::Particles::kParton) {
-      fTrueFlavor.push_back(trueflav);
-      fIsBTagged.push_back(isBtagged);
-      fBTaggingEfficiency.push_back(bTagEff);
-      fBTaggingRejection.push_back(bTagRej);
+      m_true_flavors.push_back(trueflav);
+      m_jet_btagged_bools.push_back(isBtagged);
+      m_btag_efficiencies.push_back(bTagEff);
+      m_btag_rejections.push_back(bTagRej);
       m_jet_indices.push_back(measuredindex);
       m_jet_det_etas.push_back(DetEta);
-      fBTagWeight.push_back(btagweight);
+      m_btag_weights.push_back(btagweight);
       if (btagweight != 999) {
-        fBTagWeightSet.push_back(true);
+        m_btag_weights_set.push_back(true);
       } else {
-        fBTagWeightSet.push_back(false);
+        m_btag_weights_set.push_back(false);
       }
     } else if (ptype == KLFitter::Particles::kElectron) {
       m_electron_indices.push_back(measuredindex);
@@ -657,12 +657,12 @@ int KLFitter::Particles::PhotonIndex(int index) {
 // ---------------------------------------------------------
 int KLFitter::Particles::SetIsBTagged(int index, bool isBTagged) {
   // check index
-  if (index < 0 || index >= static_cast<int>(fIsBTagged.size())) {
+  if (index < 0 || index >= static_cast<int>(m_jet_btagged_bools.size())) {
     std::cout << " KLFitter::SetIsBTagged(). Index out of range." << std::endl;
     return 0;
   }
 
-  fIsBTagged[index] = isBTagged;
+  m_jet_btagged_bools[index] = isBTagged;
 
   return 1;
 }
@@ -670,12 +670,12 @@ int KLFitter::Particles::SetIsBTagged(int index, bool isBTagged) {
 // ---------------------------------------------------------
 int KLFitter::Particles::SetBTagWeight(int index, double btagweight) {
   // check index
-  if (index < 0 || index >= static_cast<int>(fBTagWeight.size())) {
+  if (index < 0 || index >= static_cast<int>(m_btag_weights.size())) {
     std::cout << " KLFitter::SetBTagWeight(). Index out of range." << std::endl;
     return 0;
   }
 
-  fBTagWeight[index] = btagweight;
+  m_btag_weights[index] = btagweight;
   SetBTagWeightSet(index, true);
 
   return 1;
@@ -684,12 +684,12 @@ int KLFitter::Particles::SetBTagWeight(int index, double btagweight) {
 // ---------------------------------------------------------
 int KLFitter::Particles::SetBTagWeightSet(int index, bool btagweightset) {
   // check index
-  if (index < 0 || index >= static_cast<int>(fBTagWeightSet.size())) {
+  if (index < 0 || index >= static_cast<int>(m_btag_weights_set.size())) {
     std::cout << " KLFitter::SetBTagWeightSet(). Index out of range." << std::endl;
     return 0;
   }
 
-  fBTagWeightSet[index] = btagweightset;
+  m_btag_weights_set[index] = btagweightset;
 
   return 1;
 }
@@ -697,12 +697,12 @@ int KLFitter::Particles::SetBTagWeightSet(int index, bool btagweightset) {
 // ---------------------------------------------------------
 int KLFitter::Particles::SetBTaggingEfficiency(int index, double btagEff) {
   // check index
-  if (index < 0 || index >= static_cast<int>(fBTaggingEfficiency.size())) {
+  if (index < 0 || index >= static_cast<int>(m_btag_efficiencies.size())) {
     std::cout << " KLFitter::SetBTaggingEfficiency(). Index out of range." << std::endl;
     return 0;
   }
 
-  fBTaggingEfficiency[index] = btagEff;
+  m_btag_efficiencies[index] = btagEff;
 
   return 1;
 }
@@ -710,23 +710,23 @@ int KLFitter::Particles::SetBTaggingEfficiency(int index, double btagEff) {
 // ---------------------------------------------------------
 int KLFitter::Particles::SetBTaggingRejection(int index, double btagRej) {
   // check index
-  if (index < 0 || index >= static_cast<int>(fBTaggingRejection.size())) {
+  if (index < 0 || index >= static_cast<int>(m_btag_rejections.size())) {
     std::cout << " KLFitter::SetBTaggingRejection(). Index out of range." << std::endl;
     return 0;
   }
 
-  fBTaggingRejection[index] = btagRej;
+  m_btag_rejections[index] = btagRej;
 
   return 1;
 }
 
 // ---------------------------------------------------------
 int KLFitter::Particles::NBTags() {
-  unsigned int n = fIsBTagged.size();
+  unsigned int n = m_jet_btagged_bools.size();
   int sum = 0;
 
   for (unsigned int i = 0; i < n; ++i) {
-    if (fIsBTagged[i]) {
+    if (m_jet_btagged_bools[i]) {
       sum++;
     }
   }

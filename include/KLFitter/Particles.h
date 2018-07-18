@@ -610,32 +610,32 @@ class Particles final {
   /**
     * Vector containing the true flavor.
     */
-  std::vector<TrueFlavorType> fTrueFlavor;
+  std::vector<TrueFlavorType> m_true_flavors;
 
   /**
     * Vector containing a boolean for the b-tagging.
     */
-  std::vector<bool> fIsBTagged;
+  std::vector<bool> m_jet_btagged_bools;
 
   /**
     * Vector containing the b-tagging efficiencies for the jets.
     */
-  std::vector<double> fBTaggingEfficiency;
+  std::vector<double> m_btag_efficiencies;
 
   /**
     * Vector containing the b-tagging rejection for the jets.
     */
-  std::vector<double> fBTaggingRejection;
+  std::vector<double> m_btag_rejections;
 
   /**
     * Vector containing the b-tagging weights for the jets.
     */
-  std::vector<double> fBTagWeight;
+  std::vector<double> m_btag_weights;
 
   /**
     * Vector containing the bool if b-tagging weights for the jets were set.
     */
-  std::vector<bool> fBTagWeightSet;
+  std::vector<bool> m_btag_weights_set;
 
   /**
     * Vector containing the detector eta of electrons.
