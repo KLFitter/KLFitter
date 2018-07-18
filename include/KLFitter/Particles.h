@@ -555,37 +555,37 @@ class Particles final {
   /**
     * The name of the partons.
     */
-  std::vector<std::string> fNamePartons;
+  std::vector<std::string> m_parton_names;
 
   /**
     * The name of the electrons.
     */
-  std::vector<std::string> fNameElectrons;
+  std::vector<std::string> m_electron_names;
 
   /**
     * The name of the muons.
     */
-  std::vector<std::string> fNameMuons;
+  std::vector<std::string> m_muon_names;
 
   /**
     * The name of the taus.
     */
-  std::vector<std::string> fNameTaus;
+  std::vector<std::string> m_tau_names;
 
   /**
     * The name of the neutrinos.
     */
-  std::vector<std::string> fNameNeutrinos;
+  std::vector<std::string> m_neutrino_names;
 
   /**
     * The name of the bosons.
     */
-  std::vector<std::string> fNameBosons;
+  std::vector<std::string> m_boson_names;
 
   /**
     * The name of the photons.
     */
-  std::vector<std::string> fNamePhotons;
+  std::vector<std::string> m_photon_names;
 
   /**
     * The index of the corresponding measured parton.

@@ -28,13 +28,13 @@ KLFitter::Particles::Particles() = default;
 
 // ---------------------------------------------------------
 KLFitter::Particles::Particles(const KLFitter::Particles& o) :
-    fNamePartons(std::vector<std::string>{o.fNamePartons}),
-    fNameElectrons(std::vector<std::string>{o.fNameElectrons}),
-    fNameMuons(std::vector<std::string>{o.fNameMuons}),
-    fNameTaus(std::vector<std::string>{o.fNameTaus}),
-    fNameNeutrinos(std::vector<std::string>{o.fNameNeutrinos}),
-    fNameBosons(std::vector<std::string>{o.fNameBosons}),
-    fNamePhotons(std::vector<std::string>{o.fNamePhotons}),
+    m_parton_names(std::vector<std::string>{o.m_parton_names}),
+    m_electron_names(std::vector<std::string>{o.m_electron_names}),
+    m_muon_names(std::vector<std::string>{o.m_muon_names}),
+    m_tau_names(std::vector<std::string>{o.m_tau_names}),
+    m_neutrino_names(std::vector<std::string>{o.m_neutrino_names}),
+    m_boson_names(std::vector<std::string>{o.m_boson_names}),
+    m_photon_names(std::vector<std::string>{o.m_photon_names}),
     fJetIndex(std::vector<int>{o.fJetIndex}),
     fElectronIndex(std::vector<int>{o.fElectronIndex}),
     fMuonIndex(std::vector<int>{o.fMuonIndex}),
@@ -94,13 +94,13 @@ KLFitter::Particles::~Particles() = default;
 
 // ---------------------------------------------------------
 KLFitter::Particles& KLFitter::Particles::operator=(const KLFitter::Particles& o) {
-  fNamePartons = o.fNamePartons;
-  fNameElectrons = o.fNameElectrons;
-  fNameMuons = o.fNameMuons;
-  fNameTaus = o.fNameTaus;
-  fNameNeutrinos = o.fNameNeutrinos;
-  fNameBosons = o.fNameBosons;
-  fNamePhotons = o.fNamePhotons;
+  m_parton_names = o.m_parton_names;
+  m_electron_names = o.m_electron_names;
+  m_muon_names = o.m_muon_names;
+  m_tau_names = o.m_tau_names;
+  m_neutrino_names = o.m_neutrino_names;
+  m_boson_names = o.m_boson_names;
+  m_photon_names = o.m_photon_names;
 
   fJetIndex = o.fJetIndex;
   fElectronIndex = o.fElectronIndex;
@@ -375,9 +375,9 @@ TLorentzVector* KLFitter::Particles::Particle(int index, KLFitter::Particles::Pa
 // ---------------------------------------------------------
 int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particle, int *index, KLFitter::Particles::ParticleType *ptype) {
   // loop over all partons
-  unsigned int npartons = fNamePartons.size();
+  unsigned int npartons = m_parton_names.size();
   for (unsigned int i = 0; i < npartons; ++i)
-    if (name == fNamePartons[i]) {
+    if (name == m_parton_names[i]) {
       particle = m_partons[i].get();
       *index = i;
       *ptype = KLFitter::Particles::kParton;
@@ -385,9 +385,9 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
     }
 
   // loop over all electrons
-  unsigned int nelectrons = fNameElectrons.size();
+  unsigned int nelectrons = m_electron_names.size();
   for (unsigned int i = 0; i < nelectrons; ++i)
-    if (name == fNameElectrons[i]) {
+    if (name == m_electron_names[i]) {
       particle = m_electrons[i].get();
       *index = i;
       *ptype = KLFitter::Particles::kElectron;
@@ -395,9 +395,9 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
     }
 
   // loop over all muons
-  unsigned int nmuons = fNameMuons.size();
+  unsigned int nmuons = m_muon_names.size();
   for (unsigned int i = 0; i < nmuons; ++i)
-    if (name == fNameMuons[i]) {
+    if (name == m_muon_names[i]) {
       particle = m_muons[i].get();
       *index = i;
       *ptype = KLFitter::Particles::kMuon;
@@ -405,9 +405,9 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
     }
 
   // loop over all taus
-  unsigned int ntaus = fNameTaus.size();
+  unsigned int ntaus = m_tau_names.size();
   for (unsigned int i = 0; i < ntaus; ++i)
-    if (name == fNameTaus[i]) {
+    if (name == m_tau_names[i]) {
       particle = m_taus[i].get();
       *index = i;
       *ptype = KLFitter::Particles::kTau;
@@ -415,9 +415,9 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
     }
 
   // loop over all neutrinos
-  unsigned int nneutrinos = fNameNeutrinos.size();
+  unsigned int nneutrinos = m_neutrino_names.size();
   for (unsigned int i = 0; i < nneutrinos; ++i)
-    if (name == fNameNeutrinos[i]) {
+    if (name == m_neutrino_names[i]) {
       particle = m_neutrinos[i].get();
       *index = i;
       *ptype = KLFitter::Particles::kNeutrino;
@@ -425,9 +425,9 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
     }
 
   // loop over all bosons
-  unsigned int nbosons = fNameBosons.size();
+  unsigned int nbosons = m_boson_names.size();
   for (unsigned int i = 0; i < nbosons; ++i)
-    if (name == fNameBosons[i]) {
+    if (name == m_boson_names[i]) {
       particle = m_bosons[i].get();
       *index = i;
       *ptype = KLFitter::Particles::kBoson;
@@ -435,9 +435,9 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
     }
 
   // loop over all photons
-  unsigned int nphotons = fNamePhotons.size();
+  unsigned int nphotons = m_photon_names.size();
   for (unsigned int i = 0; i < nphotons; ++i)
-    if (name == fNamePhotons[i]) {
+    if (name == m_photon_names[i]) {
       particle = m_photons[i].get();
       *index = i;
       *ptype = KLFitter::Particles::kPhoton;
@@ -562,19 +562,19 @@ std::vector<std::unique_ptr<TLorentzVector> >* KLFitter::Particles::ParticleCont
 std::vector <std::string>* KLFitter::Particles::ParticleNameContainer(KLFitter::Particles::ParticleType ptype) {
   // return container
   if (ptype == KLFitter::Particles::kParton) {
-    return &fNamePartons;
+    return &m_parton_names;
   } else if (ptype == KLFitter::Particles::kElectron) {
-    return &fNameElectrons;
+    return &m_electron_names;
   } else if (ptype == KLFitter::Particles::kMuon) {
-    return &fNameMuons;
+    return &m_muon_names;
   } else if (ptype == KLFitter::Particles::kTau) {
-    return &fNameTaus;
+    return &m_tau_names;
   } else if (ptype == KLFitter::Particles::kBoson) {
-    return &fNameBosons;
+    return &m_boson_names;
   } else if (ptype == KLFitter::Particles::kNeutrino) {
-    return &fNameNeutrinos;
+    return &m_neutrino_names;
   } else if (ptype == KLFitter::Particles::kPhoton) {
-    return &fNamePhotons;
+    return &m_photon_names;
   } else {
     // or null pointer
     std::cout << "KLFitter::Particles::ParticleNameContainer(). Particle type not known." << std::endl;
