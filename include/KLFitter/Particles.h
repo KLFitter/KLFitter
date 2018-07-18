@@ -205,7 +205,7 @@ class Particles final {
    * @param ptype The particle type.
    * @return The number of particles.
    */
-  int NParticles(KLFitter::Particles::ParticleType ptype);
+  int NParticles(KLFitter::Particles::ParticleType ptype) const;
 
   /**
    * Return the name of a particle.
@@ -213,7 +213,7 @@ class Particles final {
    * @param ptype The type of the particle.
    * @return The name of the particle.
    */
-  std::string NameParticle(int index, KLFitter::Particles::ParticleType ptype);
+  std::string NameParticle(int index, KLFitter::Particles::ParticleType ptype) const;
 
   /**
    * Return the name of a electron.
@@ -318,7 +318,7 @@ class Particles final {
    * @param ptype The particle type.
    * @return The detector eta of the particle
    */
-  double DetEta(int index, KLFitter::Particles::ParticleType ptype);
+  double DetEta(int index, KLFitter::Particles::ParticleType ptype) const;
 
   /**
    * Return the charge of the lepton with some index and type.
@@ -326,7 +326,7 @@ class Particles final {
    * @param ptype The particle type.
    * @return The charge of the lepton.
    */
-  float LeptonCharge(int index, KLFitter::Particles::ParticleType ptype);
+  float LeptonCharge(int index, KLFitter::Particles::ParticleType ptype) const;
 
   /// Return the number of b-tags.
   int NBTags() const;

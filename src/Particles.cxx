@@ -356,14 +356,14 @@ TLorentzVector* Particles::Photon(int index) {
 }
 
 // ---------------------------------------------------------
-int Particles::NParticles(KLFitter::Particles::ParticleType ptype) {
+int Particles::NParticles(KLFitter::Particles::ParticleType ptype) const {
   return static_cast<int>(ParticleContainer(ptype)->size());
 }
 
 // ---------------------------------------------------------
-std::string Particles::NameParticle(int index, Particles::ParticleType ptype) {
+std::string Particles::NameParticle(int index, Particles::ParticleType ptype) const {
   // get particle container
-  auto container = ParticleContainer(ptype);
+  const auto& container = ParticleContainer(ptype);
 
   // check container and index
   if (!CheckIndex(*container, index))
@@ -498,7 +498,7 @@ std::vector <std::string>* Particles::ParticleNameContainer(KLFitter::Particles:
 }
 
 // ---------------------------------------------------------
-double Particles::DetEta(int index, Particles::ParticleType ptype) {
+double Particles::DetEta(int index, Particles::ParticleType ptype) const {
   if (index < 0 || index > NParticles(ptype)) {
     std::cout << "KLFitter::Particles::DetEta(). Index out of range." << std::endl;
     return 0;
@@ -519,7 +519,7 @@ double Particles::DetEta(int index, Particles::ParticleType ptype) {
 }
 
 // ---------------------------------------------------------
-float Particles::LeptonCharge(int index, Particles::ParticleType ptype) {
+float Particles::LeptonCharge(int index, Particles::ParticleType ptype) const {
   if (index < 0 || index > NParticles(ptype)) {
     std::cout << "KLFitter::Particles::LepCharge(). Index out of range." << std::endl;
     return 0;
