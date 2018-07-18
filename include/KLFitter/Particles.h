@@ -486,11 +486,25 @@ class Particles final {
   int RemoveParticle(const std::string& name);
 
   /**
+   * Return the const particle container of a type of particles
+   * @param ptype The type of the particle.
+   * @return The particle container.
+   */
+  const std::vector<TLorentzVector>* ParticleContainer(KLFitter::Particles::ParticleType ptype) const;
+
+  /**
    * Return the particle container of a type of particles
    * @param ptype The type of the particle.
    * @return The particle container.
    */
   std::vector<TLorentzVector>* ParticleContainer(KLFitter::Particles::ParticleType ptype);
+
+  /**
+   * Return the (const) particle name container of a type of particles
+   * @param ptype The type of the particle.
+   * @return The particle name container.
+   */
+  const std::vector<std::string>* ParticleNameContainer(KLFitter::Particles::ParticleType ptype) const;
 
   /**
    * Return the particle name container of a type of particles

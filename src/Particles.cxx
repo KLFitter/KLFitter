@@ -386,6 +386,38 @@ int Particles::CheckIndex(const std::vector<TLorentzVector>& container, int inde
 }
 
 // ---------------------------------------------------------
+const std::vector<TLorentzVector>* Particles::ParticleContainer(KLFitter::Particles::ParticleType ptype) const {
+  // return particle container
+  switch (ptype) {
+  case Particles::kParton:
+    return &m_partons;
+    break;
+  case Particles::kElectron:
+    return &m_electrons;
+    break;
+  case Particles::kMuon:
+    return &m_muons;
+    break;
+  case Particles::kTau:
+    return &m_taus;
+    break;
+  case Particles::kNeutrino:
+    return &m_neutrinos;
+    break;
+  case Particles::kBoson:
+    return &m_bosons;
+    break;
+  case Particles::kPhoton:
+    return &m_photons;
+    break;
+  }
+
+  // or null pointer
+  std::cout << "KLFitter::Particles::ParticleContainer(). Particle type unknown." << std::endl;
+  return 0;
+}
+
+// ---------------------------------------------------------
 std::vector<TLorentzVector>* Particles::ParticleContainer(KLFitter::Particles::ParticleType ptype) {
   // return particle container
   switch (ptype) {
@@ -415,6 +447,30 @@ std::vector<TLorentzVector>* Particles::ParticleContainer(KLFitter::Particles::P
   // or null pointer
   std::cout << "KLFitter::Particles::ParticleContainer(). Particle type unknown." << std::endl;
   return 0;
+}
+
+// ---------------------------------------------------------
+const std::vector<std::string>* Particles::ParticleNameContainer(KLFitter::Particles::ParticleType ptype) const {
+  // return container
+  if (ptype == Particles::kParton) {
+    return &m_parton_names;
+  } else if (ptype == Particles::kElectron) {
+    return &m_electron_names;
+  } else if (ptype == Particles::kMuon) {
+    return &m_muon_names;
+  } else if (ptype == Particles::kTau) {
+    return &m_tau_names;
+  } else if (ptype == Particles::kBoson) {
+    return &m_boson_names;
+  } else if (ptype == Particles::kNeutrino) {
+    return &m_neutrino_names;
+  } else if (ptype == Particles::kPhoton) {
+    return &m_photon_names;
+  } else {
+    // or null pointer
+    std::cout << "KLFitter::Particles::ParticleNameContainer(). Particle type not known." << std::endl;
+    return 0;
+  }
 }
 
 // ---------------------------------------------------------
