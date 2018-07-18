@@ -56,37 +56,37 @@ Particles::Particles(const Particles& o) :
   // Make deep copies of the vectors of unique pointers.
   m_partons.reserve(o.m_partons.size());
   for (const auto& i : o.m_partons) {
-    m_partons.emplace_back(new TLorentzVector{*i});
+    m_partons.emplace_back(i);
   }
 
   m_electrons.reserve(o.m_electrons.size());
   for (const auto& i : o.m_electrons) {
-    m_electrons.emplace_back(new TLorentzVector{*i});
+    m_electrons.emplace_back(i);
   }
 
   m_muons.reserve(o.m_muons.size());
   for (const auto& i : o.m_muons) {
-    m_muons.emplace_back(new TLorentzVector{*i});
+    m_muons.emplace_back(i);
   }
 
   m_taus.reserve(o.m_taus.size());
   for (const auto& i : o.m_taus) {
-    m_taus.emplace_back(new TLorentzVector{*i});
+    m_taus.emplace_back(i);
   }
 
   m_neutrinos.reserve(o.m_neutrinos.size());
   for (const auto& i : o.m_neutrinos) {
-    m_neutrinos.emplace_back(new TLorentzVector{*i});
+    m_neutrinos.emplace_back(i);
   }
 
   m_bosons.reserve(o.m_bosons.size());
   for (const auto& i : o.m_bosons) {
-    m_bosons.emplace_back(new TLorentzVector{*i});
+    m_bosons.emplace_back(i);
   }
 
   m_photons.reserve(o.m_photons.size());
   for (const auto& i : o.m_photons) {
-    m_photons.emplace_back(new TLorentzVector{*i});
+    m_photons.emplace_back(i);
   }
 }
 
@@ -121,46 +121,46 @@ Particles& Particles::operator=(const Particles& o) {
   m_muon_charges = o.m_muon_charges;
 
   // Make deep copies of the vectors of unique pointers.
-  m_partons = std::vector<std::unique_ptr<TLorentzVector> >{};
+  m_partons = std::vector<TLorentzVector>{};
   m_partons.reserve(o.m_partons.size());
   for (const auto& i : o.m_partons) {
-    m_partons.emplace_back(new TLorentzVector{*i});
+    m_partons.emplace_back(i);
   }
 
-  m_electrons = std::vector<std::unique_ptr<TLorentzVector> >{};
+  m_electrons = std::vector<TLorentzVector>{};
   m_electrons.reserve(o.m_electrons.size());
   for (const auto& i : o.m_electrons) {
-    m_electrons.emplace_back(new TLorentzVector{*i});
+    m_electrons.emplace_back(i);
   }
 
-  m_muons = std::vector<std::unique_ptr<TLorentzVector> >{};
+  m_muons = std::vector<TLorentzVector>{};
   m_muons.reserve(o.m_muons.size());
   for (const auto& i : o.m_muons) {
-    m_muons.emplace_back(new TLorentzVector{*i});
+    m_muons.emplace_back(i);
   }
 
-  m_taus = std::vector<std::unique_ptr<TLorentzVector> >{};
+  m_taus = std::vector<TLorentzVector>{};
   m_taus.reserve(o.m_taus.size());
   for (const auto& i : o.m_taus) {
-    m_taus.emplace_back(new TLorentzVector{*i});
+    m_taus.emplace_back(i);
   }
 
-  m_neutrinos = std::vector<std::unique_ptr<TLorentzVector> >{};
+  m_neutrinos = std::vector<TLorentzVector>{};
   m_neutrinos.reserve(o.m_neutrinos.size());
   for (const auto& i : o.m_neutrinos) {
-    m_neutrinos.emplace_back(new TLorentzVector{*i});
+    m_neutrinos.emplace_back(i);
   }
 
-  m_bosons = std::vector<std::unique_ptr<TLorentzVector> >{};
+  m_bosons = std::vector<TLorentzVector>{};
   m_bosons.reserve(o.m_bosons.size());
   for (const auto& i : o.m_bosons) {
-    m_bosons.emplace_back(new TLorentzVector{*i});
+    m_bosons.emplace_back(i);
   }
 
-  m_photons = std::vector<std::unique_ptr<TLorentzVector> >{};
+  m_photons = std::vector<TLorentzVector>{};
   m_photons.reserve(o.m_photons.size());
   for (const auto& i : o.m_photons) {
-    m_photons.emplace_back(new TLorentzVector{*i});
+    m_photons.emplace_back(i);
   }
 
   return *this;
@@ -188,10 +188,7 @@ int Particles::AddParticle(const TLorentzVector& particle, double DetEta, float 
 
   // check if particle with name exists already
   if (!FindParticle(name, vect, &index, &temptype)) {
-    // add particle
-    // create pointer copy of particle content which is owend by Particles
-    std::unique_ptr<TLorentzVector> cparticle{new TLorentzVector{particle.Px(), particle.Py(), particle.Pz(), particle.E()}};
-    container->emplace_back(std::move(cparticle));
+    container->emplace_back(particle);
     ParticleNameContainer(ptype)->push_back(name);
     if (ptype == Particles::kElectron) {
       m_electron_indices.push_back(measuredindex);
@@ -246,10 +243,7 @@ int Particles::AddParticle(const TLorentzVector& particle, double DetEta, Partic
 
   // check if particle with name exists already
   if (!FindParticle(name, vect, &index, &temptype)) {
-    // add particle
-    // create pointer copy of particle content which is owend by Particles
-    std::unique_ptr<TLorentzVector> cparticle{new TLorentzVector{particle.Px(), particle.Py(), particle.Pz(), particle.E()}};
-    container->emplace_back(std::move(cparticle));
+    container->emplace_back(particle);
     ParticleNameContainer(ptype)->push_back(name);
     if (ptype == Particles::kParton) {
       m_true_flavors.push_back(trueflav);
@@ -370,7 +364,7 @@ TLorentzVector* Particles::Particle(int index, Particles::ParticleType ptype) {
   }
 
   // return pointer
-  return (*container)[index].get();
+  return &container->at(index);
 }
 
 // ---------------------------------------------------------
@@ -379,7 +373,7 @@ int Particles::FindParticle(const std::string& name, TLorentzVector* &particle, 
   unsigned int npartons = m_parton_names.size();
   for (unsigned int i = 0; i < npartons; ++i)
     if (name == m_parton_names[i]) {
-      particle = m_partons[i].get();
+      particle = &m_partons[i];
       *index = i;
       *ptype = Particles::kParton;
       return 1;
@@ -389,7 +383,7 @@ int Particles::FindParticle(const std::string& name, TLorentzVector* &particle, 
   unsigned int nelectrons = m_electron_names.size();
   for (unsigned int i = 0; i < nelectrons; ++i)
     if (name == m_electron_names[i]) {
-      particle = m_electrons[i].get();
+      particle = &m_electrons[i];
       *index = i;
       *ptype = Particles::kElectron;
       return 1;
@@ -399,7 +393,7 @@ int Particles::FindParticle(const std::string& name, TLorentzVector* &particle, 
   unsigned int nmuons = m_muon_names.size();
   for (unsigned int i = 0; i < nmuons; ++i)
     if (name == m_muon_names[i]) {
-      particle = m_muons[i].get();
+      particle = &m_muons[i];
       *index = i;
       *ptype = Particles::kMuon;
       return 1;
@@ -409,7 +403,7 @@ int Particles::FindParticle(const std::string& name, TLorentzVector* &particle, 
   unsigned int ntaus = m_tau_names.size();
   for (unsigned int i = 0; i < ntaus; ++i)
     if (name == m_tau_names[i]) {
-      particle = m_taus[i].get();
+      particle = &m_taus[i];
       *index = i;
       *ptype = Particles::kTau;
       return 1;
@@ -419,7 +413,7 @@ int Particles::FindParticle(const std::string& name, TLorentzVector* &particle, 
   unsigned int nneutrinos = m_neutrino_names.size();
   for (unsigned int i = 0; i < nneutrinos; ++i)
     if (name == m_neutrino_names[i]) {
-      particle = m_neutrinos[i].get();
+      particle = &m_neutrinos[i];
       *index = i;
       *ptype = Particles::kNeutrino;
       return 1;
@@ -429,7 +423,7 @@ int Particles::FindParticle(const std::string& name, TLorentzVector* &particle, 
   unsigned int nbosons = m_boson_names.size();
   for (unsigned int i = 0; i < nbosons; ++i)
     if (name == m_boson_names[i]) {
-      particle = m_bosons[i].get();
+      particle = &m_bosons[i];
       *index = i;
       *ptype = Particles::kBoson;
       return 1;
@@ -439,7 +433,7 @@ int Particles::FindParticle(const std::string& name, TLorentzVector* &particle, 
   unsigned int nphotons = m_photon_names.size();
   for (unsigned int i = 0; i < nphotons; ++i)
     if (name == m_photon_names[i]) {
-      particle = m_photons[i].get();
+      particle = &m_photons[i];
       *index = i;
       *ptype = Particles::kPhoton;
       return 1;
@@ -452,43 +446,43 @@ int Particles::FindParticle(const std::string& name, TLorentzVector* &particle, 
 // ---------------------------------------------------------
 TLorentzVector* Particles::Parton(int index) {
   // no check on index range for CPU-time reasons
-  return m_partons[index].get();
+  return &m_partons[index];
 }
 
 // ---------------------------------------------------------
 TLorentzVector* Particles::Electron(int index) {
   // no check on index range for CPU-time reasons
-  return m_electrons[index].get();
+  return &m_electrons[index];
 }
 
 // ---------------------------------------------------------
 TLorentzVector* Particles::Muon(int index) {
   // no check on index range for CPU-time reasons
-  return m_muons[index].get();
+  return &m_muons[index];
 }
 
 // ---------------------------------------------------------
 TLorentzVector* Particles::Tau(int index) {
   // no check on index range for CPU-time reasons
-  return m_taus[index].get();
+  return &m_taus[index];
 }
 
 // ---------------------------------------------------------
 TLorentzVector* Particles::Boson(int index) {
   // no check on index range for CPU-time reasons
-  return m_bosons[index].get();
+  return &m_bosons[index];
 }
 
 // ---------------------------------------------------------
 TLorentzVector* Particles::Neutrino(int index) {
   // no check on index range for CPU-time reasons
-  return m_neutrinos[index].get();
+  return &m_neutrinos[index];
 }
 
 // ---------------------------------------------------------
 TLorentzVector* Particles::Photon(int index) {
   // no check on index range for CPU-time reasons
-  return m_photons[index].get();
+  return &m_photons[index];
 }
 
 // ---------------------------------------------------------
@@ -510,7 +504,7 @@ std::string Particles::NameParticle(int index, Particles::ParticleType ptype) {
 }
 
 // ---------------------------------------------------------
-int Particles::CheckIndex(const std::vector<std::unique_ptr<TLorentzVector> >& container, int index) const {
+int Particles::CheckIndex(const std::vector<TLorentzVector>& container, int index) const {
   // check index
   if (index < 0 || index >= static_cast<int>(container.size())) {
     std::cout << "KLFitter::Particles::CheckIndex(). Index out of range." << std::endl;
@@ -522,7 +516,7 @@ int Particles::CheckIndex(const std::vector<std::unique_ptr<TLorentzVector> >& c
 }
 
 // ---------------------------------------------------------
-std::vector<std::unique_ptr<TLorentzVector> >* Particles::ParticleContainer(KLFitter::Particles::ParticleType ptype) {
+std::vector<TLorentzVector>* Particles::ParticleContainer(KLFitter::Particles::ParticleType ptype) {
   // return particle container
   switch (ptype) {
   case Particles::kParton:

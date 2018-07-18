@@ -20,13 +20,12 @@
 #ifndef KLFITTER_PARTICLES_H_
 #define KLFITTER_PARTICLES_H_
 
-#include <memory>
 #include <string>
 #include <vector>
 
-// ---------------------------------------------------------
+#include "TLorentzVector.h"
 
-class TLorentzVector;
+// ---------------------------------------------------------
 
 /**
  * \namespace KLFitter
@@ -491,7 +490,7 @@ class Particles final {
    * @param ptype The type of the particle.
    * @return The particle container.
    */
-  std::vector<std::unique_ptr<TLorentzVector> >* ParticleContainer(KLFitter::Particles::ParticleType ptype);
+  std::vector<TLorentzVector>* ParticleContainer(KLFitter::Particles::ParticleType ptype);
 
   /**
    * Return the particle name container of a type of particles
@@ -506,7 +505,7 @@ class Particles final {
    * @param index The index of particle.
    * @return An error flag.
    */
-  int CheckIndex(const std::vector<std::unique_ptr<TLorentzVector> >& container, int index) const;
+  int CheckIndex(const std::vector<TLorentzVector>& container, int index) const;
 
   /* @} */
 
@@ -514,37 +513,37 @@ class Particles final {
   /**
    * A set of quarks and gluons.
    */
-  std::vector<std::unique_ptr<TLorentzVector> > m_partons;
+  std::vector<TLorentzVector> m_partons;
 
   /**
    * A set of electrons.
    */
-  std::vector<std::unique_ptr<TLorentzVector> > m_electrons;
+  std::vector<TLorentzVector> m_electrons;
 
   /**
    * A set of muons.
    */
-  std::vector<std::unique_ptr<TLorentzVector> > m_muons;
+  std::vector<TLorentzVector> m_muons;
 
   /**
    * A set of taus.
    */
-  std::vector<std::unique_ptr<TLorentzVector> > m_taus;
+  std::vector<TLorentzVector> m_taus;
 
   /**
    * A set of neutrinos.
    */
-  std::vector<std::unique_ptr<TLorentzVector> > m_neutrinos;
+  std::vector<TLorentzVector> m_neutrinos;
 
   /**
    * A set of bosons.
    */
-  std::vector<std::unique_ptr<TLorentzVector> > m_bosons;
+  std::vector<TLorentzVector> m_bosons;
 
   /**
    * A set of photons.
    */
-  std::vector<std::unique_ptr<TLorentzVector> > m_photons;
+  std::vector<TLorentzVector> m_photons;
 
   /**
    * The name of the partons.
