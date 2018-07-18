@@ -45,10 +45,10 @@ KLFitter::Particles::Particles(const KLFitter::Particles& o) :
     fBTaggingRejection(std::vector<double>{o.fBTaggingRejection}),
     fBTagWeight(std::vector<double>{o.fBTagWeight}),
     fBTagWeightSet(std::vector<bool>{o.fBTagWeightSet}),
-    fElectronDetEta(std::vector<double>{o.fElectronDetEta}),
-    fMuonDetEta(std::vector<double>{o.fMuonDetEta}),
-    fJetDetEta(std::vector<double>{o.fJetDetEta}),
-    fPhotonDetEta(std::vector<double>{o.fPhotonDetEta}),
+    m_electron_det_etas(std::vector<double>{o.m_electron_det_etas}),
+    m_muon_det_etas(std::vector<double>{o.m_muon_det_etas}),
+    m_jet_det_etas(std::vector<double>{o.m_jet_det_etas}),
+    m_photon_det_etas(std::vector<double>{o.m_photon_det_etas}),
     fElectronCharge(std::vector<float>{o.fElectronCharge}),
     fMuonCharge(std::vector<float>{o.fMuonCharge}) {
 
@@ -112,10 +112,10 @@ KLFitter::Particles& KLFitter::Particles::operator=(const KLFitter::Particles& o
   fBTaggingRejection = o.fBTaggingRejection;
   fBTagWeight = o.fBTagWeight;
   fBTagWeightSet = o.fBTagWeightSet;
-  fElectronDetEta = o.fElectronDetEta;
-  fMuonDetEta = o.fMuonDetEta;
-  fJetDetEta = o.fJetDetEta;
-  fPhotonDetEta = o.fPhotonDetEta;
+  m_electron_det_etas = o.m_electron_det_etas;
+  m_muon_det_etas = o.m_muon_det_etas;
+  m_jet_det_etas = o.m_jet_det_etas;
+  m_photon_det_etas = o.m_photon_det_etas;
   fElectronCharge = o.fElectronCharge;
   fMuonCharge = o.fMuonCharge;
 
@@ -194,15 +194,15 @@ int KLFitter::Particles::AddParticle(const TLorentzVector& particle, double DetE
     ParticleNameContainer(ptype)->push_back(name);
     if (ptype == KLFitter::Particles::kElectron) {
       m_electron_indices.push_back(measuredindex);
-      fElectronDetEta.push_back(DetEta);
+      m_electron_det_etas.push_back(DetEta);
       fElectronCharge.push_back(LepCharge);
     } else if (ptype == KLFitter::Particles::kMuon) {
       m_muon_indices.push_back(measuredindex);
-      fMuonDetEta.push_back(DetEta);
+      m_muon_det_etas.push_back(DetEta);
       fMuonCharge.push_back(LepCharge);
     } else if (ptype == KLFitter::Particles::kPhoton) {
       m_photon_indices.push_back(measuredindex);
-      fPhotonDetEta.push_back(DetEta);
+      m_photon_det_etas.push_back(DetEta);
     }
   } else {
     std::cout << "KLFitter::Particles::AddParticle(). Particle with the name " << name << " exists already." << std::endl;
@@ -256,7 +256,7 @@ int KLFitter::Particles::AddParticle(const TLorentzVector& particle, double DetE
       fBTaggingEfficiency.push_back(bTagEff);
       fBTaggingRejection.push_back(bTagRej);
       m_jet_indices.push_back(measuredindex);
-      fJetDetEta.push_back(DetEta);
+      m_jet_det_etas.push_back(DetEta);
       fBTagWeight.push_back(btagweight);
       if (btagweight != 999) {
         fBTagWeightSet.push_back(true);
@@ -265,13 +265,13 @@ int KLFitter::Particles::AddParticle(const TLorentzVector& particle, double DetE
       }
     } else if (ptype == KLFitter::Particles::kElectron) {
       m_electron_indices.push_back(measuredindex);
-      fElectronDetEta.push_back(DetEta);
+      m_electron_det_etas.push_back(DetEta);
     } else if (ptype == KLFitter::Particles::kMuon) {
       m_muon_indices.push_back(measuredindex);
-      fMuonDetEta.push_back(DetEta);
+      m_muon_det_etas.push_back(DetEta);
     } else if (ptype == KLFitter::Particles::kPhoton) {
       m_photon_indices.push_back(measuredindex);
-      fPhotonDetEta.push_back(DetEta);
+      m_photon_det_etas.push_back(DetEta);
     }
   } else {
     std::cout << "KLFitter::Particles::AddParticle(). Particle with the name " << name << " exists already." << std::endl;
@@ -590,13 +590,13 @@ double KLFitter::Particles::DetEta(int index, KLFitter::Particles::ParticleType 
   }
 
   if (ptype == KLFitter::Particles::kParton) {
-    return fJetDetEta[index];
+    return m_jet_det_etas[index];
   } else if (ptype == KLFitter::Particles::kElectron) {
-    return fElectronDetEta[index];
+    return m_electron_det_etas[index];
   } else if (ptype == KLFitter::Particles::kMuon) {
-    return fMuonDetEta[index];
+    return m_muon_det_etas[index];
   } else if (ptype == KLFitter::Particles::kPhoton) {
-    return fPhotonDetEta[index];
+    return m_photon_det_etas[index];
   }
 
   // return error value

@@ -640,19 +640,19 @@ class Particles final {
   /**
     * Vector containing the detector eta of electrons.
     */
-  std::vector <double> fElectronDetEta;
+  std::vector <double> m_electron_det_etas;
   /**
     * Vector containing the detector eta of muons.
     */
-  std::vector <double> fMuonDetEta;
+  std::vector <double> m_muon_det_etas;
   /**
     * Vector containing the detector eta of jets.
     */
-  std::vector <double> fJetDetEta;
+  std::vector <double> m_jet_det_etas;
   /**
     * Vector containing the detector eta of photons.
     */
-  std::vector <double> fPhotonDetEta;
+  std::vector <double> m_photon_det_etas;
   /**
     * Vector containing the charge of electrons.
     */
