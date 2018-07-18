@@ -328,7 +328,7 @@ int Particles::RemoveParticle(int index, Particles::ParticleType ptype) {
 }
 
 // ---------------------------------------------------------
-int Particles::RemoveParticle(std::string name) {
+int Particles::RemoveParticle(const std::string& name) {
   // get index and type
   TLorentzVector* vect = 0;
   int index = 0;
@@ -344,7 +344,7 @@ int Particles::RemoveParticle(std::string name) {
 }
 
 // ---------------------------------------------------------
-TLorentzVector* Particles::Particle(std::string name) {
+TLorentzVector* Particles::Particle(const std::string& name) {
   TLorentzVector* particle = 0;
   int index = 0;
   Particles::ParticleType ptype = kParton;
@@ -374,7 +374,7 @@ TLorentzVector* Particles::Particle(int index, Particles::ParticleType ptype) {
 }
 
 // ---------------------------------------------------------
-int Particles::FindParticle(std::string name, TLorentzVector* &particle, int *index, Particles::ParticleType *ptype) {
+int Particles::FindParticle(const std::string& name, TLorentzVector* &particle, int *index, Particles::ParticleType *ptype) {
   // loop over all partons
   unsigned int npartons = m_parton_names.size();
   for (unsigned int i = 0; i < npartons; ++i)

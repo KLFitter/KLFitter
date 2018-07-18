@@ -126,7 +126,7 @@ class Particles final {
    * @param name The name of the particle.
    * @return A pointer to the TLorentzVector of the particle.
    */
-  TLorentzVector* Particle(std::string name);
+  TLorentzVector* Particle(const std::string& name);
 
   /**
    * Return a particle with some index and type.
@@ -144,7 +144,7 @@ class Particles final {
    * @param ptype The pointer to the particle type.
    * @return A flag (1: found, 0: not found).
    */
-  int FindParticle(std::string name, TLorentzVector* &particle, int* index, KLFitter::Particles::ParticleType* ptype);
+  int FindParticle(const std::string& name, TLorentzVector* &particle, int* index, KLFitter::Particles::ParticleType* ptype);
 
   /**
    * Return the parton at some index.
@@ -484,7 +484,7 @@ class Particles final {
    * @param name The name of the particle.
    * @return An error code.
    */
-  int RemoveParticle(std::string name);
+  int RemoveParticle(const std::string& name);
 
   /**
    * Return the particle container of a type of particles
