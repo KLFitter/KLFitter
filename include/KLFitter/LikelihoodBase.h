@@ -290,13 +290,6 @@ class LikelihoodBase : public BCModel {
   virtual void DefineParameters() = 0;
 
   /**
-    * The prior probability definition, overloaded from BCModel.
-    * @param parameters A vector of parameters (double values).
-    * @return The logarithm of the prior probability.
-    */
-  virtual double LogAPrioriProbability(const std::vector <double> & parameters) { return 0; }
-
-  /**
     * The posterior probability definition, overloaded from BCModel.
     * @param parameters A vector of parameters (double values).
     * @return The logarithm of the prior probability.
@@ -402,7 +395,7 @@ class LikelihoodBase : public BCModel {
     * @param switchpar2 ???
     * @return Permutation of the invariant partner, -1 if there is no one.
     */
-  virtual int LHInvariantPermutationPartner(int iperm, int nperms, int *switchpar1, int *switchpar2) { return -1; }
+  virtual int LHInvariantPermutationPartner(int /*iperm*/, int /*nperms*/, int* /*switchpar1*/, int* /*switchpar2*/) { return -1; }
 
   /**
     * Write parameters from fCachedParametersVector.at(iperm) to fCachedParameters

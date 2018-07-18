@@ -39,15 +39,15 @@ KLFitter::ResGaussPt::ResGaussPt(std::vector<double> const& parameters) :KLFitte
 KLFitter::ResGaussPt::~ResGaussPt() = default;
 
 // ---------------------------------------------------------
-double KLFitter::ResGaussPt::GetSigma(double x) {
-  if (x <= 200.0)
+double KLFitter::ResGaussPt::GetSigma(double par) {
+  if (par <= 200.0)
     return fParameters[0];
   else
     return fParameters[1];
 }
 
 // ---------------------------------------------------------
-double KLFitter::ResGaussPt::p(double x, double xmeas, bool *good) {
+double KLFitter::ResGaussPt::p(double x, double xmeas, bool *good, double /*par*/) {
   *good = true;
   double sigma = GetSigma(x);
   return TMath::Gaus(xmeas, x, sigma, true);
