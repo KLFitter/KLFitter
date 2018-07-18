@@ -374,7 +374,7 @@ TLorentzVector* Particles::Particle(int index, Particles::ParticleType ptype) {
 }
 
 // ---------------------------------------------------------
-int Particles::FindParticle(const std::string& name, TLorentzVector* &particle, int *index, Particles::ParticleType *ptype) const {
+int Particles::FindParticle(const std::string& name, TLorentzVector* &particle, int *index, Particles::ParticleType *ptype) {
   // loop over all partons
   unsigned int npartons = m_parton_names.size();
   for (unsigned int i = 0; i < npartons; ++i)

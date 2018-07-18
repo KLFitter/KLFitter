@@ -144,7 +144,7 @@ class Particles final {
    * @param ptype The pointer to the particle type.
    * @return A flag (1: found, 0: not found).
    */
-  int FindParticle(const std::string& name, TLorentzVector* &particle, int* index, KLFitter::Particles::ParticleType* ptype) const;
+  int FindParticle(const std::string& name, TLorentzVector* &particle, int* index, KLFitter::Particles::ParticleType* ptype);
 
   /**
    * Return the parton at some index.
