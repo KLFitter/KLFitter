@@ -105,7 +105,7 @@ int LikelihoodTopLeptonJetsUDSep::RemoveInvariantParticlePermutations() {
   Particles::Type ptype = Particles::Type::kParton;
   std::vector<int> indexVector_Jets;
   // remove invariant jet permutations of all jets not considered
-  ParticleCollection* particles = (*fPermutations)->Particles();
+  const ParticleCollection* particles = (*fPermutations)->Particles();
   indexVector_Jets.clear();
   for (size_t iPartons = 4; iPartons < particles->partons.size(); iPartons++) {
     indexVector_Jets.push_back(iPartons);

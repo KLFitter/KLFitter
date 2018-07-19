@@ -370,7 +370,7 @@ int KLFitter::LikelihoodBase::RemoveForbiddenParticlePermutations() {
     return err;
 
   // remove all permutations where a b-tagged jet is in the position of a model light quark
-  KLFitter::ParticleCollection * particles = (*fPermutations)->Particles();
+  const KLFitter::ParticleCollection * particles = (*fPermutations)->Particles();
   int nPartons = particles->partons.size();
 
   // When using kVetoHybridNoFit, copy the Permutations object and try to run

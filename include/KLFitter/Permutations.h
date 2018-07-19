@@ -59,7 +59,7 @@ class Permutations final {
    * Return the original particles.
    * @return A pointer to the particles.
    */
-  KLFitter::ParticleCollection* Particles() { return *fParticles; }
+  const KLFitter::ParticleCollection* Particles() const { return *fParticles; }
 
   /**
    * Return the current permutation of jets and leptons.
