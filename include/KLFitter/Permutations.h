@@ -84,12 +84,28 @@ class Permutations final {
    */
   int PermutationIndex() { return fPermutationIndex; }
 
+  /**
+   * Return the table of partons.
+   * @return Pointer to the parton table.
+   */
   std::vector<std::vector<int> >* TablePartons() { return &fTablePartons; }
 
+  /**
+   * Return the table of electrons.
+   * @return Pointer to the electron table.
+   */
   std::vector<std::vector<int> >* TableElectrons() { return &fTableElectrons; }
 
+  /**
+   * Return the table of muons.
+   * @return Pointer to the muon table.
+   */
   std::vector<std::vector<int> >* TableMuons() { return &fTableMuons; }
 
+  /**
+   * Return the table of photons.
+   * @return Pointer to the photon table.
+   */
   std::vector<std::vector<int> >* TablePhotons() { return &fTablePhotons; }
 
   std::vector<std::vector<int> >* TableTracks() { return &fTableTracks; }
@@ -118,16 +134,17 @@ class Permutations final {
 
   /**
    * Create all possible permutations of jets and leptons.
-   * However, make permutations with exactly nPartonsInPermutations.
+   * However, make permutations with exactly
+   * nPartonsInPermutations.
    */
   int CreatePermutations(int nPartonsInPermutations = -1);
 
   /**
-   * Remove permutations in which all indices in the vector indexVector are exchanged
-   * for the given particle type.
-   * This is useful to reduce the number of permutations if
-   * interchanging for example jets doesn't have any effect, e.g.,
-   * if two jets come from a W (top).
+   * Remove permutations in which all indices in the vector
+   * indexVector are exchanged for the given particle type. This
+   * is useful to reduce the number of permutations if
+   * interchanging for example jets doesn't have any effect,
+   * e.g., if two jets come from a W (top).
    * @param ptype The type of the particle.
    * @param indexVector Vector of indices.
    * @return An error code.
@@ -135,11 +152,13 @@ class Permutations final {
   int InvariantParticlePermutations(Particles::Type ptype, std::vector<int> indexVector);
 
   /**
-   * Remove permutations in which all indices in the vector indexVectorPosition1 are exchanged with the corresponding indices in indexVectorPosition2
-   * for the given particle type.
+   * Remove permutations in which all indices in the vector
+   * indexVectorPosition1 are exchanged with the corresponding
+   * indices in indexVectorPosition2 for the given particle type.
    * This is useful to reduce the number of permutations if
-   * interchanging a whole set of particles doesn't have any effect, e.g.,
-   * the particles coming from the two hadronic top quarks in the fully hadronic channel.
+   * interchanging a whole set of particles doesn't have any
+   * effect, e.g., the particles coming from the two hadronic top
+   * quarks in the fully hadronic channel.
    * @param ptype The type of the particle.
    * @param indexVectorPosition1 Vector of indices of first set of particle.
    * @param indexVectorPosition2 Vector of corresponding indices for second set of particle.
@@ -173,8 +192,9 @@ class Permutations final {
   /// Check if particles are defined.
   int CheckParticles();
 
-  /// Helper functions to efficiently create permutations of N particles of only M selected particles.
-
+  /**
+   * Helper functions to efficiently create permutations of N particles of only M selected particles.
+   */
   std::vector<int> Get_int_vector(int i);
   std::vector<int> Get_int_plus_vector(int i, std::vector<int> v);
   std::vector<std::vector<int> > Get_M_from_N(unsigned int N, unsigned int M, unsigned int start = 0);
