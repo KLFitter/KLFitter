@@ -258,16 +258,31 @@ class Particles final {
   std::string NamePhoton(int index) const;
 
   /**
-   * Return the corresponding measured particle.
+   * Return the index of the measured particle.
    * @param index The index of the model particle.
-   * @param index The index of the measured particle.
+   * @return The index of the measured particle.
    */
   int JetIndex(int index) const;
 
+  /**
+   * Return the index of the measured particle.
+   * @param index The index of the model particle.
+   * @return The index of the measured particle.
+   */
   int ElectronIndex(int index) const;
 
+  /**
+   * Return the index of the measured particle.
+   * @param index The index of the model particle.
+   * @return The index of the measured particle.
+   */
   int MuonIndex(int index) const;
 
+  /**
+   * Return the index of the measured particle.
+   * @param index The index of the model particle.
+   * @return The index of the measured particle.
+   */
   int PhotonIndex(int index) const;
 
   /**
