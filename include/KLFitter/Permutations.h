@@ -70,13 +70,13 @@ class Permutations final {
   /**
    * Return the number of permutations.
    */
-  int NPermutations() { return static_cast<int>(fParticlesTable.size()); }
+  int NPermutations() const { return static_cast<int>(fParticlesTable.size()); }
 
   /**
    * Return the current permutation index.
    * @return The current permutation index.
    */
-  int PermutationIndex() { return fPermutationIndex; }
+  int PermutationIndex() const { return fPermutationIndex; }
 
   /** @} */
   /** \name Member functions (Set)  */
