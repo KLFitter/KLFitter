@@ -481,11 +481,6 @@ int KLFitter::Permutations::CheckParticles() {
 }
 
 // ---------------------------------------------------------
-std::vector<std::vector<int> >* KLFitter::Permutations::PermutationTable() {
-  return &fPermutationTable;
-}
-
-// ---------------------------------------------------------
 std::vector<int> KLFitter::Permutations::Get_int_vector(int i) {
   std::vector<int> vtmp;
   vtmp.push_back(i);

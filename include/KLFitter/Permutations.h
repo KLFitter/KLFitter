@@ -68,12 +68,6 @@ class Permutations final {
   KLFitter::ParticleCollection* ParticlesPermuted() { return *fParticlesPermuted; }
 
   /**
-   * Return the permutation table.
-   * @return A pointer to the permutation table.
-   */
-  std::vector<std::vector<int> >* PermutationTable();
-
-  /**
    * Return the number of permutations.
    */
   int NPermutations() { return static_cast<int>(fParticlesTable.size()); }
@@ -83,32 +77,6 @@ class Permutations final {
    * @return The current permutation index.
    */
   int PermutationIndex() { return fPermutationIndex; }
-
-  /**
-   * Return the table of partons.
-   * @return Pointer to the parton table.
-   */
-  std::vector<std::vector<int> >* TablePartons() { return &fTablePartons; }
-
-  /**
-   * Return the table of electrons.
-   * @return Pointer to the electron table.
-   */
-  std::vector<std::vector<int> >* TableElectrons() { return &fTableElectrons; }
-
-  /**
-   * Return the table of muons.
-   * @return Pointer to the muon table.
-   */
-  std::vector<std::vector<int> >* TableMuons() { return &fTableMuons; }
-
-  /**
-   * Return the table of photons.
-   * @return Pointer to the photon table.
-   */
-  std::vector<std::vector<int> >* TablePhotons() { return &fTablePhotons; }
-
-  std::vector<std::vector<int> >* TableTracks() { return &fTableTracks; }
 
   /** @} */
   /** \name Member functions (Set)  */
