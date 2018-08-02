@@ -249,7 +249,7 @@ int main(int argc, char *argv[]) {
     lepton.SetPtEtaPhiE(event.lepton_pt, event.lepton_eta, event.lepton_phi, event.lepton_e);
     if (event.lepton_is_e) {
       likelihood.SetLeptonType(KLFitter::LikelihoodTopLeptonJets::kElectron);
-      particles.AddParticle(lepton, event.lepton_eta, KLFitter::Particles::kElectron);
+      particles.AddParticle(lepton, event.lepton_cl_eta, KLFitter::Particles::kElectron);
     } else if (event.lepton_is_mu) {
       likelihood.SetLeptonType(KLFitter::LikelihoodTopLeptonJets::kMuon);
       particles.AddParticle(lepton, event.lepton_eta, KLFitter::Particles::kMuon);
