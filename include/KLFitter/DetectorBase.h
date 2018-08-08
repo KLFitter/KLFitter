@@ -74,76 +74,76 @@ class DetectorBase {
     * @param eta The eta of the particle.
     * @return A pointer to the energy resolution object.
     */
-  virtual KLFitter::ResolutionBase * ResEnergyLightJet(double eta = 0.) { return fResEnergyLightJet; }
+  virtual ResolutionBase* ResEnergyLightJet(double /*eta*/) { return fResEnergyLightJet; }
 
   /**
     * Return the energy resolution of b jets.
     * @param eta The eta of the particle.
     * @return A pointer to the energy resolution object.
     */
-  virtual KLFitter::ResolutionBase * ResEnergyBJet(double eta = 0.) { return fResEnergyBJet; }
+  virtual ResolutionBase* ResEnergyBJet(double /*eta*/) { return fResEnergyBJet; }
 
   /**
     * Return the energy resolution of gluon jets.
     * @param eta The eta of the particle.
     * @return A pointer to the energy resolution object.
     */
-  virtual KLFitter::ResolutionBase * ResEnergyGluonJet(double eta = 0.) { return fResEnergyGluonJet; }
+  virtual ResolutionBase* ResEnergyGluonJet(double /*eta*/) { return fResEnergyGluonJet; }
 
   /**
     * Return the energy resolution of electrons.
     * @param eta The eta of the particle.
     * @return A pointer to the energy resolution object.
     */
-  virtual KLFitter::ResolutionBase * ResEnergyElectron(double eta = 0.) { return fResEnergyElectron; }
+  virtual ResolutionBase* ResEnergyElectron(double /*eta*/) { return fResEnergyElectron; }
 
   /**
     * Return the energy resolution of muons.
     * @param eta The eta of the particle.
     * @return A pointer to the energy resolution object.
     */
-  virtual KLFitter::ResolutionBase * ResEnergyMuon(double eta = 0.) { return fResEnergyMuon; }
+  virtual ResolutionBase* ResEnergyMuon(double /*eta*/) { return fResEnergyMuon; }
 
   /**
     * Return the energy resolution of photons.
     * @param eta The eta of the particle.
     * @return A pointer to the energy resolution object.
     */
-  virtual KLFitter::ResolutionBase * ResEnergyPhoton(double eta = 0.) { return fResEnergyPhoton; }
+  virtual ResolutionBase* ResEnergyPhoton(double /*eta*/) { return fResEnergyPhoton; }
 
   /**
     * Return the missing ET resolution.
     * @return A pointer to the missing ET resolution.
     */
-  virtual KLFitter::ResolutionBase * ResMissingET() { return fResMissingET; }
+  virtual ResolutionBase* ResMissingET() { return fResMissingET; }
 
   /**
     * Return the eta resolution of light jets.
     * @param eta The eta of the particle.
     * @return A pointer to the eta resolution object.
     */
-  virtual KLFitter::ResolutionBase * ResEtaLightJet(double eta = 0.) { return fResEtaLightJet; }
+  virtual ResolutionBase* ResEtaLightJet(double /*eta*/) { return fResEtaLightJet; }
 
   /**
     * Return the eta resolution of b jets.
     * @param eta The eta of the particle.
     * @return A pointer to the eta resolution object.
     */
-  virtual KLFitter::ResolutionBase * ResEtaBJet(double eta = 0.) { return fResEtaBJet; }
+  virtual ResolutionBase* ResEtaBJet(double /*eta*/) { return fResEtaBJet; }
 
   /**
     * Return the phi resolution of light jets.
     * @param eta The phi of the particle.
     * @return A pointer to the phi resolution object.
     */
-  virtual KLFitter::ResolutionBase * ResPhiLightJet(double eta = 0.) { return fResPhiLightJet; }
+  virtual ResolutionBase* ResPhiLightJet(double /*eta*/) { return fResPhiLightJet; }
 
   /**
     * Return the phi resolution of b jets.
     * @param eta The phi of the particle.
     * @return A pointer to the phi resolution object.
     */
-  virtual KLFitter::ResolutionBase * ResPhiBJet(double eta = 0.) { return fResPhiBJet; }
+  virtual ResolutionBase* ResPhiBJet(double /*eta*/) { return fResPhiBJet; }
 
   /* @} */
   /** \name Member functions (Set)  */

@@ -39,12 +39,12 @@ KLFitter::ResGauss::ResGauss(double sigma) : KLFitter::ResolutionBase(1) {
 KLFitter::ResGauss::~ResGauss() = default;
 
 // ---------------------------------------------------------
-double KLFitter::ResGauss::GetSigma(double dummy) {
+double KLFitter::ResGauss::GetSigma(double /*par*/) {
   return fParameters[0];
 }
 
 // ---------------------------------------------------------
-double KLFitter::ResGauss::p(double x, double xmeas, bool *good) {
+double KLFitter::ResGauss::p(double x, double xmeas, bool *good, double /*par*/) {
   *good = true;
   return TMath::Gaus(xmeas, x, fParameters[0], true);
 }

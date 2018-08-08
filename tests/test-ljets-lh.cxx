@@ -54,23 +54,23 @@ std::unique_ptr<KLFitter::Particles> getExampleParticles(float tag_eff, float ta
   lep.SetPtEtaPhiE(30.501886, 0.4483959, 2.9649317, 33.620113);
 
   std::unique_ptr<KLFitter::Particles> particles{new KLFitter::Particles};
-  particles->AddParticle(&jet1, jet1.Eta(),
+  particles->AddParticle(jet1, jet1.Eta(),
       KLFitter::Particles::kParton, "", 0,
       jet1_has_btag, tag_eff, tag_ineff,
       KLFitter::Particles::kNone, jet1_btag_weight);
-  particles->AddParticle(&jet2, jet2.Eta(),
+  particles->AddParticle(jet2, jet2.Eta(),
       KLFitter::Particles::kParton, "", 1,
       jet2_has_btag, tag_eff, tag_ineff,
       KLFitter::Particles::kNone, jet2_btag_weight);
-  particles->AddParticle(&jet3, jet3.Eta(),
+  particles->AddParticle(jet3, jet3.Eta(),
       KLFitter::Particles::kParton, "", 2,
       jet3_has_btag, tag_eff, tag_ineff,
       KLFitter::Particles::kNone, jet3_btag_weight);
-  particles->AddParticle(&jet4, jet4.Eta(),
+  particles->AddParticle(jet4, jet4.Eta(),
       KLFitter::Particles::kParton, "", 3,
       jet4_has_btag, tag_eff, tag_ineff,
       KLFitter::Particles::kNone, jet4_btag_weight);
-  particles->AddParticle(&lep, lep.Eta(), KLFitter::Particles::kMuon, "", 0);
+  particles->AddParticle(lep, lep.Eta(), KLFitter::Particles::kMuon, "", 0);
   return particles;
 }
 
