@@ -35,10 +35,12 @@ KLFitter::Particles::Particles(const KLFitter::Particles& o) :
     fNameNeutrinos(std::vector<std::string>{o.fNameNeutrinos}),
     fNameBosons(std::vector<std::string>{o.fNameBosons}),
     fNamePhotons(std::vector<std::string>{o.fNamePhotons}),
+    fNameTracks(std::vector<std::string>{o.fNameTracks}),
     fJetIndex(std::vector<int>{o.fJetIndex}),
     fElectronIndex(std::vector<int>{o.fElectronIndex}),
     fMuonIndex(std::vector<int>{o.fMuonIndex}),
     fPhotonIndex(std::vector<int>{o.fPhotonIndex}),
+    fTrackIndex(std::vector<int>{o.fTrackIndex}),
     fTrueFlavor(std::vector<TrueFlavorType>{o.fTrueFlavor}),
     fIsBTagged(std::vector<bool>{o.fIsBTagged}),
     fBTaggingEfficiency(std::vector<double>{o.fBTaggingEfficiency}),
@@ -50,7 +52,8 @@ KLFitter::Particles::Particles(const KLFitter::Particles& o) :
     fJetDetEta(std::vector<double>{o.fJetDetEta}),
     fPhotonDetEta(std::vector<double>{o.fPhotonDetEta}),
     fElectronCharge(std::vector<float>{o.fElectronCharge}),
-    fMuonCharge(std::vector<float>{o.fMuonCharge}) {
+    fMuonCharge(std::vector<float>{o.fMuonCharge}),
+    fUncertainties(std::vector <std::vector<double>>{o.fUncertainties}) {
 
   // Make deep copies of the vectors of unique pointers.
   fPartons.reserve(o.fPartons.size());
@@ -87,6 +90,11 @@ KLFitter::Particles::Particles(const KLFitter::Particles& o) :
   for (const auto& i : o.fPhotons) {
     fPhotons.emplace_back(new TLorentzVector{*i});
   }
+
+  fTracks.reserve(o.fTracks.size());
+  for (const auto& i : o.fTracks) {
+    fTracks.emplace_back(new TLorentzVector{*i});
+  }
 }
 
 // ---------------------------------------------------------
@@ -101,11 +109,14 @@ KLFitter::Particles& KLFitter::Particles::operator=(const KLFitter::Particles& o
   fNameNeutrinos = o.fNameNeutrinos;
   fNameBosons = o.fNameBosons;
   fNamePhotons = o.fNamePhotons;
+  fNameTracks = o.fNameTracks;
 
   fJetIndex = o.fJetIndex;
   fElectronIndex = o.fElectronIndex;
   fMuonIndex = o.fMuonIndex;
   fPhotonIndex = o.fPhotonIndex;
+  fTrackIndex = o.fTrackIndex;
+
   fTrueFlavor = o.fTrueFlavor;
   fIsBTagged = o.fIsBTagged;
   fBTaggingEfficiency = o.fBTaggingEfficiency;
@@ -118,6 +129,7 @@ KLFitter::Particles& KLFitter::Particles::operator=(const KLFitter::Particles& o
   fPhotonDetEta = o.fPhotonDetEta;
   fElectronCharge = o.fElectronCharge;
   fMuonCharge = o.fMuonCharge;
+  fUncertainties = o.fUncertainties;
 
   // Make deep copies of the vectors of unique pointers.
   fPartons = std::vector<std::unique_ptr<TLorentzVector> >{};
@@ -160,6 +172,12 @@ KLFitter::Particles& KLFitter::Particles::operator=(const KLFitter::Particles& o
   fPhotons.reserve(o.fPhotons.size());
   for (const auto& i : o.fPhotons) {
     fPhotons.emplace_back(new TLorentzVector{*i});
+  }
+
+  fTracks = std::vector<std::unique_ptr<TLorentzVector> >{};
+  fTracks.reserve(o.fTracks.size());
+  for (const auto& i : o.fTracks) {
+    fTracks.emplace_back(new TLorentzVector{*i});
   }
 
   return *this;
@@ -272,6 +290,8 @@ int KLFitter::Particles::AddParticle(const TLorentzVector& particle, double DetE
     } else if (ptype == KLFitter::Particles::kPhoton) {
       fPhotonIndex.push_back(measuredindex);
       fPhotonDetEta.push_back(DetEta);
+    } else if (ptype == KLFitter::Particles::kTrack) {
+      fTrackIndex.push_back(measuredindex);
     }
   } else {
     std::cout << "KLFitter::Particles::AddParticle(). Particle with the name " << name << " exists already." << std::endl;
@@ -305,6 +325,19 @@ int KLFitter::Particles::AddParticle(const TLorentzVector* const particle, KLFit
 // ---------------------------------------------------------
 int KLFitter::Particles::AddParticle(const TLorentzVector& particle, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, TrueFlavorType trueflav, double btagweight) {
   return AddParticle(particle, -999, ptype, name, measuredindex, false, -1., -1., trueflav, btagweight);
+}
+
+// --------------------------------------------------------- 
+int KLFitter::Particles::AddParticle(const TLorentzVector& particle, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, const std::vector<double> &uncertainies)
+{
+
+  AddParticle(particle, -999, ptype, name, measuredindex, Particles::TrueFlavorType::kNone, 999);
+
+  fUncertainties.push_back(uncertainies);
+  
+  // no error
+  return 1;
+        
 }
 
 // --------------------------------------------------------- // THIS FUNCTION IS TO BE REMOVED IN THE NEXT MAJOR RELEASE
@@ -444,6 +477,16 @@ int KLFitter::Particles::FindParticle(std::string name, TLorentzVector* &particl
       return 1;
     }
 
+  // loop over all tracks
+  unsigned int ntracks = fNameTracks.size();
+  for (unsigned int i = 0; i < ntracks; ++i)
+    if (name == fNameTracks[i]) {
+      particle = fTracks[i].get();
+      *index = i;
+      *ptype = KLFitter::Particles::kTrack;
+      return 1;
+    }
+
   // particle not found
   return 0;
 }
@@ -489,6 +532,13 @@ TLorentzVector* KLFitter::Particles::Photon(int index) {
   // no check on index range for CPU-time reasons
   return fPhotons[index].get();
 }
+
+// ---------------------------------------------------------
+TLorentzVector* KLFitter::Particles::Track(int index) {
+  // no check on index range for CPU-time reasons
+  return fTracks[index].get();
+}
+
 
 // ---------------------------------------------------------
 int KLFitter::Particles::NParticles(KLFitter::Particles::ParticleType ptype) {
@@ -551,6 +601,9 @@ std::vector<std::unique_ptr<TLorentzVector> >* KLFitter::Particles::ParticleCont
   case KLFitter::Particles::kPhoton:
     return &fPhotons;
     break;
+  case KLFitter::Particles::kTrack:
+    return &fTracks;
+    break;
   }
 
   // or null pointer
@@ -575,6 +628,8 @@ std::vector <std::string>* KLFitter::Particles::ParticleNameContainer(KLFitter::
     return &fNameNeutrinos;
   } else if (ptype == KLFitter::Particles::kPhoton) {
     return &fNamePhotons;
+  } else if (ptype == KLFitter::Particles::kTrack) {
+    return &fNameTracks;
   } else {
     // or null pointer
     std::cout << "KLFitter::Particles::ParticleNameContainer(). Particle type not known." << std::endl;
@@ -597,7 +652,7 @@ double KLFitter::Particles::DetEta(int index, KLFitter::Particles::ParticleType 
     return fMuonDetEta[index];
   } else if (ptype == KLFitter::Particles::kPhoton) {
     return fPhotonDetEta[index];
-  }
+  } 
 
   // return error value
   return -100;
@@ -630,6 +685,22 @@ float KLFitter::Particles::LeptonCharge(int index, KLFitter::Particles::Particle
   return -9;
 }
 
+// --------------------------------------------------------- 
+std::vector<double> KLFitter::Particles::Uncertainties(int index, KLFitter::Particles::ParticleType ptype)
+{
+
+  if (index < 0 || index > NParticles(ptype)) {
+    std::cout << "KLFitter::Particles::Uncertainties(). Index out of range." << std::endl; 
+    return std::vector<double>(); 
+  }
+
+  if (ptype == KLFitter::Particles::kTrack)
+    return ((fUncertainties)[index]);
+
+  // return error value
+  return std::vector<double>();
+}
+
 // ---------------------------------------------------------
 int KLFitter::Particles::JetIndex(int index) {
   // no check on index range for CPU-time reasons
@@ -652,6 +723,12 @@ int KLFitter::Particles::MuonIndex(int index) {
 int KLFitter::Particles::PhotonIndex(int index) {
   // no check on index range for CPU-time reasons
   return fPhotonIndex[index];
+}
+
+// ---------------------------------------------------------
+int KLFitter::Particles::TrackIndex(int index) {
+  // no check on index range for CPU-time reasons
+  return fTrackIndex[index];
 }
 
 // ---------------------------------------------------------
