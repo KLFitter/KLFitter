@@ -68,26 +68,26 @@ KLFitter::DetectorAtlas_8TeV::DetectorAtlas_8TeV(std::string folder) : DetectorB
   //  fResEnergyBJet_eta5     = std::unique_ptr<ResolutionBase>(new KLFitter::ResDoubleGaussE_4{Form("%s/par_energy_bJets_eta5.txt", folder.c_str())});
 
   // eta resolution
-  fResEtaLightJet_eta1 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_eta_lJets_eta1.txt", folder.c_str())});
-  fResEtaLightJet_eta2 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_eta_lJets_eta2.txt", folder.c_str())});
-  fResEtaLightJet_eta3 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_eta_lJets_eta3.txt", folder.c_str())});
-  fResEtaLightJet_eta4 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_eta_lJets_eta4.txt", folder.c_str())});
+  // fResEtaLightJet_eta1 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_eta_lJets_eta1.txt", folder.c_str())});
+  // fResEtaLightJet_eta2 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_eta_lJets_eta2.txt", folder.c_str())});
+  // fResEtaLightJet_eta3 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_eta_lJets_eta3.txt", folder.c_str())});
+  // fResEtaLightJet_eta4 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_eta_lJets_eta4.txt", folder.c_str())});
 
-  fResEtaBJet_eta1 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_eta_bJets_eta1.txt", folder.c_str())});
-  fResEtaBJet_eta2 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_eta_bJets_eta2.txt", folder.c_str())});
-  fResEtaBJet_eta3 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_eta_bJets_eta3.txt", folder.c_str())});
-  fResEtaBJet_eta4 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_eta_bJets_eta4.txt", folder.c_str())});
+  // fResEtaBJet_eta1 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_eta_bJets_eta1.txt", folder.c_str())});
+  // fResEtaBJet_eta2 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_eta_bJets_eta2.txt", folder.c_str())});
+  // fResEtaBJet_eta3 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_eta_bJets_eta3.txt", folder.c_str())});
+  // fResEtaBJet_eta4 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_eta_bJets_eta4.txt", folder.c_str())});
 
   // phi resolution
-  fResPhiLightJet_eta1 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_phi_lJets_eta1.txt", folder.c_str())});
-  fResPhiLightJet_eta2 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_phi_lJets_eta2.txt", folder.c_str())});
-  fResPhiLightJet_eta3 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_phi_lJets_eta3.txt", folder.c_str())});
-  fResPhiLightJet_eta4 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_phi_lJets_eta4.txt", folder.c_str())});
+  // fResPhiLightJet_eta1 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_phi_lJets_eta1.txt", folder.c_str())});
+  // fResPhiLightJet_eta2 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_phi_lJets_eta2.txt", folder.c_str())});
+  // fResPhiLightJet_eta3 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_phi_lJets_eta3.txt", folder.c_str())});
+  // fResPhiLightJet_eta4 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_phi_lJets_eta4.txt", folder.c_str())});
 
-  fResPhiBJet_eta1 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_phi_bJets_eta1.txt", folder.c_str())});
-  fResPhiBJet_eta2 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_phi_bJets_eta2.txt", folder.c_str())});
-  fResPhiBJet_eta3 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_phi_bJets_eta3.txt", folder.c_str())});
-  fResPhiBJet_eta4 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_phi_bJets_eta4.txt", folder.c_str())});
+  // fResPhiBJet_eta1 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_phi_bJets_eta1.txt", folder.c_str())});
+  // fResPhiBJet_eta2 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_phi_bJets_eta2.txt", folder.c_str())});
+  // fResPhiBJet_eta3 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_phi_bJets_eta3.txt", folder.c_str())});
+  // fResPhiBJet_eta4 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss{Form("%s/par_phi_bJets_eta4.txt", folder.c_str())});
 
   fResMissingET_eta1 = std::unique_ptr<ResolutionBase>(new KLFitter::ResGauss_MET{Form("%s/par_misset.txt", folder.c_str())});
 
