@@ -28,6 +28,8 @@
 #include <iostream> 
 #include <algorithm> 
 
+#include "TVector3.h"
+
 #include <BAT/BCMath.h> 
 #include "BAT/BCParameter.h"
 
@@ -54,8 +56,12 @@ KLFitter::LikelihoodTwoTracks::~LikelihoodTwoTracks()  = default;
 double KLFitter::LikelihoodTwoTracks::Log3DGaus(double x0, double x1, double x2, double mean0, double mean1, double mean2, double sigma00, double sigma10, double sigma11, double sigma20, double sigma21, double sigma22)
 {
     
+    // the likelihood of a multivariate gaussian is \ln L = -\frac{1}{2} \left( \ln (|\boldsymbol\Sigma|\,) + (\mathbf{x}-\boldsymbol\mu)^{\rm T}\boldsymbol\Sigma^{-1}(\mathbf{x}-\boldsymbol\mu) + k\ln(2\pi) \right)
+
+    // determinant of the correlation matrix, where sigmaAB is the element in the Ath row and Bth column
     double det = sigma00*sigma11*sigma22+2*(sigma10*sigma21*sigma20)-sigma11*sigma20*sigma20-sigma00*sigma21*sigma21-sigma22*sigma10*sigma10;
     
+    // the matrix product of the vector (x-mean)^T*Sigma^-1*(x-mean)
     double inverse = (1./det)*(
     (x0-mean0)*(x0-mean0)*(sigma11*sigma22-sigma21*sigma21)+
     2*(x0-mean0)*(x1-mean1)*(sigma20*sigma21-sigma10*sigma22)+
@@ -65,6 +71,7 @@ double KLFitter::LikelihoodTwoTracks::Log3DGaus(double x0, double x1, double x2,
     (x2-mean2)*(x2-mean2)*(sigma00*sigma11-sigma10*sigma10)
     );
 
+    // return the entire likelihood
     return -0.5*(log(det)+inverse +3+log(2*M_PI));
 
 }
@@ -116,31 +123,19 @@ void KLFitter::LikelihoodTwoTracks::DefineParameters()
 }
 
 // --------------------------------------------------------- 
-int KLFitter::LikelihoodTwoTracks::CalculateLorentzVectors(std::vector <double> const& parameters)
+int KLFitter::LikelihoodTwoTracks::CalculateLorentzVectors(const std::vector<double>& parameters)
 {
 
-/*
-  static double t1_fit_phi;
-  static double t1_fit_theta;
-  static double t1_fit_p;
-  static double t1_fit_m;
 
-  static double t2_fit_phi;
-  static double t2_fit_theta;
-  static double t2_fit_p;
-  static double t2_fit_m;
+  TLorentzVector t1 = TLorentzVector();
+  TLorentzVector t2 = TLorentzVector();
+  TLorentzVector Ks = TLorentzVector();
 
-  static double ks_fit_m;*/
+  t1.SetPtEtaPhiM(sin(parameters[parPiPlusTheta])*parameters[parPiPlusP],-log(tan(parameters[parPiPlusTheta]/2.)),parameters[parPiPlusPhi],pion_mass);
 
-  TLorentzVector * t1 = new TLorentzVector();
-  TLorentzVector * t2 = new TLorentzVector();
-  TLorentzVector * Ks = new TLorentzVector();
+  t2.SetPtEtaPhiM(sin(parameters[parPiMinusTheta])*parameters[parPiMinusP],-log(tan(parameters[parPiMinusTheta]/2.)),parameters[parPiMinusPhi],pion_mass);
 
-  t1->SetPtEtaPhiM(sin(parameters[parPiPlusTheta])*parameters[parPiPlusP],-log(tan(parameters[parPiPlusTheta]/2.)),parameters[parPiPlusPhi],pion_mass);
-
-  t2->SetPtEtaPhiM(sin(parameters[parPiMinusTheta])*parameters[parPiMinusP],-log(tan(parameters[parPiMinusTheta]/2.)),parameters[parPiMinusPhi],pion_mass);
-
-  (*Ks) = (*t1) + (*t2); 
+  Ks = t1 + t2; 
 
   t1_fit_phi = parameters[parPiPlusPhi];
   t1_fit_theta = parameters[parPiPlusTheta];
@@ -150,9 +145,7 @@ int KLFitter::LikelihoodTwoTracks::CalculateLorentzVectors(std::vector <double> 
   t2_fit_theta = parameters[parPiMinusTheta];
   t2_fit_p = parameters[parPiMinusP];
   t2_fit_m = pion_mass;
-  ks_fit_m = Ks->M();
-
-  delete t1; delete t2; delete Ks;  
+  ks_fit_m = Ks.M();
 
   // no error 
   return 1; 
@@ -278,7 +271,7 @@ int KLFitter::LikelihoodTwoTracks::SavePermutedParticles() {
 // --------------------------------------------------------- 
 
 int KLFitter::LikelihoodTwoTracks::BuildModelParticles() {	
-if (GetBestFitParameters().size() > 0) CalculateLorentzVectors(GetBestFitParameters());
+  if (GetBestFitParameters().size() > 0) CalculateLorentzVectors(GetBestFitParameters());
 
   TLorentzVector * t1 = fParticlesModel->Track(0);
   TLorentzVector * t2 = fParticlesModel->Track(1);
@@ -299,7 +292,7 @@ if (GetBestFitParameters().size() > 0) CalculateLorentzVectors(GetBestFitParamet
 // --------------------------------------------------------- 
 std::vector<double> KLFitter::LikelihoodTwoTracks::LogLikelihoodComponents(std::vector<double> parameters)
 {
-std::vector<double> vecci;
+  std::vector<double> vecci;
 
   // calculate 4-vectors 
   CalculateLorentzVectors(parameters); 

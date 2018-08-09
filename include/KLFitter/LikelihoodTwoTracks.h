@@ -147,7 +147,7 @@ namespace KLFitter
      * Update 4-vectors of model particles. 
      * @return An error flag.
      */ 
-    virtual int CalculateLorentzVectors(std::vector <double> const& parameters); 
+    virtual int CalculateLorentzVectors(const std::vector<double>& parameters); 
 
     /**
      * Initialize the likelihood for the event
