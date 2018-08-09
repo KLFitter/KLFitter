@@ -112,10 +112,10 @@ int KLFitter::DetectorBase::Status() {
     return 0;
   }
 
-  if (!fResEnergyGluonJet) {
-    std::cout << "KLFitter::DetectorBase::Status(). Energy resolution of gluon jets not defined." << std::endl;
-    return 0;
-  }
+  // if (!fResEnergyGluonJet) {
+  //   std::cout << "KLFitter::DetectorBase::Status(). Energy resolution of gluon jets not defined." << std::endl;
+  //   return 0;
+  // }
 
   if (!fResEnergyElectron) {
     std::cout << "KLFitter::DetectorBase::Status(). Energy resolution of electrons not defined." << std::endl;
@@ -127,10 +127,10 @@ int KLFitter::DetectorBase::Status() {
     return 0;
   }
 
-  if (!fResEnergyPhoton) {
-    std::cout << "KLFitter::DetectorBase::Status(). Energy resolution of photons not defined." << std::endl;
-    return 0;
-  }
+  // if (!fResEnergyPhoton) {
+  //   std::cout << "KLFitter::DetectorBase::Status(). Energy resolution of photons not defined." << std::endl;
+  //   return 0;
+  // }
 
   if (!fResMissingET) {
     std::cout << "KLFitter::DetectorBase::Status(). Missing ET resolution not defined." << std::endl;
