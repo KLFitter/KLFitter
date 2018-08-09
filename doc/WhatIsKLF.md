@@ -339,7 +339,16 @@ require that the b-tagging information for the jets is passed to KLFitter.
   probability is multiplied to the event probability, not to the (log)
   likelihood.
 
+## Other likelihoods
 
+### Particle reconstruction from tracks
+
+The likelihood `LikelihoodTwoTracks` was written with the intend of determining
+the quality of reconstruction of a mother particle from two input tracks. 
+It uses the tracks' four-momenta as well as the correlated uncertainties of the
+measured quantities phi, theta, and q/p. These uncertainties are used as 
+correlated gaussian constraints. For the width of the mother particle, a Breit-
+Wigner is assumed.
 
 ## Transfer functions
 
@@ -391,7 +400,7 @@ which inherit from `ResolutionBase`. An example exists for a dummy detector with
 Gaussian energy resolutions.
 
 The `Particle` class holds containers for different types of particles, partons,
-electron, muons, tau leptons, neutrinos, photons and boson. Parton-level and
+electron, muons, tau leptons, neutrinos, photons, tracks and boson. Parton-level and
 reconstructed particles are both described with this class.
 
 The actual fitting procedure is done in the `LikelihoodBase` class. This class

@@ -21,6 +21,7 @@
 #define KLFITTER_LIKELIHOODBASE_H_
 
 #include <iostream>
+#include <memory>
 #include <vector>
 
 #include "BAT/BCLog.h"
