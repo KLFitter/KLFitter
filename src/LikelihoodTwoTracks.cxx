@@ -28,16 +28,14 @@
 #include <iostream> 
 #include <algorithm> 
 
-#include "TVector3.h"
-
-#include <BAT/BCMath.h> 
+#include "BAT/BCMath.h"
 #include "BAT/BCParameter.h"
 
 // --------------------------------------------------------- 
 KLFitter::LikelihoodTwoTracks::LikelihoodTwoTracks() : KLFitter::LikelihoodBase::LikelihoodBase()
-                                                            , pion_mass(139.57)
-                                                            , kshort_mass(497.6)
-                                                            , kshort_width(7.351e-12)
+                                                            , m_pion_mass(139.57)
+                                                            , m_kshort_mass(497.6)
+                                                            , m_kshort_width(7.351e-12)
 {
 
   // define model particles 
@@ -86,12 +84,12 @@ int KLFitter::LikelihoodTwoTracks::DefineModelParticles()
 
   // add model particles
   //create dummy TLorentzVector
-  TLorentzVector * dummy = new TLorentzVector(0,0,0,0); // 4-vector
-  std::vector<double> * moredummy = new std::vector<double>(0);
+  TLorentzVector dummy{0,0,0,0}; // 4-vector
+  std::vector<double> moredummy{};
 
   fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kBoson, 
-                               "Kshort"); 
+                               "Kshort",-1,moredummy); 
   
   fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kTrack,
@@ -100,10 +98,6 @@ int KLFitter::LikelihoodTwoTracks::DefineModelParticles()
   fParticlesModel->AddParticle(dummy,
                                KLFitter::Particles::kTrack,
                                "pi minus",1,moredummy); 
-
-  //free memory
-  delete dummy; 
-  delete moredummy;
 
   // no error 
   return 1;
@@ -119,7 +113,7 @@ void KLFitter::LikelihoodTwoTracks::DefineParameters()
   AddParameter("phi pi minus",                      -M_PI, M_PI);                             // parPiMinusPhi
   AddParameter("theta pi minus",                      0.0, M_PI);                             // parPiMinusTheta
   AddParameter("p pi minus",                      0.0, 100000.0);                             // parPiMinusP
-  AddParameter("m Kshort",   kshort_mass-250., kshort_mass+250.);                             // parKShortM
+  AddParameter("m Kshort",   m_kshort_mass-250., m_kshort_mass+250.);                             // parKShortM
 }
 
 // --------------------------------------------------------- 
@@ -131,21 +125,21 @@ int KLFitter::LikelihoodTwoTracks::CalculateLorentzVectors(const std::vector<dou
   TLorentzVector t2 = TLorentzVector();
   TLorentzVector Ks = TLorentzVector();
 
-  t1.SetPtEtaPhiM(sin(parameters[parPiPlusTheta])*parameters[parPiPlusP],-log(tan(parameters[parPiPlusTheta]/2.)),parameters[parPiPlusPhi],pion_mass);
+  t1.SetPtEtaPhiM(sin(parameters[parPiPlusTheta])*parameters[parPiPlusP],-log(tan(parameters[parPiPlusTheta]/2.)),parameters[parPiPlusPhi],m_pion_mass);
 
-  t2.SetPtEtaPhiM(sin(parameters[parPiMinusTheta])*parameters[parPiMinusP],-log(tan(parameters[parPiMinusTheta]/2.)),parameters[parPiMinusPhi],pion_mass);
+  t2.SetPtEtaPhiM(sin(parameters[parPiMinusTheta])*parameters[parPiMinusP],-log(tan(parameters[parPiMinusTheta]/2.)),parameters[parPiMinusPhi],m_pion_mass);
 
   Ks = t1 + t2; 
 
-  t1_fit_phi = parameters[parPiPlusPhi];
-  t1_fit_theta = parameters[parPiPlusTheta];
-  t1_fit_p = parameters[parPiPlusP];
-  t1_fit_m = pion_mass;
-  t2_fit_phi = parameters[parPiMinusPhi];
-  t2_fit_theta = parameters[parPiMinusTheta];
-  t2_fit_p = parameters[parPiMinusP];
-  t2_fit_m = pion_mass;
-  ks_fit_m = Ks.M();
+  m_t1_fit_phi = parameters[parPiPlusPhi];
+  m_t1_fit_theta = parameters[parPiPlusTheta];
+  m_t1_fit_p = parameters[parPiPlusP];
+  m_t1_fit_m = m_pion_mass;
+  m_t2_fit_phi = parameters[parPiMinusPhi];
+  m_t2_fit_theta = parameters[parPiMinusTheta];
+  m_t2_fit_p = parameters[parPiMinusP];
+  m_t2_fit_m = m_pion_mass;
+  m_ks_fit_m = Ks.M();
 
   // no error 
   return 1; 
@@ -195,11 +189,11 @@ double KLFitter::LikelihoodTwoTracks::LogLikelihood(const std::vector<double> & 
   // define log of likelihood 
   double logprob(0.); 
 
-  logprob += Log3DGaus(t1_fit_phi,t1_fit_theta,1/t1_fit_p,t1_meas_phi,t1_meas_theta,1/t1_meas_p,t1_meas_sigma00,t1_meas_sigma10,t1_meas_sigma11,t1_meas_sigma20,t1_meas_sigma21,t1_meas_sigma22);
+  logprob += Log3DGaus(m_t1_fit_phi,m_t1_fit_theta,1/m_t1_fit_p,m_t1_meas_phi,m_t1_meas_theta,1/m_t1_meas_p,m_t1_meas_sigma00,m_t1_meas_sigma10,m_t1_meas_sigma11,m_t1_meas_sigma20,m_t1_meas_sigma21,m_t1_meas_sigma22);
 
-  logprob += Log3DGaus(t2_fit_phi,t2_fit_theta,1/t2_fit_p,t2_meas_phi,t2_meas_theta,1/t2_meas_p,t2_meas_sigma00,t2_meas_sigma10,t2_meas_sigma11,t2_meas_sigma20,t2_meas_sigma21,t2_meas_sigma22);
+  logprob += Log3DGaus(m_t2_fit_phi,m_t2_fit_theta,1/m_t2_fit_p,m_t2_meas_phi,m_t2_meas_theta,1/m_t2_meas_p,m_t2_meas_sigma00,m_t2_meas_sigma10,m_t2_meas_sigma11,m_t2_meas_sigma20,m_t2_meas_sigma21,m_t2_meas_sigma22);
 
-  logprob += BCMath::LogBreitWignerRel(ks_fit_m,kshort_mass,kshort_width);
+  logprob += BCMath::LogBreitWignerRel(m_ks_fit_m,m_kshort_mass,m_kshort_width);
 
   // return log of likelihood 
   return logprob; 
@@ -211,26 +205,23 @@ std::vector<double> KLFitter::LikelihoodTwoTracks::GetInitialParameters()
   std::vector<double> values(GetNParameters());
 
 
-  TLorentzVector * t1 = new TLorentzVector();
-  TLorentzVector * t2 = new TLorentzVector();
-  TLorentzVector * Ks = new TLorentzVector();
+  TLorentzVector t1 = TLorentzVector();
+  TLorentzVector t2 = TLorentzVector();
+  TLorentzVector Ks = TLorentzVector();
 
-  t1->SetPtEtaPhiM(sin(t1_meas_theta)*t1_fit_p,-log(tan(t1_meas_theta/2.)),t1_meas_phi,pion_mass);
+  t1.SetPtEtaPhiM(sin(m_t1_meas_theta)*m_t1_fit_p,-log(tan(m_t1_meas_theta/2.)),m_t1_meas_phi,m_pion_mass);
 
-  t2->SetPtEtaPhiM(sin(t2_meas_theta)*t1_fit_p,-log(tan(t2_meas_theta/2.)),t2_meas_phi,pion_mass);
+  t2.SetPtEtaPhiM(sin(m_t2_meas_theta)*m_t1_fit_p,-log(tan(m_t2_meas_theta/2.)),m_t2_meas_phi,m_pion_mass);
 
-  (*Ks) = (*t1) + (*t2); 
+  Ks = t1 + t2; 
 
-  values[parPiPlusPhi] = t1_meas_phi;
-  values[parPiPlusTheta] = t1_meas_theta;
-  values[parPiPlusP]  = t1_meas_p;
-  values[parPiMinusPhi]  = t2_meas_phi;
-  values[parPiMinusTheta] = t2_meas_theta;
-  values[parPiMinusP]  = t2_meas_p;
-  values[parKShortM] = Ks->M();
-
-
-  delete t1; delete t2; delete Ks;
+  values[parPiPlusPhi] = m_t1_meas_phi;
+  values[parPiPlusTheta] = m_t1_meas_theta;
+  values[parPiPlusP]  = m_t1_meas_p;
+  values[parPiMinusPhi]  = m_t2_meas_phi;
+  values[parPiMinusTheta] = m_t2_meas_theta;
+  values[parPiMinusP]  = m_t2_meas_p;
+  values[parKShortM] = Ks.M();
 
   // return the vector
   return values;
@@ -240,27 +231,27 @@ std::vector<double> KLFitter::LikelihoodTwoTracks::GetInitialParameters()
 // --------------------------------------------------------- 
 int KLFitter::LikelihoodTwoTracks::SavePermutedParticles() {
 
-  t1_meas_phi = (*fParticlesPermuted)->Track(0)->Phi();
-  t1_meas_theta = (*fParticlesPermuted)->Track(0)->Theta();
-  t1_meas_p = (*fParticlesPermuted)->Track(0)->P();
+  m_t1_meas_phi = (*fParticlesPermuted)->Track(0)->Phi();
+  m_t1_meas_theta = (*fParticlesPermuted)->Track(0)->Theta();
+  m_t1_meas_p = (*fParticlesPermuted)->Track(0)->P();
 
-  t1_meas_sigma00 =(((*fParticlesPermuted)->Uncertainties(0,KLFitter::Particles::kTrack)))[0]; 
-  t1_meas_sigma10 =(((*fParticlesPermuted)->Uncertainties(0,KLFitter::Particles::kTrack)))[1];
-  t1_meas_sigma11 =(((*fParticlesPermuted)->Uncertainties(0,KLFitter::Particles::kTrack)))[2];
-  t1_meas_sigma20 =(((*fParticlesPermuted)->Uncertainties(0,KLFitter::Particles::kTrack)))[3];
-  t1_meas_sigma21 =(((*fParticlesPermuted)->Uncertainties(0,KLFitter::Particles::kTrack)))[4];
-  t1_meas_sigma22 =(((*fParticlesPermuted)->Uncertainties(0,KLFitter::Particles::kTrack)))[5];
+  m_t1_meas_sigma00 =(((*fParticlesPermuted)->Uncertainties(0,KLFitter::Particles::kTrack)))[0]; 
+  m_t1_meas_sigma10 =(((*fParticlesPermuted)->Uncertainties(0,KLFitter::Particles::kTrack)))[1];
+  m_t1_meas_sigma11 =(((*fParticlesPermuted)->Uncertainties(0,KLFitter::Particles::kTrack)))[2];
+  m_t1_meas_sigma20 =(((*fParticlesPermuted)->Uncertainties(0,KLFitter::Particles::kTrack)))[3];
+  m_t1_meas_sigma21 =(((*fParticlesPermuted)->Uncertainties(0,KLFitter::Particles::kTrack)))[4];
+  m_t1_meas_sigma22 =(((*fParticlesPermuted)->Uncertainties(0,KLFitter::Particles::kTrack)))[5];
 
-  t2_meas_phi = (*fParticlesPermuted)->Track(1)->Phi();
-  t2_meas_theta = (*fParticlesPermuted)->Track(1)->Theta();
-  t2_meas_p = (*fParticlesPermuted)->Track(1)->P();
+  m_t2_meas_phi = (*fParticlesPermuted)->Track(1)->Phi();
+  m_t2_meas_theta = (*fParticlesPermuted)->Track(1)->Theta();
+  m_t2_meas_p = (*fParticlesPermuted)->Track(1)->P();
 
-  t2_meas_sigma00 =(((*fParticlesPermuted)->Uncertainties(1,KLFitter::Particles::kTrack)))[0]; 
-  t2_meas_sigma10 =(((*fParticlesPermuted)->Uncertainties(1,KLFitter::Particles::kTrack)))[1];
-  t2_meas_sigma11 =(((*fParticlesPermuted)->Uncertainties(1,KLFitter::Particles::kTrack)))[2];
-  t2_meas_sigma20 =(((*fParticlesPermuted)->Uncertainties(1,KLFitter::Particles::kTrack)))[3];
-  t2_meas_sigma21 =(((*fParticlesPermuted)->Uncertainties(1,KLFitter::Particles::kTrack)))[4];
-  t2_meas_sigma22 =(((*fParticlesPermuted)->Uncertainties(1,KLFitter::Particles::kTrack)))[5];
+  m_t2_meas_sigma00 =(((*fParticlesPermuted)->Uncertainties(1,KLFitter::Particles::kTrack)))[0]; 
+  m_t2_meas_sigma10 =(((*fParticlesPermuted)->Uncertainties(1,KLFitter::Particles::kTrack)))[1];
+  m_t2_meas_sigma11 =(((*fParticlesPermuted)->Uncertainties(1,KLFitter::Particles::kTrack)))[2];
+  m_t2_meas_sigma20 =(((*fParticlesPermuted)->Uncertainties(1,KLFitter::Particles::kTrack)))[3];
+  m_t2_meas_sigma21 =(((*fParticlesPermuted)->Uncertainties(1,KLFitter::Particles::kTrack)))[4];
+  m_t2_meas_sigma22 =(((*fParticlesPermuted)->Uncertainties(1,KLFitter::Particles::kTrack)))[5];
 
 
   // no error
@@ -278,9 +269,9 @@ int KLFitter::LikelihoodTwoTracks::BuildModelParticles() {
   TLorentzVector * Ks = fParticlesModel->Boson(0);
 
 
-  t1->SetPtEtaPhiM(sin(t1_fit_theta)*t1_fit_p,-log(tan(t1_fit_theta/2.)),t1_fit_phi,t1_fit_m);
+  t1->SetPtEtaPhiM(sin(m_t1_fit_theta)*m_t1_fit_p,-log(tan(m_t1_fit_theta/2.)),m_t1_fit_phi,m_t1_fit_m);
 
-  t2->SetPtEtaPhiM(sin(t2_fit_theta)*t1_fit_p,-log(tan(t2_fit_theta/2.)),t2_fit_phi,t2_fit_m);
+  t2->SetPtEtaPhiM(sin(m_t2_fit_theta)*m_t1_fit_p,-log(tan(m_t2_fit_theta/2.)),m_t2_fit_phi,m_t2_fit_m);
 
   (*Ks) = (*t1) + (*t2); 
 
@@ -297,11 +288,11 @@ std::vector<double> KLFitter::LikelihoodTwoTracks::LogLikelihoodComponents(std::
   // calculate 4-vectors 
   CalculateLorentzVectors(parameters); 
 
-  vecci.push_back(Log3DGaus(t1_fit_phi,t1_fit_theta,t1_fit_p,t1_meas_phi,t1_meas_theta,t1_meas_p,t1_meas_sigma00,t1_meas_sigma10,t1_meas_sigma11,t1_meas_sigma20,t1_meas_sigma21,t1_meas_sigma22)); //comp0
+  vecci.push_back(Log3DGaus(m_t1_fit_phi,m_t1_fit_theta,m_t1_fit_p,m_t1_meas_phi,m_t1_meas_theta,m_t1_meas_p,m_t1_meas_sigma00,m_t1_meas_sigma10,m_t1_meas_sigma11,m_t1_meas_sigma20,m_t1_meas_sigma21,m_t1_meas_sigma22)); //comp0
   
-  vecci.push_back(Log3DGaus(t2_fit_phi,t2_fit_theta,t2_fit_p,t2_meas_phi,t2_meas_theta,t2_meas_p,t2_meas_sigma00,t2_meas_sigma10,t2_meas_sigma11,t2_meas_sigma20,t2_meas_sigma21,t2_meas_sigma22)); //comp1
+  vecci.push_back(Log3DGaus(m_t2_fit_phi,m_t2_fit_theta,m_t2_fit_p,m_t2_meas_phi,m_t2_meas_theta,m_t2_meas_p,m_t2_meas_sigma00,m_t2_meas_sigma10,m_t2_meas_sigma11,m_t2_meas_sigma20,m_t2_meas_sigma21,m_t2_meas_sigma22)); //comp1
 
-  vecci.push_back(BCMath::LogBreitWignerRel(ks_fit_m,kshort_mass,kshort_width));  //comp2
+  vecci.push_back(BCMath::LogBreitWignerRel(m_ks_fit_m,m_kshort_mass,m_kshort_width));  //comp2
 
   // return log of likelihood 
   return vecci; 

@@ -293,14 +293,19 @@ class Particles final {
    */
   int MuonIndex(int index) const;
 
-  int TrackIndex(int index);
-
   /**
    * Return the index of the measured particle.
    * @param index The index of the model particle.
    * @return The index of the measured particle.
    */
   int PhotonIndex(int index) const;
+
+  /**
+   * Return the index of the measured particle.
+   * @param index The index of the model particle.
+   * @return The index of the measured particle.
+   */
+  int TrackIndex(int index) const;
 
   /**
    * Return the true flavor of a parton.
@@ -350,7 +355,7 @@ class Particles final {
     * @param ptype The particle type.
     * @return The uncertaintie of the particle
     */
-  std::vector<double> Uncertainties(int index, KLFitter::Particles::ParticleType ptype) const;
+  const std::vector<double> Uncertainties(int index, KLFitter::Particles::ParticleType ptype) const;
 
   /**
    * Return the detector eta of a particle with some index and type.

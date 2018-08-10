@@ -587,7 +587,7 @@ float Particles::LeptonCharge(int index, Particles::ParticleType ptype) const {
 }
 
 // --------------------------------------------------------- 
-std::vector<double> Particles::Uncertainties(int index, Particles::ParticleType ptype) const {
+const std::vector<double> Particles::Uncertainties(int index, Particles::ParticleType ptype) const {
 
   if (index < 0 || index > NParticles(ptype)) {
     std::cout << "KLFitter::Particles::Uncertainties(). Index out of range." << std::endl; 
@@ -626,7 +626,7 @@ int Particles::PhotonIndex(int index) const {
 }
 
 // ---------------------------------------------------------
-int Particles::TrackIndex(int index) {
+int Particles::TrackIndex(int index) const {
   // no check on index range for CPU-time reasons
   return m_track_indices[index];
 }

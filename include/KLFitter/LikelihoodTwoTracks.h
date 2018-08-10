@@ -20,14 +20,15 @@
 
 // --------------------------------------------------------- 
 
-#ifndef LIKELIHOODTWOTRACKS
-#define LIKELIHOODTWOTRACKS
+#ifndef KLFITTER_LIKELIHOODTWOTRACKS_H_
+#define KLFITTER_LIKELIHOODTWOTRACKS_H_
 
 // --------------------------------------------------------- 
 
-#include "LikelihoodBase.h" 
+#include "KLFitter/LikelihoodBase.h"
+#include "KLFitter/ResolutionBase.h"
+
 #include "TLorentzVector.h"
-#include "ResolutionBase.h"
 
 #include <iostream>
 
@@ -54,13 +55,25 @@ namespace KLFitter
     LikelihoodTwoTracks(); 
                 
     /**
-     * The default destructor.
-     */
+    * The (defaulted) destructor.
+    */
     ~LikelihoodTwoTracks(); 
 
-    /**
-     * Calculate 3D Gaussian.
-     */
+    /** Calculate 3D Gaussian.
+    * @param x0 First variable point of evalulation
+    * @param x1 Second variable point of evaluation
+    * @param x3 Third variable point of evaluation
+    * @param x0 First variable mean of distribution
+    * @param x1 Second variable mean of distribution
+    * @param x3 Third variable mean of distribution  
+    * @param sigma00 First variable variance squared
+    * @param sigma10 Covariance of first and second variable
+    * @param sigma11 Second variable variance squared
+    * @param sigma20 Covariance of first and third variable
+    * @param sigma21 Covariance of second and third variable
+    * @param sigma22 Third variable variance squared
+    * @return Evaluated value of the 3D Gaussian
+    */
     double Log3DGaus(double x0, double x1, double x2, double mean0, double mean1, double mean2, double sigma00, double sigma10, double sigma11, double sigma20, double sigma21, double sigma22);
 
 
@@ -75,7 +88,14 @@ namespace KLFitter
     /**
      * Enumerator for the parameters.
      */
-    enum Parameters { parPiPlusPhi, parPiPlusTheta, parPiPlusP, parPiMinusPhi, parPiMinusTheta, parPiMinusP, parKShortM };
+    enum Parameters { parPiPlusPhi,     ///< First (positive) track phi
+                      parPiPlusTheta,   ///< First (positive) track theta
+                      parPiPlusP,       ///< First (positive) track momentum
+                      parPiMinusPhi,    ///< Second (negative) track phi
+                      parPiMinusTheta,  ///< Second (negative) track theta
+                      parPiMinusP,      ///< Second (negative) track momentum
+                      parKShortM        ///< Mass of track particle 
+    };
 
     
     /* @} */
@@ -89,22 +109,14 @@ namespace KLFitter
     /**
      * Define the parameters of the fit. 
      */ 
-    virtual void DefineParameters();
+    void DefineParameters() override;
 
-    /** 
-     * The prior probability definition, overloaded from BCModel. 
-     * @param parameters A vector of parameters (double values). 
-     * @return The logarithm of the prior probability. 
-     */
-    virtual double LogAPrioriProbability(const std::vector <double> & /*parameters*/)
-    { return 0; }; 
-                
     /** 
      * The posterior probability definition, overloaded from BCModel. 
      * @param parameters A vector of parameters (double values). 
      * @return The logarithm of the prior probability. 
      */
-    virtual double LogLikelihood(const std::vector <double> & parameters); 
+    double LogLikelihood(const std::vector <double> & parameters) override; 
 
     /** 
      * The posterior probability definition, overloaded from BCModel. Split up into several subcomponents 
@@ -122,20 +134,20 @@ namespace KLFitter
      * 9:  BW_Thad
      * 10: BW_Tlep
      */
-    virtual std::vector<double> LogLikelihoodComponents(std::vector <double> parameters); 
+    std::vector<double> LogLikelihoodComponents(std::vector <double> parameters) override; 
 
     /**
      * Get initial values for the parameters.
      * @return vector of initial values.
      */
-    virtual std::vector<double> GetInitialParameters();
+    std::vector<double> GetInitialParameters() override;
 
     /**
      * Dummy function because of KLFitter structure.
      */
-    int SetET_miss_XY_SumET(double etx, double ety, double sumet){ return 0;};
-    int AdjustParameterRanges(){return 0;};
-    int SaveResolutionFunctions(){return 0;};
+    int SetET_miss_XY_SumET(double etx, double ety, double sumet) override { return 0;};
+    int AdjustParameterRanges() override {return 0;};
+    int SaveResolutionFunctions() override {return 0;};
 
 
   protected: 
@@ -147,30 +159,30 @@ namespace KLFitter
      * Update 4-vectors of model particles. 
      * @return An error flag.
      */ 
-    virtual int CalculateLorentzVectors(const std::vector<double>& parameters); 
+    int CalculateLorentzVectors(const std::vector<double>& parameters) override; 
 
     /**
      * Initialize the likelihood for the event
      */ 
-    virtual int Initialize(); 
+    int Initialize() override; 
 
     /**
      * Define the model particles
      * @return An error code.
      */ 
-    virtual int DefineModelParticles();
+    int DefineModelParticles() override;
 
     /**
      * Remove invariant particle permutations.
      * @return An error code. 
      */ 
-    int RemoveInvariantParticlePermutations(); 
+    int RemoveInvariantParticlePermutations() override; 
     
     /**
      * Build the model particles from the best fit parameters.
      * @return An error code.
      */
-    int BuildModelParticles();
+    int BuildModelParticles() override;
 
 
     /* @} */
@@ -187,59 +199,59 @@ namespace KLFitter
      * @param Pointer to a 4-vector of a particle which is added to the charged lepton in the calculation
      * @return A vector with 0, 1 or 2 neutrino pz solutions.
      */
-    std::vector<double> CalculateNeutrinoPzSolutions(TLorentzVector * additionalParticle = 0x0);
+    std::vector<double> CalculateNeutrinoPzSolutions(TLorentzVector * additionalParticle = nullptr);
 
     /**
      * Save permuted particles.
      */
-    int SavePermutedParticles();
+    int SavePermutedParticles() override;
 
-    double pion_mass;
-    double kshort_mass;
-    double kshort_width;
+    const double m_pion_mass;
+    const double m_kshort_mass;
+    const double m_kshort_width;
 
     /**
      * Save measured particle values for frequent calls
      */
 
 
-    double t1_meas_phi;
-    double t1_meas_theta;
-    double t1_meas_p;
+    double m_t1_meas_phi;
+    double m_t1_meas_theta;
+    double m_t1_meas_p;
 
-    double t1_meas_sigma00;
-    double t1_meas_sigma10;
-    double t1_meas_sigma11;
-    double t1_meas_sigma20;
-    double t1_meas_sigma21;
-    double t1_meas_sigma22;
+    double m_t1_meas_sigma00;
+    double m_t1_meas_sigma10;
+    double m_t1_meas_sigma11;
+    double m_t1_meas_sigma20;
+    double m_t1_meas_sigma21;
+    double m_t1_meas_sigma22;
 
-    double t2_meas_phi;
-    double t2_meas_theta;
-    double t2_meas_p;
+    double m_t2_meas_phi;
+    double m_t2_meas_theta;
+    double m_t2_meas_p;
 
-    double t2_meas_sigma00;
-    double t2_meas_sigma10;
-    double t2_meas_sigma11;
-    double t2_meas_sigma20;
-    double t2_meas_sigma21;
-    double t2_meas_sigma22;
+    double m_t2_meas_sigma00;
+    double m_t2_meas_sigma10;
+    double m_t2_meas_sigma11;
+    double m_t2_meas_sigma20;
+    double m_t2_meas_sigma21;
+    double m_t2_meas_sigma22;
 
     /**
      * Save fit particle values for frequent calls
      */
 
-    double t1_fit_phi;
-    double t1_fit_theta;
-    double t1_fit_p;
-    double t1_fit_m;
+    double m_t1_fit_phi;
+    double m_t1_fit_theta;
+    double m_t1_fit_p;
+    double m_t1_fit_m;
 
-    double t2_fit_phi;
-    double t2_fit_theta;
-    double t2_fit_p;
-    double t2_fit_m;
+    double m_t2_fit_phi;
+    double m_t2_fit_theta;
+    double m_t2_fit_p;
+    double m_t2_fit_m;
 
-    double ks_fit_m;
+    double m_ks_fit_m;
 
   }; 
 
