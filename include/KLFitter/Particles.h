@@ -48,7 +48,8 @@ class Particles final {
                       kTau,       ///< Particle type tau
                       kNeutrino,  ///< Particle type neutrino
                       kBoson,     ///< Particle type boson
-                      kPhoton     ///< Particle type photon
+                      kPhoton,    ///< Particle type photon
+                      kTrack      ///< Particle type track
   };
 
   /// An enumerator for the true jet flavor.
@@ -119,6 +120,12 @@ class Particles final {
    * @return The number of photons.
    */
   int NPhotons() const { return int (m_photons.size()); }
+
+  /**
+   * Return the number of tracks.
+   * @return The number of tracks.
+   */
+  int NTracks() const { return int (m_tracks.size()); }
 
   /**
    * Return the particle with a certain name
@@ -195,10 +202,17 @@ class Particles final {
   TLorentzVector* Photon(int index);
 
   /**
+   * Return the track at some index.
+   * @param index The track index
+   * @return A pointer to the TLorentzVector of the track.
+   */
+  TLorentzVector* Track(int index);
+
+  /**
    * Return the number of particles.
    * @return The number of particles.
    */
-  int NParticles() const { return static_cast<int>(m_partons.size() + m_electrons.size() + m_muons.size() + m_taus.size() + m_neutrinos.size() + m_bosons.size() + m_photons.size()); }
+  int NParticles() const { return static_cast<int>(m_partons.size() + m_electrons.size() + m_muons.size() + m_taus.size() + m_neutrinos.size() + m_bosons.size() + m_photons.size()) + m_tracks.size(); }
 
   /**
    * Return the number of particles of a certain type.
@@ -286,6 +300,13 @@ class Particles final {
   int PhotonIndex(int index) const;
 
   /**
+   * Return the index of the measured particle.
+   * @param index The index of the model particle.
+   * @return The index of the measured particle.
+   */
+  int TrackIndex(int index) const;
+
+  /**
    * Return the true flavor of a parton.
    * @param index The parton index
    * @return The parton true flavor.
@@ -326,6 +347,14 @@ class Particles final {
    * @return The bool of a set tagging weight
    */
   bool BTagWeightSet(int index) const { return m_btag_weights_set[index]; }
+
+  /**
+   * Return the uncertainty of a particle with some index and type.
+   * @param index The index of the particle
+   * @param ptype The particle type.
+   * @return The uncertaintie of the particle
+   */
+  const std::vector<double>* Uncertainties(int index, KLFitter::Particles::ParticleType ptype) const;
 
   /**
    * Return the detector eta of a particle with some index and type.
@@ -486,6 +515,15 @@ class Particles final {
   int AddParticle(const TLorentzVector* const particle, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, TrueFlavorType trueflav, double btagweight = 999);
 
   /**
+   * Add a particle to a list of particles.
+   * @param particle A pointer to the particle.
+   * @param ptype The type of particle.
+   * @param name The name of the particle.
+   * @param uncertainies The associated uncertainties.
+   */
+  int AddParticle(const TLorentzVector& particle, KLFitter::Particles::ParticleType ptype, std::string name = "", int measuredindex = -1, const std::vector<double>& uncertainies = std::vector<double>());
+
+  /**
    * Removes a particle from a list of particles.
    * @param index The index of the particle.
    * @param ptype The type of the particle.
@@ -575,6 +613,11 @@ class Particles final {
   std::vector<TLorentzVector> m_photons;
 
   /**
+   * A set of tracks.
+   */
+  std::vector<TLorentzVector> m_tracks;
+
+  /**
    * The name of the partons.
    */
   std::vector<std::string> m_parton_names;
@@ -610,6 +653,11 @@ class Particles final {
   std::vector<std::string> m_photon_names;
 
   /**
+   * The name of the tracks.
+   */
+  std::vector<std::string> m_track_names;
+
+  /**
    * The index of the corresponding measured parton.
    */
   std::vector<int> m_jet_indices;
@@ -628,6 +676,11 @@ class Particles final {
    * The index of the corresponding measured photon.
    */
   std::vector<int> m_photon_indices;
+
+  /**
+   * The index of the corresponding measured track.
+   */
+  std::vector<int> m_track_indices;
 
   /**
    * Vector containing the true flavor.
@@ -688,6 +741,11 @@ class Particles final {
    * Vector containing the charge of muons.
    */
   std::vector<float> m_muon_charges;
+
+  /**
+   * Vector containing the uncertainties of tracks.
+   */
+  std::vector<std::vector<double> > m_uncertainties;
 };
 }  // namespace KLFitter
 

@@ -137,6 +137,8 @@ int Particles::AddParticle(const TLorentzVector& particle, double DetEta, Partic
     } else if (ptype == Particles::kPhoton) {
       m_photon_indices.push_back(measuredindex);
       m_photon_det_etas.push_back(DetEta);
+    } else if (ptype == Particles::kTrack) {
+      m_track_indices.push_back(measuredindex);
     }
   } else {
     std::cout << "KLFitter::Particles::AddParticle(). Particle with the name " << name << " exists already." << std::endl;
@@ -175,6 +177,16 @@ int Particles::AddParticle(const TLorentzVector& particle, Particles::ParticleTy
 // --------------------------------------------------------- // THIS FUNCTION IS TO BE REMOVED IN THE NEXT MAJOR RELEASE
 int Particles::AddParticle(const TLorentzVector* const particle, Particles::ParticleType ptype, std::string name, int measuredindex, TrueFlavorType trueflav, double btagweight) {
   return AddParticle(*particle, ptype, name, measuredindex, trueflav, btagweight);
+}
+
+// ---------------------------------------------------------
+int Particles::AddParticle(const TLorentzVector& particle, Particles::ParticleType ptype, std::string name, int measuredindex, const std::vector<double>& uncertainies) {
+  AddParticle(particle, -999, ptype, name, measuredindex, Particles::TrueFlavorType::kNone, 999);
+
+  m_uncertainties.push_back(uncertainies);
+
+  // no error
+  return 1;
 }
 
 // ---------------------------------------------------------
@@ -309,6 +321,16 @@ int Particles::FindParticle(const std::string& name, TLorentzVector* &particle, 
       return 1;
     }
 
+  // loop over all tracks
+  unsigned int ntracks = m_track_names.size();
+  for (unsigned int i = 0; i < ntracks; ++i)
+    if (name == m_track_names[i]) {
+      particle = &m_tracks[i];
+      *index = i;
+      *ptype = Particles::kTrack;
+      return 1;
+    }
+
   // particle not found
   return 0;
 }
@@ -353,6 +375,12 @@ TLorentzVector* Particles::Neutrino(int index) {
 TLorentzVector* Particles::Photon(int index) {
   // no check on index range for CPU-time reasons
   return &m_photons[index];
+}
+
+// ---------------------------------------------------------
+TLorentzVector* Particles::Track(int index) {
+  // no check on index range for CPU-time reasons
+  return &m_tracks[index];
 }
 
 // ---------------------------------------------------------
@@ -410,6 +438,9 @@ const std::vector<TLorentzVector>* Particles::ParticleContainer(KLFitter::Partic
   case Particles::kPhoton:
     return &m_photons;
     break;
+  case Particles::kTrack:
+    return &m_tracks;
+    break;
   }
 
   // or null pointer
@@ -442,6 +473,9 @@ std::vector<TLorentzVector>* Particles::ParticleContainer(KLFitter::Particles::P
   case Particles::kPhoton:
     return &m_photons;
     break;
+  case Particles::kTrack:
+    return &m_tracks;
+    break;
   }
 
   // or null pointer
@@ -466,6 +500,8 @@ const std::vector<std::string>* Particles::ParticleNameContainer(KLFitter::Parti
     return &m_neutrino_names;
   } else if (ptype == Particles::kPhoton) {
     return &m_photon_names;
+  } else if (ptype == Particles::kTrack) {
+    return &m_track_names;
   } else {
     // or null pointer
     std::cout << "KLFitter::Particles::ParticleNameContainer(). Particle type not known." << std::endl;
@@ -490,6 +526,8 @@ std::vector <std::string>* Particles::ParticleNameContainer(KLFitter::Particles:
     return &m_neutrino_names;
   } else if (ptype == Particles::kPhoton) {
     return &m_photon_names;
+  } else if (ptype == Particles::kTrack) {
+    return &m_track_names;
   } else {
     // or null pointer
     std::cout << "KLFitter::Particles::ParticleNameContainer(). Particle type not known." << std::endl;
@@ -546,6 +584,20 @@ float Particles::LeptonCharge(int index, Particles::ParticleType ptype) const {
 }
 
 // ---------------------------------------------------------
+const std::vector<double>* Particles::Uncertainties(int index, Particles::ParticleType ptype) const {
+  if (index < 0 || index > NParticles(ptype)) {
+    std::cout << "KLFitter::Particles::Uncertainties(). Index out of range." << std::endl;
+    return nullptr;
+  }
+
+  if (ptype == Particles::kTrack)
+    return &(m_uncertainties[index]);
+
+  // return error value
+  return nullptr;
+}
+
+// ---------------------------------------------------------
 int Particles::JetIndex(int index) const {
   // no check on index range for CPU-time reasons
   return m_jet_indices[index];
@@ -567,6 +619,12 @@ int Particles::MuonIndex(int index) const {
 int Particles::PhotonIndex(int index) const {
   // no check on index range for CPU-time reasons
   return m_photon_indices[index];
+}
+
+// ---------------------------------------------------------
+int Particles::TrackIndex(int index) const {
+  // no check on index range for CPU-time reasons
+  return m_track_indices[index];
 }
 
 // ---------------------------------------------------------
