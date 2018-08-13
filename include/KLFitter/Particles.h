@@ -355,7 +355,7 @@ class Particles final {
     * @param ptype The particle type.
     * @return The uncertaintie of the particle
     */
-  const std::vector<double> Uncertainties(int index, KLFitter::Particles::ParticleType ptype) const;
+  const std::vector<double>* Uncertainties(int index, KLFitter::Particles::ParticleType ptype) const;
 
   /**
    * Return the detector eta of a particle with some index and type.

@@ -237,7 +237,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
                                     KLFitter::Particles::kTrack,
                                     (*fParticles)->NameParticle(index, KLFitter::Particles::kTrack),
                                     (*fParticles)->TrackIndex(index),
-                                    (*fParticles)->Uncertainties(index,KLFitter::Particles::kTrack));
+                                    *((*fParticles)->Uncertainties(index,KLFitter::Particles::kTrack)));
 
               // set permutation
               permutation[npartonsPerm + nelectrons + nmuons + nphotons + i] = index;

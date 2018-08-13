@@ -23,15 +23,11 @@
 #ifndef KLFITTER_LIKELIHOODTWOTRACKS_H_
 #define KLFITTER_LIKELIHOODTWOTRACKS_H_
 
-// --------------------------------------------------------- 
-
-#include "KLFitter/LikelihoodBase.h"
-#include "KLFitter/ResolutionBase.h"
-
-#include "TLorentzVector.h"
-
 #include <iostream>
 
+#include "KLFitter/LikelihoodBase.h"
+
+class TLorentzVector;
 // --------------------------------------------------------- 
 
 /*!
@@ -40,6 +36,8 @@
  */
 namespace KLFitter
 {
+  
+  class ResolutionBase;
 
   class LikelihoodTwoTracks : public KLFitter::LikelihoodBase
   {
@@ -188,18 +186,6 @@ namespace KLFitter
     /* @} */
 
   protected: 
-                
-
-    /**
-     * Calculates the neutrino pz solutions from the measured values
-     * and the W mass. An additional particle to be added to the 
-     * charged lepton may be specified, for example a photon
-     * in ttbargamma, which is radiated from the leptonic W
-     * or the charged lepton;
-     * @param Pointer to a 4-vector of a particle which is added to the charged lepton in the calculation
-     * @return A vector with 0, 1 or 2 neutrino pz solutions.
-     */
-    std::vector<double> CalculateNeutrinoPzSolutions(TLorentzVector * additionalParticle = nullptr);
 
     /**
      * Save permuted particles.

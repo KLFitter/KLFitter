@@ -587,18 +587,18 @@ float Particles::LeptonCharge(int index, Particles::ParticleType ptype) const {
 }
 
 // --------------------------------------------------------- 
-const std::vector<double> Particles::Uncertainties(int index, Particles::ParticleType ptype) const {
+ const std::vector<double>* Particles::Uncertainties(int index, Particles::ParticleType ptype) const {
 
   if (index < 0 || index > NParticles(ptype)) {
     std::cout << "KLFitter::Particles::Uncertainties(). Index out of range." << std::endl; 
-    return std::vector<double>(); 
+    return NULL; 
   }
 
   if (ptype == KLFitter::Particles::kTrack)
-    return (m_uncertainties[index]);
+    return &(m_uncertainties[index]);
 
   // return error value
-  return std::vector<double>();
+  return NULL;
 }
 
 // ---------------------------------------------------------
