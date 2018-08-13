@@ -41,7 +41,6 @@ namespace KLFitter {
   */
 class Particles final {
  public:
-
   /// Enumerator for particle types.
   enum ParticleType { kParton,    ///< Particle type parton
                       kElectron,  ///< Particle type electron
@@ -123,9 +122,9 @@ class Particles final {
   int NPhotons() const { return int (m_photons.size()); }
 
   /**
-    * Return the number of tracks.
-    * @return The number of tracks.
-    */
+   * Return the number of tracks.
+   * @return The number of tracks.
+   */
   int NTracks() const { return int (m_tracks.size()); }
 
   /**
@@ -203,16 +202,16 @@ class Particles final {
   TLorentzVector* Photon(int index);
 
   /**
-    * Return the track at some index.
-    * @param index The track index
-    * @return A pointer to the TLorentzVector of the track.
-    */
+   * Return the track at some index.
+   * @param index The track index
+   * @return A pointer to the TLorentzVector of the track.
+   */
   TLorentzVector* Track(int index);
 
   /**
-    * Return the number of particles.
-    * @return The number of particles.
-    */
+   * Return the number of particles.
+   * @return The number of particles.
+   */
   int NParticles() const { return static_cast<int>(m_partons.size() + m_electrons.size() + m_muons.size() + m_taus.size() + m_neutrinos.size() + m_bosons.size() + m_photons.size()) + m_tracks.size(); }
 
   /**
@@ -350,11 +349,11 @@ class Particles final {
   bool BTagWeightSet(int index) const { return m_btag_weights_set[index]; }
 
   /**
-    * Return the uncertainty of a particle with some index and type.
-    * @param index The index of the particle
-    * @param ptype The particle type.
-    * @return The uncertaintie of the particle
-    */
+   * Return the uncertainty of a particle with some index and type.
+   * @param index The index of the particle
+   * @param ptype The particle type.
+   * @return The uncertaintie of the particle
+   */
   const std::vector<double>* Uncertainties(int index, KLFitter::Particles::ParticleType ptype) const;
 
   /**
@@ -507,15 +506,6 @@ class Particles final {
   int AddParticle(const TLorentzVector& particle, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, TrueFlavorType trueflav, double btagweight = 999);
 
   /**
-    * Add a particle to a list of particles.
-    * @param particle A pointer to the particle.
-    * @param ptype The type of particle.
-    * @param name The name of the particle.
-    * @param uncertainies The associated uncertainties.
-    */
-  int AddParticle(const TLorentzVector& particle, KLFitter::Particles::ParticleType ptype, std::string name = "", int measuredindex = -1, const std::vector<double> & uncertainies = std::vector<double>());
-
-  /**
    * DEPRECATED FUNCTION. This is an overloaded implementation of
    * the previous function using TLorentzVector pointers instead
    * of const ref. The usage of this function is deprecated and
@@ -523,6 +513,15 @@ class Particles final {
    * to the above implementation.
    */
   int AddParticle(const TLorentzVector* const particle, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, TrueFlavorType trueflav, double btagweight = 999);
+
+  /**
+   * Add a particle to a list of particles.
+   * @param particle A pointer to the particle.
+   * @param ptype The type of particle.
+   * @param name The name of the particle.
+   * @param uncertainies The associated uncertainties.
+   */
+  int AddParticle(const TLorentzVector& particle, KLFitter::Particles::ParticleType ptype, std::string name = "", int measuredindex = -1, const std::vector<double>& uncertainies = std::vector<double>());
 
   /**
    * Removes a particle from a list of particles.
@@ -619,8 +618,8 @@ class Particles final {
   std::vector<TLorentzVector> m_tracks;
 
   /**
-    * The name of the partons.
-    */
+   * The name of the partons.
+   */
   std::vector<std::string> m_parton_names;
 
   /**
@@ -654,8 +653,8 @@ class Particles final {
   std::vector<std::string> m_photon_names;
 
   /**
-    * The name of the tracks.
-    */
+   * The name of the tracks.
+   */
   std::vector<std::string> m_track_names;
 
   /**
@@ -679,8 +678,8 @@ class Particles final {
   std::vector<int> m_photon_indices;
 
   /**
-    * The index of the corresponding measured track.
-    */
+   * The index of the corresponding measured track.
+   */
   std::vector<int> m_track_indices;
 
   /**
@@ -744,10 +743,9 @@ class Particles final {
   std::vector<float> m_muon_charges;
 
   /**
-    * Vector containing the uncertainties of tracks.
-    */
-  std::vector < std::vector <double> > m_uncertainties;
-
+   * Vector containing the uncertainties of tracks.
+   */
+  std::vector<std::vector<double> > m_uncertainties;
 };
 }  // namespace KLFitter
 

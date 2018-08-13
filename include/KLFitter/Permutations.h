@@ -110,7 +110,6 @@ class Permutations final {
 
   std::vector<std::vector<int> >* TableTracks() { return &fTableTracks; }
 
-
   /* @} */
   /** \name Member functions (Set)  */
   /* @{ */
@@ -232,7 +231,7 @@ class Permutations final {
   std::vector<std::vector<int> > fTableElectrons;
   std::vector<std::vector<int> > fTableMuons;
   std::vector<std::vector<int> > fTablePhotons;
-  std::vector<std::vector<int> > fTableTracks; 
+  std::vector<std::vector<int> > fTableTracks;
 };
 }  // namespace KLFitter
 

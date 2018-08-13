@@ -1,4 +1,4 @@
- /*
+/*
  * Copyright (c) 2009--2018, the KLFitter developer team
  *
  * This file is part of KLFitter.
@@ -174,22 +174,19 @@ int Particles::AddParticle(const TLorentzVector& particle, Particles::ParticleTy
   return AddParticle(particle, -999, ptype, name, measuredindex, false, -1., -1., trueflav, btagweight);
 }
 
-// --------------------------------------------------------- 
-int KLFitter::Particles::AddParticle(const TLorentzVector& particle, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, const std::vector<double> &uncertainies)
-{
-
-  AddParticle(particle, -999, ptype, name, measuredindex, Particles::TrueFlavorType::kNone, 999);
-
-  m_uncertainties.push_back(uncertainies);
-  
-  // no error
-  return 1;
-        
-}
-
 // --------------------------------------------------------- // THIS FUNCTION IS TO BE REMOVED IN THE NEXT MAJOR RELEASE
 int Particles::AddParticle(const TLorentzVector* const particle, Particles::ParticleType ptype, std::string name, int measuredindex, TrueFlavorType trueflav, double btagweight) {
   return AddParticle(*particle, ptype, name, measuredindex, trueflav, btagweight);
+}
+
+// ---------------------------------------------------------
+int Particles::AddParticle(const TLorentzVector& particle, Particles::ParticleType ptype, std::string name, int measuredindex, const std::vector<double>& uncertainies) {
+  AddParticle(particle, -999, ptype, name, measuredindex, Particles::TrueFlavorType::kNone, 999);
+
+  m_uncertainties.push_back(uncertainies);
+
+  // no error
+  return 1;
 }
 
 // ---------------------------------------------------------
@@ -476,7 +473,7 @@ std::vector<TLorentzVector>* Particles::ParticleContainer(KLFitter::Particles::P
   case Particles::kPhoton:
     return &m_photons;
     break;
-  case KLFitter::Particles::kTrack:
+  case Particles::kTrack:
     return &m_tracks;
     break;
   }
@@ -586,19 +583,18 @@ float Particles::LeptonCharge(int index, Particles::ParticleType ptype) const {
   return -9;
 }
 
-// --------------------------------------------------------- 
- const std::vector<double>* Particles::Uncertainties(int index, Particles::ParticleType ptype) const {
-
+// ---------------------------------------------------------
+const std::vector<double>* Particles::Uncertainties(int index, Particles::ParticleType ptype) const {
   if (index < 0 || index > NParticles(ptype)) {
-    std::cout << "KLFitter::Particles::Uncertainties(). Index out of range." << std::endl; 
-    return NULL; 
+    std::cout << "KLFitter::Particles::Uncertainties(). Index out of range." << std::endl;
+    return nullptr;
   }
 
-  if (ptype == KLFitter::Particles::kTrack)
+  if (ptype == Particles::kTrack)
     return &(m_uncertainties[index]);
 
   // return error value
-  return NULL;
+  return nullptr;
 }
 
 // ---------------------------------------------------------

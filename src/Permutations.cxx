@@ -81,7 +81,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
   int npartons   = (*fParticles)->NPartons();
   int nelectrons = (*fParticles)->NElectrons();
   int nmuons     = (*fParticles)->NMuons();
-  int nphotons   = (*fParticles)->NPhotons();
+  int nphotons     = (*fParticles)->NPhotons();
   int ntracks    = (*fParticles)->NTracks();
 
   bool isDilepton(false);
@@ -116,7 +116,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
   int npermpartons   = fTablePartons.size() <= 0 ? 1 : fTablePartons.size();
   int npermelectrons = fTableElectrons.size() <= 0 ? 1 : fTableElectrons.size();
   int npermmuons     = fTableMuons.size() <= 0 ? 1 : fTableMuons.size();
-  int npermphotons    = fTablePhotons.size() <= 0 ? 1 : fTablePhotons.size();
+  int npermphotons     = fTablePhotons.size() <= 0 ? 1 : fTablePhotons.size();
   int npermtracks    = fTableTracks.size() <= 0 ? 1 : fTableTracks.size();
   int npermoverall   = npartonsPerm + nelectrons + nmuons + nphotons + ntracks;
 
@@ -249,7 +249,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
 
             // add permutation to table
             fPermutationTable.emplace_back(permutation);
-          }  
+          }
         }
       }
     }
