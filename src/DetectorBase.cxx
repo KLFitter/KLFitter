@@ -35,4 +35,9 @@ int DetectorBase::Status() {
   // This function is being refactored ...
   return 1;
 }
+
+// ---------------------------------------------------------
+void DetectorBase::RequestResolutionType(const ResolutionType& type) {
+  res_type_requested.insert(type);
+}
 }  // namespace KLFitter

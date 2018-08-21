@@ -20,12 +20,27 @@
 #ifndef KLFITTER_DETECTORBASE_H_
 #define KLFITTER_DETECTORBASE_H_
 
+#include <set>
 #include <string>
 
 // ---------------------------------------------------------
 
 namespace KLFitter {
 class ResolutionBase;
+
+enum class ResolutionType {
+  EnergyLightJet,  ///< Energy resolution of light jets
+  EnergyBJet,      ///< Energy resolution of b-jets
+  EnergyGluonJet,  ///< Energy resolution of gluon jets
+  EnergyElectron,  ///< Energy resolution of electrons
+  EnergyMuon,      ///< Energy resolution of muons
+  EnergyPhoton,    ///< Energy resolution of photons
+  MissingET,       ///< Missing ET resolution
+  EtaLightJet,     ///< Eta resolution of light jets
+  EtaBJet,         ///< Eta resolution of b-jets
+  PhiLightJet,     ///< Phi resolution of light jets
+  PhiBJet,         ///< Phi resolution of b-jets
+};
 
 /**
  * A base class for describing detectors. This base class
@@ -129,7 +144,20 @@ class DetectorBase {
 
   int Status();
 
+  /**
+   * Request a resolution type from the detector. The likelihoods
+   * should define which resolution types are needed and make the
+   * appropriate requests to the detector class. Requested
+   * resolution types are then checked in the Status() function.
+   * @param type The ResolutionType object
+   */
+  void RequestResolutionType(const ResolutionType& type);
+
   /* @} */
+
+ protected:
+  /// Requested resolutions that the detector must provide.
+  std::set<ResolutionType> res_type_requested;
 };
 }  // namespace KLFitter
 
