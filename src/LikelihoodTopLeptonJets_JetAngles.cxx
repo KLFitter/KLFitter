@@ -282,6 +282,19 @@ int LikelihoodTopLeptonJets_JetAngles::AdjustParameterRanges() {
 }
 
 // ---------------------------------------------------------
+void LikelihoodTopLeptonJets_JetAngles::RequestResolutionFunctions() {
+  (*fDetector)->RequestResolutionType(ResolutionType::EnergyLightJet);
+  (*fDetector)->RequestResolutionType(ResolutionType::EnergyBJet);
+  (*fDetector)->RequestResolutionType(ResolutionType::EnergyElectron);
+  (*fDetector)->RequestResolutionType(ResolutionType::EnergyMuon);
+  (*fDetector)->RequestResolutionType(ResolutionType::MissingET);
+  (*fDetector)->RequestResolutionType(ResolutionType::EtaLightJet);
+  (*fDetector)->RequestResolutionType(ResolutionType::EtaBJet);
+  (*fDetector)->RequestResolutionType(ResolutionType::PhiLightJet);
+  (*fDetector)->RequestResolutionType(ResolutionType::PhiBJet);
+}
+
+// ---------------------------------------------------------
 double LikelihoodTopLeptonJets_JetAngles::LogLikelihood(const std::vector<double> & parameters) {
   // calculate 4-vectors
   CalculateLorentzVectors(parameters);

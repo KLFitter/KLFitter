@@ -104,6 +104,9 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
     */
   int SetET_miss_XY_SumET(double etx, double ety, double sumet) override;
 
+  /// Request the necessary resolution functions from the detector.
+  void RequestResolutionFunctions() override;
+
   /**
     * Associate the hadronic leg of the event to the top quark for likelihood calculation.
     */

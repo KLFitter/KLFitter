@@ -62,6 +62,15 @@ int KLFitter::LikelihoodTTHLeptonJets::SetET_miss_XY_SumET(double etx, double et
 }
 
 // ---------------------------------------------------------
+void KLFitter::LikelihoodTTHLeptonJets::RequestResolutionFunctions() {
+  (*fDetector)->RequestResolutionType(ResolutionType::EnergyLightJet);
+  (*fDetector)->RequestResolutionType(ResolutionType::EnergyBJet);
+  (*fDetector)->RequestResolutionType(ResolutionType::EnergyElectron);
+  (*fDetector)->RequestResolutionType(ResolutionType::EnergyMuon);
+  (*fDetector)->RequestResolutionType(ResolutionType::MissingET);
+}
+
+// ---------------------------------------------------------
 void KLFitter::LikelihoodTTHLeptonJets::SetLeptonType(LeptonType leptontype) {
   if (leptontype != kElectron && leptontype != kMuon) {
     std::cout << "KLFitter::SetLeptonTyp(). Warning: lepton type not defined. Set electron as lepton type." << std::endl;

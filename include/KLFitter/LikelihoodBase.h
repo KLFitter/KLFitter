@@ -155,7 +155,7 @@ class LikelihoodBase : public BCModel {
     * @param detector A pointer to a pointer of the detector.
     * @return An error flag
     */
-  int SetDetector(KLFitter::DetectorBase** detector);
+  virtual int SetDetector(KLFitter::DetectorBase** detector);
 
   /**
     * Set the measured particles.
@@ -280,6 +280,11 @@ class LikelihoodBase : public BCModel {
     */
   void PropagateBTaggingInformation();
 
+  /**
+   * Request necessary resolution functions from the detector.
+   * @return An error code.
+   */
+  virtual void RequestResolutionFunctions() = 0;
 
   /* @} */
   /** \name Member functions (BAT)  */

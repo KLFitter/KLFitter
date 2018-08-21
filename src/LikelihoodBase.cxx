@@ -120,6 +120,8 @@ int KLFitter::LikelihoodBase::SetDetector(KLFitter::DetectorBase** detector) {
   // set pointer to pointer of detector
   fDetector = detector;
 
+  if (*fDetector) RequestResolutionFunctions();
+
   // no error
   return 1;
 }

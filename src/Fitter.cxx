@@ -107,6 +107,9 @@ int KLFitter::Fitter::SetDetector(KLFitter::DetectorBase * detector) {
   // set detector
   fDetector = detector;
 
+  // If likelihood != nullptr, request the resolution functions now.
+  if (fLikelihood) fLikelihood->RequestResolutionFunctions();
+
   // Return the status of the detector.
   return fDetector->Status();
 }

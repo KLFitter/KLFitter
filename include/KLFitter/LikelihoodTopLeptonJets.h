@@ -166,6 +166,9 @@ class LikelihoodTopLeptonJets : public LikelihoodBase {
    */
   int SetET_miss_XY_SumET(double etx, double ety, double sumet) override;
 
+  /// Request the necessary resolution functions from the detector.
+  void RequestResolutionFunctions() override;
+
   /* @} */
 
  protected:
