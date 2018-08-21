@@ -27,116 +27,92 @@
 
 // ---------------------------------------------------------
 
-/**
- * \namespace KLFitter
- * \brief The KLFitter namespace
- */
 namespace KLFitter {
+class ResolutionBase;
+
 /**
-  * \class KLFitter::DetectorSnowmass
-  * \brief A class for describing of the Snowmass detector.
-  *
-  * This class holds the description of the Snowmass detector.
-  */
+ * A class for describing the Snowmass detector. This class
+ * holds the description of the Snowmass detector.
+ */
 class DetectorSnowmass : public DetectorBase {
  public:
-  /** \name Constructors and destructors */
-  /* @{ */
-
   /**
-    * The default constructor.
-    * @param folder The folder with transfer function parameters.
-    */
+   * The default constructor.
+   * @param folder The folder with transfer function parameters.
+   */
   explicit DetectorSnowmass(std::string folder = "");
 
-  /**
-    * The (defaulted) destructor.
-    */
+  /// The (defaulted) destructor.
   ~DetectorSnowmass();
 
-  /* @} */
   /** \name Member functions (Get)  */
   /* @{ */
 
   /**
-    * Return the energy resolution of light-jets.
-    * @param eta The eta of the particle.
-    * @return A pointer to the energy resolution object.
-    */
+   * Return the energy resolution of light-jets.
+   * @param eta The eta of the particle.
+   * @return A pointer to the energy resolution object.
+   */
   ResolutionBase* ResEnergyLightJet(double eta = 0.) override;
 
   /**
-    * Return the energy resolution of b-jets.
-    * @param eta The eta of the particle.
-    * @return A pointer to the energy resolution object.
-    */
+   * Return the energy resolution of b-jets.
+   * @param eta The eta of the particle.
+   * @return A pointer to the energy resolution object.
+   */
   ResolutionBase* ResEnergyBJet(double eta = 0.) override;
 
   /**
-    * Return the energy resolution of electrons.
-    * @param eta The eta of the particle.
-    * @return A pointer to the energy resolution object.
-    */
+   * Return the energy resolution of electrons.
+   * @param eta The eta of the particle.
+   * @return A pointer to the energy resolution object.
+   */
   ResolutionBase* ResEnergyElectron(double eta = 0.) override;
 
   /**
-    * Return the momentum resolution of muons.
-    * @param eta The eta of the particle.
-    * @return A pointer to the momentum resolution object.
-    */
+   * Return the momentum resolution of muons.
+   * @param eta The eta of the particle.
+   * @return A pointer to the momentum resolution object.
+   */
   ResolutionBase* ResEnergyMuon(double eta = 0.) override;
 
   /**
-    * Return the missing ET resolution.
-    * @return A pointer to the missing ET resolution.
-    */
+   * Return the missing ET resolution.
+   * @return A pointer to the missing ET resolution.
+   */
   ResolutionBase* ResMissingET() override;
 
   /* @} */
 
  private:
-  /**
-    * The energy resolution of light jets for different eta regions.
-    */
-  std::unique_ptr<ResolutionBase> fResEnergyJet_eta1;
-  std::unique_ptr<ResolutionBase> fResEnergyJet_eta2;
-  std::unique_ptr<ResolutionBase> fResEnergyJet_eta3;
+  /// The energy resolution of light jets for different eta regions.
+  std::unique_ptr<ResolutionBase> m_res_jet_energy_eta1;
+  std::unique_ptr<ResolutionBase> m_res_jet_energy_eta2;
+  std::unique_ptr<ResolutionBase> m_res_jet_energy_eta3;
 
-  /**
-    * The energy resolution of electrons for different eta regions.
-    */
-  std::unique_ptr<ResolutionBase> fResEnergyElectron_eta1;
-  std::unique_ptr<ResolutionBase> fResEnergyElectron_eta2;
+  /// The energy resolution of electrons for different eta regions.
+  std::unique_ptr<ResolutionBase> m_res_electron_energy_eta1;
+  std::unique_ptr<ResolutionBase> m_res_electron_energy_eta2;
 
-  /**
-    * The momentum resolution of muons for different eta regions.
-    */
-  std::unique_ptr<ResolutionBase> fResMomentumMuon_eta1;
-  std::unique_ptr<ResolutionBase> fResMomentumMuon_eta2;
+  /// The momentum resolution of muons for different eta regions.
+  std::unique_ptr<ResolutionBase> m_res_muon_momentum_eta1;
+  std::unique_ptr<ResolutionBase> m_res_muon_momentum_eta2;
 
-  /**
-    * Missing ET resolution in x and y
-    */
-  std::unique_ptr<ResolutionBase> fResMissingET_eta1;
+  /// Missing ET resolution in x and y
+  std::unique_ptr<ResolutionBase> m_res_missing_ET;
 
-  /**
-    * The eta binning for jets
-    */
-  double fJetEtaBin_1;
-  double fJetEtaBin_2;
-  double fJetEtaBin_3;
+  /// The eta binning for jets
+  double m_jet_eta_bin_1;
+  double m_jet_eta_bin_2;
+  double m_jet_eta_bin_3;
 
-  /**
-    * The eta binning for electrons
-    */
-  double fElectronEtaBin_1;
-  double fElectronEtaBin_2;
+  /// The eta binning for electrons
+  double m_electron_eta_bin_1;
+  double m_electron_eta_bin_2;
 
-  /**
-    * The eta binning for muons
-    */
-  double fMuonEtaBin_1;
-  double fMuonEtaBin_2;
+  /// The eta binning for muons
+  double m_muon_eta_bin_1;
+  double m_muon_eta_bin_2;
 
 };
 }  // namespace KLFitter

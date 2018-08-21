@@ -129,14 +129,10 @@ class ResolutionBase {
   /* @} */
 
  protected:
-  /**
-    * The number of parameters.
-    */
+  /// The number of parameters.
   int fNParameters;
 
-  /**
-    * The parameter values.
-    */
+  /// The parameter values.
   std::vector <double> fParameters;
 };
 }  // namespace KLFitter

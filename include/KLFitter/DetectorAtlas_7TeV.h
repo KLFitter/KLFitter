@@ -27,233 +27,191 @@
 
 // ---------------------------------------------------------
 
-/**
- * \namespace KLFitter
- * \brief The KLFitter namespace
- */
 namespace KLFitter {
 /**
-  * \class KLFitter::DetectorAtlas_7TeV
-  * \brief A class for describing of the ATLAS detector.
-  *
-  * This class holds the description of the ATLAS detector.
-  */
+ * A class for describing of the ATLAS detector. This class
+ * holds the description of the ATLAS detector.
+ */
 class DetectorAtlas_7TeV : public DetectorBase {
  public:
-  /** \name Constructors and destructors */
-  /* @{ */
-
   /**
-    * The default constructor.
-    * @param folder The folder with transfer function parameters.
-    */
+   * The default constructor.
+   * @param folder The folder with transfer function parameters.
+   */
   explicit DetectorAtlas_7TeV(std::string folder = "");
 
-  /**
-    * The (defaulted) destructor.
-    */
+  /// The (defaulted) destructor.
   ~DetectorAtlas_7TeV();
 
-  /* @} */
   /** \name Member functions (Get)  */
   /* @{ */
 
   /**
-    * Return the energy resolution of light jets.
-    * @param eta The eta of the particle.
-    * @return A pointer to the energy resolution object.
-    */
+   * Return the energy resolution of light jets.
+   * @param eta The eta of the particle.
+   * @return A pointer to the energy resolution object.
+   */
   ResolutionBase* ResEnergyLightJet(double eta = 0.) override;
 
   /**
-    * Return the energy resolution of b jets.
-    * @param eta The eta of the particle.
-    * @return A pointer to the energy resolution object.
-    */
+   * Return the energy resolution of b jets.
+   * @param eta The eta of the particle.
+   * @return A pointer to the energy resolution object.
+   */
   ResolutionBase* ResEnergyBJet(double eta = 0.) override;
 
   /**
-    * Return the energy resolution of gluon jets.
-    * @param eta The eta of the particle.
-    * @return A pointer to the energy resolution object.
-    */
+   * Return the energy resolution of gluon jets.
+   * @param eta The eta of the particle.
+   * @return A pointer to the energy resolution object.
+   */
   ResolutionBase* ResEnergyGluonJet(double eta = 0.) override;
 
   /**
-    * Return the energy resolution of electrons.
-    * @param eta The eta of the particle.
-    * @return A pointer to the energy resolution object.
-    */
+   * Return the energy resolution of electrons.
+   * @param eta The eta of the particle.
+   * @return A pointer to the energy resolution object.
+   */
   ResolutionBase* ResEnergyElectron(double eta = 0.) override;
 
   /**
-    * Return the energy resolution of muons.
-    * @param eta The eta of the particle.
-    * @return A pointer to the energy resolution object.
-    */
+   * Return the energy resolution of muons.
+   * @param eta The eta of the particle.
+   * @return A pointer to the energy resolution object.
+   */
   ResolutionBase* ResEnergyMuon(double eta = 0.) override;
 
   /**
-    * Return the energy resolution of photons.
-    * @param eta The eta of the particle.
-    * @return A pointer to the energy resolution object.
-    */
+   * Return the energy resolution of photons.
+   * @param eta The eta of the particle.
+   * @return A pointer to the energy resolution object.
+   */
   ResolutionBase* ResEnergyPhoton(double eta = 0.) override;
 
   /**
-    * Return the missing ET resolution.
-    * @return A pointer to the missing ET resolution.
-    */
+   * Return the missing ET resolution.
+   * @return A pointer to the missing ET resolution.
+   */
   ResolutionBase* ResMissingET() override;
 
   /**
-    * Return the eta resolution of light jets.
-    * @param eta The eta of the particle.
-    * @return A pointer to the eta resolution object.
-    */
+   * Return the eta resolution of light jets.
+   * @param eta The eta of the particle.
+   * @return A pointer to the eta resolution object.
+   */
   ResolutionBase* ResEtaLightJet(double eta = 0.) override;
 
   /**
-    * Return the eta resolution of b jets.
-    * @param eta The eta of the particle.
-    * @return A pointer to the eta resolution object.
-    */
+   * Return the eta resolution of b jets.
+   * @param eta The eta of the particle.
+   * @return A pointer to the eta resolution object.
+   */
   ResolutionBase* ResEtaBJet(double eta = 0.) override;
 
   /**
-    * Return the phi resolution of light jets.
-    * @param eta The phi of the particle.
-    * @return A pointer to the phi resolution object.
-    */
+   * Return the phi resolution of light jets.
+   * @param eta The phi of the particle.
+   * @return A pointer to the phi resolution object.
+   */
   ResolutionBase* ResPhiLightJet(double eta = 0.) override;
 
   /**
-    * Return the phi resolution of b jets.
-    * @param eta The phi of the particle.
-    * @return A pointer to the phi resolution object.
-    */
+   * Return the phi resolution of b jets.
+   * @param eta The phi of the particle.
+   * @return A pointer to the phi resolution object.
+   */
   ResolutionBase* ResPhiBJet(double eta = 0.) override;
 
   /* @} */
 
  private:
-  /**
-    * The energy resolution of light jets for different eta regions.
-    */
-  std::unique_ptr<ResolutionBase> fResEnergyLightJet_eta1;
-  std::unique_ptr<ResolutionBase> fResEnergyLightJet_eta2;
-  std::unique_ptr<ResolutionBase> fResEnergyLightJet_eta3;
-  std::unique_ptr<ResolutionBase> fResEnergyLightJet_eta4;
-  std::unique_ptr<ResolutionBase> fResEnergyLightJet_eta5;
+  /// The energy resolution of light jets for different eta regions.
+  std::unique_ptr<ResolutionBase> m_res_energy_light_jet_eta1;
+  std::unique_ptr<ResolutionBase> m_res_energy_light_jet_eta2;
+  std::unique_ptr<ResolutionBase> m_res_energy_light_jet_eta3;
+  std::unique_ptr<ResolutionBase> m_res_energy_light_jet_eta4;
+  std::unique_ptr<ResolutionBase> m_res_energy_light_jet_eta5;
 
-  /**
-    * The energy resolution of b jets for different eta regions.
-    */
-  std::unique_ptr<ResolutionBase> fResEnergyBJet_eta1;
-  std::unique_ptr<ResolutionBase> fResEnergyBJet_eta2;
-  std::unique_ptr<ResolutionBase> fResEnergyBJet_eta3;
-  std::unique_ptr<ResolutionBase> fResEnergyBJet_eta4;
-  std::unique_ptr<ResolutionBase> fResEnergyBJet_eta5;
+  /// The energy resolution of b jets for different eta regions.
+  std::unique_ptr<ResolutionBase> m_res_energy_bjet_eta1;
+  std::unique_ptr<ResolutionBase> m_res_energy_bjet_eta2;
+  std::unique_ptr<ResolutionBase> m_res_energy_bjet_eta3;
+  std::unique_ptr<ResolutionBase> m_res_energy_bjet_eta4;
+  std::unique_ptr<ResolutionBase> m_res_energy_bjet_eta5;
 
-  /**
-    * The energy resolution of gluon jets for different eta regions.
-    */
-  std::unique_ptr<ResolutionBase> fResEnergyGluonJet_eta1;
-  std::unique_ptr<ResolutionBase> fResEnergyGluonJet_eta2;
-  std::unique_ptr<ResolutionBase> fResEnergyGluonJet_eta3;
-  std::unique_ptr<ResolutionBase> fResEnergyGluonJet_eta4;
+  /// The energy resolution of gluon jets for different eta regions.
+  std::unique_ptr<ResolutionBase> m_res_energy_gluon_jet_eta1;
+  std::unique_ptr<ResolutionBase> m_res_energy_gluon_jet_eta2;
+  std::unique_ptr<ResolutionBase> m_res_energy_gluon_jet_eta3;
+  std::unique_ptr<ResolutionBase> m_res_energy_gluon_jet_eta4;
 
-  /**
-    * The energy resolution of electrons for different eta regions.
-    */
-  std::unique_ptr<ResolutionBase> fResEnergyElectron_eta1;
-  std::unique_ptr<ResolutionBase> fResEnergyElectron_eta2;
-  std::unique_ptr<ResolutionBase> fResEnergyElectron_eta3;
-  std::unique_ptr<ResolutionBase> fResEnergyElectron_eta4;
+  /// The energy resolution of electrons for different eta regions.
+  std::unique_ptr<ResolutionBase> m_res_energy_electron_eta1;
+  std::unique_ptr<ResolutionBase> m_res_energy_electron_eta2;
+  std::unique_ptr<ResolutionBase> m_res_energy_electron_eta3;
+  std::unique_ptr<ResolutionBase> m_res_energy_electron_eta4;
 
-  /**
-    * The energy resolution of muons for different eta regions.
-    */
-  std::unique_ptr<ResolutionBase> fResEnergyMuon_eta1;
-  std::unique_ptr<ResolutionBase> fResEnergyMuon_eta2;
-  std::unique_ptr<ResolutionBase> fResEnergyMuon_eta3;
+  /// The energy resolution of muons for different eta regions.
+  std::unique_ptr<ResolutionBase> m_res_energy_muon_eta1;
+  std::unique_ptr<ResolutionBase> m_res_energy_muon_eta2;
+  std::unique_ptr<ResolutionBase> m_res_energy_muon_eta3;
 
-  /**
-    * The energy resolution of photons for different eta regions.
-    */
-  std::unique_ptr<ResolutionBase> fResEnergyPhoton_eta1;
-  std::unique_ptr<ResolutionBase> fResEnergyPhoton_eta2;
-  std::unique_ptr<ResolutionBase> fResEnergyPhoton_eta3;
-  std::unique_ptr<ResolutionBase> fResEnergyPhoton_eta4;
+  /// The energy resolution of photons for different eta regions.
+  std::unique_ptr<ResolutionBase> m_res_energy_photon_eta1;
+  std::unique_ptr<ResolutionBase> m_res_energy_photon_eta2;
+  std::unique_ptr<ResolutionBase> m_res_energy_photon_eta3;
+  std::unique_ptr<ResolutionBase> m_res_energy_photon_eta4;
 
-  /**
-    * The eta resolution of light jets for different eta regions.
-    */
-  std::unique_ptr<ResolutionBase> fResEtaLightJet_eta1;
-  std::unique_ptr<ResolutionBase> fResEtaLightJet_eta2;
-  std::unique_ptr<ResolutionBase> fResEtaLightJet_eta3;
-  std::unique_ptr<ResolutionBase> fResEtaLightJet_eta4;
+  /// The eta resolution of light jets for different eta regions.
+  std::unique_ptr<ResolutionBase> m_res_eta_light_jet_eta1;
+  std::unique_ptr<ResolutionBase> m_res_eta_light_jet_eta2;
+  std::unique_ptr<ResolutionBase> m_res_eta_light_jet_eta3;
+  std::unique_ptr<ResolutionBase> m_res_eta_light_jet_eta4;
 
-  /**
-    * The eta resolution of b jets for different eta regions.
-    */
-  std::unique_ptr<ResolutionBase> fResEtaBJet_eta1;
-  std::unique_ptr<ResolutionBase> fResEtaBJet_eta2;
-  std::unique_ptr<ResolutionBase> fResEtaBJet_eta3;
-  std::unique_ptr<ResolutionBase> fResEtaBJet_eta4;
+  /// The eta resolution of b jets for different eta regions.
+  std::unique_ptr<ResolutionBase> m_res_eta_bjet_eta1;
+  std::unique_ptr<ResolutionBase> m_res_eta_bjet_eta2;
+  std::unique_ptr<ResolutionBase> m_res_eta_bjet_eta3;
+  std::unique_ptr<ResolutionBase> m_res_eta_bjet_eta4;
 
-  /**
-    * The phi resolution of light jets for different eta regions.
-    */
-  std::unique_ptr<ResolutionBase> fResPhiLightJet_eta1;
-  std::unique_ptr<ResolutionBase> fResPhiLightJet_eta2;
-  std::unique_ptr<ResolutionBase> fResPhiLightJet_eta3;
-  std::unique_ptr<ResolutionBase> fResPhiLightJet_eta4;
+  /// The phi resolution of light jets for different eta regions.
+  std::unique_ptr<ResolutionBase> m_res_phi_light_jet_eta1;
+  std::unique_ptr<ResolutionBase> m_res_phi_light_jet_eta2;
+  std::unique_ptr<ResolutionBase> m_res_phi_light_jet_eta3;
+  std::unique_ptr<ResolutionBase> m_res_phi_light_jet_eta4;
 
-  /**
-    * The phi resolution of b jets for different eta regions.
-    */
-  std::unique_ptr<ResolutionBase> fResPhiBJet_eta1;
-  std::unique_ptr<ResolutionBase> fResPhiBJet_eta2;
-  std::unique_ptr<ResolutionBase> fResPhiBJet_eta3;
-  std::unique_ptr<ResolutionBase> fResPhiBJet_eta4;
+  /// The phi resolution of b jets for different eta regions.
+  std::unique_ptr<ResolutionBase> m_res_phi_bjet_eta1;
+  std::unique_ptr<ResolutionBase> m_res_phi_bjet_eta2;
+  std::unique_ptr<ResolutionBase> m_res_phi_bjet_eta3;
+  std::unique_ptr<ResolutionBase> m_res_phi_bjet_eta4;
 
-  /**
-   * Missing ET resolution in x and y
-   */
-  std::unique_ptr<ResolutionBase> fResMissingET_eta1;
+  /// Missing ET resolution in x and y
+  std::unique_ptr<ResolutionBase> m_res_missing_ET;
 
-  /**
-    * The eta binning for jets
-    */
-  double fJetEtaBin_1;
-  double fJetEtaBin_2;
-  double fJetEtaBin_3;
-  double fJetEtaBin_4;
-  double fJetEtaBin_5;
+  /// The eta binning for jets
+  double m_jet_eta_bin_1;
+  double m_jet_eta_bin_2;
+  double m_jet_eta_bin_3;
+  double m_jet_eta_bin_4;
+  double m_jet_eta_bin_5;
 
-  /**
-    * The eta binning for electrons
-    */
-  double fElectronEtaBin_1;
-  double fElectronEtaBin_2;
-  double fElectronEtaBin_3;
-  double fElectronEtaBin_4;
+  /// The eta binning for electrons
+  double m_electron_eta_bin_1;
+  double m_electron_eta_bin_2;
+  double m_electron_eta_bin_3;
+  double m_electron_eta_bin_4;
 
-  /**
-    * The eta binning for muons
-    */
-  double fMuonEtaBin_1;
-  double fMuonEtaBin_2;
-  double fMuonEtaBin_3;
+  /// The eta binning for muons
+  double m_muon_eta_bin_1;
+  double m_muon_eta_bin_2;
+  double m_muon_eta_bin_3;
 
-  /**
-    * The eta binning for muons
-    */
-  double fPhotonEtaBin_1;
-  double fPhotonEtaBin_2;
-  double fPhotonEtaBin_3;
-  double fPhotonEtaBin_4;
+  /// The eta binning for muons
+  double m_photon_eta_bin_1;
+  double m_photon_eta_bin_2;
+  double m_photon_eta_bin_3;
+  double m_photon_eta_bin_4;
 };
 }  // namespace KLFitter
 
