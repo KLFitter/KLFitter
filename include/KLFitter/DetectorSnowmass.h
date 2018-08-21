@@ -84,6 +84,24 @@ class DetectorSnowmass : public DetectorBase {
 
   /* @} */
 
+  /// Resolution function for gluon jets -- not defined.
+  ResolutionBase* ResEnergyGluonJet(double) override { return ResolutionUndefined("ResEnergyGluonJet"); }
+
+  /// Resolution function for photons -- not defined.
+  ResolutionBase* ResEnergyPhoton(double) override { return ResolutionUndefined("ResEnergyPhoton"); }
+
+  /// Resolution function for light jet eta -- not defined.
+  ResolutionBase* ResEtaLightJet(double) override { return ResolutionUndefined("ResEtaLightJet"); }
+
+  /// Resolution function for b-jet eta -- not defined.
+  ResolutionBase* ResEtaBJet(double) override { return ResolutionUndefined("ResEtaBJet"); }
+
+  /// Resolution function for light jet phi -- not defined.
+  ResolutionBase* ResPhiLightJet(double) override { return ResolutionUndefined("ResPhiLightJet"); }
+
+  /// Resolution function for b-jet phi -- not defined.
+  ResolutionBase* ResPhiBJet(double) override { return ResolutionUndefined("ResPhiBJet"); }
+
  private:
   /// The energy resolution of light jets for different eta regions.
   std::unique_ptr<ResolutionBase> m_res_jet_energy_eta1;

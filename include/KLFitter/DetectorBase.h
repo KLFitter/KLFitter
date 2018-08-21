@@ -67,76 +67,76 @@ class DetectorBase {
    * @param eta The eta of the particle.
    * @return A pointer to the energy resolution object.
    */
-  virtual ResolutionBase* ResEnergyLightJet(double /*eta*/) { return nullptr; }
+  virtual ResolutionBase* ResEnergyLightJet(double /*eta*/) = 0;
 
   /**
    * Return the energy resolution of b jets.
    * @param eta The eta of the particle.
    * @return A pointer to the energy resolution object.
    */
-  virtual ResolutionBase* ResEnergyBJet(double /*eta*/) { return nullptr; }
+  virtual ResolutionBase* ResEnergyBJet(double /*eta*/) = 0;
 
   /**
    * Return the energy resolution of gluon jets.
    * @param eta The eta of the particle.
    * @return A pointer to the energy resolution object.
    */
-  virtual ResolutionBase* ResEnergyGluonJet(double /*eta*/) { return nullptr; }
+  virtual ResolutionBase* ResEnergyGluonJet(double /*eta*/) = 0;
 
   /**
    * Return the energy resolution of electrons.
    * @param eta The eta of the particle.
    * @return A pointer to the energy resolution object.
    */
-  virtual ResolutionBase* ResEnergyElectron(double /*eta*/) { return nullptr; }
+  virtual ResolutionBase* ResEnergyElectron(double /*eta*/) = 0;
 
   /**
    * Return the energy resolution of muons.
    * @param eta The eta of the particle.
    * @return A pointer to the energy resolution object.
    */
-  virtual ResolutionBase* ResEnergyMuon(double /*eta*/) { return nullptr; }
+  virtual ResolutionBase* ResEnergyMuon(double /*eta*/) = 0;
 
   /**
    * Return the energy resolution of photons.
    * @param eta The eta of the particle.
    * @return A pointer to the energy resolution object.
    */
-  virtual ResolutionBase* ResEnergyPhoton(double /*eta*/) { return nullptr; }
+  virtual ResolutionBase* ResEnergyPhoton(double /*eta*/) = 0;
 
   /**
    * Return the missing ET resolution.
    * @return A pointer to the missing ET resolution.
    */
-  virtual ResolutionBase* ResMissingET() { return nullptr; }
+  virtual ResolutionBase* ResMissingET() = 0;
 
   /**
    * Return the eta resolution of light jets.
    * @param eta The eta of the particle.
    * @return A pointer to the eta resolution object.
    */
-  virtual ResolutionBase* ResEtaLightJet(double /*eta*/) { return nullptr; }
+  virtual ResolutionBase* ResEtaLightJet(double /*eta*/) = 0;
 
   /**
    * Return the eta resolution of b jets.
    * @param eta The eta of the particle.
    * @return A pointer to the eta resolution object.
    */
-  virtual ResolutionBase* ResEtaBJet(double /*eta*/) { return nullptr; }
+  virtual ResolutionBase* ResEtaBJet(double /*eta*/) = 0;
 
   /**
    * Return the phi resolution of light jets.
    * @param eta The phi of the particle.
    * @return A pointer to the phi resolution object.
    */
-  virtual ResolutionBase* ResPhiLightJet(double /*eta*/) { return nullptr; }
+  virtual ResolutionBase* ResPhiLightJet(double /*eta*/) = 0;
 
   /**
    * Return the phi resolution of b jets.
    * @param eta The phi of the particle.
    * @return A pointer to the phi resolution object.
    */
-  virtual ResolutionBase* ResPhiBJet(double /*eta*/) { return nullptr; }
+  virtual ResolutionBase* ResPhiBJet(double /*eta*/) = 0;
 
   /* @} */
   /** \name Member functions (misc)  */
@@ -156,6 +156,17 @@ class DetectorBase {
   /* @} */
 
  protected:
+  /**
+   * Handle the call to a resolution object that is not defined,
+   * and throw an exception. The derived detector classes are
+   * expected to reimplement *all* resolution functions and, if
+   * not supported by the detector, return this dummy object that
+   * throws the exception accordingly.
+   * @param type The type of resolution function
+   * @return A nullptr, because an exception is thrown
+   */
+  ResolutionBase* ResolutionUndefined(const std::string& type);
+
   /// Requested resolutions that the detector must provide.
   std::set<ResolutionType> res_type_requested;
 };

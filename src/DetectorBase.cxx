@@ -32,12 +32,83 @@ DetectorBase::~DetectorBase() = default;
 
 // ---------------------------------------------------------
 int DetectorBase::Status() {
-  // This function is being refactored ...
+  try {
+    if (res_type_requested.find(ResolutionType::EnergyLightJet) != res_type_requested.end()) {
+      if (!ResEnergyLightJet(0)->Status()) {
+        return 0;
+      }
+    }
+    if (res_type_requested.find(ResolutionType::EnergyBJet) != res_type_requested.end()) {
+      if (!ResEnergyBJet(0)->Status()) {
+        return 0;
+      }
+    }
+    if (res_type_requested.find(ResolutionType::EnergyGluonJet) != res_type_requested.end()) {
+      if (!ResEnergyGluonJet(0)->Status()) {
+        return 0;
+      }
+    }
+    if (res_type_requested.find(ResolutionType::EnergyElectron) != res_type_requested.end()) {
+      if (!ResEnergyElectron(0)->Status()) {
+        return 0;
+      }
+    }
+    if (res_type_requested.find(ResolutionType::EnergyMuon) != res_type_requested.end()) {
+      if (!ResEnergyMuon(0)->Status()) {
+        return 0;
+      }
+    }
+    if (res_type_requested.find(ResolutionType::EnergyPhoton) != res_type_requested.end()) {
+      if (!ResEnergyPhoton(0)->Status()) {
+        return 0;
+      }
+    }
+    if (res_type_requested.find(ResolutionType::MissingET) != res_type_requested.end()) {
+      if (!ResMissingET()->Status()) {
+        return 0;
+      }
+    }
+    if (res_type_requested.find(ResolutionType::EtaLightJet) != res_type_requested.end()) {
+      if (!ResEtaLightJet(0)->Status()) {
+        return 0;
+      }
+    }
+    if (res_type_requested.find(ResolutionType::EtaBJet) != res_type_requested.end()) {
+      if (!ResEtaBJet(0)->Status()) {
+        return 0;
+      }
+    }
+    if (res_type_requested.find(ResolutionType::PhiLightJet) != res_type_requested.end()) {
+      if (!ResPhiLightJet(0)->Status()) {
+        return 0;
+      }
+    }
+    if (res_type_requested.find(ResolutionType::PhiBJet) != res_type_requested.end()) {
+      if (!ResPhiBJet(0)->Status()) {
+        return 0;
+      }
+    }
+  } catch (std::invalid_argument& excp) {
+    // Catch exception and exit gracefully with an error code.
+    std::cerr << "KLFitter::DetectorBase:";
+    std::cerr << " Caught std::invalid_argument: " << excp.what() << "\n";
+    return 0;
+  }
+
+  // no error
   return 1;
 }
 
 // ---------------------------------------------------------
 void DetectorBase::RequestResolutionType(const ResolutionType& type) {
   res_type_requested.insert(type);
+}
+
+// ---------------------------------------------------------
+ResolutionBase* DetectorBase::ResolutionUndefined(const std::string& type) {
+  std::cerr << "KLFitter::DetectorBase: Resolution object of type \"" << type;
+  std::cerr << "\" requested by likelihood, but not supported by the detector class.\n";
+  throw std::invalid_argument(type + " is undefined");
+  return nullptr;
 }
 }  // namespace KLFitter
