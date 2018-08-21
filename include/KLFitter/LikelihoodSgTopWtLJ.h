@@ -146,6 +146,9 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
     */
   std::vector<double> GetInitialParameters() override;
 
+  /// Dummy reimplementation from the abstract base class.
+  std::vector<double> LogLikelihoodComponents(std::vector<double>) override { return std::vector<double>{}; }
+
   /* @} */
 
  protected:
