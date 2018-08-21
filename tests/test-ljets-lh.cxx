@@ -109,7 +109,11 @@ int main(int argc, char* argv[]) {
   KLFitter::LikelihoodTopLeptonJets lh{};
   lh.SetLeptonType(KLFitter::LikelihoodTopLeptonJets::LeptonType::kMuon);
   lh.SetBTagging(KLFitter::LikelihoodBase::BtaggingMethod::kWorkingPoint);
-  fitter.SetLikelihood(&lh);
+
+  if (!fitter.SetLikelihood(&lh)) {
+    std::cerr << "Setting up the likelihood failed" << std::endl;
+    return -1;
+  }
 
   KLFitter::DetectorSnowmass detector{base_dir + "/data/transferfunctions/snowmass"};
   if (!fitter.SetDetector(&detector)) {
