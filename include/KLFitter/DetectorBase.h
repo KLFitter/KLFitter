@@ -59,129 +59,80 @@ class DetectorBase {
    * @param eta The eta of the particle.
    * @return A pointer to the energy resolution object.
    */
-  virtual ResolutionBase* ResEnergyLightJet(double /*eta*/) { return fResEnergyLightJet; }
+  virtual ResolutionBase* ResEnergyLightJet(double /*eta*/) { return nullptr; }
 
   /**
    * Return the energy resolution of b jets.
    * @param eta The eta of the particle.
    * @return A pointer to the energy resolution object.
    */
-  virtual ResolutionBase* ResEnergyBJet(double /*eta*/) { return fResEnergyBJet; }
+  virtual ResolutionBase* ResEnergyBJet(double /*eta*/) { return nullptr; }
 
   /**
    * Return the energy resolution of gluon jets.
    * @param eta The eta of the particle.
    * @return A pointer to the energy resolution object.
    */
-  virtual ResolutionBase* ResEnergyGluonJet(double /*eta*/) { return fResEnergyGluonJet; }
+  virtual ResolutionBase* ResEnergyGluonJet(double /*eta*/) { return nullptr; }
 
   /**
    * Return the energy resolution of electrons.
    * @param eta The eta of the particle.
    * @return A pointer to the energy resolution object.
    */
-  virtual ResolutionBase* ResEnergyElectron(double /*eta*/) { return fResEnergyElectron; }
+  virtual ResolutionBase* ResEnergyElectron(double /*eta*/) { return nullptr; }
 
   /**
    * Return the energy resolution of muons.
    * @param eta The eta of the particle.
    * @return A pointer to the energy resolution object.
    */
-  virtual ResolutionBase* ResEnergyMuon(double /*eta*/) { return fResEnergyMuon; }
+  virtual ResolutionBase* ResEnergyMuon(double /*eta*/) { return nullptr; }
 
   /**
    * Return the energy resolution of photons.
    * @param eta The eta of the particle.
    * @return A pointer to the energy resolution object.
    */
-  virtual ResolutionBase* ResEnergyPhoton(double /*eta*/) { return fResEnergyPhoton; }
+  virtual ResolutionBase* ResEnergyPhoton(double /*eta*/) { return nullptr; }
 
   /**
    * Return the missing ET resolution.
    * @return A pointer to the missing ET resolution.
    */
-  virtual ResolutionBase* ResMissingET() { return fResMissingET; }
+  virtual ResolutionBase* ResMissingET() { return nullptr; }
 
   /**
    * Return the eta resolution of light jets.
    * @param eta The eta of the particle.
    * @return A pointer to the eta resolution object.
    */
-  virtual ResolutionBase* ResEtaLightJet(double /*eta*/) { return fResEtaLightJet; }
+  virtual ResolutionBase* ResEtaLightJet(double /*eta*/) { return nullptr; }
 
   /**
    * Return the eta resolution of b jets.
    * @param eta The eta of the particle.
    * @return A pointer to the eta resolution object.
    */
-  virtual ResolutionBase* ResEtaBJet(double /*eta*/) { return fResEtaBJet; }
+  virtual ResolutionBase* ResEtaBJet(double /*eta*/) { return nullptr; }
 
   /**
    * Return the phi resolution of light jets.
    * @param eta The phi of the particle.
    * @return A pointer to the phi resolution object.
    */
-  virtual ResolutionBase* ResPhiLightJet(double /*eta*/) { return fResPhiLightJet; }
+  virtual ResolutionBase* ResPhiLightJet(double /*eta*/) { return nullptr; }
 
   /**
    * Return the phi resolution of b jets.
    * @param eta The phi of the particle.
    * @return A pointer to the phi resolution object.
    */
-  virtual ResolutionBase* ResPhiBJet(double /*eta*/) { return fResPhiBJet; }
+  virtual ResolutionBase* ResPhiBJet(double /*eta*/) { return nullptr; }
 
   /* @} */
   /** \name Member functions (Set)  */
   /* @{ */
-
-  /**
-    * Set the energy resolution parameterization of b jets.
-    * @param res A pointer to the resolution object.
-    * @return An error code.
-    */
-  int SetResEnergyBJet(ResolutionBase* res);
-
-  /**
-    * Set the energy resolution parameterization of light jets.
-    * @param res A pointer to the resolution object.
-    * @return An error code.
-    */
-  int SetResEnergyLightJet(ResolutionBase* res);
-
-  /**
-    * Set the energy resolution parameterization of gluon jets.
-    * @param res A pointer to the resolution object.
-    * @return An error code.
-    */
-  int SetResEnergyGluonJet(ResolutionBase* res);
-
-  /**
-    * Set the energy resolution parameterization of electrons.
-    * @param res A pointer to the resolution object.
-    * @return An error code.
-    */
-  int SetResEnergyElectron(ResolutionBase* res);
-
-  /**
-    * Set the energy resolution parameterization of muons.
-    * @param res A pointer to the resolution object.
-    * @return An error code.
-    */
-  int SetResEnergyMuon(ResolutionBase* res);
-
-  /**
-    * Set the energy resolution parameterization of photons.
-    * @param res A pointer to the resolution object.
-    * @return An error code.
-    */
-  int SetResEnergyPhoton(ResolutionBase* res);
-
-  /**
-    * Set the missing ET resolution parameterization.
-    * @param res A pointer to the resolution object.
-    * @return An error code.
-    */
-  int SetResMissingET(ResolutionBase* res);
 
   /**
     * Set the beam centre-of-mass energy in the current detector.
@@ -204,61 +155,6 @@ class DetectorBase {
   /* @} */
 
  protected:
-  /**
-   * The energy resolution of light jets.
-   */
-  ResolutionBase* fResEnergyLightJet;
-
-  /**
-   * The energy resolution of b jets.
-   */
-  ResolutionBase* fResEnergyBJet;
-
-  /**
-   * The energy resolution of gluon jets.
-   */
-  ResolutionBase* fResEnergyGluonJet;
-
-  /**
-   * The energy resolution of electrons.
-   */
-  ResolutionBase* fResEnergyElectron;
-
-  /**
-   * The energy resolution of muons.
-   */
-  ResolutionBase* fResEnergyMuon;
-
-  /**
-   * The energy resolution of photons.
-   */
-  ResolutionBase* fResEnergyPhoton;
-
-  /**
-   * The missing ET resolution.
-   */
-  ResolutionBase* fResMissingET;
-
-  /**
-   * The eta resolution of light jets.
-   */
-  ResolutionBase* fResEtaLightJet;
-
-  /**
-   * The eta resolution of b jets.
-   */
-  ResolutionBase* fResEtaBJet;
-
-  /**
-   * The phi resolution of light jets.
-   */
-  ResolutionBase* fResPhiLightJet;
-
-  /**
-   * The phi resolution of b jets.
-   */
-  ResolutionBase* fResPhiBJet;
-
   /**
    * The current beam centre-of-mass energy in the detector
    */

@@ -25,120 +25,14 @@
 
 namespace KLFitter {
 // ---------------------------------------------------------
-DetectorBase::DetectorBase(std::string /*folder*/)
-  : fResEnergyLightJet(0)
-  , fResEnergyBJet(0)
-  , fResEnergyGluonJet(0)
-  , fResEnergyElectron(0)
-  , fResEnergyMuon(0)
-  , fResEnergyPhoton(0)
-  , fResMissingET(0) {
-}
+DetectorBase::DetectorBase(std::string /*folder*/) {}
 
 // ---------------------------------------------------------
 DetectorBase::~DetectorBase() = default;
 
 // ---------------------------------------------------------
-int DetectorBase::SetResEnergyBJet(ResolutionBase * res) {
-  // set resolution
-  fResEnergyBJet = res;
-
-  // no error
-  return 1;
-}
-
-// ---------------------------------------------------------
-int DetectorBase::SetResEnergyLightJet(ResolutionBase * res) {
-  // set resolution
-  fResEnergyLightJet = res;
-
-  // no error
-  return 1;
-}
-
-// ---------------------------------------------------------
-int DetectorBase::SetResEnergyGluonJet(ResolutionBase * res) {
-  // set resolution
-  fResEnergyGluonJet = res;
-
-  // no error
-  return 1;
-}
-
-// ---------------------------------------------------------
-int DetectorBase::SetResEnergyElectron(ResolutionBase * res) {
-  // set resolution
-  fResEnergyElectron = res;
-
-  // no error
-  return 1;
-}
-
-// ---------------------------------------------------------
-int DetectorBase::SetResEnergyMuon(ResolutionBase * res) {
-  // set resolution
-  fResEnergyMuon = res;
-
-  // no error
-  return 1;
-}
-
-// ---------------------------------------------------------
-int DetectorBase::SetResEnergyPhoton(ResolutionBase * res) {
-  // set resolution
-  fResEnergyPhoton = res;
-
-  // no error
-  return 1;
-}
-
-// ---------------------------------------------------------
-int DetectorBase::SetResMissingET(ResolutionBase * res) {
-  // set resolution
-  fResMissingET = res;
-
-  // no error
-  return 1;
-}
-
-// ---------------------------------------------------------
 int DetectorBase::Status() {
-  if (!fResEnergyLightJet) {
-    std::cout << "DetectorBase::Status(). Energy resolution of light jets not defined." << std::endl;
-    return 0;
-  }
-
-  if (!fResEnergyBJet) {
-    std::cout << "DetectorBase::Status(). Energy resolution of b jets not defined." << std::endl;
-    return 0;
-  }
-
-  // if (!fResEnergyGluonJet) {
-  //   std::cout << "DetectorBase::Status(). Energy resolution of gluon jets not defined." << std::endl;
-  //   return 0;
-  // }
-
-  if (!fResEnergyElectron) {
-    std::cout << "DetectorBase::Status(). Energy resolution of electrons not defined." << std::endl;
-    return 0;
-  }
-
-  if (!fResEnergyMuon) {
-    std::cout << "DetectorBase::Status(). Energy resolution of muons not defined." << std::endl;
-    return 0;
-  }
-
-  // if (!fResEnergyPhoton) {
-  //   std::cout << "DetectorBase::Status(). Energy resolution of photons not defined." << std::endl;
-  //   return 0;
-  // }
-
-  if (!fResMissingET) {
-    std::cout << "DetectorBase::Status(). Missing ET resolution not defined." << std::endl;
-    return 0;
-  }
-
-  // no error
+  // This function is being refactored ...
   return 1;
 }
 }  // namespace KLFitter
