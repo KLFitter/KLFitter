@@ -107,18 +107,6 @@ DetectorAtlas_7TeV::DetectorAtlas_7TeV(std::string folder) : DetectorBase() {
   m_res_phi_bjet_eta4 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_phi_bJets_eta4.txt", folder.c_str())});
 
   m_res_missing_ET = std::unique_ptr<ResolutionBase>(new ResGauss_MET{Form("%s/par_misset.txt", folder.c_str())});
-
-  // Set eta binning for different objects starting with eta = 0
-  m_jet_eta_bin_1 = 0.8;
-  m_jet_eta_bin_2 = 1.37;
-  m_jet_eta_bin_3 = 1.52;
-  m_jet_eta_bin_4 = 2.5;
-  m_jet_eta_bin_5 = 4.5;
-
-  m_electron_eta_bin_1 = 0.8;
-  m_electron_eta_bin_2 = 1.37;
-  m_electron_eta_bin_3 = 1.52;
-  m_electron_eta_bin_4 = 2.5;
 }
 
 // ---------------------------------------------------------

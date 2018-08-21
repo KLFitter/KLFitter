@@ -190,28 +190,28 @@ class DetectorAtlas_7TeV : public DetectorBase {
   std::unique_ptr<ResolutionBase> m_res_missing_ET;
 
   /// The eta binning for jets
-  double m_jet_eta_bin_1;
-  double m_jet_eta_bin_2;
-  double m_jet_eta_bin_3;
-  double m_jet_eta_bin_4;
-  double m_jet_eta_bin_5;
+  const double m_jet_eta_bin_1{0.8};
+  const double m_jet_eta_bin_2{1.37};
+  const double m_jet_eta_bin_3{1.52};
+  const double m_jet_eta_bin_4{2.5};
+  const double m_jet_eta_bin_5{4.5};
 
   /// The eta binning for electrons
-  double m_electron_eta_bin_1;
-  double m_electron_eta_bin_2;
-  double m_electron_eta_bin_3;
-  double m_electron_eta_bin_4;
+  const double m_electron_eta_bin_1{0.8};
+  const double m_electron_eta_bin_2{1.37};
+  const double m_electron_eta_bin_3{1.52};
+  const double m_electron_eta_bin_4{2.5};
 
   /// The eta binning for muons
-  double m_muon_eta_bin_1;
-  double m_muon_eta_bin_2;
-  double m_muon_eta_bin_3;
+  const double m_muon_eta_bin_1{1.11};
+  const double m_muon_eta_bin_2{1.25};
+  const double m_muon_eta_bin_3{2.5};
 
   /// The eta binning for muons
-  double m_photon_eta_bin_1;
-  double m_photon_eta_bin_2;
-  double m_photon_eta_bin_3;
-  double m_photon_eta_bin_4;
+  const double m_photon_eta_bin_1{1.11};
+  const double m_photon_eta_bin_2{1.25};
+  const double m_photon_eta_bin_3{2.5};
+  const double m_photon_eta_bin_4{3.0};
 };
 }  // namespace KLFitter
 

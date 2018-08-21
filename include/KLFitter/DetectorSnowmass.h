@@ -102,18 +102,17 @@ class DetectorSnowmass : public DetectorBase {
   std::unique_ptr<ResolutionBase> m_res_missing_ET;
 
   /// The eta binning for jets
-  double m_jet_eta_bin_1;
-  double m_jet_eta_bin_2;
-  double m_jet_eta_bin_3;
+  const double m_jet_eta_bin_1{1.7};
+  const double m_jet_eta_bin_2{3.2};
+  const double m_jet_eta_bin_3{4.9};
 
   /// The eta binning for electrons
-  double m_electron_eta_bin_1;
-  double m_electron_eta_bin_2;
+  const double m_electron_eta_bin_1{3.0};
+  const double m_electron_eta_bin_2{5.0};
 
   /// The eta binning for muons
-  double m_muon_eta_bin_1;
-  double m_muon_eta_bin_2;
-
+  const double m_muon_eta_bin_1{1.5};
+  const double m_muon_eta_bin_2{2.5};
 };
 }  // namespace KLFitter
 
