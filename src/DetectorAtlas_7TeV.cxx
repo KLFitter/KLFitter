@@ -108,19 +108,6 @@ DetectorAtlas_7TeV::DetectorAtlas_7TeV(std::string folder) : DetectorBase() {
 
   m_res_missing_ET = std::unique_ptr<ResolutionBase>(new ResGauss_MET{Form("%s/par_misset.txt", folder.c_str())});
 
-  // default settings
-  fResEnergyLightJet = m_res_energy_light_jet_eta1.get();
-  fResEnergyBJet     = m_res_energy_bjet_eta1.get();
-  fResEnergyGluonJet = m_res_energy_gluon_jet_eta1.get();
-  fResEnergyElectron = m_res_energy_electron_eta1.get();
-  fResEnergyMuon     = m_res_energy_muon_eta1.get();
-  fResEnergyPhoton   = m_res_energy_photon_eta1.get();
-  fResEtaLightJet    = m_res_eta_light_jet_eta1.get();
-  fResEtaBJet        = m_res_eta_bjet_eta1.get();
-  fResPhiLightJet    = m_res_phi_light_jet_eta1.get();
-  fResPhiBJet        = m_res_phi_bjet_eta1.get();
-  fResMissingET      = m_res_missing_ET.get();
-
   // Set eta binning for different objects starting with eta = 0
   m_jet_eta_bin_1 = 0.8;
   m_jet_eta_bin_2 = 1.37;
@@ -140,188 +127,168 @@ DetectorAtlas_7TeV::~DetectorAtlas_7TeV() = default;
 // ---------------------------------------------------------
 ResolutionBase* DetectorAtlas_7TeV::ResEnergyLightJet(double eta) {
   if (fabs(eta) < m_jet_eta_bin_1) {
-    fResEnergyLightJet = m_res_energy_light_jet_eta1.get();
+    return m_res_energy_light_jet_eta1.get();
   } else if (fabs(eta) < m_jet_eta_bin_2) {
-    fResEnergyLightJet = m_res_energy_light_jet_eta2.get();
+    return m_res_energy_light_jet_eta2.get();
   } else if (fabs(eta) < m_jet_eta_bin_3) {
-    fResEnergyLightJet = m_res_energy_light_jet_eta3.get();
+    return m_res_energy_light_jet_eta3.get();
   } else if (fabs(eta) <= m_jet_eta_bin_4) {
-    fResEnergyLightJet = m_res_energy_light_jet_eta4.get();
+    return m_res_energy_light_jet_eta4.get();
   } else if (fabs(eta) <= m_jet_eta_bin_5) {
-    fResEnergyLightJet = m_res_energy_light_jet_eta5.get();
+    return m_res_energy_light_jet_eta5.get();
   } else {
     std::cout << "DetectorAtlas_7TeV::ResEnergyLightJet(). Eta range exceeded." << std::endl;
-    return 0;
+    return nullptr;
   }
-
-  return fResEnergyLightJet;
 }
 
 // ---------------------------------------------------------
 ResolutionBase* DetectorAtlas_7TeV::ResEnergyBJet(double eta) {
   if (fabs(eta) < m_jet_eta_bin_1) {
-    fResEnergyBJet = m_res_energy_bjet_eta1.get();
+    return m_res_energy_bjet_eta1.get();
   } else if (fabs(eta) < m_jet_eta_bin_2) {
-    fResEnergyBJet = m_res_energy_bjet_eta2.get();
+    return m_res_energy_bjet_eta2.get();
   } else if (fabs(eta) < m_jet_eta_bin_3) {
-    fResEnergyBJet = m_res_energy_bjet_eta3.get();
+    return m_res_energy_bjet_eta3.get();
   } else if (fabs(eta) <= m_jet_eta_bin_4) {
-    fResEnergyBJet = m_res_energy_bjet_eta4.get();
+    return m_res_energy_bjet_eta4.get();
   } else if (fabs(eta) <= m_jet_eta_bin_5) {
-    fResEnergyBJet = m_res_energy_bjet_eta5.get();
+    return m_res_energy_bjet_eta5.get();
   } else {
     std::cout << "DetectorAtlas_7TeV::ResEnergyBJet(). Eta range exceeded." << std::endl;
-    return 0;
+    return nullptr;
   }
-
-  return fResEnergyBJet;
 }
 
 // ---------------------------------------------------------
 ResolutionBase* DetectorAtlas_7TeV::ResEnergyGluonJet(double eta) {
   if (fabs(eta) < m_jet_eta_bin_1) {
-    fResEnergyGluonJet = m_res_energy_gluon_jet_eta1.get();
+    return m_res_energy_gluon_jet_eta1.get();
   } else if (fabs(eta) < m_jet_eta_bin_2) {
-    fResEnergyGluonJet = m_res_energy_gluon_jet_eta2.get();
+    return m_res_energy_gluon_jet_eta2.get();
   } else if (fabs(eta) < m_jet_eta_bin_3) {
-    fResEnergyGluonJet = m_res_energy_gluon_jet_eta3.get();
+    return m_res_energy_gluon_jet_eta3.get();
   } else if (fabs(eta) <= m_jet_eta_bin_4) {
-    fResEnergyGluonJet = m_res_energy_gluon_jet_eta4.get();
+    return m_res_energy_gluon_jet_eta4.get();
   } else {
     std::cout << "DetectorAtlas_7TeV::ResEnergyGluonJet(). Eta range exceeded." << std::endl;
-    return 0;
+    return nullptr;
   }
-
-  return fResEnergyGluonJet;
 }
 
 // ---------------------------------------------------------
 ResolutionBase* DetectorAtlas_7TeV::ResEnergyElectron(double eta) {
   if (fabs(eta) < m_electron_eta_bin_1) {
-    fResEnergyElectron = m_res_energy_electron_eta1.get();
+    return m_res_energy_electron_eta1.get();
   } else if (fabs(eta) < m_electron_eta_bin_2) {
-    fResEnergyElectron = m_res_energy_electron_eta2.get();
+    return m_res_energy_electron_eta2.get();
   } else if (fabs(eta) < m_electron_eta_bin_3) {
     std::cout << "DetectorAtlas_7TeV::ResEnergyElectron(). Electron in crack region" << std::endl;
-    return 0;
+    return nullptr;
   } else if (fabs(eta) <= m_electron_eta_bin_4) {
-    fResEnergyElectron = m_res_energy_electron_eta4.get();
+    return m_res_energy_electron_eta4.get();
   } else {
     std::cout << "DetectorAtlas_7TeV::ResEnergyElectron(). Eta range exceeded." << std::endl;
-    return 0;
+    return nullptr;
   }
-
-  return fResEnergyElectron;
 }
 
 // ---------------------------------------------------------
 ResolutionBase* DetectorAtlas_7TeV::ResEnergyMuon(double eta) {
   if (fabs(eta) < m_muon_eta_bin_1) {
-    fResEnergyMuon = m_res_energy_muon_eta1.get();
+    return m_res_energy_muon_eta1.get();
   } else if (fabs(eta) < m_muon_eta_bin_2) {
-    fResEnergyMuon = m_res_energy_muon_eta2.get();
+    return m_res_energy_muon_eta2.get();
   } else if (fabs(eta) < m_muon_eta_bin_3) {
-    fResEnergyMuon = m_res_energy_muon_eta3.get();
+    return m_res_energy_muon_eta3.get();
   } else {
     std::cout << "DetectorAtlas_7TeV::ResEnergyMuon(). Eta range exceeded." << std::endl;
-    return 0;
+    return nullptr;
   }
-
-  return fResEnergyMuon;
 }
 
 // ---------------------------------------------------------
 ResolutionBase* DetectorAtlas_7TeV::ResEnergyPhoton(double eta) {
   if (fabs(eta) < m_photon_eta_bin_1) {
-    fResEnergyPhoton = m_res_energy_photon_eta1.get();
+    return m_res_energy_photon_eta1.get();
   } else if (fabs(eta) < m_photon_eta_bin_2) {
-    fResEnergyPhoton = m_res_energy_photon_eta2.get();
+    return m_res_energy_photon_eta2.get();
   } else if (fabs(eta) < m_photon_eta_bin_3) {
-    fResEnergyPhoton = m_res_energy_photon_eta3.get();
+    return m_res_energy_photon_eta3.get();
   } else if (fabs(eta) <= m_photon_eta_bin_4) {
-    fResEnergyPhoton = m_res_energy_photon_eta4.get();
+    return m_res_energy_photon_eta4.get();
   } else {
     std::cout << "DetectorAtlas_7TeV::ResEnergyPhoton(). Eta range exceeded." << std::endl;
-    return 0;
+    return nullptr;
   }
-
-  return fResEnergyPhoton;
 }
 
 // ---------------------------------------------------------
 ResolutionBase* DetectorAtlas_7TeV::ResEtaLightJet(double eta) {
   if (fabs(eta) < m_jet_eta_bin_1) {
-    fResEtaLightJet = m_res_eta_light_jet_eta1.get();
+    return m_res_eta_light_jet_eta1.get();
   } else if (fabs(eta) < m_jet_eta_bin_2) {
-    fResEtaLightJet = m_res_eta_light_jet_eta2.get();
+    return m_res_eta_light_jet_eta2.get();
   } else if (fabs(eta) < m_jet_eta_bin_3) {
-    fResEtaLightJet = m_res_eta_light_jet_eta3.get();
+    return m_res_eta_light_jet_eta3.get();
   } else if (fabs(eta) <= m_jet_eta_bin_4) {
-    fResEtaLightJet = m_res_eta_light_jet_eta4.get();
+    return m_res_eta_light_jet_eta4.get();
   } else {
     std::cout << "DetectorAtlas_7TeV::ResEtaLightJet(). Eta range exceeded." << std::endl;
-    return 0;
+    return nullptr;
   }
-
-  return fResEtaLightJet;
 }
 
 // ---------------------------------------------------------
 ResolutionBase* DetectorAtlas_7TeV::ResEtaBJet(double eta) {
   if (fabs(eta) < m_jet_eta_bin_1) {
-    fResEtaBJet = m_res_eta_bjet_eta1.get();
+    return m_res_eta_bjet_eta1.get();
   } else if (fabs(eta) < m_jet_eta_bin_2) {
-    fResEtaBJet = m_res_eta_bjet_eta2.get();
+    return m_res_eta_bjet_eta2.get();
   } else if (fabs(eta) < m_jet_eta_bin_3) {
-    fResEtaBJet = m_res_eta_bjet_eta3.get();
+    return m_res_eta_bjet_eta3.get();
   } else if (fabs(eta) <= m_jet_eta_bin_4) {
-    fResEtaBJet = m_res_eta_bjet_eta4.get();
+    return m_res_eta_bjet_eta4.get();
   } else {
     std::cout << "DetectorAtlas_7TeV::ResEtaBJet(). Eta range exceeded." << std::endl;
-    return 0;
+    return nullptr;
   }
-
-  return fResEtaBJet;
 }
 
 // ---------------------------------------------------------
 ResolutionBase* DetectorAtlas_7TeV::ResPhiLightJet(double eta) {
   if (fabs(eta) < m_jet_eta_bin_1) {
-    fResPhiLightJet = m_res_phi_light_jet_eta1.get();
+    return m_res_phi_light_jet_eta1.get();
   } else if (fabs(eta) < m_jet_eta_bin_2) {
-    fResPhiLightJet = m_res_phi_light_jet_eta2.get();
+    return m_res_phi_light_jet_eta2.get();
   } else if (fabs(eta) < m_jet_eta_bin_3) {
-    fResPhiLightJet = m_res_phi_light_jet_eta3.get();
+    return m_res_phi_light_jet_eta3.get();
   } else if (fabs(eta) <= m_jet_eta_bin_4) {
-    fResPhiLightJet = m_res_phi_light_jet_eta4.get();
+    return m_res_phi_light_jet_eta4.get();
   } else {
     std::cout << "DetectorAtlas_7TeV::ResPhiLightJet(). Eta range exceeded." << std::endl;
-    return 0;
+    return nullptr;
   }
-
-  return fResPhiLightJet;
 }
 
 // ---------------------------------------------------------
 ResolutionBase* DetectorAtlas_7TeV::ResPhiBJet(double eta) {
   if (fabs(eta) < m_jet_eta_bin_1) {
-    fResPhiBJet = m_res_phi_bjet_eta1.get();
+    return m_res_phi_bjet_eta1.get();
   } else if (fabs(eta) < m_jet_eta_bin_2) {
-    fResPhiBJet = m_res_phi_bjet_eta2.get();
+    return m_res_phi_bjet_eta2.get();
   } else if (fabs(eta) < m_jet_eta_bin_3) {
-    fResPhiBJet = m_res_phi_bjet_eta3.get();
+    return m_res_phi_bjet_eta3.get();
   } else if (fabs(eta) <= m_jet_eta_bin_4) {
-    fResPhiLightJet = m_res_phi_light_jet_eta4.get();
+    return m_res_phi_light_jet_eta4.get();
   } else {
     std::cout << "DetectorAtlas_7TeV::ResPhiBJet(). Eta range exceeded." << std::endl;
-    return 0;
+    return nullptr;
   }
-
-  return fResPhiBJet;
 }
 
 // ---------------------------------------------------------
 ResolutionBase* DetectorAtlas_7TeV::ResMissingET() {
-  return fResMissingET;
+  return m_res_missing_ET.get();
 }
 }  // namespace KLFitter

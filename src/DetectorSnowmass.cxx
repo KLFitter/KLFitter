@@ -44,15 +44,6 @@ DetectorSnowmass::DetectorSnowmass(std::string folder) : DetectorBase() {
   m_res_muon_momentum_eta2   = std::unique_ptr<ResolutionBase>(new ResGaussPt{Form("%s/par_pt_muons_eta2.txt", folder.c_str())});
 
   m_res_missing_ET      = std::unique_ptr<ResolutionBase>(new ResGauss_MET{Form("%s/par_misset.txt", folder.c_str())});
-
-  // default settings
-  fResEnergyLightJet = m_res_jet_energy_eta1.get();
-  fResEnergyBJet     = m_res_jet_energy_eta1.get();
-  fResEnergyGluonJet = m_res_jet_energy_eta1.get();
-  fResEnergyElectron = m_res_electron_energy_eta1.get();
-  fResEnergyPhoton   = m_res_electron_energy_eta1.get();
-  fResEnergyMuon     = m_res_muon_momentum_eta1.get();
-  fResMissingET      = m_res_missing_ET.get();
 }
 
 // ---------------------------------------------------------
@@ -61,64 +52,57 @@ DetectorSnowmass::~DetectorSnowmass() = default;
 // ---------------------------------------------------------
 ResolutionBase* DetectorSnowmass::ResEnergyLightJet(double eta) {
   if (fabs(eta) < m_jet_eta_bin_1) {
-    fResEnergyLightJet = m_res_jet_energy_eta1.get();
+    return m_res_jet_energy_eta1.get();
   } else if (fabs(eta) < m_jet_eta_bin_2) {
-    fResEnergyLightJet = m_res_jet_energy_eta2.get();
+    return m_res_jet_energy_eta2.get();
   } else if (fabs(eta) < m_jet_eta_bin_3) {
-    fResEnergyLightJet = m_res_jet_energy_eta3.get();
+    return m_res_jet_energy_eta3.get();
   } else {
     std::cout << "DetectorSnowmass::ResEnergyLightJet(). Eta range exceeded." << std::endl;
-    return 0;
+    return nullptr;
   }
-
-  return fResEnergyLightJet;
 }
 
 // ---------------------------------------------------------
 ResolutionBase* DetectorSnowmass::ResEnergyBJet(double eta) {
   if (fabs(eta) < m_jet_eta_bin_1) {
-    fResEnergyBJet = m_res_jet_energy_eta1.get();
+    return m_res_jet_energy_eta1.get();
   } else if (fabs(eta) < m_jet_eta_bin_2) {
-    fResEnergyBJet = m_res_jet_energy_eta2.get();
+    return m_res_jet_energy_eta2.get();
   } else if (fabs(eta) < m_jet_eta_bin_3) {
-    fResEnergyBJet = m_res_jet_energy_eta3.get();
+    return m_res_jet_energy_eta3.get();
   } else {
     std::cout << "DetectorSnowmass::ResEnergyBJet(). Eta range exceeded." << std::endl;
-    return 0;
+    return nullptr;
   }
-
-  return fResEnergyBJet;
 }
 
 // ---------------------------------------------------------
 ResolutionBase* DetectorSnowmass::ResEnergyElectron(double eta) {
   if (fabs(eta) < m_electron_eta_bin_1) {
-    fResEnergyElectron = m_res_electron_energy_eta1.get();
+    return m_res_electron_energy_eta1.get();
   } else if (fabs(eta) < m_electron_eta_bin_2) {
-    fResEnergyElectron = m_res_electron_energy_eta2.get();
+    return m_res_electron_energy_eta2.get();
   } else {
     std::cout << "DetectorSnowmass::ResEnergyElectron(). Eta range exceeded." << std::endl;
-    return 0;
+    return nullptr;
   }
-  return fResEnergyElectron;
 }
 
 // ---------------------------------------------------------
 ResolutionBase* DetectorSnowmass::ResEnergyMuon(double eta) {
   if (fabs(eta) < m_muon_eta_bin_1) {
-    fResEnergyMuon = m_res_muon_momentum_eta1.get();
+    return m_res_muon_momentum_eta1.get();
   } else if (fabs(eta) < m_muon_eta_bin_2) {
-    fResEnergyMuon = m_res_muon_momentum_eta2.get();
+    return m_res_muon_momentum_eta2.get();
   } else {
     std::cout << "DetectorSnowmass::ResEnergyMuon(). Eta range exceeded." << std::endl;
-    return 0;
+    return nullptr;
   }
-
-  return fResEnergyMuon;
 }
 
 // ---------------------------------------------------------
 ResolutionBase* DetectorSnowmass::ResMissingET() {
-  return fResMissingET;
+  return m_res_missing_ET.get();
 }
 }  // namespace KLFitter
