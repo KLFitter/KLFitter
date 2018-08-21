@@ -35,57 +35,57 @@ int DetectorBase::Status() {
   try {
     if (res_type_requested.find(ResolutionType::EnergyLightJet) != res_type_requested.end()) {
       if (!ResEnergyLightJet(0)->Status()) {
-        return 0;
+        ResolutionParametersUnavailable("ResEnergyLightJet");
       }
     }
     if (res_type_requested.find(ResolutionType::EnergyBJet) != res_type_requested.end()) {
       if (!ResEnergyBJet(0)->Status()) {
-        return 0;
+        ResolutionParametersUnavailable("ResEnergyBJet");
       }
     }
     if (res_type_requested.find(ResolutionType::EnergyGluonJet) != res_type_requested.end()) {
       if (!ResEnergyGluonJet(0)->Status()) {
-        return 0;
+        ResolutionParametersUnavailable("ResEnergyGluonJet");
       }
     }
     if (res_type_requested.find(ResolutionType::EnergyElectron) != res_type_requested.end()) {
       if (!ResEnergyElectron(0)->Status()) {
-        return 0;
+        ResolutionParametersUnavailable("ResEnergyElectron");
       }
     }
     if (res_type_requested.find(ResolutionType::EnergyMuon) != res_type_requested.end()) {
       if (!ResEnergyMuon(0)->Status()) {
-        return 0;
+        ResolutionParametersUnavailable("ResEnergyMuon");
       }
     }
     if (res_type_requested.find(ResolutionType::EnergyPhoton) != res_type_requested.end()) {
       if (!ResEnergyPhoton(0)->Status()) {
-        return 0;
+        ResolutionParametersUnavailable("ResEnergyPhoton");
       }
     }
     if (res_type_requested.find(ResolutionType::MissingET) != res_type_requested.end()) {
       if (!ResMissingET()->Status()) {
-        return 0;
+        ResolutionParametersUnavailable("ResMissingET");
       }
     }
     if (res_type_requested.find(ResolutionType::EtaLightJet) != res_type_requested.end()) {
       if (!ResEtaLightJet(0)->Status()) {
-        return 0;
+        ResolutionParametersUnavailable("ResEtaLightJet");
       }
     }
     if (res_type_requested.find(ResolutionType::EtaBJet) != res_type_requested.end()) {
       if (!ResEtaBJet(0)->Status()) {
-        return 0;
+        ResolutionParametersUnavailable("ResEtaBJet");
       }
     }
     if (res_type_requested.find(ResolutionType::PhiLightJet) != res_type_requested.end()) {
       if (!ResPhiLightJet(0)->Status()) {
-        return 0;
+        ResolutionParametersUnavailable("ResPhiLightJet");
       }
     }
     if (res_type_requested.find(ResolutionType::PhiBJet) != res_type_requested.end()) {
       if (!ResPhiBJet(0)->Status()) {
-        return 0;
+        ResolutionParametersUnavailable("ResPhiBJet");
       }
     }
   } catch (std::invalid_argument& excp) {
@@ -102,6 +102,14 @@ int DetectorBase::Status() {
 // ---------------------------------------------------------
 void DetectorBase::RequestResolutionType(const ResolutionType& type) {
   res_type_requested.insert(type);
+}
+
+// ---------------------------------------------------------
+void DetectorBase::ResolutionParametersUnavailable(const std::string& type) {
+  std::cerr << "KLFitter::DetectorBase: Parametrization of \"" << type;
+  std::cerr << "\" needed by chosen likelihood, but parameters could not be read.";
+  std::cerr << " Maybe the used transfer-function parameter set does not provide them?\n";
+  throw std::invalid_argument(type);
 }
 
 // ---------------------------------------------------------

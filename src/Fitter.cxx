@@ -107,8 +107,8 @@ int KLFitter::Fitter::SetDetector(KLFitter::DetectorBase * detector) {
   // set detector
   fDetector = detector;
 
-  // no error
-  return 1;
+  // Return the status of the detector.
+  return fDetector->Status();
 }
 
 // ---------------------------------------------------------
@@ -128,6 +128,9 @@ int KLFitter::Fitter::SetLikelihood(KLFitter::LikelihoodBase * likelihood) {
   // remove invariant permutations if particles are defined alreday
   if (fParticles)
     fLikelihood->RemoveInvariantParticlePermutations();
+
+  // If detector != nullptr, return its status right now.
+  if (fDetector) return fDetector->Status();
 
   // no error
   return 1;

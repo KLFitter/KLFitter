@@ -167,6 +167,14 @@ class DetectorBase {
    */
   ResolutionBase* ResolutionUndefined(const std::string& type);
 
+  /**
+   * Handle cases where the parameters for a resolution type are
+   * not available. This prints an error message and throws an
+   * exception of type std::invalid_argument.
+   * @param type The name of the resolution function
+   */
+   void ResolutionParametersUnavailable(const std::string& type);
+
   /// Requested resolutions that the detector must provide.
   std::set<ResolutionType> res_type_requested;
 };
