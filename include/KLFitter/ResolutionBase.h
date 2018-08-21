@@ -124,7 +124,7 @@ class ResolutionBase {
     * Return a status code.
     * @return A status code (1: ok, 0: error).
     */
-  int Status();
+  int Status() { return fStatus; }
 
   /* @} */
 
@@ -134,6 +134,9 @@ class ResolutionBase {
 
   /// The parameter values.
   std::vector <double> fParameters;
+
+  /// The status of this class (1: ok, 0: error).
+  int fStatus;
 };
 }  // namespace KLFitter
 

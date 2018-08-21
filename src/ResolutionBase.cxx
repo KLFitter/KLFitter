@@ -108,7 +108,7 @@ int KLFitter::ResolutionBase::ReadParameters(const char * filename, int nparamet
 
   // check if file is open
   if (!inputfile.is_open()) {
-    std::cout << "KLFitter::ResolutionBase::ReadParameters(). File \"" << filename << "\" not found." << std::endl;
+    fStatus = 0;
     return 0;
   }
 
@@ -124,6 +124,9 @@ int KLFitter::ResolutionBase::ReadParameters(const char * filename, int nparamet
 
   // close file
   inputfile.close();
+
+  // Switch internal status to "ok".
+  fStatus = 1;
 
   // no error
   return 1;
