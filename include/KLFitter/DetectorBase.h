@@ -44,13 +44,6 @@ class DetectorBase {
   /// The (defaulted) destructor.
   virtual ~DetectorBase();
 
-  /** \name Enumerators */
-  /* @{ */
-
-  /// Enumerate for beam centre-of-mass energy
-  enum BeamCMEnergy {k7TeV, k8TeV, k10TeV};
-
-  /* @} */
   /** \name Member functions (Get)  */
   /* @{ */
 
@@ -131,34 +124,12 @@ class DetectorBase {
   virtual ResolutionBase* ResPhiBJet(double /*eta*/) { return nullptr; }
 
   /* @} */
-  /** \name Member functions (Set)  */
-  /* @{ */
-
-  /**
-    * Set the beam centre-of-mass energy in the current detector.
-    * @param beamenergy The beam energy.
-    * @return An error code.
-    */
-  int SetBeamCMEnergy(BeamCMEnergy beamenergy) { fBeamCMEnergy = beamenergy; return 1; }
-
-  /* @} */
   /** \name Member functions (misc)  */
   /* @{ */
 
   int Status();
 
-  /**
-    * Get the beam centre-of-mass energy in the current detector.
-    * @return An error code.
-    */
-  BeamCMEnergy GetBeamCMEnergy() { return fBeamCMEnergy; }
   /* @} */
-
- protected:
-  /**
-   * The current beam centre-of-mass energy in the detector
-   */
-  BeamCMEnergy fBeamCMEnergy;
 };
 }  // namespace KLFitter
 
