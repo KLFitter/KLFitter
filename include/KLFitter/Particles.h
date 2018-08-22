@@ -24,6 +24,7 @@
 #include <vector>
 
 #include "TLorentzVector.h"
+#include "KLFitter/Particle/Jet.h"
 
 // ---------------------------------------------------------
 
@@ -76,7 +77,7 @@ class Particles final {
    * Return the number of partons.
    * @return The number of partons.
    */
-  int NPartons() const { return static_cast<int>(m_partons.size()); }
+  int NPartons() const { return static_cast<int>(m_jets.size()); }
 
   /**
    * Return the number of electrons.
@@ -205,7 +206,7 @@ class Particles final {
    * Return the number of particles.
    * @return The number of particles.
    */
-  int NParticles() const { return static_cast<int>(m_partons.size() + m_electrons.size() + m_muons.size() + m_taus.size() + m_neutrinos.size() + m_bosons.size() + m_photons.size()) + m_tracks.size(); }
+  int NParticles() const { return static_cast<int>(m_jets.size() + m_electrons.size() + m_muons.size() + m_taus.size() + m_neutrinos.size() + m_bosons.size() + m_photons.size()) + m_tracks.size(); }
 
   /**
    * Return the number of particles of a certain type.
@@ -304,42 +305,42 @@ class Particles final {
    * @param index The parton index
    * @return The parton true flavor.
    */
-  TrueFlavorType TrueFlavor(int index) const { return m_true_flavors[index]; }
+  TrueFlavorType TrueFlavor(int index) const { return static_cast<Particles::TrueFlavorType>(m_jets.at(index).GetTrueFlavor()); }
 
   /**
    * Return has the jet been b-tagged?
    * @param index The parton index
    * @return The parton b-tagging boolean.
    */
-  bool IsBTagged(int index) const { return m_jet_btagged_bools[index]; }
+  bool IsBTagged(int index) const { return m_jets.at(index).GetIsBTagged(); }
 
   /**
    * Return the jet b-tagging efficiency.
    * @param index The parton index
    * @return The jet b-tagging efficiency.
    */
-  double BTaggingEfficiency(int index) const { return m_btag_efficiencies[index]; }
+  double BTaggingEfficiency(int index) const { return m_jets.at(index).GetBTagEfficiency(); }
 
   /**
    * Return the jet b-tagging rejection.
    * @param index The parton index
    * @return The jet b-tagging rejection.
    */
-  double BTaggingRejection(int index) const { return m_btag_rejections[index]; }
+  double BTaggingRejection(int index) const { return m_jets.at(index).GetBTagRejection(); }
 
   /**
    * Return the jet b-tagging weight.
    * @param index The parton index
    * @return The jet b-tagging weight.
    */
-  double BTagWeight(int index) const { return m_btag_weights[index]; }
+  double BTagWeight(int index) const { return m_jets.at(index).GetBTagWeight(); }
 
   /**
    * Return the bool of a set tagging weight.
    * @param index The parton index
    * @return The bool of a set tagging weight
    */
-  bool BTagWeightSet(int index) const { return m_btag_weights_set[index]; }
+  bool BTagWeightSet(int index) const { return m_jets.at(index).GetBTagWeightIsSet(); }
 
   /**
    * Return the uncertainty of a particle with some index and type.
@@ -570,8 +571,8 @@ class Particles final {
   /** @} */
 
  private:
-  /// A set of quarks and gluons.
-  std::vector<TLorentzVector> m_partons;
+  /// Vector of all Particle::Jet objects.
+  std::vector<Particle::Jet> m_jets;
 
   /// A set of electrons.
   std::vector<TLorentzVector> m_electrons;
@@ -594,9 +595,6 @@ class Particles final {
   /// A set of tracks.
   std::vector<TLorentzVector> m_tracks;
 
-  /// The name of the partons.
-  std::vector<std::string> m_parton_names;
-
   /// The name of the electrons.
   std::vector<std::string> m_electron_names;
 
@@ -618,9 +616,6 @@ class Particles final {
   /// The name of the tracks.
   std::vector<std::string> m_track_names;
 
-  /// The index of the corresponding measured parton.
-  std::vector<int> m_jet_indices;
-
   /// The index of the corresponding measured electron.
   std::vector<int> m_electron_indices;
 
@@ -633,32 +628,11 @@ class Particles final {
   /// The index of the corresponding measured track.
   std::vector<int> m_track_indices;
 
-  /// Vector containing the true flavor.
-  std::vector<TrueFlavorType> m_true_flavors;
-
-  /// Vector containing a boolean for the b-tagging.
-  std::vector<bool> m_jet_btagged_bools;
-
-  /// Vector containing the b-tagging efficiencies for the jets.
-  std::vector<double> m_btag_efficiencies;
-
-  /// Vector containing the b-tagging rejection for the jets.
-  std::vector<double> m_btag_rejections;
-
-  /// Vector containing the b-tagging weights for the jets.
-  std::vector<double> m_btag_weights;
-
-  /// Vector containing the bool if b-tagging weights for the jets were set.
-  std::vector<bool> m_btag_weights_set;
-
   /// Vector containing the detector eta of electrons.
   std::vector<double> m_electron_det_etas;
 
   /// Vector containing the detector eta of muons.
   std::vector<double> m_muon_det_etas;
-
-  /// Vector containing the detector eta of jets.
-  std::vector<double> m_jet_det_etas;
 
   /// Vector containing the detector eta of photons.
   std::vector<double> m_photon_det_etas;
