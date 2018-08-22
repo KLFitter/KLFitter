@@ -24,6 +24,7 @@
 #include <vector>
 
 #include "TLorentzVector.h"
+#include "KLFitter/Particle/Electron.h"
 #include "KLFitter/Particle/Jet.h"
 
 // ---------------------------------------------------------
@@ -83,7 +84,7 @@ class Particles final {
    * Return the number of electrons.
    * @return The number of electrons.
    */
-  int NElectrons() const { return int (m_electrons.size()); }
+  int NElectrons() const { return static_cast<int>(m_electrons.size()); }
 
   /**
    * Return the number of muons.
@@ -574,8 +575,8 @@ class Particles final {
   /// Vector of all Particle::Jet objects.
   std::vector<Particle::Jet> m_jets;
 
-  /// A set of electrons.
-  std::vector<TLorentzVector> m_electrons;
+  /// vector of all Particle::Electron objects.
+  std::vector<Particle::Electron> m_electrons;
 
   /// A set of muons.
   std::vector<TLorentzVector> m_muons;
@@ -595,9 +596,6 @@ class Particles final {
   /// A set of tracks.
   std::vector<TLorentzVector> m_tracks;
 
-  /// The name of the electrons.
-  std::vector<std::string> m_electron_names;
-
   /// The name of the muons.
   std::vector<std::string> m_muon_names;
 
@@ -616,9 +614,6 @@ class Particles final {
   /// The name of the tracks.
   std::vector<std::string> m_track_names;
 
-  /// The index of the corresponding measured electron.
-  std::vector<int> m_electron_indices;
-
   /// The index of the corresponding measured muon.
   std::vector<int> m_muon_indices;
 
@@ -628,17 +623,11 @@ class Particles final {
   /// The index of the corresponding measured track.
   std::vector<int> m_track_indices;
 
-  /// Vector containing the detector eta of electrons.
-  std::vector<double> m_electron_det_etas;
-
   /// Vector containing the detector eta of muons.
   std::vector<double> m_muon_det_etas;
 
   /// Vector containing the detector eta of photons.
   std::vector<double> m_photon_det_etas;
-
-  /// Vector containing the charge of electrons.
-  std::vector<float> m_electron_charges;
 
   /// Vector containing the charge of muons.
   std::vector<float> m_muon_charges;
