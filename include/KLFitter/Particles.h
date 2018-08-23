@@ -27,6 +27,7 @@
 #include "KLFitter/Particle/Electron.h"
 #include "KLFitter/Particle/Jet.h"
 #include "KLFitter/Particle/Muon.h"
+#include "KLFitter/Particle/Photon.h"
 
 // ---------------------------------------------------------
 
@@ -591,8 +592,8 @@ class Particles final {
   /// A set of bosons.
   std::vector<TLorentzVector> m_bosons;
 
-  /// A set of photons.
-  std::vector<TLorentzVector> m_photons;
+  /// Vector of all Particle::Photon objects.
+  std::vector<Particle::Photon> m_photons;
 
   /// A set of tracks.
   std::vector<TLorentzVector> m_tracks;
@@ -606,20 +607,11 @@ class Particles final {
   /// The name of the bosons.
   std::vector<std::string> m_boson_names;
 
-  /// The name of the photons.
-  std::vector<std::string> m_photon_names;
-
   /// The name of the tracks.
   std::vector<std::string> m_track_names;
 
-  /// The index of the corresponding measured photon.
-  std::vector<int> m_photon_indices;
-
   /// The index of the corresponding measured track.
   std::vector<int> m_track_indices;
-
-  /// Vector containing the detector eta of photons.
-  std::vector<double> m_photon_det_etas;
 
   /// Vector containing the uncertainties of tracks.
   std::vector<std::vector<double> > m_uncertainties;
