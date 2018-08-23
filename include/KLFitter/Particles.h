@@ -31,6 +31,7 @@
 #include "KLFitter/Particle/Neutrino.h"
 #include "KLFitter/Particle/Photon.h"
 #include "KLFitter/Particle/Tau.h"
+#include "KLFitter/Particle/Track.h"
 
 // ---------------------------------------------------------
 
@@ -598,17 +599,8 @@ class Particles final {
   /// Vector of all Particle::Photon objects.
   std::vector<Particle::Photon> m_photons;
 
-  /// A set of tracks.
-  std::vector<TLorentzVector> m_tracks;
-
-  /// The name of the tracks.
-  std::vector<std::string> m_track_names;
-
-  /// The index of the corresponding measured track.
-  std::vector<int> m_track_indices;
-
-  /// Vector containing the uncertainties of tracks.
-  std::vector<std::vector<double> > m_uncertainties;
+  /// Vector of all Particle::Track objects.
+  std::vector<Particle::Track> m_tracks;
 };
 }  // namespace KLFitter
 
