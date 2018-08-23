@@ -24,6 +24,7 @@
 #include <vector>
 
 #include "TLorentzVector.h"
+#include "KLFitter/Particle/Boson.h"
 #include "KLFitter/Particle/Electron.h"
 #include "KLFitter/Particle/Jet.h"
 #include "KLFitter/Particle/Muon.h"
@@ -591,17 +592,14 @@ class Particles final {
   /// Vector of all Particle::Neutrino objects.
   std::vector<Particle::Neutrino> m_neutrinos;
 
-  /// A set of bosons.
-  std::vector<TLorentzVector> m_bosons;
+  /// Vector of all Particle::Boson objects.
+  std::vector<Particle::Boson> m_bosons;
 
   /// Vector of all Particle::Photon objects.
   std::vector<Particle::Photon> m_photons;
 
   /// A set of tracks.
   std::vector<TLorentzVector> m_tracks;
-
-  /// The name of the bosons.
-  std::vector<std::string> m_boson_names;
 
   /// The name of the tracks.
   std::vector<std::string> m_track_names;

@@ -42,7 +42,7 @@ int Particles::AddParticle(const TLorentzVector& particle, double DetEta, float 
   auto container = ParticleContainer(ptype);
 
   // check if container exists
-  if ((ptype != Particles::kParton && ptype != Particles::kElectron && ptype != Particles::kMuon && ptype != Particles::kPhoton && ptype != Particles::kTau && ptype != Particles::kNeutrino) && !container) {
+  if ((ptype != Particles::kParton && ptype != Particles::kElectron && ptype != Particles::kMuon && ptype != Particles::kPhoton && ptype != Particles::kTau && ptype != Particles::kNeutrino && ptype != Particles::kBoson) && !container) {
     std::cout << "KLFitter::Particles::AddParticle(). Container does not exist." << std::endl;
     return 0;
   }
@@ -84,6 +84,8 @@ int Particles::AddParticle(const TLorentzVector& particle, double DetEta, float 
       m_taus.emplace_back(name, particle);
     } else if (ptype == Particles::kNeutrino) {
       m_neutrinos.emplace_back(name, particle);
+    } else if (ptype == Particles::kBoson) {
+      m_bosons.emplace_back(name, particle);
     } else {
       container->emplace_back(particle);
       ParticleNameContainer(ptype)->push_back(name);
@@ -113,7 +115,7 @@ int Particles::AddParticle(const TLorentzVector& particle, double DetEta, Partic
   auto container = ParticleContainer(ptype);
 
   // check if container exists
-  if ((ptype != Particles::kParton && ptype != Particles::kElectron && ptype != Particles::kMuon && ptype != Particles::kPhoton && ptype != Particles::kTau && ptype != Particles::kNeutrino) && !container) {
+  if ((ptype != Particles::kParton && ptype != Particles::kElectron && ptype != Particles::kMuon && ptype != Particles::kPhoton && ptype != Particles::kTau && ptype != Particles::kNeutrino && ptype != Particles::kBoson) && !container) {
     std::cout << "KLFitter::Particles::AddParticle(). Container does not exist." << std::endl;
     return 0;
   }
@@ -157,6 +159,8 @@ int Particles::AddParticle(const TLorentzVector& particle, double DetEta, Partic
       m_taus.emplace_back(name, particle);
     } else if (ptype == Particles::kNeutrino) {
       m_neutrinos.emplace_back(name, particle);
+    } else if (ptype == Particles::kBoson) {
+      m_bosons.emplace_back(name, particle);
     } else {
       container->emplace_back(particle);
       ParticleNameContainer(ptype)->push_back(name);
@@ -239,6 +243,10 @@ int Particles::RemoveParticle(int index, Particles::ParticleType ptype) {
 
   if (ptype == ParticleType::kNeutrino) {
     m_neutrinos.erase(m_neutrinos.begin() + index);
+  }
+
+  if (ptype == ParticleType::kBoson) {
+    m_bosons.erase(m_bosons.begin() + index);
   }
 
   // check container and index
@@ -347,14 +355,13 @@ int Particles::FindParticle(const std::string& name, TLorentzVector* &particle, 
   }
 
   // loop over all bosons
-  unsigned int nbosons = m_boson_names.size();
-  for (unsigned int i = 0; i < nbosons; ++i)
-    if (name == m_boson_names[i]) {
-      particle = &m_bosons[i];
-      *index = i;
-      *ptype = Particles::kBoson;
-      return 1;
-    }
+  for (auto boson = m_bosons.begin(); boson != m_bosons.end(); ++boson) {
+    if (name != boson->GetName()) continue;
+    particle = &boson->GetP4();
+    *index = boson - m_bosons.begin();
+    *ptype = Particles::kBoson;
+    return 1;
+  }
 
   // loop over all photons
   for (auto ph = m_photons.begin(); ph != m_photons.end(); ++ph) {
@@ -401,8 +408,7 @@ TLorentzVector* Particles::Tau(int index) {
 
 // ---------------------------------------------------------
 TLorentzVector* Particles::Boson(int index) {
-  // no check on index range for CPU-time reasons
-  return &m_bosons[index];
+  return &m_bosons.at(index).GetP4();
 }
 
 // ---------------------------------------------------------
@@ -441,6 +447,9 @@ int Particles::NParticles(KLFitter::Particles::ParticleType ptype) const {
   if (ptype == ParticleType::kNeutrino) {
     return static_cast<int>(m_neutrinos.size());
   }
+  if (ptype == ParticleType::kBoson) {
+    return static_cast<int>(m_bosons.size());
+  }
   return static_cast<int>(ParticleContainer(ptype)->size());
 }
 
@@ -463,6 +472,9 @@ std::string Particles::NameParticle(int index, Particles::ParticleType ptype) co
   }
   if (ptype == ParticleType::kNeutrino) {
     return m_neutrinos.at(index).GetName();
+  }
+  if (ptype == ParticleType::kBoson) {
+    return m_bosons.at(index).GetName();
   }
 
   // get particle container
@@ -508,7 +520,7 @@ const std::vector<TLorentzVector>* Particles::ParticleContainer(KLFitter::Partic
     return nullptr;
     break;
   case Particles::kBoson:
-    return &m_bosons;
+    return nullptr;
     break;
   case Particles::kPhoton:
     return nullptr;
@@ -543,7 +555,7 @@ std::vector<TLorentzVector>* Particles::ParticleContainer(KLFitter::Particles::P
     return nullptr;
     break;
   case Particles::kBoson:
-    return &m_bosons;
+    return nullptr;
     break;
   case Particles::kPhoton:
     return nullptr;
@@ -570,7 +582,7 @@ const std::vector<std::string>* Particles::ParticleNameContainer(KLFitter::Parti
   } else if (ptype == Particles::kTau) {
     return nullptr;
   } else if (ptype == Particles::kBoson) {
-    return &m_boson_names;
+    return nullptr;
   } else if (ptype == Particles::kNeutrino) {
     return nullptr;
   } else if (ptype == Particles::kPhoton) {
@@ -596,7 +608,7 @@ std::vector <std::string>* Particles::ParticleNameContainer(KLFitter::Particles:
   } else if (ptype == Particles::kTau) {
     return nullptr;
   } else if (ptype == Particles::kBoson) {
-    return &m_boson_names;
+    return nullptr;
   } else if (ptype == Particles::kNeutrino) {
     return nullptr;
   } else if (ptype == Particles::kPhoton) {
