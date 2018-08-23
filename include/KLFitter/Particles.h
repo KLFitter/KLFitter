@@ -27,6 +27,7 @@
 #include "KLFitter/Particle/Electron.h"
 #include "KLFitter/Particle/Jet.h"
 #include "KLFitter/Particle/Muon.h"
+#include "KLFitter/Particle/Neutrino.h"
 #include "KLFitter/Particle/Photon.h"
 #include "KLFitter/Particle/Tau.h"
 
@@ -587,8 +588,8 @@ class Particles final {
   /// Vector of all Particle::Tau objects.
   std::vector<Particle::Tau> m_taus;
 
-  /// A set of neutrinos.
-  std::vector<TLorentzVector> m_neutrinos;
+  /// Vector of all Particle::Neutrino objects.
+  std::vector<Particle::Neutrino> m_neutrinos;
 
   /// A set of bosons.
   std::vector<TLorentzVector> m_bosons;
@@ -598,9 +599,6 @@ class Particles final {
 
   /// A set of tracks.
   std::vector<TLorentzVector> m_tracks;
-
-  /// The name of the neutrinos.
-  std::vector<std::string> m_neutrino_names;
 
   /// The name of the bosons.
   std::vector<std::string> m_boson_names;
