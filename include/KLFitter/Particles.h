@@ -554,20 +554,6 @@ class Particles final {
   std::vector<TLorentzVector>* ParticleContainer(KLFitter::Particles::ParticleType ptype);
 
   /**
-   * Return the (const) particle name container of a type of particles
-   * @param ptype The type of the particle.
-   * @return The particle name container.
-   */
-  const std::vector<std::string>* ParticleNameContainer(KLFitter::Particles::ParticleType ptype) const;
-
-  /**
-   * Return the particle name container of a type of particles
-   * @param ptype The type of the particle.
-   * @return The particle name container.
-   */
-  std::vector<std::string>* ParticleNameContainer(KLFitter::Particles::ParticleType ptype);
-
-  /**
    * Checks if the index is within range.
    * @param container The particle container.
    * @param index The index of particle.

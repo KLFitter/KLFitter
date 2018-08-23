@@ -90,7 +90,6 @@ int Particles::AddParticle(const TLorentzVector& particle, double DetEta, float 
       m_tracks.emplace_back(name, particle);
     } else {
       container->emplace_back(particle);
-      ParticleNameContainer(ptype)->push_back(name);
     }
   } else {
     std::cout << "KLFitter::Particles::AddParticle(). Particle with the name " << name << " exists already." << std::endl;
@@ -169,7 +168,6 @@ int Particles::AddParticle(const TLorentzVector& particle, double DetEta, Partic
       m_tracks.emplace_back(std::move(track));
     } else {
       container->emplace_back(particle);
-      ParticleNameContainer(ptype)->push_back(name);
     }
   } else {
     std::cout << "KLFitter::Particles::AddParticle(). Particle with the name " << name << " exists already." << std::endl;
@@ -266,7 +264,6 @@ int Particles::RemoveParticle(int index, Particles::ParticleType ptype) {
 
   // remove particle
   ParticleContainer(ptype)->erase(ParticleContainer(ptype)->begin() + index);
-  ParticleNameContainer(ptype)->erase(ParticleNameContainer(ptype)->begin() + index);
 
   // no error
   return 1;
@@ -500,7 +497,7 @@ std::string Particles::NameParticle(int index, Particles::ParticleType ptype) co
     return "";
 
   // return name
-  return ParticleNameContainer(ptype)->at(index);
+  return "";
 }
 
 // ---------------------------------------------------------
@@ -583,58 +580,6 @@ std::vector<TLorentzVector>* Particles::ParticleContainer(KLFitter::Particles::P
   // or null pointer
   std::cout << "KLFitter::Particles::ParticleContainer(). Particle type unknown." << std::endl;
   return 0;
-}
-
-// ---------------------------------------------------------
-const std::vector<std::string>* Particles::ParticleNameContainer(KLFitter::Particles::ParticleType ptype) const {
-  // return container
-  if (ptype == Particles::kParton) {
-    return nullptr;
-  } else if (ptype == Particles::kElectron) {
-    return nullptr;
-  } else if (ptype == Particles::kMuon) {
-    return nullptr;
-  } else if (ptype == Particles::kTau) {
-    return nullptr;
-  } else if (ptype == Particles::kBoson) {
-    return nullptr;
-  } else if (ptype == Particles::kNeutrino) {
-    return nullptr;
-  } else if (ptype == Particles::kPhoton) {
-    return nullptr;
-  } else if (ptype == Particles::kTrack) {
-    return nullptr;
-  } else {
-    // or null pointer
-    std::cout << "KLFitter::Particles::ParticleNameContainer(). Particle type not known." << std::endl;
-    return 0;
-  }
-}
-
-// ---------------------------------------------------------
-std::vector <std::string>* Particles::ParticleNameContainer(KLFitter::Particles::ParticleType ptype) {
-  // return container
-  if (ptype == Particles::kParton) {
-    return nullptr;
-  } else if (ptype == Particles::kElectron) {
-    return nullptr;
-  } else if (ptype == Particles::kMuon) {
-    return nullptr;
-  } else if (ptype == Particles::kTau) {
-    return nullptr;
-  } else if (ptype == Particles::kBoson) {
-    return nullptr;
-  } else if (ptype == Particles::kNeutrino) {
-    return nullptr;
-  } else if (ptype == Particles::kPhoton) {
-    return nullptr;
-  } else if (ptype == Particles::kTrack) {
-    return nullptr;
-  } else {
-    // or null pointer
-    std::cout << "KLFitter::Particles::ParticleNameContainer(). Particle type not known." << std::endl;
-    return 0;
-  }
 }
 
 // ---------------------------------------------------------
