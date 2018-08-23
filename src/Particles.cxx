@@ -42,7 +42,7 @@ int Particles::AddParticle(const TLorentzVector& particle, double DetEta, float 
   auto container = ParticleContainer(ptype);
 
   // check if container exists
-  if ((ptype != Particles::kParton && ptype != Particles::kElectron) && !container) {
+  if ((ptype != Particles::kParton && ptype != Particles::kElectron && ptype != Particles::kMuon) && !container) {
     std::cout << "KLFitter::Particles::AddParticle(). Container does not exist." << std::endl;
     return 0;
   }
@@ -69,14 +69,16 @@ int Particles::AddParticle(const TLorentzVector& particle, double DetEta, float 
       electron.SetDetEta(DetEta);
       electron.SetCharge(LepCharge);
       m_electrons.emplace_back(std::move(electron));
+    } else if (ptype == Particles::kMuon) {
+      Particle::Muon muon{name, particle};
+      muon.SetIdentifier(measuredindex);
+      muon.SetDetEta(DetEta);
+      muon.SetCharge(LepCharge);
+      m_muons.emplace_back(std::move(muon));
     } else {
       container->emplace_back(particle);
       ParticleNameContainer(ptype)->push_back(name);
-      if (ptype == Particles::kMuon) {
-        m_muon_indices.push_back(measuredindex);
-        m_muon_det_etas.push_back(DetEta);
-        m_muon_charges.push_back(LepCharge);
-      } else if (ptype == Particles::kPhoton) {
+      if (ptype == Particles::kPhoton) {
         m_photon_indices.push_back(measuredindex);
         m_photon_det_etas.push_back(DetEta);
       }
@@ -106,7 +108,7 @@ int Particles::AddParticle(const TLorentzVector& particle, double DetEta, Partic
   auto container = ParticleContainer(ptype);
 
   // check if container exists
-  if ((ptype != Particles::kParton && ptype != Particles::kElectron) && !container) {
+  if ((ptype != Particles::kParton && ptype != Particles::kElectron && ptype != Particles::kMuon) && !container) {
     std::cout << "KLFitter::Particles::AddParticle(). Container does not exist." << std::endl;
     return 0;
   }
@@ -136,13 +138,15 @@ int Particles::AddParticle(const TLorentzVector& particle, double DetEta, Partic
       electron.SetIdentifier(measuredindex);
       electron.SetDetEta(DetEta);
       m_electrons.emplace_back(std::move(electron));
+    } else if (ptype == Particles::kMuon) {
+      Particle::Muon muon{name, particle};
+      muon.SetIdentifier(measuredindex);
+      muon.SetDetEta(DetEta);
+      m_muons.emplace_back(std::move(muon));
     } else {
       container->emplace_back(particle);
       ParticleNameContainer(ptype)->push_back(name);
-      if (ptype == Particles::kMuon) {
-        m_muon_indices.push_back(measuredindex);
-        m_muon_det_etas.push_back(DetEta);
-      } else if (ptype == Particles::kPhoton) {
+      if (ptype == Particles::kPhoton) {
         m_photon_indices.push_back(measuredindex);
         m_photon_det_etas.push_back(DetEta);
       } else if (ptype == Particles::kTrack) {
@@ -208,6 +212,10 @@ int Particles::RemoveParticle(int index, Particles::ParticleType ptype) {
   if (ptype == ParticleType::kElectron) {
     m_electrons.erase(m_electrons.begin() + index);
     return 1;
+  }
+
+  if (ptype == ParticleType::kMuon) {
+    m_muons.erase(m_muons.begin() + index);
   }
 
   // check container and index
@@ -289,14 +297,13 @@ int Particles::FindParticle(const std::string& name, TLorentzVector* &particle, 
   }
 
   // loop over all muons
-  unsigned int nmuons = m_muon_names.size();
-  for (unsigned int i = 0; i < nmuons; ++i)
-    if (name == m_muon_names[i]) {
-      particle = &m_muons[i];
-      *index = i;
-      *ptype = Particles::kMuon;
-      return 1;
-    }
+  for (auto mu = m_muons.begin(); mu != m_muons.end(); ++mu) {
+    if (name != mu->GetName()) continue;
+    particle = &mu->GetP4();
+    *index = mu - m_muons.begin();
+    *ptype = Particles::kMuon;
+    return 1;
+  }
 
   // loop over all taus
   unsigned int ntaus = m_tau_names.size();
@@ -364,8 +371,7 @@ TLorentzVector* Particles::Electron(int index) {
 
 // ---------------------------------------------------------
 TLorentzVector* Particles::Muon(int index) {
-  // no check on index range for CPU-time reasons
-  return &m_muons[index];
+  return &m_muons.at(index).GetP4();
 }
 
 // ---------------------------------------------------------
@@ -406,6 +412,9 @@ int Particles::NParticles(KLFitter::Particles::ParticleType ptype) const {
   if (ptype == ParticleType::kElectron) {
     return static_cast<int>(m_electrons.size());
   }
+  if (ptype == ParticleType::kMuon) {
+    return static_cast<int>(m_muons.size());
+  }
   return static_cast<int>(ParticleContainer(ptype)->size());
 }
 
@@ -416,6 +425,9 @@ std::string Particles::NameParticle(int index, Particles::ParticleType ptype) co
   }
   if (ptype == ParticleType::kElectron) {
     return m_electrons.at(index).GetName();
+  }
+  if (ptype == ParticleType::kMuon) {
+    return m_muons.at(index).GetName();
   }
 
   // get particle container
@@ -452,7 +464,7 @@ const std::vector<TLorentzVector>* Particles::ParticleContainer(KLFitter::Partic
     return nullptr;
     break;
   case Particles::kMuon:
-    return &m_muons;
+    return nullptr;
     break;
   case Particles::kTau:
     return &m_taus;
@@ -487,7 +499,7 @@ std::vector<TLorentzVector>* Particles::ParticleContainer(KLFitter::Particles::P
     return nullptr;
     break;
   case Particles::kMuon:
-    return &m_muons;
+    return nullptr;
     break;
   case Particles::kTau:
     return &m_taus;
@@ -519,7 +531,7 @@ const std::vector<std::string>* Particles::ParticleNameContainer(KLFitter::Parti
   } else if (ptype == Particles::kElectron) {
     return nullptr;
   } else if (ptype == Particles::kMuon) {
-    return &m_muon_names;
+    return nullptr;
   } else if (ptype == Particles::kTau) {
     return &m_tau_names;
   } else if (ptype == Particles::kBoson) {
@@ -545,7 +557,7 @@ std::vector <std::string>* Particles::ParticleNameContainer(KLFitter::Particles:
   } else if (ptype == Particles::kElectron) {
     return nullptr;
   } else if (ptype == Particles::kMuon) {
-    return &m_muon_names;
+    return nullptr;
   } else if (ptype == Particles::kTau) {
     return &m_tau_names;
   } else if (ptype == Particles::kBoson) {
@@ -575,7 +587,7 @@ double Particles::DetEta(int index, Particles::ParticleType ptype) const {
   } else if (ptype == Particles::kElectron) {
     return m_electrons.at(index).GetDetEta();
   } else if (ptype == Particles::kMuon) {
-    return m_muon_det_etas[index];
+    return m_muons.at(index).GetDetEta();
   } else if (ptype == Particles::kPhoton) {
     return m_photon_det_etas[index];
   }
@@ -594,11 +606,7 @@ float Particles::LeptonCharge(int index, Particles::ParticleType ptype) const {
   if (ptype == Particles::kElectron) {
     return m_electrons.at(index).GetCharge();
   } else if (ptype == Particles::kMuon) {
-    if (m_muon_charges.size()== 0) {
-      return -9;
-    } else {
-      return m_muon_charges[index];
-    }
+    return m_muons.at(index).GetCharge();
   } else {
     std::cout << "KLFitter::Particles::LepCharge NO LEPTON TYPE!" << std::endl;
   }
@@ -633,8 +641,7 @@ int Particles::ElectronIndex(int index) const {
 
 // ---------------------------------------------------------
 int Particles::MuonIndex(int index) const {
-  // no check on index range for CPU-time reasons
-  return m_muon_indices[index];
+  return m_muons.at(index).GetIdentifier();
 }
 
 // ---------------------------------------------------------

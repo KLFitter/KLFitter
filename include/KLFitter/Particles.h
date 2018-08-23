@@ -26,6 +26,7 @@
 #include "TLorentzVector.h"
 #include "KLFitter/Particle/Electron.h"
 #include "KLFitter/Particle/Jet.h"
+#include "KLFitter/Particle/Muon.h"
 
 // ---------------------------------------------------------
 
@@ -578,8 +579,8 @@ class Particles final {
   /// vector of all Particle::Electron objects.
   std::vector<Particle::Electron> m_electrons;
 
-  /// A set of muons.
-  std::vector<TLorentzVector> m_muons;
+  /// Vector of all Particle::Muon objects.
+  std::vector<Particle::Muon> m_muons;
 
   /// A set of taus.
   std::vector<TLorentzVector> m_taus;
@@ -596,9 +597,6 @@ class Particles final {
   /// A set of tracks.
   std::vector<TLorentzVector> m_tracks;
 
-  /// The name of the muons.
-  std::vector<std::string> m_muon_names;
-
   /// The name of the taus.
   std::vector<std::string> m_tau_names;
 
@@ -614,23 +612,14 @@ class Particles final {
   /// The name of the tracks.
   std::vector<std::string> m_track_names;
 
-  /// The index of the corresponding measured muon.
-  std::vector<int> m_muon_indices;
-
   /// The index of the corresponding measured photon.
   std::vector<int> m_photon_indices;
 
   /// The index of the corresponding measured track.
   std::vector<int> m_track_indices;
 
-  /// Vector containing the detector eta of muons.
-  std::vector<double> m_muon_det_etas;
-
   /// Vector containing the detector eta of photons.
   std::vector<double> m_photon_det_etas;
-
-  /// Vector containing the charge of muons.
-  std::vector<float> m_muon_charges;
 
   /// Vector containing the uncertainties of tracks.
   std::vector<std::vector<double> > m_uncertainties;
