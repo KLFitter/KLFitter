@@ -334,6 +334,15 @@ int KLFitter::BoostedLikelihoodTopLeptonJets::AdjustParameterRanges() {
 }
 
 // ---------------------------------------------------------
+void KLFitter::BoostedLikelihoodTopLeptonJets::RequestResolutionFunctions() {
+  (*fDetector)->RequestResolutionType(ResolutionType::EnergyLightJet);
+  (*fDetector)->RequestResolutionType(ResolutionType::EnergyBJet);
+  (*fDetector)->RequestResolutionType(ResolutionType::EnergyElectron);
+  (*fDetector)->RequestResolutionType(ResolutionType::EnergyMuon);
+  (*fDetector)->RequestResolutionType(ResolutionType::MissingET);
+}
+
+// ---------------------------------------------------------
 double KLFitter::BoostedLikelihoodTopLeptonJets::LogLikelihood(const std::vector<double> & parameters) {
   // calculate 4-vectors
   CalculateLorentzVectors(parameters);
