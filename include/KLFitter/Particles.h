@@ -68,13 +68,13 @@ class Particles final {
   /// The default constructor.
   Particles();
 
-  /// The (defaulted) copy constructor.
+  /// The copy constructor.
   explicit Particles(const Particles& o);
 
   /// The (defaulted) destructor.
   ~Particles();
 
-  /// The (defaulted) assignment operator.
+  /// The assignment operator.
   Particles& operator=(const Particles& o);
 
   /** \name Member functions (Get)  */

@@ -28,13 +28,34 @@ namespace KLFitter {
 Particles::Particles() = default;
 
 // ---------------------------------------------------------
-Particles::Particles(const Particles& o) = default;
+Particles::Particles(const Particles& o)
+    : m_jets(o.m_jets)
+    , m_electrons(o.m_electrons)
+    , m_muons(o.m_muons)
+    , m_taus(o.m_taus)
+    , m_neutrinos(o.m_neutrinos)
+    , m_bosons(o.m_bosons)
+    , m_photons(o.m_photons)
+    , m_tracks(o.m_tracks) {
+  // empty
+}
 
 // ---------------------------------------------------------
 Particles::~Particles() = default;
 
 // ---------------------------------------------------------
-Particles& Particles::operator=(const Particles& o) = default;
+Particles& Particles::operator=(const Particles& o) {
+  m_jets = o.m_jets;
+  m_electrons = o.m_electrons;
+  m_muons = o.m_muons;
+  m_taus = o.m_taus;
+  m_neutrinos = o.m_neutrinos;
+  m_bosons = o.m_bosons;
+  m_photons = o.m_photons;
+  m_tracks = o.m_tracks;
+
+  return *this;
+}
 
 // ---------------------------------------------------------
 int Particles::AddParticle(const TLorentzVector& particle, double DetEta, float LepCharge, Particles::ParticleType ptype, std::string name, int measuredindex) {
