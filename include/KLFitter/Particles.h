@@ -539,28 +539,6 @@ class Particles final {
    */
   int RemoveParticle(const std::string& name);
 
-  /**
-   * Return the const particle container of a type of particles
-   * @param ptype The type of the particle.
-   * @return The particle container.
-   */
-  const std::vector<TLorentzVector>* ParticleContainer(KLFitter::Particles::ParticleType ptype) const;
-
-  /**
-   * Return the particle container of a type of particles
-   * @param ptype The type of the particle.
-   * @return The particle container.
-   */
-  std::vector<TLorentzVector>* ParticleContainer(KLFitter::Particles::ParticleType ptype);
-
-  /**
-   * Checks if the index is within range.
-   * @param container The particle container.
-   * @param index The index of particle.
-   * @return An error flag.
-   */
-  int CheckIndex(const std::vector<TLorentzVector>& container, int index) const;
-
   /** @} */
 
  private:
