@@ -119,6 +119,9 @@ class LikelihoodTwoTracks : public LikelihoodBase {
   /// Dummy reimplementation of the base class function.
   int SetET_miss_XY_SumET(double /*etx*/, double /*ety*/, double /*sumet*/) override { return 0; }
 
+  /// Dummy reimplementation from the base class.
+  void RequestResolutionFunctions() override { /* do nothing */ }
+
   /// Dummy reimplementation of the base class function.
   int AdjustParameterRanges() override { return 0; }
 

@@ -324,6 +324,12 @@ int KLFitter::LikelihoodTopAllHadronic::AdjustParameterRanges() {
 }
 
 // ---------------------------------------------------------
+void KLFitter::LikelihoodTopAllHadronic::RequestResolutionFunctions() {
+  (*fDetector)->RequestResolutionType(ResolutionType::EnergyLightJet);
+  (*fDetector)->RequestResolutionType(ResolutionType::EnergyBJet);
+}
+
+// ---------------------------------------------------------
 double KLFitter::LikelihoodTopAllHadronic::LogLikelihood(const std::vector<double> & parameters) {
   // calculate 4-vectors
   CalculateLorentzVectors(parameters);

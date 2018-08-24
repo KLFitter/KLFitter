@@ -120,6 +120,9 @@ class LikelihoodTopLeptonJets_JetAngles : public KLFitter::LikelihoodTopLeptonJe
    */
   std::vector<double> LogLikelihoodComponents(std::vector <double> parameters) override;
 
+  /// Request the necessary resolution functions from the detector.
+  void RequestResolutionFunctions() override;
+
   /* @} */
 
  protected:

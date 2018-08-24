@@ -78,6 +78,9 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
    */
   int SetET_miss_XY_SumET(double /*etx*/, double /*ety*/, double /*sumet*/) override { return 1; }
 
+  /// Request the necessary resolution functions from the detector.
+  void RequestResolutionFunctions() override;
+
   /**
     * Set a flag. If flag is true the invariant top quark mass is
     * fixed to the pole mass.
