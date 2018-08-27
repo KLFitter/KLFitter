@@ -36,7 +36,7 @@ namespace KLFitter {
 class PhysicsConstants final {
  public:
   /** \name Constructors and destructors */
-  /* @{ */
+  /** @{ */
 
   /**
     * The default constructor.
@@ -48,9 +48,9 @@ class PhysicsConstants final {
     */
   ~PhysicsConstants();
 
-  /* @} */
+  /** @} */
   /** \name Member functions (Get)  */
-  /* @{ */
+  /** @{ */
 
   /**
     * Return the mass of the bottom quark in GeV/c2.
@@ -108,9 +108,9 @@ class PhysicsConstants final {
 
   double MassTopUnc() { return fMassTopUnc; }
 
-  /* @} */
+  /** @} */
   /** \name Member functions (Set)  */
-  /* @{ */
+  /** @{ */
 
   /**
     * Set the mass of the bottom quark in GeV/c2.
@@ -175,9 +175,9 @@ class PhysicsConstants final {
     */
   int SetGammaHiggs(double gamma);
 
-  /* @} */
+  /** @} */
   /** \name Member functions (misc)  */
-  /* @{ */
+  /** @{ */
 
   /**
     * Calculates the top width at NLO.
@@ -189,7 +189,7 @@ class PhysicsConstants final {
     */
   void CalculateGammaHiggs();
 
-  /* @} */
+  /** @} */
 
  private:
   /**

@@ -46,7 +46,7 @@ namespace KLFitter {
 class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
  public:
   /** \name Constructors and destructors */
-  /* @{ */
+  /** @{ */
 
   /**
     * The default constructor.
@@ -58,7 +58,7 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
     */
   ~LikelihoodSgTopWtLJ();
 
-  /* @} */
+  /** @} */
   /** \name Member functions (Get)  */
 
   /**
@@ -79,11 +79,11 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
     */
   bool GetHadronicTop() { return fHadronicTop; }
 
-  /* @{ */
+  /** @{ */
 
-  /* @} */
+  /** @} */
   /** \name Member functions (Set)  */
-  /* @{ */
+  /** @{ */
 
   /**
     * Enumerator for the lepton type.
@@ -123,13 +123,13 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
     */
   void SetLeptonType(int leptontype);
 
-  /* @} */
+  /** @} */
   /** \name Member functions (misc)  */
-  /* @{ */
+  /** @{ */
 
-  /* @} */
+  /** @} */
   /** \name Member functions (BAT)  */
-  /* @{ */
+  /** @{ */
 
   /**
     * Define the parameters of the fit.
@@ -152,11 +152,11 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
   /// Dummy reimplementation from the abstract base class.
   std::vector<double> LogLikelihoodComponents(std::vector<double>) override { return std::vector<double>{}; }
 
-  /* @} */
+  /** @} */
 
  protected:
   /** \name Member functions (misc)  */
-  /* @{ */
+  /** @{ */
 
   /**
     * Update 4-vectors of model particles.
@@ -192,7 +192,7 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
     */
   int BuildModelParticles() override;
 
-  /* @} */
+  /** @} */
 
  protected:
   /**

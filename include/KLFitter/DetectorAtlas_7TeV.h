@@ -44,7 +44,7 @@ class DetectorAtlas_7TeV : public DetectorBase {
   ~DetectorAtlas_7TeV();
 
   /** \name Member functions (Get)  */
-  /* @{ */
+  /** @{ */
 
   /**
    * Return the energy resolution of light jets.
@@ -122,7 +122,7 @@ class DetectorAtlas_7TeV : public DetectorBase {
    */
   ResolutionBase* ResPhiBJet(double eta = 0.) override;
 
-  /* @} */
+  /** @} */
 
  private:
   /// The energy resolution of light jets for different eta regions.

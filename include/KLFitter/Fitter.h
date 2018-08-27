@@ -45,7 +45,7 @@ class Permutations;
 class Fitter final {
  public:
   /** \name Constructors and destructors */
-  /* @{ */
+  /** @{ */
 
   /**
     * The default constructor.
@@ -57,9 +57,9 @@ class Fitter final {
     */
   ~Fitter();
 
-  /* @} */
+  /** @} */
   /** \name Member functions (Get)  */
-  /* @{ */
+  /** @{ */
 
   /**
     * Return the detector.
@@ -97,9 +97,9 @@ class Fitter final {
     */
   unsigned int ConvergenceStatus() { return fConvergenceStatus; }
 
-  /* @} */
+  /** @} */
   /** \name Member functions (Set)  */
-  /* @{ */
+  /** @{ */
 
   /**
     * Set the detector description.
@@ -139,9 +139,9 @@ class Fitter final {
     */
   int SetLikelihood(KLFitter::LikelihoodBase * likelihood);
 
-  /* @} */
+  /** @} */
   /** \name Member functions (misc)  */
-  /* @{ */
+  /** @{ */
 
   /**
     * Perform the fit for a single permutation of jets and leptons.
@@ -215,7 +215,7 @@ class Fitter final {
     */
   int GetFitStatusFromCache(int iperm);
 
-  /* @} */
+  /** @} */
 
  private:
   /**

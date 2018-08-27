@@ -61,7 +61,7 @@ class LikelihoodBase : public BCModel {
   };
 
   /** \name Constructors and destructors */
-  /* @{ */
+  /** @{ */
 
   /**
     * The default constructor.
@@ -74,9 +74,9 @@ class LikelihoodBase : public BCModel {
     */
   virtual ~LikelihoodBase();
 
-  /* @} */
+  /** @} */
   /** \name Member functions (Get)  */
-  /* @{ */
+  /** @{ */
 
   /**
     * Return the table of physics constants.
@@ -139,9 +139,9 @@ class LikelihoodBase : public BCModel {
 
   bool FlagIntegrate() { return fFlagIntegrate; }
 
-  /* @} */
+  /** @} */
   /** \name Member functions (Set)  */
-  /* @{ */
+  /** @{ */
 
   /**
     * Set the physics constants
@@ -248,9 +248,9 @@ class LikelihoodBase : public BCModel {
     */
   void SetFlagUseJetMass(bool flag) { fFlagUseJetMass = flag; }
 
-  /* @} */
+  /** @} */
   /** \name Member functions (misc)  */
-  /* @{ */
+  /** @{ */
 
   /**
    * Update 4-vectors of model particles.
@@ -286,9 +286,9 @@ class LikelihoodBase : public BCModel {
    */
   virtual void RequestResolutionFunctions() = 0;
 
-  /* @} */
+  /** @} */
   /** \name Member functions (BAT)  */
-  /* @{ */
+  /** @{ */
 
   /**
     * Define the parameters of the fit.
@@ -439,7 +439,7 @@ class LikelihoodBase : public BCModel {
     */
   int ResetCache();
 
-  /* @} */
+  /** @} */
 
  protected:
   /**

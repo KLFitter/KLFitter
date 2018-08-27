@@ -55,7 +55,7 @@ class LikelihoodTopLeptonJets_JetAngles : public KLFitter::LikelihoodTopLeptonJe
   };
 
   /** \name Constructors and destructors */
-  /* @{ */
+  /** @{ */
 
   /// The (defaulted) constructor.
   LikelihoodTopLeptonJets_JetAngles();
@@ -63,9 +63,9 @@ class LikelihoodTopLeptonJets_JetAngles : public KLFitter::LikelihoodTopLeptonJe
   /// The (defaulted) destructor.
   ~LikelihoodTopLeptonJets_JetAngles();
 
-  /* @} */
+  /** @} */
   /** \name Member functions (misc)  */
-  /* @{ */
+  /** @{ */
 
   /**
    * Define the parameters of the fit. This calls BCModel::AddParameter() for
@@ -123,7 +123,7 @@ class LikelihoodTopLeptonJets_JetAngles : public KLFitter::LikelihoodTopLeptonJe
   /// Request the necessary resolution functions from the detector.
   void RequestResolutionFunctions() override;
 
-  /* @} */
+  /** @} */
 
  protected:
   /**

@@ -42,7 +42,7 @@ namespace KLFitter {
 class ResGauss_MET : public ResolutionBase {
  public:
   /** \name Constructors and destructors */
-  /* @{ */
+  /** @{ */
 
   /**
     * The default constructor.
@@ -60,9 +60,9 @@ class ResGauss_MET : public ResolutionBase {
     */
   ~ResGauss_MET();
 
-  /* @} */
+  /** @} */
   /** \name Member functions (Get)  */
-  /* @{ */
+  /** @{ */
 
   /**
     * Return the width of the TF depending on the value of sumET.
@@ -83,9 +83,9 @@ class ResGauss_MET : public ResolutionBase {
     */
   double p(double x, double xmeas, bool *good, double sumet) override;
 
-  /* @} */
+  /** @} */
   /** \name Member functions (Set)  */
-  /* @{ */
+  /** @{ */
 
   /**
     * Set the width of the Gaussian
@@ -97,7 +97,7 @@ class ResGauss_MET : public ResolutionBase {
     this -> SetPar(0, sigma);
   }
 
-  /* @} */
+  /** @} */
 };
 }  // namespace KLFitter
 

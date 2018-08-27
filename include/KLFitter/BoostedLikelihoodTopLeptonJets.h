@@ -47,7 +47,7 @@ namespace KLFitter {
 class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
  public:
   /** \name Constructors and destructors */
-  /* @{ */
+  /** @{ */
 
   /**
    * The default constructor.
@@ -59,13 +59,13 @@ class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
    */
   ~BoostedLikelihoodTopLeptonJets();
 
-  /* @} */
+  /** @} */
   /** \name Member functions (Get)  */
-  /* @{ */
+  /** @{ */
 
-  /* @} */
+  /** @} */
   /** \name Member functions (Set)  */
-  /* @{ */
+  /** @{ */
 
   /**
    * Enumerator for the lepton type.
@@ -110,13 +110,13 @@ class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
    */
   void SetLeptonType(int leptontype);
 
-  /* @} */
+  /** @} */
   /** \name Member functions (misc)  */
-  /* @{ */
+  /** @{ */
 
-  /* @} */
+  /** @} */
   /** \name Member functions (BAT)  */
-  /* @{ */
+  /** @{ */
 
   /**
    * Define the parameters of the fit.
@@ -160,11 +160,11 @@ class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
    */
   std::vector<double> GetInitialParametersWoNeutrinoPz();
 
-  /* @} */
+  /** @} */
 
  protected:
   /** \name Member functions (misc)  */
-  /* @{ */
+  /** @{ */
 
   /**
    * Update 4-vectors of model particles.
@@ -195,7 +195,7 @@ class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
    */
   int BuildModelParticles() override;
 
-  /* @} */
+  /** @} */
 
  protected:
   /**

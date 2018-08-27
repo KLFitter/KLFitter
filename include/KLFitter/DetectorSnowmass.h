@@ -46,7 +46,7 @@ class DetectorSnowmass : public DetectorBase {
   ~DetectorSnowmass();
 
   /** \name Member functions (Get)  */
-  /* @{ */
+  /** @{ */
 
   /**
    * Return the energy resolution of light-jets.
@@ -82,7 +82,7 @@ class DetectorSnowmass : public DetectorBase {
    */
   ResolutionBase* ResMissingET() override;
 
-  /* @} */
+  /** @} */
 
   /// Resolution function for gluon jets -- not defined.
   ResolutionBase* ResEnergyGluonJet(double) override { return ResolutionUndefined("ResEnergyGluonJet"); }

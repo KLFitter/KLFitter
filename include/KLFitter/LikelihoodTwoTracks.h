@@ -43,7 +43,7 @@ class ResolutionBase;
 class LikelihoodTwoTracks : public LikelihoodBase {
  public:
   /** \name Constructors and destructors */
-  /* @{ */
+  /** @{ */
 
   /// The default constructor.
   LikelihoodTwoTracks();
@@ -51,7 +51,7 @@ class LikelihoodTwoTracks : public LikelihoodBase {
   /// The (defaulted) destructor.
   ~LikelihoodTwoTracks();
 
-  /* @} */
+  /** @} */
 
   /** Calculate 3D Gaussian.
     * @param x0 First variable point of evalulation
@@ -84,7 +84,7 @@ class LikelihoodTwoTracks : public LikelihoodBase {
   };
 
   /** \name Member functions (BAT)  */
-  /* @{ */
+  /** @{ */
 
   /// Define the parameters of the fit.
   void DefineParameters() override;
@@ -134,7 +134,7 @@ class LikelihoodTwoTracks : public LikelihoodBase {
   /// Dummy reimplementation of the base class function.
   int SaveResolutionFunctions() override { return 0; }
 
-  /* @} */
+  /** @} */
 
  protected:
   /**
@@ -168,7 +168,7 @@ class LikelihoodTwoTracks : public LikelihoodBase {
   int SavePermutedParticles() override;
 
   /** \name Member attributes */
-  /* @{ */
+  /** @{ */
 
   /// Mass of the pion.
   const double m_pion_mass;
@@ -179,9 +179,9 @@ class LikelihoodTwoTracks : public LikelihoodBase {
   /// Decay width of k_short.
   const double m_kshort_width;
 
-  /* @} */
+  /** @} */
   /** \name Member attributes (measured parameters) */
-  /* @{ */
+  /** @{ */
 
   double m_t1_meas_phi;
   double m_t1_meas_theta;
@@ -205,9 +205,9 @@ class LikelihoodTwoTracks : public LikelihoodBase {
   double m_t2_meas_sigma21;
   double m_t2_meas_sigma22;
 
-  /* @} */
+  /** @} */
   /** \name Member attributes (fitted parameters) */
-  /* @{ */
+  /** @{ */
 
   double m_t1_fit_phi;
   double m_t1_fit_theta;
@@ -221,7 +221,7 @@ class LikelihoodTwoTracks : public LikelihoodBase {
 
   double m_ks_fit_m;
 
-  /* @} */
+  /** @} */
 };
 }  // namespace KLFitter
 

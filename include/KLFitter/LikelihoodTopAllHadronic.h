@@ -45,7 +45,7 @@ namespace KLFitter {
 class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
  public:
   /** \name Constructors and destructors */
-  /* @{ */
+  /** @{ */
 
   /**
     * The default constructor.
@@ -57,13 +57,13 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
     */
   ~LikelihoodTopAllHadronic();
 
-  /* @} */
+  /** @} */
   /** \name Member functions (Get)  */
-  /* @{ */
+  /** @{ */
 
-  /* @} */
+  /** @} */
   /** \name Member functions (Set)  */
-  /* @{ */
+  /** @{ */
 
   /**
     * Enumerator for the parameters.
@@ -90,13 +90,13 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
 
   void SetFlagGetParSigmasFromTFs(bool flag) { fFlagGetParSigmasFromTFs = flag; }
 
-  /* @} */
+  /** @} */
   /** \name Member functions (misc)  */
-  /* @{ */
+  /** @{ */
 
-  /* @} */
+  /** @} */
   /** \name Member functions (BAT)  */
-  /* @{ */
+  /** @{ */
 
   /**
     * Define the parameters of the fit.
@@ -133,11 +133,11 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
     */
   std::vector<double> GetInitialParameters() override;
 
-  /* @} */
+  /** @} */
 
  protected:
   /** \name Member functions (misc)  */
-  /* @{ */
+  /** @{ */
 
   /**
     * Update 4-vectors of model particles.
@@ -174,7 +174,7 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
     */
   int BuildModelParticles() override;
 
-  /* @} */
+  /** @} */
 
  protected:
   /**

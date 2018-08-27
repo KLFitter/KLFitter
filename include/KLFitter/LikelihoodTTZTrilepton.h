@@ -46,7 +46,7 @@ namespace KLFitter {
 class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
  public:
   /** \name Constructors and destructors */
-  /* @{ */
+  /** @{ */
 
   /**
     * The default constructor.
@@ -58,9 +58,9 @@ class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
     */
   ~LikelihoodTTZTrilepton();
 
-  /* @} */
+  /** @} */
   /** \name Member functions (Get)  */
-  /* @{ */
+  /** @{ */
 
   /**
     * Get the cut-off value of the 1/E^2 distribution.
@@ -72,9 +72,9 @@ class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
     */
   float GetOnShellFraction() { return fOnShellFraction; }
 
-  /* @} */
+  /** @} */
   /** \name Member functions (Set)  */
-  /* @{ */
+  /** @{ */
 
   /**
     * Enumerator for the lepton type.
@@ -129,13 +129,13 @@ class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
     */
   void SetLeptonType(int leptontype);
 
-  /* @} */
+  /** @} */
   /** \name Member functions (misc)  */
-  /* @{ */
+  /** @{ */
 
-  /* @} */
+  /** @} */
   /** \name Member functions (BAT)  */
-  /* @{ */
+  /** @{ */
 
   /**
     * Define the parameters of the fit.
@@ -184,11 +184,11 @@ class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
     */
   std::vector<double> GetInitialParametersWoNeutrinoPz();
 
-  /* @} */
+  /** @} */
 
  protected:
   /** \name Member functions (misc)  */
-  /* @{ */
+  /** @{ */
 
   /**
     * Provide a local modification of BCMath::LogBreitWignerRel such
@@ -243,7 +243,7 @@ class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
     */
   int BuildModelParticles() override;
 
-  /* @} */
+  /** @} */
 
  protected:
   /**

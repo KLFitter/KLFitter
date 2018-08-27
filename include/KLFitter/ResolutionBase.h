@@ -38,7 +38,7 @@ namespace KLFitter {
 class ResolutionBase {
  public:
   /** \name Constructors and destructors */
-  /* @{ */
+  /** @{ */
 
   /**
     * The default constructor.
@@ -57,9 +57,9 @@ class ResolutionBase {
     */
   virtual ~ResolutionBase();
 
-  /* @} */
+  /** @} */
   /** \name Member functions (Get)  */
-  /* @{ */
+  /** @{ */
 
   /**
     * Return the (approximate) width of the TF depending on the relevant parameter
@@ -89,9 +89,9 @@ class ResolutionBase {
     */
   int Par(int index, double *par);
 
-  /* @} */
+  /** @} */
   /** \name Member functions (Set)  */
-  /* @{ */
+  /** @{ */
 
   /**
     * Set a parameter value.
@@ -108,9 +108,9 @@ class ResolutionBase {
     */
   int SetPar(std::vector<double> parameters);
 
-  /* @} */
+  /** @} */
   /** \name Member functions (misc)  */
-  /* @{ */
+  /** @{ */
 
   /**
     * Read parameter values from ASCII file.
@@ -126,7 +126,7 @@ class ResolutionBase {
     */
   int Status() { return fStatus; }
 
-  /* @} */
+  /** @} */
 
  protected:
   /// The number of parameters.

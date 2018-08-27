@@ -54,7 +54,7 @@ namespace KLFitter {
 class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
  public:
   /** \name Constructors and destructors */
-  /* @{ */
+  /** @{ */
 
   /**
     * The default constructor.
@@ -66,13 +66,13 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
     */
   ~LikelihoodTopDilepton();
 
-  /* @} */
+  /** @} */
   /** \name Member functions (Get)  */
-  /* @{ */
+  /** @{ */
 
-  /* @} */
+  /** @} */
   /** \name Member functions (Set)  */
-  /* @{ */
+  /** @{ */
 
   /**
     * Enumerator for the lepton type.
@@ -123,13 +123,13 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
     */
   void SetLeptonType(int leptontype_1, int leptontype_2);
 
-  /* @} */
+  /** @} */
   /** \name Member functions (misc)  */
-  /* @{ */
+  /** @{ */
 
-  /* @} */
+  /** @} */
   /** \name Member functions (BAT)  */
-  /* @{ */
+  /** @{ */
 
   /**
     * Define the parameters of the fit.
@@ -222,11 +222,11 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
     */
   void SetDoSumLogLik(bool flag) { doSumloglik = flag; }
 
-  /* @} */
+  /** @} */
 
  protected:
   /** \name Member functions (misc)  */
-  /* @{ */
+  /** @{ */
 
   /**
     * Update 4-vectors of model particles.
@@ -285,7 +285,7 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
     */
   std::pair<float, float> CalculateCosTheta(std::vector <TLorentzVector> *particles);
 
-  /* @} */
+  /** @} */
 
  protected:
   /**

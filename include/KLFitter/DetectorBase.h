@@ -60,7 +60,7 @@ class DetectorBase {
   virtual ~DetectorBase();
 
   /** \name Member functions (Get)  */
-  /* @{ */
+  /** @{ */
 
   /**
    * Return the energy resolution of light jets.
@@ -138,9 +138,9 @@ class DetectorBase {
    */
   virtual ResolutionBase* ResPhiBJet(double /*eta*/) = 0;
 
-  /* @} */
+  /** @} */
   /** \name Member functions (misc)  */
-  /* @{ */
+  /** @{ */
 
   int Status();
 
@@ -153,7 +153,7 @@ class DetectorBase {
    */
   void RequestResolutionType(const ResolutionType& type);
 
-  /* @} */
+  /** @} */
 
  protected:
   /**

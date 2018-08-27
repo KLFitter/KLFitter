@@ -38,7 +38,7 @@ class ResolutionBase;
 class LikelihoodTopLeptonJets : public LikelihoodBase {
  public:
   /** \name Constructors and destructors */
-  /* @{ */
+  /** @{ */
 
   /**
    * The default constructor. This initializes all member attributes and calls
@@ -49,7 +49,7 @@ class LikelihoodTopLeptonJets : public LikelihoodBase {
   /// The (defaulted) destructor.
   ~LikelihoodTopLeptonJets();
 
-  /* @} */
+  /** @} */
 
   /// Enumerator for the lepton type.
   enum LeptonType { kElectron,  ///< Leptons of type electron
@@ -69,7 +69,7 @@ class LikelihoodTopLeptonJets : public LikelihoodBase {
   };
 
   /** \name Member functions (Set)  */
-  /* @{ */
+  /** @{ */
 
   /**
    * Set a flag. If flag is true the invariant top quark mass is
@@ -97,9 +97,9 @@ class LikelihoodTopLeptonJets : public LikelihoodBase {
    */
   void SetLeptonType(int leptontype);
 
-  /* @} */
+  /** @} */
   /** \name Member functions (BAT)  */
-  /* @{ */
+  /** @{ */
 
   /**
    * Define the parameters of the fit. This calls BCModel::AddParameter() for
@@ -151,9 +151,9 @@ class LikelihoodTopLeptonJets : public LikelihoodBase {
    */
   std::vector<double> LogLikelihoodComponents(std::vector <double> parameters) override;
 
-  /* @} */
+  /** @} */
   /** \name Member functions (misc)  */
-  /* @{ */
+  /** @{ */
 
   /**
    * Set the values for the missing ET x and y components and the m_et_miss_sum. This
@@ -169,7 +169,7 @@ class LikelihoodTopLeptonJets : public LikelihoodBase {
   /// Request the necessary resolution functions from the detector.
   void RequestResolutionFunctions() override;
 
-  /* @} */
+  /** @} */
 
  protected:
   /**
@@ -250,7 +250,7 @@ class LikelihoodTopLeptonJets : public LikelihoodBase {
   int SaveResolutionFunctions() override;
 
   /** \name Member attributes */
-  /* @{ */
+  /** @{ */
 
   /// A flag for using a fixed top mass (true) or not (false).
   bool m_flag_top_mass_fixed;
@@ -288,9 +288,9 @@ class LikelihoodTopLeptonJets : public LikelihoodBase {
   /// Pointer to resolution function for MET.
   ResolutionBase* m_res_met;
 
-  /* @} */
+  /** @} */
   /** \name Member attributes (measured parameters) */
-  /* @{ */
+  /** @{ */
 
   double m_bhad_meas_e;
   double m_bhad_meas_p;
@@ -340,9 +340,9 @@ class LikelihoodTopLeptonJets : public LikelihoodBase {
   double m_lep_meas_py;
   double m_lep_meas_pz;
 
-  /* @} */
+  /** @} */
   /** \name Member attributes (fitted parameters) */
-  /* @{ */
+  /** @{ */
 
   double m_bhad_fit_e;
   double m_bhad_fit_px;
@@ -389,7 +389,7 @@ class LikelihoodTopLeptonJets : public LikelihoodBase {
   double m_thad_fit_m;
   double m_tlep_fit_m;
 
-  /* @} */
+  /** @} */
 };
 }  // namespace KLFitter
 

@@ -40,7 +40,7 @@ namespace KLFitter {
 class ResGauss : public ResolutionBase {
  public:
   /** \name Constructors and destructors */
-  /* @{ */
+  /** @{ */
 
   /**
     * The default constructor.
@@ -58,9 +58,9 @@ class ResGauss : public ResolutionBase {
     */
   ~ResGauss();
 
-  /* @} */
+  /** @} */
   /** \name Member functions (Get)  */
-  /* @{ */
+  /** @{ */
 
   /**
     * Return the width of the TF depending on the measured value of x.
@@ -81,9 +81,9 @@ class ResGauss : public ResolutionBase {
     */
   double p(double x, double xmeas, bool *good, double par = 0) override;
 
-  /* @} */
+  /** @} */
   /** \name Member functions (Set)  */
-  /* @{ */
+  /** @{ */
 
   /**
     * Set the width of the Gaussian
@@ -95,7 +95,7 @@ class ResGauss : public ResolutionBase {
     this -> SetPar(0, sigma);
   }
 
-  /* @} */
+  /** @} */
 };
 }  // namespace KLFitter
 

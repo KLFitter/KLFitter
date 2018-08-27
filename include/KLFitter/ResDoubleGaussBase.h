@@ -43,7 +43,7 @@ namespace KLFitter {
 class ResDoubleGaussBase : public ResolutionBase {
  public:
   /** \name Constructors and destructors */
-  /* @{ */
+  /** @{ */
 
   /**
     * The default constructor.
@@ -61,9 +61,9 @@ class ResDoubleGaussBase : public ResolutionBase {
     */
   virtual ~ResDoubleGaussBase();
 
-  /* @} */
+  /** @} */
   /** \name Member functions (Get)  */
-  /* @{ */
+  /** @{ */
 
   /**
     * Calculate the mean of the first Gaussian from the TF parameters and the value of x.
@@ -119,7 +119,7 @@ class ResDoubleGaussBase : public ResolutionBase {
     */
   double p(double x, double xmeas, bool *good, double /*par*/ = 0) override;
 
-  /* @} */
+  /** @} */
 
   /**
     * Sanity check for double gaussian parameters p2, p3 and p5 (1st sigma, scale and 2nd sigma).

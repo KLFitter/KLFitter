@@ -61,7 +61,7 @@ class Particles final {
   };
 
   /** \name Constructors and destructors */
-  /* @{ */
+  /** @{ */
 
   /// The default constructor.
   Particles();
@@ -75,9 +75,9 @@ class Particles final {
   /// The (defaulted) assignment operator.
   Particles& operator=(const Particles& o);
 
-  /* @} */
+  /** @} */
   /** \name Member functions (Get)  */
-  /* @{ */
+  /** @{ */
 
   /**
    * Return the number of partons.
@@ -375,9 +375,9 @@ class Particles final {
   /// Return the number of b-tags.
   int NBTags() const;
 
-  /* @} */
+  /** @} */
   /** \name Member functions (Set)  */
-  /* @{ */
+  /** @{ */
 
   /**
    * Set has the jet been b-tagged?
@@ -419,9 +419,9 @@ class Particles final {
    */
   int SetBTagWeightSet(int index, bool btagweightset);
 
-  /* @} */
+  /** @} */
   /** \name Member functions (misc)  */
-  /* @{ */
+  /** @{ */
 
   /**
    * Add a particle to a list of particles.
@@ -574,7 +574,7 @@ class Particles final {
    */
   int CheckIndex(const std::vector<TLorentzVector>& container, int index) const;
 
-  /* @} */
+  /** @} */
 
  private:
   /**

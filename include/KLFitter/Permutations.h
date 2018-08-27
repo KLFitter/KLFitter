@@ -43,7 +43,7 @@ namespace KLFitter {
 class Permutations final {
  public:
   /** \name Constructors and destructors */
-  /* @{ */
+  /** @{ */
 
   /**
     * The default constructor.
@@ -67,9 +67,9 @@ class Permutations final {
     */
   Permutations& operator=(const Permutations& obj);
 
-  /* @} */
+  /** @} */
   /** \name Member functions (Get)  */
-  /* @{ */
+  /** @{ */
 
   /**
     * Return the original particles.
@@ -110,9 +110,9 @@ class Permutations final {
 
   std::vector<std::vector<int> >* TableTracks() { return &fTableTracks; }
 
-  /* @} */
+  /** @} */
   /** \name Member functions (Set)  */
-  /* @{ */
+  /** @{ */
 
   /**
     * Set the original particles.
@@ -128,9 +128,9 @@ class Permutations final {
     */
   int SetPermutation(int index);
 
-  /* @} */
+  /** @} */
   /** \name Member functions (misc)  */
-  /* @{ */
+  /** @{ */
 
   /**
     * Create all possible permutations of jets and leptons.
@@ -185,7 +185,7 @@ class Permutations final {
     */
   int CreateSubTable(int Nobj, std::vector<std::vector<int> >* table, int Nmax = -1);
 
-  /* @} */
+  /** @} */
 
  private:
   /**

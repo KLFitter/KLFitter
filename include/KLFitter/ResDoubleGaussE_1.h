@@ -43,7 +43,7 @@ namespace KLFitter {
 class ResDoubleGaussE_1 : public ResDoubleGaussBase {
  public:
   /** \name Constructors and destructors */
-  /* @{ */
+  /** @{ */
 
   /**
     * The default constructor.
@@ -61,9 +61,9 @@ class ResDoubleGaussE_1 : public ResDoubleGaussBase {
     */
   ~ResDoubleGaussE_1();
 
-  /* @} */
+  /** @} */
   /** \name Member functions (Get)  */
-  /* @{ */
+  /** @{ */
 
   /**
     * Calculate the mean of the first Gaussian from the TF parameters and the value of x.
@@ -100,7 +100,7 @@ class ResDoubleGaussE_1 : public ResDoubleGaussBase {
     */
   double GetSigma2(double x) override;
 
-  /* @} */
+  /** @} */
 };
 }  // namespace KLFitter
 
