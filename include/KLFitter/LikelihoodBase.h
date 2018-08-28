@@ -31,10 +31,6 @@
 
 // ---------------------------------------------------------
 
-/**
- * \namespace KLFitter
- * \brief The KLFitter namespace
- */
 namespace KLFitter {
 class Permutations;
 class DetectorBase;

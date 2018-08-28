@@ -23,19 +23,13 @@
 #include <iostream>
 #include <vector>
 
-namespace KLFitter {
-  class ResolutionBase;
-}
-
 #include "KLFitter/LikelihoodBase.h"
 
 // ---------------------------------------------------------
 
-/**
- * \namespace KLFitter
- * \brief The KLFitter namespace
- */
 namespace KLFitter {
+class ResolutionBase;
+
 /**
   * \class KLFitter::LikelihoodTTZTrilepton
   * \brief A class implementing a likelihood for the ttZ trilepton channel.

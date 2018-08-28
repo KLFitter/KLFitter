@@ -26,8 +26,8 @@
 // ---------------------------------------------------------
 
 /**
- * \namespace KLFitter
- * \brief The KLFitter namespace
+ * The main KLFitter namespace. This namespace should contain all
+ * functions, classes and sub-namespaces of the project.
  */
 namespace KLFitter {
 class Particles;

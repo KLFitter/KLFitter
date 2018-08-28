@@ -22,19 +22,13 @@
 
 #include <vector>
 
-namespace KLFitter {
-  class ResolutionBase;
-}
-
 #include "KLFitter/LikelihoodBase.h"
 
 // ---------------------------------------------------------
 
-/**
- * \namespace KLFitter
- * \brief The KLFitter namespace
- */
 namespace KLFitter {
+class ResolutionBase;
+
 /**
   * \class KLFitter::LikelihoodSgTopWtLJ
   * \brief A class implementing a likelihood for the SgTop Wt -> lepton+jets
