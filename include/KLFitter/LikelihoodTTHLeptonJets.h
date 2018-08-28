@@ -33,72 +33,72 @@ namespace KLFitter {
 class ResolutionBase;
 
 /**
-  * \class KLFitter::LikelihoodTTHLeptonJets
-  * \brief A class implementing a likelihood for the ttH lepton+jets channel.
-  *
-  * This class represents a likelihood for the ttH in lepton+jets channel. It
-  * is largely based on the LikelihoodTopLeptonJets class.
-  */
+ * \class KLFitter::LikelihoodTTHLeptonJets
+ * \brief A class implementing a likelihood for the ttH lepton+jets channel.
+ *
+ * This class represents a likelihood for the ttH in lepton+jets channel. It
+ * is largely based on the LikelihoodTopLeptonJets class.
+ */
 class LikelihoodTTHLeptonJets : public KLFitter::LikelihoodBase {
  public:
   /**
-    * The default constructor.
-    */
+   * The default constructor.
+   */
   LikelihoodTTHLeptonJets();
 
   /**
-    * The (defaulted) destructor.
-    */
+   * The (defaulted) destructor.
+   */
   ~LikelihoodTTHLeptonJets();
 
   /** \name Member functions (Set)  */
   /** @{ */
 
   /**
-    * Enumerator for the lepton type.
-    */
+   * Enumerator for the lepton type.
+   */
   enum LeptonType { kElectron, kMuon };
 
   /**
-    * Enumerator for the parameters.
-    */
+   * Enumerator for the parameters.
+   */
   enum Parameters { parBhadE, parBlepE, parLQ1E, parLQ2E, parLepE, parNuPx, parNuPy, parNuPz, parTopM, parBHiggs1E, parBHiggs2E, parHiggsM};
 
   /**
-    * Set the values for the missing ET x and y components and the SumET.
-    * @param etx missing ET x component.
-    * @param ety missing ET y component.
-    * @param sumet total scalar ET.
-    * @return An error flag.
-    */
+   * Set the values for the missing ET x and y components and the SumET.
+   * @param etx missing ET x component.
+   * @param ety missing ET y component.
+   * @param sumet total scalar ET.
+   * @return An error flag.
+   */
   int SetET_miss_XY_SumET(double etx, double ety, double sumet) override;
 
   /// Request the necessary resolution functions from the detector.
   void RequestResolutionFunctions() override;
 
   /**
-    * Set a flag. If flag is true the invariant top quark mass is
-    * fixed to the pole mass.
-    * @param flag The flag.
-    */
+   * Set a flag. If flag is true the invariant top quark mass is
+   * fixed to the pole mass.
+   * @param flag The flag.
+   */
   void SetFlagTopMassFixed(bool flag) { fFlagTopMassFixed = flag; }
 
   /**
-    * Set a flag. If flag is true the invariant Higgs mass is fixed
-    * @param flag The flag.
-    */
+   * Set a flag. If flag is true the invariant Higgs mass is fixed
+   * @param flag The flag.
+   */
   void SetFlagHiggsMassFixed(bool flag) { fFlagHiggsMassFixed = flag; }
 
   /**
-    * Set the type of lepton
-    * @param leptontype The type of lepton: kElectron or kMuon
-    */
+   * Set the type of lepton
+   * @param leptontype The type of lepton: kElectron or kMuon
+   */
   void SetLeptonType(LeptonType leptontype);
 
   /**
-    * Set the type of lepton
-    * @param leptontype The type of lepton: electron(1) or muon (2)
-    */
+   * Set the type of lepton
+   * @param leptontype The type of lepton: electron(1) or muon (2)
+   */
   void SetLeptonType(int leptontype);
 
   /** @} */
@@ -106,50 +106,50 @@ class LikelihoodTTHLeptonJets : public KLFitter::LikelihoodBase {
   /** @{ */
 
   /**
-    * Define the parameters of the fit.
-    */
+   * Define the parameters of the fit.
+   */
   void DefineParameters() override;
 
   /**
-    * The posterior probability definition, overloaded from BCModel.
-    * @param parameters A vector of parameters (double values).
-    * @return The logarithm of the prior probability.
-    */
+   * The posterior probability definition, overloaded from BCModel.
+   * @param parameters A vector of parameters (double values).
+   * @return The logarithm of the prior probability.
+   */
 
   double LogLikelihood(const std::vector <double> & parameters) override;
   /**
-    * The posterior probability definition, overloaded from BCModel. Split up into several subcomponents
-    * @param parameters A vector of parameters (double values).
-    * @return A vector with the components of the logarithm of the prior probability. Its components are:
-    * 0:  TF_bhad
-    * 1:  TF_blep
-    * 2:  TF_lq1
-    * 3:  TF_lq2
-    * 4:  TF_BHiggs1
-    * 5:  TF_BHiggs2
-    * 6:  TF_lep
-    * 7:  TF_METx
-    * 8:  TF_METy
-    * 9:  BW_Whad
-    * 10: BW_Wlep
-    * 11: BW_Thad
-    * 12: BW_Tlep
-    * 13: BW_Higgs
-    */
+   * The posterior probability definition, overloaded from BCModel. Split up into several subcomponents
+   * @param parameters A vector of parameters (double values).
+   * @return A vector with the components of the logarithm of the prior probability. Its components are:
+   * 0:  TF_bhad
+   * 1:  TF_blep
+   * 2:  TF_lq1
+   * 3:  TF_lq2
+   * 4:  TF_BHiggs1
+   * 5:  TF_BHiggs2
+   * 6:  TF_lep
+   * 7:  TF_METx
+   * 8:  TF_METy
+   * 9:  BW_Whad
+   * 10: BW_Wlep
+   * 11: BW_Thad
+   * 12: BW_Tlep
+   * 13: BW_Higgs
+   */
   std::vector<double> LogLikelihoodComponents(std::vector <double> parameters) override;
 
   /**
-    * Get initial values for the parameters.
-    * @return vector of initial values.
-    */
+   * Get initial values for the parameters.
+   * @return vector of initial values.
+   */
   std::vector<double> GetInitialParameters() override;
 
   /**
-    * Get initial values for the parameters with a dummy of "0.0" for the neutrino pz.
-    * The decision on the initial value for the neutrino pz then needs to be done in
-    * GetInitialParameters().
-    * @return vector of initial values.
-    */
+   * Get initial values for the parameters with a dummy of "0.0" for the neutrino pz.
+   * The decision on the initial value for the neutrino pz then needs to be done in
+   * GetInitialParameters().
+   * @return vector of initial values.
+   */
   std::vector<double> GetInitialParametersWoNeutrinoPz();
 
   /** @} */
@@ -159,100 +159,100 @@ class LikelihoodTTHLeptonJets : public KLFitter::LikelihoodBase {
   /** @{ */
 
   /**
-    * Update 4-vectors of model particles.
-    * @return An error flag.
-    */
+   * Update 4-vectors of model particles.
+   * @return An error flag.
+   */
   int CalculateLorentzVectors(std::vector <double> const& parameters) override;
 
   /**
-    * Adjust parameter ranges
-    */
+   * Adjust parameter ranges
+   */
   int AdjustParameterRanges() override;
 
   /**
-    * Define the model particles
-    * @return An error code.
-    */
+   * Define the model particles
+   * @return An error code.
+   */
   int DefineModelParticles() override;
 
   /**
-    * Remove invariant particle permutations.
-    * @return An error code.
-    */
+   * Remove invariant particle permutations.
+   * @return An error code.
+   */
   int RemoveInvariantParticlePermutations() override;
 
   /**
-    * Build the model particles from the best fit parameters.
-    * @return An error code.
-    */
+   * Build the model particles from the best fit parameters.
+   * @return An error code.
+   */
   int BuildModelParticles() override;
 
   /** @} */
 
  protected:
   /**
-    * A flag for using a fixed top mass (true) or not (false).
-    */
+   * A flag for using a fixed top mass (true) or not (false).
+   */
   bool fFlagTopMassFixed;
 
   /**
-    * A flag for using a fixed Higgs mass (true) or not (false).
-    */
+   * A flag for using a fixed Higgs mass (true) or not (false).
+   */
   bool fFlagHiggsMassFixed;
 
   /**
-    * Return the neutrino pz solutions from the measured values
-    * and the W mass.
-    * @return A vector with 0, 1 or 2 neutrino pz solutions.
-    */
+   * Return the neutrino pz solutions from the measured values
+   * and the W mass.
+   * @return A vector with 0, 1 or 2 neutrino pz solutions.
+   */
   std::vector<double> GetNeutrinoPzSolutions();
 
   /**
-    * Calculates the neutrino pz solutions from the measured values
-    * and the W mass. An additional particle to be added to the
-    * charged lepton may be specified, for example a photon
-    * in ttbargamma, which is radiated from the leptonic W
-    * or the charged lepton;
-    * @param additionalParticle Pointer to a 4-vector of a particle which is
-    * added to the charged lepton in the calculation
-    * @return A vector with 0, 1 or 2 neutrino pz solutions.
-    */
+   * Calculates the neutrino pz solutions from the measured values
+   * and the W mass. An additional particle to be added to the
+   * charged lepton may be specified, for example a photon
+   * in ttbargamma, which is radiated from the leptonic W
+   * or the charged lepton;
+   * @param additionalParticle Pointer to a 4-vector of a particle which is
+   * added to the charged lepton in the calculation
+   * @return A vector with 0, 1 or 2 neutrino pz solutions.
+   */
   std::vector<double> CalculateNeutrinoPzSolutions(TLorentzVector * additionalParticle = 0x0);
 
   /**
-    * Save permuted particles.
-    */
+   * Save permuted particles.
+   */
   int SavePermutedParticles() override;
 
   /**
-    * Save resolution functions.
-    */
+   * Save resolution functions.
+   */
   int SaveResolutionFunctions() override;
 
   /**
-    * The values of the x component of the missing ET.
-    */
+   * The values of the x component of the missing ET.
+   */
   double ETmiss_x;
 
   /**
-    * The values of the y component of the missing ET.
-    */
+   * The values of the y component of the missing ET.
+   */
   double ETmiss_y;
 
   /**
-    * The values of the total scalar ET.
-    */
+   * The values of the total scalar ET.
+   */
   double SumET;
 
   /**
-    * An index deciding if the event is electron (1) or muon (2) plus
-    * jets.
-    */
+   * An index deciding if the event is electron (1) or muon (2) plus
+   * jets.
+   */
   LeptonType fTypeLepton;
 
   /**
-    * Save resolution functions since the eta of the partons is not fitted.
-    */
+   * Save resolution functions since the eta of the partons is not fitted.
+   */
   ResolutionBase * fResEnergyBhad;
   ResolutionBase * fResEnergyBlep;
   ResolutionBase * fResEnergyLQ1;
@@ -263,8 +263,8 @@ class LikelihoodTTHLeptonJets : public KLFitter::LikelihoodBase {
   ResolutionBase * fResMET;
 
   /**
-    * Save measured particle values for frequent calls
-    */
+   * Save measured particle values for frequent calls
+   */
   double bhad_meas_e;
   double bhad_meas_p;
   double bhad_meas_m;
@@ -334,8 +334,8 @@ class LikelihoodTTHLeptonJets : public KLFitter::LikelihoodBase {
   double BHiggs2_meas_pz;
 
   /**
-    * Save fit particle values for frequent calls
-    */
+   * Save fit particle values for frequent calls
+   */
   double bhad_fit_e;
   double bhad_fit_px;
   double bhad_fit_py;

@@ -27,57 +27,57 @@
 
 namespace KLFitter {
 /**
-  * \class KLFitter::ResGaussE
-  * \brief A class describing a Gaussian resolution.
-  *
-  * This class offers a simple parameterization of a resolution. The
-  * parameterization is a Gaussian with a width parametrized
-  * as a function of the true parameter.
-  */
+ * \class KLFitter::ResGaussE
+ * \brief A class describing a Gaussian resolution.
+ *
+ * This class offers a simple parameterization of a resolution. The
+ * parameterization is a Gaussian with a width parametrized
+ * as a function of the true parameter.
+ */
 class ResGaussE : public ResolutionBase {
  public:
   /**
-    * The default constructor.
-    */
+   * The default constructor.
+   */
   explicit ResGaussE(const char * filename);
 
   /**
-    * A constructor.
-    * @param sigma The width of the Gaussian.
-    */
+   * A constructor.
+   * @param sigma The width of the Gaussian.
+   */
   explicit ResGaussE(double sigma);
 
   /**
-    * A constructor.
-    * @param sigma The width of the Gaussian.
-    */
+   * A constructor.
+   * @param sigma The width of the Gaussian.
+   */
   explicit ResGaussE(std::vector<double> const& parameters);
 
   /**
-    * The (defaulted) destructor.
-    */
+   * The (defaulted) destructor.
+   */
   ~ResGaussE();
 
   /** \name Member functions (Get)  */
   /** @{ */
 
   /**
-    * Return the width of the TF depending on the value of energy x.
-    * Used to adjust the range of the fit parameter that correspond to the TF.
-    * @param par true energy as parameter of the TF.
-    * @return The width.
-    */
+   * Return the width of the TF depending on the value of energy x.
+   * Used to adjust the range of the fit parameter that correspond to the TF.
+   * @param par true energy as parameter of the TF.
+   * @return The width.
+   */
   double GetSigma(double par) override;
 
   /**
-    * Return the probability of the true value of x given the
-    * measured value, xmeas.
-    * @param x The true value of x.
-    * @param xmeas The measured value of x.
-    * @param good False if problem with TF.
-    * @param par Optional additional parameter (not used here).
-    * @return The probability.
-    */
+   * Return the probability of the true value of x given the
+   * measured value, xmeas.
+   * @param x The true value of x.
+   * @param xmeas The measured value of x.
+   * @param good False if problem with TF.
+   * @param par Optional additional parameter (not used here).
+   * @return The probability.
+   */
   double p(double x, double xmeas, bool *good, double par = 0) override;
 
   /** @} */
@@ -85,9 +85,9 @@ class ResGaussE : public ResolutionBase {
   /** @{ */
 
   /**
-    * Set the width of the Gaussian
-    * @param sigma The width of the Gaussian.
-    */
+   * Set the width of the Gaussian
+   * @param sigma The width of the Gaussian.
+   */
   void SetSigma(double sigma) {
     if (sigma < 0)
       sigma = - sigma;

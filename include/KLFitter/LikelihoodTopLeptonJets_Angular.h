@@ -28,9 +28,9 @@
 
 namespace KLFitter {
 /**
-  * This is an extension of LikelihoodTopLeptonJets, which adds angular
-  * information to the likelihood.
-  */
+ * This is an extension of LikelihoodTopLeptonJets, which adds angular
+ * information to the likelihood.
+ */
 class LikelihoodTopLeptonJets_Angular : public KLFitter::LikelihoodTopLeptonJets {
  public:
   /// The (defaulted) constructor.

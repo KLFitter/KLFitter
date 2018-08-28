@@ -28,10 +28,10 @@
 
 namespace KLFitter {
 /**
-  * This is an extension of LikelihoodTopLeptonJets, which adds eta and phi
-  * values of the jets to the fit. The additional parameters need the
-  * corresponding parameterizations in the transfer functions.
-  */
+ * This is an extension of LikelihoodTopLeptonJets, which adds eta and phi
+ * values of the jets to the fit. The additional parameters need the
+ * corresponding parameterizations in the transfer functions.
+ */
 class LikelihoodTopLeptonJets_JetAngles : public KLFitter::LikelihoodTopLeptonJets {
  public:
   /// Enumerator for the fitted parameters of this likelihood.

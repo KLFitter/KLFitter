@@ -35,11 +35,11 @@ namespace KLFitter {
 
 namespace KLFitter {
 /**
-* \class KLFitter::BoostedLikelihoodTopLeptonJets
-* \brief Add brief description here
-*
-* Add detailed description here.
-*/
+ * \class KLFitter::BoostedLikelihoodTopLeptonJets
+ * \brief Add brief description here
+ *
+ * Add detailed description here.
+ */
 class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
  public:
   /**
