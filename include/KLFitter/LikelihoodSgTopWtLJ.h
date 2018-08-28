@@ -50,6 +50,7 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
   ~LikelihoodSgTopWtLJ();
 
   /** \name Member functions (Get)  */
+  /** @{ */
 
   /**
     * @brief Get a pointer to the lepton in a particles object, depending on value of fTypeLepton
@@ -68,8 +69,6 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
     * @return fHadronicTop
     */
   bool GetHadronicTop() { return fHadronicTop; }
-
-  /** @{ */
 
   /** @} */
   /** \name Member functions (Set)  */

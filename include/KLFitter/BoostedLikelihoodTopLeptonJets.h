@@ -52,10 +52,6 @@ class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
    */
   ~BoostedLikelihoodTopLeptonJets();
 
-  /** \name Member functions (Get)  */
-  /** @{ */
-
-  /** @} */
   /** \name Member functions (Set)  */
   /** @{ */
 
@@ -101,10 +97,6 @@ class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
    * @param leptontype The type of lepton: electron(1) or muon (2)
    */
   void SetLeptonType(int leptontype);
-
-  /** @} */
-  /** \name Member functions (misc)  */
-  /** @{ */
 
   /** @} */
   /** \name Member functions (BAT)  */

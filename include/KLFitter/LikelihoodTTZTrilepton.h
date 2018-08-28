@@ -120,10 +120,6 @@ class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
   void SetLeptonType(int leptontype);
 
   /** @} */
-  /** \name Member functions (misc)  */
-  /** @{ */
-
-  /** @} */
   /** \name Member functions (BAT)  */
   /** @{ */
 

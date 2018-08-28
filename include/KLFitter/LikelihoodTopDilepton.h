@@ -57,10 +57,6 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
     */
   ~LikelihoodTopDilepton();
 
-  /** \name Member functions (Get)  */
-  /** @{ */
-
-  /** @} */
   /** \name Member functions (Set)  */
   /** @{ */
 
@@ -112,10 +108,6 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
     * @param leptontype_2 The type of the second lepton: electron(1) or muon (2)
     */
   void SetLeptonType(int leptontype_1, int leptontype_2);
-
-  /** @} */
-  /** \name Member functions (misc)  */
-  /** @{ */
 
   /** @} */
   /** \name Member functions (BAT)  */

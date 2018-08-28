@@ -48,10 +48,6 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
     */
   ~LikelihoodTopAllHadronic();
 
-  /** \name Member functions (Get)  */
-  /** @{ */
-
-  /** @} */
   /** \name Member functions (Set)  */
   /** @{ */
 
@@ -79,10 +75,6 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
   void SetFlagTopMassFixed(bool flag) { fFlagTopMassFixed = flag; }
 
   void SetFlagGetParSigmasFromTFs(bool flag) { fFlagGetParSigmasFromTFs = flag; }
-
-  /** @} */
-  /** \name Member functions (misc)  */
-  /** @{ */
 
   /** @} */
   /** \name Member functions (BAT)  */

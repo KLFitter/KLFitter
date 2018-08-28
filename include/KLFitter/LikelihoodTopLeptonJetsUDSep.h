@@ -227,8 +227,8 @@ class LikelihoodTopLeptonJetsUDSep : public LikelihoodTopLeptonJets {
    */
   int RemoveInvariantParticlePermutations() override;
 
-  /** @{ */
   /** \name Member attributes */
+  /** @{ */
 
   /// A flag for using an additional reweighting of the permutations with the pT
   /// and tag weight probability (default: false);
