@@ -42,9 +42,6 @@ class LikelihoodTopLeptonJetsUDSep : public LikelihoodTopLeptonJets {
     kPermReweight2D  ///< description here
   };
 
-  /** \name Constructors and destructors */
-  /** @{ */
-
   /// The default constructor. In addition to LikelihoodTopLeptonJets(), this
   /// initializes #m_ljet_separation_method to kNone.
   LikelihoodTopLeptonJetsUDSep();
@@ -52,7 +49,6 @@ class LikelihoodTopLeptonJetsUDSep : public LikelihoodTopLeptonJets {
   /// The (defaulted) destructor.
   ~LikelihoodTopLeptonJetsUDSep();
 
-  /** @} */
   /** \name Member functions (Get)  */
   /** @{ */
 

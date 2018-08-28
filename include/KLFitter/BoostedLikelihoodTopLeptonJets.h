@@ -42,9 +42,6 @@ namespace KLFitter {
 */
 class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
  public:
-  /** \name Constructors and destructors */
-  /** @{ */
-
   /**
    * The default constructor.
    */
@@ -55,7 +52,6 @@ class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
    */
   ~BoostedLikelihoodTopLeptonJets();
 
-  /** @} */
   /** \name Member functions (Get)  */
   /** @{ */
 

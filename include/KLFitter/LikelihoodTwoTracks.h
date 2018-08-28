@@ -42,16 +42,11 @@ class ResolutionBase;
  */
 class LikelihoodTwoTracks : public LikelihoodBase {
  public:
-  /** \name Constructors and destructors */
-  /** @{ */
-
   /// The default constructor.
   LikelihoodTwoTracks();
 
   /// The (defaulted) destructor.
   ~LikelihoodTwoTracks();
-
-  /** @} */
 
   /** Calculate 3D Gaussian.
     * @param x0 First variable point of evalulation

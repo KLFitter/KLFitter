@@ -33,9 +33,6 @@ namespace KLFitter {
   */
 class ResolutionBase {
  public:
-  /** \name Constructors and destructors */
-  /** @{ */
-
   /**
     * The default constructor.
     * @param npar The number of parameters needed for the parameterization.
@@ -53,7 +50,6 @@ class ResolutionBase {
     */
   virtual ~ResolutionBase();
 
-  /** @} */
   /** \name Member functions (Get)  */
   /** @{ */
 

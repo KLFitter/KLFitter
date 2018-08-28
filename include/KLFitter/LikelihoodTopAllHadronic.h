@@ -38,9 +38,6 @@ class ResolutionBase;
   */
 class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
  public:
-  /** \name Constructors and destructors */
-  /** @{ */
-
   /**
     * The default constructor.
     */
@@ -51,7 +48,6 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
     */
   ~LikelihoodTopAllHadronic();
 
-  /** @} */
   /** \name Member functions (Get)  */
   /** @{ */
 

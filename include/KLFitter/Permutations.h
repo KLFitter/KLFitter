@@ -38,9 +38,6 @@ namespace KLFitter {
   */
 class Permutations final {
  public:
-  /** \name Constructors and destructors */
-  /** @{ */
-
   /**
     * The default constructor.
     * @param p A pointer to the pointer to the original set of particles.
@@ -63,7 +60,6 @@ class Permutations final {
     */
   Permutations& operator=(const Permutations& obj);
 
-  /** @} */
   /** \name Member functions (Get)  */
   /** @{ */
 

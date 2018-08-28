@@ -39,9 +39,6 @@ class ResolutionBase;
   */
 class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
  public:
-  /** \name Constructors and destructors */
-  /** @{ */
-
   /**
     * The default constructor.
     */
@@ -52,7 +49,6 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
     */
   ~LikelihoodSgTopWtLJ();
 
-  /** @} */
   /** \name Member functions (Get)  */
 
   /**

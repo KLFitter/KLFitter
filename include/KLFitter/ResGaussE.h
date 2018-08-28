@@ -36,9 +36,6 @@ namespace KLFitter {
   */
 class ResGaussE : public ResolutionBase {
  public:
-  /** \name Constructors and destructors */
-  /** @{ */
-
   /**
     * The default constructor.
     */
@@ -61,7 +58,6 @@ class ResGaussE : public ResolutionBase {
     */
   ~ResGaussE();
 
-  /** @} */
   /** \name Member functions (Get)  */
   /** @{ */
 

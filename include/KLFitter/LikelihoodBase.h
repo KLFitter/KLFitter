@@ -56,9 +56,6 @@ class LikelihoodBase : public BCModel {
     kVetoBoth
   };
 
-  /** \name Constructors and destructors */
-  /** @{ */
-
   /**
     * The default constructor.
     * @param particles A pointer to the measured particles.
@@ -70,7 +67,6 @@ class LikelihoodBase : public BCModel {
     */
   virtual ~LikelihoodBase();
 
-  /** @} */
   /** \name Member functions (Get)  */
   /** @{ */
 

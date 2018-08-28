@@ -56,9 +56,6 @@ class Particles final {
                         kNone       ///< Not specified
   };
 
-  /** \name Constructors and destructors */
-  /** @{ */
-
   /// The default constructor.
   Particles();
 
@@ -71,7 +68,6 @@ class Particles final {
   /// The (defaulted) assignment operator.
   Particles& operator=(const Particles& o);
 
-  /** @} */
   /** \name Member functions (Get)  */
   /** @{ */
 

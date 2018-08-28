@@ -38,9 +38,6 @@ namespace KLFitter {
   */
 class ResDoubleGaussBase : public ResolutionBase {
  public:
-  /** \name Constructors and destructors */
-  /** @{ */
-
   /**
     * The default constructor.
     */
@@ -57,7 +54,6 @@ class ResDoubleGaussBase : public ResolutionBase {
     */
   virtual ~ResDoubleGaussBase();
 
-  /** @} */
   /** \name Member functions (Get)  */
   /** @{ */
 

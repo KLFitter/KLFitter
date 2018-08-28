@@ -47,9 +47,6 @@ class ResolutionBase;
   */
 class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
  public:
-  /** \name Constructors and destructors */
-  /** @{ */
-
   /**
     * The default constructor.
     */
@@ -60,7 +57,6 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
     */
   ~LikelihoodTopDilepton();
 
-  /** @} */
   /** \name Member functions (Get)  */
   /** @{ */
 

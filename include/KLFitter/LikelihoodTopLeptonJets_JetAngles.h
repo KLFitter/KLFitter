@@ -54,16 +54,12 @@ class LikelihoodTopLeptonJets_JetAngles : public KLFitter::LikelihoodTopLeptonJe
                     parTopM       ///< Mass of the top quark
   };
 
-  /** \name Constructors and destructors */
-  /** @{ */
-
   /// The (defaulted) constructor.
   LikelihoodTopLeptonJets_JetAngles();
 
   /// The (defaulted) destructor.
   ~LikelihoodTopLeptonJets_JetAngles();
 
-  /** @} */
   /** \name Member functions (misc)  */
   /** @{ */
 

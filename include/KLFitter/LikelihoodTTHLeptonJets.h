@@ -41,9 +41,6 @@ class ResolutionBase;
   */
 class LikelihoodTTHLeptonJets : public KLFitter::LikelihoodBase {
  public:
-  /** \name Constructors and destructors */
-  /** @{ */
-
   /**
     * The default constructor.
     */
@@ -54,7 +51,6 @@ class LikelihoodTTHLeptonJets : public KLFitter::LikelihoodBase {
     */
   ~LikelihoodTTHLeptonJets();
 
-  /** @} */
   /** \name Member functions (Get)  */
   /** @{ */
 

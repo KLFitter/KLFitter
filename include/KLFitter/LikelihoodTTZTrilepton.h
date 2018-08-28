@@ -39,9 +39,6 @@ class ResolutionBase;
   */
 class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
  public:
-  /** \name Constructors and destructors */
-  /** @{ */
-
   /**
     * The default constructor.
     */
@@ -52,7 +49,6 @@ class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
     */
   ~LikelihoodTTZTrilepton();
 
-  /** @} */
   /** \name Member functions (Get)  */
   /** @{ */
 

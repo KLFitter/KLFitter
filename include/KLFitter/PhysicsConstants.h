@@ -31,9 +31,6 @@ namespace KLFitter {
   */
 class PhysicsConstants final {
  public:
-  /** \name Constructors and destructors */
-  /** @{ */
-
   /**
     * The default constructor.
     */
@@ -44,7 +41,6 @@ class PhysicsConstants final {
     */
   ~PhysicsConstants();
 
-  /** @} */
   /** \name Member functions (Get)  */
   /** @{ */
 

@@ -37,9 +37,6 @@ class ResolutionBase;
  */
 class LikelihoodTopLeptonJets : public LikelihoodBase {
  public:
-  /** \name Constructors and destructors */
-  /** @{ */
-
   /**
    * The default constructor. This initializes all member attributes and calls
    * the functions DefineModelParticles() and DefineParameters().
@@ -48,8 +45,6 @@ class LikelihoodTopLeptonJets : public LikelihoodBase {
 
   /// The (defaulted) destructor.
   ~LikelihoodTopLeptonJets();
-
-  /** @} */
 
   /// Enumerator for the lepton type.
   enum LeptonType { kElectron,  ///< Leptons of type electron

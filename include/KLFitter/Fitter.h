@@ -44,9 +44,6 @@ class Permutations;
   */
 class Fitter final {
  public:
-  /** \name Constructors and destructors */
-  /** @{ */
-
   /**
     * The default constructor.
     */
@@ -57,7 +54,6 @@ class Fitter final {
     */
   ~Fitter();
 
-  /** @} */
   /** \name Member functions (Get)  */
   /** @{ */
 
