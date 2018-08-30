@@ -28,13 +28,11 @@
 
 namespace KLFitter {
 /**
- * \class KLFitter::Permutations
- * \brief A class permuting jets, electrons, muons and photons.
- *
- * The class gets a pointer to the orignal set of particles and a
- * pointer to the currently used permutations. It can calculate all
- * permutations and created a table. The pointer of the current
- * permutation is set to the entry in the table.
+ * Class to calculate and provide permutations of particles. The
+ * class gets a pointer to the orignal set of particles and a
+ * pointer to the currently used permutations. It can calculate
+ * all permutations and create a table. The pointer of the
+ * current permutation is set to the entry in the table.
  */
 class Permutations final {
  public:
@@ -185,7 +183,6 @@ class Permutations final {
    */
   int CheckParticles();
 
- private:
   /**
    * Helper functions to efficiently create permutations of N particles of only M selected particles.
    */

@@ -32,8 +32,10 @@ namespace KLFitter {
 class ResolutionBase;
 
 /**
- * A class implementing a likelihood for the ttbar lepton+jets channel. This
- * class represents a likelihood for the ttbar into lepton+jets.
+ * Likelihood for the ttbar lepton+jets channel, where one top
+ * decays leptonically, the other into jets. This likelihood
+ * expects four jets, out of which two are expected to originate
+ * from b-quarks, one lepton and missing transverse energy.
  */
 class LikelihoodTopLeptonJets : public LikelihoodBase {
  public:

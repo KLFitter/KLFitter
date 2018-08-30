@@ -44,9 +44,8 @@ enum class ResolutionType {
 
 /**
  * A base class for describing detectors. This base class
- * contains the energy resolution of different objects. More
- * information (angular resolutions, acceptance, correections,
- * etc.) can be added here.
+ * contains accessors for the energy resolution functions for all
+ * members of ResolutionType.
  */
 class DetectorBase {
  public:

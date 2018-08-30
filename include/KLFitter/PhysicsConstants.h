@@ -24,10 +24,8 @@
 
 namespace KLFitter {
 /**
- * \class KLFitter::PhysicsConstants
- * \brief A class containing physics constants.
- *
- * This class contains physics constants.
+ * Collection of physics constants, used in the parameter
+ * definitions of various likelihoods.
  */
 class PhysicsConstants final {
  public:

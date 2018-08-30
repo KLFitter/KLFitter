@@ -31,11 +31,10 @@ namespace KLFitter {
 class ResolutionBase;
 
 /**
- * \class KLFitter::LikelihoodTTZTrilepton
- * \brief A class implementing a likelihood for the ttZ trilepton channel.
- *
- * This class represents a KLFitter likelihood for the ttZ trilepton
- * channel. It is largely based on the LikelihoodTopLeptonJets class.
+ * Likelihood for the ttZ trilepton channel, where ttbar decays
+ * into lepton+jets and the Z boson into a lepton pair. It is
+ * largely based on LikelihoodTopLeptonJets, with the necessary
+ * adjustments to include the extra Z boson.
  */
 class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
  public:

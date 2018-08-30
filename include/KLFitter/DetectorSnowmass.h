@@ -31,8 +31,10 @@ namespace KLFitter {
 class ResolutionBase;
 
 /**
- * A class for describing the Snowmass detector. This class
- * holds the description of the Snowmass detector.
+ * Implementation of the Snowmass detector, providing basic
+ * resolution functions for various object types. This class
+ * comes with support for light and b-tagged jets, electrons,
+ * muons, and missing transverse energy.
  */
 class DetectorSnowmass : public DetectorBase {
  public:

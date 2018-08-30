@@ -28,8 +28,10 @@
 
 namespace KLFitter {
 /**
- * This is an extension of LikelihoodTopLeptonJets, which adds angular
- * information to the likelihood.
+ * This is an extension of LikelihoodTopLeptonJets, which adds
+ * angular information to the likelihood. The added angular
+ * information is based on cos(theta) values and the (expected)
+ * polarizations of the W boson.
  */
 class LikelihoodTopLeptonJets_Angular : public KLFitter::LikelihoodTopLeptonJets {
  public:

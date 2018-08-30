@@ -35,10 +35,8 @@ namespace KLFitter {
 
 namespace KLFitter {
 /**
- * \class KLFitter::BoostedLikelihoodTopLeptonJets
- * \brief Add brief description here
- *
- * Add detailed description here.
+ * Likelihood to reconstruct an l+jets ttbar pair in the boosted
+ * top quark scenario. ADD DETAILED DESCRIPTION HERE
  */
 class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
  public:

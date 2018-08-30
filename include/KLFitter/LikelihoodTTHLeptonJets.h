@@ -33,11 +33,10 @@ namespace KLFitter {
 class ResolutionBase;
 
 /**
- * \class KLFitter::LikelihoodTTHLeptonJets
- * \brief A class implementing a likelihood for the ttH lepton+jets channel.
- *
- * This class represents a likelihood for the ttH in lepton+jets channel. It
- * is largely based on the LikelihoodTopLeptonJets class.
+ * Likelihood for the ttH lepton+jets channel, where the Higgs
+ * decays into two b-quarks. This class is largely based on
+ * LikelihoodTopLeptonJets, with the necessary additions to
+ * include the Higgs boson.
  */
 class LikelihoodTTHLeptonJets : public KLFitter::LikelihoodBase {
  public:

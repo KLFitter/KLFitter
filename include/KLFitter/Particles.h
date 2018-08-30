@@ -29,11 +29,12 @@
 
 namespace KLFitter {
 /**
- * \class KLFitter::Particles
- * \brief A class describing particles.
- *
- * This class contains sets of TLorentzVectors for quarks, leptons,
- * etc.
+ * A class to hold collections of various particle types. The
+ * possible particle types are defined in
+ * Particles::ParticleType, and new particles are added via one
+ * of the overloaded AddParticle() functions. It provides
+ * functionality to retrieve information about the contained
+ * particles via various accessor methods.
  */
 class Particles final {
  public:

@@ -31,10 +31,9 @@ namespace KLFitter {
 class ResolutionBase;
 
 /**
- * \class KLFitter::LikelihoodTopAllHadronic
- * \brief A class implementing a likelihood for the ttbar allhadronic channel.
- *
- * This class represents a likelihood for the ttbar allhadronic channel.
+ * Likelihood for the ttbar allhadronic channel, where both tops
+ * decay hadronically. This likelihood takes six jets, out of
+ * which two are expected to come from b-quarks.
  */
 class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
  public:

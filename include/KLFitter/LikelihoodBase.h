@@ -36,8 +36,7 @@ class Permutations;
 class DetectorBase;
 
 /**
- * \class KLFitter::LikelihoodBase
- * \brief A base class for likelihoods.
+ * A base class for likelihoods. DETAILED DESCRIPTION TO BE ADDED
  */
 class LikelihoodBase : public BCModel {
  public:

@@ -32,13 +32,12 @@ namespace KLFitter {
 class ResolutionBase;
 
 /**
- * This class implements a likelihood for the reconstruction of a
- * particle decaying to two (oppositely) charged particles
- * producing tracks in the detector. Per track, it uses the
- * four-vector (usually constructed from phi, theta, and q/p
- * assuming a charge of +/- 1 and pion/kaon mass) as well as the
- * covariance matrix of the variables phi, theta, and q/p as
- * parameters.
+ * Likelihood for the reconstruction of a particle decaying to
+ * two (oppositely) charged particles producing tracks in the
+ * detector. Per track, it uses the four-vector (usually
+ * constructed from phi, theta, and q/p assuming a charge of +/-
+ * 1 and pion/kaon mass) as well as the covariance matrix of the
+ * variables phi, theta, and q/p as parameters.
  */
 class LikelihoodTwoTracks : public LikelihoodBase {
  public:

@@ -26,10 +26,10 @@
 
 namespace KLFitter {
 /**
- * \class KLFitter::ResolutionBase
- * \brief A base class for describing resolutions.
- *
- * This base class can be used to decribe resolutions.
+ * Base class to hold a resolution function. This class provides
+ * methods and accessors to retrieve probabilities, parameters
+ * etc. of the resolution function. Status() gives information
+ * about the status of the resolution function.
  */
 class ResolutionBase {
  public:

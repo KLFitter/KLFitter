@@ -29,9 +29,9 @@ class TH2F;
 
 namespace KLFitter {
 /**
- * This class is a variation of LikelihoodTopLeptonJets. It adds methods to
- * distinguish up-type and down-type quarks, i.e. their permutations are not
- * invariant in this likelihood.
+ * This class is a variation of LikelihoodTopLeptonJets. It adds
+ * methods to distinguish up-type and down-type quarks, i.e.
+ * their permutations are not invariant in this likelihood.
  */
 class LikelihoodTopLeptonJetsUDSep : public LikelihoodTopLeptonJets {
  public:

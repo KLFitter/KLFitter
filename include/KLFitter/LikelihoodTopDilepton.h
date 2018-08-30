@@ -40,10 +40,10 @@ class NuSolutions;  // defined in implementation file
 class ResolutionBase;
 
 /**
- * \class KLFitter::LikelihoodTopDilepton
- * \brief A class implementing a likelihood for the ttbar dilepton channel.
- *
- * This class represents a likelihood for the ttbar dilepton channel.
+ * Likelihood for the ttbar dilepton channel, where both tops
+ * decay leptonically. ADD MORE DETAILED DESCRIPTION HERE
+ * (particularly about the techniques used to determine the
+ * neutrino solutions)
  */
 class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
  public:

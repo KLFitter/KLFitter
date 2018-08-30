@@ -30,12 +30,10 @@ namespace KLFitter {
 class ResolutionBase;
 
 /**
- * \class KLFitter::LikelihoodSgTopWtLJ
- * \brief A class implementing a likelihood for the SgTop Wt -> lepton+jets
- * channel.
- *
- * This class represents a likelihood for the single top Wt channel into
- * lepton+jets.
+ * Likelihood for the production of a single top quark in
+ * association with a W boson (tW). The top quark is assumed to
+ * decay into jets, whereas the W is assumed to decay into lepton
+ * and neutrino.
  */
 class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
  public:
