@@ -145,13 +145,6 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
   /** @} */
 
   /**
-   * A flag for associating either the hadronic (true)
-   * or the leponic (false) leg of the event to the top quark
-   * for likelihood calculation.
-   */
-  bool fHadronicTop;
-
-  /**
    * Calculates the neutrino pz solutions from the measured values
    * and the W mass.
    * @return A vector with 0, 1 or 2 neutrino pz solutions.
@@ -163,6 +156,16 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
 
   /// Save resolution functions.
   int SaveResolutionFunctions() override;
+
+  /** \name Member attributes */
+  /** @{ */
+
+  /**
+   * A flag for associating either the hadronic (true)
+   * or the leponic (false) leg of the event to the top quark
+   * for likelihood calculation.
+   */
+  bool fHadronicTop;
 
   /// The values of the x component of the missing ET.
   double ETmiss_x;
@@ -176,14 +179,25 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
   /// Index whether l+jets event is electron (1) or muon (2).
   int fTypeLepton;
 
-  /// Save resolution functions since the eta of the partons is not fitted.
+  /// Pointer to resolution function for the b quark.
   ResolutionBase * fResEnergyB;
+
+  /// Pointer to resolution function for first light quark jet.
   ResolutionBase * fResEnergyLQ1;
+
+  /// Pointer to resolution function for second light quark jet.
   ResolutionBase * fResEnergyLQ2;
+
+  /// Pointer to resolution function for the lepton.
   ResolutionBase * fResLepton;
+
+  /// Pointer to resolution function for MET.
   ResolutionBase * fResMET;
 
-  /// Save measured particle values for frequent calls
+  /** @} */
+  /** \name Member attributes (measured parameters) */
+  /** @{ */
+
   double b_meas_e;
   double b_meas_p;
   double b_meas_m;
@@ -222,7 +236,10 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
   double lep_meas_py;
   double lep_meas_pz;
 
-  /// Save fit particle values for frequent calls
+  /** @} */
+  /** \name Member attributes (fitted parameters) */
+  /** @{ */
+
   double b_fit_e;
   double b_fit_px;
   double b_fit_py;
@@ -252,6 +269,8 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
   double wlep_fit_m;
   double thad_fit_m;
   double tlep_fit_m;
+
+  /** @} */
 };
 }  // namespace KLFitter
 

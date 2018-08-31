@@ -201,12 +201,6 @@ class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
 
   /** @} */
 
-  /// A flag for using a fixed top mass (true) or not (false).
-  bool fFlagTopMassFixed;
-
-  ///  Flag for using ResolutionBase::GetSigma() to retrieve the parameter ranges
-  bool fFlagGetParSigmasFromTFs;
-
   /**
    * Return the neutrino pz solutions from the measured values
    * and the W mass.
@@ -232,6 +226,15 @@ class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
   /// Save resolution functions.
   int SaveResolutionFunctions() override;
 
+  /** \name Member attributes */
+  /** @{ */
+
+  /// A flag for using a fixed top mass (true) or not (false).
+  bool fFlagTopMassFixed;
+
+  ///  Flag for using ResolutionBase::GetSigma() to retrieve the parameter ranges
+  bool fFlagGetParSigmasFromTFs;
+
   /// The values of the x component of the missing ET.
   double ETmiss_x;
 
@@ -255,17 +258,34 @@ class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
    */
   double fOnShellFraction;
 
-  /// Save resolution functions since the eta of the partons is not fitted.
+  /// Pointer to resolution function for hadronic b quark.
   ResolutionBase * fResEnergyBhad;
+
+  /// Pointer to resolution function for leptonic b quark.
   ResolutionBase * fResEnergyBlep;
+
+  /// Pointer to resolution function for first light quark jet.
   ResolutionBase * fResEnergyLQ1;
+
+  /// Pointer to resolution function for second light quark jet.
   ResolutionBase * fResEnergyLQ2;
+
+  /// Pointer to resolution function for the first lepton from Z.
   ResolutionBase * fResLeptonZ1;
+
+  /// Pointer to resolution function for the second lepton from Z.
   ResolutionBase * fResLeptonZ2;
+
+  /// Pointer to resolution function for the lepton.
   ResolutionBase * fResLepton;
+
+  /// Pointer to resolution function for MET.
   ResolutionBase * fResMET;
 
-  /// Save measured particle values for frequent calls
+  /** @{ */
+  /** \name Member attributes (measured parameters) */
+  /** @{ */
+
   double bhad_meas_e;
   double bhad_meas_p;
   double bhad_meas_m;
@@ -330,7 +350,10 @@ class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
   double lepZ2_meas_py;
   double lepZ2_meas_pz;
 
-  /// Save fit particle values for frequent calls
+  /** @} */
+  /** \name Member attributes (fitted parameters) */
+  /** @{ */
+
   double bhad_fit_e;
   double bhad_fit_px;
   double bhad_fit_py;
@@ -377,6 +400,8 @@ class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
   double lepZ2_fit_pz;
 
   double Z_fit_m;
+
+  /** @} */
 };
 }  // namespace KLFitter
 

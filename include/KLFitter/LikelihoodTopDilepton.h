@@ -221,14 +221,17 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
 
   /** @} */
 
-  /// A flag for using a fixed top mass (true) or not (false).
-  bool fFlagTopMassFixed;
-
   /// Save permuted particles.
   int SavePermutedParticles() override;
 
   /// Save resolution functions.
   int SaveResolutionFunctions() override;
+
+  /** \name Member attributes */
+  /** @{ */
+
+  /// A flag for using a fixed top mass (true) or not (false).
+  bool fFlagTopMassFixed;
 
   /// The values of the x component of the missing ET.
   double ETmiss_x;
@@ -281,14 +284,25 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
   /// BAT BCH1D Histogram for dR(truth antinu, fit antinu)
   BCH1D * fHistdRAntiNu;
 
-  /// Save resolution functions since the eta of the partons is not fitted.
+  /// Pointer to resolution function for the first b quark.
   ResolutionBase * fResEnergyB1;
+
+  /// Pointer to resolution function for the second b quark.
   ResolutionBase * fResEnergyB2;
+
+  /// Pointer to resolution function for the first lepton.
   ResolutionBase * fResLepton1;
+
+  /// Pointer to resolution function for the second lepton.
   ResolutionBase * fResLepton2;
+
+  /// Pointer to resolution function for MET.
   ResolutionBase * fResMET;
 
-  /// Save measured particle values for frequent calls
+  /** @} */
+  /** \name Member attributes (measured parameters) */
+  /** @{ */
+
   double b1_meas_e;
   double b1_meas_p;
   double b1_meas_m;
@@ -327,7 +341,10 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
   double lep2_meas_py;
   double lep2_meas_pz;
 
-  /// Save fit particle values for frequent calls
+  /** @} */
+  /** \name Member attributes (fitted parameters) */
+  /** @{ */
+
   double lep1_fit_e;
   double lep1_fit_px;
   double lep1_fit_py;
@@ -347,6 +364,8 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
   double b2_fit_px;
   double b2_fit_py;
   double b2_fit_pz;
+
+  /** @} */
 };
 }  // namespace KLFitter
 

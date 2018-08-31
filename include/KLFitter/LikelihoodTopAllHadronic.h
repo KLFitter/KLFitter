@@ -136,7 +136,15 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
    */
   int BuildModelParticles() override;
 
+  /// Save permuted particles.
+  int SavePermutedParticles() override;
+
+  /// Save resolution functions.
+  int SaveResolutionFunctions() override;
+
   /** @} */
+  /** \name Member attributes */
+  /** @{ */
 
   /// A flag for using a fixed top mass (true) or not (false).
   bool fFlagTopMassFixed;
@@ -144,21 +152,28 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
   ///  Flag for using ResolutionBase::GetSigma() to retrieve the parameter ranges
   bool fFlagGetParSigmasFromTFs;
 
-  /// Save permuted particles.
-  int SavePermutedParticles() override;
-
-  /// Save resolution functions.
-  int SaveResolutionFunctions() override;
-
-  /// Save resolution functions since the eta of the partons is not fitted.
+  /// Pointer to resolution function for hadronic b quark.
   ResolutionBase * fResEnergyBhad1;
+
+  /// Pointer to resolution function for leptonic b quark.
   ResolutionBase * fResEnergyBhad2;
+
+  /// Pointer to resolution function for first light quark jet.
   ResolutionBase * fResEnergyLQ1;
+
+  /// Pointer to resolution function for second light quark jet.
   ResolutionBase * fResEnergyLQ2;
+
+  /// Pointer to resolution function for third light quark jet.
   ResolutionBase * fResEnergyLQ3;
+
+  /// Pointer to resolution function for fourth light quark jet.
   ResolutionBase * fResEnergyLQ4;
 
-  /// Save measured particle values for frequent calls
+  /** @} */
+  /** \name Member attributes (measured parameters) */
+  /** @{ */
+
   double bhad1_meas_e;
   double bhad1_meas_p;
   double bhad1_meas_m;
@@ -219,7 +234,10 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
   double lq4_meas_py;
   double lq4_meas_pz;
 
-  /// Save fit particle values for frequent calls
+  /** @} */
+  /** \name Member attributes (fitted parameters) */
+  /** @{ */
+
   double bhad1_fit_e;
   double bhad1_fit_px;
   double bhad1_fit_py;
@@ -254,6 +272,8 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
   double whad2_fit_m;
   double thad1_fit_m;
   double thad2_fit_m;
+
+  /** @} */
 };
 }  // namespace KLFitter
 

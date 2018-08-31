@@ -158,12 +158,6 @@ class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
 
   /** @} */
 
-  /// A flag for using a fixed top mass (true) or not (false).
-  bool fFlagTopMassFixed;
-
-  ///  Flag for using ResolutionBase::GetSigma() to retrieve the parameter ranges
-  bool fFlagGetParSigmasFromTFs;
-
   /**
    * Return the neutrino pz solutions from the measured values
    * and the W mass.
@@ -189,6 +183,15 @@ class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
   /// Save resolution functions.
   int SaveResolutionFunctions() override;
 
+  /** \name Member attributes */
+  /** @{ */
+
+  /// A flag for using a fixed top mass (true) or not (false).
+  bool fFlagTopMassFixed;
+
+  ///  Flag for using ResolutionBase::GetSigma() to retrieve the parameter ranges
+  bool fFlagGetParSigmasFromTFs;
+
   /// The values of the x component of the missing ET.
   double ETmiss_x;
 
@@ -201,14 +204,25 @@ class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
   /// Index whether l+jets event is electron (1) or muon (2).
   LeptonType fTypeLepton;
 
-  /// Save resolution functions since the eta of the partons is not fitted.
+  /// Pointer to resolution function for hadronic b quark.
   ResolutionBase * fResEnergyBhad;
+
+  /// Pointer to resolution function for leptonic b quark.
   ResolutionBase * fResEnergyBlep;
+
+  /// Pointer to resolution function for first light quark jet.
   ResolutionBase * fResEnergyLQ;
+
+  /// Pointer to resolution function for the lepton.
   ResolutionBase * fResLepton;
+
+  /// Pointer to resolution function for MET.
   ResolutionBase * fResMET;
 
-  /// Save measured particle values for frequent calls
+  /** @} */
+  /** \name Member attributes (measured parameters) */
+  /** @{ */
+
   double bhad_meas_e;
   double bhad_meas_p;
   double bhad_meas_m;
@@ -247,7 +261,10 @@ class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
   double lep_meas_py;
   double lep_meas_pz;
 
-  /// Save fit particle values for frequent calls
+  /** @} */
+  /** \name Member attributes (fitted parameters) */
+  /** @{ */
+
   double bhad_fit_e;
   double bhad_fit_px;
   double bhad_fit_py;
@@ -277,6 +294,8 @@ class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
   double wlep_fit_m;
   double thad_fit_m;
   double tlep_fit_m;
+
+  /** @} */
 };
 }  // namespace KLFitter
 
