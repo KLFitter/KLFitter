@@ -40,27 +40,19 @@ class ResolutionBase;
  */
 class LikelihoodTTHLeptonJets : public KLFitter::LikelihoodBase {
  public:
-  /**
-   * The default constructor.
-   */
+  /// The default constructor.
   LikelihoodTTHLeptonJets();
 
-  /**
-   * The (defaulted) destructor.
-   */
+  /// The (defaulted) destructor.
   ~LikelihoodTTHLeptonJets();
 
   /** \name Member functions (Set)  */
   /** @{ */
 
-  /**
-   * Enumerator for the lepton type.
-   */
+  /// Enumerator for the lepton type.
   enum LeptonType { kElectron, kMuon };
 
-  /**
-   * Enumerator for the parameters.
-   */
+  /// Enumerator for the parameters.
   enum Parameters { parBhadE, parBlepE, parLQ1E, parLQ2E, parLepE, parNuPx, parNuPy, parNuPz, parTopM, parBHiggs1E, parBHiggs2E, parHiggsM};
 
   /**
@@ -82,31 +74,20 @@ class LikelihoodTTHLeptonJets : public KLFitter::LikelihoodBase {
    */
   void SetFlagTopMassFixed(bool flag) { fFlagTopMassFixed = flag; }
 
-  /**
-   * Set a flag. If flag is true the invariant Higgs mass is fixed
-   * @param flag The flag.
-   */
+  /// Set a flag. If flag is true the invariant Higgs mass is fixed
   void SetFlagHiggsMassFixed(bool flag) { fFlagHiggsMassFixed = flag; }
 
-  /**
-   * Set the type of lepton
-   * @param leptontype The type of lepton: kElectron or kMuon
-   */
+  /// Set the type of lepton according to LeptonType.
   void SetLeptonType(LeptonType leptontype);
 
-  /**
-   * Set the type of lepton
-   * @param leptontype The type of lepton: electron(1) or muon (2)
-   */
+  /// Set the type of lepton: (1) electron, or (2) muon.
   void SetLeptonType(int leptontype);
 
   /** @} */
   /** \name Member functions (BAT)  */
   /** @{ */
 
-  /**
-   * Define the parameters of the fit.
-   */
+  /// Define the parameters of the fit.
   void DefineParameters() override;
 
   /**
@@ -137,10 +118,7 @@ class LikelihoodTTHLeptonJets : public KLFitter::LikelihoodBase {
    */
   std::vector<double> LogLikelihoodComponents(std::vector <double> parameters) override;
 
-  /**
-   * Get initial values for the parameters.
-   * @return vector of initial values.
-   */
+  /// Get initial values for the parameters.
   std::vector<double> GetInitialParameters() override;
 
   /**
@@ -163,9 +141,7 @@ class LikelihoodTTHLeptonJets : public KLFitter::LikelihoodBase {
    */
   int CalculateLorentzVectors(std::vector <double> const& parameters) override;
 
-  /**
-   * Adjust parameter ranges
-   */
+  /// Adjust parameter ranges
   int AdjustParameterRanges() override;
 
   /**
@@ -189,14 +165,10 @@ class LikelihoodTTHLeptonJets : public KLFitter::LikelihoodBase {
   /** @} */
 
  protected:
-  /**
-   * A flag for using a fixed top mass (true) or not (false).
-   */
+  /// A flag for using a fixed top mass (true) or not (false).
   bool fFlagTopMassFixed;
 
-  /**
-   * A flag for using a fixed Higgs mass (true) or not (false).
-   */
+  /// A flag for using a fixed Higgs mass (true) or not (false).
   bool fFlagHiggsMassFixed;
 
   /**
@@ -218,40 +190,25 @@ class LikelihoodTTHLeptonJets : public KLFitter::LikelihoodBase {
    */
   std::vector<double> CalculateNeutrinoPzSolutions(TLorentzVector * additionalParticle = 0x0);
 
-  /**
-   * Save permuted particles.
-   */
+  /// Save permuted particles.
   int SavePermutedParticles() override;
 
-  /**
-   * Save resolution functions.
-   */
+  /// Save resolution functions.
   int SaveResolutionFunctions() override;
 
-  /**
-   * The values of the x component of the missing ET.
-   */
+  /// The values of the x component of the missing ET.
   double ETmiss_x;
 
-  /**
-   * The values of the y component of the missing ET.
-   */
+  /// The values of the y component of the missing ET.
   double ETmiss_y;
 
-  /**
-   * The values of the total scalar ET.
-   */
+  /// The values of the total scalar ET.
   double SumET;
 
-  /**
-   * An index deciding if the event is electron (1) or muon (2) plus
-   * jets.
-   */
+  /// Index whether l+jets event is electron (1) or muon (2).
   LeptonType fTypeLepton;
 
-  /**
-   * Save resolution functions since the eta of the partons is not fitted.
-   */
+  /// Save resolution functions since the eta of the partons is not fitted.
   ResolutionBase * fResEnergyBhad;
   ResolutionBase * fResEnergyBlep;
   ResolutionBase * fResEnergyLQ1;
@@ -261,9 +218,7 @@ class LikelihoodTTHLeptonJets : public KLFitter::LikelihoodBase {
   ResolutionBase * fResLepton;
   ResolutionBase * fResMET;
 
-  /**
-   * Save measured particle values for frequent calls
-   */
+  /// Save measured particle values for frequent calls
   double bhad_meas_e;
   double bhad_meas_p;
   double bhad_meas_m;
@@ -332,9 +287,7 @@ class LikelihoodTTHLeptonJets : public KLFitter::LikelihoodBase {
   double BHiggs2_meas_py;
   double BHiggs2_meas_pz;
 
-  /**
-   * Save fit particle values for frequent calls
-   */
+  /// Save fit particle values for frequent calls
   double bhad_fit_e;
   double bhad_fit_px;
   double bhad_fit_py;

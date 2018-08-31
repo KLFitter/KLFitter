@@ -44,53 +44,31 @@ class Permutations;
  */
 class Fitter final {
  public:
-  /**
-   * The default constructor.
-   */
+  /// The default constructor.
   Fitter();
 
-  /**
-   * The (defaulted) destructor.
-   */
+  /// The (defaulted) destructor.
   ~Fitter();
 
   /** \name Member functions (Get)  */
   /** @{ */
 
-  /**
-   * Return the detector.
-   * @return A pointer to the detector.
-   */
+  /// Return the detector.
   KLFitter::DetectorBase * Detector() { return fDetector; }
 
-  /**
-   * Return the measured particles.
-   * @return A pointer to the particles.
-   */
+  /// Return the measured particles.
   KLFitter::Particles * Particles() { return fParticles; }
 
-  /**
-   * Return the permutation object.
-   * @return A pointer to the permutation object.
-   */
+  /// Return the permutation object.
   KLFitter::Permutations * Permutations() { return fPermutations.get(); }
 
-  /**
-   * Return the lieklihood .
-   * @return A pointer to the likelihood object.
-   */
+  /// Return the lieklihood .
   KLFitter::LikelihoodBase * Likelihood() { return fLikelihood; }
 
-  /**
-   * Return the Minuit status
-   * @return The Minuit stats
-   */
+  /// Return the Minuit status
   int MinuitStatus() { return fMinuitStatus; }
 
-  /**
-   * Return the convergence status bit.
-   * @return The convergence status bit.
-   */
+  /// Return the convergence status bit.
   unsigned int ConvergenceStatus() { return fConvergenceStatus; }
 
   /** @} */
@@ -158,14 +136,10 @@ class Fitter final {
    */
   int Status();
 
-  /**
-   * Turn of simulated annealing.
-   */
+  /// Turn off simulated annealing.
   void TurnOffSA() { fTurnOffSA = true; }
 
-  /**
-   * Enumerator for convergence errors.
-   */
+  /// Enumerator for convergence errors.
   enum ConvergenceErrors {
     MinuitDidNotConverge = 1,
     FitAbortedDueToNaN = 2,
@@ -173,23 +147,16 @@ class Fitter final {
     InvalidTransferFunctionAtConvergence = 4
   };
 
-  /**
-   * Bit masks for convergence errors.
-   */
+  /// Bit masks for convergence errors.
   static const unsigned int MinuitDidNotConvergeMask = 0x1 << MinuitDidNotConverge;
   static const unsigned int FitAbortedDueToNaNMask = 0x1 << FitAbortedDueToNaN;
   static const unsigned int AtLeastOneFitParameterAtItsLimitMask = 0x1 << AtLeastOneFitParameterAtItsLimit;
   static const unsigned int InvalidTransferFunctionAtConvergenceMask = 0x1 << InvalidTransferFunctionAtConvergence;
 
-  /**
-   * Enumerator for the minimization methods.
-   */
+  /// Enumerator for the minimization methods.
   enum kMinimizationMethod { kMinuit, kSimulatedAnnealing, kMarkovChainMC };
 
-  /**
-   * Set the minimization method.
-   * @param method The minimization method.
-   */
+  /// Set the minimization method.
   void SetMinimizationMethod(kMinimizationMethod method) { fMinimizationMethod = method; }
 
   /**
@@ -214,71 +181,45 @@ class Fitter final {
   /** @} */
 
  private:
-  /**
-   * A pointer to the detector.
-   */
+  /// A pointer to the detector.
   KLFitter::DetectorBase * fDetector;
 
-  /**
-   * A pointer to the set of original particles.
-   */
+  /// A pointer to the set of original particles.
   KLFitter::Particles * fParticles;
 
-  /**
-   * The x and y component of the missing ET and the sumET.
-   */
+  /// The x and y component of the missing ET and the sumET.
   double ETmiss_x;
   double ETmiss_y;
   double SumET;
 
-  /**
-   * A pointer to the set of permuted particles.
-   */
+  /// A pointer to the set of permuted particles.
   KLFitter::Particles * fParticlesPermuted;
 
-  /**
-   * A pointer to the set of truth particles.
-   */
+  /// A pointer to the set of truth particles.
   KLFitter::Particles * fMyParticlesTruth;
 
-  /**
-   * A pointer to the likelihood.
-   */
+  /// A pointer to the likelihood.
   KLFitter::LikelihoodBase * fLikelihood;
 
-  /**
-   * A pointer to the permutation object.
-   */
+  /// A pointer to the permutation object.
   std::unique_ptr<KLFitter::Permutations> fPermutations;
 
-  /**
-   * The TMinuit status
-   */
+  /// The TMinuit status
   int fMinuitStatus;
 
-  /**
-   * The convergence status bit
-   */
+  /// The convergence status bit
   unsigned int fConvergenceStatus;
 
-  /**
-   * Flag for turning off simulated annealing.
-   */
+  /// Flag for turning off simulated annealing.
   int fTurnOffSA;
 
-  /**
-   * The minimization method.
-   */
+  /// The minimization method.
   kMinimizationMethod fMinimizationMethod;
 
-  /**
-   * A vector of cached Minuit status
-   */
+  /// A vector of cached Minuit status
   std::vector<int>  fCachedMinuitStatusVector;
 
-  /**
-   * A vector of cached convergence status
-   */
+  /// A vector of cached convergence status
   std::vector<unsigned int>  fCachedConvergenceStatusVector;
 
   /**

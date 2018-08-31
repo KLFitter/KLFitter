@@ -43,19 +43,13 @@ class Permutations final {
    */
   Permutations(KLFitter::Particles** p, KLFitter::Particles** pp);
 
-  /**
-   * The (defaulted) copy constructor.
-   */
+  /// The (defaulted) copy constructor.
   explicit Permutations(const Permutations& o);
 
-  /**
-   * The (defaulted) destructor.
-   */
+  /// The (defaulted) destructor.
   ~Permutations();
 
-  /**
-   * The (defaulted) assignment operator.
-   */
+  /// The (defaulted) assignment operator.
   Permutations& operator=(const Permutations& obj);
 
   /** \name Member functions (Get)  */
@@ -170,50 +164,34 @@ class Permutations final {
    */
   int Reset();
 
-  /**
-   * Creates table of permutations.
-   */
+  /// Creates table of permutations.
   int CreateSubTable(int Nobj, std::vector<std::vector<int> >* table, int Nmax = -1);
 
   /** @} */
 
  private:
-  /**
-   * Check if particles are defined.
-   */
+  /// Check if particles are defined.
   int CheckParticles();
 
-  /**
-   * Helper functions to efficiently create permutations of N particles of only M selected particles.
-   */
+  /// Helper functions to efficiently create permutations of N particles of only M selected particles.
 
   std::vector<int> Get_int_vector(int i);
   std::vector<int> Get_int_plus_vector(int i, std::vector<int> v);
   std::vector<std::vector<int> > Get_M_from_N(unsigned int N, unsigned int M, unsigned int start = 0);
 
-  /**
-   * A pointer to the pointer of original particles.
-   */
+  /// A pointer to the pointer of original particles.
   KLFitter::Particles** fParticles;
 
-  /**
-   * A pointer to the pointer of permuted particles.
-   */
+  /// A pointer to the pointer of permuted particles.
   KLFitter::Particles** fParticlesPermuted;
 
-  /**
-   * A table of permuted particles (jets and leptons).
-   */
+  /// A table of permuted particles (jets and leptons).
   std::vector<KLFitter::Particles> fParticlesTable;
 
-  /**
-   * A table of permutations. Needed for the math.
-   */
+  /// A table of permutations. Needed for the math.
   std::vector<std::vector<int> > fPermutationTable;
 
-  /**
-   * The permutation index
-   */
+  /// The permutation index
   int fPermutationIndex;
 
   std::vector<std::vector<int> > fTablePartons;

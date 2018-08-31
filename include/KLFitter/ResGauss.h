@@ -35,9 +35,7 @@ namespace KLFitter {
  */
 class ResGauss : public ResolutionBase {
  public:
-  /**
-   * The default constructor.
-   */
+  /// The default constructor.
   explicit ResGauss(const char * filename);
 
   /**
@@ -46,9 +44,7 @@ class ResGauss : public ResolutionBase {
    */
   explicit ResGauss(double sigma);
 
-  /**
-   * The (defaulted) destructor.
-   */
+  /// The (defaulted) destructor.
   ~ResGauss();
 
   /** \name Member functions (Get)  */

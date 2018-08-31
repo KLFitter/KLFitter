@@ -37,22 +37,16 @@ class ResolutionBase;
  */
 class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
  public:
-  /**
-   * The default constructor.
-   */
+  /// The default constructor.
   LikelihoodTopAllHadronic();
 
-  /**
-   * The (defaulted) destructor.
-   */
+  /// The (defaulted) destructor.
   ~LikelihoodTopAllHadronic();
 
   /** \name Member functions (Set)  */
   /** @{ */
 
-  /**
-   * Enumerator for the parameters.
-   */
+  /// Enumerator for the parameters.
   enum Parameters { parBhad1E, parBhad2E, parLQ1E, parLQ2E, parLQ3E, parLQ4E, parTopM };
 
   /**
@@ -79,9 +73,7 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
   /** \name Member functions (BAT)  */
   /** @{ */
 
-  /**
-   * Define the parameters of the fit.
-   */
+  /// Define the parameters of the fit.
   void DefineParameters() override;
 
   /**
@@ -108,10 +100,7 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
    */
   std::vector<double> LogLikelihoodComponents(std::vector <double> parameters) override;
 
-  /**
-   * Get initial values for the parameters.
-   * @return vector of initial values.
-   */
+  /// Get initial values for the parameters.
   std::vector<double> GetInitialParameters() override;
 
   /** @} */
@@ -126,9 +115,7 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
    */
   int CalculateLorentzVectors(std::vector <double> const& parameters) override;
 
-  /**
-   * Adjust parameter ranges
-   */
+  /// Adjust parameter ranges
   int AdjustParameterRanges() override;
 
   /**
@@ -144,12 +131,6 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
   int RemoveInvariantParticlePermutations() override;
 
   /**
-   * Remove forbidden particle permutations - forcing b-jets on the position of a b parton.
-   * @return An error code.
-   */
-  //    int RemoveForbiddenBParticlePermutations();
-
-  /**
    * Build the model particles from the best fit parameters.
    * @return An error code.
    */
@@ -158,29 +139,19 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
   /** @} */
 
  protected:
-  /**
-   * A flag for using a fixed top mass (true) or not (false).
-   */
+  /// A flag for using a fixed top mass (true) or not (false).
   bool fFlagTopMassFixed;
 
-  /**
-   *  Flag for using ResolutionBase::GetSigma() to retrieve the parameter ranges
-   */
+  ///  Flag for using ResolutionBase::GetSigma() to retrieve the parameter ranges
   bool fFlagGetParSigmasFromTFs;
 
-  /**
-   * Save permuted particles.
-   */
+  /// Save permuted particles.
   int SavePermutedParticles() override;
 
-  /**
-   * Save resolution functions.
-   */
+  /// Save resolution functions.
   int SaveResolutionFunctions() override;
 
-  /**
-   * Save resolution functions since the eta of the partons is not fitted.
-   */
+  /// Save resolution functions since the eta of the partons is not fitted.
   ResolutionBase * fResEnergyBhad1;
   ResolutionBase * fResEnergyBhad2;
   ResolutionBase * fResEnergyLQ1;
@@ -188,9 +159,7 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
   ResolutionBase * fResEnergyLQ3;
   ResolutionBase * fResEnergyLQ4;
 
-  /**
-   * Save measured particle values for frequent calls
-   */
+  /// Save measured particle values for frequent calls
   double bhad1_meas_e;
   double bhad1_meas_p;
   double bhad1_meas_m;
@@ -251,9 +220,7 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
   double lq4_meas_py;
   double lq4_meas_pz;
 
-  /**
-   * Save fit particle values for frequent calls
-   */
+  /// Save fit particle values for frequent calls
   double bhad1_fit_e;
   double bhad1_fit_px;
   double bhad1_fit_py;

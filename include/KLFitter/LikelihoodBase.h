@@ -40,9 +40,7 @@ class DetectorBase;
  */
 class LikelihoodBase : public BCModel {
  public:
-  /**
-   * Enumerate for b-tagging possibilities
-   */
+  /// Enumerate for b-tagging possibilities
   enum BtaggingMethod{
     kNotag,
     kVeto,
@@ -61,9 +59,7 @@ class LikelihoodBase : public BCModel {
    */
   explicit LikelihoodBase(Particles ** particles = 0);
 
-  /**
-   * The default destructor.
-   */
+  /// The default destructor.
   virtual ~LikelihoodBase();
 
   /** \name Member functions (Get)  */
@@ -75,37 +71,22 @@ class LikelihoodBase : public BCModel {
    */
   KLFitter::PhysicsConstants* PhysicsConstants() { return &fPhysicsConstants; }
 
-  /**
-   * Return the detector.
-   * @return A pointer to the detector.
-   */
+  /// Return the detector.
   KLFitter::DetectorBase* Detector() { return *fDetector; }
 
-  /**
-   * Return the set of measured particles.
-   * @return A pointer to the particles.
-   */
+  /// Return the set of measured particles.
   KLFitter::Particles** PParticlesPermuted() { return fParticlesPermuted; }
 
-  /**
-   * Return the set of model particles.
-   * @return A pointer to the particles.
-   */
+  /// Return the set of model particles.
   KLFitter::Particles* ParticlesModel() {
     BuildModelParticles();
     return fParticlesModel.get();
   }
 
-  /**
-   * Return the number of model particles.
-   * @return The number of model particles.
-   */
+  /// Return the number of model particles.
   int NParticlesModel() { return static_cast<int>(fParticlesModel -> NParticles()); }
 
-  /**
-   * Return the number of parameters.
-   * @return The number of parameters of the model.
-   */
+  /// Return the number of parameters.
   int NParameters() { return this -> GetNParameters(); }
 
   /**
@@ -122,10 +103,7 @@ class LikelihoodBase : public BCModel {
    */
   double ParMax(int index);
 
-  /**
-   * Get flag to use b-tagging or not.
-   * @return An error flag.
-   */
+  /// Get flag to use b-tagging or not.
   BtaggingMethod GetBTagging() { return fBTagMethod;}
 
   bool FlagIntegrate() { return fFlagIntegrate; }
@@ -220,10 +198,8 @@ class LikelihoodBase : public BCModel {
    */
   int SetFlagIsNan(bool flag) { fFlagIsNan = flag; return 1; }
 
-  /**
-   * Get flag FlagIsNan. This Flag should be true if Minuit gave parameters with NaN values to LogLikelihood.
-   * @return The flag.
-   */
+  /// Get flag FlagIsNan. This Flag should be true if Minuit gave
+  /// parameters with NaN values to LogLikelihood.
   bool GetFlagIsNan(void) { return fFlagIsNan; }
 
   /**
@@ -255,9 +231,7 @@ class LikelihoodBase : public BCModel {
    */
   virtual int Initialize();
 
-  /**
-   * Adjust parameter ranges
-   */
+  /// Adjust parameter ranges
   virtual int AdjustParameterRanges() = 0;
 
   /**
@@ -266,9 +240,8 @@ class LikelihoodBase : public BCModel {
    */
   virtual int DefineModelParticles() = 0;
 
-  /**
-   * Propagate the b-tagging information from the permuted (measured) particles to the model particles.
-   */
+  /// Propagate the b-tagging information from the permuted
+  /// (measured) particles to the model particles.
   void PropagateBTaggingInformation();
 
   /**
@@ -281,9 +254,7 @@ class LikelihoodBase : public BCModel {
   /** \name Member functions (BAT)  */
   /** @{ */
 
-  /**
-   * Define the parameters of the fit.
-   */
+  /// Define the parameters of the fit.
   virtual void DefineParameters() = 0;
 
   /**
@@ -351,52 +322,20 @@ class LikelihoodBase : public BCModel {
    */
   virtual bool NoTFProblem(std::vector<double> parameters);
 
-  /**
-   * Returns the best fit parameters, overloaded from BCModel
-   * @return The best fit parameters
-   */
+  /// Returns the best fit parameters, overloaded from BCModel
   std::vector <double> GetBestFitParameters();
-
-  /**
-   * Returns the best fit parameters from the BCModel class
-   * @return The best fit parameters
-   */
   using BCModel::GetBestFitParameters;
 
-  /**
-   * Returns the errors of the best fit parameters, overloaded from BCModel
-   * @return The errors of the best fit parameters
-   */
+  /// Returns the errors of the best fit parameters, overloaded from BCModel
   std::vector <double> GetBestFitParameterErrors();
-
-  /**
-   * Returns the errors of the best fit parameters from the BCModel class
-   * @return The errors of the best fit parameters
-   */
   using BCModel::GetBestFitParameterErrors;
 
-  /**
-   * Returns the best fit parameters, overloaded from BCModel
-   * @return The best fit parameters
-   */
+  /// Returns the best fit parameter at position (i), overloaded from BCModel
   double GetBestFitParameter(unsigned int index);
-
-  /**
-   * Returns the best fit parameter at position (i) from the BCModel class
-   * @return The best fit parameter at position (i)
-   */
   using BCModel::GetBestFitParameter;
 
-  /**
-   * Returns the errors of the best fit parameter i, overloaded from BCModel
-   * @return The errors of the best fit parameters
-   */
+  /// Returns the errors of the best fit parameter i, overloaded from BCModel
   double GetBestFitParameterError(unsigned int index);
-
-  /**
-   * Returns the errors of the best fit parameter i from the BCModel class
-   * @return The errors of the best fit parameters
-   */
   using BCModel::GetBestFitParameterError;
 
   /**
@@ -424,14 +363,10 @@ class LikelihoodBase : public BCModel {
    */
   int SetParametersToCache(int iperm, int nperms);
 
-  /**
-   * @return The normalization factor of the probability, overloaded from BCModel
-   */
+  /// Return the normalization factor of the probability, overloaded from BCModel
   double GetIntegral();
 
-  /**
-   * @return The normalization factor of the probability from the BCModel class
-   */
+  /// Return the normalization factor of the probability from the BCModel class
   using  BCIntegrate::GetIntegral;
 
   /**
@@ -443,14 +378,10 @@ class LikelihoodBase : public BCModel {
   /** @} */
 
  protected:
-  /**
-   * Save permuted particles.
-   */
+  /// Save permuted particles.
   virtual int SavePermutedParticles() = 0;
 
-  /**
-   * Save resolution functions.
-   */
+  /// Save resolution functions.
   virtual int SaveResolutionFunctions() = 0;
 
   /**
@@ -465,90 +396,55 @@ class LikelihoodBase : public BCModel {
    */
   double SetPartonMass(double jetmass, double quarkmass, double *px, double *py, double *pz, double e);
 
-  /**
-   * A pointer to the measured particles.
-   */
+  /// A pointer to the measured particles.
   KLFitter::Particles** fParticlesPermuted;
 
-  /**
-   * A pointer to the permutation object.
-   */
+  /// A pointer to the permutation object.
   std::unique_ptr<KLFitter::Permutations>* fPermutations;
 
-  /**
-   * A pointer to the model particles.
-   */
+  /// A pointer to the model particles.
   std::unique_ptr<KLFitter::Particles> fParticlesModel;
 
-  /**
-   * A pointer to the table of physics constants
-   */
+  /// A pointer to the table of physics constants
   KLFitter::PhysicsConstants fPhysicsConstants;
 
-  /**
-   * A pointer to the detector
-   */
+  /// A pointer to the detector
   KLFitter::DetectorBase** fDetector;
 
-  /**
-   * The event probabilities for the different permutations
-   */
+  /// The event probabilities for the different permutations
   std::vector<double> fEventProbability;
 
-  /**
-   * A flag to integrate over the likelihood or not
-   */
+  /// A flag to integrate over the likelihood or not
   bool fFlagIntegrate;
 
-  /**
-   * A flag for knowing that Minuit gave parameters with NaN values to LogLikelihood
-   */
+  /// A flag for knowing that Minuit gave parameters with NaN values to LogLikelihood
   bool fFlagIsNan;
 
-  /**
-   * A flag for using the measured jet masses (true) instead of
-   * parton masses (false);
-   */
+  /// A flag for using the measured jet masses instead of parton masses
   bool fFlagUseJetMass;
 
-  /**
-   * Global variable for TF problems.
-   */
+  /// Global variable for TF problems.
   bool fTFgood;
 
-  /**
-   * Name of btagging enum
-   */
+  /// Name of btagging enum
   BtaggingMethod fBTagMethod;
 
-  /**
-   * The cached parameters used for the current permutation
-   */
+  /// The cached parameters used for the current permutation
   std::vector<double>  fCachedParameters;
 
-  /**
-   * The cached parameter errors used for the current permutation
-   */
+  /// The cached parameter errors used for the current permutation
   std::vector<double>  fCachedParameterErrors;
 
-  /**
-   * A vector of cached parameters, one for each permutation. Has to be set via fitter.
-   */
+  /// A vector of cached parameters, one for each permutation. Has to be set via fitter.
   std::vector<std::vector<double> >  fCachedParametersVector;
 
-  /**
-   * A vector of cached parameter errors, one for each permutation. Has to be set via fitter.
-   */
+  /// A vector of cached parameter errors, one for each permutation. Has to be set via fitter.
   std::vector<std::vector<double> >  fCachedParameterErrorsVector;
 
-  /**
-   * The cached normalization, needed for the overloaded BCIntegrate::GetIntegral
-   */
+  /// The cached normalization, needed for the overloaded BCIntegrate::GetIntegral
   double  fCachedNormalization;
 
-  /**
-   * A vector of cached parameters, one for each permutation. Has to be set via fitter.
-   */
+  /// A vector of cached parameters, one for each permutation. Has to be set via fitter.
   std::vector<double>  fCachedNormalizationVector;
 };
 }  // namespace KLFitter

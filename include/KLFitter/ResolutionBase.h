@@ -45,9 +45,7 @@ class ResolutionBase {
    */
   explicit ResolutionBase(std::vector<double> parameters);
 
-  /**
-   * The (defaulted) destructor.
-   */
+  /// The (defaulted) destructor.
   virtual ~ResolutionBase();
 
   /** \name Member functions (Get)  */

@@ -37,9 +37,7 @@ namespace KLFitter {
  */
 class ResDoubleGaussPt : public ResDoubleGaussBase {
  public:
-  /**
-   * The default constructor.
-   */
+  /// The default constructor.
   explicit ResDoubleGaussPt(const char * filename);
 
   /**
@@ -48,9 +46,7 @@ class ResDoubleGaussPt : public ResDoubleGaussBase {
    */
   explicit ResDoubleGaussPt(std::vector<double> const& parameters);
 
-  /**
-   * The (defaulted) destructor.
-   */
+  /// The (defaulted) destructor.
   ~ResDoubleGaussPt();
 
   /** \name Member functions (Get)  */

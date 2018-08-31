@@ -38,41 +38,29 @@ class ResolutionBase;
  */
 class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
  public:
-  /**
-   * The default constructor.
-   */
+  /// The default constructor.
   LikelihoodTTZTrilepton();
 
-  /**
-   * The (defaulted) destructor.
-   */
+  /// The (defaulted) destructor.
   ~LikelihoodTTZTrilepton();
 
   /** \name Member functions (Get)  */
   /** @{ */
 
-  /**
-   * Get the cut-off value of the 1/E^2 distribution.
-   */
+  /// Get the cut-off value of the 1/E^2 distribution.
   double GetInvMassCutoff() { return fInvMassCutoff; }
 
-  /**
-   * Get the fraction of on-shell events.
-   */
+  /// Get the fraction of on-shell events.
   float GetOnShellFraction() { return fOnShellFraction; }
 
   /** @} */
   /** \name Member functions (Set)  */
   /** @{ */
 
-  /**
-   * Enumerator for the lepton type.
-   */
+  /// Enumerator for the lepton type.
   enum LeptonType { kElectron, kMuon };
 
-  /**
-   * Enumerator for the parameters.
-   */
+  /// Enumerator for the parameters.
   enum Parameters { parBhadE, parBlepE, parLQ1E, parLQ2E, parLepE, parNuPx, parNuPy, parNuPz, parTopM, parLepZ1E, parLepZ2E, parZM};
 
   /**
@@ -87,14 +75,10 @@ class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
   /// Request the necessary resolution functions from the detector.
   void RequestResolutionFunctions() override;
 
-  /**
-   * Set the cut-off value of the 1/E^2 distribution.
-   */
+  /// Set the cut-off value of the 1/E^2 distribution.
   void SetInvMassCutoff(double cutoff) { fInvMassCutoff = cutoff; }
 
-  /**
-   * Set the fraction of on-shell events.
-   */
+  /// Set the fraction of on-shell events.
   void SetOnShellFraction(double fraction) { fOnShellFraction = fraction; }
 
   /**
@@ -106,25 +90,17 @@ class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
 
   void SetFlagGetParSigmasFromTFs(bool flag) { fFlagGetParSigmasFromTFs = flag; }
 
-  /**
-   * Set the type of lepton
-   * @param leptontype The type of lepton: kElectron or kMuon
-   */
+  /// Set the type of lepton according to LeptonType.
   void SetLeptonType(LeptonType leptontype);
 
-  /**
-   * Set the type of lepton
-   * @param leptontype The type of lepton: electron(1) or muon (2)
-   */
+  /// Set the type of lepton: (1) electron, or (2) muon.
   void SetLeptonType(int leptontype);
 
   /** @} */
   /** \name Member functions (BAT)  */
   /** @{ */
 
-  /**
-   * Define the parameters of the fit.
-   */
+  /// Define the parameters of the fit.
   void DefineParameters() override;
 
   /**
@@ -155,10 +131,7 @@ class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
    */
   std::vector<double> LogLikelihoodComponents(std::vector <double> parameters) override;
 
-  /**
-   * Get initial values for the parameters.
-   * @return vector of initial values.
-   */
+  /// Get initial values for the parameters.
   std::vector<double> GetInitialParameters() override;
 
   /**
@@ -205,9 +178,7 @@ class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
    */
   int CalculateLorentzVectors(std::vector <double> const& parameters) override;
 
-  /**
-   * Adjust parameter ranges
-   */
+  /// Adjust parameter ranges
   int AdjustParameterRanges() override;
 
   /**
@@ -231,14 +202,10 @@ class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
   /** @} */
 
  protected:
-  /**
-   * A flag for using a fixed top mass (true) or not (false).
-   */
+  /// A flag for using a fixed top mass (true) or not (false).
   bool fFlagTopMassFixed;
 
-  /**
-   *  Flag for using ResolutionBase::GetSigma() to retrieve the parameter ranges
-   */
+  ///  Flag for using ResolutionBase::GetSigma() to retrieve the parameter ranges
   bool fFlagGetParSigmasFromTFs;
 
   /**
@@ -260,40 +227,25 @@ class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
    */
   std::vector<double> CalculateNeutrinoPzSolutions(TLorentzVector * additionalParticle = 0x0);
 
-  /**
-   * Save permuted particles.
-   */
+  /// Save permuted particles.
   int SavePermutedParticles() override;
 
-  /**
-   * Save resolution functions.
-   */
+  /// Save resolution functions.
   int SaveResolutionFunctions() override;
 
-  /**
-   * The values of the x component of the missing ET.
-   */
+  /// The values of the x component of the missing ET.
   double ETmiss_x;
 
-  /**
-   * The values of the y component of the missing ET.
-   */
+  /// The values of the y component of the missing ET.
   double ETmiss_y;
 
-  /**
-   * The values of the total scalar ET.
-   */
+  /// The values of the total scalar ET.
   double SumET;
 
-  /**
-   * An index deciding if the event is electron (1) or muon (2) plus
-   * jets.
-   */
+  /// Index whether l+jets event is electron (1) or muon (2).
   LeptonType fTypeLepton;
 
-  /**
-   * Cut-off value for the 1/E^2 distribution (in GeV).
-   */
+  /// Cut-off value for the 1/E^2 distribution (in GeV).
   double fInvMassCutoff;
 
   /**
@@ -304,9 +256,7 @@ class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
    */
   double fOnShellFraction;
 
-  /**
-   * Save resolution functions since the eta of the partons is not fitted.
-   */
+  /// Save resolution functions since the eta of the partons is not fitted.
   ResolutionBase * fResEnergyBhad;
   ResolutionBase * fResEnergyBlep;
   ResolutionBase * fResEnergyLQ1;
@@ -316,9 +266,7 @@ class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
   ResolutionBase * fResLepton;
   ResolutionBase * fResMET;
 
-  /**
-   * Save measured particle values for frequent calls
-   */
+  /// Save measured particle values for frequent calls
   double bhad_meas_e;
   double bhad_meas_p;
   double bhad_meas_m;
@@ -383,9 +331,7 @@ class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
   double lepZ2_meas_py;
   double lepZ2_meas_pz;
 
-  /**
-   * Save fit particle values for frequent calls
-   */
+  /// Save fit particle values for frequent calls
   double bhad_fit_e;
   double bhad_fit_px;
   double bhad_fit_py;

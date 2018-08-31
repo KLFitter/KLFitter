@@ -37,49 +37,32 @@ class ResolutionBase;
  */
 class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
  public:
-  /**
-   * The default constructor.
-   */
+  /// The default constructor.
   LikelihoodSgTopWtLJ();
 
-  /**
-   * The (defaulted) destructor.
-   */
+  /// The (defaulted) destructor.
   ~LikelihoodSgTopWtLJ();
 
   /** \name Member functions (Get)  */
   /** @{ */
 
-  /**
-   * @brief Get a pointer to the lepton in a particles object, depending on value of fTypeLepton
-   * @return Pointer to the lepton's TLorentzVector
-   */
+  /// Get a pointer to the four-vector of the lepton
   TLorentzVector* GetLepton(KLFitter::Particles* particles);
 
-  /**
-   * @brief Return the lepton type
-   * @return fTypeLepton
-   */
+  /// Return the lepton type
   int GetLeptonType();
 
-  /**
-   * @brief Return the top decay hypothesis
-   * @return fHadronicTop
-   */
+  /// Return the top decay hypothesis
   bool GetHadronicTop() { return fHadronicTop; }
 
   /** @} */
   /** \name Member functions (Set)  */
   /** @{ */
 
-  /**
-   * Enumerator for the lepton type.
-   */
+  /// Enumerator for the lepton type.
   enum LeptonType { kElectron, kMuon };
 
-  /**
-   * Enumerator for the parameters.
-   */
+  /// Enumerator for the parameters.
   enum Parameters { parBE, parLQ1E, parLQ2E, parLepE, parNuPx, parNuPy, parNuPz };
 
   /**
@@ -94,33 +77,20 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
   /// Request the necessary resolution functions from the detector.
   void RequestResolutionFunctions() override;
 
-  /**
-   * Associate the hadronic leg of the event to the top quark for likelihood calculation.
-   */
+  /// Associate the hadronic leg of the event to the top quark for likelihood calculation.
   void SetHadronicTop() { fHadronicTop = true; }
 
-  /**
-   * Associate the leptonic leg of the event to the top quark for likelihood calculation.
-   */
+  /// Associate the leptonic leg of the event to the top quark for likelihood calculation.
   void SetLeptonicTop() { fHadronicTop = false; }
 
-  /**
-   * Set the type of lepton
-   * @param leptontype The type of lepton: electron(1) or muon (2)
-   */
+  /// Set the type of lepton
   void SetLeptonType(int leptontype);
-
-  /** @} */
-  /** \name Member functions (misc)  */
-  /** @{ */
 
   /** @} */
   /** \name Member functions (BAT)  */
   /** @{ */
 
-  /**
-   * Define the parameters of the fit.
-   */
+  /// Define the parameters of the fit.
   void DefineParameters() override;
 
   /**
@@ -130,10 +100,7 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
    */
   double LogLikelihood(const std::vector<double> & parameters) override;
 
-  /**
-   * Get initial values for the parameters.
-   * @return vector of initial values.
-   */
+  /// Get initial values for the parameters.
   std::vector<double> GetInitialParameters() override;
 
   /// Dummy reimplementation from the abstract base class.
@@ -151,14 +118,10 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
    */
   int CalculateLorentzVectors(const std::vector <double>& parameters) override;
 
-  /**
-   * Initialize the likelihood for the event
-   */
+  /// Initialize the likelihood for the event
   int Initialize() override;
 
-  /**
-   * Adjust parameter ranges
-   */
+  /// Adjust parameter ranges
   int AdjustParameterRanges() override;
 
   /**
@@ -196,49 +159,32 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
    */
   std::vector<double> GetNeutrinoPzSolutions();
 
-  /**
-   * Save permuted particles.
-   */
+  /// Save permuted particles.
   int SavePermutedParticles() override;
 
-  /**
-   * Save resolution functions.
-   */
+  /// Save resolution functions.
   int SaveResolutionFunctions() override;
 
-  /**
-   * The values of the x component of the missing ET.
-   */
+  /// The values of the x component of the missing ET.
   double ETmiss_x;
 
-  /**
-   * The values of the y component of the missing ET.
-   */
+  /// The values of the y component of the missing ET.
   double ETmiss_y;
 
-  /**
-   * The values of the total scalar ET.
-   */
+  /// The values of the total scalar ET.
   double SumET;
 
-  /**
-   * An index deciding if the event is electron (1) or muon (2) plus
-   * jets.
-   */
+  /// Index whether l+jets event is electron (1) or muon (2).
   int fTypeLepton;
 
-  /**
-   * Save resolution functions since the eta of the partons is not fitted.
-   */
+  /// Save resolution functions since the eta of the partons is not fitted.
   ResolutionBase * fResEnergyB;
   ResolutionBase * fResEnergyLQ1;
   ResolutionBase * fResEnergyLQ2;
   ResolutionBase * fResLepton;
   ResolutionBase * fResMET;
 
-  /**
-   * Save measured particle values for frequent calls
-   */
+  /// Save measured particle values for frequent calls
   double b_meas_e;
   double b_meas_p;
   double b_meas_m;
@@ -277,9 +223,7 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
   double lep_meas_py;
   double lep_meas_pz;
 
-  /**
-   * Save fit particle values for frequent calls
-   */
+  /// Save fit particle values for frequent calls
   double b_fit_e;
   double b_fit_px;
   double b_fit_py;
