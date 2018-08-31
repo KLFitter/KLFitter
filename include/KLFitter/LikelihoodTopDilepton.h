@@ -221,7 +221,6 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
 
   /** @} */
 
- protected:
   /// A flag for using a fixed top mass (true) or not (false).
   bool fFlagTopMassFixed;
 
@@ -256,7 +255,6 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
   /// A flag for using sumloglikelihood option
   bool doSumloglik;
 
- public:
   /**
    * TH1D histograms to be filled
    * with functions of interest, e.g.: mttbar,
@@ -265,7 +263,6 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
   TH1D *  hist_mttbar;
   TH1D *  hist_costheta;
 
- protected:
   /// BAT BCH1D Histogram for mttbar
   std::unique_ptr<BCH1D> fHistMttbar;
 

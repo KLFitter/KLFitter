@@ -138,7 +138,6 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
 
   /** @} */
 
- protected:
   /// A flag for using a fixed top mass (true) or not (false).
   bool fFlagTopMassFixed;
 

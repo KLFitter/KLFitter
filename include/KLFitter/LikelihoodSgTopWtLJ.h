@@ -144,7 +144,6 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
 
   /** @} */
 
- protected:
   /**
    * A flag for associating either the hadronic (true)
    * or the leponic (false) leg of the event to the top quark
