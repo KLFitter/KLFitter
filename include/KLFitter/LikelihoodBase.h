@@ -42,15 +42,15 @@ class LikelihoodBase : public BCModel {
  public:
   /// Enumerate for b-tagging possibilities
   enum BtaggingMethod{
-    kNotag,
-    kVeto,
-    kVetoNoFit,
-    kVetoNoFitLight,
-    kVetoNoFitBoth,
-    kVetoHybridNoFit,
-    kWorkingPoint,
-    kVetoLight,
-    kVetoBoth
+    kNotag,            ///< flavor-tagging information ignored
+    kVeto,             ///< b-tagged jets on light positions vetoed
+    kVetoNoFit,        ///< b-tagged jets on light positions vetoed, no fit performed
+    kVetoNoFitLight,   ///< non-tagged jets on b-jet positions vetoed, no fit performed
+    kVetoNoFitBoth,    ///< combination of kVetoNoFit and kVetoNoFitLight
+    kVetoHybridNoFit,  ///< like kVetoNoFit, unless all permutations vetoed, then kVetoNoFitLight
+    kWorkingPoint,     ///< event probability considers b-tagging efficiency values
+    kVetoLight,        ///< non-tagged jets on b-jet positions vetoed
+    kVetoBoth          ///< combination of kVeto and kVetoLight
   };
 
   /**
@@ -134,7 +134,8 @@ class LikelihoodBase : public BCModel {
   int SetParticlesPermuted(KLFitter::Particles** particles);
 
   /**
-   * Set the values for the missing ET x and y components and the SumET.
+   * Set the values for the missing ET x and y components and the
+   * SumET.
    * @param etx missing ET x component.
    * @param ety missing ET y component.
    * @param sumet total scalar ET.
@@ -165,7 +166,8 @@ class LikelihoodBase : public BCModel {
   int SetInitialParameters(std::vector<double> const& parameters);
 
   /**
-   * Set the initial values for the minimization, etc. for each chain
+   * Set the initial values for the minimization, etc. for each
+   * chain.
    * @param parameters The initial values.
    * @param nchains The number of chains.
    * @return An error flag.
@@ -192,14 +194,17 @@ class LikelihoodBase : public BCModel {
   }
 
   /**
-   * Set flag FlagIsNan. This Flag should be true if Minuit gave parameters with NaN values to LogLikelihood.
+   * Set flag FlagIsNan. This Flag should be true if Minuit gave
+   * parameters with NaN values to LogLikelihood.
    * @param flag The flag.
    * @return An error flag.
    */
   int SetFlagIsNan(bool flag) { fFlagIsNan = flag; return 1; }
 
-  /// Get flag FlagIsNan. This Flag should be true if Minuit gave
-  /// parameters with NaN values to LogLikelihood.
+  /**
+   * Get flag FlagIsNan. This Flag should be true if Minuit gave
+   * parameters with NaN values to LogLikelihood.
+   */
   bool GetFlagIsNan(void) { return fFlagIsNan; }
 
   /**
@@ -240,8 +245,10 @@ class LikelihoodBase : public BCModel {
    */
   virtual int DefineModelParticles() = 0;
 
-  /// Propagate the b-tagging information from the permuted
-  /// (measured) particles to the model particles.
+  /**
+   * Propagate the b-tagging information from the permuted
+   * (measured) particles to the model particles.
+   */
   void PropagateBTaggingInformation();
 
   /**
@@ -272,9 +279,11 @@ class LikelihoodBase : public BCModel {
   virtual double LogLikelihood(const std::vector <double> & parameters) = 0;
 
   /**
-   * The posterior probability definition, overloaded from BCModel. Split up into several subcomponents
+   * The posterior probability definition, overloaded from
+   * BCModel. Split up into several subcomponents
    * @param parameters A vector of parameters (double values).
-   * @return A vector with the components of the logarithm of the prior probability.
+   * @return A vector with the components of the logarithm of the
+   * prior probability.
    */
   virtual std::vector<double> LogLikelihoodComponents(std::vector <double> parameters) = 0;
 
@@ -322,51 +331,47 @@ class LikelihoodBase : public BCModel {
    */
   virtual bool NoTFProblem(std::vector<double> parameters);
 
-  /// Returns the best fit parameters, overloaded from BCModel
+  /// Best fit parameters, overloaded from BCModel
   std::vector <double> GetBestFitParameters();
   using BCModel::GetBestFitParameters;
 
-  /// Returns the errors of the best fit parameters, overloaded from BCModel
+  /// Errors of the best fit parameters, overloaded from BCModel
   std::vector <double> GetBestFitParameterErrors();
   using BCModel::GetBestFitParameterErrors;
 
-  /// Returns the best fit parameter at position (i), overloaded from BCModel
+  /// Best fit parameter at position (i), overloaded from BCModel
   double GetBestFitParameter(unsigned int index);
   using BCModel::GetBestFitParameter;
 
-  /// Returns the errors of the best fit parameter i, overloaded from BCModel
+  /// Errors of the best fit parameter i, overloaded from BCModel
   double GetBestFitParameterError(unsigned int index);
   using BCModel::GetBestFitParameterError;
 
   /**
    * Check if the permutation is LH invariant.
-   * @param iperm Current permutation
-   * @param nperms Total number of permutations
-   * @param switchpar1 ???
-   * @param switchpar2 ???
    * @return Permutation of the invariant partner, -1 if there is no one.
    */
   virtual int LHInvariantPermutationPartner(int /*iperm*/, int /*nperms*/, int* /*switchpar1*/, int* /*switchpar2*/) { return -1; }
 
   /**
-   * Write parameters from fCachedParametersVector.at(iperm) to fCachedParameters
+   * Write parameters from fCachedParametersVector.at(iperm) to
+   * fCachedParameters.
    * @param iperm Current permutation
    * @return An error code.
    */
   int GetParametersFromCache(int iperm);
 
   /**
-   * Write parameters to fCachedParametersVector.at(iperm) from GetBestFitParameter()
+   * Write parameters to fCachedParametersVector.at(iperm) from
+   * GetBestFitParameter().
    * @param iperm Current permutation
    * @param nperms Number of permutations
    * @return An error code.
    */
   int SetParametersToCache(int iperm, int nperms);
 
-  /// Return the normalization factor of the probability, overloaded from BCModel
+  /// Normalization factor of the probability, overloaded from BCModel
   double GetIntegral();
-
-  /// Return the normalization factor of the probability from the BCModel class
   using  BCIntegrate::GetIntegral;
 
   /**
