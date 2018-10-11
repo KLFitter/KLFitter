@@ -77,7 +77,7 @@ class ResSingleGaussBase : public ResolutionBase {
     * @param x The value of x.
     * @return The width.
     */
-  virtual double GetSigma(double x) override;
+  virtual double GetSigma(double x) = 0;
 
   /**
     * Return the probability of the true value of x given the
