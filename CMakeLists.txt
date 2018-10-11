@@ -136,6 +136,7 @@ set( lib_sources
   src/Particles.cxx
   src/Permutations.cxx
   src/PhysicsConstants.cxx
+  src/ResCrystalBallBase.cxx
   src/ResDoubleGaussBase.cxx
   src/ResDoubleGaussE_1.cxx
   src/ResDoubleGaussE_2.cxx
