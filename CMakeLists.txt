@@ -149,6 +149,7 @@ set( lib_sources
   src/ResGaussE.cxx
   src/ResGaussPt.cxx
   src/ResGauss_MET.cxx
+  src/ResSingleGaussBase.cxx
   src/ResolutionBase.cxx )
 
 # Build the shared library.
