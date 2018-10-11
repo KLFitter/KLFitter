@@ -96,6 +96,7 @@ set( lib_headers
   include/KLFitter/BoostedLikelihoodTopLeptonJets.h
   include/KLFitter/DetectorAtlas_7TeV.h
   include/KLFitter/DetectorAtlas_8TeV.h
+  include/KLFitter/DetectorAtlas_CrystalBall.h
   include/KLFitter/DetectorSnowmass.h
   include/KLFitter/DetectorBase.h
   include/KLFitter/Fitter.h
@@ -119,6 +120,7 @@ set( lib_sources
   src/BoostedLikelihoodTopLeptonJets.cxx
   src/DetectorAtlas_7TeV.cxx
   src/DetectorAtlas_8TeV.cxx
+  src/DetectorAtlas_CrystalBall.cxx
   src/DetectorSnowmass.cxx
   src/DetectorBase.cxx
   src/Fitter.cxx
@@ -150,6 +152,8 @@ set( lib_sources
   src/ResGaussPt.cxx
   src/ResGauss_MET.cxx
   src/ResSingleGaussBase.cxx
+  src/ResSingleGaussE.cxx
+  src/ResSingleGaussPt.cxx
   src/ResolutionBase.cxx )
 
 # Build the shared library.
