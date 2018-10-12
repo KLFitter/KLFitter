@@ -435,11 +435,11 @@ int KLFitter::Permutations::InvariantParticleGroupPermutations(KLFitter::Particl
       offset += (*fParticles)->NParticles(itype);
 
     // get permutation
-    const std::vector<int>& permutation1 = fPermutationTable[iperm1];
+    const std::vector<int> permutation1 = fPermutationTable[iperm1];
 
     for (int iperm2 = iperm1-1; iperm2 >= 0; --iperm2) {
       // get second permutation
-      const std::vector<int>& permutation2 = fPermutationTable[iperm2];
+      const std::vector<int> permutation2 = fPermutationTable[iperm2];
 
       // loop over index vectors
       unsigned int numberOfInvariantMatches(0);
