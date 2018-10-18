@@ -26,8 +26,6 @@ endif()
 # Set the project's name and version.
 project( KLFitter )
 
-# Enable using CTest in the project.
-include( CTest )
 
 # Set up the "C++ version" to use.
 set( CMAKE_CXX_STANDARD_REQUIRED 11 CACHE STRING
@@ -192,9 +190,6 @@ macro( KLFitter_add_test name )
    set_target_properties( ${name} PROPERTIES
       RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/test-bin" )
    # Set up the test itself:
-   add_test( NAME ${name}_ctest
-      COMMAND ${CMAKE_BINARY_DIR}/test-bin/${name}
-      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/test-bin )
 endmacro( KLFitter_add_test )
 
 # Set up the test(s) of the project.
