@@ -51,6 +51,17 @@ else()
   find_package( GTEST 1.8.1 REQUIRED )
 endif()
 
+# Build the main unit-test executable.
+add_executable( gtests.exe gtests.cxx )
+target_include_directories( gtests.exe
+  PUBLIC $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/tests> ${GTEST_INCLUDE_DIR} )
+target_link_libraries( gtests.exe KLFitter ${GTEST_LIBRARY} )
+set_target_properties( gtests.exe PROPERTIES
+  RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/test-bin" )
+if( KLF_BUILD_GTEST )
+  add_dependencies( gtests.exe googletest )
+endif()
+
 # Build the integration test for the l+jets likelihood.
 add_executable( test-ljets-lh.exe test-ljets-lh.cxx )
 target_link_libraries( test-ljets-lh.exe KLFitter )
