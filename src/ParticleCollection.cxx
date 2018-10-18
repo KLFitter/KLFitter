@@ -512,36 +512,6 @@ int ParticleCollection::TrackIndex(int index) const {
 }
 
 // ---------------------------------------------------------
-int ParticleCollection::SetIsBTagged(int index, bool isBTagged) {
-  jets.at(index).SetIsBTagged(isBTagged);
-  return 1;
-}
-
-// ---------------------------------------------------------
-int ParticleCollection::SetBTagWeight(int index, double btagweight) {
-  jets.at(index).SetBTagWeight(btagweight);
-  return 1;
-}
-
-// ---------------------------------------------------------
-int ParticleCollection::SetBTagWeightSet(int index, bool btagweightset) {
-  jets.at(index).SetBTagWeightIsSet(btagweightset);
-  return 1;
-}
-
-// ---------------------------------------------------------
-int ParticleCollection::SetBTaggingEfficiency(int index, double btagEff) {
-  jets.at(index).SetBTagEfficiency(btagEff);
-  return 1;
-}
-
-// ---------------------------------------------------------
-int ParticleCollection::SetBTaggingRejection(int index, double btagRej) {
-  jets.at(index).SetBTagRejection(btagRej);
-  return 1;
-}
-
-// ---------------------------------------------------------
 int ParticleCollection::NBTags() const {
   int sum{0};
   for (const auto& jet : jets) {

@@ -147,11 +147,11 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
                                     Particle::Type::kParton,
                                     (*fParticles)->jets.at(index).GetName(),
                                     (*fParticles)->JetIndex(index),
-                                    (*fParticles)->IsBTagged(index),
-                                    (*fParticles)->BTaggingEfficiency(index),
-                                    (*fParticles)->BTaggingRejection(index),
-                                    (*fParticles)->TrueFlavor(index),
-                                    (*fParticles)->BTagWeight(index));
+                                    (*fParticles)->jets.at(index).GetIsBTagged(),
+                                    (*fParticles)->jets.at(index).GetBTagEfficiency(),
+                                    (*fParticles)->jets.at(index).GetBTagRejection(),
+                                    (*fParticles)->jets.at(index).GetTrueFlavor(),
+                                    (*fParticles)->jets.at(index).GetBTagWeight());
 
               // set permutation
               permutation[i] = index;

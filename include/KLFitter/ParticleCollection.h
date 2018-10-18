@@ -191,48 +191,6 @@ class ParticleCollection final {
   int TrackIndex(int index) const;
 
   /**
-   * Return the true flavor of a parton.
-   * @param index The parton index
-   * @return The parton true flavor.
-   */
-  Particle::JetTrueFlavor TrueFlavor(int index) const { return jets.at(index).GetTrueFlavor(); }
-
-  /**
-   * Return has the jet been b-tagged?
-   * @param index The parton index
-   * @return The parton b-tagging boolean.
-   */
-  bool IsBTagged(int index) const { return jets.at(index).GetIsBTagged(); }
-
-  /**
-   * Return the jet b-tagging efficiency.
-   * @param index The parton index
-   * @return The jet b-tagging efficiency.
-   */
-  double BTaggingEfficiency(int index) const { return jets.at(index).GetBTagEfficiency(); }
-
-  /**
-   * Return the jet b-tagging rejection.
-   * @param index The parton index
-   * @return The jet b-tagging rejection.
-   */
-  double BTaggingRejection(int index) const { return jets.at(index).GetBTagRejection(); }
-
-  /**
-   * Return the jet b-tagging weight.
-   * @param index The parton index
-   * @return The jet b-tagging weight.
-   */
-  double BTagWeight(int index) const { return jets.at(index).GetBTagWeight(); }
-
-  /**
-   * Return the bool of a set tagging weight.
-   * @param index The parton index
-   * @return The bool of a set tagging weight
-   */
-  bool BTagWeightSet(int index) const { return jets.at(index).GetBTagWeightIsSet(); }
-
-  /**
    * Return the uncertainty of a particle with some index and type.
    * @param index The index of the particle
    * @param ptype The particle type.
@@ -258,50 +216,6 @@ class ParticleCollection final {
 
   /// Return the number of b-tags.
   int NBTags() const;
-
-  /** @} */
-  /** \name Member functions (Set)  */
-  /** @{ */
-
-  /**
-   * Set has the jet been b-tagged?
-   * @param index The parton index
-   * @param isBTagged The parton b-tagging boolean.
-   * @return An error flag.
-   */
-  int SetIsBTagged(int index, bool isBTagged);
-
-  /**
-   * Set the jet b-tagging efficiency.
-   * @param index The parton index
-   * @param btagEff The b-tagging efficiency.
-   * @return An error flag.
-   */
-  int SetBTaggingEfficiency(int index, double btagEff);
-
-  /**
-   * Set the jet b-tagging rejection.
-   * @param index The parton index
-   * @param btagRej The b-tagging probability.
-   * @return The jet b-tagging rejection.
-   */
-  int SetBTaggingRejection(int index, double btagRej);
-
-  /**
-   * Set the jet b-tagging weight.
-   * @param index The parton index
-   * @param btagweight The b-tagging weight.
-   * @return An error flag.
-   */
-  int SetBTagWeight(int index, double btagweight);
-
-  /**
-   * Set bool for set jet b-tagging weight.
-   * @param index The parton index
-   * @param btagweightset The b-tagging probability.
-   * @return An error flag.
-   */
-  int SetBTagWeightSet(int index, bool btagweightset);
 
   /** @} */
   /** \name Member functions (misc)  */
