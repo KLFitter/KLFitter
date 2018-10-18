@@ -47,7 +47,7 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
   /** @{ */
 
   /// Get a pointer to the four-vector of the lepton
-  TLorentzVector* GetLepton(KLFitter::Particles* particles);
+  TLorentzVector* GetLepton(KLFitter::ParticleCollection* particles);
 
   /// Return the lepton type
   int GetLeptonType();

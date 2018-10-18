@@ -25,7 +25,7 @@
 #include "BAT/BCMath.h"
 #include "BAT/BCParameter.h"
 #include "KLFitter/DetectorBase.h"
-#include "KLFitter/Particles.h"
+#include "KLFitter/ParticleCollection.h"
 #include "KLFitter/Permutations.h"
 #include "KLFitter/PhysicsConstants.h"
 #include "KLFitter/ResolutionBase.h"
@@ -101,47 +101,47 @@ void LikelihoodTopLeptonJets::SetLeptonType(int leptontype) {
 // ---------------------------------------------------------
 int LikelihoodTopLeptonJets::DefineModelParticles() {
   // create the particles of the model
-  fParticlesModel.reset(new Particles{});
+  fParticlesModel.reset(new ParticleCollection{});
 
   // add model particles
   TLorentzVector dummy{0, 0, 0, 0};
   fParticlesModel->AddParticle(&dummy,
-                               Particles::kParton,  // type
+                               ParticleCollection::kParton,  // type
                                "hadronic b quark",  // name
                                0,                   // index of corresponding particle
-                               Particles::kB);      // b jet (truth)
+                               ParticleCollection::kB);      // b jet (truth)
 
   fParticlesModel->AddParticle(&dummy,
-                               Particles::kParton,
+                               ParticleCollection::kParton,
                                "leptonic b quark",
                                1,                   // index of corresponding particle
-                               Particles::kB);      // b jet (truth)
+                               ParticleCollection::kB);      // b jet (truth)
 
   fParticlesModel->AddParticle(&dummy,
-                               Particles::kParton,
+                               ParticleCollection::kParton,
                                "light quark 1",
                                2,                   // index of corresponding particle
-                               Particles::kLight);  // light jet (truth)
+                               ParticleCollection::kLight);  // light jet (truth)
 
   fParticlesModel->AddParticle(&dummy,
-                               Particles::kParton,
+                               ParticleCollection::kParton,
                                "light quark 2",
                                3,                   // index of corresponding particle
-                               Particles::kLight);  // light jet (truth)
+                               ParticleCollection::kLight);  // light jet (truth)
 
   if (m_lepton_type == kElectron) {
-    fParticlesModel->AddParticle(&dummy, Particles::kElectron, "electron");
+    fParticlesModel->AddParticle(&dummy, ParticleCollection::kElectron, "electron");
   } else if (m_lepton_type == kMuon) {
-    fParticlesModel->AddParticle(&dummy, Particles::kMuon, "muon");
+    fParticlesModel->AddParticle(&dummy, ParticleCollection::kMuon, "muon");
   }
 
-  fParticlesModel->AddParticle(&dummy, Particles::kNeutrino, "neutrino");
+  fParticlesModel->AddParticle(&dummy, ParticleCollection::kNeutrino, "neutrino");
 
-  fParticlesModel->AddParticle(&dummy, Particles::kBoson, "hadronic W");
-  fParticlesModel->AddParticle(&dummy, Particles::kBoson, "leptonic W");
+  fParticlesModel->AddParticle(&dummy, ParticleCollection::kBoson, "hadronic W");
+  fParticlesModel->AddParticle(&dummy, ParticleCollection::kBoson, "leptonic W");
 
-  fParticlesModel->AddParticle(&dummy, Particles::kParton, "hadronic top");
-  fParticlesModel->AddParticle(&dummy, Particles::kParton, "leptonic top");
+  fParticlesModel->AddParticle(&dummy, ParticleCollection::kParton, "hadronic top");
+  fParticlesModel->AddParticle(&dummy, ParticleCollection::kParton, "leptonic top");
 
   // no error
   return 1;
@@ -252,14 +252,14 @@ int LikelihoodTopLeptonJets::RemoveInvariantParticlePermutations() {
   int err = 1;
 
   // remove the permutation from the second and the third jet
-  Particles::ParticleType ptype = Particles::kParton;
+  ParticleCollection::ParticleType ptype = ParticleCollection::kParton;
   std::vector<int> indexVector_Jets;
   indexVector_Jets.push_back(2);
   indexVector_Jets.push_back(3);
   err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Jets);
 
   // remove invariant jet permutations of all jets not considered
-  Particles* particles = (*fPermutations)->Particles();
+  ParticleCollection* particles = (*fPermutations)->Particles();
   indexVector_Jets.clear();
   for (int iPartons = 4; iPartons < particles->NPartons(); iPartons++) {
     indexVector_Jets.push_back(iPartons);
@@ -268,14 +268,14 @@ int LikelihoodTopLeptonJets::RemoveInvariantParticlePermutations() {
 
   // remove the permutation from the other lepton
   if (m_lepton_type == kElectron) {
-    ptype = Particles::kMuon;
+    ptype = ParticleCollection::kMuon;
     std::vector<int> indexVector_Muons;
     for (int iMuon = 0; iMuon < particles->NMuons(); iMuon++) {
       indexVector_Muons.push_back(iMuon);
     }
     err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Muons);
   } else if (m_lepton_type == kMuon) {
-    ptype = Particles::kElectron;
+    ptype = ParticleCollection::kElectron;
     std::vector<int> indexVector_Electrons;
     for (int iElectron = 0; iElectron < particles->NElectrons(); iElectron++) {
       indexVector_Electrons.push_back(iElectron);
@@ -536,7 +536,7 @@ std::vector<double> LikelihoodTopLeptonJets::CalculateNeutrinoPzSolutions(TLoren
 // ---------------------------------------------------------
 int LikelihoodTopLeptonJets::SavePermutedParticles() {
   m_bhad_meas_e      = (*fParticlesPermuted)->Parton(0)->E();
-  m_bhad_meas_deteta = (*fParticlesPermuted)->DetEta(0, Particles::kParton);
+  m_bhad_meas_deteta = (*fParticlesPermuted)->DetEta(0, ParticleCollection::kParton);
   m_bhad_meas_px     = (*fParticlesPermuted)->Parton(0)->Px();
   m_bhad_meas_py     = (*fParticlesPermuted)->Parton(0)->Py();
   m_bhad_meas_pz     = (*fParticlesPermuted)->Parton(0)->Pz();
@@ -544,7 +544,7 @@ int LikelihoodTopLeptonJets::SavePermutedParticles() {
   m_bhad_meas_p      = sqrt(m_bhad_meas_e*m_bhad_meas_e - m_bhad_meas_m*m_bhad_meas_m);
 
   m_blep_meas_e      = (*fParticlesPermuted)->Parton(1)->E();
-  m_blep_meas_deteta = (*fParticlesPermuted)->DetEta(1, Particles::kParton);
+  m_blep_meas_deteta = (*fParticlesPermuted)->DetEta(1, ParticleCollection::kParton);
   m_blep_meas_px     = (*fParticlesPermuted)->Parton(1)->Px();
   m_blep_meas_py     = (*fParticlesPermuted)->Parton(1)->Py();
   m_blep_meas_pz     = (*fParticlesPermuted)->Parton(1)->Pz();
@@ -552,7 +552,7 @@ int LikelihoodTopLeptonJets::SavePermutedParticles() {
   m_blep_meas_p      = sqrt(m_blep_meas_e*m_blep_meas_e - m_blep_meas_m*m_blep_meas_m);
 
   m_lq1_meas_e      = (*fParticlesPermuted)->Parton(2)->E();
-  m_lq1_meas_deteta = (*fParticlesPermuted)->DetEta(2, Particles::kParton);
+  m_lq1_meas_deteta = (*fParticlesPermuted)->DetEta(2, ParticleCollection::kParton);
   m_lq1_meas_px     = (*fParticlesPermuted)->Parton(2)->Px();
   m_lq1_meas_py     = (*fParticlesPermuted)->Parton(2)->Py();
   m_lq1_meas_pz     = (*fParticlesPermuted)->Parton(2)->Pz();
@@ -560,7 +560,7 @@ int LikelihoodTopLeptonJets::SavePermutedParticles() {
   m_lq1_meas_p      = sqrt(m_lq1_meas_e*m_lq1_meas_e - m_lq1_meas_m*m_lq1_meas_m);
 
   m_lq2_meas_e      = (*fParticlesPermuted)->Parton(3)->E();
-  m_lq2_meas_deteta = (*fParticlesPermuted)->DetEta(3, Particles::kParton);
+  m_lq2_meas_deteta = (*fParticlesPermuted)->DetEta(3, ParticleCollection::kParton);
   m_lq2_meas_px     = (*fParticlesPermuted)->Parton(3)->Px();
   m_lq2_meas_py     = (*fParticlesPermuted)->Parton(3)->Py();
   m_lq2_meas_pz     = (*fParticlesPermuted)->Parton(3)->Pz();
@@ -570,10 +570,10 @@ int LikelihoodTopLeptonJets::SavePermutedParticles() {
   TLorentzVector* lepton(0);
   if (m_lepton_type == kElectron) {
     lepton = (*fParticlesPermuted)->Electron(0);
-    m_lep_meas_deteta = (*fParticlesPermuted)->DetEta(0, Particles::kElectron);
+    m_lep_meas_deteta = (*fParticlesPermuted)->DetEta(0, ParticleCollection::kElectron);
   } else {
     lepton = (*fParticlesPermuted)->Muon(0);
-    m_lep_meas_deteta = (*fParticlesPermuted)->DetEta(0, Particles::kMuon);
+    m_lep_meas_deteta = (*fParticlesPermuted)->DetEta(0, ParticleCollection::kMuon);
   }
   m_lep_meas_e        = lepton->E();
   m_lep_meas_sintheta = sin(lepton->Theta());

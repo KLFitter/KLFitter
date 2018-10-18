@@ -26,7 +26,7 @@
 
 #include "BAT/BCLog.h"
 #include "BAT/BCModel.h"
-#include "KLFitter/Particles.h"
+#include "KLFitter/ParticleCollection.h"
 #include "KLFitter/PhysicsConstants.h"
 
 // ---------------------------------------------------------
@@ -57,7 +57,7 @@ class LikelihoodBase : public BCModel {
    * The default constructor.
    * @param particles A pointer to the measured particles.
    */
-  explicit LikelihoodBase(Particles ** particles = 0);
+  explicit LikelihoodBase(ParticleCollection ** particles = 0);
 
   /// The default destructor.
   virtual ~LikelihoodBase();
@@ -75,10 +75,10 @@ class LikelihoodBase : public BCModel {
   KLFitter::DetectorBase* Detector() { return *fDetector; }
 
   /// Return the set of measured particles.
-  KLFitter::Particles** PParticlesPermuted() { return fParticlesPermuted; }
+  KLFitter::ParticleCollection** PParticlesPermuted() { return fParticlesPermuted; }
 
   /// Return the set of model particles.
-  KLFitter::Particles* ParticlesModel() {
+  KLFitter::ParticleCollection* ParticlesModel() {
     BuildModelParticles();
     return fParticlesModel.get();
   }
@@ -131,7 +131,7 @@ class LikelihoodBase : public BCModel {
    * @param particles The measured particles.
    * @return An error flag.
    */
-  int SetParticlesPermuted(KLFitter::Particles** particles);
+  int SetParticlesPermuted(KLFitter::ParticleCollection** particles);
 
   /**
    * Set the values for the missing ET x and y components and the
@@ -402,13 +402,13 @@ class LikelihoodBase : public BCModel {
   double SetPartonMass(double jetmass, double quarkmass, double *px, double *py, double *pz, double e);
 
   /// A pointer to the measured particles.
-  KLFitter::Particles** fParticlesPermuted;
+  KLFitter::ParticleCollection** fParticlesPermuted;
 
   /// A pointer to the permutation object.
   std::unique_ptr<KLFitter::Permutations>* fPermutations;
 
   /// A pointer to the model particles.
-  std::unique_ptr<KLFitter::Particles> fParticlesModel;
+  std::unique_ptr<KLFitter::ParticleCollection> fParticlesModel;
 
   /// A pointer to the table of physics constants
   KLFitter::PhysicsConstants fPhysicsConstants;

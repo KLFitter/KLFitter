@@ -239,7 +239,7 @@ int main(int argc, char *argv[]) {
     //   particle a name)
     // - index of the particle in your original collection (for
     //   convenience)
-    KLFitter::Particles particles{};
+    KLFitter::ParticleCollection particles{};
 
     // Add leptons. Depending on the two event variables
     // "lepton_is_e" and "lepton_is_mu", either an electron or a
@@ -249,10 +249,10 @@ int main(int argc, char *argv[]) {
     lepton.SetPtEtaPhiE(event.lepton_pt, event.lepton_eta, event.lepton_phi, event.lepton_e);
     if (event.lepton_is_e) {
       likelihood.SetLeptonType(KLFitter::LikelihoodTopLeptonJets::kElectron);
-      particles.AddParticle(lepton, event.lepton_cl_eta, KLFitter::Particles::kElectron);
+      particles.AddParticle(lepton, event.lepton_cl_eta, KLFitter::ParticleCollection::kElectron);
     } else if (event.lepton_is_mu) {
       likelihood.SetLeptonType(KLFitter::LikelihoodTopLeptonJets::kMuon);
-      particles.AddParticle(lepton, event.lepton_eta, KLFitter::Particles::kMuon);
+      particles.AddParticle(lepton, event.lepton_eta, KLFitter::ParticleCollection::kMuon);
     } else {
       std::cerr << "WARNING: Event has no electrons or muons. Skipping." << std::endl;
       continue;
@@ -275,9 +275,9 @@ int main(int argc, char *argv[]) {
       //  8) 1./tagging inefficiency required for kWorkingPoint
       //  9) true flavour type
       //  10) btag discriminant
-      particles.AddParticle(jet, event.jet_eta->at(ijet), KLFitter::Particles::kParton,
+      particles.AddParticle(jet, event.jet_eta->at(ijet), KLFitter::ParticleCollection::kParton,
           "", ijet, static_cast<int>(event.jet_has_btag->at(ijet)), 0.6, 145.,
-          KLFitter::Particles::kNone, event.jet_btag_weight->at(ijet));
+          KLFitter::ParticleCollection::kNone, event.jet_btag_weight->at(ijet));
     }
 
     // Add particles to the likelihood.

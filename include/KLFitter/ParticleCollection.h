@@ -39,12 +39,12 @@ namespace KLFitter {
 /**
  * A class to hold collections of various particle types. The
  * possible particle types are defined in
- * Particles::ParticleType, and new particles are added via one
+ * Particles::Type, and new particles are added via one
  * of the overloaded AddParticle() functions. It provides
  * functionality to retrieve information about the contained
  * particles via various accessor methods.
  */
-class Particles final {
+class ParticleCollection final {
  public:
   /// Enumerator for particle types.
   enum ParticleType { kParton,    ///< Particle type parton
@@ -66,16 +66,16 @@ class Particles final {
   };
 
   /// The default constructor.
-  Particles();
+  ParticleCollection();
 
   /// The copy constructor.
-  explicit Particles(const Particles& o);
+  explicit ParticleCollection(const ParticleCollection& o);
 
   /// The (defaulted) destructor.
-  ~Particles();
+  ~ParticleCollection();
 
   /// The assignment operator.
-  Particles& operator=(const Particles& o);
+  ParticleCollection& operator=(const ParticleCollection& o);
 
   /** \name Member functions (Get)  */
   /** @{ */
@@ -141,7 +141,7 @@ class Particles final {
    * @param ptype The type of the particle.
    * @return A pointer to the TLorentzVector of the particle.
    */
-  TLorentzVector* Particle(int index, KLFitter::Particles::ParticleType ptype);
+  TLorentzVector* Particle(int index, KLFitter::ParticleCollection::ParticleType ptype);
 
   /**
    * Find a particle by name.
@@ -151,7 +151,7 @@ class Particles final {
    * @param ptype The pointer to the particle type.
    * @return A flag (1: found, 0: not found).
    */
-  int FindParticle(const std::string& name, TLorentzVector* &particle, int* index, KLFitter::Particles::ParticleType* ptype);
+  int FindParticle(const std::string& name, TLorentzVector* &particle, int* index, KLFitter::ParticleCollection::ParticleType* ptype);
 
   /**
    * Return the parton at some index.
@@ -220,7 +220,7 @@ class Particles final {
    * @param ptype The particle type.
    * @return The number of particles.
    */
-  int NParticles(KLFitter::Particles::ParticleType ptype) const;
+  int NParticles(KLFitter::ParticleCollection::ParticleType ptype) const;
 
   /**
    * Return the name of a particle.
@@ -228,7 +228,7 @@ class Particles final {
    * @param ptype The type of the particle.
    * @return The name of the particle.
    */
-  std::string NameParticle(int index, KLFitter::Particles::ParticleType ptype) const;
+  std::string NameParticle(int index, KLFitter::ParticleCollection::ParticleType ptype) const;
 
   /**
    * Return the name of a electron.
@@ -312,7 +312,7 @@ class Particles final {
    * @param index The parton index
    * @return The parton true flavor.
    */
-  TrueFlavorType TrueFlavor(int index) const { return static_cast<Particles::TrueFlavorType>(m_jets.at(index).GetTrueFlavor()); }
+  TrueFlavorType TrueFlavor(int index) const { return static_cast<ParticleCollection::TrueFlavorType>(m_jets.at(index).GetTrueFlavor()); }
 
   /**
    * Return has the jet been b-tagged?
@@ -355,7 +355,7 @@ class Particles final {
    * @param ptype The particle type.
    * @return The uncertaintie of the particle
    */
-  const std::vector<double>* Uncertainties(int index, KLFitter::Particles::ParticleType ptype) const;
+  const std::vector<double>* Uncertainties(int index, KLFitter::ParticleCollection::ParticleType ptype) const;
 
   /**
    * Return the detector eta of a particle with some index and type.
@@ -363,7 +363,7 @@ class Particles final {
    * @param ptype The particle type.
    * @return The detector eta of the particle
    */
-  double DetEta(int index, KLFitter::Particles::ParticleType ptype) const;
+  double DetEta(int index, KLFitter::ParticleCollection::ParticleType ptype) const;
 
   /**
    * Return the charge of the lepton with some index and type.
@@ -371,7 +371,7 @@ class Particles final {
    * @param ptype The particle type.
    * @return The charge of the lepton.
    */
-  float LeptonCharge(int index, KLFitter::Particles::ParticleType ptype) const;
+  float LeptonCharge(int index, KLFitter::ParticleCollection::ParticleType ptype) const;
 
   /// Return the number of b-tags.
   int NBTags() const;
@@ -434,7 +434,7 @@ class Particles final {
    * @param measuredindex The index of the associated measured particle.
    * @return An error code.
    */
-  int AddParticle(const TLorentzVector& particle, double DetEta, float LepCharge, KLFitter::Particles::ParticleType ptype, std::string name = "", int measuredindex = -1);
+  int AddParticle(const TLorentzVector& particle, double DetEta, float LepCharge, KLFitter::ParticleCollection::ParticleType ptype, std::string name = "", int measuredindex = -1);
 
   /**
    * DEPRECATED FUNCTION. This is an overloaded implementation of
@@ -443,7 +443,7 @@ class Particles final {
    * it will be removed in the next major release. Please switch
    * to the above implementation.
    */
-  int AddParticle(const TLorentzVector* const particle, double DetEta, float LepCharge, KLFitter::Particles::ParticleType ptype, std::string name = "", int measuredindex = -1);
+  int AddParticle(const TLorentzVector* const particle, double DetEta, float LepCharge, KLFitter::ParticleCollection::ParticleType ptype, std::string name = "", int measuredindex = -1);
 
   /**
    * Add a particle to a list of particles.
@@ -459,7 +459,7 @@ class Particles final {
    * @param btagweight The b tagger weight).
    * @return An error code.
    */
-  int AddParticle(const TLorentzVector& particle, double DetEta, KLFitter::Particles::ParticleType ptype, std::string name = "", int measuredindex = -1, bool isBtagged = false, double bTagEff = -1., double bTagRej = -1., TrueFlavorType trueflav = kNone, double btagweight = 999);
+  int AddParticle(const TLorentzVector& particle, double DetEta, KLFitter::ParticleCollection::ParticleType ptype, std::string name = "", int measuredindex = -1, bool isBtagged = false, double bTagEff = -1., double bTagRej = -1., TrueFlavorType trueflav = kNone, double btagweight = 999);
 
   /**
    * DEPRECATED FUNCTION. This is an overloaded implementation of
@@ -468,7 +468,7 @@ class Particles final {
    * it will be removed in the next major release. Please switch
    * to the above implementation.
    */
-  int AddParticle(const TLorentzVector* const particle, double DetEta, KLFitter::Particles::ParticleType ptype, std::string name = "", int measuredindex = -1, bool isBtagged = false, double bTagEff = -1., double bTagRej = -1., TrueFlavorType trueflav = kNone, double btagweight = 999);
+  int AddParticle(const TLorentzVector* const particle, double DetEta, KLFitter::ParticleCollection::ParticleType ptype, std::string name = "", int measuredindex = -1, bool isBtagged = false, double bTagEff = -1., double bTagRej = -1., TrueFlavorType trueflav = kNone, double btagweight = 999);
 
   /**
    * Add a particle to a list of particles.
@@ -483,7 +483,7 @@ class Particles final {
    * @param btagweight The b tagger weight).
    * @return An error code.
    */
-  int AddParticle(const TLorentzVector& particle, KLFitter::Particles::ParticleType ptype, std::string name = "", int measuredindex = -1, bool isBtagged = false, double bTagEff = -1., double bTagRej = -1., TrueFlavorType trueflav = kNone, double btagweight = 999);
+  int AddParticle(const TLorentzVector& particle, KLFitter::ParticleCollection::ParticleType ptype, std::string name = "", int measuredindex = -1, bool isBtagged = false, double bTagEff = -1., double bTagRej = -1., TrueFlavorType trueflav = kNone, double btagweight = 999);
 
   /**
    * DEPRECATED FUNCTION. This is an overloaded implementation of
@@ -492,7 +492,7 @@ class Particles final {
    * it will be removed in the next major release. Please switch
    * to the above implementation.
    */
-  int AddParticle(const TLorentzVector* const particle, KLFitter::Particles::ParticleType ptype, std::string name = "", int measuredindex = -1, bool isBtagged = false, double bTagEff = -1., double bTagRej = -1., TrueFlavorType trueflav = kNone, double btagweight = 999);
+  int AddParticle(const TLorentzVector* const particle, KLFitter::ParticleCollection::ParticleType ptype, std::string name = "", int measuredindex = -1, bool isBtagged = false, double bTagEff = -1., double bTagRej = -1., TrueFlavorType trueflav = kNone, double btagweight = 999);
 
   /**
    * Add a particle to a list of particles (especially for model particles).
@@ -504,7 +504,7 @@ class Particles final {
    * @param btagweight The b tagger weight).
    * @return An error code.
    */
-  int AddParticle(const TLorentzVector& particle, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, TrueFlavorType trueflav, double btagweight = 999);
+  int AddParticle(const TLorentzVector& particle, KLFitter::ParticleCollection::ParticleType ptype, std::string name, int measuredindex, TrueFlavorType trueflav, double btagweight = 999);
 
   /**
    * DEPRECATED FUNCTION. This is an overloaded implementation of
@@ -513,7 +513,7 @@ class Particles final {
    * it will be removed in the next major release. Please switch
    * to the above implementation.
    */
-  int AddParticle(const TLorentzVector* const particle, KLFitter::Particles::ParticleType ptype, std::string name, int measuredindex, TrueFlavorType trueflav, double btagweight = 999);
+  int AddParticle(const TLorentzVector* const particle, KLFitter::ParticleCollection::ParticleType ptype, std::string name, int measuredindex, TrueFlavorType trueflav, double btagweight = 999);
 
   /**
    * Add a particle to a list of particles.
@@ -522,7 +522,7 @@ class Particles final {
    * @param name The name of the particle.
    * @param uncertainies The associated uncertainties.
    */
-  int AddParticle(const TLorentzVector& particle, KLFitter::Particles::ParticleType ptype, std::string name = "", int measuredindex = -1, const std::vector<double>& uncertainies = std::vector<double>());
+  int AddParticle(const TLorentzVector& particle, KLFitter::ParticleCollection::ParticleType ptype, std::string name = "", int measuredindex = -1, const std::vector<double>& uncertainies = std::vector<double>());
 
   /**
    * Removes a particle from a list of particles.
@@ -530,7 +530,7 @@ class Particles final {
    * @param ptype The type of the particle.
    * @return An error code.
    */
-  int RemoveParticle(int index, KLFitter::Particles::ParticleType ptype);
+  int RemoveParticle(int index, KLFitter::ParticleCollection::ParticleType ptype);
 
   /**
    * Removes a particle from a list of particles.
@@ -568,8 +568,8 @@ class Particles final {
 };
 }  // namespace KLFitter
 
-inline KLFitter::Particles::ParticleType &operator++(KLFitter::Particles::ParticleType &ptype) {
-  return ptype = KLFitter::Particles::ParticleType(ptype + 1);
+inline KLFitter::ParticleCollection::ParticleType &operator++(KLFitter::ParticleCollection::ParticleType &ptype) {
+  return ptype = KLFitter::ParticleCollection::ParticleType(ptype + 1);
 }
 
 #endif  // KLFITTER_PARTICLES_H_

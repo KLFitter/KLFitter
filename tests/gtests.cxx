@@ -20,6 +20,7 @@
 #include "gtest/gtest.h"
 
 // Include all individual tests here.
+#include "Particle/TestElectron.h"
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
