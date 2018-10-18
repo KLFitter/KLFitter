@@ -139,7 +139,7 @@ before_deploy:
   - doxygen doc/Doxyfile 2>&1
 
 
-# Definiton of the actual CI jobs. We build KLFitter with three
+# Definiton of the actual CI jobs. We build KLFitter with two
 # different scenarios:
 # 1. Make a fully automatized build of KLFitter and BAT using
 #    cmake. This downloads and compiles BAT via cmake, and builds
@@ -148,10 +148,6 @@ before_deploy:
 # 2. Download and compile BAT with the external shell script
 #    CompileBAT.sh. Then configure the KLFitter build via cmake
 #    and pick up that pre-built version of BAT. Run unit tests
-#    afterwards and verify their output.
-# 3. Download and compile BAT with the external shell script
-#    CompileBAT.sh. Then use the Makefile to build KLFitter and
-#    link it against the pre-built version of BAT. Run unit tests
 #    afterwards and verify their output.
 jobs:
   include:
@@ -171,14 +167,6 @@ jobs:
         - *run_compile_bat
         - *run_cmake_configure
         - *run_cmake_build
-        - *run_unit_tests
-        - *run_unit_test_diff
-    - script:
-        - *run_download_bat
-        - *run_compile_bat
-        - $CMD_DOCKER "${CMD_EXPORT_BATINSTALL} && make"
-        - $CMD_DOCKER "${CMD_EXPORT_BATINSTALL} && make tests"
-        - $CMD_DOCKER "${CMD_EXPORT_BATINSTALL} && make install"
         - *run_unit_tests
         - *run_unit_test_diff
     - stage: deploy
