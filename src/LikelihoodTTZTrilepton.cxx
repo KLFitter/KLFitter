@@ -108,73 +108,73 @@ int KLFitter::LikelihoodTTZTrilepton::DefineModelParticles() {
   // create dummy TLorentzVector
   TLorentzVector dummy{0, 0, 0, 0};  // 4-vector
   fParticlesModel->AddParticle(&dummy,
-                               KLFitter::ParticleCollection::kParton,  // type
+                               Particle::Type::kParton,  // type
                                "hadronic b quark",            // name
                                0,                             // index of corresponding particle
                                Particle::JetTrueFlavor::kB);      // b jet (truth)
 
   fParticlesModel->AddParticle(&dummy,
-                               KLFitter::ParticleCollection::kParton,
+                               Particle::Type::kParton,
                                "leptonic b quark",
                                1,                             // index of corresponding particle
                                Particle::JetTrueFlavor::kB);      // b jet (truth)
 
   fParticlesModel->AddParticle(&dummy,
-                               KLFitter::ParticleCollection::kParton,
+                               Particle::Type::kParton,
                                "light quark 1",
                                2,                             // index of corresponding particle
                                Particle::JetTrueFlavor::kLight);  // light jet (truth)
 
   fParticlesModel->AddParticle(&dummy,
-                               KLFitter::ParticleCollection::kParton,
+                               Particle::Type::kParton,
                                "light quark 2",
                                3,                             // index of corresponding particle
                                Particle::JetTrueFlavor::kLight);  // light jet (truth)
 
   if (fTypeLepton == kElectron) {
     fParticlesModel->AddParticle(&dummy,
-                                 KLFitter::ParticleCollection::kElectron,
+                                 Particle::Type::kElectron,
                                  "electron");
     fParticlesModel->AddParticle(&dummy,
-                                 KLFitter::ParticleCollection::kElectron,
+                                 Particle::Type::kElectron,
                                  "electron Z1");
     fParticlesModel->AddParticle(&dummy,
-                                 KLFitter::ParticleCollection::kElectron,
+                                 Particle::Type::kElectron,
                                  "electron Z2");
   } else if (fTypeLepton == kMuon) {
     fParticlesModel->AddParticle(&dummy,
-                                 KLFitter::ParticleCollection::kMuon,
+                                 Particle::Type::kMuon,
                                  "muon");
     fParticlesModel->AddParticle(&dummy,
-                                 KLFitter::ParticleCollection::kMuon,
+                                 Particle::Type::kMuon,
                                  "muon Z1");
     fParticlesModel->AddParticle(&dummy,
-                                 KLFitter::ParticleCollection::kMuon,
+                                 Particle::Type::kMuon,
                                  "muon Z2");
   }
 
   fParticlesModel->AddParticle(&dummy,
-                               KLFitter::ParticleCollection::kNeutrino,
+                               Particle::Type::kNeutrino,
                                "neutrino");
 
   fParticlesModel->AddParticle(&dummy,
-                               KLFitter::ParticleCollection::kBoson,
+                               Particle::Type::kBoson,
                                "hadronic W");
 
   fParticlesModel->AddParticle(&dummy,
-                               KLFitter::ParticleCollection::kBoson,
+                               Particle::Type::kBoson,
                                "leptonic W");
 
   fParticlesModel->AddParticle(&dummy,
-                               KLFitter::ParticleCollection::kParton,
+                               Particle::Type::kParton,
                                "hadronic top");
 
   fParticlesModel->AddParticle(&dummy,
-                               KLFitter::ParticleCollection::kParton,
+                               Particle::Type::kParton,
                                "leptonic top");
 
   fParticlesModel->AddParticle(&dummy,
-                               KLFitter::ParticleCollection::kBoson,
+                               Particle::Type::kBoson,
                                "Z boson");
 
   // no error
@@ -347,18 +347,18 @@ int KLFitter::LikelihoodTTZTrilepton::RemoveInvariantParticlePermutations() {
   int err = 1;
 
   // remove the permutation from the second and the third jet
-  KLFitter::ParticleCollection::ParticleType ptype = KLFitter::ParticleCollection::kParton;
+  Particle::Type ptype = Particle::Type::kParton;
   std::vector<int> indexVector_Jets;
   indexVector_Jets.push_back(2);
   indexVector_Jets.push_back(3);
   err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Jets);
 
   // remove the permutation from the two Z leptons
-  KLFitter::ParticleCollection::ParticleType ptypeLepZ;
+  Particle::Type ptypeLepZ;
   if (fTypeLepton == kElectron) {
-    ptypeLepZ = KLFitter::ParticleCollection::kElectron;
+    ptypeLepZ = Particle::Type::kElectron;
   } else {
-    ptypeLepZ = KLFitter::ParticleCollection::kMuon;
+    ptypeLepZ = Particle::Type::kMuon;
   }
 
   std::vector<int> indexVector_LepZ;
@@ -376,14 +376,14 @@ int KLFitter::LikelihoodTTZTrilepton::RemoveInvariantParticlePermutations() {
 
   // remove the permutation from the other lepton
   if (fTypeLepton == kElectron) {
-    ptype = KLFitter::ParticleCollection::kMuon;
+    ptype = Particle::Type::kMuon;
     std::vector<int> indexVector_Muons;
     for (int iMuon = 0; iMuon < particles->NMuons(); iMuon++) {
       indexVector_Muons.push_back(iMuon);
     }
     err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Muons);
   } else if (fTypeLepton == kMuon) {
-    ptype = KLFitter::ParticleCollection::kElectron;
+    ptype = Particle::Type::kElectron;
     std::vector<int> indexVector_Electrons;
     for (int iElectron = 0; iElectron < particles->NElectrons(); iElectron++) {
       indexVector_Electrons.push_back(iElectron);
@@ -738,7 +738,7 @@ std::vector<double> KLFitter::LikelihoodTTZTrilepton::CalculateNeutrinoPzSolutio
 // ---------------------------------------------------------
 int KLFitter::LikelihoodTTZTrilepton::SavePermutedParticles() {
   bhad_meas_e      = (*fParticlesPermuted)->Parton(0)->E();
-  bhad_meas_deteta = (*fParticlesPermuted)->DetEta(0, KLFitter::ParticleCollection::kParton);
+  bhad_meas_deteta = (*fParticlesPermuted)->DetEta(0, Particle::Type::kParton);
   bhad_meas_px     = (*fParticlesPermuted)->Parton(0)->Px();
   bhad_meas_py     = (*fParticlesPermuted)->Parton(0)->Py();
   bhad_meas_pz     = (*fParticlesPermuted)->Parton(0)->Pz();
@@ -746,7 +746,7 @@ int KLFitter::LikelihoodTTZTrilepton::SavePermutedParticles() {
   bhad_meas_p      = sqrt(bhad_meas_e*bhad_meas_e - bhad_meas_m*bhad_meas_m);
 
   blep_meas_e      = (*fParticlesPermuted)->Parton(1)->E();
-  blep_meas_deteta = (*fParticlesPermuted)->DetEta(1, KLFitter::ParticleCollection::kParton);
+  blep_meas_deteta = (*fParticlesPermuted)->DetEta(1, Particle::Type::kParton);
   blep_meas_px     = (*fParticlesPermuted)->Parton(1)->Px();
   blep_meas_py     = (*fParticlesPermuted)->Parton(1)->Py();
   blep_meas_pz     = (*fParticlesPermuted)->Parton(1)->Pz();
@@ -754,7 +754,7 @@ int KLFitter::LikelihoodTTZTrilepton::SavePermutedParticles() {
   blep_meas_p      = sqrt(blep_meas_e*blep_meas_e - blep_meas_m*blep_meas_m);
 
   lq1_meas_e      = (*fParticlesPermuted)->Parton(2)->E();
-  lq1_meas_deteta = (*fParticlesPermuted)->DetEta(2, KLFitter::ParticleCollection::kParton);
+  lq1_meas_deteta = (*fParticlesPermuted)->DetEta(2, Particle::Type::kParton);
   lq1_meas_px     = (*fParticlesPermuted)->Parton(2)->Px();
   lq1_meas_py     = (*fParticlesPermuted)->Parton(2)->Py();
   lq1_meas_pz     = (*fParticlesPermuted)->Parton(2)->Pz();
@@ -762,7 +762,7 @@ int KLFitter::LikelihoodTTZTrilepton::SavePermutedParticles() {
   lq1_meas_p      = sqrt(lq1_meas_e*lq1_meas_e - lq1_meas_m*lq1_meas_m);
 
   lq2_meas_e      = (*fParticlesPermuted)->Parton(3)->E();
-  lq2_meas_deteta = (*fParticlesPermuted)->DetEta(3, KLFitter::ParticleCollection::kParton);
+  lq2_meas_deteta = (*fParticlesPermuted)->DetEta(3, Particle::Type::kParton);
   lq2_meas_px     = (*fParticlesPermuted)->Parton(3)->Px();
   lq2_meas_py     = (*fParticlesPermuted)->Parton(3)->Py();
   lq2_meas_pz     = (*fParticlesPermuted)->Parton(3)->Pz();
@@ -773,14 +773,14 @@ int KLFitter::LikelihoodTTZTrilepton::SavePermutedParticles() {
   TLorentzVector * leptonZ2(0);
   if (fTypeLepton == kElectron) {
     leptonZ1 = (*fParticlesPermuted)->Electron(1);
-    lepZ1_meas_deteta = (*fParticlesPermuted)->DetEta(1, KLFitter::ParticleCollection::kElectron);
+    lepZ1_meas_deteta = (*fParticlesPermuted)->DetEta(1, Particle::Type::kElectron);
     leptonZ2 = (*fParticlesPermuted)->Electron(2);
-    lepZ2_meas_deteta = (*fParticlesPermuted)->DetEta(2, KLFitter::ParticleCollection::kElectron);
+    lepZ2_meas_deteta = (*fParticlesPermuted)->DetEta(2, Particle::Type::kElectron);
   } else {
     leptonZ1 = (*fParticlesPermuted)->Muon(1);
-    lepZ1_meas_deteta = (*fParticlesPermuted)->DetEta(1, KLFitter::ParticleCollection::kMuon);
+    lepZ1_meas_deteta = (*fParticlesPermuted)->DetEta(1, Particle::Type::kMuon);
     leptonZ2 = (*fParticlesPermuted)->Muon(2);
-    lepZ2_meas_deteta = (*fParticlesPermuted)->DetEta(2, KLFitter::ParticleCollection::kMuon);
+    lepZ2_meas_deteta = (*fParticlesPermuted)->DetEta(2, Particle::Type::kMuon);
   }
 
   lepZ1_meas_e        = leptonZ1->E();
@@ -800,10 +800,10 @@ int KLFitter::LikelihoodTTZTrilepton::SavePermutedParticles() {
   TLorentzVector * lepton(0);
   if (fTypeLepton == kElectron) {
     lepton = (*fParticlesPermuted)->Electron(0);
-    lep_meas_deteta = (*fParticlesPermuted)->DetEta(0, KLFitter::ParticleCollection::kElectron);
+    lep_meas_deteta = (*fParticlesPermuted)->DetEta(0, Particle::Type::kElectron);
   } else {
     lepton = (*fParticlesPermuted)->Muon(0);
-    lep_meas_deteta = (*fParticlesPermuted)->DetEta(0, KLFitter::ParticleCollection::kMuon);
+    lep_meas_deteta = (*fParticlesPermuted)->DetEta(0, Particle::Type::kMuon);
   }
   lep_meas_e        = lepton->E();
   lep_meas_sintheta = sin(lepton->Theta());

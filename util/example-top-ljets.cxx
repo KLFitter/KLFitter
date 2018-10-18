@@ -249,10 +249,10 @@ int main(int argc, char *argv[]) {
     lepton.SetPtEtaPhiE(event.lepton_pt, event.lepton_eta, event.lepton_phi, event.lepton_e);
     if (event.lepton_is_e) {
       likelihood.SetLeptonType(KLFitter::LikelihoodTopLeptonJets::kElectron);
-      particles.AddParticle(lepton, event.lepton_cl_eta, KLFitter::ParticleCollection::kElectron);
+      particles.AddParticle(lepton, event.lepton_cl_eta, KLFitter::Particle::Type::kElectron);
     } else if (event.lepton_is_mu) {
       likelihood.SetLeptonType(KLFitter::LikelihoodTopLeptonJets::kMuon);
-      particles.AddParticle(lepton, event.lepton_eta, KLFitter::ParticleCollection::kMuon);
+      particles.AddParticle(lepton, event.lepton_eta, KLFitter::Particle::Type::kMuon);
     } else {
       std::cerr << "WARNING: Event has no electrons or muons. Skipping." << std::endl;
       continue;
@@ -275,7 +275,7 @@ int main(int argc, char *argv[]) {
       //  8) 1./tagging inefficiency required for kWorkingPoint
       //  9) true flavour type
       //  10) btag discriminant
-      particles.AddParticle(jet, event.jet_eta->at(ijet), KLFitter::ParticleCollection::kParton,
+      particles.AddParticle(jet, event.jet_eta->at(ijet), KLFitter::Particle::Type::kParton,
           "", ijet, static_cast<int>(event.jet_has_btag->at(ijet)), 0.6, 145.,
           KLFitter::Particle::JetTrueFlavor::kNone, event.jet_btag_weight->at(ijet));
     }

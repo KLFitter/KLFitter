@@ -56,42 +56,42 @@ int LikelihoodTopLeptonJetsUDSep::DefineModelParticles() {
   // add model particles
   TLorentzVector dummy{0, 0, 0, 0};
   fParticlesModel->AddParticle(&dummy,
-                               ParticleCollection::kParton,  // type
+                               Particle::Type::kParton,  // type
                                "hadronic b quark",  // name
                                0,                   // index of corresponding particle
                                Particle::JetTrueFlavor::kB);      // b jet (truth)
 
   fParticlesModel->AddParticle(&dummy,
-                               ParticleCollection::kParton,
+                               Particle::Type::kParton,
                                "leptonic b quark",
                                1,                   // index of corresponding particle
                                Particle::JetTrueFlavor::kB);      // b jet (truth)
 
   fParticlesModel->AddParticle(&dummy,
-                               ParticleCollection::kParton,
+                               Particle::Type::kParton,
                                "light up type quark",
                                2,                      // index of corresponding particle
                                Particle::JetTrueFlavor::kLightUp);   // light up type jet (truth)
 
   fParticlesModel->AddParticle(&dummy,
-                               ParticleCollection::kParton,
+                               Particle::Type::kParton,
                                "light down type quark",
                                3,                        // index of corresponding particle
                                Particle::JetTrueFlavor::kLightDown);   // light down type jet (truth)
 
   if (m_lepton_type == kElectron) {
-    fParticlesModel->AddParticle(&dummy, ParticleCollection::kElectron, "electron");
+    fParticlesModel->AddParticle(&dummy, Particle::Type::kElectron, "electron");
   } else if (m_lepton_type == kMuon) {
-    fParticlesModel->AddParticle(&dummy, ParticleCollection::kMuon, "muon");
+    fParticlesModel->AddParticle(&dummy, Particle::Type::kMuon, "muon");
   }
 
-  fParticlesModel->AddParticle(&dummy, ParticleCollection::kNeutrino, "neutrino");
+  fParticlesModel->AddParticle(&dummy, Particle::Type::kNeutrino, "neutrino");
 
-  fParticlesModel->AddParticle(&dummy, ParticleCollection::kBoson, "hadronic W");
-  fParticlesModel->AddParticle(&dummy, ParticleCollection::kBoson, "leptonic W");
+  fParticlesModel->AddParticle(&dummy, Particle::Type::kBoson, "hadronic W");
+  fParticlesModel->AddParticle(&dummy, Particle::Type::kBoson, "leptonic W");
 
-  fParticlesModel->AddParticle(&dummy, ParticleCollection::kParton, "hadronic top");
-  fParticlesModel->AddParticle(&dummy, ParticleCollection::kParton, "leptonic top");
+  fParticlesModel->AddParticle(&dummy, Particle::Type::kParton, "hadronic top");
+  fParticlesModel->AddParticle(&dummy, Particle::Type::kParton, "leptonic top");
 
   // no error
   return 1;
@@ -109,7 +109,7 @@ int LikelihoodTopLeptonJetsUDSep::RemoveInvariantParticlePermutations() {
   // error code
   int err = 1;
 
-  ParticleCollection::ParticleType ptype = ParticleCollection::kParton;
+  Particle::Type ptype = Particle::Type::kParton;
   std::vector<int> indexVector_Jets;
   // remove invariant jet permutations of all jets not considered
   ParticleCollection* particles = (*fPermutations)->Particles();
@@ -121,14 +121,14 @@ int LikelihoodTopLeptonJetsUDSep::RemoveInvariantParticlePermutations() {
 
   // remove the permutation from the other lepton
   if (m_lepton_type == kElectron) {
-    ptype = ParticleCollection::kMuon;
+    ptype = Particle::Type::kMuon;
     std::vector<int> indexVector_Muons;
     for (int iMuon = 0; iMuon < particles->NMuons(); iMuon++) {
       indexVector_Muons.push_back(iMuon);
     }
     err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Muons);
   } else if (m_lepton_type == kMuon) {
-    ptype = ParticleCollection::kElectron;
+    ptype = Particle::Type::kElectron;
     std::vector<int> indexVector_Electrons;
     for (int iElectron = 0; iElectron < particles->NElectrons(); iElectron++) {
       indexVector_Electrons.push_back(iElectron);

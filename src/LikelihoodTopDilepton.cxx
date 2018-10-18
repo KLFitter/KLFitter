@@ -138,38 +138,38 @@ int KLFitter::LikelihoodTopDilepton::DefineModelParticles() {
   // create dummy TLorentzVector
   TLorentzVector dummy{0, 0, 0, 0};  // 4-vector
   fParticlesModel->AddParticle(&dummy,
-                               KLFitter::ParticleCollection::kParton,  // type
+                               Particle::Type::kParton,  // type
                                "b quark 1",                   // name
                                0,                             // index of corresponding particle
                                Particle::JetTrueFlavor::kB);      // b jet (truth)
 
   fParticlesModel->AddParticle(&dummy,
-                               KLFitter::ParticleCollection::kParton,
+                               Particle::Type::kParton,
                                "b quark 2",
                                1,                             // index of corresponding particle
                                Particle::JetTrueFlavor::kB);      // b jet (truth)
 
   if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kMuon) {
     fParticlesModel->AddParticle(&dummy,
-                                 KLFitter::ParticleCollection::kElectron,
+                                 Particle::Type::kElectron,
                                  "electron");
 
     fParticlesModel->AddParticle(&dummy,
-                                 KLFitter::ParticleCollection::kMuon,
+                                 Particle::Type::kMuon,
                                  "muon");
   } else if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kElectron) {
     fParticlesModel->AddParticle(&dummy,
-                                 KLFitter::ParticleCollection::kElectron,
+                                 Particle::Type::kElectron,
                                  "electron 1");
     fParticlesModel->AddParticle(&dummy,
-                                 KLFitter::ParticleCollection::kElectron,
+                                 Particle::Type::kElectron,
                                  "electron 2");
   } else if (fTypeLepton_1 == kMuon && fTypeLepton_2 == kMuon) {
     fParticlesModel->AddParticle(&dummy,
-                                 KLFitter::ParticleCollection::kMuon,
+                                 Particle::Type::kMuon,
                                  "muon 1");
     fParticlesModel->AddParticle(&dummy,
-                                 KLFitter::ParticleCollection::kMuon,
+                                 Particle::Type::kMuon,
                                  "muon 2");
   }
 
@@ -281,7 +281,7 @@ int KLFitter::LikelihoodTopDilepton::RemoveInvariantParticlePermutations() {
   // error code
   int err = 1;
 
-  KLFitter::ParticleCollection::ParticleType ptype = KLFitter::ParticleCollection::kParton;
+  Particle::Type ptype = Particle::Type::kParton;
   std::vector<int> indexVector_Jets;
 
   // remove invariant jet permutations of notevent jets
@@ -294,14 +294,14 @@ int KLFitter::LikelihoodTopDilepton::RemoveInvariantParticlePermutations() {
 
   // remove lepton permutations within the same kind
   if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kElectron) {
-    ptype = KLFitter::ParticleCollection::kElectron;
+    ptype = Particle::Type::kElectron;
     std::vector<int> indexVector_Electrons;
     for (int iElectron = 0; iElectron < particles->NElectrons(); iElectron++) {
       indexVector_Electrons.push_back(iElectron);
     }
     err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Electrons);
   } else if (fTypeLepton_1 == kMuon && fTypeLepton_2 == kMuon) {
-    ptype = KLFitter::ParticleCollection::kMuon;
+    ptype = Particle::Type::kMuon;
     std::vector<int> indexVector_Muons;
     for (int iMuon = 0; iMuon < particles->NMuons(); iMuon++) {
       indexVector_Muons.push_back(iMuon);
@@ -311,7 +311,7 @@ int KLFitter::LikelihoodTopDilepton::RemoveInvariantParticlePermutations() {
 
   if (doSumloglik) {
     // remove the permutation from the 2 bjets
-    ptype = KLFitter::ParticleCollection::kParton;
+    ptype = Particle::Type::kParton;
     indexVector_Jets.clear();
     indexVector_Jets.push_back(0);
     indexVector_Jets.push_back(1);
@@ -832,7 +832,7 @@ std::vector<double> KLFitter::LikelihoodTopDilepton::GetInitialParameters() {
 // ---------------------------------------------------------
 int KLFitter::LikelihoodTopDilepton::SavePermutedParticles() {
   b1_meas_e      = (*fParticlesPermuted)->Parton(0)->E();
-  b1_meas_deteta = (*fParticlesPermuted)->DetEta(0, KLFitter::ParticleCollection::kParton);
+  b1_meas_deteta = (*fParticlesPermuted)->DetEta(0, Particle::Type::kParton);
   b1_meas_px     = (*fParticlesPermuted)->Parton(0)->Px();
   b1_meas_py     = (*fParticlesPermuted)->Parton(0)->Py();
   b1_meas_pz     = (*fParticlesPermuted)->Parton(0)->Pz();
@@ -840,7 +840,7 @@ int KLFitter::LikelihoodTopDilepton::SavePermutedParticles() {
   b1_meas_p      = sqrt(b1_meas_e*b1_meas_e - b1_meas_m*b1_meas_m);
 
   b2_meas_e      = (*fParticlesPermuted)->Parton(1)->E();
-  b2_meas_deteta = (*fParticlesPermuted)->DetEta(1, KLFitter::ParticleCollection::kParton);
+  b2_meas_deteta = (*fParticlesPermuted)->DetEta(1, Particle::Type::kParton);
   b2_meas_px     = (*fParticlesPermuted)->Parton(1)->Px();
   b2_meas_py     = (*fParticlesPermuted)->Parton(1)->Py();
   b2_meas_pz     = (*fParticlesPermuted)->Parton(1)->Pz();
@@ -852,25 +852,25 @@ int KLFitter::LikelihoodTopDilepton::SavePermutedParticles() {
 
   if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kMuon) {
     lepton_1 = (*fParticlesPermuted)->Electron(0);
-    lep1_meas_deteta = (*fParticlesPermuted)->DetEta(0, KLFitter::ParticleCollection::kElectron);
-    lep1_meas_charge = (*fParticlesPermuted)->LeptonCharge(0, KLFitter::ParticleCollection::kElectron);
+    lep1_meas_deteta = (*fParticlesPermuted)->DetEta(0, Particle::Type::kElectron);
+    lep1_meas_charge = (*fParticlesPermuted)->LeptonCharge(0, Particle::Type::kElectron);
     lepton_2 = (*fParticlesPermuted)->Muon(0);
-    lep2_meas_deteta = (*fParticlesPermuted)->DetEta(0, KLFitter::ParticleCollection::kMuon);
-    lep2_meas_charge = (*fParticlesPermuted)->LeptonCharge(0, KLFitter::ParticleCollection::kMuon);
+    lep2_meas_deteta = (*fParticlesPermuted)->DetEta(0, Particle::Type::kMuon);
+    lep2_meas_charge = (*fParticlesPermuted)->LeptonCharge(0, Particle::Type::kMuon);
   } else if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kElectron) {
     lepton_1 = (*fParticlesPermuted)->Electron(0);
-    lep1_meas_deteta = (*fParticlesPermuted)->DetEta(0, KLFitter::ParticleCollection::kElectron);
-    lep1_meas_charge = (*fParticlesPermuted)->LeptonCharge(0, KLFitter::ParticleCollection::kElectron);
+    lep1_meas_deteta = (*fParticlesPermuted)->DetEta(0, Particle::Type::kElectron);
+    lep1_meas_charge = (*fParticlesPermuted)->LeptonCharge(0, Particle::Type::kElectron);
     lepton_2 = (*fParticlesPermuted)->Electron(1);
-    lep2_meas_deteta = (*fParticlesPermuted)->DetEta(1, KLFitter::ParticleCollection::kElectron);
-    lep2_meas_charge = (*fParticlesPermuted)->LeptonCharge(1, KLFitter::ParticleCollection::kElectron);
+    lep2_meas_deteta = (*fParticlesPermuted)->DetEta(1, Particle::Type::kElectron);
+    lep2_meas_charge = (*fParticlesPermuted)->LeptonCharge(1, Particle::Type::kElectron);
   } else if (fTypeLepton_1 == kMuon && fTypeLepton_2 == kMuon) {
     lepton_1 = (*fParticlesPermuted)->Muon(0);
-    lep1_meas_deteta = (*fParticlesPermuted)->DetEta(0, KLFitter::ParticleCollection::kMuon);
-    lep1_meas_charge = (*fParticlesPermuted)->LeptonCharge(0, KLFitter::ParticleCollection::kMuon);
+    lep1_meas_deteta = (*fParticlesPermuted)->DetEta(0, Particle::Type::kMuon);
+    lep1_meas_charge = (*fParticlesPermuted)->LeptonCharge(0, Particle::Type::kMuon);
     lepton_2 = (*fParticlesPermuted)->Muon(1);
-    lep2_meas_deteta = (*fParticlesPermuted)->DetEta(1, KLFitter::ParticleCollection::kMuon);
-    lep2_meas_charge = (*fParticlesPermuted)->LeptonCharge(1, KLFitter::ParticleCollection::kMuon);
+    lep2_meas_deteta = (*fParticlesPermuted)->DetEta(1, Particle::Type::kMuon);
+    lep2_meas_charge = (*fParticlesPermuted)->LeptonCharge(1, Particle::Type::kMuon);
   }
 
   lep1_meas_e        = lepton_1->E();

@@ -385,7 +385,7 @@ int KLFitter::LikelihoodBase::RemoveForbiddenParticlePermutations() {
       for (int iPartonModel(0); iPartonModel < nPartonsModel; ++iPartonModel) {
         Particle::JetTrueFlavor trueFlavor = fParticlesModel->TrueFlavor(iPartonModel);
         if ((!isBtagged)||(trueFlavor != Particle::JetTrueFlavor::kLight)) continue;
-        err *= (*fPermutations)->RemoveParticlePermutations(KLFitter::ParticleCollection::kParton, iParton, iPartonModel);
+        err *= (*fPermutations)->RemoveParticlePermutations(Particle::Type::kParton, iParton, iPartonModel);
       }
     }
 
@@ -410,7 +410,7 @@ int KLFitter::LikelihoodBase::RemoveForbiddenParticlePermutations() {
       if ((fBTagMethod == kVetoNoFitBoth)&&(((isBtagged)&&(trueFlavor != Particle::JetTrueFlavor::kLight)) || ((!isBtagged)&&(trueFlavor != Particle::JetTrueFlavor::kB))))
         continue;
 
-      err *= (*fPermutations)->RemoveParticlePermutations(KLFitter::ParticleCollection::kParton, iParton, iPartonModel);
+      err *= (*fPermutations)->RemoveParticlePermutations(Particle::Type::kParton, iParton, iPartonModel);
     }
   }
 

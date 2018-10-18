@@ -84,15 +84,15 @@ int LikelihoodTwoTracks::DefineModelParticles() {
   std::vector<double> moredummy{};
 
   fParticlesModel->AddParticle(dummy,
-                               ParticleCollection::kBoson,
+                               Particle::Type::kBoson,
                                "Kshort", -1, moredummy);
 
   fParticlesModel->AddParticle(dummy,
-                               ParticleCollection::kTrack,
+                               Particle::Type::kTrack,
                                "pi plus", 0, moredummy);
 
   fParticlesModel->AddParticle(dummy,
-                               ParticleCollection::kTrack,
+                               Particle::Type::kTrack,
                                "pi minus", 1, moredummy);
 
   // no error
@@ -159,7 +159,7 @@ int LikelihoodTwoTracks::RemoveInvariantParticlePermutations() {
   int err = 1;
 
   // remove the permutation from the second and the third jet
-  ParticleCollection::ParticleType ptype = ParticleCollection::kTrack;
+  Particle::Type ptype = Particle::Type::kTrack;
   std::vector<int> indexVector_Tracks;
   indexVector_Tracks.push_back(0);
   indexVector_Tracks.push_back(1);
@@ -219,23 +219,23 @@ int LikelihoodTwoTracks::SavePermutedParticles() {
   m_t1_meas_theta = (*fParticlesPermuted)->Track(0)->Theta();
   m_t1_meas_p = (*fParticlesPermuted)->Track(0)->P();
 
-  m_t1_meas_sigma00 = (*fParticlesPermuted)->Uncertainties(0, ParticleCollection::kTrack)->at(0);
-  m_t1_meas_sigma10 = (*fParticlesPermuted)->Uncertainties(0, ParticleCollection::kTrack)->at(1);
-  m_t1_meas_sigma11 = (*fParticlesPermuted)->Uncertainties(0, ParticleCollection::kTrack)->at(2);
-  m_t1_meas_sigma20 = (*fParticlesPermuted)->Uncertainties(0, ParticleCollection::kTrack)->at(3);
-  m_t1_meas_sigma21 = (*fParticlesPermuted)->Uncertainties(0, ParticleCollection::kTrack)->at(4);
-  m_t1_meas_sigma22 = (*fParticlesPermuted)->Uncertainties(0, ParticleCollection::kTrack)->at(5);
+  m_t1_meas_sigma00 = (*fParticlesPermuted)->Uncertainties(0, Particle::Type::kTrack)->at(0);
+  m_t1_meas_sigma10 = (*fParticlesPermuted)->Uncertainties(0, Particle::Type::kTrack)->at(1);
+  m_t1_meas_sigma11 = (*fParticlesPermuted)->Uncertainties(0, Particle::Type::kTrack)->at(2);
+  m_t1_meas_sigma20 = (*fParticlesPermuted)->Uncertainties(0, Particle::Type::kTrack)->at(3);
+  m_t1_meas_sigma21 = (*fParticlesPermuted)->Uncertainties(0, Particle::Type::kTrack)->at(4);
+  m_t1_meas_sigma22 = (*fParticlesPermuted)->Uncertainties(0, Particle::Type::kTrack)->at(5);
 
   m_t2_meas_phi = (*fParticlesPermuted)->Track(1)->Phi();
   m_t2_meas_theta = (*fParticlesPermuted)->Track(1)->Theta();
   m_t2_meas_p = (*fParticlesPermuted)->Track(1)->P();
 
-  m_t2_meas_sigma00 = (*fParticlesPermuted)->Uncertainties(1, ParticleCollection::kTrack)->at(0);
-  m_t2_meas_sigma10 = (*fParticlesPermuted)->Uncertainties(1, ParticleCollection::kTrack)->at(1);
-  m_t2_meas_sigma11 = (*fParticlesPermuted)->Uncertainties(1, ParticleCollection::kTrack)->at(2);
-  m_t2_meas_sigma20 = (*fParticlesPermuted)->Uncertainties(1, ParticleCollection::kTrack)->at(3);
-  m_t2_meas_sigma21 = (*fParticlesPermuted)->Uncertainties(1, ParticleCollection::kTrack)->at(4);
-  m_t2_meas_sigma22 = (*fParticlesPermuted)->Uncertainties(1, ParticleCollection::kTrack)->at(5);
+  m_t2_meas_sigma00 = (*fParticlesPermuted)->Uncertainties(1, Particle::Type::kTrack)->at(0);
+  m_t2_meas_sigma10 = (*fParticlesPermuted)->Uncertainties(1, Particle::Type::kTrack)->at(1);
+  m_t2_meas_sigma11 = (*fParticlesPermuted)->Uncertainties(1, Particle::Type::kTrack)->at(2);
+  m_t2_meas_sigma20 = (*fParticlesPermuted)->Uncertainties(1, Particle::Type::kTrack)->at(3);
+  m_t2_meas_sigma21 = (*fParticlesPermuted)->Uncertainties(1, Particle::Type::kTrack)->at(4);
+  m_t2_meas_sigma22 = (*fParticlesPermuted)->Uncertainties(1, Particle::Type::kTrack)->at(5);
 
 
   // no error

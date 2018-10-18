@@ -31,6 +31,17 @@ namespace KLFitter {
  * Particle::Base is the parent class of all others.
  */
 namespace Particle {
+/// An enumerator class for the particle type.
+enum class Type {kParton,    ///< Particle type parton
+                 kElectron,  ///< Particle type electron
+                 kMuon,      ///< Particle type muon
+                 kTau,       ///< Particle type tau
+                 kNeutrino,  ///< Particle type neutrino
+                 kBoson,     ///< Particle type boson
+                 kPhoton,    ///< Particle type photon
+                 kTrack      ///< Particle type track
+};
+
 /**
  * The base class for all other particles. This only provides a
  * very generic structure, that other particles can inherit from.
