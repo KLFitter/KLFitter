@@ -832,7 +832,7 @@ std::vector<double> KLFitter::LikelihoodTopDilepton::GetInitialParameters() {
 // ---------------------------------------------------------
 int KLFitter::LikelihoodTopDilepton::SavePermutedParticles() {
   b1_meas_e      = (*fParticlesPermuted)->Parton(0)->E();
-  b1_meas_deteta = (*fParticlesPermuted)->DetEta(0, Particle::Type::kParton);
+  b1_meas_deteta = (*fParticlesPermuted)->jets.at(0).GetDetEta();
   b1_meas_px     = (*fParticlesPermuted)->Parton(0)->Px();
   b1_meas_py     = (*fParticlesPermuted)->Parton(0)->Py();
   b1_meas_pz     = (*fParticlesPermuted)->Parton(0)->Pz();
@@ -840,7 +840,7 @@ int KLFitter::LikelihoodTopDilepton::SavePermutedParticles() {
   b1_meas_p      = sqrt(b1_meas_e*b1_meas_e - b1_meas_m*b1_meas_m);
 
   b2_meas_e      = (*fParticlesPermuted)->Parton(1)->E();
-  b2_meas_deteta = (*fParticlesPermuted)->DetEta(1, Particle::Type::kParton);
+  b2_meas_deteta = (*fParticlesPermuted)->jets.at(1).GetDetEta();
   b2_meas_px     = (*fParticlesPermuted)->Parton(1)->Px();
   b2_meas_py     = (*fParticlesPermuted)->Parton(1)->Py();
   b2_meas_pz     = (*fParticlesPermuted)->Parton(1)->Pz();
@@ -852,24 +852,24 @@ int KLFitter::LikelihoodTopDilepton::SavePermutedParticles() {
 
   if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kMuon) {
     lepton_1 = (*fParticlesPermuted)->Electron(0);
-    lep1_meas_deteta = (*fParticlesPermuted)->DetEta(0, Particle::Type::kElectron);
+    lep1_meas_deteta = (*fParticlesPermuted)->electrons.at(0).GetDetEta();
     lep1_meas_charge = (*fParticlesPermuted)->LeptonCharge(0, Particle::Type::kElectron);
     lepton_2 = (*fParticlesPermuted)->Muon(0);
-    lep2_meas_deteta = (*fParticlesPermuted)->DetEta(0, Particle::Type::kMuon);
+    lep2_meas_deteta = (*fParticlesPermuted)->muons.at(0).GetDetEta();
     lep2_meas_charge = (*fParticlesPermuted)->LeptonCharge(0, Particle::Type::kMuon);
   } else if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kElectron) {
     lepton_1 = (*fParticlesPermuted)->Electron(0);
-    lep1_meas_deteta = (*fParticlesPermuted)->DetEta(0, Particle::Type::kElectron);
+    lep1_meas_deteta = (*fParticlesPermuted)->electrons.at(0).GetDetEta();
     lep1_meas_charge = (*fParticlesPermuted)->LeptonCharge(0, Particle::Type::kElectron);
     lepton_2 = (*fParticlesPermuted)->Electron(1);
-    lep2_meas_deteta = (*fParticlesPermuted)->DetEta(1, Particle::Type::kElectron);
+    lep2_meas_deteta = (*fParticlesPermuted)->electrons.at(1).GetDetEta();
     lep2_meas_charge = (*fParticlesPermuted)->LeptonCharge(1, Particle::Type::kElectron);
   } else if (fTypeLepton_1 == kMuon && fTypeLepton_2 == kMuon) {
     lepton_1 = (*fParticlesPermuted)->Muon(0);
-    lep1_meas_deteta = (*fParticlesPermuted)->DetEta(0, Particle::Type::kMuon);
+    lep1_meas_deteta = (*fParticlesPermuted)->muons.at(0).GetDetEta();
     lep1_meas_charge = (*fParticlesPermuted)->LeptonCharge(0, Particle::Type::kMuon);
     lepton_2 = (*fParticlesPermuted)->Muon(1);
-    lep2_meas_deteta = (*fParticlesPermuted)->DetEta(1, Particle::Type::kMuon);
+    lep2_meas_deteta = (*fParticlesPermuted)->muons.at(1).GetDetEta();
     lep2_meas_charge = (*fParticlesPermuted)->LeptonCharge(1, Particle::Type::kMuon);
   }
 

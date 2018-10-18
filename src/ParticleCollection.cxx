@@ -448,23 +448,6 @@ int ParticleCollection::NParticles(Particle::Type ptype) const {
 }
 
 // ---------------------------------------------------------
-double ParticleCollection::DetEta(int index, Particle::Type ptype) const {
-  if (ptype == Particle::Type::kParton) {
-    return jets.at(index).GetDetEta();
-  } else if (ptype == Particle::Type::kElectron) {
-    return electrons.at(index).GetDetEta();
-  } else if (ptype == Particle::Type::kMuon) {
-    return muons.at(index).GetDetEta();
-  } else if (ptype == Particle::Type::kPhoton) {
-    return photons.at(index).GetDetEta();
-  }
-
-  // return error value
-  std::cout << "KLFitter::ParticleCollection::DetEta(). Particle type " << static_cast<std::underlying_type<Particle::Type>::type>(ptype) << " does not store detector eta." << std::endl;
-  return -100;
-}
-
-// ---------------------------------------------------------
 float ParticleCollection::LeptonCharge(int index, Particle::Type ptype) const {
   if (ptype == Particle::Type::kElectron) {
     return electrons.at(index).GetCharge();

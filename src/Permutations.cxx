@@ -143,7 +143,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
 
               // add parton
               particles.AddParticle((*fParticles)->Parton(index),
-                                    (*fParticles)->DetEta(index, Particle::Type::kParton),
+                                    (*fParticles)->jets.at(index).GetDetEta(),
                                     Particle::Type::kParton,
                                     (*fParticles)->jets.at(index).GetName(),
                                     (*fParticles)->JetIndex(index),
@@ -166,7 +166,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
               if (isDilepton) {
                 // add electron
                 particles.AddParticle((*fParticles)->Electron(index),
-                                      (*fParticles)->DetEta(index, Particle::Type::kElectron),
+                                      (*fParticles)->electrons.at(index).GetDetEta(),
                                       (*fParticles)->LeptonCharge(index, Particle::Type::kElectron),
                                       Particle::Type::kElectron,
                                       (*fParticles)->electrons.at(index).GetName(),
@@ -174,7 +174,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
               } else {
                 // add electron
                 particles.AddParticle((*fParticles)->Electron(index),
-                                      (*fParticles)->DetEta(index, Particle::Type::kElectron),
+                                      (*fParticles)->electrons.at(index).GetDetEta(),
                                       Particle::Type::kElectron,
                                       (*fParticles)->electrons.at(index).GetName(),
                                       (*fParticles)->ElectronIndex(index));
@@ -193,7 +193,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
               if (isDilepton) {
                 // add muon
                 particles.AddParticle((*fParticles)->Muon(index),
-                                      (*fParticles)->DetEta(index, Particle::Type::kMuon),
+                                      (*fParticles)->muons.at(index).GetDetEta(),
                                       (*fParticles)->LeptonCharge(index, Particle::Type::kMuon),
                                       Particle::Type::kMuon,
                                       (*fParticles)->muons.at(index).GetName(),
@@ -201,7 +201,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
               } else {
                 // add muon
                 particles.AddParticle((*fParticles)->Muon(index),
-                                      (*fParticles)->DetEta(index, Particle::Type::kMuon),
+                                      (*fParticles)->muons.at(index).GetDetEta(),
                                       Particle::Type::kMuon,
                                       (*fParticles)->muons.at(index).GetName(),
                                       (*fParticles)->MuonIndex(index));
@@ -218,7 +218,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
 
               // add photon
               particles.AddParticle((*fParticles)->Photon(index),
-                                    (*fParticles)->DetEta(index, Particle::Type::kPhoton),
+                                    (*fParticles)->photons.at(index).GetDetEta(),
                                     Particle::Type::kPhoton,
                                     (*fParticles)->photons.at(index).GetName(),
                                     (*fParticles)->PhotonIndex(index));

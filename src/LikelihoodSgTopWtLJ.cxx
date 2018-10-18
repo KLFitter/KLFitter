@@ -503,7 +503,7 @@ std::vector<double> KLFitter::LikelihoodSgTopWtLJ::GetNeutrinoPzSolutions() {
 // ---------------------------------------------------------
 int KLFitter::LikelihoodSgTopWtLJ::SavePermutedParticles() {
   b_meas_e      = (*fParticlesPermuted)->Parton(0)->E();
-  b_meas_deteta = (*fParticlesPermuted)->DetEta(0, Particle::Type::kParton);
+  b_meas_deteta = (*fParticlesPermuted)->jets.at(0).GetDetEta();
   b_meas_px     = (*fParticlesPermuted)->Parton(0)->Px();
   b_meas_py     = (*fParticlesPermuted)->Parton(0)->Py();
   b_meas_pz     = (*fParticlesPermuted)->Parton(0)->Pz();
@@ -511,7 +511,7 @@ int KLFitter::LikelihoodSgTopWtLJ::SavePermutedParticles() {
   b_meas_p      = sqrt(b_meas_e*b_meas_e - b_meas_m*b_meas_m);
 
   lq1_meas_e      = (*fParticlesPermuted)->Parton(1)->E();
-  lq1_meas_deteta = (*fParticlesPermuted)->DetEta(1, Particle::Type::kParton);
+  lq1_meas_deteta = (*fParticlesPermuted)->jets.at(1).GetDetEta();
   lq1_meas_px     = (*fParticlesPermuted)->Parton(1)->Px();
   lq1_meas_py     = (*fParticlesPermuted)->Parton(1)->Py();
   lq1_meas_pz     = (*fParticlesPermuted)->Parton(1)->Pz();
@@ -519,7 +519,7 @@ int KLFitter::LikelihoodSgTopWtLJ::SavePermutedParticles() {
   lq1_meas_p      = sqrt(lq1_meas_e*lq1_meas_e - lq1_meas_m*lq1_meas_m);
 
   lq2_meas_e      = (*fParticlesPermuted)->Parton(2)->E();
-  lq2_meas_deteta = (*fParticlesPermuted)->DetEta(2, Particle::Type::kParton);
+  lq2_meas_deteta = (*fParticlesPermuted)->jets.at(2).GetDetEta();
   lq2_meas_px     = (*fParticlesPermuted)->Parton(2)->Px();
   lq2_meas_py     = (*fParticlesPermuted)->Parton(2)->Py();
   lq2_meas_pz     = (*fParticlesPermuted)->Parton(2)->Pz();
@@ -529,10 +529,10 @@ int KLFitter::LikelihoodSgTopWtLJ::SavePermutedParticles() {
   TLorentzVector * lepton(0);
   if (fTypeLepton == kElectron) {
     lepton = (*fParticlesPermuted)->Electron(0);
-    lep_meas_deteta = (*fParticlesPermuted)->DetEta(0, Particle::Type::kElectron);
+    lep_meas_deteta = (*fParticlesPermuted)->electrons.at(0).GetDetEta();
   } else {
     lepton = (*fParticlesPermuted)->Muon(0);
-    lep_meas_deteta = (*fParticlesPermuted)->DetEta(0, Particle::Type::kMuon);
+    lep_meas_deteta = (*fParticlesPermuted)->muons.at(0).GetDetEta();
   }
   lep_meas_e        = lepton->E();
   lep_meas_sintheta = sin(lepton->Theta());

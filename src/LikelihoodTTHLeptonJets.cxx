@@ -652,7 +652,7 @@ std::vector<double> KLFitter::LikelihoodTTHLeptonJets::CalculateNeutrinoPzSoluti
 // ---------------------------------------------------------
 int KLFitter::LikelihoodTTHLeptonJets::SavePermutedParticles() {
   bhad_meas_e      = (*fParticlesPermuted)->Parton(0)->E();
-  bhad_meas_deteta = (*fParticlesPermuted)->DetEta(0, Particle::Type::kParton);
+  bhad_meas_deteta = (*fParticlesPermuted)->jets.at(0).GetDetEta();
   bhad_meas_px     = (*fParticlesPermuted)->Parton(0)->Px();
   bhad_meas_py     = (*fParticlesPermuted)->Parton(0)->Py();
   bhad_meas_pz     = (*fParticlesPermuted)->Parton(0)->Pz();
@@ -660,7 +660,7 @@ int KLFitter::LikelihoodTTHLeptonJets::SavePermutedParticles() {
   bhad_meas_p      = sqrt(bhad_meas_e*bhad_meas_e - bhad_meas_m*bhad_meas_m);
 
   blep_meas_e      = (*fParticlesPermuted)->Parton(1)->E();
-  blep_meas_deteta = (*fParticlesPermuted)->DetEta(1, Particle::Type::kParton);
+  blep_meas_deteta = (*fParticlesPermuted)->jets.at(1).GetDetEta();
   blep_meas_px     = (*fParticlesPermuted)->Parton(1)->Px();
   blep_meas_py     = (*fParticlesPermuted)->Parton(1)->Py();
   blep_meas_pz     = (*fParticlesPermuted)->Parton(1)->Pz();
@@ -668,7 +668,7 @@ int KLFitter::LikelihoodTTHLeptonJets::SavePermutedParticles() {
   blep_meas_p      = sqrt(blep_meas_e*blep_meas_e - blep_meas_m*blep_meas_m);
 
   lq1_meas_e      = (*fParticlesPermuted)->Parton(2)->E();
-  lq1_meas_deteta = (*fParticlesPermuted)->DetEta(2, Particle::Type::kParton);
+  lq1_meas_deteta = (*fParticlesPermuted)->jets.at(2).GetDetEta();
   lq1_meas_px     = (*fParticlesPermuted)->Parton(2)->Px();
   lq1_meas_py     = (*fParticlesPermuted)->Parton(2)->Py();
   lq1_meas_pz     = (*fParticlesPermuted)->Parton(2)->Pz();
@@ -676,7 +676,7 @@ int KLFitter::LikelihoodTTHLeptonJets::SavePermutedParticles() {
   lq1_meas_p      = sqrt(lq1_meas_e*lq1_meas_e - lq1_meas_m*lq1_meas_m);
 
   lq2_meas_e      = (*fParticlesPermuted)->Parton(3)->E();
-  lq2_meas_deteta = (*fParticlesPermuted)->DetEta(3, Particle::Type::kParton);
+  lq2_meas_deteta = (*fParticlesPermuted)->jets.at(3).GetDetEta();
   lq2_meas_px     = (*fParticlesPermuted)->Parton(3)->Px();
   lq2_meas_py     = (*fParticlesPermuted)->Parton(3)->Py();
   lq2_meas_pz     = (*fParticlesPermuted)->Parton(3)->Pz();
@@ -684,7 +684,7 @@ int KLFitter::LikelihoodTTHLeptonJets::SavePermutedParticles() {
   lq2_meas_p      = sqrt(lq2_meas_e*lq2_meas_e - lq2_meas_m*lq2_meas_m);
 
   BHiggs1_meas_e      = (*fParticlesPermuted)->Parton(4)->E();
-  BHiggs1_meas_deteta = (*fParticlesPermuted)->DetEta(4, Particle::Type::kParton);
+  BHiggs1_meas_deteta = (*fParticlesPermuted)->jets.at(4).GetDetEta();
   BHiggs1_meas_px     = (*fParticlesPermuted)->Parton(4)->Px();
   BHiggs1_meas_py     = (*fParticlesPermuted)->Parton(4)->Py();
   BHiggs1_meas_pz     = (*fParticlesPermuted)->Parton(4)->Pz();
@@ -692,7 +692,7 @@ int KLFitter::LikelihoodTTHLeptonJets::SavePermutedParticles() {
   BHiggs1_meas_p      = sqrt(BHiggs1_meas_e*BHiggs1_meas_e - BHiggs1_meas_m*BHiggs1_meas_m);
 
   BHiggs2_meas_e      = (*fParticlesPermuted)->Parton(5)->E();
-  BHiggs2_meas_deteta = (*fParticlesPermuted)->DetEta(5, Particle::Type::kParton);
+  BHiggs2_meas_deteta = (*fParticlesPermuted)->jets.at(5).GetDetEta();
   BHiggs2_meas_px     = (*fParticlesPermuted)->Parton(5)->Px();
   BHiggs2_meas_py     = (*fParticlesPermuted)->Parton(5)->Py();
   BHiggs2_meas_pz     = (*fParticlesPermuted)->Parton(5)->Pz();
@@ -702,10 +702,10 @@ int KLFitter::LikelihoodTTHLeptonJets::SavePermutedParticles() {
   TLorentzVector * lepton(0);
   if (fTypeLepton == kElectron) {
     lepton = (*fParticlesPermuted)->Electron(0);
-    lep_meas_deteta = (*fParticlesPermuted)->DetEta(0, Particle::Type::kElectron);
+    lep_meas_deteta = (*fParticlesPermuted)->electrons.at(0).GetDetEta();
   } else {
     lepton = (*fParticlesPermuted)->Muon(0);
-    lep_meas_deteta = (*fParticlesPermuted)->DetEta(0, Particle::Type::kMuon);
+    lep_meas_deteta = (*fParticlesPermuted)->muons.at(0).GetDetEta();
   }
   lep_meas_e        = lepton->E();
   lep_meas_sintheta = sin(lepton->Theta());

@@ -199,14 +199,6 @@ class ParticleCollection final {
   const std::vector<double>* Uncertainties(int index, Particle::Type ptype) const;
 
   /**
-   * Return the detector eta of a particle with some index and type.
-   * @param index The index of the particle
-   * @param ptype The particle type.
-   * @return The detector eta of the particle
-   */
-  double DetEta(int index, Particle::Type ptype) const;
-
-  /**
    * Return the charge of the lepton with some index and type.
    * @param index The index of the particle
    * @param ptype The particle type.
