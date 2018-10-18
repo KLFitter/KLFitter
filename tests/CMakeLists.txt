@@ -20,6 +20,7 @@ message( STATUS "Installing KLFitter test suite ..." )
 # Check whether a privately downloaded version of googletest was requested.
 if( KLF_BUILD_GTEST )
   include( ExternalProject )
+  set( _buildDir ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/GTestBuild )
   ExternalProject_Add( googletest
     PREFIX ${CMAKE_BINARY_DIR}/externals
     INSTALL_DIR ${CMAKE_BINARY_DIR}
@@ -27,9 +28,18 @@ if( KLF_BUILD_GTEST )
     URL_HASH SHA256=9bf1fe5182a604b4135edc1a425ae356c9ad15e9b23f9f12a02e80184c3a249c
     CMAKE_ARGS
     -DBUILD_GMOCK:BOOL=Off
-    -DINSTALL_GTEST:BOOL=Off
-    INSTALL_COMMAND ""
-    )
+    -DGTEST_HAS_PTHREAD=0
+    -DCMAKE_INSTALL_PREFIX:PATH=${_buildDir}
+  )
+
+  # Add an additional step to copy googletest into the install directory.
+  ExternalProject_Add_Step( googletest CopyInstall
+    COMMAND ${CMAKE_COMMAND} -E copy_directory ${_buildDir}/ <INSTALL_DIR>
+    DEPENDEES install
+  )
+
+  # Add the dependency on the thread library (pthread).
+  find_package (Threads)
 
   # Set the include directory for googletest.
   ExternalProject_Get_Property(googletest source_dir)
@@ -43,10 +53,10 @@ if( KLF_BUILD_GTEST )
   set_property(TARGET ${GTEST_LIBRARY} PROPERTY IMPORTED_LOCATION
     ${GTEST_LIBRARY_PATH} )
   add_dependencies(${GTEST_LIBRARY} googletest)
+  add_dependencies(${GTEST_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
 
   # Write status message for the user.
   message( STATUS "Using a privately downloaded googletest version for the build" )
-  message( STATUS "googletest: ${GTEST_LIBRARY_PATH}" )
 else()
   find_package( GTEST 1.8.1 REQUIRED )
 endif()
@@ -54,8 +64,11 @@ endif()
 # Build the main unit-test executable.
 add_executable( gtests.exe gtests.cxx )
 target_include_directories( gtests.exe
-  PUBLIC $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/tests> ${GTEST_INCLUDE_DIR} )
-target_link_libraries( gtests.exe KLFitter ${GTEST_LIBRARY} )
+  PUBLIC ${ROOT_INCLUDE_DIRS} ${BAT_INCLUDE_DIR} ${GTEST_INCLUDE_DIR}
+  $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
+  $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/tests>
+)
+target_link_libraries( gtests.exe KLFitter ${GTEST_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
 set_target_properties( gtests.exe PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/test-bin" )
 if( KLF_BUILD_GTEST )
