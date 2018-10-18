@@ -147,36 +147,36 @@ set( lib_sources
   src/ResGauss_MET.cxx
   src/ResolutionBase.cxx )
 
-# Build the shared library.
-add_library( KLFitter SHARED ${lib_headers} ${lib_sources} )
-target_include_directories( KLFitter
-   PUBLIC ${ROOT_INCLUDE_DIRS} ${BAT_INCLUDE_DIR}
-   $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include> )
-target_link_libraries( KLFitter ${ROOT_LIBRARIES} ${BAT_LIBRARY} )
-set_property( TARGET KLFitter
-   PROPERTY PUBLIC_HEADER ${lib_headers} )
-if( BUILTIN_BAT )
-  add_dependencies( KLFitter BAT )
-endif()
+# Create a macro to build and install libraries.
+macro( KLFitter_add_library name )
+  add_library( ${name} ${ARGN} )
 
-# Build the static library.
-add_library( KLFitter-stat ${lib_headers} ${lib_sources} )
-target_include_directories( KLFitter-stat
-   PUBLIC ${ROOT_INCLUDE_DIRS} ${BAT_INCLUDE_DIR}
-   $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include> )
-target_link_libraries( KLFitter-stat ${ROOT_LIBRARIES} ${BAT_LIBRARY} )
-set_property( TARGET KLFitter-stat
-   PROPERTY PUBLIC_HEADER ${lib_headers} )
-if( BUILTIN_BAT )
-  add_dependencies( KLFitter-stat BAT )
-endif()
+  # Add include directories and library dependencies.
+  target_include_directories( ${name}
+    PUBLIC ${ROOT_INCLUDE_DIRS} ${BAT_INCLUDE_DIR}
+    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>
+  )
+  target_link_libraries( ${name} ${ROOT_LIBRARIES} ${BAT_LIBRARY} )
+  if( KLF_BUILD_BAT )
+    add_dependencies( ${name} BAT )
+  endif()
 
-# Install the libraries.
-install( TARGETS KLFitter KLFitter-stat
-   EXPORT KLFitterTargets
-   ARCHIVE DESTINATION lib
-   LIBRARY DESTINATION lib
-   PUBLIC_HEADER DESTINATION include/KLFitter )
+  # Set the public headers of the library.
+  set_property( TARGET ${name}
+    PROPERTY PUBLIC_HEADER ${lib_headers} )
+
+  # Install the library to its destination folder.
+  install( TARGETS ${name}
+    EXPORT KLFitterTargets
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
+    PUBLIC_HEADER DESTINATION include/KLFitter )
+endmacro( KLFitter_add_library )
+
+# Build the shared (and static) library.
+KLFitter_add_library( KLFitter SHARED ${lib_headers} ${lib_sources} )
+KLFitter_add_library( KLFitter-stat ${lib_headers} ${lib_sources} )
 
 # Install the transfer functions.
 install( DIRECTORY data/transferfunctions/
