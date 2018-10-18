@@ -28,6 +28,7 @@ project( KLFitter )
 
 # Set the options for building KLFitter.
 option( KLF_BUILD_BAT "Acquire BAT as part of building this project" OFF )
+option( KLF_INSTALL_EXAMPLES "Install the example executable(s) of KLFitter" ON )
 option( KLF_INSTALL_STATIC_LIB "Build and install KLFitter as a static library" OFF )
 
 # Set up the "C++ version" to use.
@@ -202,19 +203,9 @@ if( INSTALL_TESTS )
   KLFitter_add_test( test-ljets-lh.exe tests/test-ljets-lh.cxx )
 endif()
 
-# Helper macro for building the project's executables.
-macro( KLFitter_add_executable name )
-  add_executable( ${name} ${ARGN} )
-  target_link_libraries( ${name} KLFitter-stat )
-  install( TARGETS ${name}
-    EXPORT KLFitterTargets
-    RUNTIME DESTINATION bin )
-endmacro( KLFitter_add_executable )
-
-# Build the example executable(s) of the project.
-option( INSTALL_EXAMPLES "Install the example executable(s) of KLFitter" ON )
-if( INSTALL_EXAMPLES )
-  KLFitter_add_executable( example-top-ljets.exe util/example-top-ljets.cxx )
+# Figure out whether we want to install the example executables.
+if( KLF_INSTALL_EXAMPLES )
+  add_subdirectory( util )
 endif()
 
 # Install the CMake description of the project.
