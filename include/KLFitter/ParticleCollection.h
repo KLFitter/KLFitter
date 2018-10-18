@@ -62,54 +62,6 @@ class ParticleCollection final {
   /** @{ */
 
   /**
-   * Return the number of partons.
-   * @return The number of partons.
-   */
-  int NPartons() const { return static_cast<int>(m_jets.size()); }
-
-  /**
-   * Return the number of electrons.
-   * @return The number of electrons.
-   */
-  int NElectrons() const { return static_cast<int>(m_electrons.size()); }
-
-  /**
-   * Return the number of muons.
-   * @return The number of muons.
-   */
-  int NMuons() const { return int (m_muons.size()); }
-
-  /**
-   * Return the number of taus.
-   * @return The number of taus.
-   */
-  int NTaus() const { return int (m_taus.size()); }
-
-  /**
-   * Return the number of neutrinos.
-   * @return The number of neutrinos.
-   */
-  int NNeutrinos() const { return int (m_neutrinos.size()); }
-
-  /**
-   * Return the number of bosons.
-   * @return The number of bosons.
-   */
-  int NBosons() const { return int (m_bosons.size()); }
-
-  /**
-   * Return the number of photons.
-   * @return The number of photons.
-   */
-  int NPhotons() const { return int (m_photons.size()); }
-
-  /**
-   * Return the number of tracks.
-   * @return The number of tracks.
-   */
-  int NTracks() const { return int (m_tracks.size()); }
-
-  /**
    * Return the particle with a certain name
    * @param name The name of the particle.
    * @return A pointer to the TLorentzVector of the particle.
@@ -522,30 +474,34 @@ class ParticleCollection final {
 
   /** @} */
 
- private:
+  /** @{ */
+  /** \name Particle containers */
+
   /// Vector of all Particle::Jet objects.
-  std::vector<Particle::Jet> m_jets;
+  std::vector<Particle::Jet> jets;
 
   /// vector of all Particle::Electron objects.
-  std::vector<Particle::Electron> m_electrons;
+  std::vector<Particle::Electron> electrons;
 
   /// Vector of all Particle::Muon objects.
-  std::vector<Particle::Muon> m_muons;
+  std::vector<Particle::Muon> muons;
 
   /// Vector of all Particle::Tau objects.
-  std::vector<Particle::Tau> m_taus;
+  std::vector<Particle::Tau> taus;
 
   /// Vector of all Particle::Neutrino objects.
-  std::vector<Particle::Neutrino> m_neutrinos;
+  std::vector<Particle::Neutrino> neutrinos;
 
   /// Vector of all Particle::Boson objects.
-  std::vector<Particle::Boson> m_bosons;
+  std::vector<Particle::Boson> bosons;
 
   /// Vector of all Particle::Photon objects.
-  std::vector<Particle::Photon> m_photons;
+  std::vector<Particle::Photon> photons;
 
   /// Vector of all Particle::Track objects.
-  std::vector<Particle::Track> m_tracks;
+  std::vector<Particle::Track> tracks;
+
+  /** @} */
 };
 }  // namespace KLFitter
 
