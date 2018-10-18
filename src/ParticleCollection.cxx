@@ -457,31 +457,6 @@ const std::vector<double>* ParticleCollection::Uncertainties(int index, Particle
 }
 
 // ---------------------------------------------------------
-int ParticleCollection::JetIndex(int index) const {
-  return jets.at(index).GetIdentifier();
-}
-
-// ---------------------------------------------------------
-int ParticleCollection::ElectronIndex(int index) const {
-  return electrons.at(index).GetIdentifier();
-}
-
-// ---------------------------------------------------------
-int ParticleCollection::MuonIndex(int index) const {
- return muons.at(index).GetIdentifier();
-}
-
-// ---------------------------------------------------------
-int ParticleCollection::PhotonIndex(int index) const {
-  return photons.at(index).GetIdentifier();
-}
-
-// ---------------------------------------------------------
-int ParticleCollection::TrackIndex(int index) const {
-  return tracks.at(index).GetIdentifier();
-}
-
-// ---------------------------------------------------------
 int ParticleCollection::NBTags() const {
   int sum{0};
   for (const auto& jet : jets) {

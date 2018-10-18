@@ -321,28 +321,28 @@ int main(int argc, char *argv[]) {
       float bhad_eta = modelParticles->Parton(0)->Eta();
       float bhad_phi = modelParticles->Parton(0)->Phi();
       float bhad_e = modelParticles->Parton(0)->E();
-      unsigned int bhad_index = (*permutedParticles)->JetIndex(0);
+      unsigned int bhad_index = (*permutedParticles)->jets.at(0).GetIdentifier();
 
       // Leptonic b quark.
       float blep_pt = modelParticles->Parton(1)->Pt();
       float blep_eta = modelParticles->Parton(1)->Eta();
       float blep_phi = modelParticles->Parton(1)->Phi();
       float blep_e = modelParticles->Parton(1)->E();
-      unsigned int blep_index = (*permutedParticles)->JetIndex(1);
+      unsigned int blep_index = (*permutedParticles)->jets.at(1).GetIdentifier();
 
       // Light quark 1.
       float lquark1_pt = modelParticles->Parton(2)->Pt();
       float lquark1_eta = modelParticles->Parton(2)->Eta();
       float lquark1_phi = modelParticles->Parton(2)->Phi();
       float lquark1_e = modelParticles->Parton(2)->E();
-      unsigned int lquark1_index = (*permutedParticles)->JetIndex(2);
+      unsigned int lquark1_index = (*permutedParticles)->jets.at(2).GetIdentifier();
 
       // Light quark 2.
       float lquark2_pt = modelParticles->Parton(3)->Pt();
       float lquark2_eta = modelParticles->Parton(3)->Eta();
       float lquark2_phi = modelParticles->Parton(3)->Phi();
       float lquark2_e = modelParticles->Parton(3)->E();
-      unsigned int lquark2_index = (*permutedParticles)->JetIndex(3);
+      unsigned int lquark2_index = (*permutedParticles)->jets.at(3).GetIdentifier();
 
       float lepton_pt = -9999;
       float lepton_eta = -9999;

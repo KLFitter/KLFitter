@@ -146,7 +146,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
                                     (*fParticles)->jets.at(index).GetDetEta(),
                                     Particle::Type::kParton,
                                     (*fParticles)->jets.at(index).GetName(),
-                                    (*fParticles)->JetIndex(index),
+                                    (*fParticles)->jets.at(index).GetIdentifier(),
                                     (*fParticles)->jets.at(index).GetIsBTagged(),
                                     (*fParticles)->jets.at(index).GetBTagEfficiency(),
                                     (*fParticles)->jets.at(index).GetBTagRejection(),
@@ -170,14 +170,14 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
                                       (*fParticles)->electrons.at(index).GetCharge(),
                                       Particle::Type::kElectron,
                                       (*fParticles)->electrons.at(index).GetName(),
-                                      (*fParticles)->ElectronIndex(index));
+                                      (*fParticles)->electrons.at(index).GetIdentifier());
               } else {
                 // add electron
                 particles.AddParticle((*fParticles)->Electron(index),
                                       (*fParticles)->electrons.at(index).GetDetEta(),
                                       Particle::Type::kElectron,
                                       (*fParticles)->electrons.at(index).GetName(),
-                                      (*fParticles)->ElectronIndex(index));
+                                      (*fParticles)->electrons.at(index).GetIdentifier());
               }
 
               // set permutation
@@ -197,14 +197,14 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
                                       (*fParticles)->muons.at(index).GetCharge(),
                                       Particle::Type::kMuon,
                                       (*fParticles)->muons.at(index).GetName(),
-                                      (*fParticles)->MuonIndex(index));
+                                      (*fParticles)->muons.at(index).GetIdentifier());
               } else {
                 // add muon
                 particles.AddParticle((*fParticles)->Muon(index),
                                       (*fParticles)->muons.at(index).GetDetEta(),
                                       Particle::Type::kMuon,
                                       (*fParticles)->muons.at(index).GetName(),
-                                      (*fParticles)->MuonIndex(index));
+                                      (*fParticles)->muons.at(index).GetIdentifier());
               }
 
               // set permutation
@@ -221,7 +221,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
                                     (*fParticles)->photons.at(index).GetDetEta(),
                                     Particle::Type::kPhoton,
                                     (*fParticles)->photons.at(index).GetName(),
-                                    (*fParticles)->PhotonIndex(index));
+                                    (*fParticles)->photons.at(index).GetIdentifier());
 
               // set permutation
               permutation[npartonsPerm + nelectrons + nmuons + i] = index;
@@ -236,7 +236,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
               particles.AddParticle(*(*fParticles)->Track(index),
                                     Particle::Type::kTrack,
                                     (*fParticles)->tracks.at(index).GetName(),
-                                    (*fParticles)->TrackIndex(index),
+                                    (*fParticles)->tracks.at(index).GetIdentifier(),
                                     *((*fParticles)->Uncertainties(index,Particle::Type::kTrack)));
 
               // set permutation

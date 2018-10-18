@@ -156,41 +156,6 @@ class ParticleCollection final {
   int NParticles(Particle::Type ptype) const;
 
   /**
-   * Return the index of the measured particle.
-   * @param index The index of the model particle.
-   * @return The index of the measured particle.
-   */
-  int JetIndex(int index) const;
-
-  /**
-   * Return the index of the measured particle.
-   * @param index The index of the model particle.
-   * @return The index of the measured particle.
-   */
-  int ElectronIndex(int index) const;
-
-  /**
-   * Return the index of the measured particle.
-   * @param index The index of the model particle.
-   * @return The index of the measured particle.
-   */
-  int MuonIndex(int index) const;
-
-  /**
-   * Return the index of the measured particle.
-   * @param index The index of the model particle.
-   * @return The index of the measured particle.
-   */
-  int PhotonIndex(int index) const;
-
-  /**
-   * Return the index of the measured particle.
-   * @param index The index of the model particle.
-   * @return The index of the measured particle.
-   */
-  int TrackIndex(int index) const;
-
-  /**
    * Return the uncertainty of a particle with some index and type.
    * @param index The index of the particle
    * @param ptype The particle type.

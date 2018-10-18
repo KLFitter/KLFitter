@@ -224,7 +224,7 @@ double KLFitter::LikelihoodBase::LogEventProbabilityBTag() {
     // probability which is the product of all probabilities.
     for (size_t i = 0; i < fParticlesModel->jets.size(); ++i) {
       // get index of corresponding measured particle.
-      int index = fParticlesModel->JetIndex(i);
+      int index = fParticlesModel->jets.at(i).GetIdentifier();
       if (index < 0)
         continue;
 
@@ -244,7 +244,7 @@ double KLFitter::LikelihoodBase::LogEventProbabilityBTag() {
     // probability which is the product of all probabilities.
     for (size_t i = 0; i < fParticlesModel->jets.size(); ++i) {
       // get index of corresponding measured particle.
-      int index = fParticlesModel->JetIndex(i);
+      int index = fParticlesModel->jets.at(i).GetIdentifier();
       if (index < 0)
         continue;
 
@@ -264,7 +264,7 @@ double KLFitter::LikelihoodBase::LogEventProbabilityBTag() {
     // probability which is the product of all probabilities.
     for (size_t i = 0; i < fParticlesModel->jets.size(); ++i) {
       // get index of corresponding measured particle.
-      int index = fParticlesModel->JetIndex(i);
+      int index = fParticlesModel->jets.at(i).GetIdentifier();
       if (index < 0)
         continue;
 
@@ -285,7 +285,7 @@ double KLFitter::LikelihoodBase::LogEventProbabilityBTag() {
   } else if (fBTagMethod == kWorkingPoint) {
     for (size_t i = 0; i < fParticlesModel->jets.size(); ++i) {
       // get index of corresponding measured particle.
-      int index = fParticlesModel->JetIndex(i);
+      int index = fParticlesModel->jets.at(i).GetIdentifier();
       if (index < 0)
         continue;
 
@@ -330,7 +330,7 @@ void KLFitter::LikelihoodBase::PropagateBTaggingInformation() {
   // loop over all model particles.
   for (unsigned int i = 0; i < npartons; ++i) {
     // get index of corresponding measured particle.
-    int index = fParticlesModel->JetIndex(i);
+    int index = fParticlesModel->jets.at(i).GetIdentifier();
 
     if (index < 0) {
       continue;

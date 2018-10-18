@@ -179,7 +179,7 @@ double LikelihoodTopLeptonJetsUDSep::LogEventProbabilityLJetReweight() {
     for (size_t i = 0; i < fParticlesModel->jets.size(); ++i) {
       // get index of corresponding measured particle.
 
-      int index = fParticlesModel->JetIndex(i);
+      int index = fParticlesModel->jets.at(i).GetIdentifier();
 
       if (index < 0) {
         continue;
@@ -214,7 +214,7 @@ double LikelihoodTopLeptonJetsUDSep::LogEventProbabilityLJetReweight() {
     for (size_t i = 0; i < fParticlesModel->jets.size(); ++i) {
       // get index of corresponding measured particle.
 
-      int index = fParticlesModel->JetIndex(i);
+      int index = fParticlesModel->jets.at(i).GetIdentifier();
 
       if (index < 0) {
         continue;
@@ -254,7 +254,7 @@ double LikelihoodTopLeptonJetsUDSep::LogEventProbabilityBTag() {
     // probability which is the product of all probabilities.
     for (size_t i = 0; i < fParticlesModel->jets.size(); ++i) {
       // get index of corresponding measured particle.
-      int index = fParticlesModel->JetIndex(i);
+      int index = fParticlesModel->jets.at(i).GetIdentifier();
       if (index < 0)
         continue;
 
@@ -274,7 +274,7 @@ double LikelihoodTopLeptonJetsUDSep::LogEventProbabilityBTag() {
     // probability which is the product of all probabilities.
     for (size_t i = 0; i < fParticlesModel->jets.size(); ++i) {
       // get index of corresponding measured particle.
-      int index = fParticlesModel->JetIndex(i);
+      int index = fParticlesModel->jets.at(i).GetIdentifier();
       if (index < 0)
         continue;
 
