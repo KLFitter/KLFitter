@@ -56,7 +56,7 @@ env:
     - KLF_SOURCE_DIR="$TRAVIS_BUILD_DIR"
     - KLF_BUILD_DIR="$TRAVIS_BUILD_DIR/build"
     - LIBPATH_ORIG="\${LD_LIBRARY_PATH}\${LD_LIBRARY_PATH:+:}"
-    - LIBPATH_LOCAL="$KLF_BUILD_DIR/lib:"
+    - LIBPATH_LOCAL="$KLF_BUILD_DIR/lib:$KLF_BUILD_DIR/lib64:"
     - LIBPATH_ROOT="\`root-config --libdir\`:"
     - LIBPATH_BAT="${BATINSTALLDIR}${BATINSTALLDIR:+/lib:}"
     - CMD_DOCKER="docker exec -i $DOCKER_CONTAINER /bin/bash -c"
@@ -105,14 +105,18 @@ before_install:
   $CMD_DOCKER "${CMD_EXPORT_BATINSTALL} && cd ${KLF_BUILD_DIR} && make"
 
 
-# Rule to run the unit tests and pipe the stdout/stderr into a
-# text file.
+# Rule to run the unit tests using the googletest suite.
 .run_unit_tests: &run_unit_tests
+  $CMD_DOCKER "${CMD_EXPORT_BATINSTALL} && ${CMD_EXPORT_LIBPATH} && cd ${KLF_BUILD_DIR} && ${KLF_BUILD_DIR}/test-bin/gtests.exe"
+
+# Rule to run the integration tests and pipe the stdout/stderr
+# into a text file.
+.run_integration_tests: &run_integration_tests
   $CMD_DOCKER "${CMD_EXPORT_BATINSTALL} && ${CMD_EXPORT_LIBPATH} && cd ${KLF_BUILD_DIR} && ${KLF_BUILD_DIR}/test-bin/test-ljets-lh.exe ${KLF_SOURCE_DIR} 2>&1 |tee test-output.txt"
 
 
-# Rule to compare the unit test output to a reference file.
-.run_unit_test_diff: &run_unit_test_diff
+# Rule to compare the integration test output to a reference file.
+.run_integration_test_diff: &run_integration_test_diff
   diff -u $KLF_BUILD_DIR/test-output.txt $KLF_SOURCE_DIR/tests/output-ref-ljets-lh.txt
 
 
@@ -157,7 +161,8 @@ jobs:
         - *run_cmake_configure
         - *run_cmake_build
         - *run_unit_tests
-        - *run_unit_test_diff
+        - *run_integration_tests
+        - *run_integration_test_diff
     - env:
         - KLF_CMAKE_OPTS="-DKLF_BUILD_BAT=FALSE -DKLF_INSTALL_TESTS=TRUE"
         - KLF_SOURCE_DIR=$KLF_SOURCE_DIR/KLFitter
@@ -168,7 +173,8 @@ jobs:
         - *run_cmake_configure
         - *run_cmake_build
         - *run_unit_tests
-        - *run_unit_test_diff
+        - *run_integration_tests
+        - *run_integration_test_diff
     - stage: deploy
       script: skip
       if: branch = master AND repo = KLFitter/KLFitter AND NOT type = pull_request
