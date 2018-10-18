@@ -86,10 +86,10 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
 
   bool isDilepton(false);
 
-  if (nelectrons != 0 && (*fParticles)->LeptonCharge(0, Particle::Type::kElectron) != -9)
+  if (nelectrons != 0 && (*fParticles)->electrons.at(0).GetCharge() != -9)
     isDilepton = true;
 
-  if (nmuons != 0 && (*fParticles)->LeptonCharge(0, Particle::Type::kMuon) != -9)
+  if (nmuons != 0 && (*fParticles)->muons.at(0).GetCharge() != -9)
     isDilepton = true;
 
   // create table for parton, electron, muon, photon, and track's permutations
@@ -167,7 +167,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
                 // add electron
                 particles.AddParticle((*fParticles)->Electron(index),
                                       (*fParticles)->electrons.at(index).GetDetEta(),
-                                      (*fParticles)->LeptonCharge(index, Particle::Type::kElectron),
+                                      (*fParticles)->electrons.at(index).GetCharge(),
                                       Particle::Type::kElectron,
                                       (*fParticles)->electrons.at(index).GetName(),
                                       (*fParticles)->ElectronIndex(index));
@@ -194,7 +194,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
                 // add muon
                 particles.AddParticle((*fParticles)->Muon(index),
                                       (*fParticles)->muons.at(index).GetDetEta(),
-                                      (*fParticles)->LeptonCharge(index, Particle::Type::kMuon),
+                                      (*fParticles)->muons.at(index).GetCharge(),
                                       Particle::Type::kMuon,
                                       (*fParticles)->muons.at(index).GetName(),
                                       (*fParticles)->MuonIndex(index));

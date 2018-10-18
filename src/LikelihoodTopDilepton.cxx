@@ -853,24 +853,24 @@ int KLFitter::LikelihoodTopDilepton::SavePermutedParticles() {
   if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kMuon) {
     lepton_1 = (*fParticlesPermuted)->Electron(0);
     lep1_meas_deteta = (*fParticlesPermuted)->electrons.at(0).GetDetEta();
-    lep1_meas_charge = (*fParticlesPermuted)->LeptonCharge(0, Particle::Type::kElectron);
+    lep1_meas_charge = (*fParticlesPermuted)->electrons.at(0).GetCharge();
     lepton_2 = (*fParticlesPermuted)->Muon(0);
     lep2_meas_deteta = (*fParticlesPermuted)->muons.at(0).GetDetEta();
-    lep2_meas_charge = (*fParticlesPermuted)->LeptonCharge(0, Particle::Type::kMuon);
+    lep2_meas_charge = (*fParticlesPermuted)->muons.at(0).GetCharge();
   } else if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kElectron) {
     lepton_1 = (*fParticlesPermuted)->Electron(0);
     lep1_meas_deteta = (*fParticlesPermuted)->electrons.at(0).GetDetEta();
-    lep1_meas_charge = (*fParticlesPermuted)->LeptonCharge(0, Particle::Type::kElectron);
+    lep1_meas_charge = (*fParticlesPermuted)->electrons.at(0).GetCharge();
     lepton_2 = (*fParticlesPermuted)->Electron(1);
     lep2_meas_deteta = (*fParticlesPermuted)->electrons.at(1).GetDetEta();
-    lep2_meas_charge = (*fParticlesPermuted)->LeptonCharge(1, Particle::Type::kElectron);
+    lep2_meas_charge = (*fParticlesPermuted)->electrons.at(1).GetCharge();
   } else if (fTypeLepton_1 == kMuon && fTypeLepton_2 == kMuon) {
     lepton_1 = (*fParticlesPermuted)->Muon(0);
     lep1_meas_deteta = (*fParticlesPermuted)->muons.at(0).GetDetEta();
-    lep1_meas_charge = (*fParticlesPermuted)->LeptonCharge(0, Particle::Type::kMuon);
+    lep1_meas_charge = (*fParticlesPermuted)->muons.at(0).GetCharge();
     lepton_2 = (*fParticlesPermuted)->Muon(1);
     lep2_meas_deteta = (*fParticlesPermuted)->muons.at(1).GetDetEta();
-    lep2_meas_charge = (*fParticlesPermuted)->LeptonCharge(1, Particle::Type::kMuon);
+    lep2_meas_charge = (*fParticlesPermuted)->muons.at(1).GetCharge();
   }
 
   lep1_meas_e        = lepton_1->E();

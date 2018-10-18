@@ -448,19 +448,6 @@ int ParticleCollection::NParticles(Particle::Type ptype) const {
 }
 
 // ---------------------------------------------------------
-float ParticleCollection::LeptonCharge(int index, Particle::Type ptype) const {
-  if (ptype == Particle::Type::kElectron) {
-    return electrons.at(index).GetCharge();
-  } else if (ptype == Particle::Type::kMuon) {
-    return muons.at(index).GetCharge();
-  }
-
-  // return error value
-  std::cout << "KLFitter::ParticleCollection::LepCharge NO LEPTON TYPE!" << std::endl;
-  return -9;
-}
-
-// ---------------------------------------------------------
 const std::vector<double>* ParticleCollection::Uncertainties(int index, Particle::Type ptype) const {
   if (ptype == Particle::Type::kTrack) return &tracks.at(index).GetUncertainties();
 

@@ -198,14 +198,6 @@ class ParticleCollection final {
    */
   const std::vector<double>* Uncertainties(int index, Particle::Type ptype) const;
 
-  /**
-   * Return the charge of the lepton with some index and type.
-   * @param index The index of the particle
-   * @param ptype The particle type.
-   * @return The charge of the lepton.
-   */
-  float LeptonCharge(int index, Particle::Type ptype) const;
-
   /// Return the number of b-tags.
   int NBTags() const;
 
