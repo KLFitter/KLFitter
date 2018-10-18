@@ -448,15 +448,6 @@ int ParticleCollection::NParticles(Particle::Type ptype) const {
 }
 
 // ---------------------------------------------------------
-const std::vector<double>* ParticleCollection::Uncertainties(int index, Particle::Type ptype) const {
-  if (ptype == Particle::Type::kTrack) return &tracks.at(index).GetUncertainties();
-
-  // return error value
-  std::cout << "KLFitter::ParticleCollection::Uncertainties(). Particle type " << static_cast<std::underlying_type<Particle::Type>::type>(ptype) << " does not store uncertainties." << std::endl;
-  return nullptr;
-}
-
-// ---------------------------------------------------------
 int ParticleCollection::NBTags() const {
   int sum{0};
   for (const auto& jet : jets) {

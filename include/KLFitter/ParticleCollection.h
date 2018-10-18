@@ -155,14 +155,6 @@ class ParticleCollection final {
    */
   int NParticles(Particle::Type ptype) const;
 
-  /**
-   * Return the uncertainty of a particle with some index and type.
-   * @param index The index of the particle
-   * @param ptype The particle type.
-   * @return The uncertaintie of the particle
-   */
-  const std::vector<double>* Uncertainties(int index, Particle::Type ptype) const;
-
   /// Return the number of b-tags.
   int NBTags() const;
 

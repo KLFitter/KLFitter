@@ -219,23 +219,23 @@ int LikelihoodTwoTracks::SavePermutedParticles() {
   m_t1_meas_theta = (*fParticlesPermuted)->Track(0)->Theta();
   m_t1_meas_p = (*fParticlesPermuted)->Track(0)->P();
 
-  m_t1_meas_sigma00 = (*fParticlesPermuted)->Uncertainties(0, Particle::Type::kTrack)->at(0);
-  m_t1_meas_sigma10 = (*fParticlesPermuted)->Uncertainties(0, Particle::Type::kTrack)->at(1);
-  m_t1_meas_sigma11 = (*fParticlesPermuted)->Uncertainties(0, Particle::Type::kTrack)->at(2);
-  m_t1_meas_sigma20 = (*fParticlesPermuted)->Uncertainties(0, Particle::Type::kTrack)->at(3);
-  m_t1_meas_sigma21 = (*fParticlesPermuted)->Uncertainties(0, Particle::Type::kTrack)->at(4);
-  m_t1_meas_sigma22 = (*fParticlesPermuted)->Uncertainties(0, Particle::Type::kTrack)->at(5);
+  m_t1_meas_sigma00 = (*fParticlesPermuted)->tracks.at(0).GetUncertainties().at(0);
+  m_t1_meas_sigma10 = (*fParticlesPermuted)->tracks.at(0).GetUncertainties().at(1);
+  m_t1_meas_sigma11 = (*fParticlesPermuted)->tracks.at(0).GetUncertainties().at(2);
+  m_t1_meas_sigma20 = (*fParticlesPermuted)->tracks.at(0).GetUncertainties().at(3);
+  m_t1_meas_sigma21 = (*fParticlesPermuted)->tracks.at(0).GetUncertainties().at(4);
+  m_t1_meas_sigma22 = (*fParticlesPermuted)->tracks.at(0).GetUncertainties().at(5);
 
   m_t2_meas_phi = (*fParticlesPermuted)->Track(1)->Phi();
   m_t2_meas_theta = (*fParticlesPermuted)->Track(1)->Theta();
   m_t2_meas_p = (*fParticlesPermuted)->Track(1)->P();
 
-  m_t2_meas_sigma00 = (*fParticlesPermuted)->Uncertainties(1, Particle::Type::kTrack)->at(0);
-  m_t2_meas_sigma10 = (*fParticlesPermuted)->Uncertainties(1, Particle::Type::kTrack)->at(1);
-  m_t2_meas_sigma11 = (*fParticlesPermuted)->Uncertainties(1, Particle::Type::kTrack)->at(2);
-  m_t2_meas_sigma20 = (*fParticlesPermuted)->Uncertainties(1, Particle::Type::kTrack)->at(3);
-  m_t2_meas_sigma21 = (*fParticlesPermuted)->Uncertainties(1, Particle::Type::kTrack)->at(4);
-  m_t2_meas_sigma22 = (*fParticlesPermuted)->Uncertainties(1, Particle::Type::kTrack)->at(5);
+  m_t2_meas_sigma00 = (*fParticlesPermuted)->tracks.at(1).GetUncertainties().at(0);
+  m_t2_meas_sigma10 = (*fParticlesPermuted)->tracks.at(1).GetUncertainties().at(1);
+  m_t2_meas_sigma11 = (*fParticlesPermuted)->tracks.at(1).GetUncertainties().at(2);
+  m_t2_meas_sigma20 = (*fParticlesPermuted)->tracks.at(1).GetUncertainties().at(3);
+  m_t2_meas_sigma21 = (*fParticlesPermuted)->tracks.at(1).GetUncertainties().at(4);
+  m_t2_meas_sigma22 = (*fParticlesPermuted)->tracks.at(1).GetUncertainties().at(5);
 
 
   // no error
