@@ -28,8 +28,10 @@ project( KLFitter )
 
 # Set the options for building KLFitter.
 option( KLF_BUILD_BAT "Acquire BAT as part of building this project" OFF )
+option( KLF_BUILD_GTEST "Acquire googletest as part of building this project" ON )
 option( KLF_INSTALL_EXAMPLES "Install the example executable(s) of KLFitter" ON )
 option( KLF_INSTALL_STATIC_LIB "Build and install KLFitter as a static library" OFF )
+option( KLF_INSTALL_TESTS "Install the unit test suite of KLFitter" OFF )
 
 # Set up the "C++ version" to use.
 set( CMAKE_CXX_STANDARD_REQUIRED 11 CACHE STRING
@@ -187,20 +189,9 @@ endif()
 install( DIRECTORY data/transferfunctions/
   DESTINATION share/KLFitter/transferfunctions )
 
-# Helper macro for building the project's unit tests.
-macro( KLFitter_add_test name )
-   # Build the unit-test executable:
-   add_executable( ${name} ${ARGN} )
-   target_link_libraries( ${name} KLFitter-stat )
-   set_target_properties( ${name} PROPERTIES
-      RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/test-bin" )
-   # Set up the test itself:
-endmacro( KLFitter_add_test )
-
-# Set up the test(s) of the project.
-option( INSTALL_TESTS "Install the unit tests to validate KLFitter installation" OFF )
-if( INSTALL_TESTS )
-  KLFitter_add_test( test-ljets-lh.exe tests/test-ljets-lh.cxx )
+# Figure out whether we want to install the unit tests.
+if( KLF_INSTALL_TESTS )
+  add_subdirectory( tests )
 endif()
 
 # Figure out whether we want to install the example executables.
