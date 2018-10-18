@@ -73,7 +73,7 @@ do:
 
 ```sh
 mkdir build && cd build
-cmake -DBUILTIN_BAT=TRUE ..
+cmake -DKLF_BUILD_BAT=TRUE ..
 make -j
 ```
 
@@ -83,7 +83,7 @@ link the KLFitter library against that version and not download BAT during the
 cmake build process. For that, make sure that the environment variable
 `$BATINSTALLDIR` points to the BAT installation directory and is exported. This
 variable will be used by _FindBAT.cmake_, which locates the BAT library. With a
-local version of BAT, the `-DBUILTIN_BAT` flag of the cmake command can be
+local version of BAT, the `-DKLF_BUILD_BAT` flag of the cmake command can be
 omitted, i.e. the KLFitter build procedure becomes:
 
 ```sh

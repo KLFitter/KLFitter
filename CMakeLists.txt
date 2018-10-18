@@ -27,6 +27,7 @@ endif()
 project( KLFitter )
 
 # Set the options for building KLFitter.
+option( KLF_BUILD_BAT "Acquire BAT as part of building this project" OFF )
 option( KLF_INSTALL_STATIC_LIB "Build and install KLFitter as a static library" OFF )
 
 # Set up the "C++ version" to use.
@@ -66,8 +67,7 @@ find_package( ROOT 5.34.10 REQUIRED MathCore Minuit )
 
 # Figure out what to do with BAT.
 set( _buildDir ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/BATBuild )
-option( BUILTIN_BAT "Acquire BAT as part of building this project" OFF )
-if( BUILTIN_BAT )
+if( KLF_BUILD_BAT )
   # Download and install BAT using ExternalProject.
   include( ExternalProject )
   ExternalProject_Add( BAT
