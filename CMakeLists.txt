@@ -26,6 +26,8 @@ endif()
 # Set the project's name and version.
 project( KLFitter )
 
+# Set the options for building KLFitter.
+option( KLF_INSTALL_STATIC_LIB "Build and install KLFitter as a static library" OFF )
 
 # Set up the "C++ version" to use.
 set( CMAKE_CXX_STANDARD_REQUIRED 11 CACHE STRING
@@ -176,7 +178,9 @@ endmacro( KLFitter_add_library )
 
 # Build the shared (and static) library.
 KLFitter_add_library( KLFitter SHARED ${lib_headers} ${lib_sources} )
-KLFitter_add_library( KLFitter-stat ${lib_headers} ${lib_sources} )
+if( KLF_INSTALL_STATIC_LIB )
+  KLFitter_add_library( KLFitter-stat ${lib_headers} ${lib_sources} )
+endif()
 
 # Install the transfer functions.
 install( DIRECTORY data/transferfunctions/
