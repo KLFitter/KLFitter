@@ -109,25 +109,25 @@ int LikelihoodTopLeptonJets::DefineModelParticles() {
                                ParticleCollection::kParton,  // type
                                "hadronic b quark",  // name
                                0,                   // index of corresponding particle
-                               ParticleCollection::kB);      // b jet (truth)
+                               Particle::JetTrueFlavor::kB);      // b jet (truth)
 
   fParticlesModel->AddParticle(&dummy,
                                ParticleCollection::kParton,
                                "leptonic b quark",
                                1,                   // index of corresponding particle
-                               ParticleCollection::kB);      // b jet (truth)
+                               Particle::JetTrueFlavor::kB);      // b jet (truth)
 
   fParticlesModel->AddParticle(&dummy,
                                ParticleCollection::kParton,
                                "light quark 1",
                                2,                   // index of corresponding particle
-                               ParticleCollection::kLight);  // light jet (truth)
+                               Particle::JetTrueFlavor::kLight);  // light jet (truth)
 
   fParticlesModel->AddParticle(&dummy,
                                ParticleCollection::kParton,
                                "light quark 2",
                                3,                   // index of corresponding particle
-                               ParticleCollection::kLight);  // light jet (truth)
+                               Particle::JetTrueFlavor::kLight);  // light jet (truth)
 
   if (m_lepton_type == kElectron) {
     fParticlesModel->AddParticle(&dummy, ParticleCollection::kElectron, "electron");

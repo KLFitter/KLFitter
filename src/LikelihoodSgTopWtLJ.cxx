@@ -113,11 +113,11 @@ int KLFitter::LikelihoodSgTopWtLJ::DefineModelParticles() {
   // create dummy TLorentzVector
   TLorentzVector dummy{0, 0, 0, 0};  // 4-vector
 
-  fParticlesModel->AddParticle(&dummy, KLFitter::ParticleCollection::kParton,  "b quark", 0, KLFitter::ParticleCollection::kB);
+  fParticlesModel->AddParticle(&dummy, KLFitter::ParticleCollection::kParton,  "b quark", 0, Particle::JetTrueFlavor::kB);
 
-  fParticlesModel->AddParticle(&dummy, KLFitter::ParticleCollection::kParton, "light quark 1", 1, KLFitter::ParticleCollection::kLight);
+  fParticlesModel->AddParticle(&dummy, KLFitter::ParticleCollection::kParton, "light quark 1", 1, Particle::JetTrueFlavor::kLight);
 
-  fParticlesModel->AddParticle(&dummy, KLFitter::ParticleCollection::kParton, "light quark 2", 2, KLFitter::ParticleCollection::kLight);
+  fParticlesModel->AddParticle(&dummy, KLFitter::ParticleCollection::kParton, "light quark 2", 2, Particle::JetTrueFlavor::kLight);
 
   if (fTypeLepton == kElectron) {
     fParticlesModel->AddParticle(&dummy, KLFitter::ParticleCollection::kElectron, "electron");

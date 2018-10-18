@@ -141,13 +141,13 @@ int KLFitter::LikelihoodTopDilepton::DefineModelParticles() {
                                KLFitter::ParticleCollection::kParton,  // type
                                "b quark 1",                   // name
                                0,                             // index of corresponding particle
-                               KLFitter::ParticleCollection::kB);      // b jet (truth)
+                               Particle::JetTrueFlavor::kB);      // b jet (truth)
 
   fParticlesModel->AddParticle(&dummy,
                                KLFitter::ParticleCollection::kParton,
                                "b quark 2",
                                1,                             // index of corresponding particle
-                               KLFitter::ParticleCollection::kB);      // b jet (truth)
+                               Particle::JetTrueFlavor::kB);      // b jet (truth)
 
   if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kMuon) {
     fParticlesModel->AddParticle(&dummy,

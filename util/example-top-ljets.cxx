@@ -277,7 +277,7 @@ int main(int argc, char *argv[]) {
       //  10) btag discriminant
       particles.AddParticle(jet, event.jet_eta->at(ijet), KLFitter::ParticleCollection::kParton,
           "", ijet, static_cast<int>(event.jet_has_btag->at(ijet)), 0.6, 145.,
-          KLFitter::ParticleCollection::kNone, event.jet_btag_weight->at(ijet));
+          KLFitter::Particle::JetTrueFlavor::kNone, event.jet_btag_weight->at(ijet));
     }
 
     // Add particles to the likelihood.

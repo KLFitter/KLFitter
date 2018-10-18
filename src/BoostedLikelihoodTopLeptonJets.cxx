@@ -101,19 +101,19 @@ int KLFitter::BoostedLikelihoodTopLeptonJets::DefineModelParticles() {
                                KLFitter::ParticleCollection::kParton,  // type
                                "hadronic b quark",            // name
                                0,                             // index of corresponding particle
-                               KLFitter::ParticleCollection::kB);      // b jet (truth)
+                               Particle::JetTrueFlavor::kB);      // b jet (truth)
 
   fParticlesModel->AddParticle(&dummy,
                                KLFitter::ParticleCollection::kParton,
                                "leptonic b quark",
                                1,                             // index of corresponding particle
-                               KLFitter::ParticleCollection::kB);      // b jet (truth)
+                               Particle::JetTrueFlavor::kB);      // b jet (truth)
 
   fParticlesModel->AddParticle(&dummy,
                                KLFitter::ParticleCollection::kParton,
                                "light quarks",
                                2,                             // index of corresponding particle
-                               KLFitter::ParticleCollection::kLight);  // merged light jet (truth)
+                               Particle::JetTrueFlavor::kLight);  // merged light jet (truth)
 
   if (fTypeLepton == kElectron) {
     fParticlesModel->AddParticle(&dummy,

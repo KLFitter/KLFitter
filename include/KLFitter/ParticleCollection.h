@@ -57,14 +57,6 @@ class ParticleCollection final {
                       kTrack      ///< Particle type track
   };
 
-  /// An enumerator for the true jet flavor.
-  enum TrueFlavorType { kLight,     ///< Light quark
-                        kB,         ///< B-quark
-                        kLightUp,   ///< Up-type light quark
-                        kLightDown, ///< Down-type light quark
-                        kNone       ///< Not specified
-  };
-
   /// The default constructor.
   ParticleCollection();
 
@@ -312,7 +304,7 @@ class ParticleCollection final {
    * @param index The parton index
    * @return The parton true flavor.
    */
-  TrueFlavorType TrueFlavor(int index) const { return static_cast<ParticleCollection::TrueFlavorType>(m_jets.at(index).GetTrueFlavor()); }
+  Particle::JetTrueFlavor TrueFlavor(int index) const { return m_jets.at(index).GetTrueFlavor(); }
 
   /**
    * Return has the jet been b-tagged?
@@ -459,7 +451,7 @@ class ParticleCollection final {
    * @param btagweight The b tagger weight).
    * @return An error code.
    */
-  int AddParticle(const TLorentzVector& particle, double DetEta, KLFitter::ParticleCollection::ParticleType ptype, std::string name = "", int measuredindex = -1, bool isBtagged = false, double bTagEff = -1., double bTagRej = -1., TrueFlavorType trueflav = kNone, double btagweight = 999);
+  int AddParticle(const TLorentzVector& particle, double DetEta, KLFitter::ParticleCollection::ParticleType ptype, std::string name = "", int measuredindex = -1, bool isBtagged = false, double bTagEff = -1., double bTagRej = -1., Particle::JetTrueFlavor trueflav = Particle::JetTrueFlavor::kNone, double btagweight = 999);
 
   /**
    * DEPRECATED FUNCTION. This is an overloaded implementation of
@@ -468,7 +460,7 @@ class ParticleCollection final {
    * it will be removed in the next major release. Please switch
    * to the above implementation.
    */
-  int AddParticle(const TLorentzVector* const particle, double DetEta, KLFitter::ParticleCollection::ParticleType ptype, std::string name = "", int measuredindex = -1, bool isBtagged = false, double bTagEff = -1., double bTagRej = -1., TrueFlavorType trueflav = kNone, double btagweight = 999);
+  int AddParticle(const TLorentzVector* const particle, double DetEta, KLFitter::ParticleCollection::ParticleType ptype, std::string name = "", int measuredindex = -1, bool isBtagged = false, double bTagEff = -1., double bTagRej = -1., Particle::JetTrueFlavor trueflav = Particle::JetTrueFlavor::kNone, double btagweight = 999);
 
   /**
    * Add a particle to a list of particles.
@@ -483,7 +475,7 @@ class ParticleCollection final {
    * @param btagweight The b tagger weight).
    * @return An error code.
    */
-  int AddParticle(const TLorentzVector& particle, KLFitter::ParticleCollection::ParticleType ptype, std::string name = "", int measuredindex = -1, bool isBtagged = false, double bTagEff = -1., double bTagRej = -1., TrueFlavorType trueflav = kNone, double btagweight = 999);
+  int AddParticle(const TLorentzVector& particle, KLFitter::ParticleCollection::ParticleType ptype, std::string name = "", int measuredindex = -1, bool isBtagged = false, double bTagEff = -1., double bTagRej = -1., Particle::JetTrueFlavor trueflav = Particle::JetTrueFlavor::kNone, double btagweight = 999);
 
   /**
    * DEPRECATED FUNCTION. This is an overloaded implementation of
@@ -492,7 +484,7 @@ class ParticleCollection final {
    * it will be removed in the next major release. Please switch
    * to the above implementation.
    */
-  int AddParticle(const TLorentzVector* const particle, KLFitter::ParticleCollection::ParticleType ptype, std::string name = "", int measuredindex = -1, bool isBtagged = false, double bTagEff = -1., double bTagRej = -1., TrueFlavorType trueflav = kNone, double btagweight = 999);
+  int AddParticle(const TLorentzVector* const particle, KLFitter::ParticleCollection::ParticleType ptype, std::string name = "", int measuredindex = -1, bool isBtagged = false, double bTagEff = -1., double bTagRej = -1., Particle::JetTrueFlavor trueflav = Particle::JetTrueFlavor::kNone, double btagweight = 999);
 
   /**
    * Add a particle to a list of particles (especially for model particles).
@@ -504,7 +496,7 @@ class ParticleCollection final {
    * @param btagweight The b tagger weight).
    * @return An error code.
    */
-  int AddParticle(const TLorentzVector& particle, KLFitter::ParticleCollection::ParticleType ptype, std::string name, int measuredindex, TrueFlavorType trueflav, double btagweight = 999);
+  int AddParticle(const TLorentzVector& particle, KLFitter::ParticleCollection::ParticleType ptype, std::string name, int measuredindex, Particle::JetTrueFlavor trueflav, double btagweight = 999);
 
   /**
    * DEPRECATED FUNCTION. This is an overloaded implementation of
@@ -513,7 +505,7 @@ class ParticleCollection final {
    * it will be removed in the next major release. Please switch
    * to the above implementation.
    */
-  int AddParticle(const TLorentzVector* const particle, KLFitter::ParticleCollection::ParticleType ptype, std::string name, int measuredindex, TrueFlavorType trueflav, double btagweight = 999);
+  int AddParticle(const TLorentzVector* const particle, KLFitter::ParticleCollection::ParticleType ptype, std::string name, int measuredindex, Particle::JetTrueFlavor trueflav, double btagweight = 999);
 
   /**
    * Add a particle to a list of particles.

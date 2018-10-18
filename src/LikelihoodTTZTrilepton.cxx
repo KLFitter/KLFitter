@@ -111,25 +111,25 @@ int KLFitter::LikelihoodTTZTrilepton::DefineModelParticles() {
                                KLFitter::ParticleCollection::kParton,  // type
                                "hadronic b quark",            // name
                                0,                             // index of corresponding particle
-                               KLFitter::ParticleCollection::kB);      // b jet (truth)
+                               Particle::JetTrueFlavor::kB);      // b jet (truth)
 
   fParticlesModel->AddParticle(&dummy,
                                KLFitter::ParticleCollection::kParton,
                                "leptonic b quark",
                                1,                             // index of corresponding particle
-                               KLFitter::ParticleCollection::kB);      // b jet (truth)
+                               Particle::JetTrueFlavor::kB);      // b jet (truth)
 
   fParticlesModel->AddParticle(&dummy,
                                KLFitter::ParticleCollection::kParton,
                                "light quark 1",
                                2,                             // index of corresponding particle
-                               KLFitter::ParticleCollection::kLight);  // light jet (truth)
+                               Particle::JetTrueFlavor::kLight);  // light jet (truth)
 
   fParticlesModel->AddParticle(&dummy,
                                KLFitter::ParticleCollection::kParton,
                                "light quark 2",
                                3,                             // index of corresponding particle
-                               KLFitter::ParticleCollection::kLight);  // light jet (truth)
+                               Particle::JetTrueFlavor::kLight);  // light jet (truth)
 
   if (fTypeLepton == kElectron) {
     fParticlesModel->AddParticle(&dummy,

@@ -123,7 +123,7 @@ int ParticleCollection::AddParticle(const TLorentzVector* const particle, double
 }
 
 // ---------------------------------------------------------
-int ParticleCollection::AddParticle(const TLorentzVector& particle, double DetEta, ParticleCollection::ParticleType ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, TrueFlavorType trueflav, double btagweight) {
+  int ParticleCollection::AddParticle(const TLorentzVector& particle, double DetEta, ParticleCollection::ParticleType ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, Particle::JetTrueFlavor trueflav, double btagweight) {
   // check name
   if (name == "") name = Form("particle_%i", NParticles());
 
@@ -187,27 +187,27 @@ int ParticleCollection::AddParticle(const TLorentzVector& particle, double DetEt
 }
 
 // --------------------------------------------------------- // THIS FUNCTION IS TO BE REMOVED IN THE NEXT MAJOR RELEASE
-int ParticleCollection::AddParticle(const TLorentzVector* const particle, double DetEta, ParticleCollection::ParticleType ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, TrueFlavorType trueflav, double btagweight) {
+int ParticleCollection::AddParticle(const TLorentzVector* const particle, double DetEta, ParticleCollection::ParticleType ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, Particle::JetTrueFlavor trueflav, double btagweight) {
   return AddParticle(*particle, DetEta, ptype, name, measuredindex, isBtagged, bTagEff, bTagRej, trueflav, btagweight);
 }
 
 // ---------------------------------------------------------
-int ParticleCollection::AddParticle(const TLorentzVector& particle, ParticleCollection::ParticleType ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, TrueFlavorType trueflav, double btagweight) {
+int ParticleCollection::AddParticle(const TLorentzVector& particle, ParticleCollection::ParticleType ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, Particle::JetTrueFlavor trueflav, double btagweight) {
   return AddParticle(particle, -999, ptype, name, measuredindex, isBtagged, bTagEff, bTagRej, trueflav, btagweight);
 }
 
 // --------------------------------------------------------- // THIS FUNCTION IS TO BE REMOVED IN THE NEXT MAJOR RELEASE
-int ParticleCollection::AddParticle(const TLorentzVector* const particle, ParticleCollection::ParticleType ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, TrueFlavorType trueflav, double btagweight) {
+int ParticleCollection::AddParticle(const TLorentzVector* const particle, ParticleCollection::ParticleType ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, Particle::JetTrueFlavor trueflav, double btagweight) {
   return AddParticle(*particle, ptype, name, measuredindex, isBtagged, bTagEff, bTagRej, trueflav, btagweight);
 }
 
 // ---------------------------------------------------------
-int ParticleCollection::AddParticle(const TLorentzVector& particle, ParticleCollection::ParticleType ptype, std::string name, int measuredindex, TrueFlavorType trueflav, double btagweight) {
+int ParticleCollection::AddParticle(const TLorentzVector& particle, ParticleCollection::ParticleType ptype, std::string name, int measuredindex, Particle::JetTrueFlavor trueflav, double btagweight) {
   return AddParticle(particle, -999, ptype, name, measuredindex, false, -1., -1., trueflav, btagweight);
 }
 
 // --------------------------------------------------------- // THIS FUNCTION IS TO BE REMOVED IN THE NEXT MAJOR RELEASE
-int ParticleCollection::AddParticle(const TLorentzVector* const particle, ParticleCollection::ParticleType ptype, std::string name, int measuredindex, TrueFlavorType trueflav, double btagweight) {
+int ParticleCollection::AddParticle(const TLorentzVector* const particle, ParticleCollection::ParticleType ptype, std::string name, int measuredindex, Particle::JetTrueFlavor trueflav, double btagweight) {
   return AddParticle(*particle, ptype, name, measuredindex, trueflav, btagweight);
 }
 

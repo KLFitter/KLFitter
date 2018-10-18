@@ -59,37 +59,37 @@ int KLFitter::LikelihoodTopAllHadronic::DefineModelParticles() {
                                KLFitter::ParticleCollection::kParton,  // type
                                "hadronic b quark 1",          // name
                                0,                             // index of corresponding particle
-                               KLFitter::ParticleCollection::kB);      // b jet (truth)
+                               Particle::JetTrueFlavor::kB);      // b jet (truth)
 
   fParticlesModel->AddParticle(&dummy,
                                KLFitter::ParticleCollection::kParton,
                                "hadronic b quark 2",
                                1,                             // index of corresponding particle
-                               KLFitter::ParticleCollection::kB);      // b jet (truth)
+                               Particle::JetTrueFlavor::kB);      // b jet (truth)
 
   fParticlesModel->AddParticle(&dummy,
                                KLFitter::ParticleCollection::kParton,
                                "light quark 1",
                                2,                             // index of corresponding particle
-                               KLFitter::ParticleCollection::kLight);  // light jet (truth)
+                               Particle::JetTrueFlavor::kLight);  // light jet (truth)
 
   fParticlesModel->AddParticle(&dummy,
                                KLFitter::ParticleCollection::kParton,
                                "light quark 2",
                                3,                             // index of corresponding particle
-                               KLFitter::ParticleCollection::kLight);  // light jet (truth)
+                               Particle::JetTrueFlavor::kLight);  // light jet (truth)
 
   fParticlesModel->AddParticle(&dummy,
                                KLFitter::ParticleCollection::kParton,
                                "light quark 3",
                                4,                             // index of corresponding particle
-                               KLFitter::ParticleCollection::kLight);  // light jet (truth)
+                               Particle::JetTrueFlavor::kLight);  // light jet (truth)
 
   fParticlesModel->AddParticle(&dummy,
                                KLFitter::ParticleCollection::kParton,
                                "light quark 4",
                                5,                             // index of corresponding particle
-                               KLFitter::ParticleCollection::kLight);  // light jet (truth)
+                               Particle::JetTrueFlavor::kLight);  // light jet (truth)
 
   fParticlesModel->AddParticle(&dummy,
                                KLFitter::ParticleCollection::kBoson,
