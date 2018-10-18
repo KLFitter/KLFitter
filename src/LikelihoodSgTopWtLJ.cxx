@@ -280,7 +280,7 @@ int KLFitter::LikelihoodSgTopWtLJ::RemoveInvariantParticlePermutations() {
   // remove the permutation from all jet not used for the likelihood
   KLFitter::ParticleCollection * particles = (*fPermutations)->Particles();
   indexVector_Jets.clear();
-  for (int i = 3; i < particles->NPartons(); i++) {
+  for (size_t i = 3; i < particles->jets.size(); i++) {
     indexVector_Jets.push_back(i);
   }
   err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Jets);

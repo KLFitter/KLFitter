@@ -222,7 +222,7 @@ double KLFitter::LikelihoodBase::LogEventProbabilityBTag() {
   if (fBTagMethod == kVeto) {
     // loop over all model particles.  calculate the overall b-tagging
     // probability which is the product of all probabilities.
-    for (int i = 0; i < fParticlesModel->NPartons(); ++i) {
+    for (size_t i = 0; i < fParticlesModel->jets.size(); ++i) {
       // get index of corresponding measured particle.
       int index = fParticlesModel->JetIndex(i);
       if (index < 0)
@@ -242,7 +242,7 @@ double KLFitter::LikelihoodBase::LogEventProbabilityBTag() {
   } else if (fBTagMethod == kVetoLight) {
     // loop over all model particles.  calculate the overall b-tagging
     // probability which is the product of all probabilities.
-    for (int i = 0; i < fParticlesModel->NPartons(); ++i) {
+    for (size_t i = 0; i < fParticlesModel->jets.size(); ++i) {
       // get index of corresponding measured particle.
       int index = fParticlesModel->JetIndex(i);
       if (index < 0)
@@ -262,7 +262,7 @@ double KLFitter::LikelihoodBase::LogEventProbabilityBTag() {
   } else if (fBTagMethod == kVetoBoth) {
     // loop over all model particles.  calculate the overall b-tagging
     // probability which is the product of all probabilities.
-    for (int i = 0; i < fParticlesModel->NPartons(); ++i) {
+    for (size_t i = 0; i < fParticlesModel->jets.size(); ++i) {
       // get index of corresponding measured particle.
       int index = fParticlesModel->JetIndex(i);
       if (index < 0)
@@ -283,7 +283,7 @@ double KLFitter::LikelihoodBase::LogEventProbabilityBTag() {
       return -1e99;
     }
   } else if (fBTagMethod == kWorkingPoint) {
-    for (int i = 0; i < fParticlesModel->NPartons(); ++i) {
+    for (size_t i = 0; i < fParticlesModel->jets.size(); ++i) {
       // get index of corresponding measured particle.
       int index = fParticlesModel->JetIndex(i);
       if (index < 0)
@@ -325,7 +325,7 @@ bool KLFitter::LikelihoodBase::NoTFProblem(std::vector<double> parameters) {
 // ---------------------------------------------------------
 void KLFitter::LikelihoodBase::PropagateBTaggingInformation() {
   // get number of partons
-  unsigned int npartons = fParticlesModel->NPartons();
+  unsigned int npartons = fParticlesModel->jets.size();
 
   // loop over all model particles.
   for (unsigned int i = 0; i < npartons; ++i) {
@@ -371,12 +371,12 @@ int KLFitter::LikelihoodBase::RemoveForbiddenParticlePermutations() {
 
   // remove all permutations where a b-tagged jet is in the position of a model light quark
   KLFitter::ParticleCollection * particles = (*fPermutations)->Particles();
-  int nPartons = particles->NPartons();
+  int nPartons = particles->jets.size();
 
   // When using kVetoHybridNoFit, copy the Permutations object and try to run
   // with the kVetoNoFit option. If all permutations are vetoed, use the backup
   // Permutations object and run with the kVetoNoFitLight option.
-  int nPartonsModel = fParticlesModel->NPartons();
+  int nPartonsModel = fParticlesModel->jets.size();
   if (fBTagMethod == kVetoHybridNoFit) {
     KLFitter::Permutations permutationsCopy(**fPermutations);
     for (int iParton(0); iParton < nPartons; ++iParton) {

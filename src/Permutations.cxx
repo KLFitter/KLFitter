@@ -78,11 +78,11 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
   CheckParticles();
 
   // get number of objects per category
-  int npartons   = (*fParticles)->NPartons();
-  int nelectrons = (*fParticles)->NElectrons();
-  int nmuons     = (*fParticles)->NMuons();
-  int nphotons     = (*fParticles)->NPhotons();
-  int ntracks    = (*fParticles)->NTracks();
+  size_t npartons   = (*fParticles)->jets.size();
+  size_t nelectrons = (*fParticles)->electrons.size();
+  size_t nmuons     = (*fParticles)->muons.size();
+  size_t nphotons     = (*fParticles)->photons.size();
+  size_t ntracks    = (*fParticles)->tracks.size();
 
   bool isDilepton(false);
 
@@ -158,7 +158,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
             }
 
             // loop over all electrons
-            for (int i = 0; i < nelectrons; ++i) {
+            for (size_t i = 0; i < nelectrons; ++i) {
               // get index
               int index = fTableElectrons[ipermelectron][i];
 
@@ -185,7 +185,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
             }
 
             // loop over all muons
-            for (int i = 0; i < nmuons; ++i) {
+            for (size_t i = 0; i < nmuons; ++i) {
               // get index
               int index = fTableMuons[ipermmuon][i];
 
@@ -212,7 +212,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
             }
 
             // loop over all photons
-            for (int i = 0; i < nphotons; ++i) {
+            for (size_t i = 0; i < nphotons; ++i) {
               // get index
               int index = fTablePhotons[ipermphoton][i];
 
@@ -228,7 +228,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
             }
 
             // loop over all tracks
-            for (int i = 0; i < ntracks; ++i) {
+            for (size_t i = 0; i < ntracks; ++i) {
               // get index
               int index = fTableTracks[ipermtrack][i];
 

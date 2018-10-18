@@ -146,7 +146,7 @@ class ParticleCollection final {
    * Return the number of particles.
    * @return The number of particles.
    */
-  int NParticles() const { return static_cast<int>(m_jets.size() + m_electrons.size() + m_muons.size() + m_taus.size() + m_neutrinos.size() + m_bosons.size() + m_photons.size()) + m_tracks.size(); }
+  int NParticles() const { return static_cast<int>(jets.size() + electrons.size() + muons.size() + taus.size() + neutrinos.size() + bosons.size() + photons.size()) + tracks.size(); }
 
   /**
    * Return the number of particles of a certain type.
@@ -245,42 +245,42 @@ class ParticleCollection final {
    * @param index The parton index
    * @return The parton true flavor.
    */
-  Particle::JetTrueFlavor TrueFlavor(int index) const { return m_jets.at(index).GetTrueFlavor(); }
+  Particle::JetTrueFlavor TrueFlavor(int index) const { return jets.at(index).GetTrueFlavor(); }
 
   /**
    * Return has the jet been b-tagged?
    * @param index The parton index
    * @return The parton b-tagging boolean.
    */
-  bool IsBTagged(int index) const { return m_jets.at(index).GetIsBTagged(); }
+  bool IsBTagged(int index) const { return jets.at(index).GetIsBTagged(); }
 
   /**
    * Return the jet b-tagging efficiency.
    * @param index The parton index
    * @return The jet b-tagging efficiency.
    */
-  double BTaggingEfficiency(int index) const { return m_jets.at(index).GetBTagEfficiency(); }
+  double BTaggingEfficiency(int index) const { return jets.at(index).GetBTagEfficiency(); }
 
   /**
    * Return the jet b-tagging rejection.
    * @param index The parton index
    * @return The jet b-tagging rejection.
    */
-  double BTaggingRejection(int index) const { return m_jets.at(index).GetBTagRejection(); }
+  double BTaggingRejection(int index) const { return jets.at(index).GetBTagRejection(); }
 
   /**
    * Return the jet b-tagging weight.
    * @param index The parton index
    * @return The jet b-tagging weight.
    */
-  double BTagWeight(int index) const { return m_jets.at(index).GetBTagWeight(); }
+  double BTagWeight(int index) const { return jets.at(index).GetBTagWeight(); }
 
   /**
    * Return the bool of a set tagging weight.
    * @param index The parton index
    * @return The bool of a set tagging weight
    */
-  bool BTagWeightSet(int index) const { return m_jets.at(index).GetBTagWeightIsSet(); }
+  bool BTagWeightSet(int index) const { return jets.at(index).GetBTagWeightIsSet(); }
 
   /**
    * Return the uncertainty of a particle with some index and type.
