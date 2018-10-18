@@ -156,56 +156,6 @@ class ParticleCollection final {
   int NParticles(Particle::Type ptype) const;
 
   /**
-   * Return the name of a particle.
-   * @param index The index of the particle.
-   * @param ptype The type of the particle.
-   * @return The name of the particle.
-   */
-  std::string NameParticle(int index, Particle::Type ptype) const;
-
-  /**
-   * Return the name of a electron.
-   * @param index The index of the electron.
-   * @return The name of the electron.
-   */
-  std::string NameElectron(int index) const;
-
-  /**
-   * Return the name of a muon.
-   * @param index The index of the muon.
-   * @return The name of the muon.
-   */
-  std::string NameMuon(int index) const;
-
-  /**
-   * Return the name of a tau.
-   * @param index The index of the tau.
-   * @return The name of the tau.
-   */
-  std::string NameTau(int index) const;
-
-  /**
-   * Return the name of a boson.
-   * @param index The index of the boson.
-   * @return The name of the boson.
-   */
-  std::string NameBoson(int index) const;
-
-  /**
-   * Return the name of a neutrino.
-   * @param index The index of the neutrino.
-   * @return The name of the neutrino.
-   */
-  std::string NameNeutrino(int index) const;
-
-  /**
-   * Return the name of a photon.
-   * @param index The index of the photon.
-   * @return The name of the photon.
-   */
-  std::string NamePhoton(int index) const;
-
-  /**
    * Return the index of the measured particle.
    * @param index The index of the model particle.
    * @return The index of the measured particle.

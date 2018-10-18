@@ -145,7 +145,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
               particles.AddParticle((*fParticles)->Parton(index),
                                     (*fParticles)->DetEta(index, Particle::Type::kParton),
                                     Particle::Type::kParton,
-                                    (*fParticles)->NameParticle(index, Particle::Type::kParton),
+                                    (*fParticles)->jets.at(index).GetName(),
                                     (*fParticles)->JetIndex(index),
                                     (*fParticles)->IsBTagged(index),
                                     (*fParticles)->BTaggingEfficiency(index),
@@ -169,14 +169,14 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
                                       (*fParticles)->DetEta(index, Particle::Type::kElectron),
                                       (*fParticles)->LeptonCharge(index, Particle::Type::kElectron),
                                       Particle::Type::kElectron,
-                                      (*fParticles)->NameParticle(index, Particle::Type::kElectron),
+                                      (*fParticles)->electrons.at(index).GetName(),
                                       (*fParticles)->ElectronIndex(index));
               } else {
                 // add electron
                 particles.AddParticle((*fParticles)->Electron(index),
                                       (*fParticles)->DetEta(index, Particle::Type::kElectron),
                                       Particle::Type::kElectron,
-                                      (*fParticles)->NameParticle(index, Particle::Type::kElectron),
+                                      (*fParticles)->electrons.at(index).GetName(),
                                       (*fParticles)->ElectronIndex(index));
               }
 
@@ -196,14 +196,14 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
                                       (*fParticles)->DetEta(index, Particle::Type::kMuon),
                                       (*fParticles)->LeptonCharge(index, Particle::Type::kMuon),
                                       Particle::Type::kMuon,
-                                      (*fParticles)->NameParticle(index, Particle::Type::kMuon),
+                                      (*fParticles)->muons.at(index).GetName(),
                                       (*fParticles)->MuonIndex(index));
               } else {
                 // add muon
                 particles.AddParticle((*fParticles)->Muon(index),
                                       (*fParticles)->DetEta(index, Particle::Type::kMuon),
                                       Particle::Type::kMuon,
-                                      (*fParticles)->NameParticle(index, Particle::Type::kMuon),
+                                      (*fParticles)->muons.at(index).GetName(),
                                       (*fParticles)->MuonIndex(index));
               }
 
@@ -220,7 +220,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
               particles.AddParticle((*fParticles)->Photon(index),
                                     (*fParticles)->DetEta(index, Particle::Type::kPhoton),
                                     Particle::Type::kPhoton,
-                                    (*fParticles)->NameParticle(index, Particle::Type::kPhoton),
+                                    (*fParticles)->photons.at(index).GetName(),
                                     (*fParticles)->PhotonIndex(index));
 
               // set permutation
@@ -235,7 +235,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
               // add track
               particles.AddParticle(*(*fParticles)->Track(index),
                                     Particle::Type::kTrack,
-                                    (*fParticles)->NameParticle(index, Particle::Type::kTrack),
+                                    (*fParticles)->tracks.at(index).GetName(),
                                     (*fParticles)->TrackIndex(index),
                                     *((*fParticles)->Uncertainties(index,Particle::Type::kTrack)));
 

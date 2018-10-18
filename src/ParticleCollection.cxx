@@ -448,31 +448,6 @@ int ParticleCollection::NParticles(Particle::Type ptype) const {
 }
 
 // ---------------------------------------------------------
-std::string ParticleCollection::NameParticle(int index, Particle::Type ptype) const {
-  if (ptype == Particle::Type::kParton) {
-    return jets.at(index).GetName();
-  } else if (ptype == Particle::Type::kElectron) {
-    return electrons.at(index).GetName();
-  } else if (ptype == Particle::Type::kMuon) {
-    return muons.at(index).GetName();
-  } else if (ptype == Particle::Type::kPhoton) {
-    return photons.at(index).GetName();
-  } else if (ptype == Particle::Type::kTau) {
-    return taus.at(index).GetName();
-  } else if (ptype == Particle::Type::kNeutrino) {
-    return neutrinos.at(index).GetName();
-  } else if (ptype == Particle::Type::kBoson) {
-    return bosons.at(index).GetName();
-  } else if (ptype == Particle::Type::kTrack) {
-    return tracks.at(index).GetName();
-  }
-
-  // return name
-  std::cout << "KLFitter::ParticleCollection::NameParticle(). Particle type " << static_cast<std::underlying_type<Particle::Type>::type>(ptype) << " does not exist." << std::endl;
-  return "";
-}
-
-// ---------------------------------------------------------
 double ParticleCollection::DetEta(int index, Particle::Type ptype) const {
   if (ptype == Particle::Type::kParton) {
     return jets.at(index).GetDetEta();
