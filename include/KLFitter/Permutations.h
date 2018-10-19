@@ -132,7 +132,7 @@ class Permutations final {
    * @param indexVector Vector of indices.
    * @return An error code.
    */
-  int InvariantParticlePermutations(Particle::Type ptype, std::vector<int> indexVector);
+  int InvariantParticlePermutations(Particles::Type ptype, std::vector<int> indexVector);
 
   /**
    * Remove permutations in which all indices in the vector indexVectorPosition1 are exchanged with the corresponding indices in indexVectorPosition2
@@ -145,7 +145,7 @@ class Permutations final {
    * @param indexVectorPosition2 Vector of corresponding indices for second set of particle.
    * @return An error code.
    */
-  int InvariantParticleGroupPermutations(Particle::Type ptype, std::vector<int> indexVectorPosition1,  std::vector<int> indexVectorPosition2);
+  int InvariantParticleGroupPermutations(Particles::Type ptype, std::vector<int> indexVectorPosition1,  std::vector<int> indexVectorPosition2);
 
   /**
    * Remove permutations in which a certain particles is in a certain position.
@@ -156,7 +156,7 @@ class Permutations final {
    * @param position The position in which it is forbidden.
    * @return An error code.
    */
-  int RemoveParticlePermutations(Particle::Type ptype, int index, int position);
+  int RemoveParticlePermutations(Particles::Type ptype, int index, int position);
 
   /**
    * Reset Permutations.

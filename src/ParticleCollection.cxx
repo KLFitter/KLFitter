@@ -58,49 +58,49 @@ ParticleCollection& ParticleCollection::operator=(const ParticleCollection& o) {
 }
 
 // ---------------------------------------------------------
-int ParticleCollection::AddParticle(const TLorentzVector& particle, double DetEta, float LepCharge, Particle::Type ptype, std::string name, int measuredindex) {
+int ParticleCollection::AddParticle(const TLorentzVector& particle, double DetEta, float LepCharge, Particles::Type ptype, std::string name, int measuredindex) {
   // check name
   if (name == "") name = Form("particle_%i", NParticles());
 
   // get index and type
   TLorentzVector* vect = 0;
   int index = 0;
-  Particle::Type temptype = Particle::Type::kParton;
+  Particles::Type temptype = Particles::Type::kParton;
 
   // check if particle with name exists already
   if (!FindParticle(name, vect, &index, &temptype)) {
-    if (ptype == Particle::Type::kParton) {
-      Particle::Jet jet{name, particle};
+    if (ptype == Particles::Type::kParton) {
+      Particles::Jet jet{name, particle};
       jet.SetIdentifier(measuredindex);
       jet.SetDetEta(DetEta);
       jets.emplace_back(std::move(jet));
-    } else if (ptype == Particle::Type::kElectron) {
-      Particle::Electron electron{name, particle};
+    } else if (ptype == Particles::Type::kElectron) {
+      Particles::Electron electron{name, particle};
       electron.SetIdentifier(measuredindex);
       electron.SetDetEta(DetEta);
       electron.SetCharge(LepCharge);
       electrons.emplace_back(std::move(electron));
-    } else if (ptype == Particle::Type::kMuon) {
-      Particle::Muon muon{name, particle};
+    } else if (ptype == Particles::Type::kMuon) {
+      Particles::Muon muon{name, particle};
       muon.SetIdentifier(measuredindex);
       muon.SetDetEta(DetEta);
       muon.SetCharge(LepCharge);
       muons.emplace_back(std::move(muon));
-    } else if (ptype == Particle::Type::kPhoton) {
-      Particle::Photon photon{name, particle};
+    } else if (ptype == Particles::Type::kPhoton) {
+      Particles::Photon photon{name, particle};
       photon.SetIdentifier(measuredindex);
       photon.SetDetEta(DetEta);
       photons.emplace_back(std::move(photon));
-    } else if (ptype == Particle::Type::kTau) {
+    } else if (ptype == Particles::Type::kTau) {
       taus.emplace_back(name, particle);
-    } else if (ptype == Particle::Type::kNeutrino) {
+    } else if (ptype == Particles::Type::kNeutrino) {
       neutrinos.emplace_back(name, particle);
-    } else if (ptype == Particle::Type::kBoson) {
+    } else if (ptype == Particles::Type::kBoson) {
       bosons.emplace_back(name, particle);
-    } else if (ptype == Particle::Type::kTrack) {
+    } else if (ptype == Particles::Type::kTrack) {
       tracks.emplace_back(name, particle);
     } else {
-      std::cout << "KLFitter::ParticleCollection::AddParticle(). Particle type " << static_cast<std::underlying_type<Particle::Type>::type>(ptype) << " does not exist." << std::endl;
+      std::cout << "KLFitter::ParticleCollection::AddParticle(). Particle type " << static_cast<std::underlying_type<Particles::Type>::type>(ptype) << " does not exist." << std::endl;
       return 0;
     }
   } else {
@@ -109,7 +109,7 @@ int ParticleCollection::AddParticle(const TLorentzVector& particle, double DetEt
   }
 
   if (fabs(particle.P()/particle.E()-1) > 1.e-6 && particle.M() < 0) {  // No Warning if P differs less than 1e-6 from E
-    std::cout << "KLFitter::ParticleCollection::AddParticle(). WARNING : A particle with negative mass " << particle.M() << " of type " << static_cast<std::underlying_type<Particle::Type>::type>(ptype) << " was added." << std::endl;
+    std::cout << "KLFitter::ParticleCollection::AddParticle(). WARNING : A particle with negative mass " << particle.M() << " of type " << static_cast<std::underlying_type<Particles::Type>::type>(ptype) << " was added." << std::endl;
     return 1;
   }
 
@@ -118,58 +118,58 @@ int ParticleCollection::AddParticle(const TLorentzVector& particle, double DetEt
 }
 
 // --------------------------------------------------------- // THIS FUNCTION IS TO BE REMOVED IN THE NEXT MAJOR RELEASE
-int ParticleCollection::AddParticle(const TLorentzVector* const particle, double DetEta, float LepCharge, Particle::Type ptype, std::string name, int measuredindex) {
+int ParticleCollection::AddParticle(const TLorentzVector* const particle, double DetEta, float LepCharge, Particles::Type ptype, std::string name, int measuredindex) {
   return AddParticle(*particle, DetEta, LepCharge, ptype, name, measuredindex);
 }
 
 // ---------------------------------------------------------
-  int ParticleCollection::AddParticle(const TLorentzVector& particle, double DetEta, Particle::Type ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, Particle::JetTrueFlavor trueflav, double btagweight) {
+  int ParticleCollection::AddParticle(const TLorentzVector& particle, double DetEta, Particles::Type ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, Particles::JetTrueFlavor trueflav, double btagweight) {
   // check name
   if (name == "") name = Form("particle_%i", NParticles());
 
   // get index and type
   TLorentzVector* vect = 0;
   int index = 0;
-  Particle::Type temptype = Particle::Type::kParton;
+  Particles::Type temptype = Particles::Type::kParton;
 
   // check if particle with name exists already
   if (!FindParticle(name, vect, &index, &temptype)) {
-    if (ptype == Particle::Type::kParton) {
-      Particle::Jet jet{name, particle, isBtagged};
+    if (ptype == Particles::Type::kParton) {
+      Particles::Jet jet{name, particle, isBtagged};
       jet.SetIdentifier(measuredindex);
       jet.SetDetEta(DetEta);
       jet.SetBTagEfficiency(bTagEff);
       jet.SetBTagRejection(bTagRej);
-      jet.SetTrueFlavor(static_cast<Particle::JetTrueFlavor>(trueflav));
+      jet.SetTrueFlavor(trueflav);
       jet.SetBTagWeight(btagweight);
       jets.emplace_back(std::move(jet));
-    } else if (ptype == Particle::Type::kElectron) {
-      Particle::Electron electron{name, particle};
+    } else if (ptype == Particles::Type::kElectron) {
+      Particles::Electron electron{name, particle};
       electron.SetIdentifier(measuredindex);
       electron.SetDetEta(DetEta);
       electrons.emplace_back(std::move(electron));
-    } else if (ptype == Particle::Type::kMuon) {
-      Particle::Muon muon{name, particle};
+    } else if (ptype == Particles::Type::kMuon) {
+      Particles::Muon muon{name, particle};
       muon.SetIdentifier(measuredindex);
       muon.SetDetEta(DetEta);
       muons.emplace_back(std::move(muon));
-    } else if (ptype == Particle::Type::kPhoton) {
-      Particle::Photon photon{name, particle};
+    } else if (ptype == Particles::Type::kPhoton) {
+      Particles::Photon photon{name, particle};
       photon.SetIdentifier(measuredindex);
       photon.SetDetEta(DetEta);
       photons.emplace_back(std::move(photon));
-    } else if (ptype == Particle::Type::kTau) {
+    } else if (ptype == Particles::Type::kTau) {
       taus.emplace_back(name, particle);
-    } else if (ptype == Particle::Type::kNeutrino) {
+    } else if (ptype == Particles::Type::kNeutrino) {
       neutrinos.emplace_back(name, particle);
-    } else if (ptype == Particle::Type::kBoson) {
+    } else if (ptype == Particles::Type::kBoson) {
       bosons.emplace_back(name, particle);
-    } else if (ptype == Particle::Type::kTrack) {
-      Particle::Track track{name, particle};
+    } else if (ptype == Particles::Type::kTrack) {
+      Particles::Track track{name, particle};
       track.SetIdentifier(measuredindex);
       tracks.emplace_back(std::move(track));
     } else {
-      std::cout << "KLFitter::ParticleCollection::AddParticle(). Particle type " << static_cast<std::underlying_type<Particle::Type>::type>(ptype) << " does not exist." << std::endl;
+      std::cout << "KLFitter::ParticleCollection::AddParticle(). Particle type " << static_cast<std::underlying_type<Particles::Type>::type>(ptype) << " does not exist." << std::endl;
       return 0;
     }
   } else {
@@ -178,7 +178,7 @@ int ParticleCollection::AddParticle(const TLorentzVector* const particle, double
   }
 
   if (fabs(particle.P()/particle.E()-1) > 1.e-6 && particle.M() < 0) {  // No Warning if P differs less than 1e-6 from E
-    std::cout << "KLFitter::ParticleCollection::AddParticle(). WARNING : A particle with negative mass " << particle.M() << " of type " << static_cast<std::underlying_type<Particle::Type>::type>(ptype) << " was added." << std::endl;
+    std::cout << "KLFitter::ParticleCollection::AddParticle(). WARNING : A particle with negative mass " << particle.M() << " of type " << static_cast<std::underlying_type<Particles::Type>::type>(ptype) << " was added." << std::endl;
     return 1;
   }
 
@@ -187,34 +187,34 @@ int ParticleCollection::AddParticle(const TLorentzVector* const particle, double
 }
 
 // --------------------------------------------------------- // THIS FUNCTION IS TO BE REMOVED IN THE NEXT MAJOR RELEASE
-int ParticleCollection::AddParticle(const TLorentzVector* const particle, double DetEta, Particle::Type ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, Particle::JetTrueFlavor trueflav, double btagweight) {
+int ParticleCollection::AddParticle(const TLorentzVector* const particle, double DetEta, Particles::Type ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, Particles::JetTrueFlavor trueflav, double btagweight) {
   return AddParticle(*particle, DetEta, ptype, name, measuredindex, isBtagged, bTagEff, bTagRej, trueflav, btagweight);
 }
 
 // ---------------------------------------------------------
-int ParticleCollection::AddParticle(const TLorentzVector& particle, Particle::Type ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, Particle::JetTrueFlavor trueflav, double btagweight) {
+int ParticleCollection::AddParticle(const TLorentzVector& particle, Particles::Type ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, Particles::JetTrueFlavor trueflav, double btagweight) {
   return AddParticle(particle, -999, ptype, name, measuredindex, isBtagged, bTagEff, bTagRej, trueflav, btagweight);
 }
 
 // --------------------------------------------------------- // THIS FUNCTION IS TO BE REMOVED IN THE NEXT MAJOR RELEASE
-int ParticleCollection::AddParticle(const TLorentzVector* const particle, Particle::Type ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, Particle::JetTrueFlavor trueflav, double btagweight) {
+int ParticleCollection::AddParticle(const TLorentzVector* const particle, Particles::Type ptype, std::string name, int measuredindex, bool isBtagged, double bTagEff, double bTagRej, Particles::JetTrueFlavor trueflav, double btagweight) {
   return AddParticle(*particle, ptype, name, measuredindex, isBtagged, bTagEff, bTagRej, trueflav, btagweight);
 }
 
 // ---------------------------------------------------------
-int ParticleCollection::AddParticle(const TLorentzVector& particle, Particle::Type ptype, std::string name, int measuredindex, Particle::JetTrueFlavor trueflav, double btagweight) {
+int ParticleCollection::AddParticle(const TLorentzVector& particle, Particles::Type ptype, std::string name, int measuredindex, Particles::JetTrueFlavor trueflav, double btagweight) {
   return AddParticle(particle, -999, ptype, name, measuredindex, false, -1., -1., trueflav, btagweight);
 }
 
 // --------------------------------------------------------- // THIS FUNCTION IS TO BE REMOVED IN THE NEXT MAJOR RELEASE
-int ParticleCollection::AddParticle(const TLorentzVector* const particle, Particle::Type ptype, std::string name, int measuredindex, Particle::JetTrueFlavor trueflav, double btagweight) {
+int ParticleCollection::AddParticle(const TLorentzVector* const particle, Particles::Type ptype, std::string name, int measuredindex, Particles::JetTrueFlavor trueflav, double btagweight) {
   return AddParticle(*particle, ptype, name, measuredindex, trueflav, btagweight);
 }
 
 // ---------------------------------------------------------
-int ParticleCollection::AddParticle(const TLorentzVector& particle, Particle::Type ptype, std::string name, int measuredindex, const std::vector<double>& uncertainies) {
-  if (ptype == Particle::Type::kTrack) {
-    Particle::Track track{name, particle};
+int ParticleCollection::AddParticle(const TLorentzVector& particle, Particles::Type ptype, std::string name, int measuredindex, const std::vector<double>& uncertainies) {
+  if (ptype == Particles::Type::kTrack) {
+    Particles::Track track{name, particle};
     track.SetIdentifier(measuredindex);
     track.SetUncertainties(uncertainies);
     tracks.emplace_back(std::move(track));
@@ -226,27 +226,27 @@ int ParticleCollection::AddParticle(const TLorentzVector& particle, Particle::Ty
 }
 
 // ---------------------------------------------------------
-int ParticleCollection::RemoveParticle(int index, Particle::Type ptype) {
-  if (ptype == Particle::Type::kParton) {
+int ParticleCollection::RemoveParticle(int index, Particles::Type ptype) {
+  if (ptype == Particles::Type::kParton) {
     jets.erase(jets.begin() + index);
-  } else if (ptype == Particle::Type::kElectron) {
+  } else if (ptype == Particles::Type::kElectron) {
     electrons.erase(electrons.begin() + index);
-  } else if (ptype == Particle::Type::kMuon) {
+  } else if (ptype == Particles::Type::kMuon) {
     muons.erase(muons.begin() + index);
-  } else if (ptype == Particle::Type::kPhoton) {
+  } else if (ptype == Particles::Type::kPhoton) {
     photons.erase(photons.begin() + index);
-  } else if (ptype == Particle::Type::kTau) {
+  } else if (ptype == Particles::Type::kTau) {
     taus.erase(taus.begin() + index);
-  } else if (ptype == Particle::Type::kNeutrino) {
+  } else if (ptype == Particles::Type::kNeutrino) {
     neutrinos.erase(neutrinos.begin() + index);
-  } else if (ptype == Particle::Type::kBoson) {
+  } else if (ptype == Particles::Type::kBoson) {
     bosons.erase(bosons.begin() + index);
-  } else if (ptype == Particle::Type::kTrack) {
+  } else if (ptype == Particles::Type::kTrack) {
     tracks.erase(tracks.begin() + index);
   }
 
   // no error
-  std::cout << "KLFitter::ParticleCollection::RemoveParticle(). Particle type " << static_cast<std::underlying_type<Particle::Type>::type>(ptype) << " does not exist." << std::endl;
+  std::cout << "KLFitter::ParticleCollection::RemoveParticle(). Particle type " << static_cast<std::underlying_type<Particles::Type>::type>(ptype) << " does not exist." << std::endl;
   return 1;
 }
 
@@ -255,7 +255,7 @@ int ParticleCollection::RemoveParticle(const std::string& name) {
   // get index and type
   TLorentzVector* vect = 0;
   int index = 0;
-  Particle::Type ptype = Particle::Type::kParton;
+  Particles::Type ptype = Particles::Type::kParton;
 
   // remove particle
   if (FindParticle(name, vect, &index, &ptype)) {
@@ -270,7 +270,7 @@ int ParticleCollection::RemoveParticle(const std::string& name) {
 TLorentzVector* ParticleCollection::Particle(const std::string& name) {
   TLorentzVector* particle = 0;
   int index = 0;
-  Particle::Type ptype = Particle::Type::kParton;
+  Particles::Type ptype = Particles::Type::kParton;
 
   // find particle
   if (!FindParticle(name, particle, &index, &ptype)) {
@@ -283,38 +283,38 @@ TLorentzVector* ParticleCollection::Particle(const std::string& name) {
 }
 
 // ---------------------------------------------------------
-TLorentzVector* ParticleCollection::Particle(int index, Particle::Type ptype) {
-  if (ptype == Particle::Type::kParton) {
+TLorentzVector* ParticleCollection::Particle(int index, Particles::Type ptype) {
+  if (ptype == Particles::Type::kParton) {
     return &jets.at(index).GetP4();
-  } else if (ptype == Particle::Type::kElectron) {
+  } else if (ptype == Particles::Type::kElectron) {
     return &electrons.at(index).GetP4();
-  } else if (ptype == Particle::Type::kMuon) {
+  } else if (ptype == Particles::Type::kMuon) {
     return &muons.at(index).GetP4();
-  } else if (ptype == Particle::Type::kPhoton) {
+  } else if (ptype == Particles::Type::kPhoton) {
     return &photons.at(index).GetP4();
-  } else if (ptype == Particle::Type::kTau) {
+  } else if (ptype == Particles::Type::kTau) {
     return &taus.at(index).GetP4();
-  } else if (ptype == Particle::Type::kNeutrino) {
+  } else if (ptype == Particles::Type::kNeutrino) {
     return &neutrinos.at(index).GetP4();
-  } else if (ptype == Particle::Type::kBoson) {
+  } else if (ptype == Particles::Type::kBoson) {
     return &bosons.at(index).GetP4();
-  } else if (ptype == Particle::Type::kTrack) {
+  } else if (ptype == Particles::Type::kTrack) {
     return &tracks.at(index).GetP4();
   }
 
   // Return nullptr
-  std::cout << "KLFitter::ParticleCollection::Particle(). Particle type " << static_cast<std::underlying_type<Particle::Type>::type>(ptype) << " does not exist." << std::endl;
+  std::cout << "KLFitter::ParticleCollection::Particle(). Particle type " << static_cast<std::underlying_type<Particles::Type>::type>(ptype) << " does not exist." << std::endl;
   return nullptr;
 }
 
 // ---------------------------------------------------------
-int ParticleCollection::FindParticle(const std::string& name, TLorentzVector* &particle, int *index, Particle::Type *ptype) {
+int ParticleCollection::FindParticle(const std::string& name, TLorentzVector* &particle, int *index, Particles::Type *ptype) {
   // loop over all jets
   for (auto jet = jets.begin(); jet != jets.end(); ++jet) {
     if (name != jet->GetName()) continue;
     particle = &jet->GetP4();
     *index = jet - jets.begin();
-    *ptype = Particle::Type::kParton;
+    *ptype = Particles::Type::kParton;
     return 1;
   }
 
@@ -323,7 +323,7 @@ int ParticleCollection::FindParticle(const std::string& name, TLorentzVector* &p
     if (name != el->GetName()) continue;
     particle = &el->GetP4();
     *index = el - electrons.begin();
-    *ptype = Particle::Type::kElectron;
+    *ptype = Particles::Type::kElectron;
     return 1;
   }
 
@@ -332,7 +332,7 @@ int ParticleCollection::FindParticle(const std::string& name, TLorentzVector* &p
     if (name != mu->GetName()) continue;
     particle = &mu->GetP4();
     *index = mu - muons.begin();
-    *ptype = Particle::Type::kMuon;
+    *ptype = Particles::Type::kMuon;
     return 1;
   }
 
@@ -341,7 +341,7 @@ int ParticleCollection::FindParticle(const std::string& name, TLorentzVector* &p
     if (name != tau->GetName()) continue;
     particle = &tau->GetP4();
     *index = tau - taus.begin();
-    *ptype = Particle::Type::kTau;
+    *ptype = Particles::Type::kTau;
     return 1;
   }
 
@@ -350,7 +350,7 @@ int ParticleCollection::FindParticle(const std::string& name, TLorentzVector* &p
     if (name != neutrino->GetName()) continue;
     particle = &neutrino->GetP4();
     *index = neutrino - neutrinos.begin();
-    *ptype = Particle::Type::kNeutrino;
+    *ptype = Particles::Type::kNeutrino;
     return 1;
   }
 
@@ -359,7 +359,7 @@ int ParticleCollection::FindParticle(const std::string& name, TLorentzVector* &p
     if (name != boson->GetName()) continue;
     particle = &boson->GetP4();
     *index = boson - bosons.begin();
-    *ptype = Particle::Type::kBoson;
+    *ptype = Particles::Type::kBoson;
     return 1;
   }
 
@@ -368,7 +368,7 @@ int ParticleCollection::FindParticle(const std::string& name, TLorentzVector* &p
     if (name != ph->GetName()) continue;
     particle = &ph->GetP4();
     *index = ph - photons.begin();
-    *ptype = Particle::Type::kPhoton;
+    *ptype = Particles::Type::kPhoton;
     return 1;
   }
 
@@ -377,7 +377,7 @@ int ParticleCollection::FindParticle(const std::string& name, TLorentzVector* &p
     if (name != track->GetName()) continue;
     particle = &track->GetP4();
     *index = track - tracks.begin();
-    *ptype = Particle::Type::kTrack;
+    *ptype = Particles::Type::kTrack;
     return 1;
   }
 
@@ -426,22 +426,22 @@ TLorentzVector* ParticleCollection::Track(int index) {
 }
 
 // ---------------------------------------------------------
-int ParticleCollection::NParticles(Particle::Type ptype) const {
-  if (ptype == Particle::Type::kParton) {
+int ParticleCollection::NParticles(Particles::Type ptype) const {
+  if (ptype == Particles::Type::kParton) {
     return static_cast<int>(jets.size());
-  } else if (ptype == Particle::Type::kElectron) {
+  } else if (ptype == Particles::Type::kElectron) {
     return static_cast<int>(electrons.size());
-  } else if (ptype == Particle::Type::kMuon) {
+  } else if (ptype == Particles::Type::kMuon) {
     return static_cast<int>(muons.size());
-  } else if (ptype == Particle::Type::kPhoton) {
+  } else if (ptype == Particles::Type::kPhoton) {
     return static_cast<int>(photons.size());
-  } else if (ptype == Particle::Type::kTau) {
+  } else if (ptype == Particles::Type::kTau) {
     return static_cast<int>(taus.size());
-  } else if (ptype == Particle::Type::kNeutrino) {
+  } else if (ptype == Particles::Type::kNeutrino) {
     return static_cast<int>(neutrinos.size());
-  } else if (ptype == Particle::Type::kBoson) {
+  } else if (ptype == Particles::Type::kBoson) {
     return static_cast<int>(bosons.size());
-  } else if (ptype == Particle::Type::kTrack) {
+  } else if (ptype == Particles::Type::kTrack) {
     return static_cast<int>(tracks.size());
   }
   return 0;

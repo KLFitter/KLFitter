@@ -17,27 +17,27 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KLFITTER_TEST_PARTICLES_BOSON_H_
-#define KLFITTER_TEST_PARTICLES_BOSON_H_
+#ifndef KLFITTER_TEST_PARTICLES_PHOTON_H_
+#define KLFITTER_TEST_PARTICLES_PHOTON_H_
 
 #include "gtest/gtest.h"
 
-#include "KLFitter/Particle/Boson.h"
+#include "KLFitter/Particles/Photon.h"
 
-TEST(TestParticleBoson, GetName) {
-  KLFitter::Particle::Boson e{"test_name", TLorentzVector{}};
+TEST(TestParticlePhoton, GetName) {
+  KLFitter::Particles::Photon e{"test_name", TLorentzVector{}};
   EXPECT_EQ("test_name", e.GetName());
 }
 
-TEST(TestParticleBoson, ConstructAndGetFourVector) {
+TEST(TestParticlePhoton, ConstructAndGetFourVector) {
   TLorentzVector p4{15, 23.4, 27, 3};
 
   // Test whether four vector is correctly stored at construction.
-  KLFitter::Particle::Boson e{"test_name", p4};
+  KLFitter::Particles::Photon e{"test_name", p4};
   EXPECT_EQ(p4, e.GetP4());
   EXPECT_FLOAT_EQ(23.4, e.GetP4().Y());
 
-  // Now test whether Boson::SetP4() works.
+  // Now test whether Photon::SetP4() works.
   p4.SetX(17.342);
   p4.SetY(12.232);
   e.SetP4(p4);
@@ -45,8 +45,8 @@ TEST(TestParticleBoson, ConstructAndGetFourVector) {
   EXPECT_FLOAT_EQ(12.232, e.GetP4().Y());
 }
 
-TEST(TestParticleBoson, SetAndGetIdentifier) {
-  KLFitter::Particle::Boson e{"", TLorentzVector{}};
+TEST(TestParticlePhoton, SetAndGetIdentifier) {
+  KLFitter::Particles::Photon e{"", TLorentzVector{}};
   unsigned int id = 25;
   e.SetIdentifier(id);
   EXPECT_EQ(id, e.GetIdentifier());
@@ -55,4 +55,11 @@ TEST(TestParticleBoson, SetAndGetIdentifier) {
   EXPECT_EQ(id, e.GetIdentifier());
 }
 
-#endif  // KLFITTER_TEST_PARTICLES_BOSON_H_
+TEST(TestParticlePhoton, SetAndGetDetEta) {
+  KLFitter::Particles::Photon e{"", TLorentzVector{}};
+  double eta = 23.523;
+  e.SetDetEta(eta);
+  EXPECT_EQ(eta, e.GetDetEta());
+}
+
+#endif  // KLFITTER_TEST_PARTICLES_PHOTON_H_

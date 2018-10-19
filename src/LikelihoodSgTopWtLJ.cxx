@@ -113,27 +113,27 @@ int KLFitter::LikelihoodSgTopWtLJ::DefineModelParticles() {
   // create dummy TLorentzVector
   TLorentzVector dummy{0, 0, 0, 0};  // 4-vector
 
-  fParticlesModel->AddParticle(&dummy, Particle::Type::kParton,  "b quark", 0, Particle::JetTrueFlavor::kB);
+  fParticlesModel->AddParticle(&dummy, Particles::Type::kParton,  "b quark", 0, Particles::JetTrueFlavor::kB);
 
-  fParticlesModel->AddParticle(&dummy, Particle::Type::kParton, "light quark 1", 1, Particle::JetTrueFlavor::kLight);
+  fParticlesModel->AddParticle(&dummy, Particles::Type::kParton, "light quark 1", 1, Particles::JetTrueFlavor::kLight);
 
-  fParticlesModel->AddParticle(&dummy, Particle::Type::kParton, "light quark 2", 2, Particle::JetTrueFlavor::kLight);
+  fParticlesModel->AddParticle(&dummy, Particles::Type::kParton, "light quark 2", 2, Particles::JetTrueFlavor::kLight);
 
   if (fTypeLepton == kElectron) {
-    fParticlesModel->AddParticle(&dummy, Particle::Type::kElectron, "electron");
+    fParticlesModel->AddParticle(&dummy, Particles::Type::kElectron, "electron");
   } else if (fTypeLepton == kMuon) {
-    fParticlesModel->AddParticle(&dummy, Particle::Type::kMuon, "muon");
+    fParticlesModel->AddParticle(&dummy, Particles::Type::kMuon, "muon");
   }
 
-  fParticlesModel->AddParticle(&dummy, Particle::Type::kNeutrino, "neutrino");
+  fParticlesModel->AddParticle(&dummy, Particles::Type::kNeutrino, "neutrino");
 
-  fParticlesModel->AddParticle(&dummy, Particle::Type::kBoson, "hadronic W");
+  fParticlesModel->AddParticle(&dummy, Particles::Type::kBoson, "hadronic W");
 
-  fParticlesModel->AddParticle(&dummy, Particle::Type::kBoson, "leptonic W");
+  fParticlesModel->AddParticle(&dummy, Particles::Type::kBoson, "leptonic W");
 
-  fParticlesModel->AddParticle(&dummy, Particle::Type::kParton, "hadronic top");
+  fParticlesModel->AddParticle(&dummy, Particles::Type::kParton, "hadronic top");
 
-  fParticlesModel->AddParticle(&dummy, Particle::Type::kParton, "leptonic top");
+  fParticlesModel->AddParticle(&dummy, Particles::Type::kParton, "leptonic top");
 
   // no error
   return 1;
@@ -271,7 +271,7 @@ int KLFitter::LikelihoodSgTopWtLJ::RemoveInvariantParticlePermutations() {
   int err = 1;
 
   // remove the permutation from the first and the second jet
-  Particle::Type ptype = Particle::Type::kParton;
+  Particles::Type ptype = Particles::Type::kParton;
   std::vector<int> indexVector_Jets;
   indexVector_Jets.push_back(1);
   indexVector_Jets.push_back(2);

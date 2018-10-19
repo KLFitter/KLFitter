@@ -28,9 +28,9 @@ namespace KLFitter {
 /**
  * Namespace within the KLFitter namespace that holds classes for
  * various types of particles. The purely virtual class
- * Particle::Base is the parent class of all others.
+ * Particles::Base is the parent class of all others.
  */
-namespace Particle {
+namespace Particles {
 /// An enumerator class for the particle type.
 enum class Type {kParton,    ///< Particle type parton
                  kElectron,  ///< Particle type electron

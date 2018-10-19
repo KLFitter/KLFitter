@@ -84,15 +84,15 @@ int LikelihoodTwoTracks::DefineModelParticles() {
   std::vector<double> moredummy{};
 
   fParticlesModel->AddParticle(dummy,
-                               Particle::Type::kBoson,
+                               Particles::Type::kBoson,
                                "Kshort", -1, moredummy);
 
   fParticlesModel->AddParticle(dummy,
-                               Particle::Type::kTrack,
+                               Particles::Type::kTrack,
                                "pi plus", 0, moredummy);
 
   fParticlesModel->AddParticle(dummy,
-                               Particle::Type::kTrack,
+                               Particles::Type::kTrack,
                                "pi minus", 1, moredummy);
 
   // no error
@@ -159,7 +159,7 @@ int LikelihoodTwoTracks::RemoveInvariantParticlePermutations() {
   int err = 1;
 
   // remove the permutation from the second and the third jet
-  Particle::Type ptype = Particle::Type::kTrack;
+  Particles::Type ptype = Particles::Type::kTrack;
   std::vector<int> indexVector_Tracks;
   indexVector_Tracks.push_back(0);
   indexVector_Tracks.push_back(1);

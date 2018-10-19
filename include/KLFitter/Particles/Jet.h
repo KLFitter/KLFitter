@@ -20,10 +20,10 @@
 #ifndef KLFITTER_PARTICLES_JET_H_
 #define KLFITTER_PARTICLES_JET_H_
 
-#include "KLFitter/Particle/Base.h"
+#include "KLFitter/Particles/Base.h"
 
 namespace KLFitter {
-namespace Particle {
+namespace Particles {
 /// An enumerator class for the true jet flavor.
 enum class JetTrueFlavor {kLight,     ///< Light quark
                           kB,         ///< B-quark
@@ -34,7 +34,7 @@ enum class JetTrueFlavor {kLight,     ///< Light quark
 
 /**
  * Implementation of a jet class. This inherits a generic
- * structure from Particle::Base, reimplements all purely virtual
+ * structure from Particles::Base, reimplements all purely virtual
  * functions and adds functionality specific to jets.
  */
 class Jet : public Base {

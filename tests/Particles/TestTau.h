@@ -17,27 +17,27 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KLFITTER_TEST_PARTICLES_PHOTON_H_
-#define KLFITTER_TEST_PARTICLES_PHOTON_H_
+#ifndef KLFITTER_TEST_PARTICLES_TAU_H_
+#define KLFITTER_TEST_PARTICLES_TAU_H_
 
 #include "gtest/gtest.h"
 
-#include "KLFitter/Particle/Photon.h"
+#include "KLFitter/Particles/Tau.h"
 
-TEST(TestParticlePhoton, GetName) {
-  KLFitter::Particle::Photon e{"test_name", TLorentzVector{}};
+TEST(TestParticleTau, GetName) {
+  KLFitter::Particles::Tau e{"test_name", TLorentzVector{}};
   EXPECT_EQ("test_name", e.GetName());
 }
 
-TEST(TestParticlePhoton, ConstructAndGetFourVector) {
+TEST(TestParticleTau, ConstructAndGetFourVector) {
   TLorentzVector p4{15, 23.4, 27, 3};
 
   // Test whether four vector is correctly stored at construction.
-  KLFitter::Particle::Photon e{"test_name", p4};
+  KLFitter::Particles::Tau e{"test_name", p4};
   EXPECT_EQ(p4, e.GetP4());
   EXPECT_FLOAT_EQ(23.4, e.GetP4().Y());
 
-  // Now test whether Photon::SetP4() works.
+  // Now test whether Tau::SetP4() works.
   p4.SetX(17.342);
   p4.SetY(12.232);
   e.SetP4(p4);
@@ -45,8 +45,8 @@ TEST(TestParticlePhoton, ConstructAndGetFourVector) {
   EXPECT_FLOAT_EQ(12.232, e.GetP4().Y());
 }
 
-TEST(TestParticlePhoton, SetAndGetIdentifier) {
-  KLFitter::Particle::Photon e{"", TLorentzVector{}};
+TEST(TestParticleTau, SetAndGetIdentifier) {
+  KLFitter::Particles::Tau e{"", TLorentzVector{}};
   unsigned int id = 25;
   e.SetIdentifier(id);
   EXPECT_EQ(id, e.GetIdentifier());
@@ -55,11 +55,4 @@ TEST(TestParticlePhoton, SetAndGetIdentifier) {
   EXPECT_EQ(id, e.GetIdentifier());
 }
 
-TEST(TestParticlePhoton, SetAndGetDetEta) {
-  KLFitter::Particle::Photon e{"", TLorentzVector{}};
-  double eta = 23.523;
-  e.SetDetEta(eta);
-  EXPECT_EQ(eta, e.GetDetEta());
-}
-
-#endif  // KLFITTER_TEST_PARTICLES_PHOTON_H_
+#endif  // KLFITTER_TEST_PARTICLES_TAU_H_

@@ -56,55 +56,55 @@ int KLFitter::LikelihoodTopAllHadronic::DefineModelParticles() {
   // create dummy TLorentzVector
   TLorentzVector dummy{0, 0, 0, 0};  // 4-vector
   fParticlesModel->AddParticle(&dummy,
-                               Particle::Type::kParton,  // type
+                               Particles::Type::kParton,  // type
                                "hadronic b quark 1",          // name
                                0,                             // index of corresponding particle
-                               Particle::JetTrueFlavor::kB);      // b jet (truth)
+                               Particles::JetTrueFlavor::kB);      // b jet (truth)
 
   fParticlesModel->AddParticle(&dummy,
-                               Particle::Type::kParton,
+                               Particles::Type::kParton,
                                "hadronic b quark 2",
                                1,                             // index of corresponding particle
-                               Particle::JetTrueFlavor::kB);      // b jet (truth)
+                               Particles::JetTrueFlavor::kB);      // b jet (truth)
 
   fParticlesModel->AddParticle(&dummy,
-                               Particle::Type::kParton,
+                               Particles::Type::kParton,
                                "light quark 1",
                                2,                             // index of corresponding particle
-                               Particle::JetTrueFlavor::kLight);  // light jet (truth)
+                               Particles::JetTrueFlavor::kLight);  // light jet (truth)
 
   fParticlesModel->AddParticle(&dummy,
-                               Particle::Type::kParton,
+                               Particles::Type::kParton,
                                "light quark 2",
                                3,                             // index of corresponding particle
-                               Particle::JetTrueFlavor::kLight);  // light jet (truth)
+                               Particles::JetTrueFlavor::kLight);  // light jet (truth)
 
   fParticlesModel->AddParticle(&dummy,
-                               Particle::Type::kParton,
+                               Particles::Type::kParton,
                                "light quark 3",
                                4,                             // index of corresponding particle
-                               Particle::JetTrueFlavor::kLight);  // light jet (truth)
+                               Particles::JetTrueFlavor::kLight);  // light jet (truth)
 
   fParticlesModel->AddParticle(&dummy,
-                               Particle::Type::kParton,
+                               Particles::Type::kParton,
                                "light quark 4",
                                5,                             // index of corresponding particle
-                               Particle::JetTrueFlavor::kLight);  // light jet (truth)
+                               Particles::JetTrueFlavor::kLight);  // light jet (truth)
 
   fParticlesModel->AddParticle(&dummy,
-                               Particle::Type::kBoson,
+                               Particles::Type::kBoson,
                                "hadronic W 1");
 
   fParticlesModel->AddParticle(&dummy,
-                               Particle::Type::kBoson,
+                               Particles::Type::kBoson,
                                "hadronic W 2");
 
   fParticlesModel->AddParticle(&dummy,
-                               Particle::Type::kParton,
+                               Particles::Type::kParton,
                                "hadronic top 1");
 
   fParticlesModel->AddParticle(&dummy,
-                               Particle::Type::kParton,
+                               Particles::Type::kParton,
                                "hadronic top 2");
 
   // no error
@@ -223,7 +223,7 @@ int KLFitter::LikelihoodTopAllHadronic::RemoveInvariantParticlePermutations() {
   int err = 1;
 
   // remove the permutation from the second and the third jet
-  Particle::Type ptype = Particle::Type::kParton;
+  Particles::Type ptype = Particles::Type::kParton;
   std::vector<int> indexVector_Jets;
   indexVector_Jets.push_back(2);
   indexVector_Jets.push_back(3);

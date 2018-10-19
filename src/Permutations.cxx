@@ -144,7 +144,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
               // add parton
               particles.AddParticle((*fParticles)->Parton(index),
                                     (*fParticles)->jets.at(index).GetDetEta(),
-                                    Particle::Type::kParton,
+                                    Particles::Type::kParton,
                                     (*fParticles)->jets.at(index).GetName(),
                                     (*fParticles)->jets.at(index).GetIdentifier(),
                                     (*fParticles)->jets.at(index).GetIsBTagged(),
@@ -168,14 +168,14 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
                 particles.AddParticle((*fParticles)->Electron(index),
                                       (*fParticles)->electrons.at(index).GetDetEta(),
                                       (*fParticles)->electrons.at(index).GetCharge(),
-                                      Particle::Type::kElectron,
+                                      Particles::Type::kElectron,
                                       (*fParticles)->electrons.at(index).GetName(),
                                       (*fParticles)->electrons.at(index).GetIdentifier());
               } else {
                 // add electron
                 particles.AddParticle((*fParticles)->Electron(index),
                                       (*fParticles)->electrons.at(index).GetDetEta(),
-                                      Particle::Type::kElectron,
+                                      Particles::Type::kElectron,
                                       (*fParticles)->electrons.at(index).GetName(),
                                       (*fParticles)->electrons.at(index).GetIdentifier());
               }
@@ -195,14 +195,14 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
                 particles.AddParticle((*fParticles)->Muon(index),
                                       (*fParticles)->muons.at(index).GetDetEta(),
                                       (*fParticles)->muons.at(index).GetCharge(),
-                                      Particle::Type::kMuon,
+                                      Particles::Type::kMuon,
                                       (*fParticles)->muons.at(index).GetName(),
                                       (*fParticles)->muons.at(index).GetIdentifier());
               } else {
                 // add muon
                 particles.AddParticle((*fParticles)->Muon(index),
                                       (*fParticles)->muons.at(index).GetDetEta(),
-                                      Particle::Type::kMuon,
+                                      Particles::Type::kMuon,
                                       (*fParticles)->muons.at(index).GetName(),
                                       (*fParticles)->muons.at(index).GetIdentifier());
               }
@@ -219,7 +219,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
               // add photon
               particles.AddParticle((*fParticles)->Photon(index),
                                     (*fParticles)->photons.at(index).GetDetEta(),
-                                    Particle::Type::kPhoton,
+                                    Particles::Type::kPhoton,
                                     (*fParticles)->photons.at(index).GetName(),
                                     (*fParticles)->photons.at(index).GetIdentifier());
 
@@ -234,7 +234,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
 
               // add track
               particles.AddParticle(*(*fParticles)->Track(index),
-                                    Particle::Type::kTrack,
+                                    Particles::Type::kTrack,
                                     (*fParticles)->tracks.at(index).GetName(),
                                     (*fParticles)->tracks.at(index).GetIdentifier(),
                                     (*fParticles)->tracks.at(index).GetUncertainties());
@@ -296,7 +296,7 @@ int KLFitter::Permutations::CreateSubTable(int Nobj, std::vector<std::vector<int
 }
 
 // ---------------------------------------------------------
-int KLFitter::Permutations::InvariantParticlePermutations(Particle::Type ptype, std::vector<int> indexVector) {
+int KLFitter::Permutations::InvariantParticlePermutations(Particles::Type ptype, std::vector<int> indexVector) {
   // check if particles are defined
   if (!CheckParticles())
     return 0;
@@ -337,7 +337,7 @@ int KLFitter::Permutations::InvariantParticlePermutations(Particle::Type ptype, 
 
     for (int iperm = nperm-1; iperm >= 0; --iperm) {
       int offset = 0;
-      for (Particle::Type itype = Particle::Type::kParton; itype < ptype; ++itype)
+      for (Particles::Type itype = Particles::Type::kParton; itype < ptype; ++itype)
         offset += (*fParticles)->NParticles(itype);
       int index1 = indexVector[0] + offset;
       int index2 = indexVector[1] + offset;
@@ -372,7 +372,7 @@ int KLFitter::Permutations::InvariantParticlePermutations(Particle::Type ptype, 
 }
 
 // ---------------------------------------------------------
-int KLFitter::Permutations::InvariantParticleGroupPermutations(Particle::Type ptype, std::vector<int> indexVectorPosition1,  std::vector<int> indexVectorPosition2) {
+int KLFitter::Permutations::InvariantParticleGroupPermutations(Particles::Type ptype, std::vector<int> indexVectorPosition1,  std::vector<int> indexVectorPosition2) {
   // check if particles are defined
   if (!CheckParticles())
     return 0;
@@ -431,7 +431,7 @@ int KLFitter::Permutations::InvariantParticleGroupPermutations(Particle::Type pt
 
   for (int iperm1 = nperm-1; iperm1 >= 1; --iperm1) {
     int offset = 0;
-    for (Particle::Type itype = Particle::Type::kParton; itype < ptype; ++itype)
+    for (Particles::Type itype = Particles::Type::kParton; itype < ptype; ++itype)
       offset += (*fParticles)->NParticles(itype);
 
     // get permutation
@@ -466,7 +466,7 @@ int KLFitter::Permutations::InvariantParticleGroupPermutations(Particle::Type pt
 }
 
 // ---------------------------------------------------------
-int KLFitter::Permutations::RemoveParticlePermutations(Particle::Type ptype, int index, int position) {
+int KLFitter::Permutations::RemoveParticlePermutations(Particles::Type ptype, int index, int position) {
   // check if particles are defined
   if (!CheckParticles())
     return 0;
@@ -479,7 +479,7 @@ int KLFitter::Permutations::RemoveParticlePermutations(Particle::Type ptype, int
 
   // get offset for the particle type
   int offset = 0;
-  for (Particle::Type itype = Particle::Type::kParton; itype < ptype; ++itype)
+  for (Particles::Type itype = Particles::Type::kParton; itype < ptype; ++itype)
     offset += (*fParticles)->NParticles(itype);
   position += offset;
 

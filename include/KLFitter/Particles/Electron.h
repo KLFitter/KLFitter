@@ -17,39 +17,39 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KLFITTER_PARTICLES_BOSON_H_
-#define KLFITTER_PARTICLES_BOSON_H_
+#ifndef KLFITTER_PARTICLES_ELECTRON_H_
+#define KLFITTER_PARTICLES_ELECTRON_H_
 
-#include "KLFitter/Particle/Base.h"
+#include "KLFitter/Particles/Base.h"
 
 namespace KLFitter {
-namespace Particle {
+namespace Particles {
 /**
- * Implementation of a boson class. This inherits a generic
- * structure from Particle::Base, reimplements all purely virtual
- * functions and adds functionality specific to bosons.
+ * Implementation of an electron class. This inherits a generic
+ * structure from Particles::Base, reimplements all purely virtual
+ * functions and adds functionality specific to electrons.
  */
-class Boson : public Base {
+class Electron : public Base {
  public:
   /**
-   * Boson constructor taking name and four momentum.
+   * Electron constructor taking name and four momentum.
    * @param name The name of the particle
    * @param p4 The four momentum
    */
-  Boson(const std::string& name, const TLorentzVector& p4)
+  Electron(const std::string& name, const TLorentzVector& p4)
     : m_name(name)
     , m_p4(p4) {
     // empty
   }
 
   /// The (defaulted) destructor.
-  ~Boson() = default;
+  ~Electron() = default;
 
   /// The (defaulted) copy constructor.
-  Boson(const Boson&) = default;
+  Electron(const Electron&) = default;
 
   /// The (defaulted) assignment operator.
-  Boson& operator=(const Boson&) = default;
+  Electron& operator=(const Electron&) = default;
 
   /** \name Inherited, reimplemented methods */
   /** @{ */
@@ -73,6 +73,26 @@ class Boson : public Base {
   void SetP4(const TLorentzVector& p4) override { m_p4 = p4; }
 
   /** @} */
+  /** \name Get methods */
+  /** @{ */
+
+  /// Get the detector eta.
+  double GetDetEta() const { return m_det_eta; }
+
+  /// Get the electric charge.
+  float GetCharge() const { return m_charge; }
+
+  /** @} */
+  /** \name Set methods */
+  /** @{ */
+
+  /// Set the detector eta.
+  void SetDetEta(double val) { m_det_eta = val; }
+
+  /// Set the electric charge.
+  void SetCharge(float charge) { m_charge = charge; }
+
+  /** @} */
 
  private:
   /// String with the name of the particle.
@@ -83,8 +103,11 @@ class Boson : public Base {
 
   /// Four vector of the particle.
   TLorentzVector m_p4;
+
+  double m_det_eta{0.};
+  float m_charge{0.};
 };
 }  // namespace Particles
 }  // namespace KLFitter
 
-#endif  // KLFITTER_PARTICLES_BOSON_H_
+#endif  // KLFITTER_PARTICLES_ELECTRON_H_

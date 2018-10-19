@@ -20,13 +20,13 @@
 #ifndef KLFITTER_PARTICLES_MUON_H_
 #define KLFITTER_PARTICLES_MUON_H_
 
-#include "KLFitter/Particle/Base.h"
+#include "KLFitter/Particles/Base.h"
 
 namespace KLFitter {
-namespace Particle {
+namespace Particles {
 /**
  * Implementation of a muon class. This inherits a generic
- * structure from Particle::Base, reimplements all purely virtual
+ * structure from Particles::Base, reimplements all purely virtual
  * functions and adds functionality specific to muons.
  */
 class Muon : public Base {

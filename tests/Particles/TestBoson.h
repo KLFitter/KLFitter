@@ -17,27 +17,27 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KLFITTER_TEST_PARTICLES_TRACK_H_
-#define KLFITTER_TEST_PARTICLES_TRACK_H_
+#ifndef KLFITTER_TEST_PARTICLES_BOSON_H_
+#define KLFITTER_TEST_PARTICLES_BOSON_H_
 
 #include "gtest/gtest.h"
 
-#include "KLFitter/Particle/Track.h"
+#include "KLFitter/Particles/Boson.h"
 
-TEST(TestParticleTrack, GetName) {
-  KLFitter::Particle::Track e{"test_name", TLorentzVector{}};
+TEST(TestParticleBoson, GetName) {
+  KLFitter::Particles::Boson e{"test_name", TLorentzVector{}};
   EXPECT_EQ("test_name", e.GetName());
 }
 
-TEST(TestParticleTrack, ConstructAndGetFourVector) {
+TEST(TestParticleBoson, ConstructAndGetFourVector) {
   TLorentzVector p4{15, 23.4, 27, 3};
 
   // Test whether four vector is correctly stored at construction.
-  KLFitter::Particle::Track e{"test_name", p4};
+  KLFitter::Particles::Boson e{"test_name", p4};
   EXPECT_EQ(p4, e.GetP4());
   EXPECT_FLOAT_EQ(23.4, e.GetP4().Y());
 
-  // Now test whether Track::SetP4() works.
+  // Now test whether Boson::SetP4() works.
   p4.SetX(17.342);
   p4.SetY(12.232);
   e.SetP4(p4);
@@ -45,8 +45,8 @@ TEST(TestParticleTrack, ConstructAndGetFourVector) {
   EXPECT_FLOAT_EQ(12.232, e.GetP4().Y());
 }
 
-TEST(TestParticleTrack, SetAndGetIdentifier) {
-  KLFitter::Particle::Track e{"", TLorentzVector{}};
+TEST(TestParticleBoson, SetAndGetIdentifier) {
+  KLFitter::Particles::Boson e{"", TLorentzVector{}};
   unsigned int id = 25;
   e.SetIdentifier(id);
   EXPECT_EQ(id, e.GetIdentifier());
@@ -55,14 +55,4 @@ TEST(TestParticleTrack, SetAndGetIdentifier) {
   EXPECT_EQ(id, e.GetIdentifier());
 }
 
-TEST(TestParticleTrack, SetAndGetUncertainties) {
-  KLFitter::Particle::Track e{"", TLorentzVector{}};
-  std::vector<double> uncertainties{};
-  uncertainties.emplace_back(25.3);
-  uncertainties.emplace_back(12.7);
-  e.SetUncertainties(uncertainties);
-  EXPECT_EQ(uncertainties, e.GetUncertainties());
-  EXPECT_DOUBLE_EQ(25.3, e.GetUncertainties().at(0));
-}
-
-#endif  // KLFITTER_TEST_PARTICLES_TRACK_H_
+#endif  // KLFITTER_TEST_PARTICLES_BOSON_H_

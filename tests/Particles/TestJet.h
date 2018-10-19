@@ -22,10 +22,10 @@
 
 #include "gtest/gtest.h"
 
-#include "KLFitter/Particle/Jet.h"
+#include "KLFitter/Particles/Jet.h"
 
 TEST(TestParticleJet, GetName) {
-  KLFitter::Particle::Jet e{"test_name", TLorentzVector{}};
+  KLFitter::Particles::Jet e{"test_name", TLorentzVector{}};
   EXPECT_EQ("test_name", e.GetName());
 }
 
@@ -33,7 +33,7 @@ TEST(TestParticleJet, ConstructAndGetFourVector) {
   TLorentzVector p4{15, 23.4, 27, 3};
 
   // Test whether four vector is correctly stored at construction.
-  KLFitter::Particle::Jet e{"test_name", p4};
+  KLFitter::Particles::Jet e{"test_name", p4};
   EXPECT_EQ(p4, e.GetP4());
   EXPECT_FLOAT_EQ(23.4, e.GetP4().Y());
 
@@ -46,7 +46,7 @@ TEST(TestParticleJet, ConstructAndGetFourVector) {
 }
 
 TEST(TestParticleJet, SetAndGetIdentifier) {
-  KLFitter::Particle::Jet e{"", TLorentzVector{}};
+  KLFitter::Particles::Jet e{"", TLorentzVector{}};
   unsigned int id = 25;
   e.SetIdentifier(id);
   EXPECT_EQ(id, e.GetIdentifier());
@@ -56,28 +56,28 @@ TEST(TestParticleJet, SetAndGetIdentifier) {
 }
 
 TEST(TestParticleJet, SetAndGetDetEta) {
-  KLFitter::Particle::Jet e{"", TLorentzVector{}};
+  KLFitter::Particles::Jet e{"", TLorentzVector{}};
   double eta = 23.523;
   e.SetDetEta(eta);
   EXPECT_EQ(eta, e.GetDetEta());
 }
 
 TEST(TestParticleJet, SetAndGetBTagEfficiency) {
-  KLFitter::Particle::Jet e{"", TLorentzVector{}};
+  KLFitter::Particles::Jet e{"", TLorentzVector{}};
   double eff = 82.363;
   e.SetBTagEfficiency(eff);
   EXPECT_DOUBLE_EQ(eff, e.GetBTagEfficiency());
 }
 
 TEST(TestParticleJet, SetAndGetBTagRejection) {
-  KLFitter::Particle::Jet e{"", TLorentzVector{}};
+  KLFitter::Particles::Jet e{"", TLorentzVector{}};
   double eff = 12.363;
   e.SetBTagRejection(eff);
   EXPECT_DOUBLE_EQ(eff, e.GetBTagRejection());
 }
 
 TEST(TestParticleJet, SetAndGetBTagWeight) {
-  KLFitter::Particle::Jet e{"", TLorentzVector{}};
+  KLFitter::Particles::Jet e{"", TLorentzVector{}};
   EXPECT_EQ(false, e.GetBTagWeightIsSet());
   double weight = -.3921;
   e.SetBTagWeight(weight);
@@ -86,7 +86,7 @@ TEST(TestParticleJet, SetAndGetBTagWeight) {
 }
 
 TEST(TestParticleJet, SetAndGetBTagWeightIsSet) {
-  KLFitter::Particle::Jet e{"", TLorentzVector{}};
+  KLFitter::Particles::Jet e{"", TLorentzVector{}};
   EXPECT_EQ(false, e.GetBTagWeightIsSet());
   e.SetBTagWeightIsSet(true);
   EXPECT_EQ(true, e.GetBTagWeightIsSet());
@@ -95,7 +95,7 @@ TEST(TestParticleJet, SetAndGetBTagWeightIsSet) {
 }
 
 TEST(TestParticleJet, SetAndGetIsBTagged) {
-  KLFitter::Particle::Jet e{"", TLorentzVector{}};
+  KLFitter::Particles::Jet e{"", TLorentzVector{}};
   EXPECT_EQ(false, e.GetIsBTagged());
   e.SetIsBTagged(true);
   EXPECT_EQ(true, e.GetIsBTagged());
@@ -104,12 +104,12 @@ TEST(TestParticleJet, SetAndGetIsBTagged) {
 }
 
 TEST(TestParticleJet, SetAndGetTrueFlavor) {
-  KLFitter::Particle::Jet e{"", TLorentzVector{}};
-  EXPECT_EQ(KLFitter::Particle::JetTrueFlavor::kNone, e.GetTrueFlavor());
-  e.SetTrueFlavor(KLFitter::Particle::JetTrueFlavor::kB);
-  EXPECT_EQ(KLFitter::Particle::JetTrueFlavor::kB, e.GetTrueFlavor());
-  e.SetTrueFlavor(KLFitter::Particle::JetTrueFlavor::kLight);
-  EXPECT_EQ(KLFitter::Particle::JetTrueFlavor::kLight, e.GetTrueFlavor());
+  KLFitter::Particles::Jet e{"", TLorentzVector{}};
+  EXPECT_EQ(KLFitter::Particles::JetTrueFlavor::kNone, e.GetTrueFlavor());
+  e.SetTrueFlavor(KLFitter::Particles::JetTrueFlavor::kB);
+  EXPECT_EQ(KLFitter::Particles::JetTrueFlavor::kB, e.GetTrueFlavor());
+  e.SetTrueFlavor(KLFitter::Particles::JetTrueFlavor::kLight);
+  EXPECT_EQ(KLFitter::Particles::JetTrueFlavor::kLight, e.GetTrueFlavor());
 }
 
 #endif  // KLFITTER_TEST_PARTICLES_JET_H_

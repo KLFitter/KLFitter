@@ -138,38 +138,38 @@ int KLFitter::LikelihoodTopDilepton::DefineModelParticles() {
   // create dummy TLorentzVector
   TLorentzVector dummy{0, 0, 0, 0};  // 4-vector
   fParticlesModel->AddParticle(&dummy,
-                               Particle::Type::kParton,  // type
+                               Particles::Type::kParton,  // type
                                "b quark 1",                   // name
                                0,                             // index of corresponding particle
-                               Particle::JetTrueFlavor::kB);      // b jet (truth)
+                               Particles::JetTrueFlavor::kB);      // b jet (truth)
 
   fParticlesModel->AddParticle(&dummy,
-                               Particle::Type::kParton,
+                               Particles::Type::kParton,
                                "b quark 2",
                                1,                             // index of corresponding particle
-                               Particle::JetTrueFlavor::kB);      // b jet (truth)
+                               Particles::JetTrueFlavor::kB);      // b jet (truth)
 
   if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kMuon) {
     fParticlesModel->AddParticle(&dummy,
-                                 Particle::Type::kElectron,
+                                 Particles::Type::kElectron,
                                  "electron");
 
     fParticlesModel->AddParticle(&dummy,
-                                 Particle::Type::kMuon,
+                                 Particles::Type::kMuon,
                                  "muon");
   } else if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kElectron) {
     fParticlesModel->AddParticle(&dummy,
-                                 Particle::Type::kElectron,
+                                 Particles::Type::kElectron,
                                  "electron 1");
     fParticlesModel->AddParticle(&dummy,
-                                 Particle::Type::kElectron,
+                                 Particles::Type::kElectron,
                                  "electron 2");
   } else if (fTypeLepton_1 == kMuon && fTypeLepton_2 == kMuon) {
     fParticlesModel->AddParticle(&dummy,
-                                 Particle::Type::kMuon,
+                                 Particles::Type::kMuon,
                                  "muon 1");
     fParticlesModel->AddParticle(&dummy,
-                                 Particle::Type::kMuon,
+                                 Particles::Type::kMuon,
                                  "muon 2");
   }
 
@@ -281,7 +281,7 @@ int KLFitter::LikelihoodTopDilepton::RemoveInvariantParticlePermutations() {
   // error code
   int err = 1;
 
-  Particle::Type ptype = Particle::Type::kParton;
+  Particles::Type ptype = Particles::Type::kParton;
   std::vector<int> indexVector_Jets;
 
   // remove invariant jet permutations of notevent jets
@@ -294,14 +294,14 @@ int KLFitter::LikelihoodTopDilepton::RemoveInvariantParticlePermutations() {
 
   // remove lepton permutations within the same kind
   if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kElectron) {
-    ptype = Particle::Type::kElectron;
+    ptype = Particles::Type::kElectron;
     std::vector<int> indexVector_Electrons;
     for (size_t iElectron = 0; iElectron < particles->electrons.size(); iElectron++) {
       indexVector_Electrons.push_back(iElectron);
     }
     err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Electrons);
   } else if (fTypeLepton_1 == kMuon && fTypeLepton_2 == kMuon) {
-    ptype = Particle::Type::kMuon;
+    ptype = Particles::Type::kMuon;
     std::vector<int> indexVector_Muons;
     for (size_t iMuon = 0; iMuon < particles->muons.size(); iMuon++) {
       indexVector_Muons.push_back(iMuon);
@@ -311,7 +311,7 @@ int KLFitter::LikelihoodTopDilepton::RemoveInvariantParticlePermutations() {
 
   if (doSumloglik) {
     // remove the permutation from the 2 bjets
-    ptype = Particle::Type::kParton;
+    ptype = Particles::Type::kParton;
     indexVector_Jets.clear();
     indexVector_Jets.push_back(0);
     indexVector_Jets.push_back(1);

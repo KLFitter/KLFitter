@@ -17,27 +17,27 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KLFITTER_TEST_PARTICLES_MUON_H_
-#define KLFITTER_TEST_PARTICLES_MUON_H_
+#ifndef KLFITTER_TEST_PARTICLES_TRACK_H_
+#define KLFITTER_TEST_PARTICLES_TRACK_H_
 
 #include "gtest/gtest.h"
 
-#include "KLFitter/Particle/Muon.h"
+#include "KLFitter/Particles/Track.h"
 
-TEST(TestParticleMuon, GetName) {
-  KLFitter::Particle::Muon e{"test_name", TLorentzVector{}};
+TEST(TestParticleTrack, GetName) {
+  KLFitter::Particles::Track e{"test_name", TLorentzVector{}};
   EXPECT_EQ("test_name", e.GetName());
 }
 
-TEST(TestParticleMuon, ConstructAndGetFourVector) {
+TEST(TestParticleTrack, ConstructAndGetFourVector) {
   TLorentzVector p4{15, 23.4, 27, 3};
 
   // Test whether four vector is correctly stored at construction.
-  KLFitter::Particle::Muon e{"test_name", p4};
+  KLFitter::Particles::Track e{"test_name", p4};
   EXPECT_EQ(p4, e.GetP4());
   EXPECT_FLOAT_EQ(23.4, e.GetP4().Y());
 
-  // Now test whether Muon::SetP4() works.
+  // Now test whether Track::SetP4() works.
   p4.SetX(17.342);
   p4.SetY(12.232);
   e.SetP4(p4);
@@ -45,8 +45,8 @@ TEST(TestParticleMuon, ConstructAndGetFourVector) {
   EXPECT_FLOAT_EQ(12.232, e.GetP4().Y());
 }
 
-TEST(TestParticleMuon, SetAndGetIdentifier) {
-  KLFitter::Particle::Muon e{"", TLorentzVector{}};
+TEST(TestParticleTrack, SetAndGetIdentifier) {
+  KLFitter::Particles::Track e{"", TLorentzVector{}};
   unsigned int id = 25;
   e.SetIdentifier(id);
   EXPECT_EQ(id, e.GetIdentifier());
@@ -55,18 +55,14 @@ TEST(TestParticleMuon, SetAndGetIdentifier) {
   EXPECT_EQ(id, e.GetIdentifier());
 }
 
-TEST(TestParticleMuon, SetAndGetDetEta) {
-  KLFitter::Particle::Muon e{"", TLorentzVector{}};
-  double eta = 23.523;
-  e.SetDetEta(eta);
-  EXPECT_EQ(eta, e.GetDetEta());
+TEST(TestParticleTrack, SetAndGetUncertainties) {
+  KLFitter::Particles::Track e{"", TLorentzVector{}};
+  std::vector<double> uncertainties{};
+  uncertainties.emplace_back(25.3);
+  uncertainties.emplace_back(12.7);
+  e.SetUncertainties(uncertainties);
+  EXPECT_EQ(uncertainties, e.GetUncertainties());
+  EXPECT_DOUBLE_EQ(25.3, e.GetUncertainties().at(0));
 }
 
-TEST(TestParticleMuon, SetAndGetCharge) {
-  KLFitter::Particle::Muon e{"", TLorentzVector{}};
-  float charge{-12.3};
-  e.SetCharge(charge);
-  EXPECT_EQ(charge, e.GetCharge());
-}
-
-#endif  // KLFITTER_TEST_PARTICLES_MUON_H_
+#endif  // KLFITTER_TEST_PARTICLES_TRACK_H_

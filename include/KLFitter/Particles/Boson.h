@@ -17,39 +17,39 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KLFITTER_PARTICLES_PHOTON_H_
-#define KLFITTER_PARTICLES_PHOTON_H_
+#ifndef KLFITTER_PARTICLES_BOSON_H_
+#define KLFITTER_PARTICLES_BOSON_H_
 
-#include "KLFitter/Particle/Base.h"
+#include "KLFitter/Particles/Base.h"
 
 namespace KLFitter {
-namespace Particle {
+namespace Particles {
 /**
- * Implementation of a photon class. This inherits a generic
- * structure from Particle::Base, reimplements all purely virtual
- * functions and adds functionality specific to photons.
+ * Implementation of a boson class. This inherits a generic
+ * structure from Particles::Base, reimplements all purely virtual
+ * functions and adds functionality specific to bosons.
  */
-class Photon : public Base {
+class Boson : public Base {
  public:
   /**
-   * Photon constructor taking name and four momentum.
+   * Boson constructor taking name and four momentum.
    * @param name The name of the particle
    * @param p4 The four momentum
    */
-  Photon(const std::string& name, const TLorentzVector& p4)
+  Boson(const std::string& name, const TLorentzVector& p4)
     : m_name(name)
     , m_p4(p4) {
     // empty
   }
 
   /// The (defaulted) destructor.
-  ~Photon() = default;
+  ~Boson() = default;
 
   /// The (defaulted) copy constructor.
-  Photon(const Photon&) = default;
+  Boson(const Boson&) = default;
 
   /// The (defaulted) assignment operator.
-  Photon& operator=(const Photon&) = default;
+  Boson& operator=(const Boson&) = default;
 
   /** \name Inherited, reimplemented methods */
   /** @{ */
@@ -73,20 +73,6 @@ class Photon : public Base {
   void SetP4(const TLorentzVector& p4) override { m_p4 = p4; }
 
   /** @} */
-  /** \name Get methods */
-  /** @{ */
-
-  /// Get the detector eta.
-  double GetDetEta() const { return m_det_eta; }
-
-  /** @} */
-  /** \name Set methods */
-  /** @{ */
-
-  /// Set the detector eta.
-  void SetDetEta(double val) { m_det_eta = val; }
-
-  /** @} */
 
  private:
   /// String with the name of the particle.
@@ -97,10 +83,8 @@ class Photon : public Base {
 
   /// Four vector of the particle.
   TLorentzVector m_p4;
-
-  double m_det_eta{0.};
 };
 }  // namespace Particles
 }  // namespace KLFitter
 
-#endif  // KLFITTER_PARTICLES_PHOTON_H_
+#endif  // KLFITTER_PARTICLES_BOSON_H_

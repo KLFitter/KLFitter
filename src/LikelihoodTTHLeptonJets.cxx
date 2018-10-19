@@ -106,73 +106,73 @@ int KLFitter::LikelihoodTTHLeptonJets::DefineModelParticles() {
   // create dummy TLorentzVector
   TLorentzVector dummy{0, 0, 0, 0};  // 4-vector
   fParticlesModel->AddParticle(&dummy,
-                               Particle::Type::kParton,  // type
+                               Particles::Type::kParton,  // type
                                "hadronic b quark",            // name
                                0,                             // index of corresponding particle
-                               Particle::JetTrueFlavor::kB);      // b jet (truth)
+                               Particles::JetTrueFlavor::kB);      // b jet (truth)
 
   fParticlesModel->AddParticle(&dummy,
-                               Particle::Type::kParton,
+                               Particles::Type::kParton,
                                "leptonic b quark",
                                1,                             // index of corresponding particle
-                               Particle::JetTrueFlavor::kB);      // b jet (truth)
+                               Particles::JetTrueFlavor::kB);      // b jet (truth)
 
   fParticlesModel->AddParticle(&dummy,
-                               Particle::Type::kParton,
+                               Particles::Type::kParton,
                                "light quark 1",
                                2,                             // index of corresponding particle
-                               Particle::JetTrueFlavor::kLight);  // light jet (truth)
+                               Particles::JetTrueFlavor::kLight);  // light jet (truth)
 
   fParticlesModel->AddParticle(&dummy,
-                               Particle::Type::kParton,
+                               Particles::Type::kParton,
                                "light quark 2",
                                3,                             // index of corresponding particle
-                               Particle::JetTrueFlavor::kLight);  // light jet (truth)
+                               Particles::JetTrueFlavor::kLight);  // light jet (truth)
 
   fParticlesModel->AddParticle(&dummy,
-                               Particle::Type::kParton,  // type
+                               Particles::Type::kParton,  // type
                                "Higgs b quark 1",             // name
                                4,                             // index of corresponding particle
-                               Particle::JetTrueFlavor::kB);      // b jet (truth)
+                               Particles::JetTrueFlavor::kB);      // b jet (truth)
 
   fParticlesModel->AddParticle(&dummy,
-                               Particle::Type::kParton,
+                               Particles::Type::kParton,
                                "Higgs b quark 2",
                                5,                             // index of corresponding particle
-                               Particle::JetTrueFlavor::kB);      // b jet (truth)
+                               Particles::JetTrueFlavor::kB);      // b jet (truth)
 
   if (fTypeLepton == kElectron) {
     fParticlesModel->AddParticle(&dummy,
-                                 Particle::Type::kElectron,
+                                 Particles::Type::kElectron,
                                  "electron");
   } else if (fTypeLepton == kMuon) {
     fParticlesModel->AddParticle(&dummy,
-                                 Particle::Type::kMuon,
+                                 Particles::Type::kMuon,
                                  "muon");
   }
 
   fParticlesModel->AddParticle(&dummy,
-                               Particle::Type::kNeutrino,
+                               Particles::Type::kNeutrino,
                                "neutrino");
 
   fParticlesModel->AddParticle(&dummy,
-                               Particle::Type::kBoson,
+                               Particles::Type::kBoson,
                                "hadronic W");
 
   fParticlesModel->AddParticle(&dummy,
-                               Particle::Type::kBoson,
+                               Particles::Type::kBoson,
                                "leptonic W");
 
   fParticlesModel->AddParticle(&dummy,
-                               Particle::Type::kParton,
+                               Particles::Type::kParton,
                                "hadronic top");
 
   fParticlesModel->AddParticle(&dummy,
-                               Particle::Type::kParton,
+                               Particles::Type::kParton,
                                "leptonic top");
 
   fParticlesModel->AddParticle(&dummy,
-                               Particle::Type::kBoson,
+                               Particles::Type::kBoson,
                                "Higgs");
 
   // no error
@@ -320,14 +320,14 @@ int KLFitter::LikelihoodTTHLeptonJets::RemoveInvariantParticlePermutations() {
   int err = 1;
 
   // remove the permutation from the second and the third jet
-  Particle::Type ptype = Particle::Type::kParton;
+  Particles::Type ptype = Particles::Type::kParton;
   std::vector<int> indexVector_Jets;
   indexVector_Jets.push_back(2);
   indexVector_Jets.push_back(3);
   err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Jets);
 
   // remove the permutation from the two Higgs b jets
-  Particle::Type ptypeBB = Particle::Type::kParton;
+  Particles::Type ptypeBB = Particles::Type::kParton;
   std::vector<int> indexVector_JetsBB;
   indexVector_JetsBB.push_back(4);
   indexVector_JetsBB.push_back(5);
@@ -343,14 +343,14 @@ int KLFitter::LikelihoodTTHLeptonJets::RemoveInvariantParticlePermutations() {
 
   // remove the permutation from the other lepton
   if (fTypeLepton == kElectron) {
-    ptype = Particle::Type::kMuon;
+    ptype = Particles::Type::kMuon;
     std::vector<int> indexVector_Muons;
     for (size_t iMuon = 0; iMuon < particles->muons.size(); iMuon++) {
       indexVector_Muons.push_back(iMuon);
     }
     err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Muons);
   } else if (fTypeLepton == kMuon) {
-    ptype = Particle::Type::kElectron;
+    ptype = Particles::Type::kElectron;
     std::vector<int> indexVector_Electrons;
     for (size_t iElectron = 0; iElectron < particles->electrons.size(); iElectron++) {
       indexVector_Electrons.push_back(iElectron);

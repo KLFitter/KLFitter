@@ -17,39 +17,39 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KLFITTER_PARTICLES_ELECTRON_H_
-#define KLFITTER_PARTICLES_ELECTRON_H_
+#ifndef KLFITTER_PARTICLES_NEUTRINO_H_
+#define KLFITTER_PARTICLES_NEUTRINO_H_
 
-#include "KLFitter/Particle/Base.h"
+#include "KLFitter/Particles/Base.h"
 
 namespace KLFitter {
-namespace Particle {
+namespace Particles {
 /**
- * Implementation of an electron class. This inherits a generic
- * structure from Particle::Base, reimplements all purely virtual
- * functions and adds functionality specific to electrons.
+ * Implementation of a neutrino class. This inherits a generic
+ * structure from Particles::Base, reimplements all purely virtual
+ * functions and adds functionality specific to neutrinos.
  */
-class Electron : public Base {
+class Neutrino : public Base {
  public:
   /**
-   * Electron constructor taking name and four momentum.
+   * Neutrino constructor taking name and four momentum.
    * @param name The name of the particle
    * @param p4 The four momentum
    */
-  Electron(const std::string& name, const TLorentzVector& p4)
+  Neutrino(const std::string& name, const TLorentzVector& p4)
     : m_name(name)
     , m_p4(p4) {
     // empty
   }
 
   /// The (defaulted) destructor.
-  ~Electron() = default;
+  ~Neutrino() = default;
 
   /// The (defaulted) copy constructor.
-  Electron(const Electron&) = default;
+  Neutrino(const Neutrino&) = default;
 
   /// The (defaulted) assignment operator.
-  Electron& operator=(const Electron&) = default;
+  Neutrino& operator=(const Neutrino&) = default;
 
   /** \name Inherited, reimplemented methods */
   /** @{ */
@@ -73,26 +73,6 @@ class Electron : public Base {
   void SetP4(const TLorentzVector& p4) override { m_p4 = p4; }
 
   /** @} */
-  /** \name Get methods */
-  /** @{ */
-
-  /// Get the detector eta.
-  double GetDetEta() const { return m_det_eta; }
-
-  /// Get the electric charge.
-  float GetCharge() const { return m_charge; }
-
-  /** @} */
-  /** \name Set methods */
-  /** @{ */
-
-  /// Set the detector eta.
-  void SetDetEta(double val) { m_det_eta = val; }
-
-  /// Set the electric charge.
-  void SetCharge(float charge) { m_charge = charge; }
-
-  /** @} */
 
  private:
   /// String with the name of the particle.
@@ -103,11 +83,8 @@ class Electron : public Base {
 
   /// Four vector of the particle.
   TLorentzVector m_p4;
-
-  double m_det_eta{0.};
-  float m_charge{0.};
 };
 }  // namespace Particles
 }  // namespace KLFitter
 
-#endif  // KLFITTER_PARTICLES_ELECTRON_H_
+#endif  // KLFITTER_PARTICLES_NEUTRINO_H_
