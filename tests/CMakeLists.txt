@@ -39,36 +39,42 @@ if( KLF_BUILD_GTEST )
   )
 
   # Add the dependency on the thread library (pthread).
-  find_package (Threads)
+  find_package( Threads )
 
   # Set the include directory for googletest.
-  ExternalProject_Get_Property( googletest_ext source_dir )
-  set(GTEST_INCLUDE_DIR ${source_dir}/googletest/include)
+  ExternalProject_Get_Property( googletest_ext install_dir )
+  set( GTEST_INCLUDE_DIR ${install_dir}/include )
+  set( GTEST_INCLUDE_DIRS ${install_dir}/include )
 
   # Set the library path and library name for googletest.
-  ExternalProject_Get_Property( googletest_ext binary_dir )
-  set(GTEST_LIBRARY_PATH ${binary_dir}/googletest/${CMAKE_FIND_LIBRARY_PREFIXES}gtest.a)
-  set(GTEST_LIBRARY gtest)
-  add_library(${GTEST_LIBRARY} UNKNOWN IMPORTED)
-  set_property(TARGET ${GTEST_LIBRARY} PROPERTY IMPORTED_LOCATION
-    ${GTEST_LIBRARY_PATH} )
-  add_dependencies(${GTEST_LIBRARY} googletest)
-  add_dependencies(${GTEST_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
+  set( _lib_path "${install_dir}/lib64" )
+  set( GTEST_LIBRARIES "${_lib_path}/libgtest.a" )
+  set( GTEST_MAIN_LIBRARIES "${_lib_path}/libgtest_main.a" )
+  set( GTEST_BOTH_LIBRARIES "${GTEST_LIBRARIES};${GTEST_MAIN_LIBRARIES}" )
+
+  # Now add the GTest and GTestMain libraries including their location.
+  add_library( GTest::GTest UNKNOWN IMPORTED )
+  set_property( TARGET GTest::GTest PROPERTY IMPORTED_LOCATION "${GTEST_LIBRARIES}" )
+  add_library( GTest::GTestMain UNKNOWN IMPORTED)
+  set_property( TARGET GTest::GTestMain PROPERTY IMPORTED_LOCATION "${GTEST_MAIN_LIBRARIES}" )
+
+  add_dependencies( GTest::GTest googletest_ext )
+  add_dependencies( GTest::GTest ${CMAKE_THREAD_LIBS_INIT} )
 
   # Write status message for the user.
   message( STATUS "Using a privately downloaded googletest version for the build" )
 else()
-  find_package( GTEST 1.8.1 REQUIRED )
+  find_package( GTest 1.8.1 REQUIRED )
 endif()
 
 # Build the main unit-test executable.
 add_executable( gtests.exe gtests.cxx )
 target_include_directories( gtests.exe
-  PUBLIC ${ROOT_INCLUDE_DIRS} ${BAT_INCLUDE_DIR} ${GTEST_INCLUDE_DIR}
+  PUBLIC ${ROOT_INCLUDE_DIRS} ${BAT_INCLUDE_DIR} ${GTEST_INCLUDE_DIRS}
   $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
   $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/tests>
 )
-target_link_libraries( gtests.exe KLFitter ${GTEST_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries( gtests.exe KLFitter GTest::GTest ${CMAKE_THREAD_LIBS_INIT})
 set_target_properties( gtests.exe PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/test-bin" )
 if( KLF_BUILD_GTEST )
