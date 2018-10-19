@@ -62,21 +62,6 @@ class ParticleCollection final {
   /** @{ */
 
   /**
-   * Return the particle with a certain name
-   * @param name The name of the particle.
-   * @return A pointer to the TLorentzVector of the particle.
-   */
-  TLorentzVector* Particle(const std::string& name);
-
-  /**
-   * Return a particle with some index and type.
-   * @param index The index of the particle.
-   * @param ptype The type of the particle.
-   * @return A pointer to the TLorentzVector of the particle.
-   */
-  TLorentzVector* Particle(int index, Particles::Type ptype);
-
-  /**
    * Find a particle by name.
    * @param name The name of the particle.
    * @param particle A reference to the pointer to the 4-vector.

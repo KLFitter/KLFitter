@@ -267,47 +267,6 @@ int ParticleCollection::RemoveParticle(const std::string& name) {
 }
 
 // ---------------------------------------------------------
-TLorentzVector* ParticleCollection::Particle(const std::string& name) {
-  TLorentzVector* particle = 0;
-  int index = 0;
-  Particles::Type ptype = Particles::Type::kParton;
-
-  // find particle
-  if (!FindParticle(name, particle, &index, &ptype)) {
-    std::cout << "KLFitter::ParticleCollection::Particle(). Could not find particles." << std::endl;
-    return 0;
-  }
-
-  // return 4-vector
-  return particle;
-}
-
-// ---------------------------------------------------------
-TLorentzVector* ParticleCollection::Particle(int index, Particles::Type ptype) {
-  if (ptype == Particles::Type::kParton) {
-    return &jets.at(index).GetP4();
-  } else if (ptype == Particles::Type::kElectron) {
-    return &electrons.at(index).GetP4();
-  } else if (ptype == Particles::Type::kMuon) {
-    return &muons.at(index).GetP4();
-  } else if (ptype == Particles::Type::kPhoton) {
-    return &photons.at(index).GetP4();
-  } else if (ptype == Particles::Type::kTau) {
-    return &taus.at(index).GetP4();
-  } else if (ptype == Particles::Type::kNeutrino) {
-    return &neutrinos.at(index).GetP4();
-  } else if (ptype == Particles::Type::kBoson) {
-    return &bosons.at(index).GetP4();
-  } else if (ptype == Particles::Type::kTrack) {
-    return &tracks.at(index).GetP4();
-  }
-
-  // Return nullptr
-  std::cout << "KLFitter::ParticleCollection::Particle(). Particle type " << static_cast<std::underlying_type<Particles::Type>::type>(ptype) << " does not exist." << std::endl;
-  return nullptr;
-}
-
-// ---------------------------------------------------------
 int ParticleCollection::FindParticle(const std::string& name, TLorentzVector* &particle, int *index, Particles::Type *ptype) {
   // loop over all jets
   for (auto jet = jets.begin(); jet != jets.end(); ++jet) {
