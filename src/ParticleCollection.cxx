@@ -412,7 +412,9 @@ const Particles::Base* ParticleCollection::FindParticle(Particles::Type ptype, c
 
 // ---------------------------------------------------------
 const TLorentzVector* ParticleCollection::GetP4(Particles::Type ptype, size_t index) const {
-  if (ptype == Particles::Type::kBoson) {
+  if (ptype == Particles::Type::kParton) {
+    return &jets.at(index).GetP4();
+  } else if (ptype == Particles::Type::kBoson) {
     return &bosons.at(index).GetP4();
   } else if (ptype == Particles::Type::kElectron) {
     return &electrons.at(index).GetP4();
@@ -427,13 +429,20 @@ const TLorentzVector* ParticleCollection::GetP4(Particles::Type ptype, size_t in
   } else if (ptype == Particles::Type::kTrack) {
     return &tracks.at(index).GetP4();
   } else {
+    std::cerr << "ParticleColletion::GetP4(ptype, index): ";
+    std::cerr << "could not find particle of type ";
+    std::cerr << static_cast<std::underlying_type<Particles::Type>::type>(ptype);
+    std::cerr << " and index " << index << std::endl;
+    throw std::invalid_argument("particle not found");
     return nullptr;
   }
 }
 
 // ---------------------------------------------------------
 TLorentzVector* ParticleCollection::GetP4(Particles::Type ptype, size_t index) {
-  if (ptype == Particles::Type::kBoson) {
+  if (ptype == Particles::Type::kParton) {
+    return &jets.at(index).GetP4();
+  } else if (ptype == Particles::Type::kBoson) {
     return &bosons.at(index).GetP4();
   } else if (ptype == Particles::Type::kElectron) {
     return &electrons.at(index).GetP4();
@@ -448,6 +457,11 @@ TLorentzVector* ParticleCollection::GetP4(Particles::Type ptype, size_t index) {
   } else if (ptype == Particles::Type::kTrack) {
     return &tracks.at(index).GetP4();
   } else {
+    std::cerr << "ParticleColletion::GetP4(ptype, index): ";
+    std::cerr << "could not find particle of type ";
+    std::cerr << static_cast<std::underlying_type<Particles::Type>::type>(ptype);
+    std::cerr << " and index " << index << std::endl;
+    throw std::invalid_argument("particle not found");
     return nullptr;
   }
 }
