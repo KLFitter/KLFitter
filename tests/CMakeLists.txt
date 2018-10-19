@@ -47,9 +47,14 @@ if( KLF_BUILD_GTEST )
   set( GTEST_INCLUDE_DIRS ${install_dir}/include )
 
   # Set the library path and library name for googletest.
-  set( _lib_path "${install_dir}/lib64" )
-  set( GTEST_LIBRARIES "${_lib_path}/libgtest.a" )
-  set( GTEST_MAIN_LIBRARIES "${_lib_path}/libgtest_main.a" )
+  get_property( _use_lib64_paths GLOBAL PROPERTY FIND_LIBRARY_USE_LIB64_PATHS )
+  if( _use_lib64_paths )
+    set( _lib_path "${install_dir}/lib64" )
+  else()
+    set( _lib_path "${install_dir}/lib" )
+  endif()
+  set( GTEST_LIBRARIES "${_lib_path}/${CMAKE_FIND_LIBRARY_PREFIXES}gtest.a" )
+  set( GTEST_MAIN_LIBRARIES "${_lib_path}/${CMAKE_FIND_LIBRARY_PREFIXES}gtest_main.a" )
   set( GTEST_BOTH_LIBRARIES "${GTEST_LIBRARIES};${GTEST_MAIN_LIBRARIES}" )
 
   # Now add the GTest and GTestMain libraries including their location.
