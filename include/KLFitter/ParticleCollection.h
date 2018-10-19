@@ -103,55 +103,6 @@ class ParticleCollection final {
   TLorentzVector* GetP4(Particles::Type ptype, size_t index);
 
   /**
-   * Return the parton at some index.
-   * @param index The parton index
-   * @return A pointer to the TLorentzVector of the parton.
-   */
-  TLorentzVector* Parton(int index);
-
-  /**
-   * Return the muon at some index.
-   * @param index The muon index
-   * @return A pointer to the TLorentzVector of the muon.
-   */
-  TLorentzVector* Muon(int index);
-
-  /**
-   * Return the tau at some index.
-   * @param index The tau index
-   * @return A pointer to the TLorentzVector of the tau.
-   */
-  TLorentzVector* Tau(int index);
-
-  /**
-   * Return the boson at some index.
-   * @param index The boson index
-   * @return A pointer to the TLorentzVector of the boson.
-   */
-  TLorentzVector* Boson(int index);
-
-  /**
-   * Return the neutrino at some index.
-   * @param index The neutrino index
-   * @return A pointer to the TLorentzVector of the neutrino.
-   */
-  TLorentzVector* Neutrino(int index);
-
-  /**
-   * Return the photon at some index.
-   * @param index The photon index
-   * @return A pointer to the TLorentzVector of the photon.
-   */
-  TLorentzVector* Photon(int index);
-
-  /**
-   * Return the track at some index.
-   * @param index The track index
-   * @return A pointer to the TLorentzVector of the track.
-   */
-  TLorentzVector* Track(int index);
-
-  /**
    * Return the number of particles.
    * @return The number of particles.
    */

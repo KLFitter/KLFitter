@@ -317,31 +317,31 @@ int main(int argc, char *argv[]) {
       auto permutedParticles = fitter.Likelihood()->PParticlesPermuted();
 
       // Hadronic b quark.
-      float bhad_pt = modelParticles->Parton(0)->Pt();
-      float bhad_eta = modelParticles->Parton(0)->Eta();
-      float bhad_phi = modelParticles->Parton(0)->Phi();
-      float bhad_e = modelParticles->Parton(0)->E();
+      float bhad_pt = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 0)->Pt();
+      float bhad_eta = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 0)->Eta();
+      float bhad_phi = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 0)->Phi();
+      float bhad_e = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 0)->E();
       unsigned int bhad_index = (*permutedParticles)->jets.at(0).GetIdentifier();
 
       // Leptonic b quark.
-      float blep_pt = modelParticles->Parton(1)->Pt();
-      float blep_eta = modelParticles->Parton(1)->Eta();
-      float blep_phi = modelParticles->Parton(1)->Phi();
-      float blep_e = modelParticles->Parton(1)->E();
+      float blep_pt = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 1)->Pt();
+      float blep_eta = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 1)->Eta();
+      float blep_phi = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 1)->Phi();
+      float blep_e = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 1)->E();
       unsigned int blep_index = (*permutedParticles)->jets.at(1).GetIdentifier();
 
       // Light quark 1.
-      float lquark1_pt = modelParticles->Parton(2)->Pt();
-      float lquark1_eta = modelParticles->Parton(2)->Eta();
-      float lquark1_phi = modelParticles->Parton(2)->Phi();
-      float lquark1_e = modelParticles->Parton(2)->E();
+      float lquark1_pt = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 2)->Pt();
+      float lquark1_eta = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 2)->Eta();
+      float lquark1_phi = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 2)->Phi();
+      float lquark1_e = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 2)->E();
       unsigned int lquark1_index = (*permutedParticles)->jets.at(2).GetIdentifier();
 
       // Light quark 2.
-      float lquark2_pt = modelParticles->Parton(3)->Pt();
-      float lquark2_eta = modelParticles->Parton(3)->Eta();
-      float lquark2_phi = modelParticles->Parton(3)->Phi();
-      float lquark2_e = modelParticles->Parton(3)->E();
+      float lquark2_pt = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 3)->Pt();
+      float lquark2_eta = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 3)->Eta();
+      float lquark2_phi = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 3)->Phi();
+      float lquark2_e = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 3)->E();
       unsigned int lquark2_index = (*permutedParticles)->jets.at(3).GetIdentifier();
 
       float lepton_pt = -9999;
@@ -356,17 +356,17 @@ int main(int argc, char *argv[]) {
         lepton_phi = modelParticles->GetP4(KLFitter::Particles::Type::kElectron, 0)->Phi();
         lepton_e = modelParticles->GetP4(KLFitter::Particles::Type::kElectron, 0)->E();
       } else if (event.lepton_is_mu) {
-        lepton_pt = modelParticles->Muon(0)->Pt();
-        lepton_eta = modelParticles->Muon(0)->Eta();
-        lepton_phi = modelParticles->Muon(0)->Phi();
-        lepton_e = modelParticles->Muon(0)->E();
+        lepton_pt = modelParticles->GetP4(KLFitter::Particles::Type::kMuon, 0)->Pt();
+        lepton_eta = modelParticles->GetP4(KLFitter::Particles::Type::kMuon, 0)->Eta();
+        lepton_phi = modelParticles->GetP4(KLFitter::Particles::Type::kMuon, 0)->Phi();
+        lepton_e = modelParticles->GetP4(KLFitter::Particles::Type::kMuon, 0)->E();
       }
 
       // Neutrino parameters.
-      float neutrino_pt = modelParticles->Neutrino(0)->Pt();
-      float neutrino_eta = modelParticles->Neutrino(0)->Eta();
-      float neutrino_phi = modelParticles->Neutrino(0)->Phi();
-      float neutrino_e = modelParticles->Neutrino(0)->E();
+      float neutrino_pt = modelParticles->GetP4(KLFitter::Particles::Type::kNeutrino, 0)->Pt();
+      float neutrino_eta = modelParticles->GetP4(KLFitter::Particles::Type::kNeutrino, 0)->Eta();
+      float neutrino_phi = modelParticles->GetP4(KLFitter::Particles::Type::kNeutrino, 0)->Phi();
+      float neutrino_e = modelParticles->GetP4(KLFitter::Particles::Type::kNeutrino, 0)->E();
 
       // Fill the vectors with the output variables. Note: it's
       // better/safer to store booleans as chars in ROOT files.

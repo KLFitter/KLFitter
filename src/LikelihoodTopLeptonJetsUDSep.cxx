@@ -190,15 +190,15 @@ double LikelihoodTopLeptonJetsUDSep::LogEventProbabilityLJetReweight() {
       }
       Particles::JetTrueFlavor trueFlavor = fParticlesModel->jets.at(i).GetTrueFlavor();
       if (trueFlavor == Particles::JetTrueFlavor::kB) {
-        logprob += log(BJetPt((*fParticlesPermuted)->Parton(index)->Pt()));
+        logprob += log(BJetPt((*fParticlesPermuted)->GetP4(Particles::Type::kParton, index)->Pt()));
         logprob += log(BJetTagWeight((*fParticlesPermuted)->jets.at(index).GetBTagWeight()));
       }
       if (trueFlavor == Particles::JetTrueFlavor::kLightUp) {
-        logprob += log(UpJetPt((*fParticlesPermuted)->Parton(index)->Pt()));
+        logprob += log(UpJetPt((*fParticlesPermuted)->GetP4(Particles::Type::kParton, index)->Pt()));
         logprob += log(UpJetTagWeight((*fParticlesPermuted)->jets.at(index).GetBTagWeight()));
       }
       if (trueFlavor == Particles::JetTrueFlavor::kLightDown) {
-        logprob += log(DownJetPt((*fParticlesPermuted)->Parton(index)->Pt()));
+        logprob += log(DownJetPt((*fParticlesPermuted)->GetP4(Particles::Type::kParton, index)->Pt()));
         logprob += log(DownJetTagWeight((*fParticlesPermuted)->jets.at(index).GetBTagWeight()));
       }
     }
@@ -225,13 +225,13 @@ double LikelihoodTopLeptonJetsUDSep::LogEventProbabilityLJetReweight() {
       }
       Particles::JetTrueFlavor trueFlavor = fParticlesModel->jets.at(i).GetTrueFlavor();
       if (trueFlavor == Particles::JetTrueFlavor::kB) {
-        logprob += log(BJetProb((*fParticlesPermuted)->jets.at(index).GetBTagWeight(), (*fParticlesPermuted)->Parton(index)->Pt()));
+        logprob += log(BJetProb((*fParticlesPermuted)->jets.at(index).GetBTagWeight(), (*fParticlesPermuted)->GetP4(Particles::Type::kParton, index)->Pt()));
       }
       if (trueFlavor == Particles::JetTrueFlavor::kLightUp) {
-        logprob += log(UpJetProb((*fParticlesPermuted)->jets.at(index).GetBTagWeight(), (*fParticlesPermuted)->Parton(index)->Pt()));
+        logprob += log(UpJetProb((*fParticlesPermuted)->jets.at(index).GetBTagWeight(), (*fParticlesPermuted)->GetP4(Particles::Type::kParton, index)->Pt()));
       }
       if (trueFlavor == Particles::JetTrueFlavor::kLightDown) {
-        logprob += log(DownJetProb((*fParticlesPermuted)->jets.at(index).GetBTagWeight(), (*fParticlesPermuted)->Parton(index)->Pt()));
+        logprob += log(DownJetProb((*fParticlesPermuted)->jets.at(index).GetBTagWeight(), (*fParticlesPermuted)->GetP4(Particles::Type::kParton, index)->Pt()));
       }
     }
     return logprob;

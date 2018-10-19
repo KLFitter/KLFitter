@@ -387,8 +387,20 @@ int ParticleCollection::FindParticle(const std::string& name, TLorentzVector* &p
 
 // ---------------------------------------------------------
 const TLorentzVector* ParticleCollection::GetP4(Particles::Type ptype, size_t index) const {
-  if (ptype == Particles::Type::kElectron) {
+  if (ptype == Particles::Type::kBoson) {
+    return &bosons.at(index).GetP4();
+  } else if (ptype == Particles::Type::kElectron) {
     return &electrons.at(index).GetP4();
+  } else if (ptype == Particles::Type::kMuon) {
+    return &muons.at(index).GetP4();
+  } else if (ptype == Particles::Type::kNeutrino) {
+    return &neutrinos.at(index).GetP4();
+  } else if (ptype == Particles::Type::kPhoton) {
+    return &photons.at(index).GetP4();
+  } else if (ptype == Particles::Type::kTau) {
+    return &taus.at(index).GetP4();
+  } else if (ptype == Particles::Type::kTrack) {
+    return &tracks.at(index).GetP4();
   } else {
     return nullptr;
   }
@@ -396,46 +408,23 @@ const TLorentzVector* ParticleCollection::GetP4(Particles::Type ptype, size_t in
 
 // ---------------------------------------------------------
 TLorentzVector* ParticleCollection::GetP4(Particles::Type ptype, size_t index) {
-  if (ptype == Particles::Type::kElectron) {
+  if (ptype == Particles::Type::kBoson) {
+    return &bosons.at(index).GetP4();
+  } else if (ptype == Particles::Type::kElectron) {
     return &electrons.at(index).GetP4();
+  } else if (ptype == Particles::Type::kMuon) {
+    return &muons.at(index).GetP4();
+  } else if (ptype == Particles::Type::kNeutrino) {
+    return &neutrinos.at(index).GetP4();
+  } else if (ptype == Particles::Type::kPhoton) {
+      return &photons.at(index).GetP4();
+  } else if (ptype == Particles::Type::kTau) {
+    return &taus.at(index).GetP4();
+  } else if (ptype == Particles::Type::kTrack) {
+    return &tracks.at(index).GetP4();
   } else {
     return nullptr;
   }
-}
-
-// ---------------------------------------------------------
-TLorentzVector* ParticleCollection::Parton(int index) {
-  return &jets.at(index).GetP4();
-}
-
-// ---------------------------------------------------------
-TLorentzVector* ParticleCollection::Muon(int index) {
-  return &muons.at(index).GetP4();
-}
-
-// ---------------------------------------------------------
-TLorentzVector* ParticleCollection::Tau(int index) {
-  return &taus.at(index).GetP4();
-}
-
-// ---------------------------------------------------------
-TLorentzVector* ParticleCollection::Boson(int index) {
-  return &bosons.at(index).GetP4();
-}
-
-// ---------------------------------------------------------
-TLorentzVector* ParticleCollection::Neutrino(int index) {
-  return &neutrinos.at(index).GetP4();
-}
-
-// ---------------------------------------------------------
-TLorentzVector* ParticleCollection::Photon(int index) {
-  return &photons.at(index).GetP4();
-}
-
-// ---------------------------------------------------------
-TLorentzVector* ParticleCollection::Track(int index) {
-  return &tracks.at(index).GetP4();
 }
 
 // ---------------------------------------------------------

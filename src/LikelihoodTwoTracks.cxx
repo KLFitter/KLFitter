@@ -215,9 +215,9 @@ std::vector<double> LikelihoodTwoTracks::GetInitialParameters() {
 
 // ---------------------------------------------------------
 int LikelihoodTwoTracks::SavePermutedParticles() {
-  m_t1_meas_phi = (*fParticlesPermuted)->Track(0)->Phi();
-  m_t1_meas_theta = (*fParticlesPermuted)->Track(0)->Theta();
-  m_t1_meas_p = (*fParticlesPermuted)->Track(0)->P();
+  m_t1_meas_phi = (*fParticlesPermuted)->GetP4(Particles::Type::kTrack, 0)->Phi();
+  m_t1_meas_theta = (*fParticlesPermuted)->GetP4(Particles::Type::kTrack, 0)->Theta();
+  m_t1_meas_p = (*fParticlesPermuted)->GetP4(Particles::Type::kTrack, 0)->P();
 
   m_t1_meas_sigma00 = (*fParticlesPermuted)->tracks.at(0).GetUncertainties().at(0);
   m_t1_meas_sigma10 = (*fParticlesPermuted)->tracks.at(0).GetUncertainties().at(1);
@@ -226,9 +226,9 @@ int LikelihoodTwoTracks::SavePermutedParticles() {
   m_t1_meas_sigma21 = (*fParticlesPermuted)->tracks.at(0).GetUncertainties().at(4);
   m_t1_meas_sigma22 = (*fParticlesPermuted)->tracks.at(0).GetUncertainties().at(5);
 
-  m_t2_meas_phi = (*fParticlesPermuted)->Track(1)->Phi();
-  m_t2_meas_theta = (*fParticlesPermuted)->Track(1)->Theta();
-  m_t2_meas_p = (*fParticlesPermuted)->Track(1)->P();
+  m_t2_meas_phi = (*fParticlesPermuted)->GetP4(Particles::Type::kTrack, 1)->Phi();
+  m_t2_meas_theta = (*fParticlesPermuted)->GetP4(Particles::Type::kTrack, 1)->Theta();
+  m_t2_meas_p = (*fParticlesPermuted)->GetP4(Particles::Type::kTrack, 1)->P();
 
   m_t2_meas_sigma00 = (*fParticlesPermuted)->tracks.at(1).GetUncertainties().at(0);
   m_t2_meas_sigma10 = (*fParticlesPermuted)->tracks.at(1).GetUncertainties().at(1);
@@ -246,9 +246,9 @@ int LikelihoodTwoTracks::SavePermutedParticles() {
 int LikelihoodTwoTracks::BuildModelParticles() {
   if (GetBestFitParameters().size() > 0) CalculateLorentzVectors(GetBestFitParameters());
 
-  TLorentzVector * t1 = fParticlesModel->Track(0);
-  TLorentzVector * t2 = fParticlesModel->Track(1);
-  TLorentzVector * Ks = fParticlesModel->Boson(0);
+  TLorentzVector * t1 = fParticlesModel->GetP4(Particles::Type::kTrack, 0);
+  TLorentzVector * t2 = fParticlesModel->GetP4(Particles::Type::kTrack, 1);
+  TLorentzVector * Ks = fParticlesModel->GetP4(Particles::Type::kBoson, 0);
 
 
   t1->SetPtEtaPhiM(sin(m_t1_fit_theta)*m_t1_fit_p, -log(tan(m_t1_fit_theta/2.)), m_t1_fit_phi, m_t1_fit_m);

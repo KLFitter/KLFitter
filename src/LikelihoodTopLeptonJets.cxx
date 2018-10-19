@@ -294,33 +294,33 @@ int LikelihoodTopLeptonJets::AdjustParameterRanges() {
   double nsigmas_lepton = m_flag_get_par_sigmas_from_TFs ? 10 : 2;
   double nsigmas_met    = m_flag_get_par_sigmas_from_TFs ? 10 : 1;
 
-  double E = (*fParticlesPermuted)->Parton(0)->E();
+  double E = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 0)->E();
   double m = fPhysicsConstants.MassBottom();
-  if (fFlagUseJetMass) m = std::max(0.0, (*fParticlesPermuted)->Parton(0)->M());
+  if (fFlagUseJetMass) m = std::max(0.0, (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 0)->M());
   double sigma = m_flag_get_par_sigmas_from_TFs ? m_res_energy_bhad->GetSigma(E) : sqrt(E);
   double Emin = std::max(m, E - nsigmas_jet * sigma);
   double Emax = E + nsigmas_jet * sigma;
   SetParameterRange(parBhadE, Emin, Emax);
 
-  E = (*fParticlesPermuted)->Parton(1)->E();
+  E = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 1)->E();
   m = fPhysicsConstants.MassBottom();
-  if (fFlagUseJetMass) m = std::max(0.0, (*fParticlesPermuted)->Parton(1)->M());
+  if (fFlagUseJetMass) m = std::max(0.0, (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 1)->M());
   sigma = m_flag_get_par_sigmas_from_TFs ? m_res_energy_blep->GetSigma(E) : sqrt(E);
   Emin = std::max(m, E - nsigmas_jet * sigma);
   Emax = E + nsigmas_jet * sigma;
   SetParameterRange(parBlepE, Emin, Emax);
 
-  E = (*fParticlesPermuted)->Parton(2)->E();
+  E = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 2)->E();
   m = 0.001;
-  if (fFlagUseJetMass) m = std::max(0.0, (*fParticlesPermuted)->Parton(2)->M());
+  if (fFlagUseJetMass) m = std::max(0.0, (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 2)->M());
   sigma = m_flag_get_par_sigmas_from_TFs ? m_res_energy_lq1->GetSigma(E) : sqrt(E);
   Emin = std::max(m, E - nsigmas_jet * sigma);
   Emax = E + nsigmas_jet * sigma;
   SetParameterRange(parLQ1E, Emin, Emax);
 
-  E = (*fParticlesPermuted)->Parton(3)->E();
+  E = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 3)->E();
   m = 0.001;
-  if (fFlagUseJetMass) m = std::max(0.0, (*fParticlesPermuted)->Parton(3)->M());
+  if (fFlagUseJetMass) m = std::max(0.0, (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 3)->M());
   sigma = m_flag_get_par_sigmas_from_TFs ? m_res_energy_lq2->GetSigma(E) : sqrt(E);
   Emin = std::max(m, E - nsigmas_jet * sigma);
   Emax = E + nsigmas_jet * sigma;
@@ -332,8 +332,8 @@ int LikelihoodTopLeptonJets::AdjustParameterRanges() {
     Emin = std::max(0.001, E - nsigmas_lepton * sigma);
     Emax = E + nsigmas_lepton * sigma;
   } else if (m_lepton_type == kMuon) {
-    E = (*fParticlesPermuted)->Muon(0)->E();
-    double sintheta = sin((*fParticlesPermuted)->Muon(0)->Theta());
+    E = (*fParticlesPermuted)->GetP4(Particles::Type::kMuon, 0)->E();
+    double sintheta = sin((*fParticlesPermuted)->GetP4(Particles::Type::kMuon, 0)->Theta());
     sigma = m_flag_get_par_sigmas_from_TFs ? m_res_lepton->GetSigma(E * sintheta) / sintheta : E * E * sintheta;
     double sigrange = nsigmas_lepton * sigma;
     Emin = std::max(0.001, E - sigrange);
@@ -448,7 +448,7 @@ std::vector<double> LikelihoodTopLeptonJets::GetInitialParametersWoNeutrinoPz() 
   if (m_lepton_type == kElectron) {
     values[parLepE] = (*fParticlesPermuted)->GetP4(Particles::Type::kElectron, 0)->E();
   } else if (m_lepton_type == kMuon) {
-    values[parLepE] = (*fParticlesPermuted)->Muon(0)->E();
+    values[parLepE] = (*fParticlesPermuted)->GetP4(Particles::Type::kMuon, 0)->E();
   }
 
   // missing px and py
@@ -459,7 +459,7 @@ std::vector<double> LikelihoodTopLeptonJets::GetInitialParametersWoNeutrinoPz() 
   values[parNuPz] = 0.;
 
   // top mass
-  double mtop = (*(*fParticlesPermuted)->Parton(0) + *(*fParticlesPermuted)->Parton(2) + *(*fParticlesPermuted)->Parton(3)).M();
+  double mtop = (*(*fParticlesPermuted)->GetP4(Particles::Type::kParton, 0) + *(*fParticlesPermuted)->GetP4(Particles::Type::kParton, 2) + *(*fParticlesPermuted)->GetP4(Particles::Type::kParton, 3)).M();
   if (mtop < GetParameter(parTopM)->GetLowerLimit()) {
     mtop = GetParameter(parTopM)->GetLowerLimit();
   } else if (mtop > GetParameter(parTopM)->GetUpperLimit()) {
@@ -495,10 +495,10 @@ std::vector<double> LikelihoodTopLeptonJets::CalculateNeutrinoPzSolutions(TLoren
     pz_c = (*fParticlesPermuted)->GetP4(Particles::Type::kElectron, 0)->Pz();
     Ec = (*fParticlesPermuted)->GetP4(Particles::Type::kElectron, 0)->E();
   } else if (m_lepton_type == kMuon) {
-    px_c = (*fParticlesPermuted)->Muon(0)->Px();
-    py_c = (*fParticlesPermuted)->Muon(0)->Py();
-    pz_c = (*fParticlesPermuted)->Muon(0)->Pz();
-    Ec = (*fParticlesPermuted)->Muon(0)->E();
+    px_c = (*fParticlesPermuted)->GetP4(Particles::Type::kMuon, 0)->Px();
+    py_c = (*fParticlesPermuted)->GetP4(Particles::Type::kMuon, 0)->Py();
+    pz_c = (*fParticlesPermuted)->GetP4(Particles::Type::kMuon, 0)->Pz();
+    Ec = (*fParticlesPermuted)->GetP4(Particles::Type::kMuon, 0)->E();
   }
 
   // add additional particle to "charged lepton" 4-vector
@@ -535,36 +535,36 @@ std::vector<double> LikelihoodTopLeptonJets::CalculateNeutrinoPzSolutions(TLoren
 
 // ---------------------------------------------------------
 int LikelihoodTopLeptonJets::SavePermutedParticles() {
-  m_bhad_meas_e      = (*fParticlesPermuted)->Parton(0)->E();
+  m_bhad_meas_e      = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 0)->E();
   m_bhad_meas_deteta = (*fParticlesPermuted)->jets.at(0).GetDetEta();
-  m_bhad_meas_px     = (*fParticlesPermuted)->Parton(0)->Px();
-  m_bhad_meas_py     = (*fParticlesPermuted)->Parton(0)->Py();
-  m_bhad_meas_pz     = (*fParticlesPermuted)->Parton(0)->Pz();
-  m_bhad_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(0)->M(), fPhysicsConstants.MassBottom(), &m_bhad_meas_px, &m_bhad_meas_py, &m_bhad_meas_pz, m_bhad_meas_e);
+  m_bhad_meas_px     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 0)->Px();
+  m_bhad_meas_py     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 0)->Py();
+  m_bhad_meas_pz     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 0)->Pz();
+  m_bhad_meas_m      = SetPartonMass((*fParticlesPermuted)->GetP4(Particles::Type::kParton, 0)->M(), fPhysicsConstants.MassBottom(), &m_bhad_meas_px, &m_bhad_meas_py, &m_bhad_meas_pz, m_bhad_meas_e);
   m_bhad_meas_p      = sqrt(m_bhad_meas_e*m_bhad_meas_e - m_bhad_meas_m*m_bhad_meas_m);
 
-  m_blep_meas_e      = (*fParticlesPermuted)->Parton(1)->E();
+  m_blep_meas_e      = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 1)->E();
   m_blep_meas_deteta = (*fParticlesPermuted)->jets.at(1).GetDetEta();
-  m_blep_meas_px     = (*fParticlesPermuted)->Parton(1)->Px();
-  m_blep_meas_py     = (*fParticlesPermuted)->Parton(1)->Py();
-  m_blep_meas_pz     = (*fParticlesPermuted)->Parton(1)->Pz();
-  m_blep_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(1)->M(), fPhysicsConstants.MassBottom(), &m_blep_meas_px, &m_blep_meas_py, &m_blep_meas_pz, m_blep_meas_e);
+  m_blep_meas_px     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 1)->Px();
+  m_blep_meas_py     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 1)->Py();
+  m_blep_meas_pz     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 1)->Pz();
+  m_blep_meas_m      = SetPartonMass((*fParticlesPermuted)->GetP4(Particles::Type::kParton, 1)->M(), fPhysicsConstants.MassBottom(), &m_blep_meas_px, &m_blep_meas_py, &m_blep_meas_pz, m_blep_meas_e);
   m_blep_meas_p      = sqrt(m_blep_meas_e*m_blep_meas_e - m_blep_meas_m*m_blep_meas_m);
 
-  m_lq1_meas_e      = (*fParticlesPermuted)->Parton(2)->E();
+  m_lq1_meas_e      = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 2)->E();
   m_lq1_meas_deteta = (*fParticlesPermuted)->jets.at(2).GetDetEta();
-  m_lq1_meas_px     = (*fParticlesPermuted)->Parton(2)->Px();
-  m_lq1_meas_py     = (*fParticlesPermuted)->Parton(2)->Py();
-  m_lq1_meas_pz     = (*fParticlesPermuted)->Parton(2)->Pz();
-  m_lq1_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(2)->M(), 0., &m_lq1_meas_px, &m_lq1_meas_py, &m_lq1_meas_pz, m_lq1_meas_e);
+  m_lq1_meas_px     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 2)->Px();
+  m_lq1_meas_py     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 2)->Py();
+  m_lq1_meas_pz     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 2)->Pz();
+  m_lq1_meas_m      = SetPartonMass((*fParticlesPermuted)->GetP4(Particles::Type::kParton, 2)->M(), 0., &m_lq1_meas_px, &m_lq1_meas_py, &m_lq1_meas_pz, m_lq1_meas_e);
   m_lq1_meas_p      = sqrt(m_lq1_meas_e*m_lq1_meas_e - m_lq1_meas_m*m_lq1_meas_m);
 
-  m_lq2_meas_e      = (*fParticlesPermuted)->Parton(3)->E();
+  m_lq2_meas_e      = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 3)->E();
   m_lq2_meas_deteta = (*fParticlesPermuted)->jets.at(3).GetDetEta();
-  m_lq2_meas_px     = (*fParticlesPermuted)->Parton(3)->Px();
-  m_lq2_meas_py     = (*fParticlesPermuted)->Parton(3)->Py();
-  m_lq2_meas_pz     = (*fParticlesPermuted)->Parton(3)->Pz();
-  m_lq2_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(3)->M(), 0., &m_lq2_meas_px, &m_lq2_meas_py, &m_lq2_meas_pz, m_lq2_meas_e);
+  m_lq2_meas_px     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 3)->Px();
+  m_lq2_meas_py     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 3)->Py();
+  m_lq2_meas_pz     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 3)->Pz();
+  m_lq2_meas_m      = SetPartonMass((*fParticlesPermuted)->GetP4(Particles::Type::kParton, 3)->M(), 0., &m_lq2_meas_px, &m_lq2_meas_py, &m_lq2_meas_pz, m_lq2_meas_e);
   m_lq2_meas_p      = sqrt(m_lq2_meas_e*m_lq2_meas_e - m_lq2_meas_m*m_lq2_meas_m);
 
   TLorentzVector* lepton(0);
@@ -572,7 +572,7 @@ int LikelihoodTopLeptonJets::SavePermutedParticles() {
     lepton = (*fParticlesPermuted)->GetP4(Particles::Type::kElectron, 0);
     m_lep_meas_deteta = (*fParticlesPermuted)->electrons.at(0).GetDetEta();
   } else {
-    lepton = (*fParticlesPermuted)->Muon(0);
+    lepton = (*fParticlesPermuted)->GetP4(Particles::Type::kMuon, 0);
     m_lep_meas_deteta = (*fParticlesPermuted)->muons.at(0).GetDetEta();
   }
   m_lep_meas_e        = lepton->E();
@@ -607,21 +607,21 @@ int LikelihoodTopLeptonJets::SaveResolutionFunctions() {
 int LikelihoodTopLeptonJets::BuildModelParticles() {
   if (GetBestFitParameters().size() > 0) CalculateLorentzVectors(GetBestFitParameters());
 
-  TLorentzVector* bhad = fParticlesModel->Parton(0);
-  TLorentzVector* blep = fParticlesModel->Parton(1);
-  TLorentzVector* lq1  = fParticlesModel->Parton(2);
-  TLorentzVector* lq2  = fParticlesModel->Parton(3);
+  TLorentzVector* bhad = fParticlesModel->GetP4(Particles::Type::kParton, 0);
+  TLorentzVector* blep = fParticlesModel->GetP4(Particles::Type::kParton, 1);
+  TLorentzVector* lq1  = fParticlesModel->GetP4(Particles::Type::kParton, 2);
+  TLorentzVector* lq2  = fParticlesModel->GetP4(Particles::Type::kParton, 3);
   TLorentzVector* lep(0);
   if (m_lepton_type == kElectron) {
     lep  = fParticlesModel->GetP4(Particles::Type::kElectron, 0);
   } else if (m_lepton_type == kMuon) {
-    lep  = fParticlesModel->Muon(0);
+    lep  = fParticlesModel->GetP4(Particles::Type::kMuon, 0);
   }
-  TLorentzVector* nu   = fParticlesModel->Neutrino(0);
-  TLorentzVector* whad  = fParticlesModel->Boson(0);
-  TLorentzVector* wlep  = fParticlesModel->Boson(1);
-  TLorentzVector* thad  = fParticlesModel->Parton(4);
-  TLorentzVector* tlep  = fParticlesModel->Parton(5);
+  TLorentzVector* nu   = fParticlesModel->GetP4(Particles::Type::kNeutrino, 0);
+  TLorentzVector* whad  = fParticlesModel->GetP4(Particles::Type::kBoson, 0);
+  TLorentzVector* wlep  = fParticlesModel->GetP4(Particles::Type::kBoson, 1);
+  TLorentzVector* thad  = fParticlesModel->GetP4(Particles::Type::kParton, 4);
+  TLorentzVector* tlep  = fParticlesModel->GetP4(Particles::Type::kParton, 5);
 
   bhad->SetPxPyPzE(m_bhad_fit_px, m_bhad_fit_py, m_bhad_fit_pz, m_bhad_fit_e);
   blep->SetPxPyPzE(m_blep_fit_px, m_blep_fit_py, m_blep_fit_pz, m_blep_fit_e);

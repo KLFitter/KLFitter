@@ -343,18 +343,18 @@ int KLFitter::LikelihoodTopDilepton::AdjustParameterRanges() {
   fResLepton2->Par(2, &par2_2);
   fResLepton2->Par(3, &par3_2);
 
-  double E = (*fParticlesPermuted)->Parton(0)->E();
+  double E = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 0)->E();
   double m = fPhysicsConstants.MassBottom();
   if (fFlagUseJetMass)
-    m = std::max(0.0, (*fParticlesPermuted)->Parton(0)->M());
+    m = std::max(0.0, (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 0)->M());
   double Emin = std::max(m, E - nsigmas_jet* sqrt(E));
   double Emax  = E + nsigmas_jet* sqrt(E);
   SetParameterRange(parB1E, Emin, Emax);
 
-  E = (*fParticlesPermuted)->Parton(1)->E();
+  E = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 1)->E();
   m = fPhysicsConstants.MassBottom();
   if (fFlagUseJetMass)
-    m = std::max(0.0, (*fParticlesPermuted)->Parton(1)->M());
+    m = std::max(0.0, (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 1)->M());
   Emin = std::max(m, E - nsigmas_jet* sqrt(E));
   Emax  = E + nsigmas_jet* sqrt(E);
   SetParameterRange(parB2E, Emin, Emax);
@@ -366,8 +366,8 @@ int KLFitter::LikelihoodTopDilepton::AdjustParameterRanges() {
     Emax  = E + sigrange;
     SetParameterRange(parLep1E, Emin, Emax);
 
-    E = (*fParticlesPermuted)->Muon(0)->E();
-    double sintheta = sin((*fParticlesPermuted)->Muon(0)->Theta());
+    E = (*fParticlesPermuted)->GetP4(Particles::Type::kMuon, 0)->E();
+    double sintheta = sin((*fParticlesPermuted)->GetP4(Particles::Type::kMuon, 0)->Theta());
     sigrange = nsigmas_lepton*std::max(par2_2*E, par3_2*E*E*sintheta);
     Emin = std::max(0.001, E -sigrange);
     Emax = E +sigrange;
@@ -385,15 +385,15 @@ int KLFitter::LikelihoodTopDilepton::AdjustParameterRanges() {
     Emax  = E + sigrange;
     SetParameterRange(parLep2E, Emin, Emax);
   } else if (fTypeLepton_1 == kMuon && fTypeLepton_2 == kMuon) {
-    E = (*fParticlesPermuted)->Muon(0)->E();
-    double sintheta = sin((*fParticlesPermuted)->Muon(0)->Theta());
+    E = (*fParticlesPermuted)->GetP4(Particles::Type::kMuon, 0)->E();
+    double sintheta = sin((*fParticlesPermuted)->GetP4(Particles::Type::kMuon, 0)->Theta());
     double sigrange = nsigmas_lepton*std::max(par2_1*E, par3_1*E*E*sintheta);
     Emin = std::max(0.001, E -sigrange);
     Emax = E +sigrange;
     SetParameterRange(parLep1E, Emin, Emax);
 
-    E = (*fParticlesPermuted)->Muon(1)->E();
-    sintheta = sin((*fParticlesPermuted)->Muon(1)->Theta());
+    E = (*fParticlesPermuted)->GetP4(Particles::Type::kMuon, 1)->E();
+    sintheta = sin((*fParticlesPermuted)->GetP4(Particles::Type::kMuon, 1)->Theta());
     sigrange = nsigmas_lepton*std::max(par2_2*E, par3_2*E*E*sintheta);
     Emin = std::max(0.001, E -sigrange);
     Emax = E +sigrange;
@@ -814,13 +814,13 @@ std::vector<double> KLFitter::LikelihoodTopDilepton::GetInitialParameters() {
   // energy of the lepton
   if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kMuon) {
     values[parLep1E] = (*fParticlesPermuted)->GetP4(Particles::Type::kElectron, 0)->E();
-    values[parLep2E] = (*fParticlesPermuted)->Muon(0)->E();
+    values[parLep2E] = (*fParticlesPermuted)->GetP4(Particles::Type::kMuon, 0)->E();
   } else if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kElectron) {
     values[parLep1E] = (*fParticlesPermuted)->GetP4(Particles::Type::kElectron, 0)->E();
     values[parLep2E] = (*fParticlesPermuted)->GetP4(Particles::Type::kElectron, 1)->E();
   } else if (fTypeLepton_1 == kMuon && fTypeLepton_2 == kMuon) {
-    values[parLep1E] = (*fParticlesPermuted)->Muon(0)->E();
-    values[parLep2E] = (*fParticlesPermuted)->Muon(1)->E();
+    values[parLep1E] = (*fParticlesPermuted)->GetP4(Particles::Type::kMuon, 0)->E();
+    values[parLep2E] = (*fParticlesPermuted)->GetP4(Particles::Type::kMuon, 1)->E();
   }
 
   values[parAntiNuEta] = 0.;
@@ -831,20 +831,20 @@ std::vector<double> KLFitter::LikelihoodTopDilepton::GetInitialParameters() {
 
 // ---------------------------------------------------------
 int KLFitter::LikelihoodTopDilepton::SavePermutedParticles() {
-  b1_meas_e      = (*fParticlesPermuted)->Parton(0)->E();
+  b1_meas_e      = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 0)->E();
   b1_meas_deteta = (*fParticlesPermuted)->jets.at(0).GetDetEta();
-  b1_meas_px     = (*fParticlesPermuted)->Parton(0)->Px();
-  b1_meas_py     = (*fParticlesPermuted)->Parton(0)->Py();
-  b1_meas_pz     = (*fParticlesPermuted)->Parton(0)->Pz();
-  b1_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(0)->M(), fPhysicsConstants.MassBottom(), &b1_meas_px, &b1_meas_py, &b1_meas_pz, b1_meas_e);
+  b1_meas_px     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 0)->Px();
+  b1_meas_py     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 0)->Py();
+  b1_meas_pz     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 0)->Pz();
+  b1_meas_m      = SetPartonMass((*fParticlesPermuted)->GetP4(Particles::Type::kParton, 0)->M(), fPhysicsConstants.MassBottom(), &b1_meas_px, &b1_meas_py, &b1_meas_pz, b1_meas_e);
   b1_meas_p      = sqrt(b1_meas_e*b1_meas_e - b1_meas_m*b1_meas_m);
 
-  b2_meas_e      = (*fParticlesPermuted)->Parton(1)->E();
+  b2_meas_e      = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 1)->E();
   b2_meas_deteta = (*fParticlesPermuted)->jets.at(1).GetDetEta();
-  b2_meas_px     = (*fParticlesPermuted)->Parton(1)->Px();
-  b2_meas_py     = (*fParticlesPermuted)->Parton(1)->Py();
-  b2_meas_pz     = (*fParticlesPermuted)->Parton(1)->Pz();
-  b2_meas_m      = SetPartonMass((*fParticlesPermuted)->Parton(1)->M(), fPhysicsConstants.MassBottom(), &b2_meas_px, &b2_meas_py, &b2_meas_pz, b2_meas_e);
+  b2_meas_px     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 1)->Px();
+  b2_meas_py     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 1)->Py();
+  b2_meas_pz     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 1)->Pz();
+  b2_meas_m      = SetPartonMass((*fParticlesPermuted)->GetP4(Particles::Type::kParton, 1)->M(), fPhysicsConstants.MassBottom(), &b2_meas_px, &b2_meas_py, &b2_meas_pz, b2_meas_e);
   b2_meas_p      = sqrt(b2_meas_e*b2_meas_e - b2_meas_m*b2_meas_m);
 
   TLorentzVector * lepton_1(0);
@@ -854,7 +854,7 @@ int KLFitter::LikelihoodTopDilepton::SavePermutedParticles() {
     lepton_1 = (*fParticlesPermuted)->GetP4(Particles::Type::kElectron, 0);
     lep1_meas_deteta = (*fParticlesPermuted)->electrons.at(0).GetDetEta();
     lep1_meas_charge = (*fParticlesPermuted)->electrons.at(0).GetCharge();
-    lepton_2 = (*fParticlesPermuted)->Muon(0);
+    lepton_2 = (*fParticlesPermuted)->GetP4(Particles::Type::kMuon, 0);
     lep2_meas_deteta = (*fParticlesPermuted)->muons.at(0).GetDetEta();
     lep2_meas_charge = (*fParticlesPermuted)->muons.at(0).GetCharge();
   } else if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kElectron) {
@@ -865,10 +865,10 @@ int KLFitter::LikelihoodTopDilepton::SavePermutedParticles() {
     lep2_meas_deteta = (*fParticlesPermuted)->electrons.at(1).GetDetEta();
     lep2_meas_charge = (*fParticlesPermuted)->electrons.at(1).GetCharge();
   } else if (fTypeLepton_1 == kMuon && fTypeLepton_2 == kMuon) {
-    lepton_1 = (*fParticlesPermuted)->Muon(0);
+    lepton_1 = (*fParticlesPermuted)->GetP4(Particles::Type::kMuon, 0);
     lep1_meas_deteta = (*fParticlesPermuted)->muons.at(0).GetDetEta();
     lep1_meas_charge = (*fParticlesPermuted)->muons.at(0).GetCharge();
-    lepton_2 = (*fParticlesPermuted)->Muon(1);
+    lepton_2 = (*fParticlesPermuted)->GetP4(Particles::Type::kMuon, 1);
     lep2_meas_deteta = (*fParticlesPermuted)->muons.at(1).GetDetEta();
     lep2_meas_charge = (*fParticlesPermuted)->muons.at(1).GetCharge();
   }
@@ -917,20 +917,20 @@ int KLFitter::LikelihoodTopDilepton::SaveResolutionFunctions() {
 int KLFitter::LikelihoodTopDilepton::BuildModelParticles() {
   if (GetBestFitParameters().size() > 0) CalculateLorentzVectors(GetBestFitParameters());
 
-  TLorentzVector * b1 = fParticlesModel->Parton(0);
-  TLorentzVector * b2 = fParticlesModel->Parton(1);
+  TLorentzVector * b1 = fParticlesModel->GetP4(Particles::Type::kParton, 0);
+  TLorentzVector * b2 = fParticlesModel->GetP4(Particles::Type::kParton, 1);
   TLorentzVector * lep1(0);
   TLorentzVector * lep2(0);
 
   if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kMuon) {
     lep1  = fParticlesModel->GetP4(Particles::Type::kElectron, 0);
-    lep2  = fParticlesModel->Muon(0);
+    lep2  = fParticlesModel->GetP4(Particles::Type::kMuon, 0);
   } else if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kElectron) {
     lep1  = fParticlesModel->GetP4(Particles::Type::kElectron, 0);
     lep2  = fParticlesModel->GetP4(Particles::Type::kElectron, 1);
   } else {
-    lep1  = fParticlesModel->Muon(0);
-    lep2  = fParticlesModel->Muon(1);
+    lep1  = fParticlesModel->GetP4(Particles::Type::kMuon, 0);
+    lep2  = fParticlesModel->GetP4(Particles::Type::kMuon, 1);
   }
 
   b1   ->SetPxPyPzE(b1_fit_px, b1_fit_py, b1_fit_pz, b1_fit_e);
