@@ -20,7 +20,14 @@
 #include "gtest/gtest.h"
 
 // Include all individual tests here.
+#include "Particle/TestBoson.h"
 #include "Particle/TestElectron.h"
+#include "Particle/TestJet.h"
+#include "Particle/TestMuon.h"
+#include "Particle/TestNeutrino.h"
+#include "Particle/TestPhoton.h"
+#include "Particle/TestTau.h"
+#include "Particle/TestTrack.h"
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
