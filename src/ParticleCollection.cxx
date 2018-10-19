@@ -59,42 +59,74 @@ ParticleCollection& ParticleCollection::operator=(const ParticleCollection& o) {
 
 // ---------------------------------------------------------
 void ParticleCollection::AddParticle(const Particles::Jet& p) {
-  jets.emplace_back(p);
+  if (FindParticle(Particles::Type::kParton, p.GetName())) {
+    throw std::invalid_argument("Particle with name " + p.GetName() + " exists already");
+  } else {
+    jets.emplace_back(p);
+  }
 }
 
 // ---------------------------------------------------------
 void ParticleCollection::AddParticle(const Particles::Electron& p) {
-  electrons.emplace_back(p);
+  if (FindParticle(Particles::Type::kElectron, p.GetName())) {
+    throw std::invalid_argument("Particle with name " + p.GetName() + " exists already");
+  } else {
+    electrons.emplace_back(p);
+  }
 }
 
 // ---------------------------------------------------------
 void ParticleCollection::AddParticle(const Particles::Muon& p) {
-  muons.emplace_back(p);
+  if (FindParticle(Particles::Type::kMuon, p.GetName())) {
+    throw std::invalid_argument("Particle with name " + p.GetName() + " exists already");
+  } else {
+    muons.emplace_back(p);
+  }
 }
 
 // ---------------------------------------------------------
 void ParticleCollection::AddParticle(const Particles::Photon& p) {
-  photons.emplace_back(p);
+  if (FindParticle(Particles::Type::kPhoton, p.GetName())) {
+    throw std::invalid_argument("Particle with name " + p.GetName() + " exists already");
+  } else {
+    photons.emplace_back(p);
+  }
 }
 
 // ---------------------------------------------------------
 void ParticleCollection::AddParticle(const Particles::Tau& p) {
-  taus.emplace_back(p);
+  if (FindParticle(Particles::Type::kTau, p.GetName())) {
+    throw std::invalid_argument("Particle with name " + p.GetName() + " exists already");
+  } else {
+    taus.emplace_back(p);
+  }
 }
 
 // ---------------------------------------------------------
 void ParticleCollection::AddParticle(const Particles::Neutrino& p) {
-  neutrinos.emplace_back(p);
+  if (FindParticle(Particles::Type::kNeutrino, p.GetName())) {
+    throw std::invalid_argument("Particle with name " + p.GetName() + " exists already");
+  } else {
+    neutrinos.emplace_back(p);
+  }
 }
 
 // ---------------------------------------------------------
 void ParticleCollection::AddParticle(const Particles::Boson& p) {
-  bosons.emplace_back(p);
+  if (FindParticle(Particles::Type::kBoson, p.GetName())) {
+    throw std::invalid_argument("Particle with name " + p.GetName() + " exists already");
+  } else {
+    bosons.emplace_back(p);
+  }
 }
 
 // ---------------------------------------------------------
 void ParticleCollection::AddParticle(const Particles::Track& p) {
-  tracks.emplace_back(p);
+  if (FindParticle(Particles::Type::kTrack, p.GetName())) {
+    throw std::invalid_argument("Particle with name " + p.GetName() + " exists already");
+  } else {
+    tracks.emplace_back(p);
+  }
 }
 
 // ---------------------------------------------------------
