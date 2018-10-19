@@ -57,7 +57,7 @@ TLorentzVector* KLFitter::LikelihoodSgTopWtLJ::GetLepton(KLFitter::ParticleColle
   }
   TLorentzVector* lepton = 0;
   if (fTypeLepton == kElectron) {
-    lepton = particles->Electron(0);
+    lepton = particles->GetP4(Particles::Type::kElectron, 0);
   } else if (fTypeLepton == kMuon) {
     lepton = particles->Muon(0);
   } else {
@@ -324,7 +324,7 @@ int KLFitter::LikelihoodSgTopWtLJ::AdjustParameterRanges() {
 
   // energy of lepton
   if (fTypeLepton == kElectron) {
-    E = (*fParticlesPermuted)->Electron(0)->E();
+    E = (*fParticlesPermuted)->GetP4(Particles::Type::kElectron, 0)->E();
     Emin = TMath::Max(0.001, E - nsigmas_lepton * sqrt(E));
     Emax = E + nsigmas_lepton * sqrt(E);
   } else if (fTypeLepton == kMuon) {
@@ -528,7 +528,7 @@ int KLFitter::LikelihoodSgTopWtLJ::SavePermutedParticles() {
 
   TLorentzVector * lepton(0);
   if (fTypeLepton == kElectron) {
-    lepton = (*fParticlesPermuted)->Electron(0);
+    lepton = (*fParticlesPermuted)->GetP4(Particles::Type::kElectron, 0);
     lep_meas_deteta = (*fParticlesPermuted)->electrons.at(0).GetDetEta();
   } else {
     lepton = (*fParticlesPermuted)->Muon(0);

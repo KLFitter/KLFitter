@@ -165,7 +165,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
               // if isDilepton include charge of the lepton
               if (isDilepton) {
                 // add electron
-                particles.AddParticle((*fParticles)->Electron(index),
+                particles.AddParticle((*fParticles)->GetP4(Particles::Type::kElectron, index),
                                       (*fParticles)->electrons.at(index).GetDetEta(),
                                       (*fParticles)->electrons.at(index).GetCharge(),
                                       Particles::Type::kElectron,
@@ -173,7 +173,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
                                       (*fParticles)->electrons.at(index).GetIdentifier());
               } else {
                 // add electron
-                particles.AddParticle((*fParticles)->Electron(index),
+                particles.AddParticle((*fParticles)->GetP4(Particles::Type::kElectron, index),
                                       (*fParticles)->electrons.at(index).GetDetEta(),
                                       Particles::Type::kElectron,
                                       (*fParticles)->electrons.at(index).GetName(),

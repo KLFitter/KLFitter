@@ -409,11 +409,6 @@ TLorentzVector* ParticleCollection::Parton(int index) {
 }
 
 // ---------------------------------------------------------
-TLorentzVector* ParticleCollection::Electron(int index) {
-  return &electrons.at(index).GetP4();
-}
-
-// ---------------------------------------------------------
 TLorentzVector* ParticleCollection::Muon(int index) {
   return &muons.at(index).GetP4();
 }

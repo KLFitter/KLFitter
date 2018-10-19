@@ -306,7 +306,7 @@ int KLFitter::BoostedLikelihoodTopLeptonJets::AdjustParameterRanges() {
   SetParameterRange(parLQE, Emin, Emax);
 
   if (fTypeLepton == kElectron) {
-    E = (*fParticlesPermuted)->Electron(0)->E();
+    E = (*fParticlesPermuted)->GetP4(Particles::Type::kElectron, 0)->E();
     sigma = fFlagGetParSigmasFromTFs ? fResLepton->GetSigma(E) : sqrt(E);
     Emin = std::max(0.001, E - nsigmas_lepton* sigma);
     Emax  = E + nsigmas_lepton* sigma;
@@ -432,7 +432,7 @@ std::vector<double> KLFitter::BoostedLikelihoodTopLeptonJets::GetInitialParamete
 
   // energy of the lepton
   if (fTypeLepton == kElectron) {
-    values[parLepE] = (*fParticlesPermuted)->Electron(0)->E();
+    values[parLepE] = (*fParticlesPermuted)->GetP4(Particles::Type::kElectron, 0)->E();
   } else if (fTypeLepton == kMuon) {
     values[parLepE] = (*fParticlesPermuted)->Muon(0)->E();
   }
@@ -476,10 +476,10 @@ std::vector<double> KLFitter::BoostedLikelihoodTopLeptonJets::CalculateNeutrinoP
   double Ec = 0.0;
 
   if (fTypeLepton == kElectron) {
-    px_c = (*fParticlesPermuted)->Electron(0)->Px();
-    py_c = (*fParticlesPermuted)->Electron(0)->Py();
-    pz_c = (*fParticlesPermuted)->Electron(0)->Pz();
-    Ec = (*fParticlesPermuted)->Electron(0)->E();
+    px_c = (*fParticlesPermuted)->GetP4(Particles::Type::kElectron, 0)->Px();
+    py_c = (*fParticlesPermuted)->GetP4(Particles::Type::kElectron, 0)->Py();
+    pz_c = (*fParticlesPermuted)->GetP4(Particles::Type::kElectron, 0)->Pz();
+    Ec = (*fParticlesPermuted)->GetP4(Particles::Type::kElectron, 0)->E();
   } else if (fTypeLepton == kMuon) {
     px_c = (*fParticlesPermuted)->Muon(0)->Px();
     py_c = (*fParticlesPermuted)->Muon(0)->Py();
@@ -548,7 +548,7 @@ int KLFitter::BoostedLikelihoodTopLeptonJets::SavePermutedParticles() {
 
   TLorentzVector * lepton(0);
   if (fTypeLepton == kElectron) {
-    lepton = (*fParticlesPermuted)->Electron(0);
+    lepton = (*fParticlesPermuted)->GetP4(Particles::Type::kElectron, 0);
     lep_meas_deteta = (*fParticlesPermuted)->electrons.at(0).GetDetEta();
   } else {
     lepton = (*fParticlesPermuted)->Muon(0);
@@ -590,7 +590,7 @@ int KLFitter::BoostedLikelihoodTopLeptonJets::BuildModelParticles() {
   TLorentzVector * lq  = fParticlesModel->Parton(2);
   TLorentzVector * lep(0);
   if (fTypeLepton == kElectron) {
-    lep  = fParticlesModel->Electron(0);
+    lep  = fParticlesModel->GetP4(Particles::Type::kElectron, 0);
   } else if (fTypeLepton == kMuon) {
     lep  = fParticlesModel->Muon(0);
   }

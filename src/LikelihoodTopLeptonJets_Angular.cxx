@@ -71,7 +71,7 @@ int LikelihoodTopLeptonJets_Angular::AdjustParameterRanges() {
   SetParameterRange(parLQ2E, Emin, Emax);
 
   if (m_lepton_type == kElectron) {
-    E = (*fParticlesPermuted)->Electron(0)->E();
+    E = (*fParticlesPermuted)->GetP4(Particles::Type::kElectron, 0)->E();
     Emin = std::max(0.001, E - nsigmas_lepton * sqrt(E));
     Emax = E + nsigmas_lepton * sqrt(E);
   } else if (m_lepton_type == kMuon) {

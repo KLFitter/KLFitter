@@ -110,13 +110,6 @@ class ParticleCollection final {
   TLorentzVector* Parton(int index);
 
   /**
-   * Return the electron at some index.
-   * @param index The electron index
-   * @return A pointer to the TLorentzVector of the electron.
-   */
-  TLorentzVector* Electron(int index);
-
-  /**
    * Return the muon at some index.
    * @param index The muon index
    * @return A pointer to the TLorentzVector of the muon.

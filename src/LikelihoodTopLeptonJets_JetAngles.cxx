@@ -213,7 +213,7 @@ int LikelihoodTopLeptonJets_JetAngles::AdjustParameterRanges() {
   SetParameterRange(parLQ2E, Emin, Emax);
 
   if (m_lepton_type == kElectron) {
-    E = (*fParticlesPermuted)->Electron(0)->E();
+    E = (*fParticlesPermuted)->GetP4(Particles::Type::kElectron, 0)->E();
     sigma = m_flag_get_par_sigmas_from_TFs ? m_res_lepton->GetSigma(E) : sqrt(E);
     Emin = std::max(0.001, E - nsigmas_lepton* sigma);
     Emax = E + nsigmas_lepton* sigma;
@@ -388,7 +388,7 @@ std::vector<double> LikelihoodTopLeptonJets_JetAngles::GetInitialParametersWoNeu
 
   // energy of the lepton
   if (m_lepton_type == kElectron) {
-    values[parLepE] = (*fParticlesPermuted)->Electron(0)->E();
+    values[parLepE] = (*fParticlesPermuted)->GetP4(Particles::Type::kElectron, 0)->E();
   } else if (m_lepton_type == kMuon) {
     values[parLepE] = (*fParticlesPermuted)->Muon(0)->E();
   }

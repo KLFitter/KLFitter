@@ -351,10 +351,10 @@ int main(int argc, char *argv[]) {
 
       // Always check for lepton type or the code will crash.
       if (event.lepton_is_e) {
-        lepton_pt = modelParticles->Electron(0)->Pt();
-        lepton_eta = modelParticles->Electron(0)->Eta();
-        lepton_phi = modelParticles->Electron(0)->Phi();
-        lepton_e = modelParticles->Electron(0)->E();
+        lepton_pt = modelParticles->GetP4(KLFitter::Particles::Type::kElectron, 0)->Pt();
+        lepton_eta = modelParticles->GetP4(KLFitter::Particles::Type::kElectron, 0)->Eta();
+        lepton_phi = modelParticles->GetP4(KLFitter::Particles::Type::kElectron, 0)->Phi();
+        lepton_e = modelParticles->GetP4(KLFitter::Particles::Type::kElectron, 0)->E();
       } else if (event.lepton_is_mu) {
         lepton_pt = modelParticles->Muon(0)->Pt();
         lepton_eta = modelParticles->Muon(0)->Eta();
