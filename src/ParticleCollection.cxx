@@ -58,6 +58,46 @@ ParticleCollection& ParticleCollection::operator=(const ParticleCollection& o) {
 }
 
 // ---------------------------------------------------------
+void ParticleCollection::AddParticle(const Particles::Jet& p) {
+  jets.emplace_back(p);
+}
+
+// ---------------------------------------------------------
+void ParticleCollection::AddParticle(const Particles::Electron& p) {
+  electrons.emplace_back(p);
+}
+
+// ---------------------------------------------------------
+void ParticleCollection::AddParticle(const Particles::Muon& p) {
+  muons.emplace_back(p);
+}
+
+// ---------------------------------------------------------
+void ParticleCollection::AddParticle(const Particles::Photon& p) {
+  photons.emplace_back(p);
+}
+
+// ---------------------------------------------------------
+void ParticleCollection::AddParticle(const Particles::Tau& p) {
+  taus.emplace_back(p);
+}
+
+// ---------------------------------------------------------
+void ParticleCollection::AddParticle(const Particles::Neutrino& p) {
+  neutrinos.emplace_back(p);
+}
+
+// ---------------------------------------------------------
+void ParticleCollection::AddParticle(const Particles::Boson& p) {
+  bosons.emplace_back(p);
+}
+
+// ---------------------------------------------------------
+void ParticleCollection::AddParticle(const Particles::Track& p) {
+  tracks.emplace_back(p);
+}
+
+// ---------------------------------------------------------
 int ParticleCollection::AddParticle(const TLorentzVector& particle, double DetEta, float LepCharge, Particles::Type ptype, std::string name, int measuredindex) {
   // check name
   if (name == "") name = Form("particle_%i", NParticles());

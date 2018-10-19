@@ -105,6 +105,54 @@ class ParticleCollection final {
   /** @{ */
 
   /**
+   * Add particle of type jet to the collection.
+   * @param p Const reference to the particle object.
+   */
+  void AddParticle(const Particles::Jet& p);
+
+  /**
+   * Add particle of type electron to the collection.
+   * @param p Const reference to the particle object.
+   */
+  void AddParticle(const Particles::Electron& p);
+
+  /**
+   * Add particle of type muon to the collection.
+   * @param p Const reference to the particle object.
+   */
+  void AddParticle(const Particles::Muon& p);
+
+  /**
+   * Add particle of type photon to the collection.
+   * @param p Const reference to the particle object.
+   */
+  void AddParticle(const Particles::Photon& p);
+
+  /**
+   * Add particle of type tau to the collection.
+   * @param p Const reference to the particle object.
+   */
+  void AddParticle(const Particles::Tau& p);
+
+  /**
+   * Add particle of type neutrino to the collection.
+   * @param p Const reference to the particle object.
+   */
+  void AddParticle(const Particles::Neutrino& p);
+
+  /**
+   * Add particle of type boson to the collection.
+   * @param p Const reference to the particle object.
+   */
+  void AddParticle(const Particles::Boson& p);
+
+  /**
+   * Add particle of type track to the collection.
+   * @param p Const reference to the particle object.
+   */
+  void AddParticle(const Particles::Track& p);
+
+  /**
    * Add a particle to a list of particles.
    * @param particle A pointer to the particle.
    * @param DetEta The Detector Eta of the particle.
