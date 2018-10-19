@@ -21,7 +21,7 @@ message( STATUS "Installing KLFitter test suite ..." )
 if( KLF_BUILD_GTEST )
   include( ExternalProject )
   set( _buildDir ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/GTestBuild )
-  ExternalProject_Add( googletest
+  ExternalProject_Add( googletest_ext
     PREFIX ${CMAKE_BINARY_DIR}/externals
     INSTALL_DIR ${CMAKE_BINARY_DIR}
     URL "https://github.com/google/googletest/archive/release-1.8.1.tar.gz"
@@ -33,7 +33,7 @@ if( KLF_BUILD_GTEST )
   )
 
   # Add an additional step to copy googletest into the install directory.
-  ExternalProject_Add_Step( googletest CopyInstall
+  ExternalProject_Add_Step( googletest_ext CopyInstall
     COMMAND ${CMAKE_COMMAND} -E copy_directory ${_buildDir}/ <INSTALL_DIR>
     DEPENDEES install
   )
@@ -42,11 +42,11 @@ if( KLF_BUILD_GTEST )
   find_package (Threads)
 
   # Set the include directory for googletest.
-  ExternalProject_Get_Property(googletest source_dir)
+  ExternalProject_Get_Property( googletest_ext source_dir )
   set(GTEST_INCLUDE_DIR ${source_dir}/googletest/include)
 
   # Set the library path and library name for googletest.
-  ExternalProject_Get_Property(googletest binary_dir)
+  ExternalProject_Get_Property( googletest_ext binary_dir )
   set(GTEST_LIBRARY_PATH ${binary_dir}/googletest/${CMAKE_FIND_LIBRARY_PREFIXES}gtest.a)
   set(GTEST_LIBRARY gtest)
   add_library(${GTEST_LIBRARY} UNKNOWN IMPORTED)
@@ -72,7 +72,7 @@ target_link_libraries( gtests.exe KLFitter ${GTEST_LIBRARY} ${CMAKE_THREAD_LIBS_
 set_target_properties( gtests.exe PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/test-bin" )
 if( KLF_BUILD_GTEST )
-  add_dependencies( gtests.exe googletest )
+  add_dependencies( gtests.exe googletest_ext )
 endif()
 
 # Build the integration test for the l+jets likelihood.
