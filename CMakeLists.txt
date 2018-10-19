@@ -28,7 +28,7 @@ project( KLFitter )
 
 # Set the options for building KLFitter.
 option( KLF_BUILD_BAT "Acquire BAT as part of building this project" OFF )
-option( KLF_BUILD_GTEST "Acquire googletest as part of building this project" ON )
+option( KLF_BUILD_GTEST "Acquire googletest as part of building this project" OFF )
 option( KLF_INSTALL_EXAMPLES "Install the example executable(s) of KLFitter" ON )
 option( KLF_INSTALL_STATIC_LIB "Build and install KLFitter as a static library" OFF )
 option( KLF_INSTALL_TESTS "Install the unit test suite of KLFitter" OFF )
