@@ -62,13 +62,8 @@ int ParticleCollection::AddParticle(const TLorentzVector& particle, double DetEt
   // check name
   if (name == "") name = Form("particle_%i", NParticles());
 
-  // get index and type
-  TLorentzVector* vect = 0;
-  int index = 0;
-  Particles::Type temptype = Particles::Type::kParton;
-
   // check if particle with name exists already
-  if (!FindParticle(name, vect, &index, &temptype)) {
+  if (!FindParticle(name)) {
     if (ptype == Particles::Type::kParton) {
       Particles::Jet jet{name, particle};
       jet.SetIdentifier(measuredindex);
@@ -127,13 +122,8 @@ int ParticleCollection::AddParticle(const TLorentzVector* const particle, double
   // check name
   if (name == "") name = Form("particle_%i", NParticles());
 
-  // get index and type
-  TLorentzVector* vect = 0;
-  int index = 0;
-  Particles::Type temptype = Particles::Type::kParton;
-
   // check if particle with name exists already
-  if (!FindParticle(name, vect, &index, &temptype)) {
+  if (!FindParticle(name)) {
     if (ptype == Particles::Type::kParton) {
       Particles::Jet jet{name, particle, isBtagged};
       jet.SetIdentifier(measuredindex);
@@ -226,7 +216,7 @@ int ParticleCollection::AddParticle(const TLorentzVector& particle, Particles::T
 }
 
 // ---------------------------------------------------------
-int ParticleCollection::RemoveParticle(int index, Particles::Type ptype) {
+void ParticleCollection::RemoveParticle(Particles::Type ptype, size_t index) {
   if (ptype == Particles::Type::kParton) {
     jets.erase(jets.begin() + index);
   } else if (ptype == Particles::Type::kElectron) {
@@ -244,104 +234,60 @@ int ParticleCollection::RemoveParticle(int index, Particles::Type ptype) {
   } else if (ptype == Particles::Type::kTrack) {
     tracks.erase(tracks.begin() + index);
   }
-
-  // no error
-  std::cout << "KLFitter::ParticleCollection::RemoveParticle(). Particle type " << static_cast<std::underlying_type<Particles::Type>::type>(ptype) << " does not exist." << std::endl;
-  return 1;
 }
 
 // ---------------------------------------------------------
-int ParticleCollection::RemoveParticle(const std::string& name) {
-  // get index and type
-  TLorentzVector* vect = 0;
-  int index = 0;
-  Particles::Type ptype = Particles::Type::kParton;
-
-  // remove particle
-  if (FindParticle(name, vect, &index, &ptype)) {
-    return RemoveParticle(index, ptype);
-  } else {
-    std::cout << "KLFitter::ParticleCollection::RemoveParticles(). Could not find particle with name " << name << "." << std::endl;
-    return 0;
-  }
-}
-
-// ---------------------------------------------------------
-int ParticleCollection::FindParticle(const std::string& name, TLorentzVector* &particle, int *index, Particles::Type *ptype) {
+const Particles::Base* ParticleCollection::FindParticle(const std::string& name) const {
   // loop over all jets
   for (auto jet = jets.begin(); jet != jets.end(); ++jet) {
     if (name != jet->GetName()) continue;
-    particle = &jet->GetP4();
-    *index = jet - jets.begin();
-    *ptype = Particles::Type::kParton;
-    return 1;
+    return &*jet;
   }
 
   // loop over all electrons
   for (auto el = electrons.begin(); el != electrons.end(); ++el) {
     if (name != el->GetName()) continue;
-    particle = &el->GetP4();
-    *index = el - electrons.begin();
-    *ptype = Particles::Type::kElectron;
-    return 1;
+    return &*el;
   }
 
   // loop over all muons
   for (auto mu = muons.begin(); mu != muons.end(); ++mu) {
     if (name != mu->GetName()) continue;
-    particle = &mu->GetP4();
-    *index = mu - muons.begin();
-    *ptype = Particles::Type::kMuon;
-    return 1;
+    return &*mu;
   }
 
   // loop over all taus
   for (auto tau = taus.begin(); tau != taus.end(); ++tau) {
     if (name != tau->GetName()) continue;
-    particle = &tau->GetP4();
-    *index = tau - taus.begin();
-    *ptype = Particles::Type::kTau;
-    return 1;
+    return &*tau;
   }
 
   // loop over all neutrinos
   for (auto neutrino = neutrinos.begin(); neutrino != neutrinos.end(); ++neutrino) {
     if (name != neutrino->GetName()) continue;
-    particle = &neutrino->GetP4();
-    *index = neutrino - neutrinos.begin();
-    *ptype = Particles::Type::kNeutrino;
-    return 1;
+    return &*neutrino;
   }
 
   // loop over all bosons
   for (auto boson = bosons.begin(); boson != bosons.end(); ++boson) {
     if (name != boson->GetName()) continue;
-    particle = &boson->GetP4();
-    *index = boson - bosons.begin();
-    *ptype = Particles::Type::kBoson;
-    return 1;
+    return &*boson;
   }
 
   // loop over all photons
   for (auto ph = photons.begin(); ph != photons.end(); ++ph) {
     if (name != ph->GetName()) continue;
-    particle = &ph->GetP4();
-    *index = ph - photons.begin();
-    *ptype = Particles::Type::kPhoton;
-    return 1;
+    return &*ph;
   }
 
   // loop over all tracks
   for (auto track = tracks.begin(); track != tracks.end(); ++track) {
     if (name != track->GetName()) continue;
-    particle = &track->GetP4();
-    *index = track - tracks.begin();
-    *ptype = Particles::Type::kTrack;
-    return 1;
+    return &*track;
   }
 
   // particle not found
-  return 0;
+  return nullptr;
 }
 
 // ---------------------------------------------------------

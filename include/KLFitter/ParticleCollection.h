@@ -64,12 +64,9 @@ class ParticleCollection final {
   /**
    * Find a particle by name.
    * @param name The name of the particle.
-   * @param particle A reference to the pointer to the 4-vector.
-   * @param index The pointer to the index.
-   * @param ptype The pointer to the particle type.
-   * @return A flag (1: found, 0: not found).
+   * @return The const pointer to the particle.
    */
-  int FindParticle(const std::string& name, TLorentzVector* &particle, int* index, Particles::Type* ptype);
+  const Particles::Base* FindParticle(const std::string& name) const;
 
   /**
    * Get the four-vector of the particle 'index' of type 'ptype'.
@@ -209,18 +206,10 @@ class ParticleCollection final {
 
   /**
    * Removes a particle from a list of particles.
-   * @param index The index of the particle.
    * @param ptype The type of the particle.
-   * @return An error code.
+   * @param index The index of the particle.
    */
-  int RemoveParticle(int index, Particles::Type ptype);
-
-  /**
-   * Removes a particle from a list of particles.
-   * @param name The name of the particle.
-   * @return An error code.
-   */
-  int RemoveParticle(const std::string& name);
+  void RemoveParticle(Particles::Type ptype, size_t index);
 
   /** @} */
 
