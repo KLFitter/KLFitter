@@ -331,6 +331,54 @@ const Particles::Base* ParticleCollection::FindParticle(const std::string& name)
 }
 
 // ---------------------------------------------------------
+const Particles::Base* ParticleCollection::FindParticle(Particles::Type ptype, const std::string& name) const {
+  if (ptype == Particles::Type::kParton) {
+    for (auto jet = jets.begin(); jet != jets.end(); ++jet) {
+      if (name != jet->GetName()) continue;
+      return &*jet;
+    }
+  } else if (ptype == Particles::Type::kElectron) {
+    for (auto el = electrons.begin(); el != electrons.end(); ++el) {
+      if (name != el->GetName()) continue;
+      return &*el;
+    }
+  } else if (ptype == Particles::Type::kMuon) {
+    for (auto mu = muons.begin(); mu != muons.end(); ++mu) {
+      if (name != mu->GetName()) continue;
+      return &*mu;
+    }
+  } else if (ptype == Particles::Type::kTau) {
+    for (auto tau = taus.begin(); tau != taus.end(); ++tau) {
+      if (name != tau->GetName()) continue;
+      return &*tau;
+    }
+  } else if (ptype == Particles::Type::kNeutrino) {
+    for (auto neutrino = neutrinos.begin(); neutrino != neutrinos.end(); ++neutrino) {
+      if (name != neutrino->GetName()) continue;
+      return &*neutrino;
+    }
+  } else if (ptype == Particles::Type::kBoson) {
+    for (auto boson = bosons.begin(); boson != bosons.end(); ++boson) {
+      if (name != boson->GetName()) continue;
+      return &*boson;
+    }
+  } else if (ptype == Particles::Type::kPhoton) {
+    for (auto ph = photons.begin(); ph != photons.end(); ++ph) {
+      if (name != ph->GetName()) continue;
+      return &*ph;
+    }
+  } else if (ptype == Particles::Type::kTrack) {
+    for (auto track = tracks.begin(); track != tracks.end(); ++track) {
+      if (name != track->GetName()) continue;
+      return &*track;
+    }
+  }
+
+  // particle not found
+  return nullptr;
+}
+
+// ---------------------------------------------------------
 const TLorentzVector* ParticleCollection::GetP4(Particles::Type ptype, size_t index) const {
   if (ptype == Particles::Type::kBoson) {
     return &bosons.at(index).GetP4();

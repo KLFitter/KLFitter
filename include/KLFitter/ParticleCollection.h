@@ -69,6 +69,14 @@ class ParticleCollection final {
   const Particles::Base* FindParticle(const std::string& name) const;
 
   /**
+   * Find a particle by name of a given type.
+   * @param ptype The particle type.
+   * @param name The name of the particle.
+   * @return The const pointer to the particle.
+   */
+  const Particles::Base* FindParticle(Particles::Type ptype, const std::string& name) const;
+
+  /**
    * Get the four-vector of the particle 'index' of type 'ptype'.
    * @param ptype The type of the particle.
    * @index The index of the particle.
