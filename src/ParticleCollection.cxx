@@ -386,6 +386,24 @@ int ParticleCollection::FindParticle(const std::string& name, TLorentzVector* &p
 }
 
 // ---------------------------------------------------------
+const TLorentzVector* ParticleCollection::GetP4(Particles::Type ptype, size_t index) const {
+  if (ptype == Particles::Type::kElectron) {
+    return &electrons.at(index).GetP4();
+  } else {
+    return nullptr;
+  }
+}
+
+// ---------------------------------------------------------
+TLorentzVector* ParticleCollection::GetP4(Particles::Type ptype, size_t index) {
+  if (ptype == Particles::Type::kElectron) {
+    return &electrons.at(index).GetP4();
+  } else {
+    return nullptr;
+  }
+}
+
+// ---------------------------------------------------------
 TLorentzVector* ParticleCollection::Parton(int index) {
   return &jets.at(index).GetP4();
 }

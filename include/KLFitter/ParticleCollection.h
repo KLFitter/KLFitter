@@ -87,6 +87,22 @@ class ParticleCollection final {
   int FindParticle(const std::string& name, TLorentzVector* &particle, int* index, Particles::Type* ptype);
 
   /**
+   * Get the four-vector of the particle 'index' of type 'ptype'.
+   * @param ptype The type of the particle.
+   * @index The index of the particle.
+   * @return A (const) pointer to the particle four-momentum.
+   */
+  const TLorentzVector* GetP4(Particles::Type ptype, size_t index) const;
+
+  /**
+   * Get the four-vector of the particle 'index' of type 'ptype'.
+   * @param ptype The type of the particle.
+   * @index The index of the particle.
+   * @return A pointer to the particle four-momentum.
+   */
+  TLorentzVector* GetP4(Particles::Type ptype, size_t index);
+
+  /**
    * Return the parton at some index.
    * @param index The parton index
    * @return A pointer to the TLorentzVector of the parton.
