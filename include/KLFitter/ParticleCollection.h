@@ -58,62 +58,12 @@ class ParticleCollection final {
   /// The assignment operator.
   ParticleCollection& operator=(const ParticleCollection& o);
 
-  /** \name Member functions (Get)  */
-  /** @{ */
+  /* @} */
+  /** \name Add and remove particles  */
+  /* @{ */
 
   /**
-   * Find a particle by name.
-   * @param name The name of the particle.
-   * @return The const pointer to the particle.
-   */
-  const Particles::Base* FindParticle(const std::string& name) const;
-
-  /**
-   * Find a particle by name of a given type.
-   * @param ptype The particle type.
-   * @param name The name of the particle.
-   * @return The const pointer to the particle.
-   */
-  const Particles::Base* FindParticle(Particles::Type ptype, const std::string& name) const;
-
-  /**
-   * Get the four-vector of the particle 'index' of type 'ptype'.
-   * @param ptype The type of the particle.
-   * @index The index of the particle.
-   * @return A (const) pointer to the particle four-momentum.
-   */
-  const TLorentzVector* GetP4(Particles::Type ptype, size_t index) const;
-
-  /**
-   * Get the four-vector of the particle 'index' of type 'ptype'.
-   * @param ptype The type of the particle.
-   * @index The index of the particle.
-   * @return A pointer to the particle four-momentum.
-   */
-  TLorentzVector* GetP4(Particles::Type ptype, size_t index);
-
-  /**
-   * Return the number of particles.
-   * @return The number of particles.
-   */
-  size_t NParticles() const;
-
-  /**
-   * Return the number of particles of a certain type.
-   * @param ptype The particle type.
-   * @return The number of particles.
-   */
-  size_t NParticles(Particles::Type ptype) const;
-
-  /// Return the number of b-tags.
-  size_t NBTags() const;
-
-  /** @} */
-  /** \name Member functions (misc)  */
-  /** @{ */
-
-  /**
-   * Add particle of type jet to the collection.
+   * Add particle of type parton to the collection.
    * @param p Const reference to the particle object.
    */
   void AddParticle(const Particles::Parton& p);
@@ -168,9 +118,70 @@ class ParticleCollection final {
   void RemoveParticle(Particles::Type ptype, size_t index);
 
   /** @} */
-
+  /** \name Get particles and four-momenta */
   /** @{ */
+
+  /**
+   * Find a particle of any type by its name. Returns either the
+   * pointer to the particle or a null pointer.
+   * @param name The name of the particle.
+   * @return Const pointer to the particle.
+   */
+  const Particles::Base* FindParticle(const std::string& name) const;
+
+  /**
+   * Find a particle of a given type by its name. Returns either
+   * the pointer to the particle or a null pointer.
+   * @param ptype The particle type.
+   * @param name The name of the particle.
+   * @return Const pointer to the particle.
+   */
+  const Particles::Base* FindParticle(Particles::Type ptype, const std::string& name) const;
+
+  /**
+   * Get the four-vector of a particle. This needs the type of
+   * the particle and its index in the particle collection.
+   * @param ptype The type of the particle.
+   * @param index The index of the particle.
+   * @return A (const) pointer to the particle four-momentum.
+   */
+  const TLorentzVector* GetP4(Particles::Type ptype, size_t index) const;
+
+  /**
+   * Get the four-vector of a particle. This needs the type of
+   * the particle and its index in the particle collection.
+   * @param ptype The type of the particle.
+   * @param index The index of the particle.
+   * @return A pointer to the particle four-momentum.
+   */
+  TLorentzVector* GetP4(Particles::Type ptype, size_t index);
+
+  /** @} */
+  /** \name Miscellaneous functions */
+  /** @{ */
+
+  /**
+   * Return the total number of particles in the collection.
+   * @return The number of particles.
+   */
+  size_t NParticles() const;
+
+  /**
+   * Return the number of particles of a certain type.
+   * @param ptype The particle type.
+   * @return The number of particles.
+   */
+  size_t NParticles(Particles::Type ptype) const;
+
+  /**
+   * Return the number of b-tagged Particles::Parton objects in
+   * this collection (stored in #partons).
+   */
+  size_t NBTags() const;
+
+  /** @} */
   /** \name Particle containers */
+  /** @{ */
 
   /// Vector of all Particles::Parton objects.
   std::vector<Particles::Parton> partons;
