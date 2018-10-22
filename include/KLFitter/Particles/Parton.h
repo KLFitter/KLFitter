@@ -17,47 +17,47 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KLFITTER_PARTICLES_JET_H_
-#define KLFITTER_PARTICLES_JET_H_
+#ifndef KLFITTER_PARTICLES_PARTON_H_
+#define KLFITTER_PARTICLES_PARTON_H_
 
 #include "KLFitter/Particles/Base.h"
 
 namespace KLFitter {
 namespace Particles {
-/// An enumerator class for the true jet flavor.
-enum class JetTrueFlavor {kLight,     ///< Light quark
-                          kB,         ///< B-quark
-                          kLightUp,   ///< Up-type light quark
-                          kLightDown, ///< Down-type light quark
-                          kNone       ///< Not specified
+/// An enumerator class for the true parton flavor.
+enum class PartonTrueFlavor {kLight,     ///< Light quark
+                             kB,         ///< B-quark
+                             kLightUp,   ///< Up-type light quark
+                             kLightDown, ///< Down-type light quark
+                             kNone       ///< Not specified
 };
 
 /**
- * Implementation of a jet class. This inherits a generic
+ * Implementation of a parton class. This inherits a generic
  * structure from Particles::Base, reimplements all purely virtual
- * functions and adds functionality specific to jets.
+ * functions and adds functionality specific to partons.
  */
-class Jet : public Base {
+class Parton : public Base {
  public:
   /**
-   * Jet constructor taking name and four momentum.
+   * Parton constructor taking name and four momentum.
    * @param name The name of the particle
    * @param p4 The four momentum
    */
-  Jet(const std::string& name, const TLorentzVector& p4)
+  Parton(const std::string& name, const TLorentzVector& p4)
       : m_name(name)
       , m_p4(p4) {
     // empty
   }
 
   /**
-   * Jet constructor taking name, four momentum, and whether the
-   * jet is b-tagged or not.
+   * Parton constructor taking name, four momentum, and whether the
+   * parton is b-tagged or not.
    * @param name The name of the particle
    * @param p4 The four momentum
-   * @param is_tagged Boolean whether the jet is b-tagged
+   * @param is_tagged Boolean whether the parton is b-tagged
    */
-  Jet(const std::string& name, const TLorentzVector& p4, bool is_tagged)
+  Parton(const std::string& name, const TLorentzVector& p4, bool is_tagged)
       : m_name(name)
       , m_p4(p4)
       , m_is_btagged(is_tagged) {
@@ -65,13 +65,13 @@ class Jet : public Base {
   }
 
   /// The (defaulted) destructor.
-  ~Jet() = default;
+  ~Parton() = default;
 
   /// The (defaulted) copy constructor.
-  Jet(const Jet&) = default;
+  Parton(const Parton&) = default;
 
   /// The (defaulted) assignment operator.
-  Jet& operator=(const Jet&) = default;
+  Parton& operator=(const Parton&) = default;
 
   /** \name Inherited, reimplemented methods */
   /** @{ */
@@ -98,7 +98,7 @@ class Jet : public Base {
   /** \name Get methods */
   /** @{ */
 
-  /// Get the detector eta of the jet.
+  /// Get the detector eta of the parton.
   double GetDetEta() const { return m_det_eta; }
 
   /// Get the b-tagging efficiency.
@@ -113,11 +113,11 @@ class Jet : public Base {
   /// Get whether the b-tag weight is set.
   bool GetBTagWeightIsSet() const { return m_btag_weight_set; }
 
-  /// Get whether the jet is b-tagged.
+  /// Get whether the parton is b-tagged.
   bool GetIsBTagged() const { return m_is_btagged; }
 
-  /// Get the true jet flavor.
-  JetTrueFlavor GetTrueFlavor() const { return m_true_flavor; }
+  /// Get the true parton flavor.
+  PartonTrueFlavor GetTrueFlavor() const { return m_true_flavor; }
 
   /** @} */
   /** \name Set methods */
@@ -138,11 +138,11 @@ class Jet : public Base {
   /// Set whether the b-tag weight is set.
   void SetBTagWeightIsSet(bool set) { m_btag_weight_set = set; }
 
-  /// Set whether the jet is b-tagged.
+  /// Set whether the parton is b-tagged.
   void SetIsBTagged(bool is_tagged) { m_is_btagged = is_tagged; }
 
-  /// Set the true jet flavor.
-  void SetTrueFlavor(JetTrueFlavor flavor) { m_true_flavor = flavor; }
+  /// Set the true parton flavor.
+  void SetTrueFlavor(PartonTrueFlavor flavor) { m_true_flavor = flavor; }
 
   /** @} */
 
@@ -162,9 +162,9 @@ class Jet : public Base {
   double m_btag_weight{0.};
   bool m_btag_weight_set{false};
   bool m_is_btagged{false};
-  JetTrueFlavor m_true_flavor{JetTrueFlavor::kNone};
+  PartonTrueFlavor m_true_flavor{PartonTrueFlavor::kNone};
 };
 }  // namespace Particles
 }  // namespace KLFitter
 
-#endif  // KLFITTER_PARTICLES_JET_H_
+#endif  // KLFITTER_PARTICLES_PARTON_H_

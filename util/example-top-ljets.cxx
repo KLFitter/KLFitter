@@ -255,16 +255,16 @@ int main(int argc, char *argv[]) {
     // Add jets - the input file already required at least 4 jets
     // per event, out of which at least 1 is b-tagged.
     for (unsigned int ijet = 0; ijet < 4; ijet++) {
-      KLFitter::Particles::Jet jet{"jet" + ijet, TLorentzVector{}};
-      jet.GetP4().SetPtEtaPhiE(event.jet_pt->at(ijet), event.jet_eta->at(ijet),
+      KLFitter::Particles::Parton parton{"parton" + ijet, TLorentzVector{}};
+      parton.GetP4().SetPtEtaPhiE(event.jet_pt->at(ijet), event.jet_eta->at(ijet),
           event.jet_phi->at(ijet), event.jet_e->at(ijet));
-      jet.SetDetEta(event.jet_eta->at(ijet));                // jet eta
-      jet.SetIdentifier(ijet);                               // index of the jet to identify it
-      jet.SetIsBTagged(event.jet_has_btag->at(ijet));        // Is the jet btagged?
-      jet.SetBTagEfficiency(0.6);                            // tagging efficiency required for kWorkingPoint
-      jet.SetBTagRejection(145.);                            // 1./tagging inefficiency required for kWorkingPoint
-      jet.SetBTagWeight(event.jet_btag_weight->at(ijet));    // btag discriminant weight
-      particles.AddParticle(jet);
+      parton.SetDetEta(event.jet_eta->at(ijet));                // jet eta
+      parton.SetIdentifier(ijet);                               // index of the jet to identify it
+      parton.SetIsBTagged(event.jet_has_btag->at(ijet));        // Is the jet btagged?
+      parton.SetBTagEfficiency(0.6);                            // tagging efficiency required for kWorkingPoint
+      parton.SetBTagRejection(145.);                            // 1./tagging inefficiency required for kWorkingPoint
+      parton.SetBTagWeight(event.jet_btag_weight->at(ijet));    // btag discriminant weight
+      particles.AddParticle(parton);
     }
 
     // Add particles to the likelihood.
@@ -308,28 +308,28 @@ int main(int argc, char *argv[]) {
       float bhad_eta = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 0)->Eta();
       float bhad_phi = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 0)->Phi();
       float bhad_e = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 0)->E();
-      unsigned int bhad_index = (*permutedParticles)->jets.at(0).GetIdentifier();
+      unsigned int bhad_index = (*permutedParticles)->partons.at(0).GetIdentifier();
 
       // Leptonic b quark.
       float blep_pt = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 1)->Pt();
       float blep_eta = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 1)->Eta();
       float blep_phi = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 1)->Phi();
       float blep_e = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 1)->E();
-      unsigned int blep_index = (*permutedParticles)->jets.at(1).GetIdentifier();
+      unsigned int blep_index = (*permutedParticles)->partons.at(1).GetIdentifier();
 
       // Light quark 1.
       float lquark1_pt = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 2)->Pt();
       float lquark1_eta = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 2)->Eta();
       float lquark1_phi = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 2)->Phi();
       float lquark1_e = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 2)->E();
-      unsigned int lquark1_index = (*permutedParticles)->jets.at(2).GetIdentifier();
+      unsigned int lquark1_index = (*permutedParticles)->partons.at(2).GetIdentifier();
 
       // Light quark 2.
       float lquark2_pt = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 3)->Pt();
       float lquark2_eta = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 3)->Eta();
       float lquark2_phi = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 3)->Phi();
       float lquark2_e = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 3)->E();
-      unsigned int lquark2_index = (*permutedParticles)->jets.at(3).GetIdentifier();
+      unsigned int lquark2_index = (*permutedParticles)->partons.at(3).GetIdentifier();
 
       float lepton_pt = -9999;
       float lepton_eta = -9999;

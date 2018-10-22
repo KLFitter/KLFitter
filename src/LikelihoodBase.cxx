@@ -222,15 +222,15 @@ double KLFitter::LikelihoodBase::LogEventProbabilityBTag() {
   if (fBTagMethod == kVeto) {
     // loop over all model particles.  calculate the overall b-tagging
     // probability which is the product of all probabilities.
-    for (size_t i = 0; i < fParticlesModel->jets.size(); ++i) {
+    for (size_t i = 0; i < fParticlesModel->partons.size(); ++i) {
       // get index of corresponding measured particle.
-      int index = fParticlesModel->jets.at(i).GetIdentifier();
+      int index = fParticlesModel->partons.at(i).GetIdentifier();
       if (index < 0)
         continue;
 
-      Particles::JetTrueFlavor trueFlavor = fParticlesModel->jets.at(i).GetTrueFlavor();
-      bool isBTagged = fParticlesModel->jets.at(i).GetIsBTagged();
-      if (trueFlavor == Particles::JetTrueFlavor::kLight && isBTagged == true)
+      Particles::PartonTrueFlavor trueFlavor = fParticlesModel->partons.at(i).GetTrueFlavor();
+      bool isBTagged = fParticlesModel->partons.at(i).GetIsBTagged();
+      if (trueFlavor == Particles::PartonTrueFlavor::kLight && isBTagged == true)
         probbtag = 0.;
     }
 
@@ -242,15 +242,15 @@ double KLFitter::LikelihoodBase::LogEventProbabilityBTag() {
   } else if (fBTagMethod == kVetoLight) {
     // loop over all model particles.  calculate the overall b-tagging
     // probability which is the product of all probabilities.
-    for (size_t i = 0; i < fParticlesModel->jets.size(); ++i) {
+    for (size_t i = 0; i < fParticlesModel->partons.size(); ++i) {
       // get index of corresponding measured particle.
-      int index = fParticlesModel->jets.at(i).GetIdentifier();
+      int index = fParticlesModel->partons.at(i).GetIdentifier();
       if (index < 0)
         continue;
 
-      Particles::JetTrueFlavor trueFlavor = fParticlesModel->jets.at(i).GetTrueFlavor();
-      bool isBTagged = fParticlesModel->jets.at(i).GetIsBTagged();
-      if (trueFlavor == Particles::JetTrueFlavor::kB && isBTagged == false)
+      Particles::PartonTrueFlavor trueFlavor = fParticlesModel->partons.at(i).GetTrueFlavor();
+      bool isBTagged = fParticlesModel->partons.at(i).GetIsBTagged();
+      if (trueFlavor == Particles::PartonTrueFlavor::kB && isBTagged == false)
         probbtag = 0.;
     }
 
@@ -262,17 +262,17 @@ double KLFitter::LikelihoodBase::LogEventProbabilityBTag() {
   } else if (fBTagMethod == kVetoBoth) {
     // loop over all model particles.  calculate the overall b-tagging
     // probability which is the product of all probabilities.
-    for (size_t i = 0; i < fParticlesModel->jets.size(); ++i) {
+    for (size_t i = 0; i < fParticlesModel->partons.size(); ++i) {
       // get index of corresponding measured particle.
-      int index = fParticlesModel->jets.at(i).GetIdentifier();
+      int index = fParticlesModel->partons.at(i).GetIdentifier();
       if (index < 0)
         continue;
 
-      Particles::JetTrueFlavor trueFlavor = fParticlesModel->jets.at(i).GetTrueFlavor();
-      bool isBTagged = fParticlesModel->jets.at(i).GetIsBTagged();
-      if (trueFlavor == Particles::JetTrueFlavor::kLight && isBTagged == true) {
+      Particles::PartonTrueFlavor trueFlavor = fParticlesModel->partons.at(i).GetTrueFlavor();
+      bool isBTagged = fParticlesModel->partons.at(i).GetIsBTagged();
+      if (trueFlavor == Particles::PartonTrueFlavor::kLight && isBTagged == true) {
         probbtag = 0.;
-      } else if (trueFlavor == Particles::JetTrueFlavor::kB && isBTagged == false) {
+      } else if (trueFlavor == Particles::PartonTrueFlavor::kB && isBTagged == false) {
         probbtag = 0.;
       }
     }
@@ -283,28 +283,28 @@ double KLFitter::LikelihoodBase::LogEventProbabilityBTag() {
       return -1e99;
     }
   } else if (fBTagMethod == kWorkingPoint) {
-    for (size_t i = 0; i < fParticlesModel->jets.size(); ++i) {
+    for (size_t i = 0; i < fParticlesModel->partons.size(); ++i) {
       // get index of corresponding measured particle.
-      int index = fParticlesModel->jets.at(i).GetIdentifier();
+      int index = fParticlesModel->partons.at(i).GetIdentifier();
       if (index < 0)
         continue;
 
-      Particles::JetTrueFlavor trueFlavor = fParticlesModel->jets.at(i).GetTrueFlavor();
-      bool isBTagged = fParticlesModel->jets.at(i).GetIsBTagged();
-      double efficiency = fParticlesModel->jets.at(i).GetBTagEfficiency();
-      double rejection = fParticlesModel->jets.at(i).GetBTagRejection();
+      Particles::PartonTrueFlavor trueFlavor = fParticlesModel->partons.at(i).GetTrueFlavor();
+      bool isBTagged = fParticlesModel->partons.at(i).GetIsBTagged();
+      double efficiency = fParticlesModel->partons.at(i).GetBTagEfficiency();
+      double rejection = fParticlesModel->partons.at(i).GetBTagRejection();
       if (rejection < 0 || efficiency < 0) {
         std::cout <<  " KLFitter::LikelihoodBase::LogEventProbability() : Your working points are not set properly! Returning 0 probability " << std::endl;
         return -1e99;
       }
 
-      if (trueFlavor == Particles::JetTrueFlavor::kLight && isBTagged) {
+      if (trueFlavor == Particles::PartonTrueFlavor::kLight && isBTagged) {
         logprob += log(1./rejection);
-      } else if (trueFlavor == Particles::JetTrueFlavor::kLight && !isBTagged) {
+      } else if (trueFlavor == Particles::PartonTrueFlavor::kLight && !isBTagged) {
         logprob += log(1 - 1./rejection);
-      } else if (trueFlavor == Particles::JetTrueFlavor::kB && isBTagged) {
+      } else if (trueFlavor == Particles::PartonTrueFlavor::kB && isBTagged) {
         logprob += log(efficiency);
-      } else if (trueFlavor == Particles::JetTrueFlavor::kB && !isBTagged) {
+      } else if (trueFlavor == Particles::PartonTrueFlavor::kB && !isBTagged) {
         logprob += log(1 - efficiency);
       } else {
         std::cout << " KLFitter::LikelihoodBase::LogEventProbability() : b-tagging association failed! " << std::endl;
@@ -325,20 +325,20 @@ bool KLFitter::LikelihoodBase::NoTFProblem(std::vector<double> parameters) {
 // ---------------------------------------------------------
 void KLFitter::LikelihoodBase::PropagateBTaggingInformation() {
   // get number of partons
-  unsigned int npartons = fParticlesModel->jets.size();
+  unsigned int npartons = fParticlesModel->partons.size();
 
   // loop over all model particles.
   for (unsigned int i = 0; i < npartons; ++i) {
     // get index of corresponding measured particle.
-    int index = fParticlesModel->jets.at(i).GetIdentifier();
+    int index = fParticlesModel->partons.at(i).GetIdentifier();
 
     if (index < 0) {
       continue;
     }
 
-    fParticlesModel->jets.at(index).SetIsBTagged((*fParticlesPermuted)->jets.at(index).GetIsBTagged());
-    fParticlesModel->jets.at(index).SetBTagEfficiency((*fParticlesPermuted)->jets.at(index).GetBTagEfficiency());
-    fParticlesModel->jets.at(index).SetBTagRejection((*fParticlesPermuted)->jets.at(index).GetBTagRejection());
+    fParticlesModel->partons.at(index).SetIsBTagged((*fParticlesPermuted)->partons.at(index).GetIsBTagged());
+    fParticlesModel->partons.at(index).SetBTagEfficiency((*fParticlesPermuted)->partons.at(index).GetBTagEfficiency());
+    fParticlesModel->partons.at(index).SetBTagRejection((*fParticlesPermuted)->partons.at(index).GetBTagRejection());
   }
 }
 
@@ -371,20 +371,20 @@ int KLFitter::LikelihoodBase::RemoveForbiddenParticlePermutations() {
 
   // remove all permutations where a b-tagged jet is in the position of a model light quark
   KLFitter::ParticleCollection * particles = (*fPermutations)->Particles();
-  int nPartons = particles->jets.size();
+  int nPartons = particles->partons.size();
 
   // When using kVetoHybridNoFit, copy the Permutations object and try to run
   // with the kVetoNoFit option. If all permutations are vetoed, use the backup
   // Permutations object and run with the kVetoNoFitLight option.
-  int nPartonsModel = fParticlesModel->jets.size();
+  int nPartonsModel = fParticlesModel->partons.size();
   if (fBTagMethod == kVetoHybridNoFit) {
     KLFitter::Permutations permutationsCopy(**fPermutations);
     for (int iParton(0); iParton < nPartons; ++iParton) {
-      bool isBtagged = particles->jets.at(iParton).GetIsBTagged();
+      bool isBtagged = particles->partons.at(iParton).GetIsBTagged();
 
       for (int iPartonModel(0); iPartonModel < nPartonsModel; ++iPartonModel) {
-        Particles::JetTrueFlavor trueFlavor = fParticlesModel->jets.at(iPartonModel).GetTrueFlavor();
-        if ((!isBtagged)||(trueFlavor != Particles::JetTrueFlavor::kLight)) continue;
+        Particles::PartonTrueFlavor trueFlavor = fParticlesModel->partons.at(iPartonModel).GetTrueFlavor();
+        if ((!isBtagged)||(trueFlavor != Particles::PartonTrueFlavor::kLight)) continue;
         err *= (*fPermutations)->RemoveParticlePermutations(Particles::Type::kParton, iParton, iPartonModel);
       }
     }
@@ -397,17 +397,17 @@ int KLFitter::LikelihoodBase::RemoveForbiddenParticlePermutations() {
   }
 
   for (int iParton(0); iParton < nPartons; ++iParton) {
-    bool isBtagged = particles->jets.at(iParton).GetIsBTagged();
+    bool isBtagged = particles->partons.at(iParton).GetIsBTagged();
 
     for (int iPartonModel(0); iPartonModel < nPartonsModel; ++iPartonModel) {
-      Particles::JetTrueFlavor trueFlavor = fParticlesModel->jets.at(iPartonModel).GetTrueFlavor();
-      if ((fBTagMethod == kVetoHybridNoFit)&&((isBtagged) || (trueFlavor != Particles::JetTrueFlavor::kB)))
+      Particles::PartonTrueFlavor trueFlavor = fParticlesModel->partons.at(iPartonModel).GetTrueFlavor();
+      if ((fBTagMethod == kVetoHybridNoFit)&&((isBtagged) || (trueFlavor != Particles::PartonTrueFlavor::kB)))
         continue;
-      if ((fBTagMethod == kVetoNoFit)&&((!isBtagged) || (trueFlavor != Particles::JetTrueFlavor::kLight)))
+      if ((fBTagMethod == kVetoNoFit)&&((!isBtagged) || (trueFlavor != Particles::PartonTrueFlavor::kLight)))
         continue;
-      if ((fBTagMethod == kVetoNoFitLight)&&((isBtagged) || (trueFlavor != Particles::JetTrueFlavor::kB)))
+      if ((fBTagMethod == kVetoNoFitLight)&&((isBtagged) || (trueFlavor != Particles::PartonTrueFlavor::kB)))
         continue;
-      if ((fBTagMethod == kVetoNoFitBoth)&&(((isBtagged)&&(trueFlavor != Particles::JetTrueFlavor::kLight)) || ((!isBtagged)&&(trueFlavor != Particles::JetTrueFlavor::kB))))
+      if ((fBTagMethod == kVetoNoFitBoth)&&(((isBtagged)&&(trueFlavor != Particles::PartonTrueFlavor::kLight)) || ((!isBtagged)&&(trueFlavor != Particles::PartonTrueFlavor::kB))))
         continue;
 
       err *= (*fPermutations)->RemoveParticlePermutations(Particles::Type::kParton, iParton, iPartonModel);

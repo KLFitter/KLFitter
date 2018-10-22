@@ -22,7 +22,7 @@
 // Include all individual tests here.
 #include "Particles/TestBoson.h"
 #include "Particles/TestElectron.h"
-#include "Particles/TestJet.h"
+#include "Particles/TestParton.h"
 #include "Particles/TestMuon.h"
 #include "Particles/TestNeutrino.h"
 #include "Particles/TestPhoton.h"

@@ -334,25 +334,25 @@ double LikelihoodTopLeptonJets_JetAngles::LogLikelihood(const std::vector<double
   if (!TFgoodTmp) fTFgood = false;
 
   // eta resolution
-  logprob += log((*fDetector)->ResEtaBJet((*fParticlesPermuted)->jets.at(0).GetDetEta())->p(parameters[parBhadEta], (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 0)->Eta(), &TFgoodTmp));
+  logprob += log((*fDetector)->ResEtaBJet((*fParticlesPermuted)->partons.at(0).GetDetEta())->p(parameters[parBhadEta], (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 0)->Eta(), &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
-  logprob += log((*fDetector)->ResEtaBJet((*fParticlesPermuted)->jets.at(1).GetDetEta())->p(parameters[parBlepEta], (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 1)->Eta(), &TFgoodTmp));
+  logprob += log((*fDetector)->ResEtaBJet((*fParticlesPermuted)->partons.at(1).GetDetEta())->p(parameters[parBlepEta], (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 1)->Eta(), &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
-  logprob += log((*fDetector)->ResEtaLightJet((*fParticlesPermuted)->jets.at(2).GetDetEta())->p(parameters[parLQ1Eta], (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 2)->Eta(), &TFgoodTmp));
+  logprob += log((*fDetector)->ResEtaLightJet((*fParticlesPermuted)->partons.at(2).GetDetEta())->p(parameters[parLQ1Eta], (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 2)->Eta(), &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
-  logprob += log((*fDetector)->ResEtaLightJet((*fParticlesPermuted)->jets.at(3).GetDetEta())->p(parameters[parLQ2Eta], (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 3)->Eta(), &TFgoodTmp));
+  logprob += log((*fDetector)->ResEtaLightJet((*fParticlesPermuted)->partons.at(3).GetDetEta())->p(parameters[parLQ2Eta], (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 3)->Eta(), &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
 
   // transform all phi values, so that they are centered around zero, and not around the measured phi
 
   // phi resolution
-  logprob += log((*fDetector)->ResPhiBJet((*fParticlesPermuted)->jets.at(0).GetDetEta())->p(diffPhi(parameters[parBhadPhi], (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 0)->Phi()), 0., &TFgoodTmp));
+  logprob += log((*fDetector)->ResPhiBJet((*fParticlesPermuted)->partons.at(0).GetDetEta())->p(diffPhi(parameters[parBhadPhi], (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 0)->Phi()), 0., &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
-  logprob += log((*fDetector)->ResPhiBJet((*fParticlesPermuted)->jets.at(1).GetDetEta())->p(diffPhi(parameters[parBlepPhi], (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 1)->Phi()), 0., &TFgoodTmp));
+  logprob += log((*fDetector)->ResPhiBJet((*fParticlesPermuted)->partons.at(1).GetDetEta())->p(diffPhi(parameters[parBlepPhi], (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 1)->Phi()), 0., &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
-  logprob += log((*fDetector)->ResPhiLightJet((*fParticlesPermuted)->jets.at(2).GetDetEta())->p(diffPhi(parameters[parLQ1Phi], (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 2)->Phi()), 0., &TFgoodTmp));
+  logprob += log((*fDetector)->ResPhiLightJet((*fParticlesPermuted)->partons.at(2).GetDetEta())->p(diffPhi(parameters[parLQ1Phi], (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 2)->Phi()), 0., &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
-  logprob += log((*fDetector)->ResPhiLightJet((*fParticlesPermuted)->jets.at(3).GetDetEta())->p(diffPhi(parameters[parLQ2Phi], (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 3)->Phi()), 0., &TFgoodTmp));
+  logprob += log((*fDetector)->ResPhiLightJet((*fParticlesPermuted)->partons.at(3).GetDetEta())->p(diffPhi(parameters[parLQ2Phi], (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 3)->Phi()), 0., &TFgoodTmp));
   if (!TFgoodTmp) fTFgood = false;
 
   // physics constants
@@ -464,23 +464,23 @@ std::vector<double> LikelihoodTopLeptonJets_JetAngles::LogLikelihoodComponents(s
   if (!TFgoodTmp) fTFgood = false;
 
   // jet eta resolution terms
-  vecci.push_back(log((*fDetector)->ResEtaBJet((*fParticlesPermuted)->jets.at(0).GetDetEta())->p(parameters[parBhadEta], (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 0)->Eta(), &TFgoodTmp)));
+  vecci.push_back(log((*fDetector)->ResEtaBJet((*fParticlesPermuted)->partons.at(0).GetDetEta())->p(parameters[parBhadEta], (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 0)->Eta(), &TFgoodTmp)));
   if (!TFgoodTmp) fTFgood = false;
-  vecci.push_back(log((*fDetector)->ResEtaBJet((*fParticlesPermuted)->jets.at(1).GetDetEta())->p(parameters[parBlepEta], (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 1)->Eta(), &TFgoodTmp)));
+  vecci.push_back(log((*fDetector)->ResEtaBJet((*fParticlesPermuted)->partons.at(1).GetDetEta())->p(parameters[parBlepEta], (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 1)->Eta(), &TFgoodTmp)));
   if (!TFgoodTmp) fTFgood = false;
-  vecci.push_back(log((*fDetector)->ResEtaLightJet((*fParticlesPermuted)->jets.at(2).GetDetEta())->p(parameters[parLQ1Eta], (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 2)->Eta(), &TFgoodTmp)));
+  vecci.push_back(log((*fDetector)->ResEtaLightJet((*fParticlesPermuted)->partons.at(2).GetDetEta())->p(parameters[parLQ1Eta], (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 2)->Eta(), &TFgoodTmp)));
   if (!TFgoodTmp) fTFgood = false;
-  vecci.push_back(log((*fDetector)->ResEtaLightJet((*fParticlesPermuted)->jets.at(3).GetDetEta())->p(parameters[parLQ2Eta], (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 3)->Eta(), &TFgoodTmp)));
+  vecci.push_back(log((*fDetector)->ResEtaLightJet((*fParticlesPermuted)->partons.at(3).GetDetEta())->p(parameters[parLQ2Eta], (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 3)->Eta(), &TFgoodTmp)));
   if (!TFgoodTmp) fTFgood = false;
 
   // jet phi resolution terms
-  vecci.push_back(log((*fDetector)->ResPhiBJet((*fParticlesPermuted)->jets.at(0).GetDetEta())->p(diffPhi(parameters[parBhadPhi], (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 0)->Phi()), 0., &TFgoodTmp)));
+  vecci.push_back(log((*fDetector)->ResPhiBJet((*fParticlesPermuted)->partons.at(0).GetDetEta())->p(diffPhi(parameters[parBhadPhi], (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 0)->Phi()), 0., &TFgoodTmp)));
   if (!TFgoodTmp) fTFgood = false;
-  vecci.push_back(log((*fDetector)->ResPhiBJet((*fParticlesPermuted)->jets.at(1).GetDetEta())->p(diffPhi(parameters[parBlepPhi], (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 1)->Phi()), 0., &TFgoodTmp)));
+  vecci.push_back(log((*fDetector)->ResPhiBJet((*fParticlesPermuted)->partons.at(1).GetDetEta())->p(diffPhi(parameters[parBlepPhi], (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 1)->Phi()), 0., &TFgoodTmp)));
   if (!TFgoodTmp) fTFgood = false;
-  vecci.push_back(log((*fDetector)->ResPhiLightJet((*fParticlesPermuted)->jets.at(2).GetDetEta())->p(diffPhi(parameters[parLQ1Phi], (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 2)->Phi()), 0., &TFgoodTmp)));
+  vecci.push_back(log((*fDetector)->ResPhiLightJet((*fParticlesPermuted)->partons.at(2).GetDetEta())->p(diffPhi(parameters[parLQ1Phi], (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 2)->Phi()), 0., &TFgoodTmp)));
   if (!TFgoodTmp) fTFgood = false;
-  vecci.push_back(log((*fDetector)->ResPhiLightJet((*fParticlesPermuted)->jets.at(3).GetDetEta())->p(diffPhi(parameters[parLQ2Phi], (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 3)->Phi()), 0., &TFgoodTmp)));
+  vecci.push_back(log((*fDetector)->ResPhiLightJet((*fParticlesPermuted)->partons.at(3).GetDetEta())->p(diffPhi(parameters[parLQ2Phi], (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 3)->Phi()), 0., &TFgoodTmp)));
   if (!TFgoodTmp) fTFgood = false;
 
   // physics constants

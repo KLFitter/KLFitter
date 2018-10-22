@@ -78,7 +78,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
   CheckParticles();
 
   // get number of objects per category
-  size_t npartons   = (*fParticles)->jets.size();
+  size_t npartons   = (*fParticles)->partons.size();
   size_t nelectrons = (*fParticles)->electrons.size();
   size_t nmuons     = (*fParticles)->muons.size();
   size_t nphotons     = (*fParticles)->photons.size();
@@ -142,7 +142,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
               int index = fTablePartons[ipermparton][i];
 
               // add parton
-              particles.AddParticle((*fParticles)->jets.at(index));
+              particles.AddParticle((*fParticles)->partons.at(index));
 
               // set permutation
               permutation[i] = index;
@@ -279,7 +279,7 @@ int KLFitter::Permutations::InvariantParticlePermutations(Particles::Type ptype,
 
   for (unsigned int i = 0, I = indexVector.size(); i < I; i++) {
     int index = indexVector[i];
-    if (index < 0 || index >= (*fParticles)->NParticles(ptype)) {
+    if (index < 0 || static_cast<size_t>(index) >= (*fParticles)->NParticles(ptype)) {
       std::cout << "KLFitter::Permutations::InvariantParticlePermutations(). Index out of range." << std::endl;
       return 0;
     }
@@ -369,12 +369,12 @@ int KLFitter::Permutations::InvariantParticleGroupPermutations(Particles::Type p
 
   for (unsigned int i = 0, I = indexVectorPosition1.size(); i < I; i++) {
     int index1 = indexVectorPosition1[i];
-    if (index1 < 0 || index1 >= (*fParticles)->NParticles(ptype)) {
+    if (index1 < 0 || static_cast<size_t>(index1) >= (*fParticles)->NParticles(ptype)) {
       std::cout << "KLFitter::Permutations::InvariantParticleGroupPermutations(). Index out of range." << index1 << " " << (*fParticles)->NParticles(ptype) << std::endl;
       return 0;
     }
     int index2 = indexVectorPosition2[i];
-    if (index2 < 0 || index2 >= (*fParticles)->NParticles(ptype)) {
+    if (index2 < 0 || static_cast<size_t>(index2) >= (*fParticles)->NParticles(ptype)) {
       std::cout << "KLFitter::Permutations::InvariantParticleGroupPermutations(). Index out of range." << index2 << " " << (*fParticles)->NParticles(ptype) << std::endl;
       return 0;
     }
@@ -437,7 +437,7 @@ int KLFitter::Permutations::RemoveParticlePermutations(Particles::Type ptype, in
     return 0;
 
   // check index
-  if (index < 0 || index >= (*fParticles)->NParticles(ptype)) {
+  if (index < 0 || static_cast<size_t>(index) >= (*fParticles)->NParticles(ptype)) {
     std::cout << "KLFitter::Permutations::RemoveParticlePermutations(). Index out of range." << std::endl;
     return 0;
   }

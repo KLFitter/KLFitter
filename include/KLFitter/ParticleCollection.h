@@ -26,7 +26,7 @@
 #include "TLorentzVector.h"
 #include "KLFitter/Particles/Boson.h"
 #include "KLFitter/Particles/Electron.h"
-#include "KLFitter/Particles/Jet.h"
+#include "KLFitter/Particles/Parton.h"
 #include "KLFitter/Particles/Muon.h"
 #include "KLFitter/Particles/Neutrino.h"
 #include "KLFitter/Particles/Photon.h"
@@ -96,17 +96,17 @@ class ParticleCollection final {
    * Return the number of particles.
    * @return The number of particles.
    */
-  int NParticles() const { return static_cast<int>(jets.size() + electrons.size() + muons.size() + taus.size() + neutrinos.size() + bosons.size() + photons.size()) + tracks.size(); }
+  size_t NParticles() const;
 
   /**
    * Return the number of particles of a certain type.
    * @param ptype The particle type.
    * @return The number of particles.
    */
-  int NParticles(Particles::Type ptype) const;
+  size_t NParticles(Particles::Type ptype) const;
 
   /// Return the number of b-tags.
-  int NBTags() const;
+  size_t NBTags() const;
 
   /** @} */
   /** \name Member functions (misc)  */
@@ -116,7 +116,7 @@ class ParticleCollection final {
    * Add particle of type jet to the collection.
    * @param p Const reference to the particle object.
    */
-  void AddParticle(const Particles::Jet& p);
+  void AddParticle(const Particles::Parton& p);
 
   /**
    * Add particle of type electron to the collection.
@@ -172,8 +172,8 @@ class ParticleCollection final {
   /** @{ */
   /** \name Particle containers */
 
-  /// Vector of all Particles::Jet objects.
-  std::vector<Particles::Jet> jets;
+  /// Vector of all Particles::Parton objects.
+  std::vector<Particles::Parton> partons;
 
   /// vector of all Particles::Electron objects.
   std::vector<Particles::Electron> electrons;

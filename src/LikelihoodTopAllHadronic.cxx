@@ -54,40 +54,40 @@ int KLFitter::LikelihoodTopAllHadronic::DefineModelParticles() {
 
   // add model particles
   // add model particles
-  Particles::Jet jet0{"hadronic b quark", TLorentzVector{}};
-  jet0.SetIdentifier(0);
-  jet0.SetTrueFlavor(Particles::JetTrueFlavor::kB);
-  fParticlesModel->AddParticle(jet0);
+  Particles::Parton parton0{"hadronic b quark", TLorentzVector{}};
+  parton0.SetIdentifier(0);
+  parton0.SetTrueFlavor(Particles::PartonTrueFlavor::kB);
+  fParticlesModel->AddParticle(parton0);
 
-  Particles::Jet jet1{"leptonic b quark", TLorentzVector{}};
-  jet1.SetIdentifier(1);
-  jet1.SetTrueFlavor(Particles::JetTrueFlavor::kB);
-  fParticlesModel->AddParticle(jet1);
+  Particles::Parton parton1{"leptonic b quark", TLorentzVector{}};
+  parton1.SetIdentifier(1);
+  parton1.SetTrueFlavor(Particles::PartonTrueFlavor::kB);
+  fParticlesModel->AddParticle(parton1);
 
-  Particles::Jet jet2{"light quark 1", TLorentzVector{}};
-  jet2.SetIdentifier(2);
-  jet1.SetTrueFlavor(Particles::JetTrueFlavor::kLight);
-  fParticlesModel->AddParticle(jet2);
+  Particles::Parton parton2{"light quark 1", TLorentzVector{}};
+  parton2.SetIdentifier(2);
+  parton1.SetTrueFlavor(Particles::PartonTrueFlavor::kLight);
+  fParticlesModel->AddParticle(parton2);
 
-  Particles::Jet jet3{"light quark 2", TLorentzVector{}};
-  jet3.SetIdentifier(3);
-  jet1.SetTrueFlavor(Particles::JetTrueFlavor::kLight);
-  fParticlesModel->AddParticle(jet3);
+  Particles::Parton parton3{"light quark 2", TLorentzVector{}};
+  parton3.SetIdentifier(3);
+  parton1.SetTrueFlavor(Particles::PartonTrueFlavor::kLight);
+  fParticlesModel->AddParticle(parton3);
 
-  Particles::Jet jet4{"light quark 3", TLorentzVector{}};
-  jet4.SetIdentifier(4);
-  jet1.SetTrueFlavor(Particles::JetTrueFlavor::kLight);
-  fParticlesModel->AddParticle(jet4);
+  Particles::Parton parton4{"light quark 3", TLorentzVector{}};
+  parton4.SetIdentifier(4);
+  parton1.SetTrueFlavor(Particles::PartonTrueFlavor::kLight);
+  fParticlesModel->AddParticle(parton4);
 
-  Particles::Jet jet5{"light quark 4", TLorentzVector{}};
-  jet5.SetIdentifier(5);
-  jet1.SetTrueFlavor(Particles::JetTrueFlavor::kLight);
-  fParticlesModel->AddParticle(jet5);
+  Particles::Parton parton5{"light quark 4", TLorentzVector{}};
+  parton5.SetIdentifier(5);
+  parton1.SetTrueFlavor(Particles::PartonTrueFlavor::kLight);
+  fParticlesModel->AddParticle(parton5);
 
   fParticlesModel->AddParticle(Particles::Boson{"W 1", TLorentzVector{}});
   fParticlesModel->AddParticle(Particles::Boson{"W 2", TLorentzVector{}});
-  fParticlesModel->AddParticle(Particles::Jet{"top 2", TLorentzVector{}});
-  fParticlesModel->AddParticle(Particles::Jet{"top 2", TLorentzVector{}});
+  fParticlesModel->AddParticle(Particles::Parton{"top 2", TLorentzVector{}});
+  fParticlesModel->AddParticle(Particles::Parton{"top 2", TLorentzVector{}});
 
   // no error
   return 1;
@@ -230,7 +230,7 @@ int KLFitter::LikelihoodTopAllHadronic::RemoveInvariantParticlePermutations() {
   // remove invariant jet permutations of notevent jets
   KLFitter::ParticleCollection* particles = (*fPermutations)->Particles();
   indexVector_Jets.clear();
-  for (size_t iPartons = 6; iPartons < particles->jets.size(); iPartons++) {
+  for (size_t iPartons = 6; iPartons < particles->partons.size(); iPartons++) {
     indexVector_Jets.push_back(iPartons);
   }
   err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Jets);
@@ -394,7 +394,7 @@ std::vector<double> KLFitter::LikelihoodTopAllHadronic::GetInitialParameters() {
 // ---------------------------------------------------------
 int KLFitter::LikelihoodTopAllHadronic::SavePermutedParticles() {
   bhad1_meas_e      = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 0)->E();
-  bhad1_meas_deteta = (*fParticlesPermuted)->jets.at(0).GetDetEta();
+  bhad1_meas_deteta = (*fParticlesPermuted)->partons.at(0).GetDetEta();
   bhad1_meas_px     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 0)->Px();
   bhad1_meas_py     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 0)->Py();
   bhad1_meas_pz     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 0)->Pz();
@@ -402,7 +402,7 @@ int KLFitter::LikelihoodTopAllHadronic::SavePermutedParticles() {
   bhad1_meas_p      = sqrt(bhad1_meas_e*bhad1_meas_e - bhad1_meas_m*bhad1_meas_m);
 
   bhad2_meas_e      = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 1)->E();
-  bhad2_meas_deteta = (*fParticlesPermuted)->jets.at(1).GetDetEta();
+  bhad2_meas_deteta = (*fParticlesPermuted)->partons.at(1).GetDetEta();
   bhad2_meas_px     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 1)->Px();
   bhad2_meas_py     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 1)->Py();
   bhad2_meas_pz     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 1)->Pz();
@@ -410,7 +410,7 @@ int KLFitter::LikelihoodTopAllHadronic::SavePermutedParticles() {
   bhad2_meas_p      = sqrt(bhad2_meas_e*bhad2_meas_e - bhad2_meas_m*bhad2_meas_m);
 
   lq1_meas_e      = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 2)->E();
-  lq1_meas_deteta = (*fParticlesPermuted)->jets.at(2).GetDetEta();
+  lq1_meas_deteta = (*fParticlesPermuted)->partons.at(2).GetDetEta();
   lq1_meas_px     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 2)->Px();
   lq1_meas_py     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 2)->Py();
   lq1_meas_pz     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 2)->Pz();
@@ -418,7 +418,7 @@ int KLFitter::LikelihoodTopAllHadronic::SavePermutedParticles() {
   lq1_meas_p      = sqrt(lq1_meas_e*lq1_meas_e - lq1_meas_m*lq1_meas_m);
 
   lq2_meas_e      = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 3)->E();
-  lq2_meas_deteta = (*fParticlesPermuted)->jets.at(3).GetDetEta();
+  lq2_meas_deteta = (*fParticlesPermuted)->partons.at(3).GetDetEta();
   lq2_meas_px     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 3)->Px();
   lq2_meas_py     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 3)->Py();
   lq2_meas_pz     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 3)->Pz();
@@ -426,7 +426,7 @@ int KLFitter::LikelihoodTopAllHadronic::SavePermutedParticles() {
   lq2_meas_p      = sqrt(lq2_meas_e*lq2_meas_e - lq2_meas_m*lq2_meas_m);
 
   lq3_meas_e      = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 4)->E();
-  lq3_meas_deteta = (*fParticlesPermuted)->jets.at(4).GetDetEta();
+  lq3_meas_deteta = (*fParticlesPermuted)->partons.at(4).GetDetEta();
   lq3_meas_px     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 4)->Px();
   lq3_meas_py     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 4)->Py();
   lq3_meas_pz     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 4)->Pz();
@@ -434,7 +434,7 @@ int KLFitter::LikelihoodTopAllHadronic::SavePermutedParticles() {
   lq3_meas_p      = sqrt(lq3_meas_e*lq3_meas_e - lq3_meas_m*lq3_meas_m);
 
   lq4_meas_e      = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 5)->E();
-  lq4_meas_deteta = (*fParticlesPermuted)->jets.at(5).GetDetEta();
+  lq4_meas_deteta = (*fParticlesPermuted)->partons.at(5).GetDetEta();
   lq4_meas_px     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 5)->Px();
   lq4_meas_py     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 5)->Py();
   lq4_meas_pz     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 5)->Pz();

@@ -29,7 +29,7 @@ ParticleCollection::ParticleCollection() = default;
 
 // ---------------------------------------------------------
 ParticleCollection::ParticleCollection(const ParticleCollection& o)
-    : jets(o.jets)
+    : partons(o.partons)
     , electrons(o.electrons)
     , muons(o.muons)
     , taus(o.taus)
@@ -45,7 +45,7 @@ ParticleCollection::~ParticleCollection() = default;
 
 // ---------------------------------------------------------
 ParticleCollection& ParticleCollection::operator=(const ParticleCollection& o) {
-  jets = o.jets;
+  partons = o.partons;
   electrons = o.electrons;
   muons = o.muons;
   taus = o.taus;
@@ -58,11 +58,11 @@ ParticleCollection& ParticleCollection::operator=(const ParticleCollection& o) {
 }
 
 // ---------------------------------------------------------
-void ParticleCollection::AddParticle(const Particles::Jet& p) {
+void ParticleCollection::AddParticle(const Particles::Parton& p) {
   if (FindParticle(Particles::Type::kParton, p.GetName())) {
     throw std::invalid_argument("Particle with name " + p.GetName() + " exists already");
   } else {
-    jets.emplace_back(p);
+    partons.emplace_back(p);
   }
 }
 
@@ -132,7 +132,7 @@ void ParticleCollection::AddParticle(const Particles::Track& p) {
 // ---------------------------------------------------------
 void ParticleCollection::RemoveParticle(Particles::Type ptype, size_t index) {
   if (ptype == Particles::Type::kParton) {
-    jets.erase(jets.begin() + index);
+    partons.erase(partons.begin() + index);
   } else if (ptype == Particles::Type::kElectron) {
     electrons.erase(electrons.begin() + index);
   } else if (ptype == Particles::Type::kMuon) {
@@ -152,10 +152,10 @@ void ParticleCollection::RemoveParticle(Particles::Type ptype, size_t index) {
 
 // ---------------------------------------------------------
 const Particles::Base* ParticleCollection::FindParticle(const std::string& name) const {
-  // loop over all jets
-  for (auto jet = jets.begin(); jet != jets.end(); ++jet) {
-    if (name != jet->GetName()) continue;
-    return &*jet;
+  // loop over all partons
+  for (auto parton = partons.begin(); parton != partons.end(); ++parton) {
+    if (name != parton->GetName()) continue;
+    return &*parton;
   }
 
   // loop over all electrons
@@ -207,9 +207,9 @@ const Particles::Base* ParticleCollection::FindParticle(const std::string& name)
 // ---------------------------------------------------------
 const Particles::Base* ParticleCollection::FindParticle(Particles::Type ptype, const std::string& name) const {
   if (ptype == Particles::Type::kParton) {
-    for (auto jet = jets.begin(); jet != jets.end(); ++jet) {
-      if (name != jet->GetName()) continue;
-      return &*jet;
+    for (auto parton = partons.begin(); parton != partons.end(); ++parton) {
+      if (name != parton->GetName()) continue;
+      return &*parton;
     }
   } else if (ptype == Particles::Type::kElectron) {
     for (auto el = electrons.begin(); el != electrons.end(); ++el) {
@@ -255,7 +255,7 @@ const Particles::Base* ParticleCollection::FindParticle(Particles::Type ptype, c
 // ---------------------------------------------------------
 const TLorentzVector* ParticleCollection::GetP4(Particles::Type ptype, size_t index) const {
   if (ptype == Particles::Type::kParton) {
-    return &jets.at(index).GetP4();
+    return &partons.at(index).GetP4();
   } else if (ptype == Particles::Type::kBoson) {
     return &bosons.at(index).GetP4();
   } else if (ptype == Particles::Type::kElectron) {
@@ -283,7 +283,7 @@ const TLorentzVector* ParticleCollection::GetP4(Particles::Type ptype, size_t in
 // ---------------------------------------------------------
 TLorentzVector* ParticleCollection::GetP4(Particles::Type ptype, size_t index) {
   if (ptype == Particles::Type::kParton) {
-    return &jets.at(index).GetP4();
+    return &partons.at(index).GetP4();
   } else if (ptype == Particles::Type::kBoson) {
     return &bosons.at(index).GetP4();
   } else if (ptype == Particles::Type::kElectron) {
@@ -309,32 +309,46 @@ TLorentzVector* ParticleCollection::GetP4(Particles::Type ptype, size_t index) {
 }
 
 // ---------------------------------------------------------
-int ParticleCollection::NParticles(Particles::Type ptype) const {
+size_t ParticleCollection::NParticles() const {
+  size_t n{0};
+  n += partons.size();
+  n += electrons.size();
+  n += muons.size();
+  n += taus.size();
+  n += neutrinos.size();
+  n += bosons.size();
+  n += photons.size();
+  n += tracks.size();
+  return n;
+}
+
+// ---------------------------------------------------------
+size_t ParticleCollection::NParticles(Particles::Type ptype) const {
   if (ptype == Particles::Type::kParton) {
-    return static_cast<int>(jets.size());
+    return partons.size();
   } else if (ptype == Particles::Type::kElectron) {
-    return static_cast<int>(electrons.size());
+    return electrons.size();
   } else if (ptype == Particles::Type::kMuon) {
-    return static_cast<int>(muons.size());
+    return muons.size();
   } else if (ptype == Particles::Type::kPhoton) {
-    return static_cast<int>(photons.size());
+    return photons.size();
   } else if (ptype == Particles::Type::kTau) {
-    return static_cast<int>(taus.size());
+    return taus.size();
   } else if (ptype == Particles::Type::kNeutrino) {
-    return static_cast<int>(neutrinos.size());
+    return neutrinos.size();
   } else if (ptype == Particles::Type::kBoson) {
-    return static_cast<int>(bosons.size());
+    return bosons.size();
   } else if (ptype == Particles::Type::kTrack) {
-    return static_cast<int>(tracks.size());
+    return tracks.size();
   }
   return 0;
 }
 
 // ---------------------------------------------------------
-int ParticleCollection::NBTags() const {
-  int sum{0};
-  for (const auto& jet : jets) {
-    if (jet.GetIsBTagged()) sum++;
+size_t ParticleCollection::NBTags() const {
+  size_t sum{0};
+  for (const auto& parton : partons) {
+    if (parton.GetIsBTagged()) sum++;
   }
 
   return sum;

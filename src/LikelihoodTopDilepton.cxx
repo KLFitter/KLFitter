@@ -135,15 +135,15 @@ int KLFitter::LikelihoodTopDilepton::DefineModelParticles() {
   fParticlesModel.reset(new KLFitter::ParticleCollection{});
 
   // add model particles
-  Particles::Jet jet0{"b quark 1", TLorentzVector{}};
-  jet0.SetIdentifier(0);
-  jet0.SetTrueFlavor(Particles::JetTrueFlavor::kB);
-  fParticlesModel->AddParticle(jet0);
+  Particles::Parton parton0{"b quark 1", TLorentzVector{}};
+  parton0.SetIdentifier(0);
+  parton0.SetTrueFlavor(Particles::PartonTrueFlavor::kB);
+  fParticlesModel->AddParticle(parton0);
 
-  Particles::Jet jet1{"b quark 2", TLorentzVector{}};
-  jet1.SetIdentifier(1);
-  jet1.SetTrueFlavor(Particles::JetTrueFlavor::kB);
-  fParticlesModel->AddParticle(jet1);
+  Particles::Parton parton1{"b quark 2", TLorentzVector{}};
+  parton1.SetIdentifier(1);
+  parton1.SetTrueFlavor(Particles::PartonTrueFlavor::kB);
+  fParticlesModel->AddParticle(parton1);
 
   if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kMuon) {
     fParticlesModel->AddParticle(Particles::Electron{"electron", TLorentzVector{}});
@@ -270,7 +270,7 @@ int KLFitter::LikelihoodTopDilepton::RemoveInvariantParticlePermutations() {
   // remove invariant jet permutations of notevent jets
   KLFitter::ParticleCollection* particles = (*fPermutations)->Particles();
   indexVector_Jets.clear();
-  for (size_t iPartons = 2; iPartons < particles->jets.size(); iPartons++) {
+  for (size_t iPartons = 2; iPartons < particles->partons.size(); iPartons++) {
     indexVector_Jets.push_back(iPartons);
   }
   err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Jets);
@@ -815,7 +815,7 @@ std::vector<double> KLFitter::LikelihoodTopDilepton::GetInitialParameters() {
 // ---------------------------------------------------------
 int KLFitter::LikelihoodTopDilepton::SavePermutedParticles() {
   b1_meas_e      = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 0)->E();
-  b1_meas_deteta = (*fParticlesPermuted)->jets.at(0).GetDetEta();
+  b1_meas_deteta = (*fParticlesPermuted)->partons.at(0).GetDetEta();
   b1_meas_px     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 0)->Px();
   b1_meas_py     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 0)->Py();
   b1_meas_pz     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 0)->Pz();
@@ -823,7 +823,7 @@ int KLFitter::LikelihoodTopDilepton::SavePermutedParticles() {
   b1_meas_p      = sqrt(b1_meas_e*b1_meas_e - b1_meas_m*b1_meas_m);
 
   b2_meas_e      = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 1)->E();
-  b2_meas_deteta = (*fParticlesPermuted)->jets.at(1).GetDetEta();
+  b2_meas_deteta = (*fParticlesPermuted)->partons.at(1).GetDetEta();
   b2_meas_px     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 1)->Px();
   b2_meas_py     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 1)->Py();
   b2_meas_pz     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 1)->Pz();

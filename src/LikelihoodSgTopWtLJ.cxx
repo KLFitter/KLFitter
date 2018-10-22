@@ -110,20 +110,20 @@ int KLFitter::LikelihoodSgTopWtLJ::DefineModelParticles() {
   // create the particles of the model
   fParticlesModel.reset(new KLFitter::ParticleCollection{});
 
-  Particles::Jet jet0{"b quark", TLorentzVector{}};
-  jet0.SetIdentifier(0);
-  jet0.SetTrueFlavor(Particles::JetTrueFlavor::kB);
-  fParticlesModel->AddParticle(jet0);
+  Particles::Parton parton0{"b quark", TLorentzVector{}};
+  parton0.SetIdentifier(0);
+  parton0.SetTrueFlavor(Particles::PartonTrueFlavor::kB);
+  fParticlesModel->AddParticle(parton0);
 
-  Particles::Jet jet1{"light quark 1", TLorentzVector{}};
-  jet1.SetIdentifier(1);
-  jet1.SetTrueFlavor(Particles::JetTrueFlavor::kLight);
-  fParticlesModel->AddParticle(jet1);
+  Particles::Parton parton1{"light quark 1", TLorentzVector{}};
+  parton1.SetIdentifier(1);
+  parton1.SetTrueFlavor(Particles::PartonTrueFlavor::kLight);
+  fParticlesModel->AddParticle(parton1);
 
-  Particles::Jet jet2{"light quark 2", TLorentzVector{}};
-  jet2.SetIdentifier(2);
-  jet2.SetTrueFlavor(Particles::JetTrueFlavor::kLight);
-  fParticlesModel->AddParticle(jet2);
+  Particles::Parton parton2{"light quark 2", TLorentzVector{}};
+  parton2.SetIdentifier(2);
+  parton2.SetTrueFlavor(Particles::PartonTrueFlavor::kLight);
+  fParticlesModel->AddParticle(parton2);
 
   if (fTypeLepton == kElectron) {
     fParticlesModel->AddParticle(Particles::Electron{"electron", TLorentzVector{}});
@@ -134,8 +134,8 @@ int KLFitter::LikelihoodSgTopWtLJ::DefineModelParticles() {
   fParticlesModel->AddParticle(Particles::Neutrino{"neutrino", TLorentzVector{}});
   fParticlesModel->AddParticle(Particles::Boson{"hadronic W", TLorentzVector{}});
   fParticlesModel->AddParticle(Particles::Boson{"leptonic W", TLorentzVector{}});
-  fParticlesModel->AddParticle(Particles::Jet{"hadronic top", TLorentzVector{}});
-  fParticlesModel->AddParticle(Particles::Jet{"leptonic top", TLorentzVector{}});
+  fParticlesModel->AddParticle(Particles::Parton{"hadronic top", TLorentzVector{}});
+  fParticlesModel->AddParticle(Particles::Parton{"leptonic top", TLorentzVector{}});
 
   // no error
   return 1;
@@ -282,7 +282,7 @@ int KLFitter::LikelihoodSgTopWtLJ::RemoveInvariantParticlePermutations() {
   // remove the permutation from all jet not used for the likelihood
   KLFitter::ParticleCollection * particles = (*fPermutations)->Particles();
   indexVector_Jets.clear();
-  for (size_t i = 3; i < particles->jets.size(); i++) {
+  for (size_t i = 3; i < particles->partons.size(); i++) {
     indexVector_Jets.push_back(i);
   }
   err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Jets);
@@ -505,7 +505,7 @@ std::vector<double> KLFitter::LikelihoodSgTopWtLJ::GetNeutrinoPzSolutions() {
 // ---------------------------------------------------------
 int KLFitter::LikelihoodSgTopWtLJ::SavePermutedParticles() {
   b_meas_e      = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 0)->E();
-  b_meas_deteta = (*fParticlesPermuted)->jets.at(0).GetDetEta();
+  b_meas_deteta = (*fParticlesPermuted)->partons.at(0).GetDetEta();
   b_meas_px     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 0)->Px();
   b_meas_py     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 0)->Py();
   b_meas_pz     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 0)->Pz();
@@ -513,7 +513,7 @@ int KLFitter::LikelihoodSgTopWtLJ::SavePermutedParticles() {
   b_meas_p      = sqrt(b_meas_e*b_meas_e - b_meas_m*b_meas_m);
 
   lq1_meas_e      = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 1)->E();
-  lq1_meas_deteta = (*fParticlesPermuted)->jets.at(1).GetDetEta();
+  lq1_meas_deteta = (*fParticlesPermuted)->partons.at(1).GetDetEta();
   lq1_meas_px     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 1)->Px();
   lq1_meas_py     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 1)->Py();
   lq1_meas_pz     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 1)->Pz();
@@ -521,7 +521,7 @@ int KLFitter::LikelihoodSgTopWtLJ::SavePermutedParticles() {
   lq1_meas_p      = sqrt(lq1_meas_e*lq1_meas_e - lq1_meas_m*lq1_meas_m);
 
   lq2_meas_e      = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 2)->E();
-  lq2_meas_deteta = (*fParticlesPermuted)->jets.at(2).GetDetEta();
+  lq2_meas_deteta = (*fParticlesPermuted)->partons.at(2).GetDetEta();
   lq2_meas_px     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 2)->Px();
   lq2_meas_py     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 2)->Py();
   lq2_meas_pz     = (*fParticlesPermuted)->GetP4(Particles::Type::kParton, 2)->Pz();
