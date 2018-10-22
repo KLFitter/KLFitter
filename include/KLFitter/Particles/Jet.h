@@ -80,7 +80,7 @@ class Jet : public Base {
   const std::string& GetName() const override { return m_name; }
 
   /// Const accessor to the assigned identifier of the particle.
-  unsigned int GetIdentifier() const override { return m_identifier; }
+  int GetIdentifier() const override { return m_identifier; }
 
   /// Const accessor for the particle's four momentum.
   const TLorentzVector& GetP4() const override { return m_p4; }
@@ -89,7 +89,7 @@ class Jet : public Base {
   TLorentzVector& GetP4() override { return m_p4; }
 
   /// Set the identifier of the particle.
-  void SetIdentifier(unsigned int id) override { m_identifier = id; }
+  void SetIdentifier(int id) override { m_identifier = id; }
 
   /// Set the four momentum.
   void SetP4(const TLorentzVector& p4) override { m_p4 = p4; }
@@ -151,7 +151,7 @@ class Jet : public Base {
   std::string m_name;
 
   /// Assigned identifier of the particle.
-  unsigned int m_identifier{0};
+  int m_identifier{-1};
 
   /// Four vector of the particle.
   TLorentzVector m_p4{};

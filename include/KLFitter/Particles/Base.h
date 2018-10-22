@@ -70,7 +70,7 @@ class Base {
   virtual const std::string& GetName() const = 0;
 
   /// Const accessor to the assigned identifier of the particle.
-  virtual unsigned int GetIdentifier() const = 0;
+  virtual int GetIdentifier() const = 0;
 
   /// Const accessor to the particle's four momentum.
   virtual const TLorentzVector& GetP4() const = 0;
@@ -83,7 +83,7 @@ class Base {
   /** @{ */
 
   /// Set the identifier of the particle.
-  virtual void SetIdentifier(unsigned int) = 0;
+  virtual void SetIdentifier(int) = 0;
 
   /// Set the four momentum.
   virtual void SetP4(const TLorentzVector&) = 0;
