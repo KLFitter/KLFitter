@@ -135,42 +135,25 @@ int KLFitter::LikelihoodTopDilepton::DefineModelParticles() {
   fParticlesModel.reset(new KLFitter::ParticleCollection{});
 
   // add model particles
-  // create dummy TLorentzVector
-  TLorentzVector dummy{0, 0, 0, 0};  // 4-vector
-  fParticlesModel->AddParticle(&dummy,
-                               Particles::Type::kParton,  // type
-                               "b quark 1",                   // name
-                               0,                             // index of corresponding particle
-                               Particles::JetTrueFlavor::kB);      // b jet (truth)
+  Particles::Jet jet0{"b quark 1", TLorentzVector{}};
+  jet0.SetIdentifier(0);
+  jet0.SetTrueFlavor(Particles::JetTrueFlavor::kB);
+  fParticlesModel->AddParticle(jet0);
 
-  fParticlesModel->AddParticle(&dummy,
-                               Particles::Type::kParton,
-                               "b quark 2",
-                               1,                             // index of corresponding particle
-                               Particles::JetTrueFlavor::kB);      // b jet (truth)
+  Particles::Jet jet1{"b quark 2", TLorentzVector{}};
+  jet1.SetIdentifier(1);
+  jet1.SetTrueFlavor(Particles::JetTrueFlavor::kB);
+  fParticlesModel->AddParticle(jet1);
 
   if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kMuon) {
-    fParticlesModel->AddParticle(&dummy,
-                                 Particles::Type::kElectron,
-                                 "electron");
-
-    fParticlesModel->AddParticle(&dummy,
-                                 Particles::Type::kMuon,
-                                 "muon");
+    fParticlesModel->AddParticle(Particles::Electron{"electron", TLorentzVector{}});
+    fParticlesModel->AddParticle(Particles::Muon{"muon", TLorentzVector{}});
   } else if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kElectron) {
-    fParticlesModel->AddParticle(&dummy,
-                                 Particles::Type::kElectron,
-                                 "electron 1");
-    fParticlesModel->AddParticle(&dummy,
-                                 Particles::Type::kElectron,
-                                 "electron 2");
+    fParticlesModel->AddParticle(Particles::Electron{"electron 1", TLorentzVector{}});
+    fParticlesModel->AddParticle(Particles::Electron{"electron 2", TLorentzVector{}});
   } else if (fTypeLepton_1 == kMuon && fTypeLepton_2 == kMuon) {
-    fParticlesModel->AddParticle(&dummy,
-                                 Particles::Type::kMuon,
-                                 "muon 1");
-    fParticlesModel->AddParticle(&dummy,
-                                 Particles::Type::kMuon,
-                                 "muon 2");
+    fParticlesModel->AddParticle(Particles::Muon{"muon 1", TLorentzVector{}});
+    fParticlesModel->AddParticle(Particles::Muon{"muon 2", TLorentzVector{}});
   }
 
   // no error

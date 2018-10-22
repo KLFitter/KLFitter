@@ -80,20 +80,17 @@ int LikelihoodTwoTracks::DefineModelParticles() {
   fParticlesModel.reset(new ParticleCollection{});
 
   // add model particles
-  TLorentzVector dummy{0, 0, 0, 0};
-  std::vector<double> moredummy{};
+  Particles::Boson kshort{"Kshort", TLorentzVector{}};
+  kshort.SetIdentifier(0);
+  fParticlesModel->AddParticle(kshort);
 
-  fParticlesModel->AddParticle(dummy,
-                               Particles::Type::kBoson,
-                               "Kshort", -1, moredummy);
+  Particles::Track pi_plus{"pi plus", TLorentzVector{}};
+  pi_plus.SetIdentifier(0);
+  fParticlesModel->AddParticle(pi_plus);
 
-  fParticlesModel->AddParticle(dummy,
-                               Particles::Type::kTrack,
-                               "pi plus", 0, moredummy);
-
-  fParticlesModel->AddParticle(dummy,
-                               Particles::Type::kTrack,
-                               "pi minus", 1, moredummy);
+  Particles::Track pi_minus{"pi minus", TLorentzVector{}};
+  pi_minus.SetIdentifier(0);
+  fParticlesModel->AddParticle(pi_minus);
 
   // no error
   return 1;

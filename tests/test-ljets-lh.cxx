@@ -30,47 +30,53 @@
 
 namespace {
 std::unique_ptr<KLFitter::ParticleCollection> getExampleParticles(float tag_eff, float tag_ineff) {
-  TLorentzVector jet1{};
-  jet1.SetPtEtaPhiE(133.56953, 0.2231264, 1.7798618, 137.56292);
-  const float jet1_btag_weight{0.6868029};
-  const bool jet1_has_btag{false};
-
-  TLorentzVector jet2{};
-  jet2.SetPtEtaPhiE(77.834281, 0.8158330, -1.533635, 105.72334);
-  const float jet2_btag_weight{-0.869940};
-  const bool jet2_has_btag{false};
-
-  TLorentzVector jet3{};
-  jet3.SetPtEtaPhiE(49.327293, 1.9828589, -1.878274, 182.64006);
-  const float jet3_btag_weight{0.9999086};
-  const bool jet3_has_btag{true};
-
-  TLorentzVector jet4{};
-  jet4.SetPtEtaPhiE(43.140816, 0.4029131, -0.472721, 47.186804);
-  const float jet4_btag_weight{-0.223728};
-  const bool jet4_has_btag{false};
-
-  TLorentzVector lep{};
-  lep.SetPtEtaPhiE(30.501886, 0.4483959, 2.9649317, 33.620113);
-
   std::unique_ptr<KLFitter::ParticleCollection> particles{new KLFitter::ParticleCollection};
-  particles->AddParticle(jet1, jet1.Eta(),
-      KLFitter::Particles::Type::kParton, "", 0,
-      jet1_has_btag, tag_eff, tag_ineff,
-      KLFitter::Particles::JetTrueFlavor::kNone, jet1_btag_weight);
-  particles->AddParticle(jet2, jet2.Eta(),
-      KLFitter::Particles::Type::kParton, "", 1,
-      jet2_has_btag, tag_eff, tag_ineff,
-      KLFitter::Particles::JetTrueFlavor::kNone, jet2_btag_weight);
-  particles->AddParticle(jet3, jet3.Eta(),
-      KLFitter::Particles::Type::kParton, "", 2,
-      jet3_has_btag, tag_eff, tag_ineff,
-      KLFitter::Particles::JetTrueFlavor::kNone, jet3_btag_weight);
-  particles->AddParticle(jet4, jet4.Eta(),
-      KLFitter::Particles::Type::kParton, "", 3,
-      jet4_has_btag, tag_eff, tag_ineff,
-      KLFitter::Particles::JetTrueFlavor::kNone, jet4_btag_weight);
-  particles->AddParticle(lep, lep.Eta(), KLFitter::Particles::Type::kMuon, "", 0);
+
+  KLFitter::Particles::Jet jet1{"jet1", TLorentzVector{}};
+  jet1.GetP4().SetPtEtaPhiE(133.56953, 0.2231264, 1.7798618, 137.56292);
+  jet1.SetDetEta(jet1.GetP4().Eta());
+  jet1.SetIdentifier(1);
+  jet1.SetBTagWeight(0.6868029);
+  jet1.SetIsBTagged(false);
+  jet1.SetBTagEfficiency(tag_eff);
+  jet1.SetBTagRejection(tag_ineff);
+  particles->AddParticle(jet1);
+
+  KLFitter::Particles::Jet jet2{"jet2", TLorentzVector{}};
+  jet2.GetP4().SetPtEtaPhiE(77.834281, 0.8158330, -1.533635, 105.72334);
+  jet2.SetDetEta(jet2.GetP4().Eta());
+  jet2.SetIdentifier(2);
+  jet2.SetBTagWeight(-0.869940);
+  jet2.SetIsBTagged(false);
+  jet2.SetBTagEfficiency(tag_eff);
+  jet2.SetBTagRejection(tag_ineff);
+  particles->AddParticle(jet2);
+
+  KLFitter::Particles::Jet jet3{"jet3", TLorentzVector{}};
+  jet3.GetP4().SetPtEtaPhiE(49.327293, 1.9828589, -1.878274, 182.64006);
+  jet3.SetDetEta(jet3.GetP4().Eta());
+  jet3.SetIdentifier(3);
+  jet3.SetBTagWeight(0.9999086);
+  jet3.SetIsBTagged(true);
+  jet3.SetBTagEfficiency(tag_eff);
+  jet3.SetBTagRejection(tag_ineff);
+  particles->AddParticle(jet3);
+
+  KLFitter::Particles::Jet jet4{"jet4", TLorentzVector{}};
+  jet4.GetP4().SetPtEtaPhiE(43.140816, 0.4029131, -0.472721, 47.186804);
+  jet4.SetDetEta(jet4.GetP4().Eta());
+  jet4.SetIdentifier(4);
+  jet4.SetBTagWeight(-0.223728);
+  jet4.SetIsBTagged(false);
+  jet4.SetBTagEfficiency(tag_eff);
+  jet4.SetBTagRejection(tag_ineff);
+  particles->AddParticle(jet4);
+
+  KLFitter::Particles::Muon muon{"muon", TLorentzVector{}};
+  muon.GetP4().SetPtEtaPhiE(30.501886, 0.4483959, 2.9649317, 33.620113);
+  muon.SetIdentifier(0);
+  particles->AddParticle(muon);
+
   return particles;
 }
 

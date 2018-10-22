@@ -229,30 +229,24 @@ int main(int argc, char *argv[]) {
     // considered and hence a long running time and not
     // necessarily good fitting results due to the many available
     // permutations)
-    //
-    // The arguments taken py AddParticle() are:
-    // - TLorentzVector of the physics 4-momentum
-    // - detector eta for the evaluation of the transfer
-    //   functions (for muons: just use the physics eta)
-    // - type of particle an optional name of the particle (pass
-    //   empty string in case you don't want to give your
-    //   particle a name)
-    // - index of the particle in your original collection (for
-    //   convenience)
     KLFitter::ParticleCollection particles{};
 
     // Add leptons. Depending on the two event variables
     // "lepton_is_e" and "lepton_is_mu", either an electron or a
     // lepton is added. Also set the lepton type as a parameter
     // of the likelihood.
-    TLorentzVector lepton;
-    lepton.SetPtEtaPhiE(event.lepton_pt, event.lepton_eta, event.lepton_phi, event.lepton_e);
+    TLorentzVector lepton_p4;
+    lepton_p4.SetPtEtaPhiE(event.lepton_pt, event.lepton_eta, event.lepton_phi, event.lepton_e);
     if (event.lepton_is_e) {
       likelihood.SetLeptonType(KLFitter::LikelihoodTopLeptonJets::kElectron);
-      particles.AddParticle(lepton, event.lepton_cl_eta, KLFitter::Particles::Type::kElectron);
+      KLFitter::Particles::Electron el{"electron", lepton_p4};
+      el.SetDetEta(event.lepton_cl_eta);
+      particles.AddParticle(el);
     } else if (event.lepton_is_mu) {
       likelihood.SetLeptonType(KLFitter::LikelihoodTopLeptonJets::kMuon);
-      particles.AddParticle(lepton, event.lepton_eta, KLFitter::Particles::Type::kMuon);
+      KLFitter::Particles::Muon mu{"muon", lepton_p4};
+      mu.SetDetEta(event.lepton_eta);
+      particles.AddParticle(mu);
     } else {
       std::cerr << "WARNING: Event has no electrons or muons. Skipping." << std::endl;
       continue;
@@ -261,23 +255,16 @@ int main(int argc, char *argv[]) {
     // Add jets - the input file already required at least 4 jets
     // per event, out of which at least 1 is b-tagged.
     for (unsigned int ijet = 0; ijet < 4; ijet++) {
-      TLorentzVector jet;
-      jet.SetPtEtaPhiE(event.jet_pt->at(ijet), event.jet_eta->at(ijet),
+      KLFitter::Particles::Jet jet{"jet" + ijet, TLorentzVector{}};
+      jet.GetP4().SetPtEtaPhiE(event.jet_pt->at(ijet), event.jet_eta->at(ijet),
           event.jet_phi->at(ijet), event.jet_e->at(ijet));
-      // Arguments are as follows:
-      //  1) TLorentzVector of jet
-      //  2) jet eta
-      //  3) KLFitter particle type. kParton for jets
-      //  4) Internal name
-      //  5) Index of the jet
-      //  6) Is the jet btagged?
-      //  7) tagging effciency required for kWorkingPoint
-      //  8) 1./tagging inefficiency required for kWorkingPoint
-      //  9) true flavour type
-      //  10) btag discriminant
-      particles.AddParticle(jet, event.jet_eta->at(ijet), KLFitter::Particles::Type::kParton,
-          "", ijet, static_cast<int>(event.jet_has_btag->at(ijet)), 0.6, 145.,
-          KLFitter::Particles::JetTrueFlavor::kNone, event.jet_btag_weight->at(ijet));
+      jet.SetDetEta(event.jet_eta->at(ijet));                // jet eta
+      jet.SetIdentifier(ijet);                               // index of the jet to identify it
+      jet.SetIsBTagged(event.jet_has_btag->at(ijet));        // Is the jet btagged?
+      jet.SetBTagEfficiency(0.6);                            // tagging efficiency required for kWorkingPoint
+      jet.SetBTagRejection(145.);                            // 1./tagging inefficiency required for kWorkingPoint
+      jet.SetBTagWeight(event.jet_btag_weight->at(ijet));    // btag discriminant weight
+      particles.AddParticle(jet);
     }
 
     // Add particles to the likelihood.

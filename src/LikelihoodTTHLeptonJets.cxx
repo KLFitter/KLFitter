@@ -103,77 +103,48 @@ int KLFitter::LikelihoodTTHLeptonJets::DefineModelParticles() {
   fParticlesModel.reset(new KLFitter::ParticleCollection{});
 
   // add model particles
-  // create dummy TLorentzVector
-  TLorentzVector dummy{0, 0, 0, 0};  // 4-vector
-  fParticlesModel->AddParticle(&dummy,
-                               Particles::Type::kParton,  // type
-                               "hadronic b quark",            // name
-                               0,                             // index of corresponding particle
-                               Particles::JetTrueFlavor::kB);      // b jet (truth)
+  Particles::Jet jet0{"hadronic b quark", TLorentzVector{}};
+  jet0.SetIdentifier(0);
+  jet0.SetTrueFlavor(Particles::JetTrueFlavor::kB);
+  fParticlesModel->AddParticle(jet0);
 
-  fParticlesModel->AddParticle(&dummy,
-                               Particles::Type::kParton,
-                               "leptonic b quark",
-                               1,                             // index of corresponding particle
-                               Particles::JetTrueFlavor::kB);      // b jet (truth)
+  Particles::Jet jet1{"leptonic b quark", TLorentzVector{}};
+  jet1.SetIdentifier(1);
+  jet1.SetTrueFlavor(Particles::JetTrueFlavor::kB);
+  fParticlesModel->AddParticle(jet1);
 
-  fParticlesModel->AddParticle(&dummy,
-                               Particles::Type::kParton,
-                               "light quark 1",
-                               2,                             // index of corresponding particle
-                               Particles::JetTrueFlavor::kLight);  // light jet (truth)
+  Particles::Jet jet2{"light quark 1", TLorentzVector{}};
+  jet2.SetIdentifier(2);
+  jet1.SetTrueFlavor(Particles::JetTrueFlavor::kLight);
+  fParticlesModel->AddParticle(jet2);
 
-  fParticlesModel->AddParticle(&dummy,
-                               Particles::Type::kParton,
-                               "light quark 2",
-                               3,                             // index of corresponding particle
-                               Particles::JetTrueFlavor::kLight);  // light jet (truth)
+  Particles::Jet jet3{"light quark 2", TLorentzVector{}};
+  jet3.SetIdentifier(3);
+  jet1.SetTrueFlavor(Particles::JetTrueFlavor::kLight);
+  fParticlesModel->AddParticle(jet3);
 
-  fParticlesModel->AddParticle(&dummy,
-                               Particles::Type::kParton,  // type
-                               "Higgs b quark 1",             // name
-                               4,                             // index of corresponding particle
-                               Particles::JetTrueFlavor::kB);      // b jet (truth)
+  Particles::Jet jet4{"Higgs b quark 1", TLorentzVector{}};
+  jet4.SetIdentifier(4);
+  jet1.SetTrueFlavor(Particles::JetTrueFlavor::kB);
+  fParticlesModel->AddParticle(jet4);
 
-  fParticlesModel->AddParticle(&dummy,
-                               Particles::Type::kParton,
-                               "Higgs b quark 2",
-                               5,                             // index of corresponding particle
-                               Particles::JetTrueFlavor::kB);      // b jet (truth)
+  Particles::Jet jet5{"Higgs b quark 2", TLorentzVector{}};
+  jet5.SetIdentifier(5);
+  jet1.SetTrueFlavor(Particles::JetTrueFlavor::kB);
+  fParticlesModel->AddParticle(jet5);
 
   if (fTypeLepton == kElectron) {
-    fParticlesModel->AddParticle(&dummy,
-                                 Particles::Type::kElectron,
-                                 "electron");
+    fParticlesModel->AddParticle(Particles::Electron{"electron", TLorentzVector{}});
   } else if (fTypeLepton == kMuon) {
-    fParticlesModel->AddParticle(&dummy,
-                                 Particles::Type::kMuon,
-                                 "muon");
+    fParticlesModel->AddParticle(Particles::Muon{"muon", TLorentzVector{}});
   }
 
-  fParticlesModel->AddParticle(&dummy,
-                               Particles::Type::kNeutrino,
-                               "neutrino");
-
-  fParticlesModel->AddParticle(&dummy,
-                               Particles::Type::kBoson,
-                               "hadronic W");
-
-  fParticlesModel->AddParticle(&dummy,
-                               Particles::Type::kBoson,
-                               "leptonic W");
-
-  fParticlesModel->AddParticle(&dummy,
-                               Particles::Type::kParton,
-                               "hadronic top");
-
-  fParticlesModel->AddParticle(&dummy,
-                               Particles::Type::kParton,
-                               "leptonic top");
-
-  fParticlesModel->AddParticle(&dummy,
-                               Particles::Type::kBoson,
-                               "Higgs");
+  fParticlesModel->AddParticle(Particles::Neutrino{"neutrino", TLorentzVector{}});
+  fParticlesModel->AddParticle(Particles::Boson{"hadronic W", TLorentzVector{}});
+  fParticlesModel->AddParticle(Particles::Boson{"leptonic W", TLorentzVector{}});
+  fParticlesModel->AddParticle(Particles::Jet{"hadronic top", TLorentzVector{}});
+  fParticlesModel->AddParticle(Particles::Jet{"leptonic top", TLorentzVector{}});
+  fParticlesModel->AddParticle(Particles::Boson{"Higgs", TLorentzVector{}});
 
   // no error
   return 1;

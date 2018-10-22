@@ -142,16 +142,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
               int index = fTablePartons[ipermparton][i];
 
               // add parton
-              particles.AddParticle((*fParticles)->GetP4(Particles::Type::kParton, index),
-                                    (*fParticles)->jets.at(index).GetDetEta(),
-                                    Particles::Type::kParton,
-                                    (*fParticles)->jets.at(index).GetName(),
-                                    (*fParticles)->jets.at(index).GetIdentifier(),
-                                    (*fParticles)->jets.at(index).GetIsBTagged(),
-                                    (*fParticles)->jets.at(index).GetBTagEfficiency(),
-                                    (*fParticles)->jets.at(index).GetBTagRejection(),
-                                    (*fParticles)->jets.at(index).GetTrueFlavor(),
-                                    (*fParticles)->jets.at(index).GetBTagWeight());
+              particles.AddParticle((*fParticles)->jets.at(index));
 
               // set permutation
               permutation[i] = index;
@@ -165,19 +156,10 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
               // if isDilepton include charge of the lepton
               if (isDilepton) {
                 // add electron
-                particles.AddParticle((*fParticles)->GetP4(Particles::Type::kElectron, index),
-                                      (*fParticles)->electrons.at(index).GetDetEta(),
-                                      (*fParticles)->electrons.at(index).GetCharge(),
-                                      Particles::Type::kElectron,
-                                      (*fParticles)->electrons.at(index).GetName(),
-                                      (*fParticles)->electrons.at(index).GetIdentifier());
+                particles.AddParticle((*fParticles)->electrons.at(index));
               } else {
                 // add electron
-                particles.AddParticle((*fParticles)->GetP4(Particles::Type::kElectron, index),
-                                      (*fParticles)->electrons.at(index).GetDetEta(),
-                                      Particles::Type::kElectron,
-                                      (*fParticles)->electrons.at(index).GetName(),
-                                      (*fParticles)->electrons.at(index).GetIdentifier());
+                particles.AddParticle((*fParticles)->electrons.at(index));
               }
 
               // set permutation
@@ -192,19 +174,10 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
               // if isDilepton include charge of the lepton
               if (isDilepton) {
                 // add muon
-                particles.AddParticle((*fParticles)->GetP4(Particles::Type::kMuon, index),
-                                      (*fParticles)->muons.at(index).GetDetEta(),
-                                      (*fParticles)->muons.at(index).GetCharge(),
-                                      Particles::Type::kMuon,
-                                      (*fParticles)->muons.at(index).GetName(),
-                                      (*fParticles)->muons.at(index).GetIdentifier());
+                particles.AddParticle((*fParticles)->muons.at(index));
               } else {
                 // add muon
-                particles.AddParticle((*fParticles)->GetP4(Particles::Type::kMuon, index),
-                                      (*fParticles)->muons.at(index).GetDetEta(),
-                                      Particles::Type::kMuon,
-                                      (*fParticles)->muons.at(index).GetName(),
-                                      (*fParticles)->muons.at(index).GetIdentifier());
+                particles.AddParticle((*fParticles)->muons.at(index));
               }
 
               // set permutation
@@ -217,11 +190,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
               int index = fTablePhotons[ipermphoton][i];
 
               // add photon
-              particles.AddParticle((*fParticles)->GetP4(Particles::Type::kPhoton, index),
-                                    (*fParticles)->photons.at(index).GetDetEta(),
-                                    Particles::Type::kPhoton,
-                                    (*fParticles)->photons.at(index).GetName(),
-                                    (*fParticles)->photons.at(index).GetIdentifier());
+              particles.AddParticle((*fParticles)->photons.at(index));
 
               // set permutation
               permutation[npartonsPerm + nelectrons + nmuons + i] = index;
@@ -233,11 +202,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
               int index = fTableTracks[ipermtrack][i];
 
               // add track
-              particles.AddParticle(*(*fParticles)->GetP4(Particles::Type::kTrack, index),
-                                    Particles::Type::kTrack,
-                                    (*fParticles)->tracks.at(index).GetName(),
-                                    (*fParticles)->tracks.at(index).GetIdentifier(),
-                                    (*fParticles)->tracks.at(index).GetUncertainties());
+              particles.AddParticle((*fParticles)->tracks.at(index));
 
               // set permutation
               permutation[npartonsPerm + nelectrons + nmuons + nphotons + i] = index;
