@@ -107,7 +107,7 @@ before_install:
 
 # Rule to run the unit tests using the googletest suite.
 .run_unit_tests: &run_unit_tests
-  $CMD_DOCKER "${CMD_EXPORT_BATINSTALL} && ${CMD_EXPORT_LIBPATH} && cd ${KLF_BUILD_DIR} && ${KLF_BUILD_DIR}/test-bin/gtests.exe"
+  $CMD_DOCKER "${CMD_EXPORT_BATINSTALL} && ${CMD_EXPORT_LIBPATH} && cd ${KLF_BUILD_DIR} && ${KLF_BUILD_DIR}/test-bin/unit_tests.exe"
 
 # Rule to run the integration tests and pipe the stdout/stderr
 # into a text file.
@@ -117,7 +117,7 @@ before_install:
 
 # Rule to compare the integration test output to a reference file.
 .run_integration_test_diff: &run_integration_test_diff
-  diff -u $KLF_BUILD_DIR/test-output.txt $KLF_SOURCE_DIR/tests/output-ref-ljets-lh.txt
+  diff -u $KLF_BUILD_DIR/test-output.txt $KLF_SOURCE_DIR/tests/integration/output-ref-ljets-lh.txt
 
 
 # Deploy the documentation under doc/html/ into the github pages
