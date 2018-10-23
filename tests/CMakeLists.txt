@@ -82,7 +82,8 @@ set( test_files
   units/Particles/TestPhoton.cxx
   units/Particles/TestTau.cxx
   units/Particles/TestTrack.cxx
-  )
+  units/TestParticleCollection.cxx
+)
 
 # Build the library from all unit-test files.
 add_library( KLFitterTests SHARED ${test_files} )

@@ -214,4 +214,66 @@ TEST(TestParticleCollection, FindParticleOfType) {
   // Now try to find one that doesn't exist.
   EXPECT_EQ(coll.FindParticle(Particles::Type::kBoson, "boson"), nullptr);
 }
+
+TEST(TestParticleCollection, GetFourVectors) {
+  ParticleCollection coll{};
+  TLorentzVector vec{15.3, 283.123, -3.123, 2391.2};
+  Particles::Electron p{"test_p", vec};
+  coll.electrons.emplace_back(p);
+
+  // Now retrieve the four-vector, make sure it is the same.
+  const auto&& p4 = coll.GetP4(Particles::Type::kElectron, 0);
+  EXPECT_EQ(*p4, vec);
+
+  // Now do the same with the constant four-momentum.
+  const auto&& const_coll = static_cast<const ParticleCollection>(coll);
+  const auto&& const_p4 = const_coll.GetP4(Particles::Type::kElectron, 0);
+  EXPECT_EQ(*const_p4, vec);
+
+  // Verify that the first p4 is not constant.
+  p4->SetX(13.8);
+}
+
+TEST(TestParticleCollection, NumberOfParticles) {
+  ParticleCollection coll{};
+  Particles::Electron el1{"el1", TLorentzVector{}};
+  coll.electrons.emplace_back(el1);
+  Particles::Electron el2{"el2", TLorentzVector{}};
+  coll.electrons.emplace_back(el2);
+  Particles::Parton p1{"p1", TLorentzVector{}};
+  coll.partons.emplace_back(p1);
+
+  // Verify that all particle numbers are correct.
+  EXPECT_EQ(coll.NParticles(), (size_t)3);
+  EXPECT_EQ(coll.NParticles(Particles::Type::kElectron), (size_t)2);
+  EXPECT_EQ(coll.NParticles(Particles::Type::kParton), (size_t)1);
+  EXPECT_EQ(coll.NParticles(Particles::Type::kBoson), (size_t)0);
+
+  // Remove one to see if the results are adjusted.
+  coll.RemoveParticle(Particles::Type::kParton, 0);
+  EXPECT_EQ(coll.NParticles(), (size_t)2);
+  EXPECT_EQ(coll.NParticles(Particles::Type::kParton), (size_t)0);
+}
+
+TEST(TestParticleCollection, NumberOfBTags) {
+  ParticleCollection coll{};
+  Particles::Parton p1{"p1", TLorentzVector{}};
+  p1.SetIsBTagged(true);
+  coll.partons.emplace_back(p1);
+  Particles::Parton p2{"p2", TLorentzVector{}};
+  p2.SetIsBTagged(true);
+  coll.partons.emplace_back(p2);
+
+  // Also add one without b-tag to test the default value.
+  Particles::Parton p3{"p3", TLorentzVector{}};
+  p3.SetIsBTagged(false);
+  coll.partons.emplace_back(p3);
+
+  // Verify the correct number of b-tags is set.
+  EXPECT_EQ(coll.NBTags(), (size_t)2);
+
+  // Remove one b-tag and test if the number is adjusted.
+  coll.partons.at(1).SetIsBTagged(false);
+  EXPECT_EQ(coll.NBTags(), (size_t)1);
+}
 }  // namespace KLFitter
