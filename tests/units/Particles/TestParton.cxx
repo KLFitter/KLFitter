@@ -77,29 +77,29 @@ TEST(TestParticleParton, SetAndGetBTagRejection) {
 
 TEST(TestParticleParton, SetAndGetBTagWeight) {
   KLFitter::Particles::Parton e{"", TLorentzVector{}};
-  EXPECT_EQ(false, e.GetBTagWeightIsSet());
+  EXPECT_FALSE(e.GetBTagWeightIsSet());
   double weight = -.3921;
   e.SetBTagWeight(weight);
-  EXPECT_EQ(true, e.GetBTagWeightIsSet());
+  EXPECT_TRUE(e.GetBTagWeightIsSet());
   EXPECT_DOUBLE_EQ(weight, e.GetBTagWeight());
 }
 
 TEST(TestParticleParton, SetAndGetBTagWeightIsSet) {
   KLFitter::Particles::Parton e{"", TLorentzVector{}};
-  EXPECT_EQ(false, e.GetBTagWeightIsSet());
+  EXPECT_FALSE( e.GetBTagWeightIsSet());
   e.SetBTagWeightIsSet(true);
-  EXPECT_EQ(true, e.GetBTagWeightIsSet());
+  EXPECT_TRUE(e.GetBTagWeightIsSet());
   e.SetBTagWeightIsSet(false);
-  EXPECT_EQ(false, e.GetBTagWeightIsSet());
+  EXPECT_FALSE(e.GetBTagWeightIsSet());
 }
 
 TEST(TestParticleParton, SetAndGetIsBTagged) {
   KLFitter::Particles::Parton e{"", TLorentzVector{}};
-  EXPECT_EQ(false, e.GetIsBTagged());
+  EXPECT_FALSE(e.GetIsBTagged());
   e.SetIsBTagged(true);
-  EXPECT_EQ(true, e.GetIsBTagged());
+  EXPECT_TRUE(e.GetIsBTagged());
   e.SetIsBTagged(false);
-  EXPECT_EQ(false, e.GetIsBTagged());
+  EXPECT_FALSE(e.GetIsBTagged());
 }
 
 TEST(TestParticleParton, SetAndGetTrueFlavor) {
