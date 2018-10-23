@@ -27,18 +27,15 @@
 
 // ---------------------------------------------------------
 
-/**
- * \namespace KLFitter
- * \brief The KLFitter namespace
- */
 namespace KLFitter {
 /**
-  * \class KLFitter::Particles
-  * \brief A class describing particles.
-  *
-  * This class contains sets of TLorentzVectors for quarks, leptons,
-  * etc.
-  */
+ * A class to hold collections of various particle types. The
+ * possible particle types are defined in
+ * Particles::ParticleType, and new particles are added via one
+ * of the overloaded AddParticle() functions. It provides
+ * functionality to retrieve information about the contained
+ * particles via various accessor methods.
+ */
 class Particles final {
  public:
   /// Enumerator for particle types.
@@ -60,9 +57,6 @@ class Particles final {
                         kNone       ///< Not specified
   };
 
-  /** \name Constructors and destructors */
-  /* @{ */
-
   /// The default constructor.
   Particles();
 
@@ -75,9 +69,8 @@ class Particles final {
   /// The (defaulted) assignment operator.
   Particles& operator=(const Particles& o);
 
-  /* @} */
   /** \name Member functions (Get)  */
-  /* @{ */
+  /** @{ */
 
   /**
    * Return the number of partons.
@@ -375,9 +368,9 @@ class Particles final {
   /// Return the number of b-tags.
   int NBTags() const;
 
-  /* @} */
+  /** @} */
   /** \name Member functions (Set)  */
-  /* @{ */
+  /** @{ */
 
   /**
    * Set has the jet been b-tagged?
@@ -419,9 +412,9 @@ class Particles final {
    */
   int SetBTagWeightSet(int index, bool btagweightset);
 
-  /* @} */
+  /** @} */
   /** \name Member functions (misc)  */
-  /* @{ */
+  /** @{ */
 
   /**
    * Add a particle to a list of particles.
@@ -574,177 +567,109 @@ class Particles final {
    */
   int CheckIndex(const std::vector<TLorentzVector>& container, int index) const;
 
-  /* @} */
+  /** @} */
 
  private:
-  /**
-   * A set of quarks and gluons.
-   */
+  /// A set of quarks and gluons.
   std::vector<TLorentzVector> m_partons;
 
-  /**
-   * A set of electrons.
-   */
+  /// A set of electrons.
   std::vector<TLorentzVector> m_electrons;
 
-  /**
-   * A set of muons.
-   */
+  /// A set of muons.
   std::vector<TLorentzVector> m_muons;
 
-  /**
-   * A set of taus.
-   */
+  /// A set of taus.
   std::vector<TLorentzVector> m_taus;
 
-  /**
-   * A set of neutrinos.
-   */
+  /// A set of neutrinos.
   std::vector<TLorentzVector> m_neutrinos;
 
-  /**
-   * A set of bosons.
-   */
+  /// A set of bosons.
   std::vector<TLorentzVector> m_bosons;
 
-  /**
-   * A set of photons.
-   */
+  /// A set of photons.
   std::vector<TLorentzVector> m_photons;
 
-  /**
-   * A set of tracks.
-   */
+  /// A set of tracks.
   std::vector<TLorentzVector> m_tracks;
 
-  /**
-   * The name of the partons.
-   */
+  /// The name of the partons.
   std::vector<std::string> m_parton_names;
 
-  /**
-   * The name of the electrons.
-   */
+  /// The name of the electrons.
   std::vector<std::string> m_electron_names;
 
-  /**
-   * The name of the muons.
-   */
+  /// The name of the muons.
   std::vector<std::string> m_muon_names;
 
-  /**
-   * The name of the taus.
-   */
+  /// The name of the taus.
   std::vector<std::string> m_tau_names;
 
-  /**
-   * The name of the neutrinos.
-   */
+  /// The name of the neutrinos.
   std::vector<std::string> m_neutrino_names;
 
-  /**
-   * The name of the bosons.
-   */
+  /// The name of the bosons.
   std::vector<std::string> m_boson_names;
 
-  /**
-   * The name of the photons.
-   */
+  /// The name of the photons.
   std::vector<std::string> m_photon_names;
 
-  /**
-   * The name of the tracks.
-   */
+  /// The name of the tracks.
   std::vector<std::string> m_track_names;
 
-  /**
-   * The index of the corresponding measured parton.
-   */
+  /// The index of the corresponding measured parton.
   std::vector<int> m_jet_indices;
 
-  /**
-   * The index of the corresponding measured electron.
-   */
+  /// The index of the corresponding measured electron.
   std::vector<int> m_electron_indices;
 
-  /**
-   * The index of the corresponding measured muon.
-   */
+  /// The index of the corresponding measured muon.
   std::vector<int> m_muon_indices;
 
-  /**
-   * The index of the corresponding measured photon.
-   */
+  /// The index of the corresponding measured photon.
   std::vector<int> m_photon_indices;
 
-  /**
-   * The index of the corresponding measured track.
-   */
+  /// The index of the corresponding measured track.
   std::vector<int> m_track_indices;
 
-  /**
-   * Vector containing the true flavor.
-   */
+  /// Vector containing the true flavor.
   std::vector<TrueFlavorType> m_true_flavors;
 
-  /**
-   * Vector containing a boolean for the b-tagging.
-   */
+  /// Vector containing a boolean for the b-tagging.
   std::vector<bool> m_jet_btagged_bools;
 
-  /**
-   * Vector containing the b-tagging efficiencies for the jets.
-   */
+  /// Vector containing the b-tagging efficiencies for the jets.
   std::vector<double> m_btag_efficiencies;
 
-  /**
-   * Vector containing the b-tagging rejection for the jets.
-   */
+  /// Vector containing the b-tagging rejection for the jets.
   std::vector<double> m_btag_rejections;
 
-  /**
-   * Vector containing the b-tagging weights for the jets.
-   */
+  /// Vector containing the b-tagging weights for the jets.
   std::vector<double> m_btag_weights;
 
-  /**
-   * Vector containing the bool if b-tagging weights for the jets were set.
-   */
+  /// Vector containing the bool if b-tagging weights for the jets were set.
   std::vector<bool> m_btag_weights_set;
 
-  /**
-   * Vector containing the detector eta of electrons.
-   */
+  /// Vector containing the detector eta of electrons.
   std::vector<double> m_electron_det_etas;
 
-  /**
-   * Vector containing the detector eta of muons.
-   */
+  /// Vector containing the detector eta of muons.
   std::vector<double> m_muon_det_etas;
 
-  /**
-   * Vector containing the detector eta of jets.
-   */
+  /// Vector containing the detector eta of jets.
   std::vector<double> m_jet_det_etas;
 
-  /**
-   * Vector containing the detector eta of photons.
-   */
+  /// Vector containing the detector eta of photons.
   std::vector<double> m_photon_det_etas;
 
-  /**
-   * Vector containing the charge of electrons.
-   */
+  /// Vector containing the charge of electrons.
   std::vector<float> m_electron_charges;
 
-  /**
-   * Vector containing the charge of muons.
-   */
+  /// Vector containing the charge of muons.
   std::vector<float> m_muon_charges;
 
-  /**
-   * Vector containing the uncertainties of tracks.
-   */
+  /// Vector containing the uncertainties of tracks.
   std::vector<std::vector<double> > m_uncertainties;
 };
 }  // namespace KLFitter

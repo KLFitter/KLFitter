@@ -22,236 +22,182 @@
 
 #include <vector>
 
-namespace KLFitter {
-  class ResolutionBase;
-}
-
 #include "KLFitter/LikelihoodBase.h"
 
 // ---------------------------------------------------------
 
-/**
- * \namespace KLFitter
- * \brief The KLFitter namespace
- */
 namespace KLFitter {
+class ResolutionBase;
+
 /**
-  * \class KLFitter::LikelihoodSgTopWtLJ
-  * \brief A class implementing a likelihood for the SgTop Wt -> lepton+jets
-  * channel.
-  *
-  * This class represents a likelihood for the single top Wt channel into
-  * lepton+jets.
-  */
+ * Likelihood for the production of a single top quark in
+ * association with a W boson (tW). The top quark is assumed to
+ * decay into jets, whereas the W is assumed to decay into lepton
+ * and neutrino.
+ */
 class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
  public:
-  /** \name Constructors and destructors */
-  /* @{ */
-
-  /**
-    * The default constructor.
-    */
+  /// The default constructor.
   LikelihoodSgTopWtLJ();
 
-  /**
-    * The (defaulted) destructor.
-    */
+  /// The (defaulted) destructor.
   ~LikelihoodSgTopWtLJ();
 
-  /* @} */
   /** \name Member functions (Get)  */
+  /** @{ */
 
-  /**
-    * @brief Get a pointer to the lepton in a particles object, depending on value of fTypeLepton
-    * @return Pointer to the lepton's TLorentzVector
-    */
+  /// Get a pointer to the four-vector of the lepton
   TLorentzVector* GetLepton(KLFitter::Particles* particles);
 
-  /**
-    * @brief Return the lepton type
-    * @return fTypeLepton
-    */
+  /// Return the lepton type
   int GetLeptonType();
 
-  /**
-    * @brief Return the top decay hypothesis
-    * @return fHadronicTop
-    */
+  /// Return the top decay hypothesis
   bool GetHadronicTop() { return fHadronicTop; }
 
-  /* @{ */
-
-  /* @} */
+  /** @} */
   /** \name Member functions (Set)  */
-  /* @{ */
+  /** @{ */
 
-  /**
-    * Enumerator for the lepton type.
-    */
+  /// Enumerator for the lepton type.
   enum LeptonType { kElectron, kMuon };
 
-  /**
-    * Enumerator for the parameters.
-    */
+  /// Enumerator for the parameters.
   enum Parameters { parBE, parLQ1E, parLQ2E, parLepE, parNuPx, parNuPy, parNuPz };
 
   /**
-    * Set the values for the missing ET x and y components and the SumET.
-    * @param etx missing ET x component.
-    * @param ety missing ET y component.
-    * @param sumet total scalar ET.
-    * @return An error flag.
-    */
+   * Set the values for the missing ET x and y components and the SumET.
+   * @param etx missing ET x component.
+   * @param ety missing ET y component.
+   * @param sumet total scalar ET.
+   * @return An error flag.
+   */
   int SetET_miss_XY_SumET(double etx, double ety, double sumet) override;
 
   /// Request the necessary resolution functions from the detector.
   void RequestResolutionFunctions() override;
 
-  /**
-    * Associate the hadronic leg of the event to the top quark for likelihood calculation.
-    */
+  /// Associate the hadronic leg of the event to the top quark for likelihood calculation.
   void SetHadronicTop() { fHadronicTop = true; }
 
-  /**
-    * Associate the leptonic leg of the event to the top quark for likelihood calculation.
-    */
+  /// Associate the leptonic leg of the event to the top quark for likelihood calculation.
   void SetLeptonicTop() { fHadronicTop = false; }
 
-  /**
-    * Set the type of lepton
-    * @param leptontype The type of lepton: electron(1) or muon (2)
-    */
+  /// Set the type of lepton
   void SetLeptonType(int leptontype);
 
-  /* @} */
-  /** \name Member functions (misc)  */
-  /* @{ */
-
-  /* @} */
+  /** @} */
   /** \name Member functions (BAT)  */
-  /* @{ */
+  /** @{ */
 
-  /**
-    * Define the parameters of the fit.
-    */
+  /// Define the parameters of the fit.
   void DefineParameters() override;
 
   /**
-    * The posterior probability definition, overloaded from BCModel.
-    * @param parameters A vector of parameters (double values).
-    * @return The logarithm of the prior probability.
-    */
+   * The posterior probability definition, overloaded from BCModel.
+   * @param parameters A vector of parameters (double values).
+   * @return The logarithm of the prior probability.
+   */
   double LogLikelihood(const std::vector<double> & parameters) override;
 
-  /**
-    * Get initial values for the parameters.
-    * @return vector of initial values.
-    */
+  /// Get initial values for the parameters.
   std::vector<double> GetInitialParameters() override;
 
   /// Dummy reimplementation from the abstract base class.
   std::vector<double> LogLikelihoodComponents(std::vector<double>) override { return std::vector<double>{}; }
 
-  /* @} */
+  /** @} */
 
  protected:
   /** \name Member functions (misc)  */
-  /* @{ */
+  /** @{ */
 
   /**
-    * Update 4-vectors of model particles.
-    * @return An error flag.
-    */
+   * Update 4-vectors of model particles.
+   * @return An error flag.
+   */
   int CalculateLorentzVectors(const std::vector <double>& parameters) override;
 
-  /**
-    * Initialize the likelihood for the event
-    */
+  /// Initialize the likelihood for the event
   int Initialize() override;
 
-  /**
-    * Adjust parameter ranges
-    */
+  /// Adjust parameter ranges
   int AdjustParameterRanges() override;
 
   /**
-    * Define the model particles
-    * @return An error code.
-    */
+   * Define the model particles
+   * @return An error code.
+   */
   int DefineModelParticles() override;
 
   /**
-    * Remove invariant particle permutations.
-    * @return An error code.
-    */
+   * Remove invariant particle permutations.
+   * @return An error code.
+   */
   int RemoveInvariantParticlePermutations() override;
 
   /**
-    * Build the model particles from the best fit parameters.
-    * @return An error code.
-    */
+   * Build the model particles from the best fit parameters.
+   * @return An error code.
+   */
   int BuildModelParticles() override;
 
-  /* @} */
-
- protected:
-  /**
-    * A flag for associating either the hadronic (true)
-    * or the leponic (false) leg of the event to the top quark
-    * for likelihood calculation.
-    */
-  bool fHadronicTop;
+  /** @} */
 
   /**
-    * Calculates the neutrino pz solutions from the measured values
-    * and the W mass.
-    * @return A vector with 0, 1 or 2 neutrino pz solutions.
-    */
+   * Calculates the neutrino pz solutions from the measured values
+   * and the W mass.
+   * @return A vector with 0, 1 or 2 neutrino pz solutions.
+   */
   std::vector<double> GetNeutrinoPzSolutions();
 
-  /**
-    * Save permuted particles.
-    */
+  /// Save permuted particles.
   int SavePermutedParticles() override;
 
-  /**
-    * Save resolution functions.
-    */
+  /// Save resolution functions.
   int SaveResolutionFunctions() override;
 
+  /** \name Member attributes */
+  /** @{ */
+
   /**
-    * The values of the x component of the missing ET.
-    */
+   * A flag for associating either the hadronic (true)
+   * or the leponic (false) leg of the event to the top quark
+   * for likelihood calculation.
+   */
+  bool fHadronicTop;
+
+  /// The values of the x component of the missing ET.
   double ETmiss_x;
 
-  /**
-    * The values of the y component of the missing ET.
-    */
+  /// The values of the y component of the missing ET.
   double ETmiss_y;
 
-  /**
-    * The values of the total scalar ET.
-    */
+  /// The values of the total scalar ET.
   double SumET;
 
-  /**
-    * An index deciding if the event is electron (1) or muon (2) plus
-    * jets.
-    */
+  /// Index whether l+jets event is electron (1) or muon (2).
   int fTypeLepton;
 
-  /**
-    * Save resolution functions since the eta of the partons is not fitted.
-    */
+  /// Pointer to resolution function for the b quark.
   ResolutionBase * fResEnergyB;
+
+  /// Pointer to resolution function for first light quark jet.
   ResolutionBase * fResEnergyLQ1;
+
+  /// Pointer to resolution function for second light quark jet.
   ResolutionBase * fResEnergyLQ2;
+
+  /// Pointer to resolution function for the lepton.
   ResolutionBase * fResLepton;
+
+  /// Pointer to resolution function for MET.
   ResolutionBase * fResMET;
 
-  /**
-    * Save measured particle values for frequent calls
-    */
+  /** @} */
+  /** \name Member attributes (measured parameters) */
+  /** @{ */
+
   double b_meas_e;
   double b_meas_p;
   double b_meas_m;
@@ -290,9 +236,10 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
   double lep_meas_py;
   double lep_meas_pz;
 
-  /**
-    * Save fit particle values for frequent calls
-    */
+  /** @} */
+  /** \name Member attributes (fitted parameters) */
+  /** @{ */
+
   double b_fit_e;
   double b_fit_px;
   double b_fit_py;
@@ -322,6 +269,8 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
   double wlep_fit_m;
   double thad_fit_m;
   double tlep_fit_m;
+
+  /** @} */
 };
 }  // namespace KLFitter
 

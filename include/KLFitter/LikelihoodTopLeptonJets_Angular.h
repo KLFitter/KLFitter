@@ -28,23 +28,21 @@
 
 namespace KLFitter {
 /**
-  * This is an extension of LikelihoodTopLeptonJets, which adds angular
-  * information to the likelihood.
-  */
+ * This is an extension of LikelihoodTopLeptonJets, which adds
+ * angular information to the likelihood. The added angular
+ * information is based on cos(theta) values and the (expected)
+ * polarizations of the W boson.
+ */
 class LikelihoodTopLeptonJets_Angular : public KLFitter::LikelihoodTopLeptonJets {
  public:
-  /** \name Constructors and destructors */
-  /* @{ */
-
   /// The (defaulted) constructor.
   LikelihoodTopLeptonJets_Angular();
 
   /// The (defaulted) destructor.
   ~LikelihoodTopLeptonJets_Angular();
 
-  /* @} */
   /** \name Member functions (misc)  */
-  /* @{ */
+  /** @{ */
 
   /**
    * The posterior probability definition, overloaded from BCModel. In addition
@@ -55,7 +53,7 @@ class LikelihoodTopLeptonJets_Angular : public KLFitter::LikelihoodTopLeptonJets
    */
   double LogLikelihood(const std::vector <double> & parameters) override;
 
-  /* @} */
+  /** @} */
 
  protected:
   /**

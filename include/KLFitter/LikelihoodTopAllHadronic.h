@@ -23,51 +23,30 @@
 #include <iostream>
 #include <vector>
 
-namespace KLFitter {
-  class ResolutionBase;
-}
-
 #include "KLFitter/LikelihoodBase.h"
 
 // ---------------------------------------------------------
 
-/**
- * \namespace KLFitter
- * \brief The KLFitter namespace
- */
 namespace KLFitter {
+class ResolutionBase;
+
 /**
-  * \class KLFitter::LikelihoodTopAllHadronic
-  * \brief A class implementing a likelihood for the ttbar allhadronic channel.
-  *
-  * This class represents a likelihood for the ttbar allhadronic channel.
-  */
+ * Likelihood for the ttbar allhadronic channel, where both tops
+ * decay hadronically. This likelihood takes six jets, out of
+ * which two are expected to come from b-quarks.
+ */
 class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
  public:
-  /** \name Constructors and destructors */
-  /* @{ */
-
-  /**
-    * The default constructor.
-    */
+  /// The default constructor.
   LikelihoodTopAllHadronic();
 
-  /**
-    * The (defaulted) destructor.
-    */
+  /// The (defaulted) destructor.
   ~LikelihoodTopAllHadronic();
 
-  /* @} */
-  /** \name Member functions (Get)  */
-  /* @{ */
-
-  /* @} */
   /** \name Member functions (Set)  */
-  /* @{ */
+  /** @{ */
 
-  /**
-    * Enumerator for the parameters.
-    */
+  /// Enumerator for the parameters.
   enum Parameters { parBhad1E, parBhad2E, parLQ1E, parLQ2E, parLQ3E, parLQ4E, parTopM };
 
   /**
@@ -82,134 +61,119 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
   void RequestResolutionFunctions() override;
 
   /**
-    * Set a flag. If flag is true the invariant top quark mass is
-    * fixed to the pole mass.
-    * @param flag The flag.
-    */
+   * Set a flag. If flag is true the invariant top quark mass is
+   * fixed to the pole mass.
+   * @param flag The flag.
+   */
   void SetFlagTopMassFixed(bool flag) { fFlagTopMassFixed = flag; }
 
   void SetFlagGetParSigmasFromTFs(bool flag) { fFlagGetParSigmasFromTFs = flag; }
 
-  /* @} */
-  /** \name Member functions (misc)  */
-  /* @{ */
-
-  /* @} */
+  /** @} */
   /** \name Member functions (BAT)  */
-  /* @{ */
+  /** @{ */
 
-  /**
-    * Define the parameters of the fit.
-    */
+  /// Define the parameters of the fit.
   void DefineParameters() override;
 
   /**
-    * The posterior probability definition, overloaded from BCModel.
-    * @param parameters A vector of parameters (double values).
-    * @return The logarithm of the prior probability.
-    */
+   * The posterior probability definition, overloaded from BCModel.
+   * @param parameters A vector of parameters (double values).
+   * @return The logarithm of the prior probability.
+   */
   double LogLikelihood(const std::vector <double> &  parameters) override;
 
   /**
-    * The posterior probability definition, overloaded from BCModel. Split up into several subcomponents
-    * @param parameters A vector of parameters (double values).
-    * @return A vector with the components of the logarithm of the prior probability. Its components are:
-    * 0:  TF_bhad1
-    * 1:  TF_bhad2
-    * 2:  TF_lq1
-    * 3:  TF_lq2
-    * 4:  TF_lq3
-    * 5:  TF_lq4
-    * 6:  BW_Whad1
-    * 7:  BW_Whad2
-    * 8:  BW_Thad1
-    * 9:  BW_Thad2
-    */
+   * The posterior probability definition, overloaded from BCModel. Split up into several subcomponents
+   * @param parameters A vector of parameters (double values).
+   * @return A vector with the components of the logarithm of the prior probability. Its components are:
+   * 0:  TF_bhad1
+   * 1:  TF_bhad2
+   * 2:  TF_lq1
+   * 3:  TF_lq2
+   * 4:  TF_lq3
+   * 5:  TF_lq4
+   * 6:  BW_Whad1
+   * 7:  BW_Whad2
+   * 8:  BW_Thad1
+   * 9:  BW_Thad2
+   */
   std::vector<double> LogLikelihoodComponents(std::vector <double> parameters) override;
 
-  /**
-    * Get initial values for the parameters.
-    * @return vector of initial values.
-    */
+  /// Get initial values for the parameters.
   std::vector<double> GetInitialParameters() override;
 
-  /* @} */
+  /** @} */
 
  protected:
   /** \name Member functions (misc)  */
-  /* @{ */
+  /** @{ */
 
   /**
-    * Update 4-vectors of model particles.
-    * @return An error flag.
-    */
+   * Update 4-vectors of model particles.
+   * @return An error flag.
+   */
   int CalculateLorentzVectors(std::vector <double> const& parameters) override;
 
-  /**
-    * Adjust parameter ranges
-    */
+  /// Adjust parameter ranges
   int AdjustParameterRanges() override;
 
   /**
-    * Define the model particles
-    * @return An error code.
-    */
+   * Define the model particles
+   * @return An error code.
+   */
   int DefineModelParticles() override;
 
   /**
-    * Remove invariant particle permutations.
-    * @return An error code.
-    */
+   * Remove invariant particle permutations.
+   * @return An error code.
+   */
   int RemoveInvariantParticlePermutations() override;
 
   /**
-    * Remove forbidden particle permutations - forcing b-jets on the position of a b parton.
-    * @return An error code.
-    */
-  //    int RemoveForbiddenBParticlePermutations();
-
-  /**
-    * Build the model particles from the best fit parameters.
-    * @return An error code.
-    */
+   * Build the model particles from the best fit parameters.
+   * @return An error code.
+   */
   int BuildModelParticles() override;
 
-  /* @} */
-
- protected:
-  /**
-    * A flag for using a fixed top mass (true) or not (false).
-    */
-  bool fFlagTopMassFixed;
-
-  /**
-    *  Flag for using ResolutionBase::GetSigma() to retrieve the parameter ranges
-    */
-  bool fFlagGetParSigmasFromTFs;
-
-  /**
-    * Save permuted particles.
-    */
+  /// Save permuted particles.
   int SavePermutedParticles() override;
 
-  /**
-    * Save resolution functions.
-    */
+  /// Save resolution functions.
   int SaveResolutionFunctions() override;
 
-  /**
-    * Save resolution functions since the eta of the partons is not fitted.
-    */
+  /** @} */
+  /** \name Member attributes */
+  /** @{ */
+
+  /// A flag for using a fixed top mass (true) or not (false).
+  bool fFlagTopMassFixed;
+
+  ///  Flag for using ResolutionBase::GetSigma() to retrieve the parameter ranges
+  bool fFlagGetParSigmasFromTFs;
+
+  /// Pointer to resolution function for hadronic b quark.
   ResolutionBase * fResEnergyBhad1;
+
+  /// Pointer to resolution function for leptonic b quark.
   ResolutionBase * fResEnergyBhad2;
+
+  /// Pointer to resolution function for first light quark jet.
   ResolutionBase * fResEnergyLQ1;
+
+  /// Pointer to resolution function for second light quark jet.
   ResolutionBase * fResEnergyLQ2;
+
+  /// Pointer to resolution function for third light quark jet.
   ResolutionBase * fResEnergyLQ3;
+
+  /// Pointer to resolution function for fourth light quark jet.
   ResolutionBase * fResEnergyLQ4;
 
-  /**
-    * Save measured particle values for frequent calls
-    */
+  /** @} */
+  /** \name Member attributes (measured parameters) */
+  /** @{ */
+
   double bhad1_meas_e;
   double bhad1_meas_p;
   double bhad1_meas_m;
@@ -270,9 +234,10 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
   double lq4_meas_py;
   double lq4_meas_pz;
 
-  /**
-    * Save fit particle values for frequent calls
-    */
+  /** @} */
+  /** \name Member attributes (fitted parameters) */
+  /** @{ */
+
   double bhad1_fit_e;
   double bhad1_fit_px;
   double bhad1_fit_py;
@@ -307,6 +272,8 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
   double whad2_fit_m;
   double thad1_fit_m;
   double thad2_fit_m;
+
+  /** @} */
 };
 }  // namespace KLFitter
 
