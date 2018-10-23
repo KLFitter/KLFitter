@@ -85,31 +85,14 @@ set( test_files
   units/TestParticleCollection.cxx
 )
 
-# Build the library from all unit-test files.
-add_library( KLFitterTests SHARED ${test_files} )
-target_include_directories( KLFitterTests
-  PUBLIC ${ROOT_INCLUDE_DIRS} ${GTEST_INCLUDE_DIRS}
-  $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include>
-)
-if( KLF_BUILD_GTEST )
-  add_dependencies( KLFitterTests GTest::GTest )
-endif()
-
-# Install the library to its destination folder.
-install( TARGETS KLFitterTests
-  EXPORT KLFitterTestTargets
-  ARCHIVE DESTINATION lib
-  LIBRARY DESTINATION lib )
-
 # Build the main unit-test executable.
-add_executable( unit_tests.exe unit_tests.cxx )
+add_executable( unit_tests.exe unit_tests.cxx ${test_files} )
 target_include_directories( unit_tests.exe
   PUBLIC ${ROOT_INCLUDE_DIRS} ${GTEST_INCLUDE_DIRS}
   $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
 )
-target_link_libraries( unit_tests.exe GTest::GTest KLFitterTests KLFitter ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries( unit_tests.exe GTest::GTest KLFitter ${CMAKE_THREAD_LIBS_INIT})
 set_target_properties( unit_tests.exe PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/test-bin" )
 if( KLF_BUILD_GTEST )
