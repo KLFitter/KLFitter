@@ -184,17 +184,17 @@ TEST(TestParticleCollection, RemoveParticle) {
 TEST(TestParticleCollection, FindArbitraryParticle) {
   ParticleCollection coll{};
   Particles::Electron electron{"test_electron", TLorentzVector{}};
-  electron.SetCharge(-1);
+  electron.SetIdentifier(25);
   coll.AddParticle(electron);
   Particles::Parton parton{"test_parton", TLorentzVector{}};
-  parton.SetBTagWeight(0.375);
+  parton.SetIdentifier(16);
   coll.AddParticle(parton);
 
   // Now try to find these two particles.
-  auto result = dynamic_cast<const Particles::Electron*>(coll.FindParticle("test_electron"));
-  EXPECT_EQ(electron.GetCharge(), result->GetCharge());
-  auto result2 = dynamic_cast<const Particles::Parton*>(coll.FindParticle("test_parton"));
-  EXPECT_EQ(parton.GetBTagWeight(), result2->GetBTagWeight());
+  auto result = coll.FindParticle("test_electron");
+  EXPECT_EQ(electron.GetIdentifier(), result->GetIdentifier());
+  auto result2 = coll.FindParticle("test_parton");
+  EXPECT_EQ(parton.GetIdentifier(), result2->GetIdentifier());
 
   // Now try to find one that doesn't exist.
   EXPECT_EQ(coll.FindParticle("test"), nullptr);
@@ -203,13 +203,12 @@ TEST(TestParticleCollection, FindArbitraryParticle) {
 TEST(TestParticleCollection, FindParticleOfType) {
   ParticleCollection coll{};
   Particles::Electron electron{"test_electron", TLorentzVector{}};
-  electron.SetCharge(-1);
+  electron.SetIdentifier(17);
   coll.AddParticle(electron);
 
   // Now try to find this particle.
-  auto uncasted = coll.FindParticle(Particles::Type::kElectron, "test_electron");
-  auto result = dynamic_cast<const Particles::Electron*>(uncasted);
-  EXPECT_EQ(electron.GetCharge(), result->GetCharge());
+  const auto&& result = coll.FindParticle(Particles::Type::kElectron, "test_electron");
+  EXPECT_EQ(electron.GetIdentifier(), result->GetIdentifier());
 
   // Now try to find one that doesn't exist.
   EXPECT_EQ(coll.FindParticle(Particles::Type::kBoson, "boson"), nullptr);
