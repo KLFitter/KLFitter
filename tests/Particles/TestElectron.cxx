@@ -17,27 +17,26 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KLFITTER_TEST_PARTICLES_NEUTRINO_H_
-#define KLFITTER_TEST_PARTICLES_NEUTRINO_H_
-
 #include "gtest/gtest.h"
 
-#include "KLFitter/Particles/Neutrino.h"
+#include "KLFitter/Particles/Electron.h"
+#include "TLorentzVector.h"
 
-TEST(TestParticleNeutrino, GetName) {
-  KLFitter::Particles::Neutrino e{"test_name", TLorentzVector{}};
+namespace KLFitter {
+TEST(TestParticleElectron, GetName) {
+  KLFitter::Particles::Electron e{"test_name", TLorentzVector{}};
   EXPECT_EQ("test_name", e.GetName());
 }
 
-TEST(TestParticleNeutrino, ConstructAndGetFourVector) {
+TEST(TestParticleElectron, ConstructAndGetFourVector) {
   TLorentzVector p4{15, 23.4, 27, 3};
 
   // Test whether four vector is correctly stored at construction.
-  KLFitter::Particles::Neutrino e{"test_name", p4};
+  KLFitter::Particles::Electron e{"test_name", p4};
   EXPECT_EQ(p4, e.GetP4());
   EXPECT_FLOAT_EQ(23.4, e.GetP4().Y());
 
-  // Now test whether Neutrino::SetP4() works.
+  // Now test whether Electron::SetP4() works.
   p4.SetX(17.342);
   p4.SetY(12.232);
   e.SetP4(p4);
@@ -45,9 +44,9 @@ TEST(TestParticleNeutrino, ConstructAndGetFourVector) {
   EXPECT_FLOAT_EQ(12.232, e.GetP4().Y());
 }
 
-TEST(TestParticleNeutrino, SetAndGetIdentifier) {
-  KLFitter::Particles::Neutrino e{"", TLorentzVector{}};
-  unsigned int id = 25;
+TEST(TestParticleElectron, SetAndGetIdentifier) {
+  KLFitter::Particles::Electron e{"", TLorentzVector{}};
+  int id = 25;
   e.SetIdentifier(id);
   EXPECT_EQ(id, e.GetIdentifier());
   id = 729;
@@ -55,4 +54,17 @@ TEST(TestParticleNeutrino, SetAndGetIdentifier) {
   EXPECT_EQ(id, e.GetIdentifier());
 }
 
-#endif  // KLFITTER_TEST_PARTICLES_NEUTRINO_H_
+TEST(TestParticleElectron, SetAndGetDetEta) {
+  KLFitter::Particles::Electron e{"", TLorentzVector{}};
+  double eta = 23.523;
+  e.SetDetEta(eta);
+  EXPECT_EQ(eta, e.GetDetEta());
+}
+
+TEST(TestParticleElectron, SetAndGetCharge) {
+  KLFitter::Particles::Electron e{"", TLorentzVector{}};
+  float charge{-12.3};
+  e.SetCharge(charge);
+  EXPECT_EQ(charge, e.GetCharge());
+}
+}  // namespace KLFitter 

@@ -17,27 +17,26 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KLFITTER_TEST_PARTICLES_BOSON_H_
-#define KLFITTER_TEST_PARTICLES_BOSON_H_
-
 #include "gtest/gtest.h"
 
-#include "KLFitter/Particles/Boson.h"
+#include "KLFitter/Particles/Tau.h"
+#include "TLorentzVector.h"
 
-TEST(TestParticleBoson, GetName) {
-  KLFitter::Particles::Boson e{"test_name", TLorentzVector{}};
+namespace KLFitter {
+TEST(TestParticleTau, GetName) {
+  KLFitter::Particles::Tau e{"test_name", TLorentzVector{}};
   EXPECT_EQ("test_name", e.GetName());
 }
 
-TEST(TestParticleBoson, ConstructAndGetFourVector) {
+TEST(TestParticleTau, ConstructAndGetFourVector) {
   TLorentzVector p4{15, 23.4, 27, 3};
 
   // Test whether four vector is correctly stored at construction.
-  KLFitter::Particles::Boson e{"test_name", p4};
+  KLFitter::Particles::Tau e{"test_name", p4};
   EXPECT_EQ(p4, e.GetP4());
   EXPECT_FLOAT_EQ(23.4, e.GetP4().Y());
 
-  // Now test whether Boson::SetP4() works.
+  // Now test whether Tau::SetP4() works.
   p4.SetX(17.342);
   p4.SetY(12.232);
   e.SetP4(p4);
@@ -45,14 +44,13 @@ TEST(TestParticleBoson, ConstructAndGetFourVector) {
   EXPECT_FLOAT_EQ(12.232, e.GetP4().Y());
 }
 
-TEST(TestParticleBoson, SetAndGetIdentifier) {
-  KLFitter::Particles::Boson e{"", TLorentzVector{}};
-  unsigned int id = 25;
+TEST(TestParticleTau, SetAndGetIdentifier) {
+  KLFitter::Particles::Tau e{"", TLorentzVector{}};
+  int id = 25;
   e.SetIdentifier(id);
   EXPECT_EQ(id, e.GetIdentifier());
   id = 729;
   e.SetIdentifier(id);
   EXPECT_EQ(id, e.GetIdentifier());
 }
-
-#endif  // KLFITTER_TEST_PARTICLES_BOSON_H_
+}  // namespace KLFitter

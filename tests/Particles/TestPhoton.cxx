@@ -17,13 +17,12 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KLFITTER_TEST_PARTICLES_PHOTON_H_
-#define KLFITTER_TEST_PARTICLES_PHOTON_H_
-
 #include "gtest/gtest.h"
 
 #include "KLFitter/Particles/Photon.h"
+#include "TLorentzVector.h"
 
+namespace KLFitter {
 TEST(TestParticlePhoton, GetName) {
   KLFitter::Particles::Photon e{"test_name", TLorentzVector{}};
   EXPECT_EQ("test_name", e.GetName());
@@ -47,7 +46,7 @@ TEST(TestParticlePhoton, ConstructAndGetFourVector) {
 
 TEST(TestParticlePhoton, SetAndGetIdentifier) {
   KLFitter::Particles::Photon e{"", TLorentzVector{}};
-  unsigned int id = 25;
+  int id = 25;
   e.SetIdentifier(id);
   EXPECT_EQ(id, e.GetIdentifier());
   id = 729;
@@ -61,5 +60,4 @@ TEST(TestParticlePhoton, SetAndGetDetEta) {
   e.SetDetEta(eta);
   EXPECT_EQ(eta, e.GetDetEta());
 }
-
-#endif  // KLFITTER_TEST_PARTICLES_PHOTON_H_
+}  // namespace KLFitter

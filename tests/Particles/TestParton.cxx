@@ -17,13 +17,12 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KLFITTER_TEST_PARTICLES_PARTON_H_
-#define KLFITTER_TEST_PARTICLES_PARTON_H_
-
 #include "gtest/gtest.h"
 
 #include "KLFitter/Particles/Parton.h"
+#include "TLorentzVector.h"
 
+namespace KLFitter {
 TEST(TestParticleParton, GetName) {
   KLFitter::Particles::Parton e{"test_name", TLorentzVector{}};
   EXPECT_EQ("test_name", e.GetName());
@@ -47,7 +46,7 @@ TEST(TestParticleParton, ConstructAndGetFourVector) {
 
 TEST(TestParticleParton, SetAndGetIdentifier) {
   KLFitter::Particles::Parton e{"", TLorentzVector{}};
-  unsigned int id = 25;
+  int id = 25;
   e.SetIdentifier(id);
   EXPECT_EQ(id, e.GetIdentifier());
   id = 729;
@@ -111,5 +110,4 @@ TEST(TestParticleParton, SetAndGetTrueFlavor) {
   e.SetTrueFlavor(KLFitter::Particles::PartonTrueFlavor::kLight);
   EXPECT_EQ(KLFitter::Particles::PartonTrueFlavor::kLight, e.GetTrueFlavor());
 }
-
-#endif  // KLFITTER_TEST_PARTICLES_PARTON_H_
+}  // namespace KLFitter
