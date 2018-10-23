@@ -109,7 +109,7 @@ target_include_directories( unit_tests.exe
   $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
 )
-target_link_libraries( unit_tests.exe GTest::GTest KLFitterTests KLFitter )
+target_link_libraries( unit_tests.exe GTest::GTest KLFitterTests KLFitter ${CMAKE_THREAD_LIBS_INIT})
 set_target_properties( unit_tests.exe PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/test-bin" )
 if( KLF_BUILD_GTEST )
