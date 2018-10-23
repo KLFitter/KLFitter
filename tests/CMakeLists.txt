@@ -72,14 +72,43 @@ else()
   find_package( GTest 1.8.1 REQUIRED )
 endif()
 
+# List of all unit-test implementation files.
+set( test_files
+  Particles/TestBoson.cxx
+  Particles/TestElectron.cxx
+  Particles/TestMuon.cxx
+  Particles/TestNeutrino.cxx
+  Particles/TestParton.cxx
+  Particles/TestPhoton.cxx
+  Particles/TestTau.cxx
+  Particles/TestTrack.cxx
+)
+
+# Build the library from all unit-test files.
+add_library( KLFitterTests SHARED ${test_files} )
+target_include_directories( KLFitterTests
+  PUBLIC ${ROOT_INCLUDE_DIRS} ${GTEST_INCLUDE_DIRS}
+  $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
+)
+if( KLF_BUILD_GTEST )
+  add_dependencies( KLFitterTests GTest::GTest )
+endif()
+
+# Install the library to its destination folder.
+install( TARGETS KLFitterTests
+  EXPORT KLFitterTestTargets
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib )
+
 # Build the main unit-test executable.
 add_executable( gtests.exe gtests.cxx )
 target_include_directories( gtests.exe
-  PUBLIC ${ROOT_INCLUDE_DIRS} ${BAT_INCLUDE_DIR} ${GTEST_INCLUDE_DIRS}
+  PUBLIC ${ROOT_INCLUDE_DIRS} ${GTEST_INCLUDE_DIRS}
   $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
-  $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/tests>
+  $<INSTALL_INTERFACE:include>
 )
-target_link_libraries( gtests.exe KLFitter GTest::GTest ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries( gtests.exe GTest::GTest KLFitterTests KLFitter )
 set_target_properties( gtests.exe PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/test-bin" )
 if( KLF_BUILD_GTEST )
