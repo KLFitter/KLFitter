@@ -56,8 +56,10 @@ std::vector<std::vector<int> > get_m_from_n(unsigned int N, unsigned int M, unsi
 }
 }  // namespace
 
+
+namespace KLFitter {
 // ---------------------------------------------------------
-KLFitter::Permutations::Permutations(KLFitter::ParticleCollection ** p, KLFitter::ParticleCollection ** pp)
+Permutations::Permutations(ParticleCollection ** p, ParticleCollection ** pp)
   : m_particles(p)
   , m_particles_permuted(pp)
   , m_permutation_index(-1) {
@@ -65,16 +67,16 @@ KLFitter::Permutations::Permutations(KLFitter::ParticleCollection ** p, KLFitter
 }
 
 // ---------------------------------------------------------
-KLFitter::Permutations::Permutations(const Permutations& o) = default;
+Permutations::Permutations(const Permutations& o) = default;
 
 // ---------------------------------------------------------
-KLFitter::Permutations::~Permutations() = default;
+Permutations::~Permutations() = default;
 
 // ---------------------------------------------------------
-KLFitter::Permutations& KLFitter::Permutations::operator=(const KLFitter::Permutations& obj) = default;
+Permutations& Permutations::operator=(const Permutations& obj) = default;
 
 // ---------------------------------------------------------
-int KLFitter::Permutations::SetPermutation(int index) {
+int Permutations::SetPermutation(int index) {
   // check index
   if (index < 0 || index >= NPermutations()) {
     std::cout << "KLFitter::Permutations::SetPermutation(). Index out of range." << std::endl;
@@ -97,12 +99,12 @@ int KLFitter::Permutations::SetPermutation(int index) {
 }
 
 // ---------------------------------------------------------
-int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
+int Permutations::CreatePermutations(int nPartonsInPermutations) {
   // reset existing particle and permuation tables
   Reset();
 
   // create new table of particles
-  m_particles_table = std::vector<KLFitter::ParticleCollection>{};
+  m_particles_table = std::vector<ParticleCollection>{};
 
   // create new table of permutations
   m_permutation_table = std::vector<std::vector<int> >{};
@@ -164,7 +166,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
           // loop over all track permutations
           for (int ipermtrack = 0; ipermtrack < npermtracks; ++ipermtrack) {
             // create new particles
-            KLFitter::ParticleCollection particles{};
+            ParticleCollection particles{};
 
             // create new permutation
             std::vector<int> permutation(npermoverall);
@@ -258,7 +260,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
 }
 
 // ---------------------------------------------------------
-int KLFitter::Permutations::Reset() {
+int Permutations::Reset() {
   // Clear particle and permutation tables.
   m_particles_table.clear();
   m_permutation_table.clear();
@@ -268,7 +270,7 @@ int KLFitter::Permutations::Reset() {
 }
 
 // ---------------------------------------------------------
-int KLFitter::Permutations::CreateSubTable(int Nobj, std::vector<std::vector<int> >* table, int Nmax) {
+int Permutations::CreateSubTable(int Nobj, std::vector<std::vector<int> >* table, int Nmax) {
   if (Nmax < 0) {
     std::vector<int> vidx;
     for (int i(0); i < Nobj; ++i) {
@@ -294,7 +296,7 @@ int KLFitter::Permutations::CreateSubTable(int Nobj, std::vector<std::vector<int
 }
 
 // ---------------------------------------------------------
-int KLFitter::Permutations::InvariantParticlePermutations(Particles::Type ptype, std::vector<int> indexVector) {
+int Permutations::InvariantParticlePermutations(Particles::Type ptype, std::vector<int> indexVector) {
   // check if particles are defined
   if (!CheckParticles())
     return 0;
@@ -370,7 +372,7 @@ int KLFitter::Permutations::InvariantParticlePermutations(Particles::Type ptype,
 }
 
 // ---------------------------------------------------------
-int KLFitter::Permutations::InvariantParticleGroupPermutations(Particles::Type ptype, std::vector<int> indexVectorPosition1,  std::vector<int> indexVectorPosition2) {
+int Permutations::InvariantParticleGroupPermutations(Particles::Type ptype, std::vector<int> indexVectorPosition1,  std::vector<int> indexVectorPosition2) {
   // check if particles are defined
   if (!CheckParticles())
     return 0;
@@ -464,7 +466,7 @@ int KLFitter::Permutations::InvariantParticleGroupPermutations(Particles::Type p
 }
 
 // ---------------------------------------------------------
-int KLFitter::Permutations::RemoveParticlePermutations(Particles::Type ptype, int index, int position) {
+int Permutations::RemoveParticlePermutations(Particles::Type ptype, int index, int position) {
   // check if particles are defined
   if (!CheckParticles())
     return 0;
@@ -497,7 +499,7 @@ int KLFitter::Permutations::RemoveParticlePermutations(Particles::Type ptype, in
 }
 
 // ---------------------------------------------------------
-int KLFitter::Permutations::CheckParticles() {
+int Permutations::CheckParticles() {
   // check if particles are defined
   if (!m_particles) {
     std::cout << "KLFitter::Permutations::CheckParticles(). Pointer to particles not defined yet." << std::endl;
@@ -512,3 +514,4 @@ int KLFitter::Permutations::CheckParticles() {
   // no error
   return 1;
 }
+}  // namespace KLFitter
