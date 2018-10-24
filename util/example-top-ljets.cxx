@@ -255,7 +255,7 @@ int main(int argc, char *argv[]) {
     // Add jets - the input file already required at least 4 jets
     // per event, out of which at least 1 is b-tagged.
     for (unsigned int ijet = 0; ijet < 4; ijet++) {
-      KLFitter::Particles::Parton parton{"parton" + ijet, TLorentzVector{}};
+      KLFitter::Particles::Parton parton{"parton" + std::to_string(ijet), TLorentzVector{}};
       parton.GetP4().SetPtEtaPhiE(event.jet_pt->at(ijet), event.jet_eta->at(ijet),
           event.jet_phi->at(ijet), event.jet_e->at(ijet));
       parton.SetDetEta(event.jet_eta->at(ijet));                // jet eta
