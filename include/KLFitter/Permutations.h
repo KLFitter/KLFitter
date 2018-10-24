@@ -160,13 +160,6 @@ class Permutations final {
   /// Check if particles are defined.
   int CheckParticles();
 
-  /**
-   * Helper functions to efficiently create permutations of N particles of only M selected particles.
-   */
-  std::vector<int> Get_int_vector(int i);
-  std::vector<int> Get_int_plus_vector(int i, std::vector<int> v);
-  std::vector<std::vector<int> > Get_M_from_N(unsigned int N, unsigned int M, unsigned int start = 0);
-
   /// A pointer to the pointer of original particles.
   KLFitter::ParticleCollection** m_particles;
 
