@@ -59,40 +59,24 @@ class Permutations final {
    * Return the original particles.
    * @return A pointer to the particles.
    */
-  KLFitter::ParticleCollection* Particles() { return *fParticles; }
+  const KLFitter::ParticleCollection* Particles() const { return *m_particles; }
 
   /**
    * Return the current permutation of jets and leptons.
    * @return A pointer to the permuted particles.
    */
-  KLFitter::ParticleCollection* ParticlesPermuted() { return *fParticlesPermuted; }
-
-  /**
-   * Return the permutation table.
-   * @return A pointer to the permutation table.
-   */
-  std::vector<std::vector<int> >* PermutationTable();
+  KLFitter::ParticleCollection* ParticlesPermuted() { return *m_particles_permuted; }
 
   /**
    * Return the number of permutations.
    */
-  int NPermutations() { return static_cast<int>(fParticlesTable.size()); }
+  int NPermutations() const { return static_cast<int>(m_particles_table.size()); }
 
   /**
    * Return the current permutation index.
    * @return The current permutation index.
    */
-  int PermutationIndex() { return fPermutationIndex; }
-
-  std::vector<std::vector<int> >* TablePartons() { return &fTablePartons; }
-
-  std::vector<std::vector<int> >* TableElectrons() { return &fTableElectrons; }
-
-  std::vector<std::vector<int> >* TableMuons() { return &fTableMuons; }
-
-  std::vector<std::vector<int> >* TablePhotons() { return &fTablePhotons; }
-
-  std::vector<std::vector<int> >* TableTracks() { return &fTableTracks; }
+  int PermutationIndex() const { return m_permutation_index; }
 
   /** @} */
   /** \name Member functions (Set)  */
@@ -118,16 +102,17 @@ class Permutations final {
 
   /**
    * Create all possible permutations of jets and leptons.
-   * However, make permutations with exactly nPartonsInPermutations.
+   * However, make permutations with exactly
+   * nPartonsInPermutations.
    */
   int CreatePermutations(int nPartonsInPermutations = -1);
 
   /**
-   * Remove permutations in which all indices in the vector indexVector are exchanged
-   * for the given particle type.
-   * This is useful to reduce the number of permutations if
-   * interchanging for example jets doesn't have any effect, e.g.,
-   * if two jets come from a W (top).
+   * Remove permutations in which all indices in the vector
+   * indexVector are exchanged for the given particle type. This
+   * is useful to reduce the number of permutations if
+   * interchanging for example jets doesn't have any effect,
+   * e.g., if two jets come from a W (top).
    * @param ptype The type of the particle.
    * @param indexVector Vector of indices.
    * @return An error code.
@@ -135,11 +120,13 @@ class Permutations final {
   int InvariantParticlePermutations(Particles::Type ptype, std::vector<int> indexVector);
 
   /**
-   * Remove permutations in which all indices in the vector indexVectorPosition1 are exchanged with the corresponding indices in indexVectorPosition2
-   * for the given particle type.
+   * Remove permutations in which all indices in the vector
+   * indexVectorPosition1 are exchanged with the corresponding
+   * indices in indexVectorPosition2 for the given particle type.
    * This is useful to reduce the number of permutations if
-   * interchanging a whole set of particles doesn't have any effect, e.g.,
-   * the particles coming from the two hadronic top quarks in the fully hadronic channel.
+   * interchanging a whole set of particles doesn't have any
+   * effect, e.g., the particles coming from the two hadronic top
+   * quarks in the fully hadronic channel.
    * @param ptype The type of the particle.
    * @param indexVectorPosition1 Vector of indices of first set of particle.
    * @param indexVectorPosition2 Vector of corresponding indices for second set of particle.
@@ -173,32 +160,26 @@ class Permutations final {
   /// Check if particles are defined.
   int CheckParticles();
 
-  /// Helper functions to efficiently create permutations of N particles of only M selected particles.
-
-  std::vector<int> Get_int_vector(int i);
-  std::vector<int> Get_int_plus_vector(int i, std::vector<int> v);
-  std::vector<std::vector<int> > Get_M_from_N(unsigned int N, unsigned int M, unsigned int start = 0);
-
   /// A pointer to the pointer of original particles.
-  KLFitter::ParticleCollection** fParticles;
+  KLFitter::ParticleCollection** m_particles;
 
   /// A pointer to the pointer of permuted particles.
-  KLFitter::ParticleCollection** fParticlesPermuted;
+  KLFitter::ParticleCollection** m_particles_permuted;
 
   /// A table of permuted particles (jets and leptons).
-  std::vector<KLFitter::ParticleCollection> fParticlesTable;
+  std::vector<KLFitter::ParticleCollection> m_particles_table;
 
   /// A table of permutations. Needed for the math.
-  std::vector<std::vector<int> > fPermutationTable;
+  std::vector<std::vector<int> > m_permutation_table;
 
   /// The permutation index
-  int fPermutationIndex;
+  int m_permutation_index;
 
-  std::vector<std::vector<int> > fTablePartons;
-  std::vector<std::vector<int> > fTableElectrons;
-  std::vector<std::vector<int> > fTableMuons;
-  std::vector<std::vector<int> > fTablePhotons;
-  std::vector<std::vector<int> > fTableTracks;
+  std::vector<std::vector<int> > m_table_partons;
+  std::vector<std::vector<int> > m_table_electrons;
+  std::vector<std::vector<int> > m_table_muons;
+  std::vector<std::vector<int> > m_table_photons;
+  std::vector<std::vector<int> > m_table_tracks;
 };
 }  // namespace KLFitter
 

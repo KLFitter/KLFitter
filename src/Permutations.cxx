@@ -23,101 +23,136 @@
 #include <iostream>
 #include <set>
 
+namespace {
+std::vector<int> get_int_vector(int i) {
+  std::vector<int> vtmp;
+  vtmp.push_back(i);
+  return vtmp;
+}
+
 // ---------------------------------------------------------
-KLFitter::Permutations::Permutations(KLFitter::ParticleCollection ** p, KLFitter::ParticleCollection ** pp)
-  : fParticles(p)
-  , fParticlesPermuted(pp)
-  , fPermutationIndex(-1) {
+std::vector<int> get_int_plus_vector(int i, std::vector<int> v) {
+  std::vector<int> vtmp = get_int_vector(i);
+  for (unsigned int j(0), jend(v.size()); j < jend; ++j) {
+    vtmp.push_back(v[j]);
+  }
+  return vtmp;
+}
+
+// ---------------------------------------------------------
+std::vector<std::vector<int> > get_m_from_n(unsigned int N, unsigned int M, unsigned int start = 0) {
+  std::vector<std::vector<int> > v(0);
+  for (unsigned int i(start); i < N-(M-1); ++i) {
+    if (M == 1) {
+      v.push_back(get_int_vector(i));
+    } else {
+      std::vector<std::vector<int> > vnext = get_m_from_n(N, M-1, i+1);
+      for (unsigned int j(0), jend(vnext.size()); j < jend; ++j) {
+        v.push_back(get_int_plus_vector(i, vnext[j]));
+      }
+    }
+  }
+  return v;
+}
+}  // namespace
+
+
+namespace KLFitter {
+// ---------------------------------------------------------
+Permutations::Permutations(ParticleCollection ** p, ParticleCollection ** pp)
+  : m_particles(p)
+  , m_particles_permuted(pp)
+  , m_permutation_index(-1) {
   // empty
 }
 
 // ---------------------------------------------------------
-KLFitter::Permutations::Permutations(const Permutations& o) = default;
+Permutations::Permutations(const Permutations& o) = default;
 
 // ---------------------------------------------------------
-KLFitter::Permutations::~Permutations() = default;
+Permutations::~Permutations() = default;
 
 // ---------------------------------------------------------
-KLFitter::Permutations& KLFitter::Permutations::operator=(const KLFitter::Permutations& obj) = default;
+Permutations& Permutations::operator=(const Permutations& obj) = default;
 
 // ---------------------------------------------------------
-int KLFitter::Permutations::SetPermutation(int index) {
+int Permutations::SetPermutation(int index) {
   // check index
   if (index < 0 || index >= NPermutations()) {
     std::cout << "KLFitter::Permutations::SetPermutation(). Index out of range." << std::endl;
     return 0;
   }
 
-  if (!fParticlesPermuted) {
+  if (!m_particles_permuted) {
     std::cout << "KLFitter::Permutations::SetPermutation(). Pointer to permuted particles not available." << std::endl;
     return 0;
   }
 
   // set permutation
-  (*fParticlesPermuted) = &fParticlesTable[index];
+  (*m_particles_permuted) = &m_particles_table[index];
 
   // set permutation index
-  fPermutationIndex = index;
+  m_permutation_index = index;
 
   // no error
   return 1;
 }
 
 // ---------------------------------------------------------
-int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
+int Permutations::CreatePermutations(int nPartonsInPermutations) {
   // reset existing particle and permuation tables
   Reset();
 
   // create new table of particles
-  fParticlesTable = std::vector<KLFitter::ParticleCollection>{};
+  m_particles_table = std::vector<ParticleCollection>{};
 
   // create new table of permutations
-  fPermutationTable = std::vector<std::vector<int> >{};
+  m_permutation_table = std::vector<std::vector<int> >{};
 
   // check particles
   CheckParticles();
 
   // get number of objects per category
-  size_t npartons   = (*fParticles)->partons.size();
-  size_t nelectrons = (*fParticles)->electrons.size();
-  size_t nmuons     = (*fParticles)->muons.size();
-  size_t nphotons     = (*fParticles)->photons.size();
-  size_t ntracks    = (*fParticles)->tracks.size();
+  size_t npartons   = (*m_particles)->partons.size();
+  size_t nelectrons = (*m_particles)->electrons.size();
+  size_t nmuons     = (*m_particles)->muons.size();
+  size_t nphotons     = (*m_particles)->photons.size();
+  size_t ntracks    = (*m_particles)->tracks.size();
 
   bool isDilepton(false);
 
-  if (nelectrons != 0 && (*fParticles)->electrons.at(0).GetCharge() != -9)
+  if (nelectrons != 0 && (*m_particles)->electrons.at(0).GetCharge() != -9)
     isDilepton = true;
 
-  if (nmuons != 0 && (*fParticles)->muons.at(0).GetCharge() != -9)
+  if (nmuons != 0 && (*m_particles)->muons.at(0).GetCharge() != -9)
     isDilepton = true;
 
   // create table for parton, electron, muon, photon, and track's permutations
-  fTablePartons = std::vector<std::vector<int> >{};
-  CreateSubTable(npartons, &fTablePartons, nPartonsInPermutations);
+  m_table_partons = std::vector<std::vector<int> >{};
+  CreateSubTable(npartons, &m_table_partons, nPartonsInPermutations);
 
-  fTableElectrons = std::vector<std::vector<int> >{};
-  CreateSubTable(nelectrons, &fTableElectrons);
+  m_table_electrons = std::vector<std::vector<int> >{};
+  CreateSubTable(nelectrons, &m_table_electrons);
 
-  fTableMuons = std::vector<std::vector<int> >{};
-  CreateSubTable(nmuons, &fTableMuons);
+  m_table_muons = std::vector<std::vector<int> >{};
+  CreateSubTable(nmuons, &m_table_muons);
 
-  fTablePhotons = std::vector<std::vector<int> >{};
-  CreateSubTable(nphotons, &fTablePhotons);
+  m_table_photons = std::vector<std::vector<int> >{};
+  CreateSubTable(nphotons, &m_table_photons);
 
-  fTableTracks = std::vector<std::vector<int> >{};
-  CreateSubTable(ntracks, &fTableTracks);
+  m_table_tracks = std::vector<std::vector<int> >{};
+  CreateSubTable(ntracks, &m_table_tracks);
 
   int npartonsPerm = npartons;
   if (nPartonsInPermutations >= 0)
     npartonsPerm = nPartonsInPermutations;
 
   // get number of possible permutations for each category
-  int npermpartons   = fTablePartons.size() <= 0 ? 1 : fTablePartons.size();
-  int npermelectrons = fTableElectrons.size() <= 0 ? 1 : fTableElectrons.size();
-  int npermmuons     = fTableMuons.size() <= 0 ? 1 : fTableMuons.size();
-  int npermphotons     = fTablePhotons.size() <= 0 ? 1 : fTablePhotons.size();
-  int npermtracks    = fTableTracks.size() <= 0 ? 1 : fTableTracks.size();
+  int npermpartons   = m_table_partons.size() <= 0 ? 1 : m_table_partons.size();
+  int npermelectrons = m_table_electrons.size() <= 0 ? 1 : m_table_electrons.size();
+  int npermmuons     = m_table_muons.size() <= 0 ? 1 : m_table_muons.size();
+  int npermphotons     = m_table_photons.size() <= 0 ? 1 : m_table_photons.size();
+  int npermtracks    = m_table_tracks.size() <= 0 ? 1 : m_table_tracks.size();
   int npermoverall   = npartonsPerm + nelectrons + nmuons + nphotons + ntracks;
 
   // loop over all parton permutations
@@ -131,7 +166,7 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
           // loop over all track permutations
           for (int ipermtrack = 0; ipermtrack < npermtracks; ++ipermtrack) {
             // create new particles
-            KLFitter::ParticleCollection particles{};
+            ParticleCollection particles{};
 
             // create new permutation
             std::vector<int> permutation(npermoverall);
@@ -139,10 +174,10 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
             // loop over all partons
             for (int i = 0; i < npartonsPerm; ++i) {
               // get index
-              int index = fTablePartons[ipermparton][i];
+              int index = m_table_partons[ipermparton][i];
 
               // add parton
-              particles.AddParticle((*fParticles)->partons.at(index));
+              particles.AddParticle((*m_particles)->partons.at(index));
 
               // set permutation
               permutation[i] = index;
@@ -151,15 +186,15 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
             // loop over all electrons
             for (size_t i = 0; i < nelectrons; ++i) {
               // get index
-              int index = fTableElectrons[ipermelectron][i];
+              int index = m_table_electrons[ipermelectron][i];
 
               // if isDilepton include charge of the lepton
               if (isDilepton) {
                 // add electron
-                particles.AddParticle((*fParticles)->electrons.at(index));
+                particles.AddParticle((*m_particles)->electrons.at(index));
               } else {
                 // add electron
-                particles.AddParticle((*fParticles)->electrons.at(index));
+                particles.AddParticle((*m_particles)->electrons.at(index));
               }
 
               // set permutation
@@ -169,15 +204,15 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
             // loop over all muons
             for (size_t i = 0; i < nmuons; ++i) {
               // get index
-              int index = fTableMuons[ipermmuon][i];
+              int index = m_table_muons[ipermmuon][i];
 
               // if isDilepton include charge of the lepton
               if (isDilepton) {
                 // add muon
-                particles.AddParticle((*fParticles)->muons.at(index));
+                particles.AddParticle((*m_particles)->muons.at(index));
               } else {
                 // add muon
-                particles.AddParticle((*fParticles)->muons.at(index));
+                particles.AddParticle((*m_particles)->muons.at(index));
               }
 
               // set permutation
@@ -187,10 +222,10 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
             // loop over all photons
             for (size_t i = 0; i < nphotons; ++i) {
               // get index
-              int index = fTablePhotons[ipermphoton][i];
+              int index = m_table_photons[ipermphoton][i];
 
               // add photon
-              particles.AddParticle((*fParticles)->photons.at(index));
+              particles.AddParticle((*m_particles)->photons.at(index));
 
               // set permutation
               permutation[npartonsPerm + nelectrons + nmuons + i] = index;
@@ -199,10 +234,10 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
             // loop over all tracks
             for (size_t i = 0; i < ntracks; ++i) {
               // get index
-              int index = fTableTracks[ipermtrack][i];
+              int index = m_table_tracks[ipermtrack][i];
 
               // add track
-              particles.AddParticle((*fParticles)->tracks.at(index));
+              particles.AddParticle((*m_particles)->tracks.at(index));
 
               // set permutation
               permutation[npartonsPerm + nelectrons + nmuons + nphotons + i] = index;
@@ -210,10 +245,10 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
 
 
             // add particles to table
-            fParticlesTable.emplace_back(particles);
+            m_particles_table.emplace_back(particles);
 
             // add permutation to table
-            fPermutationTable.emplace_back(permutation);
+            m_permutation_table.emplace_back(permutation);
           }
         }
       }
@@ -225,17 +260,17 @@ int KLFitter::Permutations::CreatePermutations(int nPartonsInPermutations) {
 }
 
 // ---------------------------------------------------------
-int KLFitter::Permutations::Reset() {
+int Permutations::Reset() {
   // Clear particle and permutation tables.
-  fParticlesTable.clear();
-  fPermutationTable.clear();
+  m_particles_table.clear();
+  m_permutation_table.clear();
 
   // no error
   return 1;
 }
 
 // ---------------------------------------------------------
-int KLFitter::Permutations::CreateSubTable(int Nobj, std::vector<std::vector<int> >* table, int Nmax) {
+int Permutations::CreateSubTable(int Nobj, std::vector<std::vector<int> >* table, int Nmax) {
   if (Nmax < 0) {
     std::vector<int> vidx;
     for (int i(0); i < Nobj; ++i) {
@@ -246,7 +281,7 @@ int KLFitter::Permutations::CreateSubTable(int Nobj, std::vector<std::vector<int
       table->emplace_back(std::vector<int>(vidx));
     } while (std::next_permutation(vidx.begin(), vidx.end()));
   } else {
-    std::vector<std::vector<int> > v = Get_M_from_N(Nobj, Nmax);
+    std::vector<std::vector<int> > v = get_m_from_n(Nobj, Nmax);
 
     for (unsigned int i(0), n(v.size()); i < n; ++i) {
       std::vector<int> vidx = v[i];
@@ -261,7 +296,7 @@ int KLFitter::Permutations::CreateSubTable(int Nobj, std::vector<std::vector<int
 }
 
 // ---------------------------------------------------------
-int KLFitter::Permutations::InvariantParticlePermutations(Particles::Type ptype, std::vector<int> indexVector) {
+int Permutations::InvariantParticlePermutations(Particles::Type ptype, std::vector<int> indexVector) {
   // check if particles are defined
   if (!CheckParticles())
     return 0;
@@ -279,7 +314,7 @@ int KLFitter::Permutations::InvariantParticlePermutations(Particles::Type ptype,
 
   for (unsigned int i = 0, I = indexVector.size(); i < I; i++) {
     int index = indexVector[i];
-    if (index < 0 || static_cast<size_t>(index) >= (*fParticles)->NParticles(ptype)) {
+    if (index < 0 || static_cast<size_t>(index) >= (*m_particles)->NParticles(ptype)) {
       std::cout << "KLFitter::Permutations::InvariantParticlePermutations(). Index out of range." << std::endl;
       return 0;
     }
@@ -303,18 +338,18 @@ int KLFitter::Permutations::InvariantParticlePermutations(Particles::Type ptype,
     for (int iperm = nperm-1; iperm >= 0; --iperm) {
       int offset = 0;
       for (Particles::Type itype = Particles::Type::kParton; itype < ptype; ++itype)
-        offset += (*fParticles)->NParticles(itype);
+        offset += (*m_particles)->NParticles(itype);
       int index1 = indexVector[0] + offset;
       int index2 = indexVector[1] + offset;
 
       // get permutation
-      const std::vector<int>& permutation = fPermutationTable[iperm];
+      const std::vector<int>& permutation = m_permutation_table[iperm];
 
       // check indices
       if (permutation[index1] >= permutation[index2]) {
-        fPermutationTable.erase(fPermutationTable.begin() + iperm);
+        m_permutation_table.erase(m_permutation_table.begin() + iperm);
 
-        fParticlesTable.erase(fParticlesTable.begin() + iperm);
+        m_particles_table.erase(m_particles_table.begin() + iperm);
       }
     }
   } else {
@@ -337,7 +372,7 @@ int KLFitter::Permutations::InvariantParticlePermutations(Particles::Type ptype,
 }
 
 // ---------------------------------------------------------
-int KLFitter::Permutations::InvariantParticleGroupPermutations(Particles::Type ptype, std::vector<int> indexVectorPosition1,  std::vector<int> indexVectorPosition2) {
+int Permutations::InvariantParticleGroupPermutations(Particles::Type ptype, std::vector<int> indexVectorPosition1,  std::vector<int> indexVectorPosition2) {
   // check if particles are defined
   if (!CheckParticles())
     return 0;
@@ -369,13 +404,13 @@ int KLFitter::Permutations::InvariantParticleGroupPermutations(Particles::Type p
 
   for (unsigned int i = 0, I = indexVectorPosition1.size(); i < I; i++) {
     int index1 = indexVectorPosition1[i];
-    if (index1 < 0 || static_cast<size_t>(index1) >= (*fParticles)->NParticles(ptype)) {
-      std::cout << "KLFitter::Permutations::InvariantParticleGroupPermutations(). Index out of range." << index1 << " " << (*fParticles)->NParticles(ptype) << std::endl;
+    if (index1 < 0 || static_cast<size_t>(index1) >= (*m_particles)->NParticles(ptype)) {
+      std::cout << "KLFitter::Permutations::InvariantParticleGroupPermutations(). Index out of range." << index1 << " " << (*m_particles)->NParticles(ptype) << std::endl;
       return 0;
     }
     int index2 = indexVectorPosition2[i];
-    if (index2 < 0 || static_cast<size_t>(index2) >= (*fParticles)->NParticles(ptype)) {
-      std::cout << "KLFitter::Permutations::InvariantParticleGroupPermutations(). Index out of range." << index2 << " " << (*fParticles)->NParticles(ptype) << std::endl;
+    if (index2 < 0 || static_cast<size_t>(index2) >= (*m_particles)->NParticles(ptype)) {
+      std::cout << "KLFitter::Permutations::InvariantParticleGroupPermutations(). Index out of range." << index2 << " " << (*m_particles)->NParticles(ptype) << std::endl;
       return 0;
     }
   }
@@ -397,14 +432,14 @@ int KLFitter::Permutations::InvariantParticleGroupPermutations(Particles::Type p
   for (int iperm1 = nperm-1; iperm1 >= 1; --iperm1) {
     int offset = 0;
     for (Particles::Type itype = Particles::Type::kParton; itype < ptype; ++itype)
-      offset += (*fParticles)->NParticles(itype);
+      offset += (*m_particles)->NParticles(itype);
 
     // get permutation
-    const std::vector<int> permutation1 = fPermutationTable[iperm1];
+    const std::vector<int> permutation1 = m_permutation_table[iperm1];
 
     for (int iperm2 = iperm1-1; iperm2 >= 0; --iperm2) {
       // get second permutation
-      const std::vector<int> permutation2 = fPermutationTable[iperm2];
+      const std::vector<int> permutation2 = m_permutation_table[iperm2];
 
       // loop over index vectors
       unsigned int numberOfInvariantMatches(0);
@@ -419,9 +454,9 @@ int KLFitter::Permutations::InvariantParticleGroupPermutations(Particles::Type p
       }
 
       if (numberOfInvariantMatches == indexVectorPosition1.size()) {
-        fPermutationTable.erase(fPermutationTable.begin() + iperm2);
+        m_permutation_table.erase(m_permutation_table.begin() + iperm2);
 
-        fParticlesTable.erase(fParticlesTable.begin() + iperm2);
+        m_particles_table.erase(m_particles_table.begin() + iperm2);
       }
     }  // second permutation
   }  // first permutation
@@ -431,13 +466,13 @@ int KLFitter::Permutations::InvariantParticleGroupPermutations(Particles::Type p
 }
 
 // ---------------------------------------------------------
-int KLFitter::Permutations::RemoveParticlePermutations(Particles::Type ptype, int index, int position) {
+int Permutations::RemoveParticlePermutations(Particles::Type ptype, int index, int position) {
   // check if particles are defined
   if (!CheckParticles())
     return 0;
 
   // check index
-  if (index < 0 || static_cast<size_t>(index) >= (*fParticles)->NParticles(ptype)) {
+  if (index < 0 || static_cast<size_t>(index) >= (*m_particles)->NParticles(ptype)) {
     std::cout << "KLFitter::Permutations::RemoveParticlePermutations(). Index out of range." << std::endl;
     return 0;
   }
@@ -445,17 +480,17 @@ int KLFitter::Permutations::RemoveParticlePermutations(Particles::Type ptype, in
   // get offset for the particle type
   int offset = 0;
   for (Particles::Type itype = Particles::Type::kParton; itype < ptype; ++itype)
-    offset += (*fParticles)->NParticles(itype);
+    offset += (*m_particles)->NParticles(itype);
   position += offset;
 
   // loop over all permutations
   for (int iPerm(NPermutations()-1); iPerm >= 0; --iPerm) {
-    const std::vector<int>& permutation = fPermutationTable[iPerm];
+    const std::vector<int>& permutation = m_permutation_table[iPerm];
 
     if (permutation[position] == index) {
-      fPermutationTable.erase(fPermutationTable.begin() + iPerm);
+      m_permutation_table.erase(m_permutation_table.begin() + iPerm);
 
-      fParticlesTable.erase(fParticlesTable.begin() + iPerm);
+      m_particles_table.erase(m_particles_table.begin() + iPerm);
     }
   }
 
@@ -464,14 +499,14 @@ int KLFitter::Permutations::RemoveParticlePermutations(Particles::Type ptype, in
 }
 
 // ---------------------------------------------------------
-int KLFitter::Permutations::CheckParticles() {
+int Permutations::CheckParticles() {
   // check if particles are defined
-  if (!fParticles) {
+  if (!m_particles) {
     std::cout << "KLFitter::Permutations::CheckParticles(). Pointer to particles not defined yet." << std::endl;
     return 0;
   }
 
-  if (!(*fParticles)) {
+  if (!(*m_particles)) {
     std::cout << "KLFitter::Permutations::CheckParticles(). Particles not defined yet." << std::endl;
     return 0;
   }
@@ -479,40 +514,4 @@ int KLFitter::Permutations::CheckParticles() {
   // no error
   return 1;
 }
-
-// ---------------------------------------------------------
-std::vector<std::vector<int> >* KLFitter::Permutations::PermutationTable() {
-  return &fPermutationTable;
-}
-
-// ---------------------------------------------------------
-std::vector<int> KLFitter::Permutations::Get_int_vector(int i) {
-  std::vector<int> vtmp;
-  vtmp.push_back(i);
-  return vtmp;
-}
-
-// ---------------------------------------------------------
-std::vector<int> KLFitter::Permutations::Get_int_plus_vector(int i, std::vector<int> v) {
-  std::vector<int> vtmp = Get_int_vector(i);
-  for (unsigned int j(0), jend(v.size()); j < jend; ++j) {
-    vtmp.push_back(v[j]);
-  }
-  return vtmp;
-}
-
-// ---------------------------------------------------------
-std::vector<std::vector<int> > KLFitter::Permutations::Get_M_from_N(unsigned int N, unsigned int M, unsigned int start) {
-  std::vector<std::vector<int> > v(0);
-  for (unsigned int i(start); i < N-(M-1); ++i) {
-    if (M == 1) {
-      v.push_back(Get_int_vector(i));
-    } else {
-      std::vector<std::vector<int> > vnext = Get_M_from_N(N, M-1, i+1);
-      for (unsigned int j(0), jend(vnext.size()); j < jend; ++j) {
-        v.push_back(Get_int_plus_vector(i, vnext[j]));
-      }
-    }
-  }
-  return v;
-}
+}  // namespace KLFitter

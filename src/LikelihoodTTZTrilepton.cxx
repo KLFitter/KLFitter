@@ -332,7 +332,7 @@ int KLFitter::LikelihoodTTZTrilepton::RemoveInvariantParticlePermutations() {
   err *= (*fPermutations)->InvariantParticlePermutations(ptypeLepZ, indexVector_LepZ);
 
   // remove invariant jet permutations of notevent jets
-  KLFitter::ParticleCollection* particles = (*fPermutations)->Particles();
+  const KLFitter::ParticleCollection* particles = (*fPermutations)->Particles();
   indexVector_Jets.clear();
   for (size_t iPartons = 4; iPartons < particles->partons.size(); iPartons++) {
     indexVector_Jets.push_back(iPartons);
