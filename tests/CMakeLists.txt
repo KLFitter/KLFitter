@@ -72,22 +72,35 @@ else()
   find_package( GTest 1.8.1 REQUIRED )
 endif()
 
-# Build the main unit-test executable.
-add_executable( gtests.exe gtests.cxx )
-target_include_directories( gtests.exe
-  PUBLIC ${ROOT_INCLUDE_DIRS} ${BAT_INCLUDE_DIR} ${GTEST_INCLUDE_DIRS}
-  $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
-  $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/tests>
+# List of all unit-test implementation files.
+set( test_files
+  units/Particles/TestBoson.cxx
+  units/Particles/TestElectron.cxx
+  units/Particles/TestMuon.cxx
+  units/Particles/TestNeutrino.cxx
+  units/Particles/TestParton.cxx
+  units/Particles/TestPhoton.cxx
+  units/Particles/TestTau.cxx
+  units/Particles/TestTrack.cxx
+  units/TestParticleCollection.cxx
 )
-target_link_libraries( gtests.exe KLFitter GTest::GTest ${CMAKE_THREAD_LIBS_INIT})
-set_target_properties( gtests.exe PROPERTIES
+
+# Build the main unit-test executable.
+add_executable( unit_tests.exe unit_tests.cxx ${test_files} )
+target_include_directories( unit_tests.exe
+  PUBLIC ${ROOT_INCLUDE_DIRS} ${GTEST_INCLUDE_DIRS}
+  $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
+)
+target_link_libraries( unit_tests.exe GTest::GTest KLFitter ${CMAKE_THREAD_LIBS_INIT})
+set_target_properties( unit_tests.exe PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/test-bin" )
 if( KLF_BUILD_GTEST )
-  add_dependencies( gtests.exe googletest_ext )
+  add_dependencies( unit_tests.exe googletest_ext )
 endif()
 
 # Build the integration test for the l+jets likelihood.
-add_executable( test-ljets-lh.exe test-ljets-lh.cxx )
+add_executable( test-ljets-lh.exe integration/test-ljets-lh.cxx )
 target_link_libraries( test-ljets-lh.exe KLFitter )
 set_target_properties( test-ljets-lh.exe PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/test-bin" )

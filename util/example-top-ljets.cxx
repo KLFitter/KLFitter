@@ -229,30 +229,24 @@ int main(int argc, char *argv[]) {
     // considered and hence a long running time and not
     // necessarily good fitting results due to the many available
     // permutations)
-    //
-    // The arguments taken py AddParticle() are:
-    // - TLorentzVector of the physics 4-momentum
-    // - detector eta for the evaluation of the transfer
-    //   functions (for muons: just use the physics eta)
-    // - type of particle an optional name of the particle (pass
-    //   empty string in case you don't want to give your
-    //   particle a name)
-    // - index of the particle in your original collection (for
-    //   convenience)
-    KLFitter::Particles particles{};
+    KLFitter::ParticleCollection particles{};
 
     // Add leptons. Depending on the two event variables
     // "lepton_is_e" and "lepton_is_mu", either an electron or a
     // lepton is added. Also set the lepton type as a parameter
     // of the likelihood.
-    TLorentzVector lepton;
-    lepton.SetPtEtaPhiE(event.lepton_pt, event.lepton_eta, event.lepton_phi, event.lepton_e);
+    TLorentzVector lepton_p4;
+    lepton_p4.SetPtEtaPhiE(event.lepton_pt, event.lepton_eta, event.lepton_phi, event.lepton_e);
     if (event.lepton_is_e) {
       likelihood.SetLeptonType(KLFitter::LikelihoodTopLeptonJets::kElectron);
-      particles.AddParticle(lepton, event.lepton_cl_eta, KLFitter::Particles::kElectron);
+      KLFitter::Particles::Electron el{"electron", lepton_p4};
+      el.SetDetEta(event.lepton_cl_eta);
+      particles.AddParticle(el);
     } else if (event.lepton_is_mu) {
       likelihood.SetLeptonType(KLFitter::LikelihoodTopLeptonJets::kMuon);
-      particles.AddParticle(lepton, event.lepton_eta, KLFitter::Particles::kMuon);
+      KLFitter::Particles::Muon mu{"muon", lepton_p4};
+      mu.SetDetEta(event.lepton_eta);
+      particles.AddParticle(mu);
     } else {
       std::cerr << "WARNING: Event has no electrons or muons. Skipping." << std::endl;
       continue;
@@ -261,23 +255,16 @@ int main(int argc, char *argv[]) {
     // Add jets - the input file already required at least 4 jets
     // per event, out of which at least 1 is b-tagged.
     for (unsigned int ijet = 0; ijet < 4; ijet++) {
-      TLorentzVector jet;
-      jet.SetPtEtaPhiE(event.jet_pt->at(ijet), event.jet_eta->at(ijet),
+      KLFitter::Particles::Parton parton{"parton" + std::to_string(ijet), TLorentzVector{}};
+      parton.GetP4().SetPtEtaPhiE(event.jet_pt->at(ijet), event.jet_eta->at(ijet),
           event.jet_phi->at(ijet), event.jet_e->at(ijet));
-      // Arguments are as follows:
-      //  1) TLorentzVector of jet
-      //  2) jet eta
-      //  3) KLFitter particle type. kParton for jets
-      //  4) Internal name
-      //  5) Index of the jet
-      //  6) Is the jet btagged?
-      //  7) tagging effciency required for kWorkingPoint
-      //  8) 1./tagging inefficiency required for kWorkingPoint
-      //  9) true flavour type
-      //  10) btag discriminant
-      particles.AddParticle(jet, event.jet_eta->at(ijet), KLFitter::Particles::kParton,
-          "", ijet, static_cast<int>(event.jet_has_btag->at(ijet)), 0.6, 145.,
-          KLFitter::Particles::kNone, event.jet_btag_weight->at(ijet));
+      parton.SetDetEta(event.jet_eta->at(ijet));                // jet eta
+      parton.SetIdentifier(ijet);                               // index of the jet to identify it
+      parton.SetIsBTagged(event.jet_has_btag->at(ijet));        // Is the jet btagged?
+      parton.SetBTagEfficiency(0.6);                            // tagging efficiency required for kWorkingPoint
+      parton.SetBTagRejection(145.);                            // 1./tagging inefficiency required for kWorkingPoint
+      parton.SetBTagWeight(event.jet_btag_weight->at(ijet));    // btag discriminant weight
+      particles.AddParticle(parton);
     }
 
     // Add particles to the likelihood.
@@ -317,32 +304,32 @@ int main(int argc, char *argv[]) {
       auto permutedParticles = fitter.Likelihood()->PParticlesPermuted();
 
       // Hadronic b quark.
-      float bhad_pt = modelParticles->Parton(0)->Pt();
-      float bhad_eta = modelParticles->Parton(0)->Eta();
-      float bhad_phi = modelParticles->Parton(0)->Phi();
-      float bhad_e = modelParticles->Parton(0)->E();
-      unsigned int bhad_index = (*permutedParticles)->JetIndex(0);
+      float bhad_pt = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 0)->Pt();
+      float bhad_eta = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 0)->Eta();
+      float bhad_phi = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 0)->Phi();
+      float bhad_e = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 0)->E();
+      unsigned int bhad_index = (*permutedParticles)->partons.at(0).GetIdentifier();
 
       // Leptonic b quark.
-      float blep_pt = modelParticles->Parton(1)->Pt();
-      float blep_eta = modelParticles->Parton(1)->Eta();
-      float blep_phi = modelParticles->Parton(1)->Phi();
-      float blep_e = modelParticles->Parton(1)->E();
-      unsigned int blep_index = (*permutedParticles)->JetIndex(1);
+      float blep_pt = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 1)->Pt();
+      float blep_eta = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 1)->Eta();
+      float blep_phi = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 1)->Phi();
+      float blep_e = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 1)->E();
+      unsigned int blep_index = (*permutedParticles)->partons.at(1).GetIdentifier();
 
       // Light quark 1.
-      float lquark1_pt = modelParticles->Parton(2)->Pt();
-      float lquark1_eta = modelParticles->Parton(2)->Eta();
-      float lquark1_phi = modelParticles->Parton(2)->Phi();
-      float lquark1_e = modelParticles->Parton(2)->E();
-      unsigned int lquark1_index = (*permutedParticles)->JetIndex(2);
+      float lquark1_pt = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 2)->Pt();
+      float lquark1_eta = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 2)->Eta();
+      float lquark1_phi = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 2)->Phi();
+      float lquark1_e = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 2)->E();
+      unsigned int lquark1_index = (*permutedParticles)->partons.at(2).GetIdentifier();
 
       // Light quark 2.
-      float lquark2_pt = modelParticles->Parton(3)->Pt();
-      float lquark2_eta = modelParticles->Parton(3)->Eta();
-      float lquark2_phi = modelParticles->Parton(3)->Phi();
-      float lquark2_e = modelParticles->Parton(3)->E();
-      unsigned int lquark2_index = (*permutedParticles)->JetIndex(3);
+      float lquark2_pt = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 3)->Pt();
+      float lquark2_eta = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 3)->Eta();
+      float lquark2_phi = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 3)->Phi();
+      float lquark2_e = modelParticles->GetP4(KLFitter::Particles::Type::kParton, 3)->E();
+      unsigned int lquark2_index = (*permutedParticles)->partons.at(3).GetIdentifier();
 
       float lepton_pt = -9999;
       float lepton_eta = -9999;
@@ -351,22 +338,22 @@ int main(int argc, char *argv[]) {
 
       // Always check for lepton type or the code will crash.
       if (event.lepton_is_e) {
-        lepton_pt = modelParticles->Electron(0)->Pt();
-        lepton_eta = modelParticles->Electron(0)->Eta();
-        lepton_phi = modelParticles->Electron(0)->Phi();
-        lepton_e = modelParticles->Electron(0)->E();
+        lepton_pt = modelParticles->GetP4(KLFitter::Particles::Type::kElectron, 0)->Pt();
+        lepton_eta = modelParticles->GetP4(KLFitter::Particles::Type::kElectron, 0)->Eta();
+        lepton_phi = modelParticles->GetP4(KLFitter::Particles::Type::kElectron, 0)->Phi();
+        lepton_e = modelParticles->GetP4(KLFitter::Particles::Type::kElectron, 0)->E();
       } else if (event.lepton_is_mu) {
-        lepton_pt = modelParticles->Muon(0)->Pt();
-        lepton_eta = modelParticles->Muon(0)->Eta();
-        lepton_phi = modelParticles->Muon(0)->Phi();
-        lepton_e = modelParticles->Muon(0)->E();
+        lepton_pt = modelParticles->GetP4(KLFitter::Particles::Type::kMuon, 0)->Pt();
+        lepton_eta = modelParticles->GetP4(KLFitter::Particles::Type::kMuon, 0)->Eta();
+        lepton_phi = modelParticles->GetP4(KLFitter::Particles::Type::kMuon, 0)->Phi();
+        lepton_e = modelParticles->GetP4(KLFitter::Particles::Type::kMuon, 0)->E();
       }
 
       // Neutrino parameters.
-      float neutrino_pt = modelParticles->Neutrino(0)->Pt();
-      float neutrino_eta = modelParticles->Neutrino(0)->Eta();
-      float neutrino_phi = modelParticles->Neutrino(0)->Phi();
-      float neutrino_e = modelParticles->Neutrino(0)->E();
+      float neutrino_pt = modelParticles->GetP4(KLFitter::Particles::Type::kNeutrino, 0)->Pt();
+      float neutrino_eta = modelParticles->GetP4(KLFitter::Particles::Type::kNeutrino, 0)->Eta();
+      float neutrino_phi = modelParticles->GetP4(KLFitter::Particles::Type::kNeutrino, 0)->Phi();
+      float neutrino_e = modelParticles->GetP4(KLFitter::Particles::Type::kNeutrino, 0)->E();
 
       // Fill the vectors with the output variables. Note: it's
       // better/safer to store booleans as chars in ROOT files.

@@ -25,7 +25,7 @@
 #include "BAT/BCMath.h"
 #include "BAT/BCParameter.h"
 #include "KLFitter/DetectorBase.h"
-#include "KLFitter/Particles.h"
+#include "KLFitter/ParticleCollection.h"
 #include "KLFitter/Permutations.h"
 #include "KLFitter/PhysicsConstants.h"
 #include "KLFitter/ResolutionBase.h"
@@ -77,23 +77,20 @@ double LikelihoodTwoTracks::Log3DGaus(double x0, double x1, double x2,
 // ---------------------------------------------------------
 int LikelihoodTwoTracks::DefineModelParticles() {
   // create the particles of the model
-  fParticlesModel.reset(new Particles{});
+  fParticlesModel.reset(new ParticleCollection{});
 
   // add model particles
-  TLorentzVector dummy{0, 0, 0, 0};
-  std::vector<double> moredummy{};
+  Particles::Boson kshort{"Kshort", TLorentzVector{}};
+  kshort.SetIdentifier(0);
+  fParticlesModel->AddParticle(kshort);
 
-  fParticlesModel->AddParticle(dummy,
-                               Particles::kBoson,
-                               "Kshort", -1, moredummy);
+  Particles::Track pi_plus{"pi plus", TLorentzVector{}};
+  pi_plus.SetIdentifier(0);
+  fParticlesModel->AddParticle(pi_plus);
 
-  fParticlesModel->AddParticle(dummy,
-                               Particles::kTrack,
-                               "pi plus", 0, moredummy);
-
-  fParticlesModel->AddParticle(dummy,
-                               Particles::kTrack,
-                               "pi minus", 1, moredummy);
+  Particles::Track pi_minus{"pi minus", TLorentzVector{}};
+  pi_minus.SetIdentifier(0);
+  fParticlesModel->AddParticle(pi_minus);
 
   // no error
   return 1;
@@ -159,7 +156,7 @@ int LikelihoodTwoTracks::RemoveInvariantParticlePermutations() {
   int err = 1;
 
   // remove the permutation from the second and the third jet
-  Particles::ParticleType ptype = Particles::kTrack;
+  Particles::Type ptype = Particles::Type::kTrack;
   std::vector<int> indexVector_Tracks;
   indexVector_Tracks.push_back(0);
   indexVector_Tracks.push_back(1);
@@ -215,27 +212,27 @@ std::vector<double> LikelihoodTwoTracks::GetInitialParameters() {
 
 // ---------------------------------------------------------
 int LikelihoodTwoTracks::SavePermutedParticles() {
-  m_t1_meas_phi = (*fParticlesPermuted)->Track(0)->Phi();
-  m_t1_meas_theta = (*fParticlesPermuted)->Track(0)->Theta();
-  m_t1_meas_p = (*fParticlesPermuted)->Track(0)->P();
+  m_t1_meas_phi = (*fParticlesPermuted)->GetP4(Particles::Type::kTrack, 0)->Phi();
+  m_t1_meas_theta = (*fParticlesPermuted)->GetP4(Particles::Type::kTrack, 0)->Theta();
+  m_t1_meas_p = (*fParticlesPermuted)->GetP4(Particles::Type::kTrack, 0)->P();
 
-  m_t1_meas_sigma00 = (*fParticlesPermuted)->Uncertainties(0, Particles::kTrack)->at(0);
-  m_t1_meas_sigma10 = (*fParticlesPermuted)->Uncertainties(0, Particles::kTrack)->at(1);
-  m_t1_meas_sigma11 = (*fParticlesPermuted)->Uncertainties(0, Particles::kTrack)->at(2);
-  m_t1_meas_sigma20 = (*fParticlesPermuted)->Uncertainties(0, Particles::kTrack)->at(3);
-  m_t1_meas_sigma21 = (*fParticlesPermuted)->Uncertainties(0, Particles::kTrack)->at(4);
-  m_t1_meas_sigma22 = (*fParticlesPermuted)->Uncertainties(0, Particles::kTrack)->at(5);
+  m_t1_meas_sigma00 = (*fParticlesPermuted)->tracks.at(0).GetUncertainties().at(0);
+  m_t1_meas_sigma10 = (*fParticlesPermuted)->tracks.at(0).GetUncertainties().at(1);
+  m_t1_meas_sigma11 = (*fParticlesPermuted)->tracks.at(0).GetUncertainties().at(2);
+  m_t1_meas_sigma20 = (*fParticlesPermuted)->tracks.at(0).GetUncertainties().at(3);
+  m_t1_meas_sigma21 = (*fParticlesPermuted)->tracks.at(0).GetUncertainties().at(4);
+  m_t1_meas_sigma22 = (*fParticlesPermuted)->tracks.at(0).GetUncertainties().at(5);
 
-  m_t2_meas_phi = (*fParticlesPermuted)->Track(1)->Phi();
-  m_t2_meas_theta = (*fParticlesPermuted)->Track(1)->Theta();
-  m_t2_meas_p = (*fParticlesPermuted)->Track(1)->P();
+  m_t2_meas_phi = (*fParticlesPermuted)->GetP4(Particles::Type::kTrack, 1)->Phi();
+  m_t2_meas_theta = (*fParticlesPermuted)->GetP4(Particles::Type::kTrack, 1)->Theta();
+  m_t2_meas_p = (*fParticlesPermuted)->GetP4(Particles::Type::kTrack, 1)->P();
 
-  m_t2_meas_sigma00 = (*fParticlesPermuted)->Uncertainties(1, Particles::kTrack)->at(0);
-  m_t2_meas_sigma10 = (*fParticlesPermuted)->Uncertainties(1, Particles::kTrack)->at(1);
-  m_t2_meas_sigma11 = (*fParticlesPermuted)->Uncertainties(1, Particles::kTrack)->at(2);
-  m_t2_meas_sigma20 = (*fParticlesPermuted)->Uncertainties(1, Particles::kTrack)->at(3);
-  m_t2_meas_sigma21 = (*fParticlesPermuted)->Uncertainties(1, Particles::kTrack)->at(4);
-  m_t2_meas_sigma22 = (*fParticlesPermuted)->Uncertainties(1, Particles::kTrack)->at(5);
+  m_t2_meas_sigma00 = (*fParticlesPermuted)->tracks.at(1).GetUncertainties().at(0);
+  m_t2_meas_sigma10 = (*fParticlesPermuted)->tracks.at(1).GetUncertainties().at(1);
+  m_t2_meas_sigma11 = (*fParticlesPermuted)->tracks.at(1).GetUncertainties().at(2);
+  m_t2_meas_sigma20 = (*fParticlesPermuted)->tracks.at(1).GetUncertainties().at(3);
+  m_t2_meas_sigma21 = (*fParticlesPermuted)->tracks.at(1).GetUncertainties().at(4);
+  m_t2_meas_sigma22 = (*fParticlesPermuted)->tracks.at(1).GetUncertainties().at(5);
 
 
   // no error
@@ -246,9 +243,9 @@ int LikelihoodTwoTracks::SavePermutedParticles() {
 int LikelihoodTwoTracks::BuildModelParticles() {
   if (GetBestFitParameters().size() > 0) CalculateLorentzVectors(GetBestFitParameters());
 
-  TLorentzVector * t1 = fParticlesModel->Track(0);
-  TLorentzVector * t2 = fParticlesModel->Track(1);
-  TLorentzVector * Ks = fParticlesModel->Boson(0);
+  TLorentzVector * t1 = fParticlesModel->GetP4(Particles::Type::kTrack, 0);
+  TLorentzVector * t2 = fParticlesModel->GetP4(Particles::Type::kTrack, 1);
+  TLorentzVector * Ks = fParticlesModel->GetP4(Particles::Type::kBoson, 0);
 
 
   t1->SetPtEtaPhiM(sin(m_t1_fit_theta)*m_t1_fit_p, -log(tan(m_t1_fit_theta/2.)), m_t1_fit_phi, m_t1_fit_m);

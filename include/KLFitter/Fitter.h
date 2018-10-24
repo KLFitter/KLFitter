@@ -30,7 +30,7 @@
  * functions, classes and sub-namespaces of the project.
  */
 namespace KLFitter {
-class Particles;
+class ParticleCollection;
 class DetectorBase;
 class LikelihoodBase;
 class Permutations;
@@ -57,7 +57,7 @@ class Fitter final {
   KLFitter::DetectorBase * Detector() { return fDetector; }
 
   /// Return the measured particles.
-  KLFitter::Particles * Particles() { return fParticles; }
+  KLFitter::ParticleCollection * Particles() { return fParticles; }
 
   /// Return the permutation object.
   KLFitter::Permutations * Permutations() { return fPermutations.get(); }
@@ -88,14 +88,14 @@ class Fitter final {
    * @param nPartonsInPermutations The number of partons per permutation (can be smaller than the number of added partons).
    * @return An error flag.
    */
-  int SetParticles(KLFitter::Particles * particles, int nPartonsInPermutations = -1);
+  int SetParticles(KLFitter::ParticleCollection * particles, int nPartonsInPermutations = -1);
 
   /**
    * Set truth particles.
    * @param particles A pointer to a set of particles.
    * @return An error flag.
    */
-  int SetMyParticlesTruth(KLFitter::Particles * particles);
+  int SetMyParticlesTruth(KLFitter::ParticleCollection * particles);
 
   /**
    * Set x and y component of the missing ET.
@@ -185,7 +185,7 @@ class Fitter final {
   KLFitter::DetectorBase * fDetector;
 
   /// A pointer to the set of original particles.
-  KLFitter::Particles * fParticles;
+  KLFitter::ParticleCollection * fParticles;
 
   /// The x and y component of the missing ET and the sumET.
   double ETmiss_x;
@@ -193,10 +193,10 @@ class Fitter final {
   double SumET;
 
   /// A pointer to the set of permuted particles.
-  KLFitter::Particles * fParticlesPermuted;
+  KLFitter::ParticleCollection * fParticlesPermuted;
 
   /// A pointer to the set of truth particles.
-  KLFitter::Particles * fMyParticlesTruth;
+  KLFitter::ParticleCollection * fMyParticlesTruth;
 
   /// A pointer to the likelihood.
   KLFitter::LikelihoodBase * fLikelihood;

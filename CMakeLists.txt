@@ -113,7 +113,7 @@ set( lib_headers
   include/KLFitter/LikelihoodTopLeptonJets_Angular.h
   include/KLFitter/LikelihoodTopLeptonJets_JetAngles.h
   include/KLFitter/LikelihoodTwoTracks.h
-  include/KLFitter/Particles.h
+  include/KLFitter/ParticleCollection.h
   include/KLFitter/Permutations.h
   include/KLFitter/PhysicsConstants.h )
 
@@ -136,7 +136,7 @@ set( lib_sources
   src/LikelihoodTopLeptonJets_Angular.cxx
   src/LikelihoodTopLeptonJets_JetAngles.cxx
   src/LikelihoodTwoTracks.cxx
-  src/Particles.cxx
+  src/ParticleCollection.cxx
   src/Permutations.cxx
   src/PhysicsConstants.cxx
   src/ResDoubleGaussBase.cxx

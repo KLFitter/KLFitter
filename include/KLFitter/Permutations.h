@@ -22,7 +22,7 @@
 
 #include <vector>
 
-#include "KLFitter/Particles.h"
+#include "KLFitter/ParticleCollection.h"
 
 // ---------------------------------------------------------
 
@@ -41,7 +41,7 @@ class Permutations final {
    * @param p A pointer to the pointer to the original set of particles.
    * @param pp A pointer to the pointer to the permutated set of particles.
    */
-  Permutations(KLFitter::Particles** p, KLFitter::Particles** pp);
+  Permutations(KLFitter::ParticleCollection** p, KLFitter::ParticleCollection** pp);
 
   /// The (defaulted) copy constructor.
   explicit Permutations(const Permutations& o);
@@ -59,13 +59,13 @@ class Permutations final {
    * Return the original particles.
    * @return A pointer to the particles.
    */
-  KLFitter::Particles* Particles() { return *fParticles; }
+  KLFitter::ParticleCollection* Particles() { return *fParticles; }
 
   /**
    * Return the current permutation of jets and leptons.
    * @return A pointer to the permuted particles.
    */
-  KLFitter::Particles* ParticlesPermuted() { return *fParticlesPermuted; }
+  KLFitter::ParticleCollection* ParticlesPermuted() { return *fParticlesPermuted; }
 
   /**
    * Return the permutation table.
@@ -103,7 +103,7 @@ class Permutations final {
    * @param particles A set of particles.
    * @return An error code.
    */
-  int SetParticles(KLFitter::Particles* particles);
+  int SetParticles(KLFitter::ParticleCollection* particles);
 
   /**
    * Set the permutation.
@@ -132,7 +132,7 @@ class Permutations final {
    * @param indexVector Vector of indices.
    * @return An error code.
    */
-  int InvariantParticlePermutations(KLFitter::Particles::ParticleType ptype, std::vector<int> indexVector);
+  int InvariantParticlePermutations(Particles::Type ptype, std::vector<int> indexVector);
 
   /**
    * Remove permutations in which all indices in the vector indexVectorPosition1 are exchanged with the corresponding indices in indexVectorPosition2
@@ -145,7 +145,7 @@ class Permutations final {
    * @param indexVectorPosition2 Vector of corresponding indices for second set of particle.
    * @return An error code.
    */
-  int InvariantParticleGroupPermutations(KLFitter::Particles::ParticleType ptype, std::vector<int> indexVectorPosition1,  std::vector<int> indexVectorPosition2);
+  int InvariantParticleGroupPermutations(Particles::Type ptype, std::vector<int> indexVectorPosition1,  std::vector<int> indexVectorPosition2);
 
   /**
    * Remove permutations in which a certain particles is in a certain position.
@@ -156,7 +156,7 @@ class Permutations final {
    * @param position The position in which it is forbidden.
    * @return An error code.
    */
-  int RemoveParticlePermutations(KLFitter::Particles::ParticleType ptype, int index, int position);
+  int RemoveParticlePermutations(Particles::Type ptype, int index, int position);
 
   /**
    * Reset Permutations.
@@ -180,13 +180,13 @@ class Permutations final {
   std::vector<std::vector<int> > Get_M_from_N(unsigned int N, unsigned int M, unsigned int start = 0);
 
   /// A pointer to the pointer of original particles.
-  KLFitter::Particles** fParticles;
+  KLFitter::ParticleCollection** fParticles;
 
   /// A pointer to the pointer of permuted particles.
-  KLFitter::Particles** fParticlesPermuted;
+  KLFitter::ParticleCollection** fParticlesPermuted;
 
   /// A table of permuted particles (jets and leptons).
-  std::vector<KLFitter::Particles> fParticlesTable;
+  std::vector<KLFitter::ParticleCollection> fParticlesTable;
 
   /// A table of permutations. Needed for the math.
   std::vector<std::vector<int> > fPermutationTable;

@@ -19,8 +19,6 @@
 
 #include "gtest/gtest.h"
 
-// Include all individual tests here.
-
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

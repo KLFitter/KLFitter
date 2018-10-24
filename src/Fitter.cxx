@@ -24,7 +24,7 @@
 #include "BAT/BCParameter.h"
 #include "KLFitter/DetectorBase.h"
 #include "KLFitter/LikelihoodBase.h"
-#include "KLFitter/Particles.h"
+#include "KLFitter/ParticleCollection.h"
 #include "KLFitter/Permutations.h"
 
 // ---------------------------------------------------------
@@ -49,7 +49,7 @@ KLFitter::Fitter::Fitter()
 KLFitter::Fitter::~Fitter() = default;
 
 // ---------------------------------------------------------
-int KLFitter::Fitter::SetParticles(KLFitter::Particles * particles, int nPartonsInPermutations) {
+int KLFitter::Fitter::SetParticles(KLFitter::ParticleCollection * particles, int nPartonsInPermutations) {
   fParticles = particles;
 
   // reset old table of permutations
@@ -85,7 +85,7 @@ int KLFitter::Fitter::SetParticles(KLFitter::Particles * particles, int nPartons
 }
 
 // ---------------------------------------------------------
-int KLFitter::Fitter::SetMyParticlesTruth(KLFitter::Particles * particles) {
+int KLFitter::Fitter::SetMyParticlesTruth(KLFitter::ParticleCollection * particles) {
   fMyParticlesTruth = particles;
 
   // no error

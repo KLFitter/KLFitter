@@ -173,8 +173,8 @@ class LikelihoodTopLeptonJetsUDSep : public LikelihoodTopLeptonJets {
    * Return the contribution from b tagging to the log of the event probability
    * for the current combination. Basically identical to
    * LikelihoodBase::LogEventProbabilityBTag(), but corrections were made to use
-   * kLightUp and kLightDown from #KLFitter::Particles::TrueFlavorType instead
-   * of just kLight.
+   * kLightUp and kLightDown from #Particle::JetTrueFlavor instead of just
+   * kLight.
    * @return The event probability contribution
    */
   double LogEventProbabilityBTag() override;
