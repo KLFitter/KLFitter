@@ -59,24 +59,24 @@ class Permutations final {
    * Return the original particles.
    * @return A pointer to the particles.
    */
-  const KLFitter::ParticleCollection* Particles() const { return *fParticles; }
+  const KLFitter::ParticleCollection* Particles() const { return *m_particles; }
 
   /**
    * Return the current permutation of jets and leptons.
    * @return A pointer to the permuted particles.
    */
-  KLFitter::ParticleCollection* ParticlesPermuted() { return *fParticlesPermuted; }
+  KLFitter::ParticleCollection* ParticlesPermuted() { return *m_particles_permuted; }
 
   /**
    * Return the number of permutations.
    */
-  int NPermutations() const { return static_cast<int>(fParticlesTable.size()); }
+  int NPermutations() const { return static_cast<int>(m_particles_table.size()); }
 
   /**
    * Return the current permutation index.
    * @return The current permutation index.
    */
-  int PermutationIndex() const { return fPermutationIndex; }
+  int PermutationIndex() const { return m_permutation_index; }
 
   /** @} */
   /** \name Member functions (Set)  */
@@ -168,25 +168,25 @@ class Permutations final {
   std::vector<std::vector<int> > Get_M_from_N(unsigned int N, unsigned int M, unsigned int start = 0);
 
   /// A pointer to the pointer of original particles.
-  KLFitter::ParticleCollection** fParticles;
+  KLFitter::ParticleCollection** m_particles;
 
   /// A pointer to the pointer of permuted particles.
-  KLFitter::ParticleCollection** fParticlesPermuted;
+  KLFitter::ParticleCollection** m_particles_permuted;
 
   /// A table of permuted particles (jets and leptons).
-  std::vector<KLFitter::ParticleCollection> fParticlesTable;
+  std::vector<KLFitter::ParticleCollection> m_particles_table;
 
   /// A table of permutations. Needed for the math.
-  std::vector<std::vector<int> > fPermutationTable;
+  std::vector<std::vector<int> > m_permutation_table;
 
   /// The permutation index
-  int fPermutationIndex;
+  int m_permutation_index;
 
-  std::vector<std::vector<int> > fTablePartons;
-  std::vector<std::vector<int> > fTableElectrons;
-  std::vector<std::vector<int> > fTableMuons;
-  std::vector<std::vector<int> > fTablePhotons;
-  std::vector<std::vector<int> > fTableTracks;
+  std::vector<std::vector<int> > m_table_partons;
+  std::vector<std::vector<int> > m_table_electrons;
+  std::vector<std::vector<int> > m_table_muons;
+  std::vector<std::vector<int> > m_table_photons;
+  std::vector<std::vector<int> > m_table_tracks;
 };
 }  // namespace KLFitter
 
