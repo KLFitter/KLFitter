@@ -296,11 +296,18 @@ class LikelihoodBase : public BCModel {
   virtual void DefineParameters() = 0;
 
   /**
+    * The prior probability definition, overloaded from BCModel.
+    * @param parameters A vector of parameters (double values).
+    * @return The logarithm of the prior probability.
+    */
+  virtual double LogAPrioriProbability(const std::vector <double> & parameters) override { return 0; }
+
+  /**
     * The posterior probability definition, overloaded from BCModel.
     * @param parameters A vector of parameters (double values).
     * @return The logarithm of the prior probability.
     */
-  virtual double LogLikelihood(const std::vector <double> & parameters) = 0;
+  virtual double LogLikelihood(const std::vector <double> & parameters) override = 0;
 
   /**
     * The posterior probability definition, overloaded from BCModel. Split up into several subcomponents
