@@ -153,6 +153,7 @@ set( lib_sources
   src/ResGauss_MET.cxx
   src/ResSingleGaussBase.cxx
   src/ResSingleGaussE.cxx
+  src/ResSingleGaussMET.cxx
   src/ResSingleGaussPt.cxx
   src/ResolutionBase.cxx )
 
