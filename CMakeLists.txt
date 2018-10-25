@@ -152,6 +152,7 @@ set( lib_sources
   src/ResGaussPt.cxx
   src/ResGauss_MET.cxx
   src/ResSingleGaussBase.cxx
+  src/ResSingleGaussLinearBase.cxx
   src/ResSingleGaussE.cxx
   src/ResSingleGaussMET.cxx
   src/ResSingleGaussPt.cxx

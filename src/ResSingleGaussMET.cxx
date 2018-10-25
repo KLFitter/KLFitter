@@ -23,10 +23,10 @@
 #include <iostream>
 
 // ---------------------------------------------------------
-KLFitter::ResSingleGaussMET::ResSingleGaussMET(const char * filename) : KLFitter::ResSingleGaussBase(filename) { }
+KLFitter::ResSingleGaussMET::ResSingleGaussMET(const char * filename) : KLFitter::ResSingleGaussLinearBase(filename) { }
 
 // ---------------------------------------------------------
-KLFitter::ResSingleGaussMET::ResSingleGaussMET(std::vector<double> const& parameters) : KLFitter::ResSingleGaussBase(parameters) { }
+KLFitter::ResSingleGaussMET::ResSingleGaussMET(std::vector<double> const& parameters) : KLFitter::ResSingleGaussLinearBase(parameters) { }
 
 // ---------------------------------------------------------
 KLFitter::ResSingleGaussMET::~ResSingleGaussMET() = default;

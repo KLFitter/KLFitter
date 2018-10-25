@@ -24,10 +24,10 @@
 
 #include "KLFitter/ResolutionBase.h"
 #include "KLFitter/ResSingleGaussE.h"
+#include "KLFitter/ResSingleGaussMET.h"
 #include "KLFitter/ResSingleGaussPt.h"
 #include "KLFitter/ResCrystalBallJets.h"
 #include "KLFitter/ResGauss.h"
-#include "KLFitter/ResGauss_MET.h"
 #include "TString.h"
 
 namespace KLFitter {
@@ -86,7 +86,7 @@ DetectorAtlas_CrystalBall::DetectorAtlas_CrystalBall(std::string folder) : Detec
   m_res_phi_bjet_eta3 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_phi_bJets_eta3.txt", folder.c_str())});
   m_res_phi_bjet_eta4 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_phi_bJets_eta4.txt", folder.c_str())});
 
-  m_res_missing_ET = std::unique_ptr<ResolutionBase>(new ResGauss_MET{Form("%s/par_misset.txt", folder.c_str())});
+  m_res_missing_ET = std::unique_ptr<ResolutionBase>(new ResSingleGaussMET{Form("%s/par_misset.txt", folder.c_str())});
 }
 
 // ---------------------------------------------------------

@@ -17,7 +17,7 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "KLFitter/ResSingleGaussBase.h"
+#include "KLFitter/ResSingleGaussLinearBase.h"
 
 #include "TMath.h"
 
@@ -25,25 +25,25 @@
 #include <iostream>
 
 // ---------------------------------------------------------
-KLFitter::ResSingleGaussBase::ResSingleGaussBase(const char * filename) : KLFitter::ResolutionBase(8) {
+KLFitter::ResSingleGaussLinearBase::ResSingleGaussLinearBase(const char * filename) : KLFitter::ResolutionBase(8) {
   // read parameters from file
-  ReadParameters(filename, 4);
+  ReadParameters(filename, 2);
 }
 
 // ---------------------------------------------------------
-KLFitter::ResSingleGaussBase::ResSingleGaussBase(std::vector<double> const& parameters) : KLFitter::ResolutionBase(parameters) {
+KLFitter::ResSingleGaussLinearBase::ResSingleGaussLinearBase(std::vector<double> const& parameters) : KLFitter::ResolutionBase(parameters) {
   // check number of parameters
-  if (parameters.size() != 4) {
-    std::cout << "KLFitter::ResSingleGaussBase::ResSingleGaussBase(). Number of parameters != 4." << std::endl;
+  if (parameters.size() != 2) {
+    std::cout << "KLFitter::ResSingleGaussBase::ResSingleGaussBase(). Number of parameters != 2." << std::endl;
     return;
   }
 }
 
 // ---------------------------------------------------------
-KLFitter::ResSingleGaussBase::~ResSingleGaussBase() = default;
+KLFitter::ResSingleGaussLinearBase::~ResSingleGaussLinearBase() = default;
 
 // ---------------------------------------------------------
-double KLFitter::ResSingleGaussBase::p(double x, double xmeas, bool *good, double /*par*/) {
+double KLFitter::ResSingleGaussLinearBase::p(double x, double xmeas, bool *good, double /*par*/) {
   double mean = GetMean(x);
   double sigma = GetSigma(x);
 
