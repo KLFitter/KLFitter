@@ -56,7 +56,7 @@ env:
     - KLF_SOURCE_DIR="$TRAVIS_BUILD_DIR"
     - KLF_BUILD_DIR="$TRAVIS_BUILD_DIR/build"
     - LIBPATH_ORIG="\${LD_LIBRARY_PATH}\${LD_LIBRARY_PATH:+:}"
-    - LIBPATH_LOCAL="$KLF_BUILD_DIR/lib:"
+    - LIBPATH_LOCAL="$KLF_BUILD_DIR/lib:$KLF_BUILD_DIR/lib64:"
     - LIBPATH_ROOT="\`root-config --libdir\`:"
     - LIBPATH_BAT="${BATINSTALLDIR}${BATINSTALLDIR:+/lib:}"
     - CMD_DOCKER="docker exec -i $DOCKER_CONTAINER /bin/bash -c"
@@ -105,15 +105,19 @@ before_install:
   $CMD_DOCKER "${CMD_EXPORT_BATINSTALL} && cd ${KLF_BUILD_DIR} && make"
 
 
-# Rule to run the unit tests and pipe the stdout/stderr into a
-# text file.
+# Rule to run the unit tests using the googletest suite.
 .run_unit_tests: &run_unit_tests
+  $CMD_DOCKER "${CMD_EXPORT_BATINSTALL} && ${CMD_EXPORT_LIBPATH} && cd ${KLF_BUILD_DIR} && ${KLF_BUILD_DIR}/test-bin/unit_tests.exe"
+
+# Rule to run the integration tests and pipe the stdout/stderr
+# into a text file.
+.run_integration_tests: &run_integration_tests
   $CMD_DOCKER "${CMD_EXPORT_BATINSTALL} && ${CMD_EXPORT_LIBPATH} && cd ${KLF_BUILD_DIR} && ${KLF_BUILD_DIR}/test-bin/test-ljets-lh.exe ${KLF_SOURCE_DIR} 2>&1 |tee test-output.txt"
 
 
-# Rule to compare the unit test output to a reference file.
-.run_unit_test_diff: &run_unit_test_diff
-  diff -u $KLF_BUILD_DIR/test-output.txt $KLF_SOURCE_DIR/tests/output-ref-ljets-lh.txt
+# Rule to compare the integration test output to a reference file.
+.run_integration_test_diff: &run_integration_test_diff
+  diff -u $KLF_BUILD_DIR/test-output.txt $KLF_SOURCE_DIR/tests/integration/output-ref-ljets-lh.txt
 
 
 # Deploy the documentation under doc/html/ into the github pages
@@ -139,7 +143,7 @@ before_deploy:
   - doxygen doc/Doxyfile 2>&1
 
 
-# Definiton of the actual CI jobs. We build KLFitter with three
+# Definiton of the actual CI jobs. We build KLFitter with two
 # different scenarios:
 # 1. Make a fully automatized build of KLFitter and BAT using
 #    cmake. This downloads and compiles BAT via cmake, and builds
@@ -149,21 +153,18 @@ before_deploy:
 #    CompileBAT.sh. Then configure the KLFitter build via cmake
 #    and pick up that pre-built version of BAT. Run unit tests
 #    afterwards and verify their output.
-# 3. Download and compile BAT with the external shell script
-#    CompileBAT.sh. Then use the Makefile to build KLFitter and
-#    link it against the pre-built version of BAT. Run unit tests
-#    afterwards and verify their output.
 jobs:
   include:
     - env:
-        - KLF_CMAKE_OPTS="-DBUILTIN_BAT=TRUE -DINSTALL_TESTS=TRUE"
+        - KLF_CMAKE_OPTS="-DKLF_BUILD_BAT=TRUE -DKLF_BUILD_GTEST=TRUE -DKLF_INSTALL_TESTS=TRUE"
       script:
         - *run_cmake_configure
         - *run_cmake_build
         - *run_unit_tests
-        - *run_unit_test_diff
+        - *run_integration_tests
+        - *run_integration_test_diff
     - env:
-        - KLF_CMAKE_OPTS="-DBUILTIN_BAT=FALSE -DINSTALL_TESTS=TRUE"
+        - KLF_CMAKE_OPTS="-DKLF_BUILD_BAT=FALSE -DKLF_BUILD_GTEST=TRUE -DKLF_INSTALL_TESTS=TRUE"
         - KLF_SOURCE_DIR=$KLF_SOURCE_DIR/KLFitter
       script:
         - mv CMakeLists.txt cmake data include src tests util $KLF_SOURCE_DIR
@@ -172,15 +173,8 @@ jobs:
         - *run_cmake_configure
         - *run_cmake_build
         - *run_unit_tests
-        - *run_unit_test_diff
-    - script:
-        - *run_download_bat
-        - *run_compile_bat
-        - $CMD_DOCKER "${CMD_EXPORT_BATINSTALL} && make"
-        - $CMD_DOCKER "${CMD_EXPORT_BATINSTALL} && make tests"
-        - $CMD_DOCKER "${CMD_EXPORT_BATINSTALL} && make install"
-        - *run_unit_tests
-        - *run_unit_test_diff
+        - *run_integration_tests
+        - *run_integration_test_diff
     - stage: deploy
       script: skip
       if: branch = master AND repo = KLFitter/KLFitter AND NOT type = pull_request

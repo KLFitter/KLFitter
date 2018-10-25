@@ -33,48 +33,26 @@ namespace KLFitter {
 
 // ---------------------------------------------------------
 
-/**
- * \namespace KLFitter
- * \brief The KLFitter namespace
- */
 namespace KLFitter {
 /**
-* \class KLFitter::BoostedLikelihoodTopLeptonJets
-* \brief Add brief description here
-*
-* Add detailed description here.
-*/
+ * Likelihood to reconstruct an l+jets ttbar pair in the boosted
+ * top quark scenario. ADD DETAILED DESCRIPTION HERE
+ */
 class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
  public:
-  /** \name Constructors and destructors */
-  /* @{ */
-
-  /**
-   * The default constructor.
-   */
+  /// The default constructor.
   BoostedLikelihoodTopLeptonJets();
 
-  /**
-   * The (defaulted) destructor.
-   */
+  /// The (defaulted) destructor.
   ~BoostedLikelihoodTopLeptonJets();
 
-  /* @} */
-  /** \name Member functions (Get)  */
-  /* @{ */
-
-  /* @} */
   /** \name Member functions (Set)  */
-  /* @{ */
+  /** @{ */
 
-  /**
-   * Enumerator for the lepton type.
-   */
+  /// Enumerator for the lepton type.
   enum LeptonType { kElectron, kMuon };
 
-  /**
-   * Enumerator for the parameters.
-   */
+  /// Enumerator for the parameters.
   enum Parameters { parBhadE, parBlepE, parLQE, parLepE, parNuPx, parNuPy, parNuPz, parTopM };
 
   /**
@@ -98,29 +76,17 @@ class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
 
   void SetFlagGetParSigmasFromTFs(bool flag) { fFlagGetParSigmasFromTFs = flag; }
 
-  /**
-   * Set the type of lepton
-   * @param leptontype The type of lepton: kElectron or kMuon
-   */
+  /// Set the type of lepton according to LeptonType.
   void SetLeptonType(LeptonType leptontype);
 
-  /**
-   * Set the type of lepton
-   * @param leptontype The type of lepton: electron(1) or muon (2)
-   */
+  /// Set the type of lepton: (1) electron, or (2) muon.
   void SetLeptonType(int leptontype);
 
-  /* @} */
-  /** \name Member functions (misc)  */
-  /* @{ */
-
-  /* @} */
+  /** @} */
   /** \name Member functions (BAT)  */
-  /* @{ */
+  /** @{ */
 
-  /**
-   * Define the parameters of the fit.
-   */
+  /// Define the parameters of the fit.
   void DefineParameters() override;
 
   /**
@@ -146,10 +112,7 @@ class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
    */
   std::vector<double> LogLikelihoodComponents(std::vector <double> parameters) override;
 
-  /**
-   * Get initial values for the parameters.
-   * @return vector of initial values.
-   */
+  /// Get initial values for the parameters.
   std::vector<double> GetInitialParameters() override;
 
   /**
@@ -160,11 +123,11 @@ class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
    */
   std::vector<double> GetInitialParametersWoNeutrinoPz();
 
-  /* @} */
+  /** @} */
 
  protected:
   /** \name Member functions (misc)  */
-  /* @{ */
+  /** @{ */
 
   /**
    * Update 4-vectors of model particles.
@@ -172,9 +135,7 @@ class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
    */
   int CalculateLorentzVectors(std::vector <double> const& parameters) override;
 
-  /**
-   * Adjust parameter ranges
-   */
+  /// Adjust parameter ranges
   int AdjustParameterRanges() override;
 
   /**
@@ -195,18 +156,7 @@ class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
    */
   int BuildModelParticles() override;
 
-  /* @} */
-
- protected:
-  /**
-   * A flag for using a fixed top mass (true) or not (false).
-   */
-  bool fFlagTopMassFixed;
-
-  /**
-   *  Flag for using ResolutionBase::GetSigma() to retrieve the parameter ranges
-   */
-  bool fFlagGetParSigmasFromTFs;
+  /** @} */
 
   /**
    * Return the neutrino pz solutions from the measured values
@@ -227,49 +177,52 @@ class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
    */
   std::vector<double> CalculateNeutrinoPzSolutions(TLorentzVector * additionalParticle = 0x0);
 
-  /**
-   * Save permuted particles.
-   */
+  /// Save permuted particles.
   int SavePermutedParticles() override;
 
-  /**
-   * Save resolution functions.
-   */
+  /// Save resolution functions.
   int SaveResolutionFunctions() override;
 
-  /**
-   * The values of the x component of the missing ET.
-   */
+  /** \name Member attributes */
+  /** @{ */
+
+  /// A flag for using a fixed top mass (true) or not (false).
+  bool fFlagTopMassFixed;
+
+  ///  Flag for using ResolutionBase::GetSigma() to retrieve the parameter ranges
+  bool fFlagGetParSigmasFromTFs;
+
+  /// The values of the x component of the missing ET.
   double ETmiss_x;
 
-  /**
-   * The values of the y component of the missing ET.
-   */
+  /// The values of the y component of the missing ET.
   double ETmiss_y;
 
-  /**
-   * The values of the total scalar ET.
-   */
+  /// The values of the total scalar ET.
   double SumET;
 
-  /**
-   * An index deciding if the event is electron (1) or muon (2) plus
-   * jets.
-   */
+  /// Index whether l+jets event is electron (1) or muon (2).
   LeptonType fTypeLepton;
 
-  /**
-   * Save resolution functions since the eta of the partons is not fitted.
-   */
+  /// Pointer to resolution function for hadronic b quark.
   ResolutionBase * fResEnergyBhad;
+
+  /// Pointer to resolution function for leptonic b quark.
   ResolutionBase * fResEnergyBlep;
+
+  /// Pointer to resolution function for first light quark jet.
   ResolutionBase * fResEnergyLQ;
+
+  /// Pointer to resolution function for the lepton.
   ResolutionBase * fResLepton;
+
+  /// Pointer to resolution function for MET.
   ResolutionBase * fResMET;
 
-  /**
-   * Save measured particle values for frequent calls
-   */
+  /** @} */
+  /** \name Member attributes (measured parameters) */
+  /** @{ */
+
   double bhad_meas_e;
   double bhad_meas_p;
   double bhad_meas_m;
@@ -308,9 +261,10 @@ class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
   double lep_meas_py;
   double lep_meas_pz;
 
-  /**
-   * Save fit particle values for frequent calls
-   */
+  /** @} */
+  /** \name Member attributes (fitted parameters) */
+  /** @{ */
+
   double bhad_fit_e;
   double bhad_fit_px;
   double bhad_fit_py;
@@ -340,6 +294,8 @@ class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
   double wlep_fit_m;
   double thad_fit_m;
   double tlep_fit_m;
+
+  /** @} */
 };
 }  // namespace KLFitter
 

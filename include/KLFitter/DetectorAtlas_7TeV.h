@@ -29,8 +29,12 @@
 
 namespace KLFitter {
 /**
- * A class for describing of the ATLAS detector. This class
- * holds the description of the ATLAS detector.
+ * A collection of resolution functions to describe the ATLAS
+ * detector. This is the *first* implementation of the ATLAS
+ * detector, used for transfer functions that were derived with
+ * MC samples from the mc11 campaign. This first implementation
+ * uses a mix of ResDoubleGaussE_1 and ResDoubleGaussE_2 for the
+ * parameterization of jets. Electrons use ResDoubleGaussE_1.
  */
 class DetectorAtlas_7TeV : public DetectorBase {
  public:
@@ -44,7 +48,7 @@ class DetectorAtlas_7TeV : public DetectorBase {
   ~DetectorAtlas_7TeV();
 
   /** \name Member functions (Get)  */
-  /* @{ */
+  /** @{ */
 
   /**
    * Return the energy resolution of light jets.
@@ -122,7 +126,7 @@ class DetectorAtlas_7TeV : public DetectorBase {
    */
   ResolutionBase* ResPhiBJet(double eta = 0.) override;
 
-  /* @} */
+  /** @} */
 
  private:
   /// The energy resolution of light jets for different eta regions.

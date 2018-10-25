@@ -26,8 +26,12 @@ endif()
 # Set the project's name and version.
 project( KLFitter )
 
-# Enable using CTest in the project.
-include( CTest )
+# Set the options for building KLFitter.
+option( KLF_BUILD_BAT "Acquire BAT as part of building this project" OFF )
+option( KLF_BUILD_GTEST "Acquire googletest as part of building this project" OFF )
+option( KLF_INSTALL_EXAMPLES "Install the example executable(s) of KLFitter" ON )
+option( KLF_INSTALL_STATIC_LIB "Build and install KLFitter as a static library" OFF )
+option( KLF_INSTALL_TESTS "Install the unit test suite of KLFitter" OFF )
 
 # Set up the "C++ version" to use.
 set( CMAKE_CXX_STANDARD_REQUIRED 11 CACHE STRING
@@ -66,8 +70,7 @@ find_package( ROOT 5.34.10 REQUIRED MathCore Minuit )
 
 # Figure out what to do with BAT.
 set( _buildDir ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/BATBuild )
-option( BUILTIN_BAT "Acquire BAT as part of building this project" OFF )
-if( BUILTIN_BAT )
+if( KLF_BUILD_BAT )
   # Download and install BAT using ExternalProject.
   include( ExternalProject )
   ExternalProject_Add( BAT
@@ -111,7 +114,7 @@ set( lib_headers
   include/KLFitter/LikelihoodTopLeptonJets_Angular.h
   include/KLFitter/LikelihoodTopLeptonJets_JetAngles.h
   include/KLFitter/LikelihoodTwoTracks.h
-  include/KLFitter/Particles.h
+  include/KLFitter/ParticleCollection.h
   include/KLFitter/Permutations.h
   include/KLFitter/PhysicsConstants.h )
 
@@ -135,7 +138,7 @@ set( lib_sources
   src/LikelihoodTopLeptonJets_Angular.cxx
   src/LikelihoodTopLeptonJets_JetAngles.cxx
   src/LikelihoodTwoTracks.cxx
-  src/Particles.cxx
+  src/ParticleCollection.cxx
   src/Permutations.cxx
   src/PhysicsConstants.cxx
   src/ResCrystalBallBase.cxx
@@ -158,73 +161,51 @@ set( lib_sources
   src/ResSingleGaussPt.cxx
   src/ResolutionBase.cxx )
 
-# Build the shared library.
-add_library( KLFitter SHARED ${lib_headers} ${lib_sources} )
-target_include_directories( KLFitter
-   PUBLIC ${ROOT_INCLUDE_DIRS} ${BAT_INCLUDE_DIR}
-   $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include> )
-target_link_libraries( KLFitter ${ROOT_LIBRARIES} ${BAT_LIBRARY} )
-set_property( TARGET KLFitter
-   PROPERTY PUBLIC_HEADER ${lib_headers} )
-if( BUILTIN_BAT )
-  add_dependencies( KLFitter BAT )
-endif()
+# Create a macro to build and install libraries.
+macro( KLFitter_add_library name )
+  add_library( ${name} ${ARGN} )
 
-# Build the static library.
-add_library( KLFitter-stat ${lib_headers} ${lib_sources} )
-target_include_directories( KLFitter-stat
-   PUBLIC ${ROOT_INCLUDE_DIRS} ${BAT_INCLUDE_DIR}
-   $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include> )
-target_link_libraries( KLFitter-stat ${ROOT_LIBRARIES} ${BAT_LIBRARY} )
-set_property( TARGET KLFitter-stat
-   PROPERTY PUBLIC_HEADER ${lib_headers} )
-if( BUILTIN_BAT )
-  add_dependencies( KLFitter-stat BAT )
-endif()
+  # Add include directories and library dependencies.
+  target_include_directories( ${name}
+    PUBLIC ${ROOT_INCLUDE_DIRS} ${BAT_INCLUDE_DIR}
+    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>
+  )
+  target_link_libraries( ${name} ${ROOT_LIBRARIES} ${BAT_LIBRARY} )
+  if( KLF_BUILD_BAT )
+    add_dependencies( ${name} BAT )
+  endif()
 
-# Install the libraries.
-install( TARGETS KLFitter KLFitter-stat
-   EXPORT KLFitterTargets
-   ARCHIVE DESTINATION lib
-   LIBRARY DESTINATION lib
-   PUBLIC_HEADER DESTINATION include/KLFitter )
+  # Set the public headers of the library.
+  set_property( TARGET ${name}
+    PROPERTY PUBLIC_HEADER ${lib_headers} )
+
+  # Install the library to its destination folder.
+  install( TARGETS ${name}
+    EXPORT KLFitterTargets
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
+    PUBLIC_HEADER DESTINATION include/KLFitter )
+endmacro( KLFitter_add_library )
+
+# Build the shared (and static) library.
+KLFitter_add_library( KLFitter SHARED ${lib_headers} ${lib_sources} )
+if( KLF_INSTALL_STATIC_LIB )
+  KLFitter_add_library( KLFitter-stat ${lib_headers} ${lib_sources} )
+endif()
 
 # Install the transfer functions.
 install( DIRECTORY data/transferfunctions/
   DESTINATION share/KLFitter/transferfunctions )
 
-# Helper macro for building the project's unit tests.
-macro( KLFitter_add_test name )
-   # Build the unit-test executable:
-   add_executable( ${name} ${ARGN} )
-   target_link_libraries( ${name} KLFitter-stat )
-   set_target_properties( ${name} PROPERTIES
-      RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/test-bin" )
-   # Set up the test itself:
-   add_test( NAME ${name}_ctest
-      COMMAND ${CMAKE_BINARY_DIR}/test-bin/${name}
-      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/test-bin )
-endmacro( KLFitter_add_test )
-
-# Set up the test(s) of the project.
-option( INSTALL_TESTS "Install the unit tests to validate KLFitter installation" OFF )
-if( INSTALL_TESTS )
-  KLFitter_add_test( test-ljets-lh.exe tests/test-ljets-lh.cxx )
+# Figure out whether we want to install the unit tests.
+if( KLF_INSTALL_TESTS )
+  add_subdirectory( tests )
 endif()
 
-# Helper macro for building the project's executables.
-macro( KLFitter_add_executable name )
-  add_executable( ${name} ${ARGN} )
-  target_link_libraries( ${name} KLFitter-stat )
-  install( TARGETS ${name}
-    EXPORT KLFitterTargets
-    RUNTIME DESTINATION bin )
-endmacro( KLFitter_add_executable )
-
-# Build the example executable(s) of the project.
-option( INSTALL_EXAMPLES "Install the example executable(s) of KLFitter" ON )
-if( INSTALL_EXAMPLES )
-  KLFitter_add_executable( example-top-ljets.exe util/example-top-ljets.cxx )
+# Figure out whether we want to install the example executables.
+if( KLF_INSTALL_EXAMPLES )
+  add_subdirectory( util )
 endif()
 
 # Install the CMake description of the project.

@@ -28,6 +28,12 @@
 namespace KLFitter {
 class ResolutionBase;
 
+/**
+ * Enum class to describe all possible resolution types that a
+ * detector can hold. Resolution functions can be implemented for
+ * all these types. If a detector does not implement a type, it
+ * should return DetectorBase::ResolutionUndefined().
+ */
 enum class ResolutionType {
   EnergyLightJet,  ///< Energy resolution of light jets
   EnergyBJet,      ///< Energy resolution of b-jets
@@ -44,9 +50,8 @@ enum class ResolutionType {
 
 /**
  * A base class for describing detectors. This base class
- * contains the energy resolution of different objects. More
- * information (angular resolutions, acceptance, correections,
- * etc.) can be added here.
+ * contains accessors for the energy resolution functions for all
+ * members of ResolutionType.
  */
 class DetectorBase {
  public:
@@ -60,46 +65,40 @@ class DetectorBase {
   virtual ~DetectorBase();
 
   /** \name Member functions (Get)  */
-  /* @{ */
+  /** @{ */
 
   /**
    * Return the energy resolution of light jets.
-   * @param eta The eta of the particle.
    * @return A pointer to the energy resolution object.
    */
   virtual ResolutionBase* ResEnergyLightJet(double /*eta*/) = 0;
 
   /**
    * Return the energy resolution of b jets.
-   * @param eta The eta of the particle.
    * @return A pointer to the energy resolution object.
    */
   virtual ResolutionBase* ResEnergyBJet(double /*eta*/) = 0;
 
   /**
    * Return the energy resolution of gluon jets.
-   * @param eta The eta of the particle.
    * @return A pointer to the energy resolution object.
    */
   virtual ResolutionBase* ResEnergyGluonJet(double /*eta*/) = 0;
 
   /**
    * Return the energy resolution of electrons.
-   * @param eta The eta of the particle.
    * @return A pointer to the energy resolution object.
    */
   virtual ResolutionBase* ResEnergyElectron(double /*eta*/) = 0;
 
   /**
    * Return the energy resolution of muons.
-   * @param eta The eta of the particle.
    * @return A pointer to the energy resolution object.
    */
   virtual ResolutionBase* ResEnergyMuon(double /*eta*/) = 0;
 
   /**
    * Return the energy resolution of photons.
-   * @param eta The eta of the particle.
    * @return A pointer to the energy resolution object.
    */
   virtual ResolutionBase* ResEnergyPhoton(double /*eta*/) = 0;
@@ -112,35 +111,31 @@ class DetectorBase {
 
   /**
    * Return the eta resolution of light jets.
-   * @param eta The eta of the particle.
    * @return A pointer to the eta resolution object.
    */
   virtual ResolutionBase* ResEtaLightJet(double /*eta*/) = 0;
 
   /**
    * Return the eta resolution of b jets.
-   * @param eta The eta of the particle.
    * @return A pointer to the eta resolution object.
    */
   virtual ResolutionBase* ResEtaBJet(double /*eta*/) = 0;
 
   /**
    * Return the phi resolution of light jets.
-   * @param eta The phi of the particle.
    * @return A pointer to the phi resolution object.
    */
   virtual ResolutionBase* ResPhiLightJet(double /*eta*/) = 0;
 
   /**
    * Return the phi resolution of b jets.
-   * @param eta The phi of the particle.
    * @return A pointer to the phi resolution object.
    */
   virtual ResolutionBase* ResPhiBJet(double /*eta*/) = 0;
 
-  /* @} */
+  /** @} */
   /** \name Member functions (misc)  */
-  /* @{ */
+  /** @{ */
 
   int Status();
 
@@ -153,7 +148,7 @@ class DetectorBase {
    */
   void RequestResolutionType(const ResolutionType& type);
 
-  /* @} */
+  /** @} */
 
  protected:
   /**

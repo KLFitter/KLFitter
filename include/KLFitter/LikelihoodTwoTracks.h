@@ -32,46 +32,40 @@ namespace KLFitter {
 class ResolutionBase;
 
 /**
- * This class implements a likelihood for the reconstruction of a
- * particle decaying to two (oppositely) charged particles
- * producing tracks in the detector. Per track, it uses the
- * four-vector (usually constructed from phi, theta, and q/p
- * assuming a charge of +/- 1 and pion/kaon mass) as well as the
- * covariance matrix of the variables phi, theta, and q/p as
- * parameters.
+ * Likelihood for the reconstruction of a particle decaying to
+ * two (oppositely) charged particles producing tracks in the
+ * detector. Per track, it uses the four-vector (usually
+ * constructed from phi, theta, and q/p assuming a charge of +/-
+ * 1 and pion/kaon mass) as well as the covariance matrix of the
+ * variables phi, theta, and q/p as parameters.
  */
 class LikelihoodTwoTracks : public LikelihoodBase {
  public:
-  /** \name Constructors and destructors */
-  /* @{ */
-
   /// The default constructor.
   LikelihoodTwoTracks();
 
   /// The (defaulted) destructor.
   ~LikelihoodTwoTracks();
 
-  /* @} */
-
   /** Calculate 3D Gaussian.
-    * @param x0 First variable point of evalulation
-    * @param x1 Second variable point of evaluation
-    * @param x2 Third variable point of evaluation
-    * @param mean0 First variable mean of distribution
-    * @param mean1 Second variable mean of distribution
-    * @param mean2 Third variable mean of distribution
-    * @param sigma00 First variable variance squared
-    * @param sigma10 Covariance of first and second variable
-    * @param sigma11 Second variable variance squared
-    * @param sigma20 Covariance of first and third variable
-    * @param sigma21 Covariance of second and third variable
-    * @param sigma22 Third variable variance squared
-    * @return Evaluated value of the 3D Gaussian
-    */
+   * @param x0 First variable point of evalulation
+   * @param x1 Second variable point of evaluation
+   * @param x2 Third variable point of evaluation
+   * @param mean0 First variable mean of distribution
+   * @param mean1 Second variable mean of distribution
+   * @param mean2 Third variable mean of distribution
+   * @param sigma00 First variable variance squared
+   * @param sigma10 Covariance of first and second variable
+   * @param sigma11 Second variable variance squared
+   * @param sigma20 Covariance of first and third variable
+   * @param sigma21 Covariance of second and third variable
+   * @param sigma22 Third variable variance squared
+   * @return Evaluated value of the 3D Gaussian
+   */
   double Log3DGaus(double x0, double x1, double x2,
-                    double mean0, double mean1, double mean2,
-                    double sigma00, double sigma10, double sigma11,
-                    double sigma20, double sigma21, double sigma22);
+                   double mean0, double mean1, double mean2,
+                   double sigma00, double sigma10, double sigma11,
+                   double sigma20, double sigma21, double sigma22);
 
   /// Enumerator for the parameters.
   enum Parameters { parPiPlusPhi,     ///< First (positive) track phi
@@ -84,42 +78,42 @@ class LikelihoodTwoTracks : public LikelihoodBase {
   };
 
   /** \name Member functions (BAT)  */
-  /* @{ */
+  /** @{ */
 
   /// Define the parameters of the fit.
   void DefineParameters() override;
 
   /**
-    * The posterior probability definition, overloaded from BCModel.
-    * @param parameters A vector of parameters (double values).
-    * @return The logarithm of the prior probability.
-    */
+   * The posterior probability definition, overloaded from BCModel.
+   * @param parameters A vector of parameters (double values).
+   * @return The logarithm of the prior probability.
+   */
   double LogLikelihood(const std::vector<double>& parameters) override;
 
   /**
-    * The posterior probability definition, overloaded from
-    * BCModel. Split up into several subcomponents.
-    * @param parameters A vector of parameters (double values).
-    * @return A vector with the components of the logarithm of the
-    * prior probability. Its components are: \n
-    *   0) TF_bhad \n
-    *   1) TF_blep \n
-    *   2) TF_lq1 \n
-    *   3) TF_lq2 \n
-    *   4) TF_lep \n
-    *   5) TF_METx \n
-    *   6) TF_METy \n
-    *   7) BW_Whad \n
-    *   8) BW_Wlep \n
-    *   9) BW_Thad \n
-    *   10) BW_Tlep
-    */
+   * The posterior probability definition, overloaded from
+   * BCModel. Split up into several subcomponents.
+   * @param parameters A vector of parameters (double values).
+   * @return A vector with the components of the logarithm of the
+   * prior probability. Its components are: \n
+   *   0) TF_bhad \n
+   *   1) TF_blep \n
+   *   2) TF_lq1 \n
+   *   3) TF_lq2 \n
+   *   4) TF_lep \n
+   *   5) TF_METx \n
+   *   6) TF_METy \n
+   *   7) BW_Whad \n
+   *   8) BW_Wlep \n
+   *   9) BW_Thad \n
+   *   10) BW_Tlep
+   */
   std::vector<double> LogLikelihoodComponents(std::vector<double> parameters) override;
 
   /**
-    * Get initial values for the parameters.
-    * @return vector of initial values.
-    */
+   * Get initial values for the parameters.
+   * @return vector of initial values.
+   */
   std::vector<double> GetInitialParameters() override;
 
   /// Dummy reimplementation of the base class function.
@@ -134,41 +128,41 @@ class LikelihoodTwoTracks : public LikelihoodBase {
   /// Dummy reimplementation of the base class function.
   int SaveResolutionFunctions() override { return 0; }
 
-  /* @} */
+  /** @} */
 
  protected:
   /**
-    * Update 4-vectors of model particles.
-    * @return An error flag.
-    */
+   * Update 4-vectors of model particles.
+   * @return An error flag.
+   */
   int CalculateLorentzVectors(const std::vector<double>& parameters) override;
 
   /// Initialize the likelihood for the event.
   int Initialize() override;
 
   /**
-    * Define the model particles
-    * @return An error code.
-    */
+   * Define the model particles
+   * @return An error code.
+   */
   int DefineModelParticles() override;
 
   /**
-    * Remove invariant particle permutations.
-    * @return An error code.
-    */
+   * Remove invariant particle permutations.
+   * @return An error code.
+   */
   int RemoveInvariantParticlePermutations() override;
 
   /**
-    * Build the model particles from the best fit parameters.
-    * @return An error code.
-    */
+   * Build the model particles from the best fit parameters.
+   * @return An error code.
+   */
   int BuildModelParticles() override;
 
   /// Save permuted particles.
   int SavePermutedParticles() override;
 
   /** \name Member attributes */
-  /* @{ */
+  /** @{ */
 
   /// Mass of the pion.
   const double m_pion_mass;
@@ -179,9 +173,9 @@ class LikelihoodTwoTracks : public LikelihoodBase {
   /// Decay width of k_short.
   const double m_kshort_width;
 
-  /* @} */
+  /** @} */
   /** \name Member attributes (measured parameters) */
-  /* @{ */
+  /** @{ */
 
   double m_t1_meas_phi;
   double m_t1_meas_theta;
@@ -205,9 +199,9 @@ class LikelihoodTwoTracks : public LikelihoodBase {
   double m_t2_meas_sigma21;
   double m_t2_meas_sigma22;
 
-  /* @} */
+  /** @} */
   /** \name Member attributes (fitted parameters) */
-  /* @{ */
+  /** @{ */
 
   double m_t1_fit_phi;
   double m_t1_fit_theta;
@@ -221,7 +215,7 @@ class LikelihoodTwoTracks : public LikelihoodBase {
 
   double m_ks_fit_m;
 
-  /* @} */
+  /** @} */
 };
 }  // namespace KLFitter
 
