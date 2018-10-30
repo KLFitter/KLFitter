@@ -27,31 +27,22 @@
 
 // ---------------------------------------------------------
 
-/**
- * \namespace KLFitter
- * \brief The KLFitter namespace
- */
 namespace KLFitter {
 /**
-  * \class KLFitter::ResDoubleGaussE_1
-  * \brief A class describing a resolution parameterized with a double Gaussian.
-  *
   * This class offers a simple parameterization of a resolution. The
   * parameterization is a double Gaussian with energy dependent
   * parameters.
   */
 class ResSingleGaussE : public ResSingleGaussBase {
  public:
-  /** \name Constructors and destructors */
-  /* @{ */
-
   /**
     * The default constructor.
     */
   explicit ResSingleGaussE(const char * filename);
 
   /**
-    * A constructor.
+    * A constructor that takes parameters directly, unlike the default 
+    * constructor that takes a path to the file with TFs.
     * @param parameters The parameters of the parameterization.
     */
   explicit ResSingleGaussE(std::vector<double> const& parameters);
@@ -60,10 +51,6 @@ class ResSingleGaussE : public ResSingleGaussBase {
     * The (defaulted) destructor.
     */
   ~ResSingleGaussE();
-
-  /* @} */
-  /** \name Member functions (Get)  */
-  /* @{ */
 
   /**
     * Calculate the mean of the Gaussian from the TF parameters and the value of x.
@@ -79,7 +66,6 @@ class ResSingleGaussE : public ResSingleGaussBase {
     */
   double GetSigma(double x) override;
 
-  /* @} */
 };
 }  // namespace KLFitter
 

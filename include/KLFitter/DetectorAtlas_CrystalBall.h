@@ -32,7 +32,9 @@ class ResolutionBase;
 
 /**
  * A class for describing of the ATLAS detector. This class
- * holds the description of the ATLAS detector.
+ * holds the description of the ATLAS detector. This class
+ * uses CrystalBall parametrisation for jets Transfer Functions.
+ * Charged lepton and MET parametrisation uses single Gauss as TF.
  */
 class DetectorAtlas_CrystalBall : public DetectorBase {
  public:
@@ -44,9 +46,6 @@ class DetectorAtlas_CrystalBall : public DetectorBase {
 
   /// The (defaulted) destructor.
   ~DetectorAtlas_CrystalBall();
-
-  /** \name Member functions (Get)  */
-  /* @{ */
 
   /**
    * Return the energy resolution of light jets.
@@ -123,8 +122,6 @@ class DetectorAtlas_CrystalBall : public DetectorBase {
    * @return A pointer to the phi resolution object.
    */
   ResolutionBase* ResPhiBJet(double eta = 0.) override;
-
-  /* @} */
 
  private:
   /// The energy resolution of light jets for different eta regions.

@@ -27,31 +27,22 @@
 
 // ---------------------------------------------------------
 
-/**
- * \namespace KLFitter
- * \brief The KLFitter namespace
- */
 namespace KLFitter {
 /**
-  * \class KLFitter::ResDoubleGaussBase
-  * \brief A class describing a resolution parameterized with a double Gaussian.
-  *
   * This class offers a simple parameterization of a resolution. The
-  * parameterization is a double Gaussian with energy dependent
+  * parameterization is a single Gaussian with energy dependent
   * parameters.
   */
 class ResSingleGaussBase : public ResolutionBase {
  public:
-  /** \name Constructors and destructors */
-  /* @{ */
-
   /**
     * The default constructor.
     */
   explicit ResSingleGaussBase(const char * filename);
 
   /**
-    * A constructor.
+    * A constructor that takes parameters directly, unlike the default 
+    * constructor that takes a path to the file with TFs.
     * @param parameters The parameters of the parameterization.
     */
   explicit ResSingleGaussBase(std::vector<double> const& parameters);
@@ -60,10 +51,6 @@ class ResSingleGaussBase : public ResolutionBase {
     * The (defaulted) destructor.
     */
   virtual ~ResSingleGaussBase();
-
-  /* @} */
-  /** \name Member functions (Get)  */
-  /* @{ */
 
   /**
     * Calculate the mean of the Gaussian from the TF parameters and the value of x.
@@ -90,13 +77,9 @@ class ResSingleGaussBase : public ResolutionBase {
     */
   double p(double x, double xmeas, bool *good, double /*par*/ = 0) override;
 
-  /* @} */
-
   /**
-    * Sanity check for double gaussian parameters p2, p3 and p5 (1st sigma, scale and 2nd sigma).
-    * @param sigma1 (the 1st sigma).
-    * @param amplitude2 (the scale parameter).
-    * @param sigma2 (the 2nd sigma).
+    * Sanity check for single gaussian parameter sigma.
+    * @param sigma.
     * @return False if problem with TF.
     */
   static bool CheckSingleGaussianSanity(double *sigma) {

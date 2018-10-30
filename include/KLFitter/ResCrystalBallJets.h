@@ -27,31 +27,22 @@
 
 // ---------------------------------------------------------
 
-/**
- * \namespace KLFitter
- * \brief The KLFitter namespace
- */
 namespace KLFitter {
 /**
-  * \class KLFitter::ResDoubleGaussE_1
-  * \brief A class describing a resolution parameterized with a double Gaussian.
-  *
   * This class offers a simple parameterization of a resolution. The
-  * parameterization is a double Gaussian with energy dependent
+  * parameterization is a crystal ball with energy dependent
   * parameters.
   */
 class ResCrystalBallJets : public ResCrystalBallBase {
  public:
-  /** \name Constructors and destructors */
-  /* @{ */
-
   /**
     * The default constructor.
     */
   explicit ResCrystalBallJets(const char * filename);
 
   /**
-    * A constructor.
+    * A constructor that takes parameters directly, unlike the default 
+    * constructor that takes a path to the file with TFs.
     * @param parameters The parameters of the parameterization.
     */
   explicit ResCrystalBallJets(std::vector<double> const& parameters);
@@ -60,10 +51,6 @@ class ResCrystalBallJets : public ResCrystalBallBase {
     * The (defaulted) destructor.
     */
   ~ResCrystalBallJets();
-
-  /* @} */
-  /** \name Member functions (Get)  */
-  /* @{ */
 
   /**
     * Calculate the alpha from the TF parameters and the value of x.
@@ -93,7 +80,6 @@ class ResCrystalBallJets : public ResCrystalBallBase {
     */
   double GetMean(double x) override;
 
-  /* @} */
 };
 }  // namespace KLFitter
 

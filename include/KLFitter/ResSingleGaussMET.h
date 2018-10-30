@@ -33,11 +33,8 @@
  */
 namespace KLFitter {
 /**
-  * \class KLFitter::ResDoubleGaussMET
-  * \brief A class describing a resolution parameterized with a double Gaussian.
-  *
   * This class offers a simple parameterization of a resolution. The
-  * parameterization is a double Gaussian with energy dependent
+  * parameterization is a single Gaussian with energy dependent
   * parameters.
   */
 class ResSingleGaussMET : public ResSingleGaussLinearBase {
@@ -51,14 +48,13 @@ class ResSingleGaussMET : public ResSingleGaussLinearBase {
   explicit ResSingleGaussMET(const char * filename);
 
   /**
-    * A constructor.
+    * A constructor that takes parameters directly, unlike the default 
+    * constructor that takes a path to the file with TFs.
     * @param parameters The parameters of the parameterization.
     */
   explicit ResSingleGaussMET(std::vector<double> const& parameters);
 
-  /**
-    * The (defaulted) destructor.
-    */
+  ///The (defaulted) destructor.
   ~ResSingleGaussMET();
 
   /* @} */

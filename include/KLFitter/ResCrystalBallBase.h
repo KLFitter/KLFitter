@@ -27,31 +27,20 @@
 
 // ---------------------------------------------------------
 
-/**
- * \namespace KLFitter
- * \brief The KLFitter namespace
- */
 namespace KLFitter {
 /**
-  * \class KLFitter::ResCrystalBallBase
-  * \brief A class describing a resolution parameterized with a double Gaussian.
-  *
-  * This class offers a simple parameterization of a resolution. The
-  * parameterization is a CrystalBall function with energy dependent
+  * This class offers a simple parameterisation of a resolution. The
+  * parametrisation is a CrystalBall function with energy dependent
   * parameters.
   */
 class ResCrystalBallBase : public ResolutionBase {
  public:
-  /** \name Constructors and destructors */
-  /* @{ */
-
-  /**
-    * The default constructor.
-    */
+  ///The default constructor.
   explicit ResCrystalBallBase(const char * filename);
 
   /**
-    * A constructor.
+    * A constructor that takes parameters directly, unlike the default 
+    * constructor that takes a path to the file with TFs.
     * @param parameters The parameters of the parameterization.
     */
   explicit ResCrystalBallBase(std::vector<double> const& parameters);
@@ -60,10 +49,6 @@ class ResCrystalBallBase : public ResolutionBase {
     * The (defaulted) destructor.
     */
   virtual ~ResCrystalBallBase();
-
-  /* @} */
-  /** \name Member functions (Get)  */
-  /* @{ */
 
   /**
     * Calculate the alpha parameter from the TF parameters and the value of x.
@@ -97,13 +82,10 @@ class ResCrystalBallBase : public ResolutionBase {
     */
   double p(double x, double xmeas, bool *good, double /*par*/ = 0) override;
 
-  /* @} */
-
   /**
-    * Sanity check for double gaussian parameters p2, p3 and p5 (1st sigma, scale and 2nd sigma).
-    * @param sigma1 (the 1st sigma).
-    * @param amplitude2 (the scale parameter).
-    * @param sigma2 (the 2nd sigma).
+    * Sanity check for the crystal ball parameters sigma, and n (1st sigma, scale and 2nd sigma).
+    * @param sigma.
+    * @param n.
     * @return False if problem with TF.
     */
   static bool CheckCrystalBallSanity(double *sigma, double *n) {
