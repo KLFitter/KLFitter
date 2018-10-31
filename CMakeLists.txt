@@ -99,6 +99,7 @@ set( lib_headers
   include/KLFitter/BoostedLikelihoodTopLeptonJets.h
   include/KLFitter/DetectorAtlas_7TeV.h
   include/KLFitter/DetectorAtlas_8TeV.h
+  include/KLFitter/DetectorAtlas_CrystalBall.h
   include/KLFitter/DetectorSnowmass.h
   include/KLFitter/DetectorBase.h
   include/KLFitter/Fitter.h
@@ -122,6 +123,7 @@ set( lib_sources
   src/BoostedLikelihoodTopLeptonJets.cxx
   src/DetectorAtlas_7TeV.cxx
   src/DetectorAtlas_8TeV.cxx
+  src/DetectorAtlas_CrystalBall.cxx
   src/DetectorSnowmass.cxx
   src/DetectorBase.cxx
   src/Fitter.cxx
@@ -139,6 +141,8 @@ set( lib_sources
   src/ParticleCollection.cxx
   src/Permutations.cxx
   src/PhysicsConstants.cxx
+  src/ResCrystalBallBase.cxx
+  src/ResCrystalBallJets.cxx
   src/ResDoubleGaussBase.cxx
   src/ResDoubleGaussE_1.cxx
   src/ResDoubleGaussE_2.cxx
@@ -150,6 +154,11 @@ set( lib_sources
   src/ResGaussE.cxx
   src/ResGaussPt.cxx
   src/ResGauss_MET.cxx
+  src/ResSingleGaussBase.cxx
+  src/ResSingleGaussLinearBase.cxx
+  src/ResSingleGaussE.cxx
+  src/ResSingleGaussMET.cxx
+  src/ResSingleGaussPt.cxx
   src/ResolutionBase.cxx )
 
 # Create a macro to build and install libraries.
