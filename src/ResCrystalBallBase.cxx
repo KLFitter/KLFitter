@@ -48,6 +48,9 @@ KLFitter::ResCrystalBallBase::~ResCrystalBallBase() = default;
 
 // ---------------------------------------------------------
 double KLFitter::ResCrystalBallBase::p(double x, double xmeas, bool *good, double /*par*/) {
+  constexpr double sqrt2 = std::sqrt(2.);
+  constexpr double sqrtPiHalf = std::sqrt(M_PI/2.);
+
   double alpha = GetAlpha(x);
   double n = GetN(x);
   double sigma = GetSigma(x);
@@ -60,7 +63,7 @@ double KLFitter::ResCrystalBallBase::p(double x, double xmeas, bool *good, doubl
 
   // Needed for normalization
   const double C = n/std::fabs(alpha) * 1./(n-1.) * std::exp(-alpha*alpha/2.);
-  const double D = std::sqrt(M_PI/2.)*(1.+ROOT::Math::erf(std::fabs(alpha)/std::sqrt(2.)));
+  const double D = sqrtPiHalf*(1.+ROOT::Math::erf(std::fabs(alpha)/sqrt2));
   const double N = 1./(sigma*(C+D));
 
   return N*CrystalBallFunction(dx, alpha, n, sigma, mean);
