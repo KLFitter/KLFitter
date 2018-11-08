@@ -21,7 +21,6 @@
 
 // Needed for CrystalBall
 #include "Math/Math.h"
-#include "Math/SpecFuncMathCore.h"
 
 #include <cmath>
 #include <iostream>
@@ -48,8 +47,8 @@ KLFitter::ResCrystalBallBase::~ResCrystalBallBase() = default;
 
 // ---------------------------------------------------------
 double KLFitter::ResCrystalBallBase::p(double x, double xmeas, bool *good, double /*par*/) {
-  constexpr double sqrt2 = std::sqrt(2.);
-  constexpr double sqrtPiHalf = std::sqrt(M_PI/2.);
+  static constexpr double sqrt2 = std::sqrt(2.);
+  static constexpr double sqrtPiHalf = std::sqrt(M_PI/2.);
 
   double alpha = GetAlpha(x);
   double n = GetN(x);
@@ -63,7 +62,7 @@ double KLFitter::ResCrystalBallBase::p(double x, double xmeas, bool *good, doubl
 
   // Needed for normalization
   const double C = n/std::fabs(alpha) * 1./(n-1.) * std::exp(-alpha*alpha/2.);
-  const double D = sqrtPiHalf*(1.+ROOT::Math::erf(std::fabs(alpha)/sqrt2));
+  const double D = sqrtPiHalf*(1.+ApproxError(std::fabs(alpha)/sqrt2));
   const double N = 1./(sigma*(C+D));
 
   return N*CrystalBallFunction(dx, alpha, n, sigma, mean);
@@ -90,4 +89,16 @@ double KLFitter::ResCrystalBallBase::CrystalBallFunction(double x, double alpha,
     double arg = nDivAlpha/(B-z);
     return AA * std::pow(arg,n);
   }
+}
+
+// ---------------------------------------------------------
+double KLFitter::ResCrystalBallBase::ApproxError(double x) {
+  static constexpr double a1 = 0.278393;
+  static constexpr double a2 = 0.230389;
+  static constexpr double a3 = 0.000972;
+  static constexpr double a4 = 0.078108;
+
+  const double denom = 1.+ a1*x + a2*x*x + a3*x*x*x + a4*x*x*x*x;
+
+  return 1. - (1./denom/denom/denom/denom);
 }
