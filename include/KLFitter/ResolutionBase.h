@@ -118,7 +118,7 @@ class ResolutionBase {
     * @param nparameters The number of parameters.
     * @return An error code.
     */
-  int ReadParameters(const char * filename, int nparameters);
+  int ReadParameters(const char * filename, std::size_t nparameters);
 
   /**
     * Return a status code.
