@@ -52,5 +52,5 @@ double KLFitter::ResSingleGaussBase::logp(double x, double xmeas, bool *good, do
 
   double dx = (x - xmeas) / x;
 
-  return TMath::Gaus(dx, mean, fParameters[0], true);
+  return -std::log(std::sqrt(2*M_PI)*sigma) - (0.5*(dx-mean)*(dx-mean)/sigma/sigma); 
 }

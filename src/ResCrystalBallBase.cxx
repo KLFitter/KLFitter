@@ -63,17 +63,16 @@ double KLFitter::ResCrystalBallBase::logp(double x, double xmeas, bool *good, do
   // Needed for normalization
   const double C = n/std::fabs(alpha) * 1./(n-1.) * std::exp(-0.5*alpha*alpha);
   const double D = sqrtPiHalf*(1.+ApproxError(std::fabs(alpha)*overSqrt2));
-  const double N = 1./(sigma*(C+D));
 
-  return N*CrystalBallFunction(dx, alpha, n, sigma, mean);
+  return (-std::log(sigma*(C+D))) + LogCrystalBallFunction(dx, alpha, n, sigma, mean);
 }
   
 // ---------------------------------------------------------
-double KLFitter::ResCrystalBallBase::CrystalBallFunction(double x, double alpha,
+double KLFitter::ResCrystalBallBase::LogCrystalBallFunction(double x, double alpha,
     double n, double sigma, double mean) {
 	// evaluate the crystal ball function
   if (sigma < 0.) {
-    return 0.;
+    return -9999999;
   }
   double z = (x - mean)/sigma; 
   if (alpha < 0) {
@@ -81,13 +80,13 @@ double KLFitter::ResCrystalBallBase::CrystalBallFunction(double x, double alpha,
   }
   double abs_alpha = std::abs(alpha);
   if (z  > - abs_alpha) {
-    return std::exp(- 0.5 * z * z);
+    return (- 0.5 * z * z);
   } else {
     double nDivAlpha = n/abs_alpha;
-    double AA =  std::exp(-0.5*abs_alpha*abs_alpha);
     double B = nDivAlpha -abs_alpha;
     double arg = nDivAlpha/(B-z);
-    return AA * std::pow(arg,n);
+
+    return (-0.5*abs_alpha*abs_alpha) + n*std::log(arg);
   }
 }
 

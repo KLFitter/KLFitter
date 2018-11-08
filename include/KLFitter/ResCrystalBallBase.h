@@ -109,9 +109,9 @@ class ResCrystalBallBase : public ResolutionBase {
    * @param n parameter
    * @param sigma parameter
    * @param mean parameter
-   * @return CrystalBall value for X
+   * @return Logarithm of CrystalBall value for X
    */
-  double CrystalBallFunction(double x, double alpha, double n, double sigma, double mean);
+  double LogCrystalBallFunction(double x, double alpha, double n, double sigma, double mean);
 
   /**
    * An approximation of the error function needed to calculate crystal ball normalization
