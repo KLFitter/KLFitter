@@ -358,25 +358,25 @@ double KLFitter::LikelihoodSgTopWtLJ::LogLikelihood(const std::vector<double> & 
   bool TFgoodTmp(true);
 
   // jet energy resolution terms
-  logprob += log(fResEnergyB->p(b_fit_e, b_meas_e, &TFgoodTmp));
+  logprob += fResEnergyB->logp(b_fit_e, b_meas_e, &TFgoodTmp);
   if (!TFgoodTmp) fTFgood = false;
-  logprob += log(fResEnergyLQ1->p(lq1_fit_e, lq1_meas_e, &TFgoodTmp));
+  logprob += fResEnergyLQ1->logp(lq1_fit_e, lq1_meas_e, &TFgoodTmp);
   if (!TFgoodTmp) fTFgood = false;
-  logprob += log(fResEnergyLQ2->p(lq2_fit_e, lq2_meas_e, &TFgoodTmp));
+  logprob += fResEnergyLQ2->logp(lq2_fit_e, lq2_meas_e, &TFgoodTmp);
   if (!TFgoodTmp) fTFgood = false;
 
   // lepton energy resolution terms
   if (fTypeLepton == kElectron) {
-    logprob += log(fResLepton->p(lep_fit_e, lep_meas_e, &TFgoodTmp));
+    logprob += fResLepton->logp(lep_fit_e, lep_meas_e, &TFgoodTmp);
   } else if (fTypeLepton == kMuon) {
-    logprob += log(fResLepton->p(lep_fit_e* lep_meas_sintheta, lep_meas_pt, &TFgoodTmp));
+    logprob += fResLepton->logp(lep_fit_e* lep_meas_sintheta, lep_meas_pt, &TFgoodTmp);
   }
   if (!TFgoodTmp) fTFgood = false;
 
   // neutrino px and py
-  logprob += log(fResMET->p(nu_fit_px, ETmiss_x, &TFgoodTmp, SumET));
+  logprob += fResMET->logp(nu_fit_px, ETmiss_x, &TFgoodTmp, SumET);
   if (!TFgoodTmp) fTFgood = false;
-  logprob += log(fResMET->p(nu_fit_py, ETmiss_y, &TFgoodTmp, SumET));
+  logprob += fResMET->logp(nu_fit_py, ETmiss_y, &TFgoodTmp, SumET);
   if (!TFgoodTmp) fTFgood = false;
 
   // physics constants

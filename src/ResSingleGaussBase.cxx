@@ -43,7 +43,7 @@ KLFitter::ResSingleGaussBase::ResSingleGaussBase(std::vector<double> const& para
 KLFitter::ResSingleGaussBase::~ResSingleGaussBase() = default;
 
 // ---------------------------------------------------------
-double KLFitter::ResSingleGaussBase::p(double x, double xmeas, bool *good, double /*par*/) {
+double KLFitter::ResSingleGaussBase::logp(double x, double xmeas, bool *good, double /*par*/) {
   double mean = GetMean(x);
   double sigma = GetSigma(x);
 

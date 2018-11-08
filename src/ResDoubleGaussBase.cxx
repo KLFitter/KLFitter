@@ -53,7 +53,7 @@ double KLFitter::ResDoubleGaussBase::GetSigma(double par) {
 }
 
 // ---------------------------------------------------------
-double KLFitter::ResDoubleGaussBase::p(double x, double xmeas, bool *good, double /*par*/) {
+double KLFitter::ResDoubleGaussBase::logp(double x, double xmeas, bool *good, double /*par*/) {
   double m1 = GetMean1(x);
   double s1 = GetSigma1(x);
   double a2 = GetAmplitude2(x);

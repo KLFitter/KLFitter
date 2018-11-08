@@ -47,7 +47,7 @@ double KLFitter::ResGauss_MET::GetSigma(double sumet) {
 }
 
 // ---------------------------------------------------------
-double KLFitter::ResGauss_MET::p(double x, double xmeas, bool *good, double sumet) {
+double KLFitter::ResGauss_MET::logp(double x, double xmeas, bool *good, double sumet) {
   *good = true;
   // calculate MET TF with 4 parameters (MC10b or later)
   double sigma = GetSigma(sumet);

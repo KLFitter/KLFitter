@@ -47,7 +47,7 @@ double KLFitter::ResGaussPt::GetSigma(double par) {
 }
 
 // ---------------------------------------------------------
-double KLFitter::ResGaussPt::p(double x, double xmeas, bool *good, double /*par*/) {
+double KLFitter::ResGaussPt::logp(double x, double xmeas, bool *good, double /*par*/) {
   *good = true;
   double sigma = GetSigma(x);
   return TMath::Gaus(xmeas, x, sigma, true);
