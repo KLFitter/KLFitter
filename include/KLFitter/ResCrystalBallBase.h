@@ -112,6 +112,14 @@ class ResCrystalBallBase : public ResolutionBase {
    * @return CrystalBall value for X
    */
   double CrystalBallFunction(double x, double alpha, double n, double sigma, double mean);
+
+  /**
+   * An approximation of the error function needed to calculate crystal ball normalization
+   * with precision < 1e-4. Decreases computation time by about 10%.
+   * @param x
+   * @return Approximate value of the error function for x
+   */
+  double ApproxError(double x);
 };
 }  // namespace KLFitter
 
