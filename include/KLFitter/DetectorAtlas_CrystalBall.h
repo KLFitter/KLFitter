@@ -143,6 +143,7 @@ class DetectorAtlas_CrystalBall : public DetectorBase {
   std::unique_ptr<ResolutionBase> m_res_energy_gluon_jet_eta2;
   std::unique_ptr<ResolutionBase> m_res_energy_gluon_jet_eta3;
   std::unique_ptr<ResolutionBase> m_res_energy_gluon_jet_eta4;
+  std::unique_ptr<ResolutionBase> m_res_energy_gluon_jet_eta5;
 
   /// The energy resolution of electrons for different eta regions.
   std::unique_ptr<ResolutionBase> m_res_energy_electron_eta1;
@@ -166,24 +167,28 @@ class DetectorAtlas_CrystalBall : public DetectorBase {
   std::unique_ptr<ResolutionBase> m_res_eta_light_jet_eta2;
   std::unique_ptr<ResolutionBase> m_res_eta_light_jet_eta3;
   std::unique_ptr<ResolutionBase> m_res_eta_light_jet_eta4;
+  std::unique_ptr<ResolutionBase> m_res_eta_light_jet_eta5;
 
   /// The eta resolution of b jets for different eta regions.
   std::unique_ptr<ResolutionBase> m_res_eta_bjet_eta1;
   std::unique_ptr<ResolutionBase> m_res_eta_bjet_eta2;
   std::unique_ptr<ResolutionBase> m_res_eta_bjet_eta3;
   std::unique_ptr<ResolutionBase> m_res_eta_bjet_eta4;
+  std::unique_ptr<ResolutionBase> m_res_eta_bjet_eta5;
 
   /// The phi resolution of light jets for different eta regions.
   std::unique_ptr<ResolutionBase> m_res_phi_light_jet_eta1;
   std::unique_ptr<ResolutionBase> m_res_phi_light_jet_eta2;
   std::unique_ptr<ResolutionBase> m_res_phi_light_jet_eta3;
   std::unique_ptr<ResolutionBase> m_res_phi_light_jet_eta4;
+  std::unique_ptr<ResolutionBase> m_res_phi_light_jet_eta5;
 
   /// The phi resolution of b jets for different eta regions.
   std::unique_ptr<ResolutionBase> m_res_phi_bjet_eta1;
   std::unique_ptr<ResolutionBase> m_res_phi_bjet_eta2;
   std::unique_ptr<ResolutionBase> m_res_phi_bjet_eta3;
   std::unique_ptr<ResolutionBase> m_res_phi_bjet_eta4;
+  std::unique_ptr<ResolutionBase> m_res_phi_bjet_eta5;
 
   /// Missing ET resolution in x and y
   std::unique_ptr<ResolutionBase> m_res_missing_ET;
