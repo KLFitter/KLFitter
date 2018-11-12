@@ -44,10 +44,11 @@ KLFitter::ResSingleGaussLinearBase::~ResSingleGaussLinearBase() = default;
 
 // ---------------------------------------------------------
 double KLFitter::ResSingleGaussLinearBase::logp(double x, double xmeas, bool *good, double /*par*/) {
-  double sigma = GetSigma(x);
+  static constexpr double logSqrtTwoPi = 0.5*std::log(2*M_PI);
 
+  double sigma = GetSigma(x);
   // sanity checks for p2, p3 and p5
   *good = CheckSingleGaussianSanity(&sigma);
 
-  return -std::log(std::sqrt(2*M_PI)*sigma) - (0.5*(xmeas-x)*(xmeas-x)/sigma/sigma); 
+  return -logSqrtTwoPi - std::log(sigma) - (0.5*(xmeas-x)*(xmeas-x)/sigma/sigma);
 }
