@@ -141,23 +141,23 @@ set( lib_sources
   src/ParticleCollection.cxx
   src/Permutations.cxx
   src/PhysicsConstants.cxx
-  src/Resolutions/ResCrystalBallBase.cxx
-  src/Resolutions/ResCrystalBallJets.cxx
-  src/Resolutions/ResDoubleGaussBase.cxx
-  src/Resolutions/ResDoubleGaussE_1.cxx
-  src/Resolutions/ResDoubleGaussE_2.cxx
-  src/Resolutions/ResDoubleGaussE_3.cxx
-  src/Resolutions/ResDoubleGaussE_4.cxx
-  src/Resolutions/ResDoubleGaussE_5.cxx
-  src/Resolutions/ResDoubleGaussPt.cxx
-  src/Resolutions/ResGaussBase.cxx
-  src/Resolutions/ResGaussE.cxx
-  src/Resolutions/ResGaussPt.cxx
-  src/Resolutions/ResGauss_MET.cxx
-  src/Resolutions/ResGauss_linearMET.cxx
-  src/Resolutions/ResSingleGaussBase.cxx
-  src/Resolutions/ResSingleGaussE.cxx
-  src/Resolutions/ResSingleGaussPt.cxx
+  src/Resolutions/CrystalBall/CrystalBallBase.cxx
+  src/Resolutions/CrystalBall/CrystalBallJets.cxx
+  src/Resolutions/DoubleGauss/DoubleGaussBase.cxx
+  src/Resolutions/DoubleGauss/DoubleGaussE_1.cxx
+  src/Resolutions/DoubleGauss/DoubleGaussE_2.cxx
+  src/Resolutions/DoubleGauss/DoubleGaussE_3.cxx
+  src/Resolutions/DoubleGauss/DoubleGaussE_4.cxx
+  src/Resolutions/DoubleGauss/DoubleGaussE_5.cxx
+  src/Resolutions/DoubleGauss/DoubleGaussPt.cxx
+  src/Resolutions/Gauss/GaussBase.cxx
+  src/Resolutions/Gauss/GaussE.cxx
+  src/Resolutions/Gauss/GaussPt.cxx
+  src/Resolutions/Gauss/Gauss_MET.cxx
+  src/Resolutions/Gauss/Gauss_linearMET.cxx
+  src/Resolutions/SingleGauss/SingleGaussBase.cxx
+  src/Resolutions/SingleGauss/SingleGaussE.cxx
+  src/Resolutions/SingleGauss/SingleGaussPt.cxx
   src/Resolutions/ResolutionBase.cxx )
 
 # Create a macro to build and install libraries.

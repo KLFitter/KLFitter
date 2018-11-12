@@ -29,7 +29,9 @@ class TLorentzVector;
 // ---------------------------------------------------------
 
 namespace KLFitter {
-class ResolutionBase;
+namespace Resolutions {
+  class ResolutionBase;
+}
 
 /**
  * Likelihood for the ttbar lepton+jets channel, where one top
@@ -252,7 +254,7 @@ class LikelihoodTopLeptonJets : public LikelihoodBase {
   /// A flag for using a fixed top mass (true) or not (false).
   bool m_flag_top_mass_fixed;
 
-  /// Flag for using ResolutionBase::GetSigma() to retrieve the parameter ranges
+  /// Flag for using Resolutions::ResolutionBase::GetSigma() to retrieve the parameter ranges
   bool m_flag_get_par_sigmas_from_TFs;
 
   /// The values of the x component of the missing ET.
@@ -268,22 +270,22 @@ class LikelihoodTopLeptonJets : public LikelihoodBase {
   LeptonType m_lepton_type;
 
   /// Pointer to resolution function for hadronic b quark.
-  ResolutionBase* m_res_energy_bhad;
+  Resolutions::ResolutionBase* m_res_energy_bhad;
 
   /// Pointer to resolution function for leptonic b quark.
-  ResolutionBase* m_res_energy_blep;
+  Resolutions::ResolutionBase* m_res_energy_blep;
 
   /// Pointer to resolution function for first light quark jet.
-  ResolutionBase* m_res_energy_lq1;
+  Resolutions::ResolutionBase* m_res_energy_lq1;
 
   /// Pointer to resolution function for second light quark jet.
-  ResolutionBase* m_res_energy_lq2;
+  Resolutions::ResolutionBase* m_res_energy_lq2;
 
   /// Pointer to resolution function for the lepton.
-  ResolutionBase* m_res_lepton;
+  Resolutions::ResolutionBase* m_res_lepton;
 
   /// Pointer to resolution function for MET.
-  ResolutionBase* m_res_met;
+  Resolutions::ResolutionBase* m_res_met;
 
   /** @} */
   /** \name Member attributes (measured parameters) */

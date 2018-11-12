@@ -36,8 +36,10 @@ class TLorentzVector;
 // ---------------------------------------------------------
 
 namespace KLFitter {
+namespace Resolutions {
+  class ResolutionBase;
+}
 class NuSolutions;  // defined in implementation file
-class ResolutionBase;
 
 /**
  * Likelihood for the ttbar dilepton channel, where both tops
@@ -285,19 +287,19 @@ class LikelihoodTopDilepton : public KLFitter::LikelihoodBase {
   BCH1D * fHistdRAntiNu;
 
   /// Pointer to resolution function for the first b quark.
-  ResolutionBase * fResEnergyB1;
+  Resolutions::ResolutionBase * fResEnergyB1;
 
   /// Pointer to resolution function for the second b quark.
-  ResolutionBase * fResEnergyB2;
+  Resolutions::ResolutionBase * fResEnergyB2;
 
   /// Pointer to resolution function for the first lepton.
-  ResolutionBase * fResLepton1;
+  Resolutions::ResolutionBase * fResLepton1;
 
   /// Pointer to resolution function for the second lepton.
-  ResolutionBase * fResLepton2;
+  Resolutions::ResolutionBase * fResLepton2;
 
   /// Pointer to resolution function for MET.
-  ResolutionBase * fResMET;
+  Resolutions::ResolutionBase * fResMET;
 
   /** @} */
   /** \name Member attributes (measured parameters) */

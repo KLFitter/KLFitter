@@ -17,14 +17,15 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KLFITTER_RESOLUTIONBASE_H_
-#define KLFITTER_RESOLUTIONBASE_H_
+#ifndef KLFITTER_RESOLUTIONS_RESOLUTIONBASE_H_
+#define KLFITTER_RESOLUTIONS_RESOLUTIONBASE_H_
 
 #include <vector>
 
 // ---------------------------------------------------------
 
 namespace KLFitter {
+namespace Resolutions {
 /**
  * Base class to hold a resolution function. This class provides
  * methods and accessors to retrieve probabilities, parameters
@@ -128,6 +129,7 @@ class ResolutionBase {
   /// The status of this class (1: ok, 0: error).
   int fStatus;
 };
+}  // namespace Resolutions
 }  // namespace KLFitter
 
-#endif  // KLFITTER_RESOLUTIONBASE_H_
+#endif  // KLFITTER_RESOLUTIONS_RESOLUTIONBASE_H_

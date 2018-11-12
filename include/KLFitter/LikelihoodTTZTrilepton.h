@@ -28,7 +28,9 @@
 // ---------------------------------------------------------
 
 namespace KLFitter {
-class ResolutionBase;
+namespace Resolutions {
+  class ResolutionBase;
+}
 
 /**
  * Likelihood for the ttZ trilepton channel, where ttbar decays
@@ -232,7 +234,7 @@ class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
   /// A flag for using a fixed top mass (true) or not (false).
   bool fFlagTopMassFixed;
 
-  ///  Flag for using ResolutionBase::GetSigma() to retrieve the parameter ranges
+  ///  Flag for using Resolutions::ResolutionBase::GetSigma() to retrieve the parameter ranges
   bool fFlagGetParSigmasFromTFs;
 
   /// The values of the x component of the missing ET.
@@ -259,28 +261,28 @@ class LikelihoodTTZTrilepton : public KLFitter::LikelihoodBase {
   double fOnShellFraction;
 
   /// Pointer to resolution function for hadronic b quark.
-  ResolutionBase * fResEnergyBhad;
+  Resolutions::ResolutionBase * fResEnergyBhad;
 
   /// Pointer to resolution function for leptonic b quark.
-  ResolutionBase * fResEnergyBlep;
+  Resolutions::ResolutionBase * fResEnergyBlep;
 
   /// Pointer to resolution function for first light quark jet.
-  ResolutionBase * fResEnergyLQ1;
+  Resolutions::ResolutionBase * fResEnergyLQ1;
 
   /// Pointer to resolution function for second light quark jet.
-  ResolutionBase * fResEnergyLQ2;
+  Resolutions::ResolutionBase * fResEnergyLQ2;
 
   /// Pointer to resolution function for the first lepton from Z.
-  ResolutionBase * fResLeptonZ1;
+  Resolutions::ResolutionBase * fResLeptonZ1;
 
   /// Pointer to resolution function for the second lepton from Z.
-  ResolutionBase * fResLeptonZ2;
+  Resolutions::ResolutionBase * fResLeptonZ2;
 
   /// Pointer to resolution function for the lepton.
-  ResolutionBase * fResLepton;
+  Resolutions::ResolutionBase * fResLepton;
 
   /// Pointer to resolution function for MET.
-  ResolutionBase * fResMET;
+  Resolutions::ResolutionBase * fResMET;
 
   /** @{ */
   /** \name Member attributes (measured parameters) */

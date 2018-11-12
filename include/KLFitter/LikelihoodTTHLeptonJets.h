@@ -30,7 +30,9 @@ class TLorentzVector;
 // ---------------------------------------------------------
 
 namespace KLFitter {
-class ResolutionBase;
+namespace Resolutions {
+  class ResolutionBase;
+}
 
 /**
  * Likelihood for the ttH lepton+jets channel, where the Higgs
@@ -211,28 +213,28 @@ class LikelihoodTTHLeptonJets : public KLFitter::LikelihoodBase {
   LeptonType fTypeLepton;
 
   /// Pointer to resolution function for hadronic b quark.
-  ResolutionBase * fResEnergyBhad;
+  Resolutions::ResolutionBase * fResEnergyBhad;
 
   /// Pointer to resolution function for leptonic b quark.
-  ResolutionBase * fResEnergyBlep;
+  Resolutions::ResolutionBase * fResEnergyBlep;
 
   /// Pointer to resolution function for first light quark jet.
-  ResolutionBase * fResEnergyLQ1;
+  Resolutions::ResolutionBase * fResEnergyLQ1;
 
   /// Pointer to resolution function for second light quark jet.
-  ResolutionBase * fResEnergyLQ2;
+  Resolutions::ResolutionBase * fResEnergyLQ2;
 
   /// Pointer to the resolution function of the first b quark from Higgs.
-  ResolutionBase * fResEnergyBHiggs1;
+  Resolutions::ResolutionBase * fResEnergyBHiggs1;
 
   /// Pointer to the resolution function of the second b quark from Higgs.
-  ResolutionBase * fResEnergyBHiggs2;
+  Resolutions::ResolutionBase * fResEnergyBHiggs2;
 
   /// Pointer to resolution function for the lepton.
-  ResolutionBase * fResLepton;
+  Resolutions::ResolutionBase * fResLepton;
 
   /// Pointer to resolution function for MET.
-  ResolutionBase * fResMET;
+  Resolutions::ResolutionBase * fResMET;
 
   /** @} */
   /** \name Member attributes (measured parameters) */

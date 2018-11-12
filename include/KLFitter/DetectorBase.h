@@ -26,7 +26,9 @@
 // ---------------------------------------------------------
 
 namespace KLFitter {
-class ResolutionBase;
+namespace Resolutions {
+  class ResolutionBase;
+}
 
 /**
  * Enum class to describe all possible resolution types that a
@@ -71,67 +73,67 @@ class DetectorBase {
    * Return the energy resolution of light jets.
    * @return A pointer to the energy resolution object.
    */
-  virtual ResolutionBase* ResEnergyLightJet(double /*eta*/) = 0;
+  virtual Resolutions::ResolutionBase* ResEnergyLightJet(double /*eta*/) = 0;
 
   /**
    * Return the energy resolution of b jets.
    * @return A pointer to the energy resolution object.
    */
-  virtual ResolutionBase* ResEnergyBJet(double /*eta*/) = 0;
+  virtual Resolutions::ResolutionBase* ResEnergyBJet(double /*eta*/) = 0;
 
   /**
    * Return the energy resolution of gluon jets.
    * @return A pointer to the energy resolution object.
    */
-  virtual ResolutionBase* ResEnergyGluonJet(double /*eta*/) = 0;
+  virtual Resolutions::ResolutionBase* ResEnergyGluonJet(double /*eta*/) = 0;
 
   /**
    * Return the energy resolution of electrons.
    * @return A pointer to the energy resolution object.
    */
-  virtual ResolutionBase* ResEnergyElectron(double /*eta*/) = 0;
+  virtual Resolutions::ResolutionBase* ResEnergyElectron(double /*eta*/) = 0;
 
   /**
    * Return the energy resolution of muons.
    * @return A pointer to the energy resolution object.
    */
-  virtual ResolutionBase* ResEnergyMuon(double /*eta*/) = 0;
+  virtual Resolutions::ResolutionBase* ResEnergyMuon(double /*eta*/) = 0;
 
   /**
    * Return the energy resolution of photons.
    * @return A pointer to the energy resolution object.
    */
-  virtual ResolutionBase* ResEnergyPhoton(double /*eta*/) = 0;
+  virtual Resolutions::ResolutionBase* ResEnergyPhoton(double /*eta*/) = 0;
 
   /**
    * Return the missing ET resolution.
    * @return A pointer to the missing ET resolution.
    */
-  virtual ResolutionBase* ResMissingET() = 0;
+  virtual Resolutions::ResolutionBase* ResMissingET() = 0;
 
   /**
    * Return the eta resolution of light jets.
    * @return A pointer to the eta resolution object.
    */
-  virtual ResolutionBase* ResEtaLightJet(double /*eta*/) = 0;
+  virtual Resolutions::ResolutionBase* ResEtaLightJet(double /*eta*/) = 0;
 
   /**
    * Return the eta resolution of b jets.
    * @return A pointer to the eta resolution object.
    */
-  virtual ResolutionBase* ResEtaBJet(double /*eta*/) = 0;
+  virtual Resolutions::ResolutionBase* ResEtaBJet(double /*eta*/) = 0;
 
   /**
    * Return the phi resolution of light jets.
    * @return A pointer to the phi resolution object.
    */
-  virtual ResolutionBase* ResPhiLightJet(double /*eta*/) = 0;
+  virtual Resolutions::ResolutionBase* ResPhiLightJet(double /*eta*/) = 0;
 
   /**
    * Return the phi resolution of b jets.
    * @return A pointer to the phi resolution object.
    */
-  virtual ResolutionBase* ResPhiBJet(double /*eta*/) = 0;
+  virtual Resolutions::ResolutionBase* ResPhiBJet(double /*eta*/) = 0;
 
   /** @} */
   /** \name Member functions (misc)  */
@@ -160,7 +162,7 @@ class DetectorBase {
    * @param type The type of resolution function
    * @return A nullptr, because an exception is thrown
    */
-  ResolutionBase* ResolutionUndefined(const std::string& type);
+  Resolutions::ResolutionBase* ResolutionUndefined(const std::string& type);
 
   /**
    * Handle cases where the parameters for a resolution type are

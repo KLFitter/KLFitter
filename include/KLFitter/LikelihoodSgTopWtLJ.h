@@ -27,7 +27,9 @@
 // ---------------------------------------------------------
 
 namespace KLFitter {
-class ResolutionBase;
+namespace Resolutions {
+  class ResolutionBase;
+}
 
 /**
  * Likelihood for the production of a single top quark in
@@ -180,19 +182,19 @@ class LikelihoodSgTopWtLJ : public KLFitter::LikelihoodBase {
   int fTypeLepton;
 
   /// Pointer to resolution function for the b quark.
-  ResolutionBase * fResEnergyB;
+  Resolutions::ResolutionBase * fResEnergyB;
 
   /// Pointer to resolution function for first light quark jet.
-  ResolutionBase * fResEnergyLQ1;
+  Resolutions::ResolutionBase * fResEnergyLQ1;
 
   /// Pointer to resolution function for second light quark jet.
-  ResolutionBase * fResEnergyLQ2;
+  Resolutions::ResolutionBase * fResEnergyLQ2;
 
   /// Pointer to resolution function for the lepton.
-  ResolutionBase * fResLepton;
+  Resolutions::ResolutionBase * fResLepton;
 
   /// Pointer to resolution function for MET.
-  ResolutionBase * fResMET;
+  Resolutions::ResolutionBase * fResMET;
 
   /** @} */
   /** \name Member attributes (measured parameters) */

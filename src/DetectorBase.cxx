@@ -113,7 +113,7 @@ void DetectorBase::ResolutionParametersUnavailable(const std::string& type) {
 }
 
 // ---------------------------------------------------------
-ResolutionBase* DetectorBase::ResolutionUndefined(const std::string& type) {
+Resolutions::ResolutionBase* DetectorBase::ResolutionUndefined(const std::string& type) {
   std::cerr << "KLFitter::DetectorBase: Resolution object of type \"" << type;
   std::cerr << "\" requested by likelihood, but not supported by the detector class.\n";
   throw std::invalid_argument(type + " is undefined");

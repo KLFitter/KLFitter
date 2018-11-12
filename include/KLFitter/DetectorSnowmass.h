@@ -28,7 +28,9 @@
 // ---------------------------------------------------------
 
 namespace KLFitter {
-class ResolutionBase;
+namespace Resolutions {
+  class ResolutionBase;
+}
 
 /**
  * Implementation of the Snowmass detector, providing basic
@@ -55,71 +57,71 @@ class DetectorSnowmass : public DetectorBase {
    * @param eta The eta of the particle.
    * @return A pointer to the energy resolution object.
    */
-  ResolutionBase* ResEnergyLightJet(double eta = 0.) override;
+  Resolutions::ResolutionBase* ResEnergyLightJet(double eta = 0.) override;
 
   /**
    * Return the energy resolution of b-jets.
    * @param eta The eta of the particle.
    * @return A pointer to the energy resolution object.
    */
-  ResolutionBase* ResEnergyBJet(double eta = 0.) override;
+  Resolutions::ResolutionBase* ResEnergyBJet(double eta = 0.) override;
 
   /**
    * Return the energy resolution of electrons.
    * @param eta The eta of the particle.
    * @return A pointer to the energy resolution object.
    */
-  ResolutionBase* ResEnergyElectron(double eta = 0.) override;
+  Resolutions::ResolutionBase* ResEnergyElectron(double eta = 0.) override;
 
   /**
    * Return the momentum resolution of muons.
    * @param eta The eta of the particle.
    * @return A pointer to the momentum resolution object.
    */
-  ResolutionBase* ResEnergyMuon(double eta = 0.) override;
+  Resolutions::ResolutionBase* ResEnergyMuon(double eta = 0.) override;
 
   /**
    * Return the missing ET resolution.
    * @return A pointer to the missing ET resolution.
    */
-  ResolutionBase* ResMissingET() override;
+  Resolutions::ResolutionBase* ResMissingET() override;
 
   /** @} */
 
   /// Resolution function for gluon jets -- not defined.
-  ResolutionBase* ResEnergyGluonJet(double) override { return ResolutionUndefined("ResEnergyGluonJet"); }
+  Resolutions::ResolutionBase* ResEnergyGluonJet(double) override { return ResolutionUndefined("ResEnergyGluonJet"); }
 
   /// Resolution function for photons -- not defined.
-  ResolutionBase* ResEnergyPhoton(double) override { return ResolutionUndefined("ResEnergyPhoton"); }
+  Resolutions::ResolutionBase* ResEnergyPhoton(double) override { return ResolutionUndefined("ResEnergyPhoton"); }
 
   /// Resolution function for light jet eta -- not defined.
-  ResolutionBase* ResEtaLightJet(double) override { return ResolutionUndefined("ResEtaLightJet"); }
+  Resolutions::ResolutionBase* ResEtaLightJet(double) override { return ResolutionUndefined("ResEtaLightJet"); }
 
   /// Resolution function for b-jet eta -- not defined.
-  ResolutionBase* ResEtaBJet(double) override { return ResolutionUndefined("ResEtaBJet"); }
+  Resolutions::ResolutionBase* ResEtaBJet(double) override { return ResolutionUndefined("ResEtaBJet"); }
 
   /// Resolution function for light jet phi -- not defined.
-  ResolutionBase* ResPhiLightJet(double) override { return ResolutionUndefined("ResPhiLightJet"); }
+  Resolutions::ResolutionBase* ResPhiLightJet(double) override { return ResolutionUndefined("ResPhiLightJet"); }
 
   /// Resolution function for b-jet phi -- not defined.
-  ResolutionBase* ResPhiBJet(double) override { return ResolutionUndefined("ResPhiBJet"); }
+  Resolutions::ResolutionBase* ResPhiBJet(double) override { return ResolutionUndefined("ResPhiBJet"); }
 
  private:
   /// The energy resolution of light jets for different eta regions.
-  std::unique_ptr<ResolutionBase> m_res_jet_energy_eta1;
-  std::unique_ptr<ResolutionBase> m_res_jet_energy_eta2;
-  std::unique_ptr<ResolutionBase> m_res_jet_energy_eta3;
+  std::unique_ptr<Resolutions::ResolutionBase> m_res_jet_energy_eta1;
+  std::unique_ptr<Resolutions::ResolutionBase> m_res_jet_energy_eta2;
+  std::unique_ptr<Resolutions::ResolutionBase> m_res_jet_energy_eta3;
 
   /// The energy resolution of electrons for different eta regions.
-  std::unique_ptr<ResolutionBase> m_res_electron_energy_eta1;
-  std::unique_ptr<ResolutionBase> m_res_electron_energy_eta2;
+  std::unique_ptr<Resolutions::ResolutionBase> m_res_electron_energy_eta1;
+  std::unique_ptr<Resolutions::ResolutionBase> m_res_electron_energy_eta2;
 
   /// The momentum resolution of muons for different eta regions.
-  std::unique_ptr<ResolutionBase> m_res_muon_momentum_eta1;
-  std::unique_ptr<ResolutionBase> m_res_muon_momentum_eta2;
+  std::unique_ptr<Resolutions::ResolutionBase> m_res_muon_momentum_eta1;
+  std::unique_ptr<Resolutions::ResolutionBase> m_res_muon_momentum_eta2;
 
   /// Missing ET resolution in x and y
-  std::unique_ptr<ResolutionBase> m_res_missing_ET;
+  std::unique_ptr<Resolutions::ResolutionBase> m_res_missing_ET;
 
   /// The eta binning for jets
   const double m_jet_eta_bin_1{1.7};

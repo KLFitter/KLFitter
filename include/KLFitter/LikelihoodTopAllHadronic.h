@@ -28,7 +28,9 @@
 // ---------------------------------------------------------
 
 namespace KLFitter {
-class ResolutionBase;
+namespace Resolutions {
+  class ResolutionBase;
+}
 
 /**
  * Likelihood for the ttbar allhadronic channel, where both tops
@@ -149,26 +151,26 @@ class LikelihoodTopAllHadronic : public KLFitter::LikelihoodBase {
   /// A flag for using a fixed top mass (true) or not (false).
   bool fFlagTopMassFixed;
 
-  ///  Flag for using ResolutionBase::GetSigma() to retrieve the parameter ranges
+  ///  Flag for using Resolutions::ResolutionBase::GetSigma() to retrieve the parameter ranges
   bool fFlagGetParSigmasFromTFs;
 
   /// Pointer to resolution function for hadronic b quark.
-  ResolutionBase * fResEnergyBhad1;
+  Resolutions::ResolutionBase * fResEnergyBhad1;
 
   /// Pointer to resolution function for leptonic b quark.
-  ResolutionBase * fResEnergyBhad2;
+  Resolutions::ResolutionBase * fResEnergyBhad2;
 
   /// Pointer to resolution function for first light quark jet.
-  ResolutionBase * fResEnergyLQ1;
+  Resolutions::ResolutionBase * fResEnergyLQ1;
 
   /// Pointer to resolution function for second light quark jet.
-  ResolutionBase * fResEnergyLQ2;
+  Resolutions::ResolutionBase * fResEnergyLQ2;
 
   /// Pointer to resolution function for third light quark jet.
-  ResolutionBase * fResEnergyLQ3;
+  Resolutions::ResolutionBase * fResEnergyLQ3;
 
   /// Pointer to resolution function for fourth light quark jet.
-  ResolutionBase * fResEnergyLQ4;
+  Resolutions::ResolutionBase * fResEnergyLQ4;
 
   /** @} */
   /** \name Member attributes (measured parameters) */

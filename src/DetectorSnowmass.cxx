@@ -23,34 +23,34 @@
 #include <iostream>
 
 #include "KLFitter/Resolutions/ResolutionBase.h"
-#include "KLFitter/Resolutions/ResGaussBase.h"
-#include "KLFitter/Resolutions/ResGaussE.h"
-#include "KLFitter/Resolutions/ResGaussPt.h"
-#include "KLFitter/Resolutions/ResGauss_MET.h"
+#include "KLFitter/Resolutions/Gauss/GaussBase.h"
+#include "KLFitter/Resolutions/Gauss/GaussE.h"
+#include "KLFitter/Resolutions/Gauss/GaussPt.h"
+#include "KLFitter/Resolutions/Gauss/Gauss_MET.h"
 #include "TString.h"
 
 namespace KLFitter {
 // ---------------------------------------------------------
 DetectorSnowmass::DetectorSnowmass(std::string folder) : DetectorBase() {
   std::cout << "Using TFs from SnowMass ..." << std::endl;
-  m_res_jet_energy_eta1      = std::unique_ptr<ResolutionBase>(new ResGauss::ResGaussE{Form("%s/par_energy_jets_eta1.txt", folder.c_str())});
-  m_res_jet_energy_eta2      = std::unique_ptr<ResolutionBase>(new ResGauss::ResGaussE{Form("%s/par_energy_jets_eta2.txt", folder.c_str())});
-  m_res_jet_energy_eta3      = std::unique_ptr<ResolutionBase>(new ResGauss::ResGaussE{Form("%s/par_energy_jets_eta3.txt", folder.c_str())});
+  m_res_jet_energy_eta1      = std::unique_ptr<Resolutions::ResolutionBase>(new Resolutions::Gauss::GaussE{Form("%s/par_energy_jets_eta1.txt", folder.c_str())});
+  m_res_jet_energy_eta2      = std::unique_ptr<Resolutions::ResolutionBase>(new Resolutions::Gauss::GaussE{Form("%s/par_energy_jets_eta2.txt", folder.c_str())});
+  m_res_jet_energy_eta3      = std::unique_ptr<Resolutions::ResolutionBase>(new Resolutions::Gauss::GaussE{Form("%s/par_energy_jets_eta3.txt", folder.c_str())});
 
-  m_res_electron_energy_eta1 = std::unique_ptr<ResolutionBase>(new ResGauss::ResGaussE{Form("%s/par_energy_electrons_eta1.txt", folder.c_str())});
-  m_res_electron_energy_eta2 = std::unique_ptr<ResolutionBase>(new ResGauss::ResGaussE{Form("%s/par_energy_electrons_eta2.txt", folder.c_str())});
+  m_res_electron_energy_eta1 = std::unique_ptr<Resolutions::ResolutionBase>(new Resolutions::Gauss::GaussE{Form("%s/par_energy_electrons_eta1.txt", folder.c_str())});
+  m_res_electron_energy_eta2 = std::unique_ptr<Resolutions::ResolutionBase>(new Resolutions::Gauss::GaussE{Form("%s/par_energy_electrons_eta2.txt", folder.c_str())});
 
-  m_res_muon_momentum_eta1   = std::unique_ptr<ResolutionBase>(new ResGauss::ResGaussPt{Form("%s/par_pt_muons_eta1.txt", folder.c_str())});
-  m_res_muon_momentum_eta2   = std::unique_ptr<ResolutionBase>(new ResGauss::ResGaussPt{Form("%s/par_pt_muons_eta2.txt", folder.c_str())});
+  m_res_muon_momentum_eta1   = std::unique_ptr<Resolutions::ResolutionBase>(new Resolutions::Gauss::GaussPt{Form("%s/par_pt_muons_eta1.txt", folder.c_str())});
+  m_res_muon_momentum_eta2   = std::unique_ptr<Resolutions::ResolutionBase>(new Resolutions::Gauss::GaussPt{Form("%s/par_pt_muons_eta2.txt", folder.c_str())});
 
-  m_res_missing_ET      = std::unique_ptr<ResolutionBase>(new ResGauss::ResGauss_MET{Form("%s/par_misset.txt", folder.c_str())});
+  m_res_missing_ET      = std::unique_ptr<Resolutions::ResolutionBase>(new Resolutions::Gauss::Gauss_MET{Form("%s/par_misset.txt", folder.c_str())});
 }
 
 // ---------------------------------------------------------
 DetectorSnowmass::~DetectorSnowmass() = default;
 
 // ---------------------------------------------------------
-ResolutionBase* DetectorSnowmass::ResEnergyLightJet(double eta) {
+Resolutions::ResolutionBase* DetectorSnowmass::ResEnergyLightJet(double eta) {
   if (fabs(eta) < m_jet_eta_bin_1) {
     return m_res_jet_energy_eta1.get();
   } else if (fabs(eta) < m_jet_eta_bin_2) {
@@ -64,7 +64,7 @@ ResolutionBase* DetectorSnowmass::ResEnergyLightJet(double eta) {
 }
 
 // ---------------------------------------------------------
-ResolutionBase* DetectorSnowmass::ResEnergyBJet(double eta) {
+Resolutions::ResolutionBase* DetectorSnowmass::ResEnergyBJet(double eta) {
   if (fabs(eta) < m_jet_eta_bin_1) {
     return m_res_jet_energy_eta1.get();
   } else if (fabs(eta) < m_jet_eta_bin_2) {
@@ -78,7 +78,7 @@ ResolutionBase* DetectorSnowmass::ResEnergyBJet(double eta) {
 }
 
 // ---------------------------------------------------------
-ResolutionBase* DetectorSnowmass::ResEnergyElectron(double eta) {
+Resolutions::ResolutionBase* DetectorSnowmass::ResEnergyElectron(double eta) {
   if (fabs(eta) < m_electron_eta_bin_1) {
     return m_res_electron_energy_eta1.get();
   } else if (fabs(eta) < m_electron_eta_bin_2) {
@@ -90,7 +90,7 @@ ResolutionBase* DetectorSnowmass::ResEnergyElectron(double eta) {
 }
 
 // ---------------------------------------------------------
-ResolutionBase* DetectorSnowmass::ResEnergyMuon(double eta) {
+Resolutions::ResolutionBase* DetectorSnowmass::ResEnergyMuon(double eta) {
   if (fabs(eta) < m_muon_eta_bin_1) {
     return m_res_muon_momentum_eta1.get();
   } else if (fabs(eta) < m_muon_eta_bin_2) {
@@ -102,7 +102,7 @@ ResolutionBase* DetectorSnowmass::ResEnergyMuon(double eta) {
 }
 
 // ---------------------------------------------------------
-ResolutionBase* DetectorSnowmass::ResMissingET() {
+Resolutions::ResolutionBase* DetectorSnowmass::ResMissingET() {
   return m_res_missing_ET.get();
 }
 }  // namespace KLFitter

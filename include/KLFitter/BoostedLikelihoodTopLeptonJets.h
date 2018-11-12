@@ -26,7 +26,9 @@
 class TLorentzVector;
 
 namespace KLFitter {
+namespace Resolutions {
   class ResolutionBase;
+}
 }
 
 #include "KLFitter/LikelihoodBase.h"
@@ -205,19 +207,19 @@ class BoostedLikelihoodTopLeptonJets : public KLFitter::LikelihoodBase {
   LeptonType fTypeLepton;
 
   /// Pointer to resolution function for hadronic b quark.
-  ResolutionBase * fResEnergyBhad;
+  Resolutions::ResolutionBase * fResEnergyBhad;
 
   /// Pointer to resolution function for leptonic b quark.
-  ResolutionBase * fResEnergyBlep;
+  Resolutions::ResolutionBase * fResEnergyBlep;
 
   /// Pointer to resolution function for first light quark jet.
-  ResolutionBase * fResEnergyLQ;
+  Resolutions::ResolutionBase * fResEnergyLQ;
 
   /// Pointer to resolution function for the lepton.
-  ResolutionBase * fResLepton;
+  Resolutions::ResolutionBase * fResLepton;
 
   /// Pointer to resolution function for MET.
-  ResolutionBase * fResMET;
+  Resolutions::ResolutionBase * fResMET;
 
   /** @} */
   /** \name Member attributes (measured parameters) */
