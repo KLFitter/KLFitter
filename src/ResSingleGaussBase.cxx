@@ -44,6 +44,8 @@ KLFitter::ResSingleGaussBase::~ResSingleGaussBase() = default;
 
 // ---------------------------------------------------------
 double KLFitter::ResSingleGaussBase::logp(double x, double xmeas, bool *good, double /*par*/) {
+  static constexpr double logSquareTwoPi = 0.5*std::log(2*M_PI);
+
   double mean = GetMean(x);
   double sigma = GetSigma(x);
 
@@ -52,5 +54,5 @@ double KLFitter::ResSingleGaussBase::logp(double x, double xmeas, bool *good, do
 
   double dx = (x - xmeas) / x;
 
-  return -std::log(std::sqrt(2*M_PI)*sigma) - (0.5*(dx-mean)*(dx-mean)/sigma/sigma); 
+  return -logSquareTwoPi - std::log(sigma) - (0.5*(dx-mean)*(dx-mean)/sigma/sigma); 
 }
