@@ -21,7 +21,7 @@
 
 #include <iostream>
 
-#include "KLFitter/ResolutionBase.h"
+#include "KLFitter/Resolutions/ResolutionBase.h"
 
 namespace KLFitter {
 // ---------------------------------------------------------

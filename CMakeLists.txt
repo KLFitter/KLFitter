@@ -141,25 +141,24 @@ set( lib_sources
   src/ParticleCollection.cxx
   src/Permutations.cxx
   src/PhysicsConstants.cxx
-  src/ResCrystalBallBase.cxx
-  src/ResCrystalBallJets.cxx
-  src/ResDoubleGaussBase.cxx
-  src/ResDoubleGaussE_1.cxx
-  src/ResDoubleGaussE_2.cxx
-  src/ResDoubleGaussE_3.cxx
-  src/ResDoubleGaussE_4.cxx
-  src/ResDoubleGaussE_5.cxx
-  src/ResDoubleGaussPt.cxx
-  src/ResGauss.cxx
-  src/ResGaussE.cxx
-  src/ResGaussPt.cxx
-  src/ResGauss_MET.cxx
-  src/ResSingleGaussBase.cxx
-  src/ResSingleGaussLinearBase.cxx
-  src/ResSingleGaussE.cxx
-  src/ResSingleGaussMET.cxx
-  src/ResSingleGaussPt.cxx
-  src/ResolutionBase.cxx )
+  src/Resolutions/ResCrystalBallBase.cxx
+  src/Resolutions/ResCrystalBallJets.cxx
+  src/Resolutions/ResDoubleGaussBase.cxx
+  src/Resolutions/ResDoubleGaussE_1.cxx
+  src/Resolutions/ResDoubleGaussE_2.cxx
+  src/Resolutions/ResDoubleGaussE_3.cxx
+  src/Resolutions/ResDoubleGaussE_4.cxx
+  src/Resolutions/ResDoubleGaussE_5.cxx
+  src/Resolutions/ResDoubleGaussPt.cxx
+  src/Resolutions/ResGaussBase.cxx
+  src/Resolutions/ResGaussE.cxx
+  src/Resolutions/ResGaussPt.cxx
+  src/Resolutions/ResGauss_MET.cxx
+  src/Resolutions/ResGauss_linearMET.cxx
+  src/Resolutions/ResSingleGaussBase.cxx
+  src/Resolutions/ResSingleGaussE.cxx
+  src/Resolutions/ResSingleGaussPt.cxx
+  src/Resolutions/ResolutionBase.cxx )
 
 # Create a macro to build and install libraries.
 macro( KLFitter_add_library name )

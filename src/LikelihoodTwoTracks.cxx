@@ -28,7 +28,7 @@
 #include "KLFitter/ParticleCollection.h"
 #include "KLFitter/Permutations.h"
 #include "KLFitter/PhysicsConstants.h"
-#include "KLFitter/ResolutionBase.h"
+#include "KLFitter/Resolutions/ResolutionBase.h"
 
 namespace KLFitter {
 // ---------------------------------------------------------

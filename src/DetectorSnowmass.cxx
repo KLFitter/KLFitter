@@ -22,28 +22,28 @@
 #include <cmath>
 #include <iostream>
 
-#include "KLFitter/ResolutionBase.h"
-#include "KLFitter/ResGauss.h"
-#include "KLFitter/ResGaussE.h"
-#include "KLFitter/ResGaussPt.h"
-#include "KLFitter/ResGauss_MET.h"
+#include "KLFitter/Resolutions/ResolutionBase.h"
+#include "KLFitter/Resolutions/ResGaussBase.h"
+#include "KLFitter/Resolutions/ResGaussE.h"
+#include "KLFitter/Resolutions/ResGaussPt.h"
+#include "KLFitter/Resolutions/ResGauss_MET.h"
 #include "TString.h"
 
 namespace KLFitter {
 // ---------------------------------------------------------
 DetectorSnowmass::DetectorSnowmass(std::string folder) : DetectorBase() {
   std::cout << "Using TFs from SnowMass ..." << std::endl;
-  m_res_jet_energy_eta1      = std::unique_ptr<ResolutionBase>(new ResGaussE{Form("%s/par_energy_jets_eta1.txt", folder.c_str())});
-  m_res_jet_energy_eta2      = std::unique_ptr<ResolutionBase>(new ResGaussE{Form("%s/par_energy_jets_eta2.txt", folder.c_str())});
-  m_res_jet_energy_eta3      = std::unique_ptr<ResolutionBase>(new ResGaussE{Form("%s/par_energy_jets_eta3.txt", folder.c_str())});
+  m_res_jet_energy_eta1      = std::unique_ptr<ResolutionBase>(new ResGauss::ResGaussE{Form("%s/par_energy_jets_eta1.txt", folder.c_str())});
+  m_res_jet_energy_eta2      = std::unique_ptr<ResolutionBase>(new ResGauss::ResGaussE{Form("%s/par_energy_jets_eta2.txt", folder.c_str())});
+  m_res_jet_energy_eta3      = std::unique_ptr<ResolutionBase>(new ResGauss::ResGaussE{Form("%s/par_energy_jets_eta3.txt", folder.c_str())});
 
-  m_res_electron_energy_eta1 = std::unique_ptr<ResolutionBase>(new ResGaussE{Form("%s/par_energy_electrons_eta1.txt", folder.c_str())});
-  m_res_electron_energy_eta2 = std::unique_ptr<ResolutionBase>(new ResGaussE{Form("%s/par_energy_electrons_eta2.txt", folder.c_str())});
+  m_res_electron_energy_eta1 = std::unique_ptr<ResolutionBase>(new ResGauss::ResGaussE{Form("%s/par_energy_electrons_eta1.txt", folder.c_str())});
+  m_res_electron_energy_eta2 = std::unique_ptr<ResolutionBase>(new ResGauss::ResGaussE{Form("%s/par_energy_electrons_eta2.txt", folder.c_str())});
 
-  m_res_muon_momentum_eta1   = std::unique_ptr<ResolutionBase>(new ResGaussPt{Form("%s/par_pt_muons_eta1.txt", folder.c_str())});
-  m_res_muon_momentum_eta2   = std::unique_ptr<ResolutionBase>(new ResGaussPt{Form("%s/par_pt_muons_eta2.txt", folder.c_str())});
+  m_res_muon_momentum_eta1   = std::unique_ptr<ResolutionBase>(new ResGauss::ResGaussPt{Form("%s/par_pt_muons_eta1.txt", folder.c_str())});
+  m_res_muon_momentum_eta2   = std::unique_ptr<ResolutionBase>(new ResGauss::ResGaussPt{Form("%s/par_pt_muons_eta2.txt", folder.c_str())});
 
-  m_res_missing_ET      = std::unique_ptr<ResolutionBase>(new ResGauss_MET{Form("%s/par_misset.txt", folder.c_str())});
+  m_res_missing_ET      = std::unique_ptr<ResolutionBase>(new ResGauss::ResGauss_MET{Form("%s/par_misset.txt", folder.c_str())});
 }
 
 // ---------------------------------------------------------

@@ -22,12 +22,12 @@
 #include <cmath>
 #include <iostream>
 
-#include "KLFitter/ResolutionBase.h"
-#include "KLFitter/ResSingleGaussE.h"
-#include "KLFitter/ResSingleGaussMET.h"
-#include "KLFitter/ResSingleGaussPt.h"
-#include "KLFitter/ResCrystalBallJets.h"
-#include "KLFitter/ResGauss.h"
+#include "KLFitter/Resolutions/ResolutionBase.h"
+#include "KLFitter/Resolutions/ResSingleGaussE.h"
+#include "KLFitter/Resolutions/ResSingleGaussPt.h"
+#include "KLFitter/Resolutions/ResCrystalBallJets.h"
+#include "KLFitter/Resolutions/ResGauss_linearMET.h"
+#include "KLFitter/Resolutions/ResGaussBase.h"
 #include "TString.h"
 
 namespace KLFitter {
@@ -35,60 +35,60 @@ namespace KLFitter {
 DetectorAtlas_CrystalBall::DetectorAtlas_CrystalBall(std::string folder) : DetectorBase() {
   std::cout << "Using TF with crystal ball for jets ..." << std::endl;
   // energy resolution
-  m_res_energy_light_jet_eta1 = std::unique_ptr<ResolutionBase>(new ResCrystalBallJets{Form("%s/par_energy_lJets_eta1.txt", folder.c_str())});
-  m_res_energy_light_jet_eta2 = std::unique_ptr<ResolutionBase>(new ResCrystalBallJets{Form("%s/par_energy_lJets_eta2.txt", folder.c_str())});
-  m_res_energy_light_jet_eta3 = std::unique_ptr<ResolutionBase>(new ResCrystalBallJets{Form("%s/par_energy_lJets_eta3.txt", folder.c_str())});
-  m_res_energy_light_jet_eta4 = std::unique_ptr<ResolutionBase>(new ResCrystalBallJets{Form("%s/par_energy_lJets_eta4.txt", folder.c_str())});
-  m_res_energy_light_jet_eta5 = std::unique_ptr<ResolutionBase>(new ResCrystalBallJets{Form("%s/par_energy_lJets_eta5.txt", folder.c_str())});
+  m_res_energy_light_jet_eta1 = std::unique_ptr<ResolutionBase>(new ResCrystalBall::ResCrystalBallJets{Form("%s/par_energy_lJets_eta1.txt", folder.c_str())});
+  m_res_energy_light_jet_eta2 = std::unique_ptr<ResolutionBase>(new ResCrystalBall::ResCrystalBallJets{Form("%s/par_energy_lJets_eta2.txt", folder.c_str())});
+  m_res_energy_light_jet_eta3 = std::unique_ptr<ResolutionBase>(new ResCrystalBall::ResCrystalBallJets{Form("%s/par_energy_lJets_eta3.txt", folder.c_str())});
+  m_res_energy_light_jet_eta4 = std::unique_ptr<ResolutionBase>(new ResCrystalBall::ResCrystalBallJets{Form("%s/par_energy_lJets_eta4.txt", folder.c_str())});
+  m_res_energy_light_jet_eta5 = std::unique_ptr<ResolutionBase>(new ResCrystalBall::ResCrystalBallJets{Form("%s/par_energy_lJets_eta5.txt", folder.c_str())});
 
-  m_res_energy_bjet_eta1     = std::unique_ptr<ResolutionBase>(new ResCrystalBallJets{Form("%s/par_energy_bJets_eta1.txt", folder.c_str())});
-  m_res_energy_bjet_eta2     = std::unique_ptr<ResolutionBase>(new ResCrystalBallJets{Form("%s/par_energy_bJets_eta2.txt", folder.c_str())});
-  m_res_energy_bjet_eta3     = std::unique_ptr<ResolutionBase>(new ResCrystalBallJets{Form("%s/par_energy_bJets_eta3.txt", folder.c_str())});
-  m_res_energy_bjet_eta4     = std::unique_ptr<ResolutionBase>(new ResCrystalBallJets{Form("%s/par_energy_bJets_eta4.txt", folder.c_str())});
-  m_res_energy_bjet_eta5     = std::unique_ptr<ResolutionBase>(new ResCrystalBallJets{Form("%s/par_energy_bJets_eta5.txt", folder.c_str())});
+  m_res_energy_bjet_eta1     = std::unique_ptr<ResolutionBase>(new ResCrystalBall::ResCrystalBallJets{Form("%s/par_energy_bJets_eta1.txt", folder.c_str())});
+  m_res_energy_bjet_eta2     = std::unique_ptr<ResolutionBase>(new ResCrystalBall::ResCrystalBallJets{Form("%s/par_energy_bJets_eta2.txt", folder.c_str())});
+  m_res_energy_bjet_eta3     = std::unique_ptr<ResolutionBase>(new ResCrystalBall::ResCrystalBallJets{Form("%s/par_energy_bJets_eta3.txt", folder.c_str())});
+  m_res_energy_bjet_eta4     = std::unique_ptr<ResolutionBase>(new ResCrystalBall::ResCrystalBallJets{Form("%s/par_energy_bJets_eta4.txt", folder.c_str())});
+  m_res_energy_bjet_eta5     = std::unique_ptr<ResolutionBase>(new ResCrystalBall::ResCrystalBallJets{Form("%s/par_energy_bJets_eta5.txt", folder.c_str())});
 
-  m_res_energy_gluon_jet_eta1 = std::unique_ptr<ResolutionBase>(new ResCrystalBallJets{Form("%s/par_energy_gluon_eta1.txt", folder.c_str())});
-  m_res_energy_gluon_jet_eta2 = std::unique_ptr<ResolutionBase>(new ResCrystalBallJets{Form("%s/par_energy_gluon_eta2.txt", folder.c_str())});
-  m_res_energy_gluon_jet_eta3 = std::unique_ptr<ResolutionBase>(new ResCrystalBallJets{Form("%s/par_energy_gluon_eta3.txt", folder.c_str())});
-  m_res_energy_gluon_jet_eta4 = std::unique_ptr<ResolutionBase>(new ResCrystalBallJets{Form("%s/par_energy_gluon_eta4.txt", folder.c_str())});
+  m_res_energy_gluon_jet_eta1 = std::unique_ptr<ResolutionBase>(new ResCrystalBall::ResCrystalBallJets{Form("%s/par_energy_gluon_eta1.txt", folder.c_str())});
+  m_res_energy_gluon_jet_eta2 = std::unique_ptr<ResolutionBase>(new ResCrystalBall::ResCrystalBallJets{Form("%s/par_energy_gluon_eta2.txt", folder.c_str())});
+  m_res_energy_gluon_jet_eta3 = std::unique_ptr<ResolutionBase>(new ResCrystalBall::ResCrystalBallJets{Form("%s/par_energy_gluon_eta3.txt", folder.c_str())});
+  m_res_energy_gluon_jet_eta4 = std::unique_ptr<ResolutionBase>(new ResCrystalBall::ResCrystalBallJets{Form("%s/par_energy_gluon_eta4.txt", folder.c_str())});
 
-  m_res_energy_electron_eta1 = std::unique_ptr<ResolutionBase>(new ResSingleGaussE{Form("%s/par_energy_Electrons_eta1.txt", folder.c_str())});
-  m_res_energy_electron_eta2 = std::unique_ptr<ResolutionBase>(new ResSingleGaussE{Form("%s/par_energy_Electrons_eta2.txt", folder.c_str())});
-  m_res_energy_electron_eta3 = std::unique_ptr<ResolutionBase>(new ResSingleGaussE{Form("%s/par_energy_Electrons_eta3.txt", folder.c_str())});
-  m_res_energy_electron_eta4 = std::unique_ptr<ResolutionBase>(new ResSingleGaussE{Form("%s/par_energy_Electrons_eta4.txt", folder.c_str())});
+  m_res_energy_electron_eta1 = std::unique_ptr<ResolutionBase>(new ResSingleGauss::ResSingleGaussE{Form("%s/par_energy_Electrons_eta1.txt", folder.c_str())});
+  m_res_energy_electron_eta2 = std::unique_ptr<ResolutionBase>(new ResSingleGauss::ResSingleGaussE{Form("%s/par_energy_Electrons_eta2.txt", folder.c_str())});
+  m_res_energy_electron_eta3 = std::unique_ptr<ResolutionBase>(new ResSingleGauss::ResSingleGaussE{Form("%s/par_energy_Electrons_eta3.txt", folder.c_str())});
+  m_res_energy_electron_eta4 = std::unique_ptr<ResolutionBase>(new ResSingleGauss::ResSingleGaussE{Form("%s/par_energy_Electrons_eta4.txt", folder.c_str())});
 
-  m_res_energy_muon_eta1     = std::unique_ptr<ResolutionBase>(new ResSingleGaussPt{Form("%s/par_energy_Muons_eta1.txt", folder.c_str())});
-  m_res_energy_muon_eta2     = std::unique_ptr<ResolutionBase>(new ResSingleGaussPt{Form("%s/par_energy_Muons_eta2.txt", folder.c_str())});
-  m_res_energy_muon_eta3     = std::unique_ptr<ResolutionBase>(new ResSingleGaussPt{Form("%s/par_energy_Muons_eta3.txt", folder.c_str())});
+  m_res_energy_muon_eta1     = std::unique_ptr<ResolutionBase>(new ResSingleGauss::ResSingleGaussPt{Form("%s/par_energy_Muons_eta1.txt", folder.c_str())});
+  m_res_energy_muon_eta2     = std::unique_ptr<ResolutionBase>(new ResSingleGauss::ResSingleGaussPt{Form("%s/par_energy_Muons_eta2.txt", folder.c_str())});
+  m_res_energy_muon_eta3     = std::unique_ptr<ResolutionBase>(new ResSingleGauss::ResSingleGaussPt{Form("%s/par_energy_Muons_eta3.txt", folder.c_str())});
 
-  m_res_energy_photon_eta1   = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_energy_photon_eta1.txt", folder.c_str())});
-  m_res_energy_photon_eta2   = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_energy_photon_eta2.txt", folder.c_str())});
-  m_res_energy_photon_eta3   = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_energy_photon_eta3.txt", folder.c_str())});
-  m_res_energy_photon_eta4   = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_energy_photon_eta4.txt", folder.c_str())});
+  m_res_energy_photon_eta1   = std::unique_ptr<ResolutionBase>(new ResGauss::ResGaussBase{Form("%s/par_energy_photon_eta1.txt", folder.c_str())});
+  m_res_energy_photon_eta2   = std::unique_ptr<ResolutionBase>(new ResGauss::ResGaussBase{Form("%s/par_energy_photon_eta2.txt", folder.c_str())});
+  m_res_energy_photon_eta3   = std::unique_ptr<ResolutionBase>(new ResGauss::ResGaussBase{Form("%s/par_energy_photon_eta3.txt", folder.c_str())});
+  m_res_energy_photon_eta4   = std::unique_ptr<ResolutionBase>(new ResGauss::ResGaussBase{Form("%s/par_energy_photon_eta4.txt", folder.c_str())});
 
   // eta resolution
-  m_res_eta_light_jet_eta1 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_eta_lJets_eta1.txt", folder.c_str())});
-  m_res_eta_light_jet_eta2 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_eta_lJets_eta2.txt", folder.c_str())});
-  m_res_eta_light_jet_eta3 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_eta_lJets_eta3.txt", folder.c_str())});
-  m_res_eta_light_jet_eta4 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_eta_lJets_eta4.txt", folder.c_str())});
+  m_res_eta_light_jet_eta1 = std::unique_ptr<ResolutionBase>(new ResGauss::ResGaussBase{Form("%s/par_eta_lJets_eta1.txt", folder.c_str())});
+  m_res_eta_light_jet_eta2 = std::unique_ptr<ResolutionBase>(new ResGauss::ResGaussBase{Form("%s/par_eta_lJets_eta2.txt", folder.c_str())});
+  m_res_eta_light_jet_eta3 = std::unique_ptr<ResolutionBase>(new ResGauss::ResGaussBase{Form("%s/par_eta_lJets_eta3.txt", folder.c_str())});
+  m_res_eta_light_jet_eta4 = std::unique_ptr<ResolutionBase>(new ResGauss::ResGaussBase{Form("%s/par_eta_lJets_eta4.txt", folder.c_str())});
 
-  m_res_eta_bjet_eta1 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_eta_bJets_eta1.txt", folder.c_str())});
-  m_res_eta_bjet_eta2 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_eta_bJets_eta2.txt", folder.c_str())});
-  m_res_eta_bjet_eta3 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_eta_bJets_eta3.txt", folder.c_str())});
-  m_res_eta_bjet_eta4 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_eta_bJets_eta4.txt", folder.c_str())});
+  m_res_eta_bjet_eta1 = std::unique_ptr<ResolutionBase>(new ResGauss::ResGaussBase{Form("%s/par_eta_bJets_eta1.txt", folder.c_str())});
+  m_res_eta_bjet_eta2 = std::unique_ptr<ResolutionBase>(new ResGauss::ResGaussBase{Form("%s/par_eta_bJets_eta2.txt", folder.c_str())});
+  m_res_eta_bjet_eta3 = std::unique_ptr<ResolutionBase>(new ResGauss::ResGaussBase{Form("%s/par_eta_bJets_eta3.txt", folder.c_str())});
+  m_res_eta_bjet_eta4 = std::unique_ptr<ResolutionBase>(new ResGauss::ResGaussBase{Form("%s/par_eta_bJets_eta4.txt", folder.c_str())});
 
   // phi resolution
-  m_res_phi_light_jet_eta1 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_phi_lJets_eta1.txt", folder.c_str())});
-  m_res_phi_light_jet_eta2 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_phi_lJets_eta2.txt", folder.c_str())});
-  m_res_phi_light_jet_eta3 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_phi_lJets_eta3.txt", folder.c_str())});
-  m_res_phi_light_jet_eta4 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_phi_lJets_eta4.txt", folder.c_str())});
+  m_res_phi_light_jet_eta1 = std::unique_ptr<ResolutionBase>(new ResGauss::ResGaussBase{Form("%s/par_phi_lJets_eta1.txt", folder.c_str())});
+  m_res_phi_light_jet_eta2 = std::unique_ptr<ResolutionBase>(new ResGauss::ResGaussBase{Form("%s/par_phi_lJets_eta2.txt", folder.c_str())});
+  m_res_phi_light_jet_eta3 = std::unique_ptr<ResolutionBase>(new ResGauss::ResGaussBase{Form("%s/par_phi_lJets_eta3.txt", folder.c_str())});
+  m_res_phi_light_jet_eta4 = std::unique_ptr<ResolutionBase>(new ResGauss::ResGaussBase{Form("%s/par_phi_lJets_eta4.txt", folder.c_str())});
 
-  m_res_phi_bjet_eta1 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_phi_bJets_eta1.txt", folder.c_str())});
-  m_res_phi_bjet_eta2 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_phi_bJets_eta2.txt", folder.c_str())});
-  m_res_phi_bjet_eta3 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_phi_bJets_eta3.txt", folder.c_str())});
-  m_res_phi_bjet_eta4 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_phi_bJets_eta4.txt", folder.c_str())});
+  m_res_phi_bjet_eta1 = std::unique_ptr<ResolutionBase>(new ResGauss::ResGaussBase{Form("%s/par_phi_bJets_eta1.txt", folder.c_str())});
+  m_res_phi_bjet_eta2 = std::unique_ptr<ResolutionBase>(new ResGauss::ResGaussBase{Form("%s/par_phi_bJets_eta2.txt", folder.c_str())});
+  m_res_phi_bjet_eta3 = std::unique_ptr<ResolutionBase>(new ResGauss::ResGaussBase{Form("%s/par_phi_bJets_eta3.txt", folder.c_str())});
+  m_res_phi_bjet_eta4 = std::unique_ptr<ResolutionBase>(new ResGauss::ResGaussBase{Form("%s/par_phi_bJets_eta4.txt", folder.c_str())});
 
-  m_res_missing_ET = std::unique_ptr<ResolutionBase>(new ResSingleGaussMET{Form("%s/par_misset.txt", folder.c_str())});
+  m_res_missing_ET = std::unique_ptr<ResolutionBase>(new ResGauss::ResGauss_linearMET{Form("%s/par_misset.txt", folder.c_str())});
 }
 
 // ---------------------------------------------------------
