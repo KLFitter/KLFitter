@@ -365,31 +365,31 @@ double LikelihoodTopLeptonJets::LogLikelihood(const std::vector<double> & parame
   bool TFgoodTmp(true);
 
   // jet energy resolution terms
-  logprob += log(m_res_energy_bhad->p(m_bhad_fit_e, m_bhad_meas_e, &TFgoodTmp));
+  logprob += m_res_energy_bhad->logp(m_bhad_fit_e, m_bhad_meas_e, &TFgoodTmp);
   if (!TFgoodTmp) fTFgood = false;
 
-  logprob += log(m_res_energy_blep->p(m_blep_fit_e, m_blep_meas_e, &TFgoodTmp));
+  logprob += m_res_energy_blep->logp(m_blep_fit_e, m_blep_meas_e, &TFgoodTmp);
   if (!TFgoodTmp) fTFgood = false;
 
-  logprob += log(m_res_energy_lq1->p(m_lq1_fit_e, m_lq1_meas_e, &TFgoodTmp));
+  logprob += m_res_energy_lq1->logp(m_lq1_fit_e, m_lq1_meas_e, &TFgoodTmp);
   if (!TFgoodTmp) fTFgood = false;
 
-  logprob += log(m_res_energy_lq2->p(m_lq2_fit_e, m_lq2_meas_e, &TFgoodTmp));
+  logprob += m_res_energy_lq2->logp(m_lq2_fit_e, m_lq2_meas_e, &TFgoodTmp);
   if (!TFgoodTmp) fTFgood = false;
 
   // lepton energy resolution terms
   if (m_lepton_type == kElectron) {
-    logprob += log(m_res_lepton->p(m_lep_fit_e, m_lep_meas_e, &TFgoodTmp));
+    logprob += m_res_lepton->logp(m_lep_fit_e, m_lep_meas_e, &TFgoodTmp);
   } else if (m_lepton_type == kMuon) {
-    logprob += log(m_res_lepton->p(m_lep_fit_e * m_lep_meas_sintheta, m_lep_meas_pt, &TFgoodTmp));
+    logprob += m_res_lepton->logp(m_lep_fit_e * m_lep_meas_sintheta, m_lep_meas_pt, &TFgoodTmp);
   }
   if (!TFgoodTmp) fTFgood = false;
 
   // neutrino px and py
-  logprob += log(m_res_met->p(m_nu_fit_px, m_et_miss_x, &TFgoodTmp, m_et_miss_sum));
+  logprob += m_res_met->logp(m_nu_fit_px, m_et_miss_x, &TFgoodTmp, m_et_miss_sum);
   if (!TFgoodTmp) fTFgood = false;
 
-  logprob += log(m_res_met->p(m_nu_fit_py, m_et_miss_y, &TFgoodTmp, m_et_miss_sum));
+  logprob += m_res_met->logp(m_nu_fit_py, m_et_miss_y, &TFgoodTmp, m_et_miss_sum);
   if (!TFgoodTmp) fTFgood = false;
 
   // physics constants
@@ -650,31 +650,31 @@ std::vector<double> LikelihoodTopLeptonJets::LogLikelihoodComponents(std::vector
   bool TFgoodTmp(true);
 
   // jet energy resolution terms
-  vecci.push_back(log(m_res_energy_bhad->p(m_bhad_fit_e, m_bhad_meas_e, &TFgoodTmp)));  // comp0
+  vecci.push_back(m_res_energy_bhad->logp(m_bhad_fit_e, m_bhad_meas_e, &TFgoodTmp));  // comp0
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log(m_res_energy_blep->p(m_blep_fit_e, m_blep_meas_e, &TFgoodTmp)));  // comp1
+  vecci.push_back(m_res_energy_blep->logp(m_blep_fit_e, m_blep_meas_e, &TFgoodTmp));  // comp1
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log(m_res_energy_lq1->p(m_lq1_fit_e, m_lq1_meas_e, &TFgoodTmp)));  // comp2
+  vecci.push_back(m_res_energy_lq1->logp(m_lq1_fit_e, m_lq1_meas_e, &TFgoodTmp));  // comp2
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log(m_res_energy_lq2->p(m_lq2_fit_e, m_lq2_meas_e, &TFgoodTmp)));  // comp3
+  vecci.push_back(m_res_energy_lq2->logp(m_lq2_fit_e, m_lq2_meas_e, &TFgoodTmp));  // comp3
   if (!TFgoodTmp) fTFgood = false;
 
   // lepton energy resolution terms
   if (m_lepton_type == kElectron) {
-    vecci.push_back(log(m_res_lepton->p(m_lep_fit_e, m_lep_meas_e, &TFgoodTmp)));  // comp4
+    vecci.push_back(m_res_lepton->logp(m_lep_fit_e, m_lep_meas_e, &TFgoodTmp));  // comp4
   } else if (m_lepton_type == kMuon) {
-    vecci.push_back(log(m_res_lepton->p(m_lep_fit_e* m_lep_meas_sintheta, m_lep_meas_pt, &TFgoodTmp)));  // comp4
+    vecci.push_back(m_res_lepton->logp(m_lep_fit_e* m_lep_meas_sintheta, m_lep_meas_pt, &TFgoodTmp));  // comp4
   }
   if (!TFgoodTmp) fTFgood = false;
 
   // neutrino px and py
-  vecci.push_back(log(m_res_met->p(m_nu_fit_px, m_et_miss_x, &TFgoodTmp, m_et_miss_sum)));  // comp5
+  vecci.push_back(m_res_met->logp(m_nu_fit_px, m_et_miss_x, &TFgoodTmp, m_et_miss_sum));  // comp5
   if (!TFgoodTmp) fTFgood = false;
 
-  vecci.push_back(log(m_res_met->p(m_nu_fit_py, m_et_miss_y, &TFgoodTmp, m_et_miss_sum)));  // comp6
+  vecci.push_back(m_res_met->logp(m_nu_fit_py, m_et_miss_y, &TFgoodTmp, m_et_miss_sum));  // comp6
   if (!TFgoodTmp) fTFgood = false;
 
   // physics constants

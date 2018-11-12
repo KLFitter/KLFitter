@@ -77,9 +77,9 @@ class ResGauss : public ResolutionBase {
     * @param xmeas The measured value of x.
     * @param good False if problem with TF.
     * @param par Optional additional parameter (not used here).
-    * @return The probability.
+    * @return Logarithm of the probability.
     */
-  double p(double x, double xmeas, bool *good, double par = 0) override;
+  double logp(double x, double xmeas, bool *good, double par = 0) override;
 
   /* @} */
   /** \name Member functions (Set)  */

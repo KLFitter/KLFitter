@@ -79,9 +79,9 @@ class ResGauss_MET : public ResolutionBase {
     * @param xmeas The measured value of x.
     * @param good False if problem with TF.
     * @param sumet SumET, as the width of the TF depends on this.
-    * @return The probability.
+    * @return Logarithm of the probability.
     */
-  double p(double x, double xmeas, bool *good, double sumet) override;
+  double logp(double x, double xmeas, bool *good, double sumet) override;
 
   /* @} */
   /** \name Member functions (Set)  */
