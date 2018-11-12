@@ -415,80 +415,40 @@ double KLFitter::LikelihoodTopDilepton::LogLikelihood(const std::vector<double> 
   if (logweight + 10 == logweight) std::cout << "NUWT inf! : " << logweight << std::endl;
 
   // jet energy resolution terms
-  if (fResEnergyB1->p(b1_fit_e, b1_meas_e, &TFgoodTmp) == 0.) {
-    logweight = log(1e-99);
-    return logweight;
-  } else {
-    logweight += log(fResEnergyB1->p(b1_fit_e, b1_meas_e, &TFgoodTmp));
-  }
+  logweight += fResEnergyB1->logp(b1_fit_e, b1_meas_e, &TFgoodTmp);
   if (!TFgoodTmp) fTFgood = false;
 
-  if (logweight + 10 == logweight) std::cout << "TF b1 inf! : " << log(fResEnergyB1->p(b1_fit_e, b1_meas_e, &TFgoodTmp)) << std::endl;
+  if (logweight + 10 == logweight) std::cout << "TF b1 inf! : " << fResEnergyB1->logp(b1_fit_e, b1_meas_e, &TFgoodTmp) << std::endl;
 
-  if (fResEnergyB2->p(b2_fit_e, b2_meas_e, &TFgoodTmp) == 0.) {
-    logweight = log(1e-99);
-    return logweight;
-  } else {
-    logweight += log(fResEnergyB2->p(b2_fit_e, b2_meas_e, &TFgoodTmp));
-  }
+  logweight += fResEnergyB2->logp(b2_fit_e, b2_meas_e, &TFgoodTmp);
   if (!TFgoodTmp) fTFgood = false;
 
-  if (logweight + 10 == logweight) std::cout << "TF b2 inf! : " << log(fResEnergyB2->p(b2_fit_e, b2_meas_e, &TFgoodTmp)) << std::endl;
+  if (logweight + 10 == logweight) std::cout << "TF b2 inf! : " << fResEnergyB2->logp(b2_fit_e, b2_meas_e, &TFgoodTmp) << std::endl;
 
   // lepton energy resolution terms EM
   if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kMuon) {
-    if (fResLepton1->p(lep1_fit_e, lep1_meas_e, &TFgoodTmp) == 0.) {
-      logweight = log(1e-99);
-      return logweight;
-    } else {
-      logweight += log(fResLepton1->p(lep1_fit_e, lep1_meas_e, &TFgoodTmp));
-    }
+    logweight += fResLepton1->logp(lep1_fit_e, lep1_meas_e, &TFgoodTmp);
 
-    if (fResLepton2->p(lep2_fit_e*lep2_meas_sintheta, lep2_meas_pt, &TFgoodTmp) == 0.) {
-      logweight = log(1e-99);
-      return logweight;
-    } else {
-      logweight += log(fResLepton2->p(lep2_fit_e*lep2_meas_sintheta, lep2_meas_pt, &TFgoodTmp));
-    }
+    logweight += fResLepton2->logp(lep2_fit_e*lep2_meas_sintheta, lep2_meas_pt, &TFgoodTmp);
     if (!TFgoodTmp) fTFgood = false;
 
-    if (logweight + 10 == logweight) std::cout << "TF lep emu inf! : "<< log(fResLepton1->p(lep1_fit_e, lep1_meas_e, &TFgoodTmp)) <<" and "<< log(fResLepton2->p(lep2_fit_e*lep2_meas_sintheta, lep2_meas_pt, &TFgoodTmp)) <<std::endl;
+    if (logweight + 10 == logweight) std::cout << "TF lep emu inf! : "<< fResLepton1->logp(lep1_fit_e, lep1_meas_e, &TFgoodTmp) <<" and "<< fResLepton2->logp(lep2_fit_e*lep2_meas_sintheta, lep2_meas_pt, &TFgoodTmp) <<std::endl;
   } else if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kElectron) {
     // lepton energy resolution terms EE
-    if (fResLepton1->p(lep1_fit_e, lep1_meas_e, &TFgoodTmp) == 0.) {
-      logweight = log(1e-99);
-      return logweight;
-    } else {
-      logweight += log(fResLepton1->p(lep1_fit_e, lep1_meas_e, &TFgoodTmp));
-    }
+    logweight += fResLepton1->logp(lep1_fit_e, lep1_meas_e, &TFgoodTmp);
 
-    if (fResLepton2->p(lep2_fit_e, lep2_meas_e, &TFgoodTmp) == 0.) {
-      logweight = log(1e-99);
-      return logweight;
-    } else {
-      logweight += log(fResLepton2->p(lep2_fit_e, lep2_meas_e, &TFgoodTmp));
-    }
+    logweight += fResLepton2->logp(lep2_fit_e, lep2_meas_e, &TFgoodTmp);
     if (!TFgoodTmp) fTFgood = false;
 
-    if (logweight + 10 == logweight) std::cout << "TF lep ee inf! : " << log(fResLepton1->p(lep1_fit_e, lep1_meas_e, &TFgoodTmp)) << " and " << log(fResLepton2->p(lep2_fit_e, lep2_meas_e, &TFgoodTmp)) << std::endl;
+    if (logweight + 10 == logweight) std::cout << "TF lep ee inf! : " << fResLepton1->logp(lep1_fit_e, lep1_meas_e, &TFgoodTmp) << " and " << fResLepton2->logp(lep2_fit_e, lep2_meas_e, &TFgoodTmp) << std::endl;
   } else if (fTypeLepton_1 == kMuon && fTypeLepton_2 == kMuon) {
     // lepton energy resolution terms MM
-    if (fResLepton1->p(lep1_fit_e*lep1_meas_sintheta, lep1_meas_pt, &TFgoodTmp) == 0.) {
-      logweight = log(1e-99);
-      return logweight;
-    } else {
-      logweight += log(fResLepton1->p(lep1_fit_e*lep1_meas_sintheta, lep1_meas_pt, &TFgoodTmp));
-    }
+    logweight += fResLepton1->logp(lep1_fit_e*lep1_meas_sintheta, lep1_meas_pt, &TFgoodTmp);
 
-    if (fResLepton2->p(lep2_fit_e*lep2_meas_sintheta, lep2_meas_pt, &TFgoodTmp) == 0.) {
-      logweight = log(1e-99);
-      return logweight;
-    } else {
-      logweight += log(fResLepton2->p(lep2_fit_e*lep2_meas_sintheta, lep2_meas_pt, &TFgoodTmp));
-    }
+    logweight += fResLepton2->logp(lep2_fit_e*lep2_meas_sintheta, lep2_meas_pt, &TFgoodTmp);
     if (!TFgoodTmp) fTFgood = false;
 
-    if (logweight + 10 == logweight) std::cout << "TF lep mumu inf! : " << log(fResLepton1->p(lep1_fit_e*lep1_meas_sintheta, lep1_meas_pt, &TFgoodTmp)) << " and " << log(fResLepton2->p(lep2_fit_e*lep2_meas_sintheta, lep2_meas_pt, &TFgoodTmp)) << std::endl;
+    if (logweight + 10 == logweight) std::cout << "TF lep mumu inf! : " << fResLepton1->logp(lep1_fit_e*lep1_meas_sintheta, lep1_meas_pt, &TFgoodTmp) << " and " << fResLepton2->logp(lep2_fit_e*lep2_meas_sintheta, lep2_meas_pt, &TFgoodTmp) << std::endl;
   }
 
   // Antineutrino eta term
@@ -947,59 +907,27 @@ std::vector<double> KLFitter::LikelihoodTopDilepton::LogLikelihoodComponents(std
   }
 
   // jet energy resolution terms
-  if (fResEnergyB1->p(b1_fit_e, b1_meas_e, &TFgoodTmp) == 0.) {
-    vecci.push_back(log(1e-99));
-  } else {
-    vecci.push_back(log(fResEnergyB1->p(b1_fit_e, b1_meas_e, &TFgoodTmp)));  // comp1
-  }
+  vecci.push_back(fResEnergyB1->logp(b1_fit_e, b1_meas_e, &TFgoodTmp));  // comp1
   if (!TFgoodTmp) fTFgood = false;
 
-  if (fResEnergyB2->p(b2_fit_e, b2_meas_e, &TFgoodTmp) == 0.) {
-    vecci.push_back(log(1e-99));
-  } else {
-    vecci.push_back(log(fResEnergyB2->p(b2_fit_e, b2_meas_e, &TFgoodTmp)));  // comp2
-  }
+  vecci.push_back(fResEnergyB2->logp(b2_fit_e, b2_meas_e, &TFgoodTmp));  // comp2
   if (!TFgoodTmp) fTFgood = false;
 
   // lepton energy resolution terms
   if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kMuon) {
-    if (fResLepton1->p(lep1_fit_e, lep1_meas_e, &TFgoodTmp) == 0.) {
-      vecci.push_back(log(1e-99));
-    } else {
-      vecci.push_back(log(fResLepton1->p(lep1_fit_e, lep1_meas_e, &TFgoodTmp)));  // comp3
-    }
+    vecci.push_back(fResLepton1->logp(lep1_fit_e, lep1_meas_e, &TFgoodTmp));  // comp3
 
-    if (fResLepton2->p(lep2_fit_e*lep2_meas_sintheta, lep2_meas_pt, &TFgoodTmp) == 0.) {
-      vecci.push_back(log(1e-99));
-    } else {
-      vecci.push_back(log(fResLepton2->p(lep2_fit_e* lep2_meas_sintheta, lep2_meas_pt, &TFgoodTmp)));  // comp4
-    }
+    vecci.push_back(fResLepton2->logp(lep2_fit_e* lep2_meas_sintheta, lep2_meas_pt, &TFgoodTmp));  // comp4
     if (!TFgoodTmp) fTFgood = false;
   } else if (fTypeLepton_1 == kElectron && fTypeLepton_2 == kElectron) {
-    if (fResLepton1->p(lep1_fit_e, lep1_meas_e, &TFgoodTmp) == 0.) {
-      vecci.push_back(log(1e-99));
-    } else {
-      vecci.push_back(log(fResLepton1->p(lep1_fit_e, lep1_meas_e, &TFgoodTmp)));  // comp3
-    }
+    vecci.push_back(fResLepton1->logp(lep1_fit_e, lep1_meas_e, &TFgoodTmp));  // comp3
 
-    if (fResLepton2->p(lep2_fit_e, lep2_meas_e, &TFgoodTmp) == 0.) {
-      vecci.push_back(log(1e-99));
-    } else {
-      vecci.push_back(log(fResLepton2->p(lep2_fit_e, lep2_meas_e, &TFgoodTmp)));  // comp4
-    }
+    vecci.push_back(fResLepton2->logp(lep2_fit_e, lep2_meas_e, &TFgoodTmp));  // comp4
     if (!TFgoodTmp) fTFgood = false;
   } else if (fTypeLepton_1 == kMuon && fTypeLepton_2 == kMuon) {
-    if (fResLepton1->p(lep1_fit_e*lep1_meas_sintheta, lep1_meas_pt, &TFgoodTmp) == 0.) {
-      vecci.push_back(log(1e-99));
-    } else {
-      vecci.push_back(log(fResLepton1->p(lep1_fit_e* lep1_meas_sintheta, lep1_meas_pt, &TFgoodTmp)));  // comp3
-    }
+    vecci.push_back(fResLepton1->logp(lep1_fit_e* lep1_meas_sintheta, lep1_meas_pt, &TFgoodTmp));  // comp3
 
-    if (fResLepton2->p(lep2_fit_e*lep2_meas_sintheta, lep2_meas_pt, &TFgoodTmp) == 0.) {
-      vecci.push_back(log(1e-99));
-    } else {
-      vecci.push_back(log(fResLepton2->p(lep2_fit_e* lep2_meas_sintheta, lep2_meas_pt, &TFgoodTmp)));  // comp4
-    }
+    vecci.push_back(fResLepton2->logp(lep2_fit_e* lep2_meas_sintheta, lep2_meas_pt, &TFgoodTmp));  // comp4
     if (!TFgoodTmp) fTFgood = false;
   }
 

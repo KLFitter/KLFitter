@@ -61,15 +61,15 @@ class ResolutionBase {
   virtual double GetSigma(double par) = 0;
 
   /**
-   * Return the probability of the true value of x given the
-   * measured value, xmeas.
-   * @param x The true value of x.
-   * @param xmeas The measured value of x.
-   * @param good False if problem with TF.
-   * @param par Optional additional parameter (SumET in case of MET TF).
-   * @return The probability.
-   */
-  virtual double p(double /*x*/, double /*xmeas*/, bool *good, double /*par*/ = 0) { *good = true; return 0; }
+    * Return the probability of the true value of x given the
+    * measured value, xmeas.
+    * @param x The true value of x.
+    * @param xmeas The measured value of x.
+    * @param good False if problem with TF.
+    * @param par Optional additional parameter (SumET in case of MET TF).
+    * @return Logarithm of the probability.
+    */
+  virtual double logp(double /*x*/, double /*xmeas*/, bool *good, double /*par*/ = 0) { *good = true; return 0; }
 
   /**
    * Return a parameter of the parameterization.
@@ -103,12 +103,12 @@ class ResolutionBase {
   /** @{ */
 
   /**
-   * Read parameter values from ASCII file.
-   * @param filename The name of the file.
-   * @param nparameters The number of parameters.
-   * @return An error code.
-   */
-  int ReadParameters(const char * filename, int nparameters);
+    * Read parameter values from ASCII file.
+    * @param filename The name of the file.
+    * @param nparameters The number of parameters.
+    * @return An error code.
+    */
+  int ReadParameters(const char * filename, std::size_t nparameters);
 
   /**
    * Return a status code.

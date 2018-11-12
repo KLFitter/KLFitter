@@ -61,15 +61,15 @@ class ResGauss_MET : public ResolutionBase {
   double GetSigma(double sumet) override;
 
   /**
-   * Return the probability of the true value of x given the
-   * measured value, xmeas.
-   * @param x The true value of x.
-   * @param xmeas The measured value of x.
-   * @param good False if problem with TF.
-   * @param sumet SumET, as the width of the TF depends on this.
-   * @return The probability.
-   */
-  double p(double x, double xmeas, bool *good, double sumet) override;
+    * Return the probability of the true value of x given the
+    * measured value, xmeas.
+    * @param x The true value of x.
+    * @param xmeas The measured value of x.
+    * @param good False if problem with TF.
+    * @param sumet SumET, as the width of the TF depends on this.
+    * @return Logarithm of the probability.
+    */
+  double logp(double x, double xmeas, bool *good, double sumet) override;
 
   /** @} */
   /** \name Member functions (Set)  */

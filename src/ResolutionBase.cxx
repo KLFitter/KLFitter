@@ -99,7 +99,7 @@ int KLFitter::ResolutionBase::SetPar(std::vector <double> parameters) {
 }
 
 // ---------------------------------------------------------
-int KLFitter::ResolutionBase::ReadParameters(const char * filename, int nparameters) {
+int KLFitter::ResolutionBase::ReadParameters(const char * filename, std::size_t nparameters) {
   // define input file
   std::ifstream inputfile;
 
@@ -116,10 +116,15 @@ int KLFitter::ResolutionBase::ReadParameters(const char * filename, int nparamet
   fParameters.clear();
 
   // read parameters
-  for (int i = 0; i < nparameters; ++i) {
-    double par = 0.0;
-    inputfile >> par;
+  double par = 0.0;
+  while (inputfile >> par) {
     fParameters.push_back(par);
+  }
+
+  if (fParameters.size() != nparameters){
+    std::cout << "KLFitter::ResolutionBase::ReadParameters(). Expecting " << nparameters
+      << ", parameters for Transfer fuctions but " << fParameters.size() << " parameters found" << std::endl;
+    return 0;
   }
 
   // close file
