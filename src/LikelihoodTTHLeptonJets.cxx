@@ -193,7 +193,7 @@ void KLFitter::LikelihoodTTHLeptonJets::DefineParameters() {
   AddParameter("top mass",              100.0, 1000.0);                              // parTopM
   AddParameter("energy Higgs b quark 1",  fPhysicsConstants.MassBottom(), 1000.0);  // parBHiggs1E
   AddParameter("energy Higgs b quark 2",  fPhysicsConstants.MassBottom(), 1000.0);  // parBHiggs2E
-  if (fFlagHiggsMassFixed)  AddParameter("Higgs mass",              100.0, 1000.0);  // parHiggsM
+  AddParameter("Higgs mass",              100.0, 1000.0);  // parHiggsM
 }
 
 // ---------------------------------------------------------
