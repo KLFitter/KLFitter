@@ -437,6 +437,10 @@ int KLFitter::Permutations::InvariantParticleGroupPermutations(KLFitter::Particl
     // get permutation
     const std::vector<int> permutation1 = fPermutationTable[iperm1];
 
+    // Count numbers of removed permutations to adjust the index for the
+    // for-loop over permutation 1.
+    unsigned int removed_perms = 0;
+
     for (int iperm2 = iperm1-1; iperm2 >= 0; --iperm2) {
       // get second permutation
       const std::vector<int> permutation2 = fPermutationTable[iperm2];
@@ -457,8 +461,14 @@ int KLFitter::Permutations::InvariantParticleGroupPermutations(KLFitter::Particl
         fPermutationTable.erase(fPermutationTable.begin() + iperm2);
 
         fParticlesTable.erase(fParticlesTable.begin() + iperm2);
+
+        removed_perms++;
       }
     }  // second permutation
+
+    // Decrement the first permutation index by the number of removed
+    // permutations, otherwise we might go out of scope..
+    iperm1 -= removed_perms;
   }  // first permutation
 
   // return error code
