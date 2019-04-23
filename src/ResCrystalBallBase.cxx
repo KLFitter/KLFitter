@@ -47,8 +47,8 @@ KLFitter::ResCrystalBallBase::~ResCrystalBallBase() = default;
 
 // ---------------------------------------------------------
 double KLFitter::ResCrystalBallBase::logp(double x, double xmeas, bool *good, double /*par*/) {
-  static constexpr double overSqrt2 = 1./std::sqrt(2.);
-  static constexpr double sqrtPiHalf = std::sqrt(M_PI/2.);
+  static const double overSqrt2 = 1./std::sqrt(2.);
+  static const double sqrtPiHalf = std::sqrt(M_PI/2.);
 
   double alpha = GetAlpha(x);
   double n = GetN(x);
