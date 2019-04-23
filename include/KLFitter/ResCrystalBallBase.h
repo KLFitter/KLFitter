@@ -78,9 +78,9 @@ class ResCrystalBallBase : public ResolutionBase {
     * @param xmeas The measured value of x.
     * @param good False if problem with TF.
     * @param par Optional additional parameter (not used here).
-    * @return The probability.
+    * @return Logarithm of the probability.
     */
-  double p(double x, double xmeas, bool *good, double /*par*/ = 0) override;
+  double logp(double x, double xmeas, bool *good, double /*par*/ = 0) override;
 
   /**
     * Sanity check for the crystal ball parameters sigma, and n (1st sigma, scale and 2nd sigma).
@@ -109,9 +109,17 @@ class ResCrystalBallBase : public ResolutionBase {
    * @param n parameter
    * @param sigma parameter
    * @param mean parameter
-   * @return CrystalBall value for X
+   * @return Logarithm of CrystalBall value for X
    */
-  double CrystalBallFunction(double x, double alpha, double n, double sigma, double mean);
+  double LogCrystalBallFunction(double x, double alpha, double n, double sigma, double mean);
+
+  /**
+   * An approximation of the error function needed to calculate crystal ball normalization
+   * with precision < 1e-4. Decreases computation time by about 10%.
+   * @param x
+   * @return Approximate value of the error function for x
+   */
+  double ApproxError(double x);
 };
 }  // namespace KLFitter
 

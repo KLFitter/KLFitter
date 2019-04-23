@@ -47,9 +47,11 @@ double KLFitter::ResGauss_MET::GetSigma(double sumet) {
 }
 
 // ---------------------------------------------------------
-double KLFitter::ResGauss_MET::p(double x, double xmeas, bool *good, double sumet) {
+double KLFitter::ResGauss_MET::logp(double x, double xmeas, bool *good, double sumet) {
+  static const double logSqrtTwoPi = 0.5*std::log(2*M_PI);
+
   *good = true;
   // calculate MET TF with 4 parameters (MC10b or later)
   double sigma = GetSigma(sumet);
-  return TMath::Gaus(xmeas, x, sigma, true);
+  return -logSqrtTwoPi - std::log(sigma) - (0.5*(xmeas-x)*(xmeas-x)/sigma/sigma);
 }

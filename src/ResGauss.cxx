@@ -44,7 +44,11 @@ double KLFitter::ResGauss::GetSigma(double /*par*/) {
 }
 
 // ---------------------------------------------------------
-double KLFitter::ResGauss::p(double x, double xmeas, bool *good, double /*par*/) {
+double KLFitter::ResGauss::logp(double x, double xmeas, bool *good, double /*par*/) {
+  static const double logSqrtTwoPi = 0.5*std::log(2*M_PI);
+
+  const double sigma = GetSigma(x);
   *good = true;
-  return TMath::Gaus(xmeas, x, fParameters[0], true);
+
+  return -logSqrtTwoPi - std::log(sigma) - (0.5*(xmeas-x)*(xmeas-x)/sigma/sigma);
 }

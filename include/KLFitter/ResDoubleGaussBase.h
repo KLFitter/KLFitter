@@ -105,7 +105,7 @@ class ResDoubleGaussBase : public ResolutionBase {
    * @param par Optional additional parameter (not used here).
    * @return The probability.
    */
-  double p(double x, double xmeas, bool *good, double /*par*/ = 0) override;
+  double logp(double x, double xmeas, bool *good, double /*par*/ = 0) override;
 
   /** @} */
 

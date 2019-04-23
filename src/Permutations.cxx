@@ -437,6 +437,10 @@ int Permutations::InvariantParticleGroupPermutations(Particles::Type ptype, std:
     // get permutation
     const std::vector<int> permutation1 = m_permutation_table[iperm1];
 
+    // Count numbers of removed permutations to adjust the index for the
+    // for-loop over permutation 1.
+    unsigned int removed_perms = 0;
+
     for (int iperm2 = iperm1-1; iperm2 >= 0; --iperm2) {
       // get second permutation
       const std::vector<int> permutation2 = m_permutation_table[iperm2];
@@ -457,8 +461,14 @@ int Permutations::InvariantParticleGroupPermutations(Particles::Type ptype, std:
         m_permutation_table.erase(m_permutation_table.begin() + iperm2);
 
         m_particles_table.erase(m_particles_table.begin() + iperm2);
+
+        removed_perms++;
       }
     }  // second permutation
+
+    // Decrement the first permutation index by the number of removed
+    // permutations, otherwise we might go out of scope..
+    iperm1 -= removed_perms;
   }  // first permutation
 
   // return error code
