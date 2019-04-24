@@ -149,6 +149,8 @@ int KLFitter::Fitter::Fit(int index) {
   if (!Status())
     return 0;
 
+  if (fPermutations->IsVetoed(index)) return 0;
+
   // set permutation
   if (!fPermutations->SetPermutation(index))
     return 0;
@@ -282,6 +284,8 @@ int KLFitter::Fitter::Fit() {
 
   // loop over all permutations
   for (int ipermutation = 0; ipermutation < npermutations; ++ipermutation) {
+    if (fPermutations->IsVetoed(ipermutation)) continue;
+
     // set permutation
     if (!fPermutations->SetPermutation(ipermutation))
       return 0;

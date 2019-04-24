@@ -20,7 +20,7 @@
 #ifndef KLFITTER_PERMUTATIONS_H_
 #define KLFITTER_PERMUTATIONS_H_
 
-#include <list>
+#include <deque>
 #include <vector>
 
 #include "KLFitter/ParticleCollection.h"
@@ -34,11 +34,14 @@ namespace KLFitter {
  * calculate all possible permutations.
  */
 struct Permutation {
-  std::list<int> partons;
-  std::list<int> electrons;
-  std::list<int> muons;
-  std::list<int> photons;
-  std::list<int> tracks;
+  std::deque<int> partons{};
+  std::deque<int> electrons{};
+  std::deque<int> muons{};
+  std::deque<int> photons{};
+  std::deque<int> tracks{};
+
+  /// Boolean whether permutation is vetoed.
+  bool vetoed{false};
 
   /// Calculate the next possible permutation.
   bool next_permutation() {
@@ -90,6 +93,8 @@ class Permutations final {
    */
   KLFitter::ParticleCollection* ParticlesPermuted() { return *m_particles_permuted; }
 
+  const std::deque<Permutation>& GetList() { return m_permutation_list; }
+
   /**
    * Return the number of permutations.
    */
@@ -111,6 +116,8 @@ class Permutations final {
    * @return An error code.
    */
   int SetParticles(KLFitter::ParticleCollection* particles);
+
+  bool IsVetoed(int index);
 
   /**
    * Set the permutation.
@@ -135,10 +142,10 @@ class Permutations final {
    * interchanging for example jets doesn't have any effect,
    * e.g., if two jets come from a W (top).
    * @param ptype The type of the particle.
-   * @param indexVector Vector of indices.
+   * @param indices Vector of indices.
    * @return An error code.
    */
-  int InvariantParticlePermutations(Particles::Type ptype, std::vector<int> indexVector);
+  int InvariantParticlePermutations(Particles::Type ptype, std::vector<int> indices);
 
   /**
    * Remove permutations in which all indices in the vector
@@ -189,7 +196,7 @@ class Permutations final {
 
   /// A list of permutations. Needed for the math.
   std::vector<std::vector<int> > m_permutation_table;
-  std::list<Permutation> m_permutation_list;
+  std::deque<Permutation> m_permutation_list;
 
   /// The permutation index
   int m_permutation_index;

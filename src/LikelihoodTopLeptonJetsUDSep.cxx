@@ -103,30 +103,29 @@ int LikelihoodTopLeptonJetsUDSep::RemoveInvariantParticlePermutations() {
   int err = 1;
 
   Particles::Type ptype = Particles::Type::kParton;
-  std::vector<int> indexVector_Jets;
   // remove invariant jet permutations of all jets not considered
   const ParticleCollection* particles = (*fPermutations)->Particles();
-  indexVector_Jets.clear();
+  std::vector<int> indices;
   for (size_t iPartons = 4; iPartons < particles->partons.size(); iPartons++) {
-    indexVector_Jets.push_back(iPartons);
+    indices.emplace_back(iPartons);
   }
-  err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Jets);
+  err *= (*fPermutations)->InvariantParticlePermutations(ptype, indices);
 
   // remove the permutation from the other lepton
   if (m_lepton_type == kElectron) {
     ptype = Particles::Type::kMuon;
-    std::vector<int> indexVector_Muons;
+    indices.clear();
     for (size_t iMuon = 0; iMuon < particles->muons.size(); iMuon++) {
-      indexVector_Muons.push_back(iMuon);
+      indices.emplace_back(iMuon);
     }
-    err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Muons);
+    err *= (*fPermutations)->InvariantParticlePermutations(ptype, indices);
   } else if (m_lepton_type == kMuon) {
     ptype = Particles::Type::kElectron;
-    std::vector<int> indexVector_Electrons;
+    indices.clear();
     for (size_t iElectron = 0; iElectron < particles->electrons.size(); iElectron++) {
-      indexVector_Electrons.push_back(iElectron);
+      indices.emplace_back(iElectron);
     }
-    err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Electrons);
+    err *= (*fPermutations)->InvariantParticlePermutations(ptype, indices);
   }
 
   // return error code

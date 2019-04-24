@@ -43,6 +43,11 @@ Permutations::~Permutations() = default;
 Permutations& Permutations::operator=(const Permutations& obj) = default;
 
 // ---------------------------------------------------------
+bool Permutations::IsVetoed(int index) {
+  return m_permutation_list.at(index).vetoed;
+}
+
+// ---------------------------------------------------------
 int Permutations::SetPermutation(int index) {
   // check index
   if (index < 0 || index >= NPermutations()) {
@@ -166,81 +171,58 @@ int Permutations::CreatePermutations() {
 int Permutations::Reset() {
   // Clear particle and permutation tables.
   m_particles_table.clear();
-  m_permutation_table.clear();
+  m_permutation_list.clear();
 
   // no error
   return 1;
 }
 
 // ---------------------------------------------------------
-int Permutations::InvariantParticlePermutations(Particles::Type ptype, std::vector<int> indexVector) {
+int Permutations::InvariantParticlePermutations(Particles::Type ptype, std::vector<int> indices) {
   // check if particles are defined
-  if (!CheckParticles())
-    return 0;
-
-  // check indices
-  std::set<int> indexSet;
-  for (unsigned int i = 0, I = indexVector.size(); i < I; i++) {
-    if (indexSet.find(indexVector[i]) != indexSet.end()) {
-      std::cout << "KLFitter::Permutations::InvariantParticlePermutations(). Indices have to be different." << std::endl;
-      return 0;
-    } else {
-      indexSet.insert(indexVector[i]);
-    }
-  }
-
-  for (unsigned int i = 0, I = indexVector.size(); i < I; i++) {
-    int index = indexVector[i];
-    if (index < 0 || static_cast<size_t>(index) >= (*m_particles)->NParticles(ptype)) {
-      std::cout << "KLFitter::Permutations::InvariantParticlePermutations(). Index out of range." << std::endl;
-      return 0;
-    }
-  }
-
-  // swap indices
-  indexVector.clear();
-  std::set<int>::iterator it_indexSetBegin = indexSet.begin();
-  std::set<int>::iterator it_indexSetEnd   = indexSet.end();
-  for (; it_indexSetBegin != it_indexSetEnd; it_indexSetBegin++)
-    indexVector.push_back(*it_indexSetBegin);
+  if (!CheckParticles()) return 0;
 
   // no error
   int err = 1;
 
-  // loop over all permutations (if there are only 2 indices left)
-  if (indexVector.size() == 2) {
-    // get number of permutations
-    int nperm = NPermutations();
+  if (indices.size() == 2) {
+    // If we only need to compare two indices, things are easy:
+    // we can go through the list of permutations, and veto all
+    // permutations, where the position of the first index is
+    // larger than that of the second index. This way we only
+    // keep permutations with pos(index1) < pos(index2).
+    auto index1 = indices.at(0);
+    auto index2 = indices.at(1);
 
-    for (int iperm = nperm-1; iperm >= 0; --iperm) {
-      int offset = 0;
-      for (Particles::Type itype = Particles::Type::kParton; itype < ptype; ++itype)
-        offset += (*m_particles)->NParticles(itype);
-      int index1 = indexVector[0] + offset;
-      int index2 = indexVector[1] + offset;
-
-      // get permutation
-      const std::vector<int>& permutation = m_permutation_table[iperm];
-
-      // check indices
-      if (permutation[index1] >= permutation[index2]) {
-        m_permutation_table.erase(m_permutation_table.begin() + iperm);
-
-        m_particles_table.erase(m_particles_table.begin() + iperm);
+    for (auto& iperm : m_permutation_list) {
+      if (ptype == Particles::Type::kParton && iperm.partons.at(index1) > iperm.partons.at(index2)) {
+        iperm.vetoed = true;
+      }
+      if (ptype == Particles::Type::kElectron && iperm.electrons.at(index1) > iperm.electrons.at(index2)) {
+        iperm.vetoed = true;
+      }
+      if (ptype == Particles::Type::kMuon && iperm.muons.at(index1) > iperm.muons.at(index2)) {
+        iperm.vetoed = true;
+      }
+      if (ptype == Particles::Type::kPhoton && iperm.photons.at(index1) > iperm.photons.at(index2)) {
+        iperm.vetoed = true;
+      }
+      if (ptype == Particles::Type::kTrack && iperm.tracks.at(index1) > iperm.tracks.at(index2)) {
+        iperm.vetoed = true;
       }
     }
   } else {
-    // repeat until there are only 2 indices left
-    while (indexVector.size() >= 2) {
-      int index2 = indexVector.back();
-      for (unsigned int i = 0, I = indexVector.size()-1; i < I; i++) {
-        int index1 = indexVector[i];
-        std::vector<int> newIndexVector;
-        newIndexVector.push_back(index1);
-        newIndexVector.push_back(index2);
-        err *= InvariantParticlePermutations(ptype, newIndexVector);
+    // In case we have more than two indices, take the last entry
+    // in the index vector and compare it with all the others.
+    // When compared, remove that last entry from the index
+    // vector. Repeat until only two indices are left.
+    while (indices.size() >= 2) {
+      int index2 = indices.back();
+      for (unsigned int i = 0, I = indices.size()-1; i < I; i++) {
+        int index1 = indices.at(i);
+        err *= InvariantParticlePermutations(ptype, std::vector<int>{index1, index2});
       }
-      indexVector.erase(--indexVector.end());
+      indices.erase(--indices.end());
     }
   }
 
@@ -335,9 +317,9 @@ int Permutations::InvariantParticleGroupPermutations(Particles::Type ptype, std:
       }
 
       if (numberOfInvariantMatches == indexVectorPosition1.size()) {
-        m_permutation_table.erase(m_permutation_table.begin() + iperm2);
+        // m_permutation_table.erase(m_permutation_table.begin() + iperm2);
 
-        m_particles_table.erase(m_particles_table.begin() + iperm2);
+        // m_particles_table.erase(m_particles_table.begin() + iperm2);
 
         removed_perms++;
       }
@@ -358,27 +340,14 @@ int Permutations::RemoveParticlePermutations(Particles::Type ptype, int index, i
   if (!CheckParticles())
     return 0;
 
-  // check index
-  if (index < 0 || static_cast<size_t>(index) >= (*m_particles)->NParticles(ptype)) {
-    std::cout << "KLFitter::Permutations::RemoveParticlePermutations(). Index out of range." << std::endl;
-    return 0;
-  }
-
-  // get offset for the particle type
-  int offset = 0;
-  for (Particles::Type itype = Particles::Type::kParton; itype < ptype; ++itype)
-    offset += (*m_particles)->NParticles(itype);
-  position += offset;
-
-  // loop over all permutations
-  for (int iPerm(NPermutations()-1); iPerm >= 0; --iPerm) {
-    const std::vector<int>& permutation = m_permutation_table[iPerm];
-
-    if (permutation[position] == index) {
-      m_permutation_table.erase(m_permutation_table.begin() + iPerm);
-
-      m_particles_table.erase(m_particles_table.begin() + iPerm);
-    }
+  // Veto all permutations, where 'index' is found in the
+  // specified position of the particle container.
+  for (auto& perm : m_permutation_list) {
+    if (ptype == Particles::Type::kParton && perm.partons.at(position) == index) perm.vetoed = true;
+    if (ptype == Particles::Type::kElectron && perm.electrons.at(position) == index) perm.vetoed = true;
+    if (ptype == Particles::Type::kMuon && perm.muons.at(position) == index) perm.vetoed = true;
+    if (ptype == Particles::Type::kPhoton && perm.photons.at(position) == index) perm.vetoed = true;
+    if (ptype == Particles::Type::kTrack && perm.tracks.at(position) == index) perm.vetoed = true;
   }
 
   // return error code;
