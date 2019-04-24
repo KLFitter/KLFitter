@@ -85,10 +85,9 @@ class Fitter final {
   /**
    * Set the particles.
    * @param particles A pointer to a set of particles.
-   * @param nPartonsInPermutations The number of partons per permutation (can be smaller than the number of added partons).
    * @return An error flag.
    */
-  int SetParticles(KLFitter::ParticleCollection * particles, int nPartonsInPermutations = -1);
+  int SetParticles(KLFitter::ParticleCollection * particles);
 
   /**
    * Set truth particles.

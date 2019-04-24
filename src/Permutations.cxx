@@ -123,7 +123,7 @@ int Permutations::SetPermutation(int index) {
 }
 
 // ---------------------------------------------------------
-int Permutations::CreatePermutations(int nPartonsInPermutations) {
+int Permutations::CreatePermutations() {
   // reset existing particle and permuation tables
   Reset();
 
@@ -153,7 +153,7 @@ int Permutations::CreatePermutations(int nPartonsInPermutations) {
 
   // create table for parton, electron, muon, photon, and track's permutations
   m_table_partons = std::vector<std::vector<int> >{};
-  create_subtable(npartons, &m_table_partons, nPartonsInPermutations);
+  create_subtable(npartons, &m_table_partons);
 
   m_table_electrons = std::vector<std::vector<int> >{};
   create_subtable(nelectrons, &m_table_electrons);
@@ -168,8 +168,6 @@ int Permutations::CreatePermutations(int nPartonsInPermutations) {
   create_subtable(ntracks, &m_table_tracks);
 
   int npartonsPerm = npartons;
-  if (nPartonsInPermutations >= 0)
-    npartonsPerm = nPartonsInPermutations;
 
   // get number of possible permutations for each category
   int npermpartons   = m_table_partons.size() <= 0 ? 1 : m_table_partons.size();

@@ -102,10 +102,8 @@ class Permutations final {
 
   /**
    * Create all possible permutations of jets and leptons.
-   * However, make permutations with exactly
-   * nPartonsInPermutations.
    */
-  int CreatePermutations(int nPartonsInPermutations = -1);
+  int CreatePermutations();
 
   /**
    * Remove permutations in which all indices in the vector
