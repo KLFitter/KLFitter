@@ -21,39 +21,8 @@
 
 #include <algorithm>
 #include <iostream>
-#include <list>
 #include <numeric>
 #include <set>
-
-namespace {
-// ---------------------------------------------------------
-struct Permutation {
-  std::list<int> partons;
-  std::list<int> electrons;
-  std::list<int> muons;
-  std::list<int> photons;
-  std::list<int> tracks;
-
-  /// Calculate the next possible permutation.
-  bool next_permutation() {
-    return std::next_permutation(partons.begin(), partons.end())
-      || std::next_permutation(electrons.begin(), electrons.end())
-      || std::next_permutation(muons.begin(), muons.end())
-      || std::next_permutation(photons.begin(), photons.end())
-      || std::next_permutation(tracks.begin(), tracks.end());
-  }
-};
-
-// ---------------------------------------------------------
-std::list<Permutation> permute_particles(Permutation& perm) {
-  std::list<Permutation> list;
-  do {
-    list.emplace_back(perm);
-  } while (perm.next_permutation());
-  return list;
-}
-}  // namespace
-
 
 namespace KLFitter {
 // ---------------------------------------------------------
@@ -132,10 +101,12 @@ int Permutations::CreatePermutations() {
   initial_perm.tracks.resize(ntracks);
   std::iota(initial_perm.tracks.begin(), initial_perm.tracks.end(), 0);
 
-  // Get list of all possible permutations.
-  std::list<Permutation> list_of_permutations = permute_particles(initial_perm);
+  // Store a list of all possible permutations.
+  do {
+    m_permutation_list.emplace_back(initial_perm);
+  } while (initial_perm.next_permutation());
 
-  for (const auto& perm : list_of_permutations) {
+  for (const auto& perm : m_permutation_list) {
     // create new permutation
     std::vector<int> permutation(npermoverall);
     ParticleCollection particles{};

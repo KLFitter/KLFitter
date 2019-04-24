@@ -20,6 +20,7 @@
 #ifndef KLFITTER_PERMUTATIONS_H_
 #define KLFITTER_PERMUTATIONS_H_
 
+#include <list>
 #include <vector>
 
 #include "KLFitter/ParticleCollection.h"
@@ -27,6 +28,28 @@
 // ---------------------------------------------------------
 
 namespace KLFitter {
+/**
+ * Simple structure to hold multiple lists, which in turn hold
+ * indices of particles. These lists can then be used to
+ * calculate all possible permutations.
+ */
+struct Permutation {
+  std::list<int> partons;
+  std::list<int> electrons;
+  std::list<int> muons;
+  std::list<int> photons;
+  std::list<int> tracks;
+
+  /// Calculate the next possible permutation.
+  bool next_permutation() {
+    return std::next_permutation(partons.begin(), partons.end())
+      || std::next_permutation(electrons.begin(), electrons.end())
+      || std::next_permutation(muons.begin(), muons.end())
+      || std::next_permutation(photons.begin(), photons.end())
+      || std::next_permutation(tracks.begin(), tracks.end());
+  }
+};
+
 /**
  * Class to calculate and provide permutations of particles. The
  * class gets a pointer to the orignal set of particles and a
@@ -164,8 +187,9 @@ class Permutations final {
   /// A table of permuted particles (jets and leptons).
   std::vector<KLFitter::ParticleCollection> m_particles_table;
 
-  /// A table of permutations. Needed for the math.
+  /// A list of permutations. Needed for the math.
   std::vector<std::vector<int> > m_permutation_table;
+  std::list<Permutation> m_permutation_list;
 
   /// The permutation index
   int m_permutation_index;
