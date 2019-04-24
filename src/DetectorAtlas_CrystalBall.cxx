@@ -39,16 +39,19 @@ DetectorAtlas_CrystalBall::DetectorAtlas_CrystalBall(std::string folder) : Detec
   m_res_energy_light_jet_eta2 = std::unique_ptr<ResolutionBase>(new ResCrystalBallJets{Form("%s/par_energy_lJets_eta2.txt", folder.c_str())});
   m_res_energy_light_jet_eta3 = std::unique_ptr<ResolutionBase>(new ResCrystalBallJets{Form("%s/par_energy_lJets_eta3.txt", folder.c_str())});
   m_res_energy_light_jet_eta4 = std::unique_ptr<ResolutionBase>(new ResCrystalBallJets{Form("%s/par_energy_lJets_eta4.txt", folder.c_str())});
+  m_res_energy_light_jet_eta5 = std::unique_ptr<ResolutionBase>(new ResCrystalBallJets{Form("%s/par_energy_lJets_eta5.txt", folder.c_str())});
 
   m_res_energy_bjet_eta1     = std::unique_ptr<ResolutionBase>(new ResCrystalBallJets{Form("%s/par_energy_bJets_eta1.txt", folder.c_str())});
   m_res_energy_bjet_eta2     = std::unique_ptr<ResolutionBase>(new ResCrystalBallJets{Form("%s/par_energy_bJets_eta2.txt", folder.c_str())});
   m_res_energy_bjet_eta3     = std::unique_ptr<ResolutionBase>(new ResCrystalBallJets{Form("%s/par_energy_bJets_eta3.txt", folder.c_str())});
   m_res_energy_bjet_eta4     = std::unique_ptr<ResolutionBase>(new ResCrystalBallJets{Form("%s/par_energy_bJets_eta4.txt", folder.c_str())});
+  m_res_energy_bjet_eta5     = std::unique_ptr<ResolutionBase>(new ResCrystalBallJets{Form("%s/par_energy_bJets_eta5.txt", folder.c_str())});
 
   m_res_energy_gluon_jet_eta1 = std::unique_ptr<ResolutionBase>(new ResCrystalBallJets{Form("%s/par_energy_gluon_eta1.txt", folder.c_str())});
   m_res_energy_gluon_jet_eta2 = std::unique_ptr<ResolutionBase>(new ResCrystalBallJets{Form("%s/par_energy_gluon_eta2.txt", folder.c_str())});
   m_res_energy_gluon_jet_eta3 = std::unique_ptr<ResolutionBase>(new ResCrystalBallJets{Form("%s/par_energy_gluon_eta3.txt", folder.c_str())});
   m_res_energy_gluon_jet_eta4 = std::unique_ptr<ResolutionBase>(new ResCrystalBallJets{Form("%s/par_energy_gluon_eta4.txt", folder.c_str())});
+  m_res_energy_gluon_jet_eta5 = std::unique_ptr<ResolutionBase>(new ResCrystalBallJets{Form("%s/par_energy_gluon_eta5.txt", folder.c_str())});
 
   m_res_energy_electron_eta1 = std::unique_ptr<ResolutionBase>(new ResSingleGaussE{Form("%s/par_energy_Electrons_eta1.txt", folder.c_str())});
   m_res_energy_electron_eta2 = std::unique_ptr<ResolutionBase>(new ResSingleGaussE{Form("%s/par_energy_Electrons_eta2.txt", folder.c_str())});
@@ -69,22 +72,26 @@ DetectorAtlas_CrystalBall::DetectorAtlas_CrystalBall(std::string folder) : Detec
   m_res_eta_light_jet_eta2 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_eta_lJets_eta2.txt", folder.c_str())});
   m_res_eta_light_jet_eta3 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_eta_lJets_eta3.txt", folder.c_str())});
   m_res_eta_light_jet_eta4 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_eta_lJets_eta4.txt", folder.c_str())});
+  m_res_eta_light_jet_eta5 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_eta_lJets_eta5.txt", folder.c_str())});
 
   m_res_eta_bjet_eta1 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_eta_bJets_eta1.txt", folder.c_str())});
   m_res_eta_bjet_eta2 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_eta_bJets_eta2.txt", folder.c_str())});
   m_res_eta_bjet_eta3 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_eta_bJets_eta3.txt", folder.c_str())});
   m_res_eta_bjet_eta4 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_eta_bJets_eta4.txt", folder.c_str())});
+  m_res_eta_bjet_eta5 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_eta_bJets_eta5.txt", folder.c_str())});
 
   // phi resolution
   m_res_phi_light_jet_eta1 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_phi_lJets_eta1.txt", folder.c_str())});
   m_res_phi_light_jet_eta2 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_phi_lJets_eta2.txt", folder.c_str())});
   m_res_phi_light_jet_eta3 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_phi_lJets_eta3.txt", folder.c_str())});
   m_res_phi_light_jet_eta4 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_phi_lJets_eta4.txt", folder.c_str())});
+  m_res_phi_light_jet_eta5 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_phi_lJets_eta5.txt", folder.c_str())});
 
   m_res_phi_bjet_eta1 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_phi_bJets_eta1.txt", folder.c_str())});
   m_res_phi_bjet_eta2 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_phi_bJets_eta2.txt", folder.c_str())});
   m_res_phi_bjet_eta3 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_phi_bJets_eta3.txt", folder.c_str())});
   m_res_phi_bjet_eta4 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_phi_bJets_eta4.txt", folder.c_str())});
+  m_res_phi_bjet_eta5 = std::unique_ptr<ResolutionBase>(new ResGauss{Form("%s/par_phi_bJets_eta5.txt", folder.c_str())});
 
   m_res_missing_ET = std::unique_ptr<ResolutionBase>(new ResSingleGaussMET{Form("%s/par_misset.txt", folder.c_str())});
 }
@@ -102,6 +109,8 @@ ResolutionBase* DetectorAtlas_CrystalBall::ResEnergyLightJet(double eta) {
     return m_res_energy_light_jet_eta3.get();
   } else if (fabs(eta) <= m_jet_eta_bin_4) {
     return m_res_energy_light_jet_eta4.get();
+  } else if (fabs(eta) <= m_jet_eta_bin_5) {
+    return m_res_energy_light_jet_eta5.get();
   } else {
     std::cout << "DetectorAtlas_CrystalBall::ResEnergyLightJet(). Eta range exceeded." << std::endl;
     return nullptr;
@@ -118,6 +127,8 @@ ResolutionBase* DetectorAtlas_CrystalBall::ResEnergyBJet(double eta) {
     return m_res_energy_bjet_eta3.get();
   } else if (fabs(eta) <= m_jet_eta_bin_4) {
     return m_res_energy_bjet_eta4.get();
+  } else if (fabs(eta) <= m_jet_eta_bin_5) {
+    return m_res_energy_bjet_eta5.get();
   } else {
     std::cout << "DetectorAtlas_CrystalBall::ResEnergyBJet(). Eta range exceeded." << std::endl;
     return nullptr;

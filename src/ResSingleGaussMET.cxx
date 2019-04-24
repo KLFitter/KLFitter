@@ -32,7 +32,7 @@ KLFitter::ResSingleGaussMET::ResSingleGaussMET(std::vector<double> const& parame
 KLFitter::ResSingleGaussMET::~ResSingleGaussMET() = default;
 
 // ---------------------------------------------------------
-double KLFitter::ResSingleGaussMET::GetMean(double x) {
+double KLFitter::ResSingleGaussMET::GetMean(double /*x*/) {
   return 0;
 }
 
