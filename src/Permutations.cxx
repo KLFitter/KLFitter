@@ -24,6 +24,7 @@
 #include <set>
 
 namespace {
+// ---------------------------------------------------------
 std::vector<int> get_int_vector(int i) {
   std::vector<int> vtmp;
   vtmp.push_back(i);
@@ -53,6 +54,29 @@ std::vector<std::vector<int> > get_m_from_n(unsigned int N, unsigned int M, unsi
     }
   }
   return v;
+}
+
+// ---------------------------------------------------------
+void create_subtable(int Nobj, std::vector<std::vector<int> >* table, int Nmax = -1) {
+  if (Nmax < 0) {
+    std::vector<int> vidx;
+    for (int i(0); i < Nobj; ++i) {
+      vidx.push_back(i);
+    }
+
+    do {
+      table->emplace_back(std::vector<int>(vidx));
+    } while (std::next_permutation(vidx.begin(), vidx.end()));
+  } else {
+    std::vector<std::vector<int> > v = get_m_from_n(Nobj, Nmax);
+
+    for (unsigned int i(0), n(v.size()); i < n; ++i) {
+      std::vector<int> vidx = v[i];
+      do {
+        table->emplace_back(std::vector<int>(vidx));
+      } while (std::next_permutation(vidx.begin(), vidx.end()));
+    }
+  }
 }
 }  // namespace
 
@@ -129,19 +153,19 @@ int Permutations::CreatePermutations(int nPartonsInPermutations) {
 
   // create table for parton, electron, muon, photon, and track's permutations
   m_table_partons = std::vector<std::vector<int> >{};
-  CreateSubTable(npartons, &m_table_partons, nPartonsInPermutations);
+  create_subtable(npartons, &m_table_partons, nPartonsInPermutations);
 
   m_table_electrons = std::vector<std::vector<int> >{};
-  CreateSubTable(nelectrons, &m_table_electrons);
+  create_subtable(nelectrons, &m_table_electrons);
 
   m_table_muons = std::vector<std::vector<int> >{};
-  CreateSubTable(nmuons, &m_table_muons);
+  create_subtable(nmuons, &m_table_muons);
 
   m_table_photons = std::vector<std::vector<int> >{};
-  CreateSubTable(nphotons, &m_table_photons);
+  create_subtable(nphotons, &m_table_photons);
 
   m_table_tracks = std::vector<std::vector<int> >{};
-  CreateSubTable(ntracks, &m_table_tracks);
+  create_subtable(ntracks, &m_table_tracks);
 
   int npartonsPerm = npartons;
   if (nPartonsInPermutations >= 0)
@@ -264,32 +288,6 @@ int Permutations::Reset() {
   // Clear particle and permutation tables.
   m_particles_table.clear();
   m_permutation_table.clear();
-
-  // no error
-  return 1;
-}
-
-// ---------------------------------------------------------
-int Permutations::CreateSubTable(int Nobj, std::vector<std::vector<int> >* table, int Nmax) {
-  if (Nmax < 0) {
-    std::vector<int> vidx;
-    for (int i(0); i < Nobj; ++i) {
-      vidx.push_back(i);
-    }
-
-    do {
-      table->emplace_back(std::vector<int>(vidx));
-    } while (std::next_permutation(vidx.begin(), vidx.end()));
-  } else {
-    std::vector<std::vector<int> > v = get_m_from_n(Nobj, Nmax);
-
-    for (unsigned int i(0), n(v.size()); i < n; ++i) {
-      std::vector<int> vidx = v[i];
-      do {
-        table->emplace_back(std::vector<int>(vidx));
-      } while (std::next_permutation(vidx.begin(), vidx.end()));
-    }
-  }
 
   // no error
   return 1;

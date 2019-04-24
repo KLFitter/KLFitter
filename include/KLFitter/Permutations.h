@@ -151,9 +151,6 @@ class Permutations final {
    */
   int Reset();
 
-  /// Creates table of permutations.
-  int CreateSubTable(int Nobj, std::vector<std::vector<int> >* table, int Nmax = -1);
-
   /** @} */
 
  private:
