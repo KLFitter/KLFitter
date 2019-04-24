@@ -131,7 +131,7 @@ int main(int argc, char* argv[]) {
   std::vector<float> lh_values{};
   std::vector<float> evt_probs{};
   for (int perm = 0; perm < nperm; ++perm) {
-    fitter.Fit(perm);
+    if (!fitter.Fit(perm)) continue;
     lh_values.emplace_back(fitter.Likelihood()->LogLikelihood(fitter.Likelihood()->GetBestFitParameters()));
     evt_probs.emplace_back(std::exp(fitter.Likelihood()->LogEventProbability()));
   }
@@ -139,7 +139,7 @@ int main(int argc, char* argv[]) {
   normalizeValues(&evt_probs);
 
   std::cout << std::fixed;  // enforce fixed precision for output
-  for (int perm = 0; perm < nperm; ++perm) {
+  for (int perm = 0; perm < lh_values.size(); ++perm) {
     std::cout << "Permutation: " << perm + 1;
     std::cout << std::setprecision(2);
     std::cout << "  \tLogLikelihood: " << lh_values.at(perm);
