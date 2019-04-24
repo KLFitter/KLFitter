@@ -167,15 +167,13 @@ int Permutations::CreatePermutations() {
   m_table_tracks = std::vector<std::vector<int> >{};
   create_subtable(ntracks, &m_table_tracks);
 
-  int npartonsPerm = npartons;
-
   // get number of possible permutations for each category
   int npermpartons   = m_table_partons.size() <= 0 ? 1 : m_table_partons.size();
   int npermelectrons = m_table_electrons.size() <= 0 ? 1 : m_table_electrons.size();
   int npermmuons     = m_table_muons.size() <= 0 ? 1 : m_table_muons.size();
   int npermphotons     = m_table_photons.size() <= 0 ? 1 : m_table_photons.size();
   int npermtracks    = m_table_tracks.size() <= 0 ? 1 : m_table_tracks.size();
-  int npermoverall   = npartonsPerm + nelectrons + nmuons + nphotons + ntracks;
+  int npermoverall   = npartons + nelectrons + nmuons + nphotons + ntracks;
 
   // loop over all parton permutations
   for (int ipermparton = 0; ipermparton < npermpartons; ++ipermparton) {
@@ -194,7 +192,7 @@ int Permutations::CreatePermutations() {
             std::vector<int> permutation(npermoverall);
 
             // loop over all partons
-            for (int i = 0; i < npartonsPerm; ++i) {
+            for (int i = 0; i < npartons; ++i) {
               // get index
               int index = m_table_partons[ipermparton][i];
 
@@ -220,7 +218,7 @@ int Permutations::CreatePermutations() {
               }
 
               // set permutation
-              permutation[npartonsPerm + i] = index;
+              permutation[npartons + i] = index;
             }
 
             // loop over all muons
@@ -238,7 +236,7 @@ int Permutations::CreatePermutations() {
               }
 
               // set permutation
-              permutation[npartonsPerm + nelectrons + i] = index;
+              permutation[npartons + nelectrons + i] = index;
             }
 
             // loop over all photons
@@ -250,7 +248,7 @@ int Permutations::CreatePermutations() {
               particles.AddParticle((*m_particles)->photons.at(index));
 
               // set permutation
-              permutation[npartonsPerm + nelectrons + nmuons + i] = index;
+              permutation[npartons + nelectrons + nmuons + i] = index;
             }
 
             // loop over all tracks
@@ -262,7 +260,7 @@ int Permutations::CreatePermutations() {
               particles.AddParticle((*m_particles)->tracks.at(index));
 
               // set permutation
-              permutation[npartonsPerm + nelectrons + nmuons + nphotons + i] = index;
+              permutation[npartons + nelectrons + nmuons + nphotons + i] = index;
             }
 
 
