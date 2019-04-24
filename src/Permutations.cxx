@@ -21,19 +21,36 @@
 
 #include <algorithm>
 #include <iostream>
+#include <list>
+#include <numeric>
 #include <set>
 
 namespace {
 // ---------------------------------------------------------
-void create_subtable(int Nobj, std::vector<std::vector<int> >* table) {
-  std::vector<int> vidx;
-  for (int i(0); i < Nobj; ++i) {
-    vidx.push_back(i);
-  }
+struct Permutation {
+  std::list<int> partons;
+  std::list<int> electrons;
+  std::list<int> muons;
+  std::list<int> photons;
+  std::list<int> tracks;
 
+  /// Calculate the next possible permutation.
+  bool next_permutation() {
+    return std::next_permutation(partons.begin(), partons.end())
+      || std::next_permutation(electrons.begin(), electrons.end())
+      || std::next_permutation(muons.begin(), muons.end())
+      || std::next_permutation(photons.begin(), photons.end())
+      || std::next_permutation(tracks.begin(), tracks.end());
+  }
+};
+
+// ---------------------------------------------------------
+std::list<Permutation> permute_particles(Permutation& perm) {
+  std::list<Permutation> list;
   do {
-    table->emplace_back(std::vector<int>(vidx));
-  } while (std::next_permutation(vidx.begin(), vidx.end()));
+    list.emplace_back(perm);
+  } while (perm.next_permutation());
+  return list;
 }
 }  // namespace
 
@@ -100,136 +117,74 @@ int Permutations::CreatePermutations() {
   size_t nphotons     = (*m_particles)->photons.size();
   size_t ntracks    = (*m_particles)->tracks.size();
 
-  bool isDilepton(false);
+  int npermoverall = npartons + nelectrons + nmuons + nphotons + ntracks;
 
-  if (nelectrons != 0 && (*m_particles)->electrons.at(0).GetCharge() != -9)
-    isDilepton = true;
+  // Create initial permutation from which the permutations are calculated.
+  Permutation initial_perm;
+  initial_perm.partons.resize(npartons);
+  std::iota(initial_perm.partons.begin(), initial_perm.partons.end(), 0);
+  initial_perm.electrons.resize(nelectrons);
+  std::iota(initial_perm.electrons.begin(), initial_perm.electrons.end(), 0);
+  initial_perm.muons.resize(nmuons);
+  std::iota(initial_perm.muons.begin(), initial_perm.muons.end(), 0);
+  initial_perm.photons.resize(nphotons);
+  std::iota(initial_perm.photons.begin(), initial_perm.photons.end(), 0);
+  initial_perm.tracks.resize(ntracks);
+  std::iota(initial_perm.tracks.begin(), initial_perm.tracks.end(), 0);
 
-  if (nmuons != 0 && (*m_particles)->muons.at(0).GetCharge() != -9)
-    isDilepton = true;
+  // Get list of all possible permutations.
+  std::list<Permutation> list_of_permutations = permute_particles(initial_perm);
 
-  // create table for parton, electron, muon, photon, and track's permutations
-  m_table_partons = std::vector<std::vector<int> >{};
-  create_subtable(npartons, &m_table_partons);
+  for (const auto& perm : list_of_permutations) {
+    // create new permutation
+    std::vector<int> permutation(npermoverall);
+    ParticleCollection particles{};
 
-  m_table_electrons = std::vector<std::vector<int> >{};
-  create_subtable(nelectrons, &m_table_electrons);
-
-  m_table_muons = std::vector<std::vector<int> >{};
-  create_subtable(nmuons, &m_table_muons);
-
-  m_table_photons = std::vector<std::vector<int> >{};
-  create_subtable(nphotons, &m_table_photons);
-
-  m_table_tracks = std::vector<std::vector<int> >{};
-  create_subtable(ntracks, &m_table_tracks);
-
-  // get number of possible permutations for each category
-  int npermpartons   = m_table_partons.size() <= 0 ? 1 : m_table_partons.size();
-  int npermelectrons = m_table_electrons.size() <= 0 ? 1 : m_table_electrons.size();
-  int npermmuons     = m_table_muons.size() <= 0 ? 1 : m_table_muons.size();
-  int npermphotons     = m_table_photons.size() <= 0 ? 1 : m_table_photons.size();
-  int npermtracks    = m_table_tracks.size() <= 0 ? 1 : m_table_tracks.size();
-  int npermoverall   = npartons + nelectrons + nmuons + nphotons + ntracks;
-
-  // loop over all parton permutations
-  for (int ipermparton = 0; ipermparton < npermpartons; ++ipermparton) {
-    // loop over all electron permutations
-    for (int ipermelectron = 0; ipermelectron < npermelectrons; ++ipermelectron) {
-      // loop over all muon permutations
-      for (int ipermmuon = 0; ipermmuon < npermmuons; ++ipermmuon) {
-        // loop over all photon permutations
-        for (int ipermphoton = 0; ipermphoton < npermphotons; ++ipermphoton) {
-          // loop over all track permutations
-          for (int ipermtrack = 0; ipermtrack < npermtracks; ++ipermtrack) {
-            // create new particles
-            ParticleCollection particles{};
-
-            // create new permutation
-            std::vector<int> permutation(npermoverall);
-
-            // loop over all partons
-            for (int i = 0; i < npartons; ++i) {
-              // get index
-              int index = m_table_partons[ipermparton][i];
-
-              // add parton
-              particles.AddParticle((*m_particles)->partons.at(index));
-
-              // set permutation
-              permutation[i] = index;
-            }
-
-            // loop over all electrons
-            for (size_t i = 0; i < nelectrons; ++i) {
-              // get index
-              int index = m_table_electrons[ipermelectron][i];
-
-              // if isDilepton include charge of the lepton
-              if (isDilepton) {
-                // add electron
-                particles.AddParticle((*m_particles)->electrons.at(index));
-              } else {
-                // add electron
-                particles.AddParticle((*m_particles)->electrons.at(index));
-              }
-
-              // set permutation
-              permutation[npartons + i] = index;
-            }
-
-            // loop over all muons
-            for (size_t i = 0; i < nmuons; ++i) {
-              // get index
-              int index = m_table_muons[ipermmuon][i];
-
-              // if isDilepton include charge of the lepton
-              if (isDilepton) {
-                // add muon
-                particles.AddParticle((*m_particles)->muons.at(index));
-              } else {
-                // add muon
-                particles.AddParticle((*m_particles)->muons.at(index));
-              }
-
-              // set permutation
-              permutation[npartons + nelectrons + i] = index;
-            }
-
-            // loop over all photons
-            for (size_t i = 0; i < nphotons; ++i) {
-              // get index
-              int index = m_table_photons[ipermphoton][i];
-
-              // add photon
-              particles.AddParticle((*m_particles)->photons.at(index));
-
-              // set permutation
-              permutation[npartons + nelectrons + nmuons + i] = index;
-            }
-
-            // loop over all tracks
-            for (size_t i = 0; i < ntracks; ++i) {
-              // get index
-              int index = m_table_tracks[ipermtrack][i];
-
-              // add track
-              particles.AddParticle((*m_particles)->tracks.at(index));
-
-              // set permutation
-              permutation[npartons + nelectrons + nmuons + nphotons + i] = index;
-            }
-
-
-            // add particles to table
-            m_particles_table.emplace_back(particles);
-
-            // add permutation to table
-            m_permutation_table.emplace_back(permutation);
-          }
-        }
-      }
+    // loop over all partons
+    size_t index = 0;
+    for (const auto& parton : perm.partons) {
+      particles.AddParticle((*m_particles)->partons.at(parton));
+      permutation.at(index) = parton;
+      index++;
     }
+
+    // loop over all electrons
+    index = 0;
+    for (const auto& electron : perm.electrons) {
+      particles.AddParticle((*m_particles)->electrons.at(electron));
+      permutation.at(npartons + index) = electron;
+      index++;
+    }
+
+    // loop over all muons
+    index = 0;
+    for (const auto& muon : perm.muons) {
+      particles.AddParticle((*m_particles)->muons.at(muon));
+      permutation.at(npartons + nelectrons + index) = muon;
+      index++;
+    }
+
+    // loop over all photons
+    index = 0;
+    for (const auto& photon : perm.photons) {
+      particles.AddParticle((*m_particles)->photons.at(photon));
+      permutation.at(npartons + nelectrons + nmuons + index) = photon;
+      index++;
+    }
+
+    // loop over all tracks
+    index = 0;
+    for (const auto& track : perm.tracks) {
+      particles.AddParticle((*m_particles)->tracks.at(track));
+      permutation.at(npartons + nelectrons + nmuons + nphotons + index) = track;
+      index++;
+    }
+
+    // add particles to table
+    m_particles_table.emplace_back(particles);
+
+    // add permutation to table
+    m_permutation_table.emplace_back(permutation);
   }
 
   // no error

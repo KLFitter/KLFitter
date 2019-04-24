@@ -169,12 +169,6 @@ class Permutations final {
 
   /// The permutation index
   int m_permutation_index;
-
-  std::vector<std::vector<int> > m_table_partons;
-  std::vector<std::vector<int> > m_table_electrons;
-  std::vector<std::vector<int> > m_table_muons;
-  std::vector<std::vector<int> > m_table_photons;
-  std::vector<std::vector<int> > m_table_tracks;
 };
 }  // namespace KLFitter
 
