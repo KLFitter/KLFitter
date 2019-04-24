@@ -195,7 +195,6 @@ class Permutations final {
   std::vector<KLFitter::ParticleCollection> m_particles_table;
 
   /// A list of permutations. Needed for the math.
-  std::vector<std::vector<int> > m_permutation_table;
   std::deque<Permutation> m_permutation_list;
 
   /// The permutation index

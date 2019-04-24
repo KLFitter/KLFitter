@@ -78,9 +78,6 @@ int Permutations::CreatePermutations() {
   // create new table of particles
   m_particles_table = std::vector<ParticleCollection>{};
 
-  // create new table of permutations
-  m_permutation_table = std::vector<std::vector<int> >{};
-
   // check particles
   CheckParticles();
 
@@ -90,8 +87,6 @@ int Permutations::CreatePermutations() {
   size_t nmuons     = (*m_particles)->muons.size();
   size_t nphotons     = (*m_particles)->photons.size();
   size_t ntracks    = (*m_particles)->tracks.size();
-
-  int npermoverall = npartons + nelectrons + nmuons + nphotons + ntracks;
 
   // Create initial permutation from which the permutations are calculated.
   Permutation initial_perm;
@@ -112,55 +107,35 @@ int Permutations::CreatePermutations() {
   } while (initial_perm.next_permutation());
 
   for (const auto& perm : m_permutation_list) {
-    // create new permutation
-    std::vector<int> permutation(npermoverall);
     ParticleCollection particles{};
 
     // loop over all partons
-    size_t index = 0;
     for (const auto& parton : perm.partons) {
       particles.AddParticle((*m_particles)->partons.at(parton));
-      permutation.at(index) = parton;
-      index++;
     }
 
     // loop over all electrons
-    index = 0;
     for (const auto& electron : perm.electrons) {
       particles.AddParticle((*m_particles)->electrons.at(electron));
-      permutation.at(npartons + index) = electron;
-      index++;
     }
 
     // loop over all muons
-    index = 0;
     for (const auto& muon : perm.muons) {
       particles.AddParticle((*m_particles)->muons.at(muon));
-      permutation.at(npartons + nelectrons + index) = muon;
-      index++;
     }
 
     // loop over all photons
-    index = 0;
     for (const auto& photon : perm.photons) {
       particles.AddParticle((*m_particles)->photons.at(photon));
-      permutation.at(npartons + nelectrons + nmuons + index) = photon;
-      index++;
     }
 
     // loop over all tracks
-    index = 0;
     for (const auto& track : perm.tracks) {
       particles.AddParticle((*m_particles)->tracks.at(track));
-      permutation.at(npartons + nelectrons + nmuons + nphotons + index) = track;
-      index++;
     }
 
     // add particles to table
     m_particles_table.emplace_back(particles);
-
-    // add permutation to table
-    m_permutation_table.emplace_back(permutation);
   }
 
   // no error
@@ -288,47 +263,47 @@ int Permutations::InvariantParticleGroupPermutations(Particles::Type ptype, std:
   // get number of permutations
   int nperm = NPermutations();
 
-  for (int iperm1 = nperm-1; iperm1 >= 1; --iperm1) {
-    int offset = 0;
-    for (Particles::Type itype = Particles::Type::kParton; itype < ptype; ++itype)
-      offset += (*m_particles)->NParticles(itype);
+  // for (int iperm1 = nperm-1; iperm1 >= 1; --iperm1) {
+  //   int offset = 0;
+  //   for (Particles::Type itype = Particles::Type::kParton; itype < ptype; ++itype)
+  //     offset += (*m_particles)->NParticles(itype);
 
-    // get permutation
-    const std::vector<int> permutation1 = m_permutation_table[iperm1];
+  //   // get permutation
+  //   const std::vector<int> permutation1 = m_permutation_table[iperm1];
 
-    // Count numbers of removed permutations to adjust the index for the
-    // for-loop over permutation 1.
-    unsigned int removed_perms = 0;
+  //   // Count numbers of removed permutations to adjust the index for the
+  //   // for-loop over permutation 1.
+  //   unsigned int removed_perms = 0;
 
-    for (int iperm2 = iperm1-1; iperm2 >= 0; --iperm2) {
-      // get second permutation
-      const std::vector<int> permutation2 = m_permutation_table[iperm2];
+  //   for (int iperm2 = iperm1-1; iperm2 >= 0; --iperm2) {
+  //     // get second permutation
+  //     const std::vector<int> permutation2 = m_permutation_table[iperm2];
 
-      // loop over index vectors
-      unsigned int numberOfInvariantMatches(0);
+  //     // loop over index vectors
+  //     unsigned int numberOfInvariantMatches(0);
 
-      for (unsigned int i = 0, I = indexVectorPosition1.size(); i < I; i++)  {
-        int indexPosition1 = indexVectorPosition1[i] + offset;
-        int indexPosition2 = indexVectorPosition2[i] + offset;
+  //     for (unsigned int i = 0, I = indexVectorPosition1.size(); i < I; i++)  {
+  //       int indexPosition1 = indexVectorPosition1[i] + offset;
+  //       int indexPosition2 = indexVectorPosition2[i] + offset;
 
-        // check indices
-        if (permutation1[indexPosition1] == permutation2[indexPosition2] && permutation1[indexPosition2] == permutation2[indexPosition1])
-          numberOfInvariantMatches++;
-      }
+  //       // check indices
+  //       if (permutation1[indexPosition1] == permutation2[indexPosition2] && permutation1[indexPosition2] == permutation2[indexPosition1])
+  //         numberOfInvariantMatches++;
+  //     }
 
-      if (numberOfInvariantMatches == indexVectorPosition1.size()) {
-        // m_permutation_table.erase(m_permutation_table.begin() + iperm2);
+  //     if (numberOfInvariantMatches == indexVectorPosition1.size()) {
+  //       // m_permutation_table.erase(m_permutation_table.begin() + iperm2);
 
-        // m_particles_table.erase(m_particles_table.begin() + iperm2);
+  //       // m_particles_table.erase(m_particles_table.begin() + iperm2);
 
-        removed_perms++;
-      }
-    }  // second permutation
+  //       removed_perms++;
+  //     }
+  //   }  // second permutation
 
-    // Decrement the first permutation index by the number of removed
-    // permutations, otherwise we might go out of scope..
-    iperm1 -= removed_perms;
-  }  // first permutation
+  //   // Decrement the first permutation index by the number of removed
+  //   // permutations, otherwise we might go out of scope..
+  //   iperm1 -= removed_perms;
+  // }  // first permutation
 
   // return error code
   return err;
