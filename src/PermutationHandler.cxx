@@ -17,7 +17,7 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "KLFitter/Permutations.h"
+#include "KLFitter/PermutationHandler.h"
 
 #include <algorithm>
 #include <iostream>
@@ -26,7 +26,7 @@
 
 namespace KLFitter {
 // ---------------------------------------------------------
-Permutations::Permutations(ParticleCollection ** p, ParticleCollection ** pp)
+PermutationHandler::PermutationHandler(ParticleCollection ** p, ParticleCollection ** pp)
   : m_particles(p)
   , m_particles_permuted(pp)
   , m_permutation_index(-1) {
@@ -34,21 +34,21 @@ Permutations::Permutations(ParticleCollection ** p, ParticleCollection ** pp)
 }
 
 // ---------------------------------------------------------
-Permutations::Permutations(const Permutations& o) = default;
+PermutationHandler::PermutationHandler(const PermutationHandler& o) = default;
 
 // ---------------------------------------------------------
-Permutations::~Permutations() = default;
+PermutationHandler::~PermutationHandler() = default;
 
 // ---------------------------------------------------------
-Permutations& Permutations::operator=(const Permutations& obj) = default;
+PermutationHandler& PermutationHandler::operator=(const PermutationHandler& obj) = default;
 
 // ---------------------------------------------------------
-bool Permutations::IsVetoed(int index) {
+bool PermutationHandler::IsVetoed(int index) {
   return m_permutation_list.at(index).vetoed;
 }
 
 // ---------------------------------------------------------
-int Permutations::SetPermutation(int index) {
+int PermutationHandler::SetPermutation(int index) {
   // check index
   if (index < 0 || index >= NPermutations()) {
     std::cout << "KLFitter::Permutations::SetPermutation(). Index out of range." << std::endl;
@@ -71,7 +71,7 @@ int Permutations::SetPermutation(int index) {
 }
 
 // ---------------------------------------------------------
-int Permutations::CreatePermutations() {
+int PermutationHandler::CreatePermutations() {
   // reset existing particle and permuation tables
   Reset();
 
@@ -143,7 +143,7 @@ int Permutations::CreatePermutations() {
 }
 
 // ---------------------------------------------------------
-int Permutations::Reset() {
+int PermutationHandler::Reset() {
   // Clear particle and permutation tables.
   m_particles_table.clear();
   m_permutation_list.clear();
@@ -153,7 +153,7 @@ int Permutations::Reset() {
 }
 
 // ---------------------------------------------------------
-int Permutations::InvariantParticlePermutations(Particles::Type ptype, std::vector<int> indices) {
+int PermutationHandler::InvariantParticlePermutations(Particles::Type ptype, std::vector<int> indices) {
   // check if particles are defined
   if (!CheckParticles()) return 0;
 
@@ -206,14 +206,14 @@ int Permutations::InvariantParticlePermutations(Particles::Type ptype, std::vect
 }
 
 // ---------------------------------------------------------
-int Permutations::InvariantParticleGroupPermutations(Particles::Type ptype, std::vector<int> indexVectorPosition1,  std::vector<int> indexVectorPosition2) {
+int PermutationHandler::InvariantParticleGroupPermutations(Particles::Type ptype, std::vector<int> indexVectorPosition1,  std::vector<int> indexVectorPosition2) {
   // check if particles are defined
   if (!CheckParticles())
     return 0;
 
   // check if index vectors have the same size
   if (indexVectorPosition1.size()!= indexVectorPosition2.size()) {
-    std::cout << "KLFitter::Permutations::InvariantParticleGroupPermutations(). Index Vectors need to have the same size." << std::endl;
+    std::cout << "KLFitter::PermutationHandler::InvariantParticleGroupPermutations(). Index Vectors need to have the same size." << std::endl;
     return 0;
   }
 
@@ -222,13 +222,13 @@ int Permutations::InvariantParticleGroupPermutations(Particles::Type ptype, std:
   std::set<int> indexSetPosition2;
   for (unsigned int i = 0, I = indexVectorPosition1.size(); i < I; i++) {
     if (indexSetPosition1.find(indexVectorPosition1[i]) != indexSetPosition1.end()) {
-      std::cout << "KLFitter::Permutations::InvariantParticleGroupPermutations(). Indices within same index vector have to be different." << std::endl;
+      std::cout << "KLFitter::PermutationHandler::InvariantParticleGroupPermutations(). Indices within same index vector have to be different." << std::endl;
       return 0;
     } else if (indexSetPosition2.find(indexVectorPosition2[i]) != indexSetPosition2.end()) {
-      std::cout << "KLFitter::Permutations::InvariantParticleGroupPermutations(). Indices within same index vector have to be different." << std::endl;
+      std::cout << "KLFitter::PermutationHandler::InvariantParticleGroupPermutations(). Indices within same index vector have to be different." << std::endl;
       return 0;
     } else if (indexVectorPosition1[i] == indexVectorPosition2[i]) {
-      std::cout << "KLFitter::Permutations::InvariantParticleGroupPermutations(). Indices have to be different." << std::endl;
+      std::cout << "KLFitter::PermutationHandler::InvariantParticleGroupPermutations(). Indices have to be different." << std::endl;
       return 0;
     } else {
       indexSetPosition1.insert(indexVectorPosition1[i]);
@@ -239,12 +239,12 @@ int Permutations::InvariantParticleGroupPermutations(Particles::Type ptype, std:
   for (unsigned int i = 0, I = indexVectorPosition1.size(); i < I; i++) {
     int index1 = indexVectorPosition1[i];
     if (index1 < 0 || static_cast<size_t>(index1) >= (*m_particles)->NParticles(ptype)) {
-      std::cout << "KLFitter::Permutations::InvariantParticleGroupPermutations(). Index out of range." << index1 << " " << (*m_particles)->NParticles(ptype) << std::endl;
+      std::cout << "KLFitter::PermutationHandler::InvariantParticleGroupPermutations(). Index out of range." << index1 << " " << (*m_particles)->NParticles(ptype) << std::endl;
       return 0;
     }
     int index2 = indexVectorPosition2[i];
     if (index2 < 0 || static_cast<size_t>(index2) >= (*m_particles)->NParticles(ptype)) {
-      std::cout << "KLFitter::Permutations::InvariantParticleGroupPermutations(). Index out of range." << index2 << " " << (*m_particles)->NParticles(ptype) << std::endl;
+      std::cout << "KLFitter::PermutationHandler::InvariantParticleGroupPermutations(). Index out of range." << index2 << " " << (*m_particles)->NParticles(ptype) << std::endl;
       return 0;
     }
   }
@@ -310,7 +310,7 @@ int Permutations::InvariantParticleGroupPermutations(Particles::Type ptype, std:
 }
 
 // ---------------------------------------------------------
-int Permutations::RemoveParticlePermutations(Particles::Type ptype, int index, int position) {
+int PermutationHandler::RemoveParticlePermutations(Particles::Type ptype, int index, int position) {
   // check if particles are defined
   if (!CheckParticles())
     return 0;
@@ -330,15 +330,15 @@ int Permutations::RemoveParticlePermutations(Particles::Type ptype, int index, i
 }
 
 // ---------------------------------------------------------
-int Permutations::CheckParticles() {
+int PermutationHandler::CheckParticles() {
   // check if particles are defined
   if (!m_particles) {
-    std::cout << "KLFitter::Permutations::CheckParticles(). Pointer to particles not defined yet." << std::endl;
+    std::cout << "KLFitter::PermutationHandler::CheckParticles(). Pointer to particles not defined yet." << std::endl;
     return 0;
   }
 
   if (!(*m_particles)) {
-    std::cout << "KLFitter::Permutations::CheckParticles(). Particles not defined yet." << std::endl;
+    std::cout << "KLFitter::PermutationHandler::CheckParticles(). Particles not defined yet." << std::endl;
     return 0;
   }
 

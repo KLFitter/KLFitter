@@ -17,8 +17,8 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KLFITTER_PERMUTATIONS_H_
-#define KLFITTER_PERMUTATIONS_H_
+#ifndef KLFITTER_PERMUTATIONHANDLER_H_
+#define KLFITTER_PERMUTATIONHANDLER_H_
 
 #include <deque>
 #include <vector>
@@ -60,23 +60,23 @@ struct Permutation {
  * all permutations and create a table. The pointer of the
  * current permutation is set to the entry in the table.
  */
-class Permutations final {
+class PermutationHandler final {
  public:
   /**
    * The default constructor.
    * @param p A pointer to the pointer to the original set of particles.
    * @param pp A pointer to the pointer to the permutated set of particles.
    */
-  Permutations(KLFitter::ParticleCollection** p, KLFitter::ParticleCollection** pp);
+  PermutationHandler(KLFitter::ParticleCollection** p, KLFitter::ParticleCollection** pp);
 
   /// The (defaulted) copy constructor.
-  explicit Permutations(const Permutations& o);
+  explicit PermutationHandler(const PermutationHandler& o);
 
   /// The (defaulted) destructor.
-  ~Permutations();
+  ~PermutationHandler();
 
   /// The (defaulted) assignment operator.
-  Permutations& operator=(const Permutations& obj);
+  PermutationHandler& operator=(const PermutationHandler& obj);
 
   /** \name Member functions (Get)  */
   /** @{ */
@@ -202,4 +202,4 @@ class Permutations final {
 };
 }  // namespace KLFitter
 
-#endif  // KLFITTER_PERMUTATIONS_H_
+#endif  // KLFITTER_PERMUTATIONHANDLER_H_

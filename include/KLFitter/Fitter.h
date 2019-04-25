@@ -33,7 +33,7 @@ namespace KLFitter {
 class ParticleCollection;
 class DetectorBase;
 class LikelihoodBase;
-class Permutations;
+class PermutationHandler;
 
 /**
  * \class KLFitter::Fitter
@@ -60,7 +60,7 @@ class Fitter final {
   KLFitter::ParticleCollection * Particles() { return fParticles; }
 
   /// Return the permutation object.
-  KLFitter::Permutations * Permutations() { return fPermutations.get(); }
+  KLFitter::PermutationHandler * Permutations() { return fPermutations.get(); }
 
   /// Return the lieklihood .
   KLFitter::LikelihoodBase * Likelihood() { return fLikelihood; }
@@ -201,7 +201,7 @@ class Fitter final {
   KLFitter::LikelihoodBase * fLikelihood;
 
   /// A pointer to the permutation object.
-  std::unique_ptr<KLFitter::Permutations> fPermutations;
+  std::unique_ptr<KLFitter::PermutationHandler> fPermutations;
 
   /// The TMinuit status
   int fMinuitStatus;

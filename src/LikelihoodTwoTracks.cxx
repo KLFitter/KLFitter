@@ -26,7 +26,7 @@
 #include "BAT/BCParameter.h"
 #include "KLFitter/DetectorBase.h"
 #include "KLFitter/ParticleCollection.h"
-#include "KLFitter/Permutations.h"
+#include "KLFitter/PermutationHandler.h"
 #include "KLFitter/PhysicsConstants.h"
 #include "KLFitter/ResolutionBase.h"
 

@@ -25,7 +25,7 @@
 #include "KLFitter/DetectorSnowmass.h"
 #include "KLFitter/Fitter.h"
 #include "KLFitter/LikelihoodTopLeptonJets.h"
-#include "KLFitter/Permutations.h"
+#include "KLFitter/PermutationHandler.h"
 #include "TLorentzVector.h"
 
 namespace {

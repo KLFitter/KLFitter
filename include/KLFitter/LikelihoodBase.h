@@ -32,7 +32,7 @@
 // ---------------------------------------------------------
 
 namespace KLFitter {
-class Permutations;
+class PermutationHandler;
 class DetectorBase;
 
 /**
@@ -148,7 +148,7 @@ class LikelihoodBase : public BCModel {
    * @param permutations The permutation object.
    * @return An error flag.
    */
-  int SetPermutations(std::unique_ptr<KLFitter::Permutations>* permutations);
+  int SetPermutations(std::unique_ptr<KLFitter::PermutationHandler>* permutations);
 
   /**
    * Set the range of a model parameter.
@@ -405,7 +405,7 @@ class LikelihoodBase : public BCModel {
   KLFitter::ParticleCollection** fParticlesPermuted;
 
   /// A pointer to the permutation object.
-  std::unique_ptr<KLFitter::Permutations>* fPermutations;
+  std::unique_ptr<KLFitter::PermutationHandler>* fPermutations;
 
   /// A pointer to the model particles.
   std::unique_ptr<KLFitter::ParticleCollection> fParticlesModel;

@@ -25,7 +25,7 @@
 #include "KLFitter/DetectorBase.h"
 #include "KLFitter/LikelihoodBase.h"
 #include "KLFitter/ParticleCollection.h"
-#include "KLFitter/Permutations.h"
+#include "KLFitter/PermutationHandler.h"
 
 // ---------------------------------------------------------
 KLFitter::Fitter::Fitter()
@@ -37,7 +37,7 @@ KLFitter::Fitter::Fitter()
   , fParticlesPermuted(nullptr)
   , fMyParticlesTruth(nullptr)
   , fLikelihood(nullptr)
-  , fPermutations(std::unique_ptr<KLFitter::Permutations>(new KLFitter::Permutations{&fParticles, &fParticlesPermuted}))
+  , fPermutations(std::unique_ptr<KLFitter::PermutationHandler>(new KLFitter::PermutationHandler{&fParticles, &fParticlesPermuted}))
   , fMinuitStatus(0)
   , fConvergenceStatus(0)
   , fTurnOffSA(false)
