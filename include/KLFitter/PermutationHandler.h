@@ -20,7 +20,6 @@
 #ifndef KLFITTER_PERMUTATIONHANDLER_H_
 #define KLFITTER_PERMUTATIONHANDLER_H_
 
-#include <deque>
 #include <vector>
 
 #include "KLFitter/ParticleCollection.h"
@@ -34,11 +33,11 @@ namespace KLFitter {
  * calculate all possible permutations.
  */
 struct Permutation {
-  std::deque<int> partons{};
-  std::deque<int> electrons{};
-  std::deque<int> muons{};
-  std::deque<int> photons{};
-  std::deque<int> tracks{};
+  std::vector<int> partons{};
+  std::vector<int> electrons{};
+  std::vector<int> muons{};
+  std::vector<int> photons{};
+  std::vector<int> tracks{};
 
   /// Boolean whether permutation is vetoed.
   bool vetoed{false};
@@ -90,7 +89,7 @@ class PermutationHandler final {
    */
   KLFitter::ParticleCollection* ParticlesPermuted() { return *m_particles_permuted; }
 
-  const std::deque<Permutation>& GetList() { return m_permutation_list; }
+  const std::vector<Permutation>& GetList() { return m_permutation_list; }
 
   /**
    * Return the number of permutations.
@@ -179,7 +178,7 @@ class PermutationHandler final {
   std::vector<KLFitter::ParticleCollection> m_particles_table;
 
   /// A list of permutations. Needed for the math.
-  std::deque<Permutation> m_permutation_list;
+  std::vector<Permutation> m_permutation_list;
 
   /// The permutation index
   int m_permutation_index;

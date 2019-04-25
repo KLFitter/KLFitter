@@ -267,8 +267,8 @@ int PermutationHandler::InvariantParticleGroupPermutations(Particles::Type ptype
 
       // For convenience, store const pointers to the two
       // containers that we need to compare against each other.
-      const std::deque<int>* cont1;
-      const std::deque<int>* cont2;
+      const std::vector<int>* cont1;
+      const std::vector<int>* cont2;
 
       if (ptype == Particles::Type::kParton) {
         cont1 = &perm_itr1->partons;
