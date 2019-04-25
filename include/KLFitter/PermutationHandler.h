@@ -100,22 +100,9 @@ class PermutationHandler final {
    */
   int NPermutations() const { return static_cast<int>(m_particles_table.size()); }
 
-  /**
-   * Return the current permutation index.
-   * @return The current permutation index.
-   */
-  int PermutationIndex() const { return m_permutation_index; }
-
   /** @} */
   /** \name Member functions (Set)  */
   /** @{ */
-
-  /**
-   * Set the original particles.
-   * @param particles A set of particles.
-   * @return An error code.
-   */
-  int SetParticles(KLFitter::ParticleCollection* particles);
 
   bool IsVetoed(int index);
 
