@@ -22,9 +22,29 @@
 #include <algorithm>
 #include <iostream>
 #include <numeric>
-#include <set>
+#include <sstream>
 
 namespace KLFitter {
+// ---------------------------------------------------------
+bool Permutation::next_permutation() {
+  return std::next_permutation(partons.begin(), partons.end())
+    || std::next_permutation(electrons.begin(), electrons.end())
+    || std::next_permutation(muons.begin(), muons.end())
+    || std::next_permutation(photons.begin(), photons.end())
+    || std::next_permutation(tracks.begin(), tracks.end());
+}
+
+// ---------------------------------------------------------
+std::string Permutation::print() {
+  std::stringstream ss;
+  ss << "Partons = ( ";
+  for (const auto& parton : partons) {
+    ss << parton << " ";
+  }
+  ss << ")";
+  return ss.str();
+}
+
 // ---------------------------------------------------------
 PermutationHandler::PermutationHandler(ParticleCollection ** p, ParticleCollection ** pp)
   : m_particles(p)
@@ -206,107 +226,79 @@ int PermutationHandler::InvariantParticlePermutations(Particles::Type ptype, std
 }
 
 // ---------------------------------------------------------
-int PermutationHandler::InvariantParticleGroupPermutations(Particles::Type ptype, std::vector<int> indexVectorPosition1,  std::vector<int> indexVectorPosition2) {
-  // check if particles are defined
-  if (!CheckParticles())
-    return 0;
+int PermutationHandler::InvariantParticleGroupPermutations(Particles::Type ptype, std::vector<int> positions1,  std::vector<int> positions2) {
+  // Check if particles are defined.
+  if (!CheckParticles()) return 0;
 
-  // check if index vectors have the same size
-  if (indexVectorPosition1.size()!= indexVectorPosition2.size()) {
-    std::cout << "KLFitter::PermutationHandler::InvariantParticleGroupPermutations(). Index Vectors need to have the same size." << std::endl;
-    return 0;
-  }
-
-  // check indices
-  std::set<int> indexSetPosition1;
-  std::set<int> indexSetPosition2;
-  for (unsigned int i = 0, I = indexVectorPosition1.size(); i < I; i++) {
-    if (indexSetPosition1.find(indexVectorPosition1[i]) != indexSetPosition1.end()) {
-      std::cout << "KLFitter::PermutationHandler::InvariantParticleGroupPermutations(). Indices within same index vector have to be different." << std::endl;
-      return 0;
-    } else if (indexSetPosition2.find(indexVectorPosition2[i]) != indexSetPosition2.end()) {
-      std::cout << "KLFitter::PermutationHandler::InvariantParticleGroupPermutations(). Indices within same index vector have to be different." << std::endl;
-      return 0;
-    } else if (indexVectorPosition1[i] == indexVectorPosition2[i]) {
-      std::cout << "KLFitter::PermutationHandler::InvariantParticleGroupPermutations(). Indices have to be different." << std::endl;
-      return 0;
-    } else {
-      indexSetPosition1.insert(indexVectorPosition1[i]);
-      indexSetPosition2.insert(indexVectorPosition2[i]);
-    }
-  }
-
-  for (unsigned int i = 0, I = indexVectorPosition1.size(); i < I; i++) {
-    int index1 = indexVectorPosition1[i];
-    if (index1 < 0 || static_cast<size_t>(index1) >= (*m_particles)->NParticles(ptype)) {
-      std::cout << "KLFitter::PermutationHandler::InvariantParticleGroupPermutations(). Index out of range." << index1 << " " << (*m_particles)->NParticles(ptype) << std::endl;
+  // Perform several sanity checks on the index vectors.
+  {
+    // Check if index vectors have the same size.
+    if (positions1.size()!= positions2.size()) {
+      std::cout << "KLFitter::PermutationHandler::InvariantParticleGroupPermutations(). ";
+      std::cout << "Index Vectors need to have the same size." << std::endl;
       return 0;
     }
-    int index2 = indexVectorPosition2[i];
-    if (index2 < 0 || static_cast<size_t>(index2) >= (*m_particles)->NParticles(ptype)) {
-      std::cout << "KLFitter::PermutationHandler::InvariantParticleGroupPermutations(). Index out of range." << index2 << " " << (*m_particles)->NParticles(ptype) << std::endl;
+
+    // To check whether any position appears twice, append the
+    // two position vectors to each other, sort the total vector
+    // and use std::unique() to check for duplicates. If
+    // duplicates are found, return with an error.
+    auto sorted = positions1;
+    sorted.insert(sorted.end(), positions2.begin(), positions2.end());
+    std::sort(sorted.begin(), sorted.end());
+    if (std::unique(sorted.begin(), sorted.end()) != sorted.end()) {
+      std::cout << "KLFitter::PermutationHandler::InvariantParticleGroupPermutations(). ";
+      std::cout << "Position vectors contain at least one duplicate entry" << std::endl;
       return 0;
     }
   }
 
-  // swap indices
-  indexVectorPosition1.clear();
-  std::set<int>::iterator it_indexSetPosition1Begin = indexSetPosition1.begin();
-  std::set<int>::iterator it_indexSetPosition1End   = indexSetPosition1.end();
-  for (; it_indexSetPosition1Begin != it_indexSetPosition1End; it_indexSetPosition1Begin++)
-    indexVectorPosition1.push_back(*it_indexSetPosition1Begin);
+  // Now go through all pairs of permutations and compare if all
+  // positions stored in positions1 are swapped with the
+  // positions stored in positions2 between the two permutations.
+  // If yes, veto one of the two.
+  for (auto perm_itr1 = m_permutation_list.begin(); perm_itr1 != m_permutation_list.end(); ++perm_itr1) {
+    // Skip if permutation is already vetoed.
+    if (perm_itr1->vetoed) continue;
 
-  // no error
-  int err = 1;
+    for (auto perm_itr2 = perm_itr1 + 1; perm_itr2 != m_permutation_list.end(); ++perm_itr2) {
+      // Skip if permutation is already vetoed.
+      if (perm_itr2->vetoed) continue;
 
-  // loop over all permutations
-  // get number of permutations
-  int nperm = NPermutations();
+      // For convenience, store const pointers to the two
+      // containers that we need to compare against each other.
+      const std::deque<int>* cont1;
+      const std::deque<int>* cont2;
 
-  // for (int iperm1 = nperm-1; iperm1 >= 1; --iperm1) {
-  //   int offset = 0;
-  //   for (Particles::Type itype = Particles::Type::kParton; itype < ptype; ++itype)
-  //     offset += (*m_particles)->NParticles(itype);
+      if (ptype == Particles::Type::kParton) {
+        cont1 = &perm_itr1->partons;
+        cont2 = &perm_itr2->partons;
+      } else if (ptype == Particles::Type::kElectron) {
+        cont1 = &perm_itr1->electrons;
+        cont2 = &perm_itr2->electrons;
+      } else if (ptype == Particles::Type::kMuon) {
+        cont1 = &perm_itr1->muons;
+        cont2 = &perm_itr2->muons;
+      } else if (ptype == Particles::Type::kPhoton) {
+        cont1 = &perm_itr1->photons;
+        cont2 = &perm_itr2->photons;
+      } else if (ptype == Particles::Type::kTrack) {
+        cont1 = &perm_itr1->tracks;
+        cont2 = &perm_itr2->tracks;
+      }
 
-  //   // get permutation
-  //   const std::vector<int> permutation1 = m_permutation_table[iperm1];
+      // If we find as many matches as stored indices, it's a
+      // full match and permutation 2 is to be vetoed.
+      size_t matched{0};
+      for (size_t i = 0; i < positions1.size(); ++i) {
+        if (cont1->at(positions1[i]) == cont2->at(positions2[i])) ++matched;
+      }
+      if (matched == positions1.size()) perm_itr2->vetoed = true;
+    }
+  }
 
-  //   // Count numbers of removed permutations to adjust the index for the
-  //   // for-loop over permutation 1.
-  //   unsigned int removed_perms = 0;
-
-  //   for (int iperm2 = iperm1-1; iperm2 >= 0; --iperm2) {
-  //     // get second permutation
-  //     const std::vector<int> permutation2 = m_permutation_table[iperm2];
-
-  //     // loop over index vectors
-  //     unsigned int numberOfInvariantMatches(0);
-
-  //     for (unsigned int i = 0, I = indexVectorPosition1.size(); i < I; i++)  {
-  //       int indexPosition1 = indexVectorPosition1[i] + offset;
-  //       int indexPosition2 = indexVectorPosition2[i] + offset;
-
-  //       // check indices
-  //       if (permutation1[indexPosition1] == permutation2[indexPosition2] && permutation1[indexPosition2] == permutation2[indexPosition1])
-  //         numberOfInvariantMatches++;
-  //     }
-
-  //     if (numberOfInvariantMatches == indexVectorPosition1.size()) {
-  //       // m_permutation_table.erase(m_permutation_table.begin() + iperm2);
-
-  //       // m_particles_table.erase(m_particles_table.begin() + iperm2);
-
-  //       removed_perms++;
-  //     }
-  //   }  // second permutation
-
-  //   // Decrement the first permutation index by the number of removed
-  //   // permutations, otherwise we might go out of scope..
-  //   iperm1 -= removed_perms;
-  // }  // first permutation
-
-  // return error code
-  return err;
+  // Return with no errors.
+  return 1;
 }
 
 // ---------------------------------------------------------

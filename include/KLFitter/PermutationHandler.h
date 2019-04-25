@@ -44,13 +44,10 @@ struct Permutation {
   bool vetoed{false};
 
   /// Calculate the next possible permutation.
-  bool next_permutation() {
-    return std::next_permutation(partons.begin(), partons.end())
-      || std::next_permutation(electrons.begin(), electrons.end())
-      || std::next_permutation(muons.begin(), muons.end())
-      || std::next_permutation(photons.begin(), photons.end())
-      || std::next_permutation(tracks.begin(), tracks.end());
-  }
+  bool next_permutation();
+
+  /// Print information about the permutation.
+  std::string print();
 };
 
 /**
