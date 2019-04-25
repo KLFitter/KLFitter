@@ -95,9 +95,6 @@ int PermutationHandler::CreatePermutations() {
   // reset existing particle and permuation tables
   Reset();
 
-  // create new table of particles
-  m_particles_table = std::vector<ParticleCollection>{};
-
   // check particles
   CheckParticles();
 
