@@ -86,7 +86,7 @@ int KLFitter::LikelihoodTopAllHadronic::DefineModelParticles() {
 
   fParticlesModel->AddParticle(Particles::Boson{"W 1", TLorentzVector{}});
   fParticlesModel->AddParticle(Particles::Boson{"W 2", TLorentzVector{}});
-  fParticlesModel->AddParticle(Particles::Parton{"top 2", TLorentzVector{}});
+  fParticlesModel->AddParticle(Particles::Parton{"top 1", TLorentzVector{}});
   fParticlesModel->AddParticle(Particles::Parton{"top 2", TLorentzVector{}});
 
   // no error
