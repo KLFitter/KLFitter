@@ -210,7 +210,7 @@ int PermutationHandler::InvariantParticlePermutations(Particles::Type ptype, std
     // vector. Repeat until only two indices are left.
     while (indices.size() >= 2) {
       int index2 = indices.back();
-      for (unsigned int i = 0, I = indices.size()-1; i < I; i++) {
+      for (size_t i = 0; i < indices.size() - 1; ++i) {
         int index1 = indices.at(i);
         err *= InvariantParticlePermutations(ptype, std::vector<int>{index1, index2});
       }
