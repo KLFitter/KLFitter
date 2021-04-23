@@ -32,7 +32,7 @@ include( CTest )
 # Set up the "C++ version" to use.
 set( CMAKE_CXX_STANDARD_REQUIRED 11 CACHE STRING
    "Minimum C++ standard required for the build" )
-set( CMAKE_CXX_STANDARD 14 CACHE STRING
+set( CMAKE_CXX_STANDARD 17 CACHE STRING
    "C++ standard to use for the build" )
 set( CMAKE_CXX_EXTENSIONS FALSE CACHE BOOL
    "(Dis)allow using compiler extensions" )
@@ -104,6 +104,7 @@ set( lib_headers
   include/KLFitter/LikelihoodSgTopWtLJ.h
   include/KLFitter/LikelihoodTTHLeptonJets.h
   include/KLFitter/LikelihoodTTZTrilepton.h
+  include/KLFitter/LikelihoodSingleTopAllHadronic.h
   include/KLFitter/LikelihoodTopAllHadronic.h
   include/KLFitter/LikelihoodTopDilepton.h
   include/KLFitter/LikelihoodTopLeptonJets.h
@@ -128,6 +129,7 @@ set( lib_sources
   src/LikelihoodSgTopWtLJ.cxx
   src/LikelihoodTTHLeptonJets.cxx
   src/LikelihoodTTZTrilepton.cxx
+  src/LikelihoodSingleTopAllHadronic.cxx
   src/LikelihoodTopAllHadronic.cxx
   src/LikelihoodTopDilepton.cxx
   src/LikelihoodTopLeptonJets.cxx
