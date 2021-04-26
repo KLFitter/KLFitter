@@ -30,8 +30,9 @@ namespace KLFitter {
 class ResolutionBase;
 
 /**
- * A class implementing a likelihood for the single-top production in the
- * hadronic decay channel.
+ * A class implementing a likelihood to reconstruct the hemisphere of one single
+ * top quark that decays hadronically. Can be used for various types of final
+ * states, e.g. ttbar (allhadronic, l+jets) or single-top production.
  */
 class LikelihoodSingleTopAllHadronic : public LikelihoodBase {
  public:
