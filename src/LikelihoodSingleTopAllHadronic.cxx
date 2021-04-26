@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009--2018, the KLFitter developer team
+ * Copyright (c) 2009--2021, the KLFitter developer team
  *
  * This file is part of KLFitter.
  *
