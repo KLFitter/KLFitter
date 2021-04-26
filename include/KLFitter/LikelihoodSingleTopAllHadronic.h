@@ -30,8 +30,8 @@ namespace KLFitter {
 class ResolutionBase;
 
 /**
- * A class implementing a likelihood for the ttbar allhadronic channel. This
- * class represents a likelihood for the ttbar allhadronic channel.
+ * A class implementing a likelihood for the single-top production in the
+ * hadronic decay channel.
  */
 class LikelihoodSingleTopAllHadronic : public LikelihoodBase {
  public:
@@ -50,7 +50,7 @@ class LikelihoodSingleTopAllHadronic : public LikelihoodBase {
   /* @} */
 
   /// Enumerator for the fitted parameters of this likelihood.
-  enum Parameters { parBE,      ///< Energy of the b quark
+  enum Parameters { parBhadE,   ///< Energy of the hadronic b quark
                     parLQ1E,    ///< Energy of the light quark 1
                     parLQ2E,    ///< Energy of the light quark 2
                     parTopM     ///< Mass of the top quark
@@ -105,11 +105,11 @@ class LikelihoodSingleTopAllHadronic : public LikelihoodBase {
    * @param parameters A vector of parameters (double values).
    * @return A vector with the components of the logarithm of the prior
    * probability. Its components are: \n
-   *   0) TF_b \n
+   *   0) TF_bhad \n
    *   1) TF_lq1 \n
    *   2) TF_lq2 \n
-   *   3) BW_W \n
-   *   4) BW_T
+   *   3) BW_Whad \n
+   *   4) BW_Thad
    */
   std::vector<double> LogLikelihoodComponents(std::vector <double> parameters) override;
 
@@ -203,7 +203,7 @@ class LikelihoodSingleTopAllHadronic : public LikelihoodBase {
   bool m_flag_get_par_sigmas_from_TFs;
 
   /// Pointer to resolution function for hadronic b quark.
-  ResolutionBase* m_res_energy_b;
+  ResolutionBase* m_res_energy_bhad;
 
   /// Pointer to resolution function for first light quark jet.
   ResolutionBase* m_res_energy_lq1;
@@ -215,15 +215,15 @@ class LikelihoodSingleTopAllHadronic : public LikelihoodBase {
   /** \name Member attributes (measured parameters) */
   /* @{ */
 
-  double m_b_meas_e;
-  double m_b_meas_p;
-  double m_b_meas_m;
-  double m_b_meas_deteta;
-  double m_b_meas_eta;
-  double m_b_meas_phi;
-  double m_b_meas_px;
-  double m_b_meas_py;
-  double m_b_meas_pz;
+  double m_bhad_meas_e;
+  double m_bhad_meas_p;
+  double m_bhad_meas_m;
+  double m_bhad_meas_deteta;
+  double m_bhad_meas_eta;
+  double m_bhad_meas_phi;
+  double m_bhad_meas_px;
+  double m_bhad_meas_py;
+  double m_bhad_meas_pz;
 
   double m_lq1_meas_e;
   double m_lq1_meas_p;
@@ -249,10 +249,10 @@ class LikelihoodSingleTopAllHadronic : public LikelihoodBase {
   /** \name Member attributes (fitted parameters) */
   /* @{ */
 
-  double m_b_fit_e;
-  double m_b_fit_px;
-  double m_b_fit_py;
-  double m_b_fit_pz;
+  double m_bhad_fit_e;
+  double m_bhad_fit_px;
+  double m_bhad_fit_py;
+  double m_bhad_fit_pz;
 
   double m_lq1_fit_e;
   double m_lq1_fit_px;
@@ -264,13 +264,13 @@ class LikelihoodSingleTopAllHadronic : public LikelihoodBase {
   double m_lq2_fit_py;
   double m_lq2_fit_pz;
 
-  double m_w_fit_e;
-  double m_w_fit_px;
-  double m_w_fit_py;
-  double m_w_fit_pz;
+  double m_whad_fit_e;
+  double m_whad_fit_px;
+  double m_whad_fit_py;
+  double m_whad_fit_pz;
 
-  double m_w_fit_m;
-  double m_t_fit_m;
+  double m_whad_fit_m;
+  double m_thad_fit_m;
 
   /* @} */
 };
