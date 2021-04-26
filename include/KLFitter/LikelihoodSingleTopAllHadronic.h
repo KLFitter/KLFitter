@@ -33,7 +33,7 @@ class ResolutionBase;
  * A class implementing a likelihood for the ttbar allhadronic channel. This
  * class represents a likelihood for the ttbar allhadronic channel.
  */
-class LikelihoodSingleTopAllHadronic : public KLFitter::LikelihoodBase {
+class LikelihoodSingleTopAllHadronic : public LikelihoodBase {
  public:
   /** \name Constructors and destructors */
   /* @{ */
@@ -50,10 +50,10 @@ class LikelihoodSingleTopAllHadronic : public KLFitter::LikelihoodBase {
   /* @} */
 
   /// Enumerator for the fitted parameters of this likelihood.
-  enum Parameters { parBhad1E,
-                    parLQ1E,
-                    parLQ2E,
-                    parTopM
+  enum Parameters { parBE,      ///< Energy of the b quark
+                    parLQ1E,    ///< Energy of the light quark 1
+                    parLQ2E,    ///< Energy of the light quark 2
+                    parTopM     ///< Mass of the top quark
   };
 
   /** \name Member functions (Set)  */
@@ -64,14 +64,14 @@ class LikelihoodSingleTopAllHadronic : public KLFitter::LikelihoodBase {
    * fixed to the pole mass.
    * @param flag The flag.
    */
-  void SetFlagTopMassFixed(bool flag) { fFlagTopMassFixed = flag; }
+  void SetFlagTopMassFixed(bool flag) { m_flag_top_mass_fixed = flag; }
 
   /**
    * Set a flag. If flag is true, take the parameter sigma values from the
    * transfer functions.
    * @param flag The flag.
    */
-  void SetFlagGetParSigmasFromTFs(bool flag) { fFlagGetParSigmasFromTFs = flag; }
+  void SetFlagGetParSigmasFromTFs(bool flag) { m_flag_get_par_sigmas_from_TFs = flag; }
 
   /* @} */
   /** \name Member functions (BAT)  */
@@ -96,7 +96,7 @@ class LikelihoodSingleTopAllHadronic : public KLFitter::LikelihoodBase {
    * @param parameters A vector of parameters (double values).
    * @return The logarithm of the prior probability.
    */
-  double LogLikelihood(const std::vector <double> &  parameters) override;
+  double LogLikelihood(const std::vector <double> & parameters) override;
 
   /**
    * The posterior probability definition, overloaded from BCModel. Instead of
@@ -105,11 +105,11 @@ class LikelihoodSingleTopAllHadronic : public KLFitter::LikelihoodBase {
    * @param parameters A vector of parameters (double values).
    * @return A vector with the components of the logarithm of the prior
    * probability. Its components are: \n
-   *   0) TF_bhad1 \n
+   *   0) TF_b \n
    *   1) TF_lq1 \n
    *   2) TF_lq2 \n
-   *   3) BW_Whad1 \n
-   *   4) BW_Thad1
+   *   3) BW_W \n
+   *   4) BW_T
    */
   std::vector<double> LogLikelihoodComponents(std::vector <double> parameters) override;
 
@@ -197,75 +197,80 @@ class LikelihoodSingleTopAllHadronic : public KLFitter::LikelihoodBase {
   /* @{ */
 
   /// A flag for using a fixed top mass (true) or not (false).
-  bool fFlagTopMassFixed;
+  bool m_flag_top_mass_fixed;
 
   /// Flag for using ResolutionBase::GetSigma() to retrieve the parameter ranges
-  bool fFlagGetParSigmasFromTFs;
+  bool m_flag_get_par_sigmas_from_TFs;
 
   /// Pointer to resolution function for hadronic b quark.
-  ResolutionBase * fResEnergyBhad1;
+  ResolutionBase* m_res_energy_b;
 
   /// Pointer to resolution function for first light quark jet.
-  ResolutionBase * fResEnergyLQ1;
+  ResolutionBase* m_res_energy_lq1;
 
   /// Pointer to resolution function for second light quark jet.
-  ResolutionBase * fResEnergyLQ2;
+  ResolutionBase* m_res_energy_lq2;
 
   /* @} */
   /** \name Member attributes (measured parameters) */
   /* @{ */
 
-  double bhad1_meas_e;
-  double bhad1_meas_p;
-  double bhad1_meas_m;
-  double bhad1_meas_deteta;
-  double bhad1_meas_eta;
-  double bhad1_meas_phi;
-  double bhad1_meas_px;
-  double bhad1_meas_py;
-  double bhad1_meas_pz;
+  double m_b_meas_e;
+  double m_b_meas_p;
+  double m_b_meas_m;
+  double m_b_meas_deteta;
+  double m_b_meas_eta;
+  double m_b_meas_phi;
+  double m_b_meas_px;
+  double m_b_meas_py;
+  double m_b_meas_pz;
 
-  double lq1_meas_e;
-  double lq1_meas_p;
-  double lq1_meas_m;
-  double lq1_meas_deteta;
-  double lq1_meas_eta;
-  double lq1_meas_phi;
-  double lq1_meas_px;
-  double lq1_meas_py;
-  double lq1_meas_pz;
+  double m_lq1_meas_e;
+  double m_lq1_meas_p;
+  double m_lq1_meas_m;
+  double m_lq1_meas_deteta;
+  double m_lq1_meas_eta;
+  double m_lq1_meas_phi;
+  double m_lq1_meas_px;
+  double m_lq1_meas_py;
+  double m_lq1_meas_pz;
 
-  double lq2_meas_e;
-  double lq2_meas_p;
-  double lq2_meas_m;
-  double lq2_meas_deteta;
-  double lq2_meas_eta;
-  double lq2_meas_phi;
-  double lq2_meas_px;
-  double lq2_meas_py;
-  double lq2_meas_pz;
+  double m_lq2_meas_e;
+  double m_lq2_meas_p;
+  double m_lq2_meas_m;
+  double m_lq2_meas_deteta;
+  double m_lq2_meas_eta;
+  double m_lq2_meas_phi;
+  double m_lq2_meas_px;
+  double m_lq2_meas_py;
+  double m_lq2_meas_pz;
 
   /* @} */
   /** \name Member attributes (fitted parameters) */
   /* @{ */
 
-  double bhad1_fit_e;
-  double bhad1_fit_px;
-  double bhad1_fit_py;
-  double bhad1_fit_pz;
+  double m_b_fit_e;
+  double m_b_fit_px;
+  double m_b_fit_py;
+  double m_b_fit_pz;
 
-  double lq1_fit_e;
-  double lq1_fit_px;
-  double lq1_fit_py;
-  double lq1_fit_pz;
+  double m_lq1_fit_e;
+  double m_lq1_fit_px;
+  double m_lq1_fit_py;
+  double m_lq1_fit_pz;
 
-  double lq2_fit_e;
-  double lq2_fit_px;
-  double lq2_fit_py;
-  double lq2_fit_pz;
+  double m_lq2_fit_e;
+  double m_lq2_fit_px;
+  double m_lq2_fit_py;
+  double m_lq2_fit_pz;
 
-  double whad1_fit_m;
-  double thad1_fit_m;
+  double m_w_fit_e;
+  double m_w_fit_px;
+  double m_w_fit_py;
+  double m_w_fit_pz;
+
+  double m_w_fit_m;
+  double m_t_fit_m;
 
   /* @} */
 };
