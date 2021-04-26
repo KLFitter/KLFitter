@@ -1,4 +1,4 @@
-# Copyright (c) 2009--2018, the KLFitter developer team
+# Copyright (c) 2009--2021, the KLFitter developer team
 #
 # This file is part of KLFitter.
 #
@@ -32,7 +32,7 @@ include( CTest )
 # Set up the "C++ version" to use.
 set( CMAKE_CXX_STANDARD_REQUIRED 11 CACHE STRING
    "Minimum C++ standard required for the build" )
-set( CMAKE_CXX_STANDARD 17 CACHE STRING
+set( CMAKE_CXX_STANDARD 14 CACHE STRING
    "C++ standard to use for the build" )
 set( CMAKE_CXX_EXTENSIONS FALSE CACHE BOOL
    "(Dis)allow using compiler extensions" )
