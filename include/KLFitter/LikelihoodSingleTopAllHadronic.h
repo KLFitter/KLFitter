@@ -119,13 +119,9 @@ class LikelihoodSingleTopAllHadronic : public LikelihoodBase {
   /* @{ */
 
   /**
-   * Set the values for the missing ET x and y components and the m_et_miss_sum. This
-   * sets the internal variables #m_et_miss_x, #m_et_miss_y and #m_et_miss_sum to the
-   * given values.
-   * @param etx missing ET x component.
-   * @param ety missing ET y component.
-   * @param sumet total scalar ET.
-   * @return An error flag.
+   * For events with missing ET this function would set the x and y components. In this
+   * class, the function is only implemented as a trivial function as MET is not used
+   * in the likelihood.
    */
   int SetET_miss_XY_SumET(double /*etx*/, double /*ety*/, double /*sumet*/) override { return 1; }
 
