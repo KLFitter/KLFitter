@@ -291,6 +291,14 @@ LikelihoodSgTopWtLJ::SetLeptonicTop();
 
 ![](LikelihoodSgTopWtLJ.png)
 
+### One hadronic top reconstruction
+
+The class LikelihoodHadronicOneTop implements the following likelihood for the reconstruction of one hadronically decaying top.  
+It was developed in order to speed up all-hadronic ttbar reconstruction, by reconstructing one-top at a time.
+It can also be used for single-top events, or any other case of t+X production, where the additional particles 'X', which could also contain other hadronically decaying top-quarks, have negligible correlations with the reconstruction of the top.  
+The likelihood function consists of Breit-Wigner distributions for one top-quark and one W-boson, as well as transfer functions for the three jets. As in the case of LikelihoodTopLeptonJets, the top-quark mass can be chosen to be fixed or a free parameter in the fit.
+
+![](LikelihoodOneHadronicTop.png)
 
 
 ## Using flavor-tagging information
