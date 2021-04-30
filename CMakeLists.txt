@@ -101,10 +101,10 @@ set( lib_headers
   include/KLFitter/DetectorBase.h
   include/KLFitter/Fitter.h
   include/KLFitter/LikelihoodBase.h
+  include/KLFitter/LikelihoodOneHadronicTop.h
   include/KLFitter/LikelihoodSgTopWtLJ.h
   include/KLFitter/LikelihoodTTHLeptonJets.h
   include/KLFitter/LikelihoodTTZTrilepton.h
-  include/KLFitter/LikelihoodSingleTopAllHadronic.h
   include/KLFitter/LikelihoodTopAllHadronic.h
   include/KLFitter/LikelihoodTopDilepton.h
   include/KLFitter/LikelihoodTopLeptonJets.h
@@ -126,10 +126,10 @@ set( lib_sources
   src/DetectorBase.cxx
   src/Fitter.cxx
   src/LikelihoodBase.cxx
+  src/LikelihoodOneHadronicTop.cxx
   src/LikelihoodSgTopWtLJ.cxx
   src/LikelihoodTTHLeptonJets.cxx
   src/LikelihoodTTZTrilepton.cxx
-  src/LikelihoodSingleTopAllHadronic.cxx
   src/LikelihoodTopAllHadronic.cxx
   src/LikelihoodTopDilepton.cxx
   src/LikelihoodTopLeptonJets.cxx

@@ -17,8 +17,8 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KLFITTER_LIKELIHOODSINGLETOPALLHADRONIC_H_
-#define KLFITTER_LIKELIHOODSINGLETOPALLHADRONIC_H_
+#ifndef KLFITTER_LIKELIHOODONEHADRONICTOP_H_
+#define KLFITTER_LIKELIHOODONEHADRONICTOP_H_
 
 #include <vector>
 
@@ -34,7 +34,7 @@ class ResolutionBase;
  * top quark that decays hadronically. Can be used for various types of final
  * states, e.g. ttbar (allhadronic, l+jets) or single-top production.
  */
-class LikelihoodSingleTopAllHadronic : public LikelihoodBase {
+class LikelihoodOneHadronicTop : public LikelihoodBase {
  public:
   /** \name Constructors and destructors */
   /* @{ */
@@ -43,10 +43,10 @@ class LikelihoodSingleTopAllHadronic : public LikelihoodBase {
    * The default constructor. This initializes all member attributes and calls
    * the functions DefineModelParticles() and DefineParameters().
    */
-  LikelihoodSingleTopAllHadronic();
+  LikelihoodOneHadronicTop();
 
   /// The (defaulted) destructor.
-  ~LikelihoodSingleTopAllHadronic();
+  ~LikelihoodOneHadronicTop();
 
   /* @} */
 
@@ -273,4 +273,4 @@ class LikelihoodSingleTopAllHadronic : public LikelihoodBase {
 };
 }  // namespace KLFitter
 
-#endif  // KLFITTER_LIKELIHOODSINGLETOPALLHADRONIC_H_
+#endif  // KLFITTER_LIKELIHOODONEHADRONICTOP_H_

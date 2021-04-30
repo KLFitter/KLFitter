@@ -17,7 +17,7 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "KLFitter/LikelihoodSingleTopAllHadronic.h"
+#include "KLFitter/LikelihoodOneHadronicTop.h"
 
 #include <algorithm>
 #include <iostream>
@@ -33,7 +33,7 @@
 
 namespace KLFitter {
 // ---------------------------------------------------------
-LikelihoodSingleTopAllHadronic::LikelihoodSingleTopAllHadronic()
+LikelihoodOneHadronicTop::LikelihoodOneHadronicTop()
   : LikelihoodBase::LikelihoodBase()
   , m_flag_top_mass_fixed(false)
   , m_flag_get_par_sigmas_from_TFs(false) {
@@ -45,16 +45,16 @@ LikelihoodSingleTopAllHadronic::LikelihoodSingleTopAllHadronic()
 }
 
 // ---------------------------------------------------------
-LikelihoodSingleTopAllHadronic::~LikelihoodSingleTopAllHadronic() = default;
+LikelihoodOneHadronicTop::~LikelihoodOneHadronicTop() = default;
 
 // ---------------------------------------------------------
-void LikelihoodSingleTopAllHadronic::RequestResolutionFunctions() {
+void LikelihoodOneHadronicTop::RequestResolutionFunctions() {
   (*fDetector)->RequestResolutionType(ResolutionType::EnergyLightJet);
   (*fDetector)->RequestResolutionType(ResolutionType::EnergyBJet);
 }
 
 // ---------------------------------------------------------
-int LikelihoodSingleTopAllHadronic::DefineModelParticles() {
+int LikelihoodOneHadronicTop::DefineModelParticles() {
   // create the particles of the model
   fParticlesModel.reset(new Particles{});
 
@@ -87,7 +87,7 @@ int LikelihoodSingleTopAllHadronic::DefineModelParticles() {
 }
 
 // ---------------------------------------------------------
-void LikelihoodSingleTopAllHadronic::DefineParameters() {
+void LikelihoodOneHadronicTop::DefineParameters() {
   // add parameters of model
   AddParameter("energy hadronic b", fPhysicsConstants.MassBottom(), 1000.0);  // parBhadE
   AddParameter("energy light quark 1", 0.0, 1000.0);                          // parLQ1E
@@ -96,7 +96,7 @@ void LikelihoodSingleTopAllHadronic::DefineParameters() {
 }
 
 // ---------------------------------------------------------
-int LikelihoodSingleTopAllHadronic::CalculateLorentzVectors(std::vector <double> const& parameters) {
+int LikelihoodOneHadronicTop::CalculateLorentzVectors(std::vector <double> const& parameters) {
   double scale;
   double thad_fit_e;
   double thad_fit_px;
@@ -143,7 +143,7 @@ int LikelihoodSingleTopAllHadronic::CalculateLorentzVectors(std::vector <double>
 }
 
 // ---------------------------------------------------------
-int LikelihoodSingleTopAllHadronic::RemoveInvariantParticlePermutations() {
+int LikelihoodOneHadronicTop::RemoveInvariantParticlePermutations() {
   // error code
   int err = 1;
 
@@ -167,7 +167,7 @@ int LikelihoodSingleTopAllHadronic::RemoveInvariantParticlePermutations() {
 }
 
 // ---------------------------------------------------------
-int LikelihoodSingleTopAllHadronic::AdjustParameterRanges() {
+int LikelihoodOneHadronicTop::AdjustParameterRanges() {
   // adjust limits
   double nsigmas_jet = m_flag_get_par_sigmas_from_TFs ? 10 : 7;
 
@@ -203,7 +203,7 @@ int LikelihoodSingleTopAllHadronic::AdjustParameterRanges() {
 }
 
 // ---------------------------------------------------------
-double LikelihoodSingleTopAllHadronic::LogLikelihood(const std::vector<double> & parameters) {
+double LikelihoodOneHadronicTop::LogLikelihood(const std::vector<double> & parameters) {
   // calculate 4-vectors
   CalculateLorentzVectors(parameters);
 
@@ -239,7 +239,7 @@ double LikelihoodSingleTopAllHadronic::LogLikelihood(const std::vector<double> &
 }
 
 // ---------------------------------------------------------
-std::vector<double> LikelihoodSingleTopAllHadronic::GetInitialParameters() {
+std::vector<double> LikelihoodOneHadronicTop::GetInitialParameters() {
   std::vector<double> values(GetNParameters());
 
   // energies of the quarks
@@ -261,7 +261,7 @@ std::vector<double> LikelihoodSingleTopAllHadronic::GetInitialParameters() {
 }
 
 // ---------------------------------------------------------
-int LikelihoodSingleTopAllHadronic::SavePermutedParticles() {
+int LikelihoodOneHadronicTop::SavePermutedParticles() {
   m_bhad_meas_e      = (*fParticlesPermuted)->Parton(0)->E();
   m_bhad_meas_deteta = (*fParticlesPermuted)->DetEta(0, Particles::kParton);
   m_bhad_meas_px     = (*fParticlesPermuted)->Parton(0)->Px();
@@ -291,7 +291,7 @@ int LikelihoodSingleTopAllHadronic::SavePermutedParticles() {
 }
 
 // ---------------------------------------------------------
-int LikelihoodSingleTopAllHadronic::SaveResolutionFunctions() {
+int LikelihoodOneHadronicTop::SaveResolutionFunctions() {
   m_res_energy_bhad = (*fDetector)->ResEnergyBJet(m_bhad_meas_deteta);
   m_res_energy_lq1  = (*fDetector)->ResEnergyLightJet(m_lq1_meas_deteta);
   m_res_energy_lq2  = (*fDetector)->ResEnergyLightJet(m_lq2_meas_deteta);
@@ -301,7 +301,7 @@ int LikelihoodSingleTopAllHadronic::SaveResolutionFunctions() {
 }
 
 // ---------------------------------------------------------
-int LikelihoodSingleTopAllHadronic::BuildModelParticles() {
+int LikelihoodOneHadronicTop::BuildModelParticles() {
   if (GetBestFitParameters().size() > 0) CalculateLorentzVectors(GetBestFitParameters());
 
   TLorentzVector* bhad = fParticlesModel->Parton(0);
@@ -323,7 +323,7 @@ int LikelihoodSingleTopAllHadronic::BuildModelParticles() {
 }
 
 // ---------------------------------------------------------
-std::vector<double> LikelihoodSingleTopAllHadronic::LogLikelihoodComponents(std::vector<double> parameters) {
+std::vector<double> LikelihoodOneHadronicTop::LogLikelihoodComponents(std::vector<double> parameters) {
   std::vector<double> vecci;
 
   // calculate 4-vectors
