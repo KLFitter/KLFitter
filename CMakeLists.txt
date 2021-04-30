@@ -1,4 +1,4 @@
-# Copyright (c) 2009--2018, the KLFitter developer team
+# Copyright (c) 2009--2021, the KLFitter developer team
 #
 # This file is part of KLFitter.
 #
@@ -101,6 +101,7 @@ set( lib_headers
   include/KLFitter/DetectorBase.h
   include/KLFitter/Fitter.h
   include/KLFitter/LikelihoodBase.h
+  include/KLFitter/LikelihoodOneHadronicTop.h
   include/KLFitter/LikelihoodSgTopWtLJ.h
   include/KLFitter/LikelihoodTTHLeptonJets.h
   include/KLFitter/LikelihoodTTZTrilepton.h
@@ -125,6 +126,7 @@ set( lib_sources
   src/DetectorBase.cxx
   src/Fitter.cxx
   src/LikelihoodBase.cxx
+  src/LikelihoodOneHadronicTop.cxx
   src/LikelihoodSgTopWtLJ.cxx
   src/LikelihoodTTHLeptonJets.cxx
   src/LikelihoodTTZTrilepton.cxx
