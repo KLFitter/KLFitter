@@ -22,6 +22,7 @@
 #include <iostream>
 
 #include "TLorentzVector.h"
+#include "TString.h"
 
 namespace KLFitter {
 // ---------------------------------------------------------
