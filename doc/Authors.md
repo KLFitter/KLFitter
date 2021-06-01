@@ -13,6 +13,7 @@
 ### Current and previous contributors to KLFitter
 
 - Stefanie Adomeit (previously LMU Munich): `LikelihoodTopAllHadronic`
+- Teresa Barillari, Sven Menke, Margherita Spalla, Nina Wenke: `LikelihoodOneHadronicTop`
 - Tomas Dado (Comenius University in Bratislava & Univ. of Göttingen): technical support
 - Andrea Knue (Univ. of Freiburg): user support
 - Fabian Kohn (previously Univ. of Göttingen): `LikelihoodTopLeptonJets_JetAngles`
