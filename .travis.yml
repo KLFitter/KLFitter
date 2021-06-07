@@ -48,8 +48,8 @@ before_install:
   - docker exec build ls -lR /user/docker
 
 
-# Before the deployment step, build the doxygen documentation
-# into the doc/html/ subdirectory.
+# Before the deployment step, build the doxygen documentation into the doc/html/
+# subdirectory.
 before_deploy:
   - cd $TRAVIS_BUILD_DIR
   - doxygen doc/Doxyfile 2>&1
@@ -57,10 +57,13 @@ before_deploy:
 
 # Definiton of the actual CI job. With the KLFitter build environment in place
 # in the docker image, we can go straight ahead and start configuring with
-# cmake. Although KLFitter comes with configuration flags KLF_BUILD_BAT and
-# KLF_BUILD_GTEST, we do not test them here anymore.
+# cmake.
 #
-# TODO: re-add jobs that run in-house builds of BAT and Googletest.
+# TODO: Although KLFitter comes with configuration flags KLF_BUILD_BAT and
+# KLF_BUILD_GTEST, we do not test them here anymore. Re-add jobs that test the
+# in-house build procedure for BAT and Googletest. We probably do not want to
+# run those on a regular basis, but it would be useful to have some sort of
+# confirmation that that procedure still works if needed.
 jobs:
   include:
     - env:
