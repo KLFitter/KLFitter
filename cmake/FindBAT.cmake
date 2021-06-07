@@ -43,7 +43,7 @@ find_path(
   PATH_SUFFIXES include)
 find_library(
   BAT_LIBRARY
-  NAMES BAT
+  NAMES BAT BATmodels BATmtf BATmvc
   PATHS ${PC_BAT_LIBRARY_DIRS} ${BAT_ROOT}
   PATH_SUFFIXES lib)
 
