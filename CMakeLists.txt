@@ -164,6 +164,20 @@ set( lib_sources
   src/ResSingleGaussPt.cxx
   src/ResolutionBase.cxx )
 
+# Compile into object files for now. Can be reused!
+add_library(objlib OBJECT ${lib_sources})
+
+target_include_directories( objlib
+  PUBLIC ${ROOT_INCLUDE_DIRS} ${BAT_INCLUDEDIR}
+  $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
+)
+
+set_property(TARGET objlib PROPERTY POSITION_INDEPENDENT_CODE 1)
+
+if( KLF_BUILD_BAT )
+  add_dependencies( objlib BAT )
+endif()
+
 # Create a macro to build and install libraries.
 macro( KLFitter_add_library name )
   add_library( ${name} ${ARGN} )
@@ -192,9 +206,9 @@ macro( KLFitter_add_library name )
 endmacro( KLFitter_add_library )
 
 # Build the shared (and static) library.
-KLFitter_add_library( KLFitter SHARED ${lib_headers} ${lib_sources} )
+KLFitter_add_library( KLFitter SHARED ${lib_headers} $<TARGET_OBJECTS:objlib> )
 if( KLF_INSTALL_STATIC_LIB )
-  KLFitter_add_library( KLFitter-stat ${lib_headers} ${lib_sources} )
+  KLFitter_add_library( KLFitter-stat STATIC ${lib_headers} $<TARGET_OBJECTS:objlib> )
 endif()
 
 # Install the transfer functions.
