@@ -1,4 +1,4 @@
-# Copyright (c) 2009--2018, the KLFitter developer team
+# Copyright (c) 2009--2021, the KLFitter developer team
 #
 # This file is part of KLFitter.
 #
@@ -51,8 +51,8 @@ addons:
 env:
   global:
     - BATINSTALLDIR="$TRAVIS_BUILD_DIR/external/BAT"
-    - DOCKER_IMAGE="rootproject/root-ubuntu16"
-    - DOCKER_CONTAINER="root-docker"
+    - DOCKER_IMAGE="klfitter/klfitter-buildenv:ubuntu20.04-root6.24.00-bat0.9.4.1"
+    - DOCKER_CONTAINER="klfitter-buildenv"
     - KLF_SOURCE_DIR="$TRAVIS_BUILD_DIR"
     - KLF_BUILD_DIR="$TRAVIS_BUILD_DIR/build"
     - LIBPATH_ORIG="\${LD_LIBRARY_PATH}\${LD_LIBRARY_PATH:+:}"
@@ -156,20 +156,8 @@ before_deploy:
 jobs:
   include:
     - env:
-        - KLF_CMAKE_OPTS="-DKLF_BUILD_BAT=TRUE -DKLF_BUILD_GTEST=TRUE -DKLF_INSTALL_TESTS=TRUE"
+        - KLF_CMAKE_OPTS="-DKLF_INSTALL_TESTS=TRUE"
       script:
-        - *run_cmake_configure
-        - *run_cmake_build
-        - *run_unit_tests
-        - *run_integration_tests
-        - *run_integration_test_diff
-    - env:
-        - KLF_CMAKE_OPTS="-DKLF_BUILD_BAT=FALSE -DKLF_BUILD_GTEST=TRUE -DKLF_INSTALL_TESTS=TRUE"
-        - KLF_SOURCE_DIR=$KLF_SOURCE_DIR/KLFitter
-      script:
-        - mv CMakeLists.txt cmake data include src tests util $KLF_SOURCE_DIR
-        - *run_download_bat
-        - *run_compile_bat
         - *run_cmake_configure
         - *run_cmake_build
         - *run_unit_tests
