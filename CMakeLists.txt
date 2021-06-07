@@ -87,7 +87,7 @@ if( KLF_BUILD_BAT )
     COMMAND ${CMAKE_COMMAND} -E copy_directory ${_buildDir}/ <INSTALL_DIR> )
   # Set the include and library paths to use.
   set( BAT_ROOT $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}> )
-  set( BAT_INCLUDE_DIR ${BAT_ROOT}/include )
+  set( BAT_INCLUDEDIR ${BAT_ROOT}/include )
   set( BAT_LIBRARY ${BAT_ROOT}/lib/libBAT.so )
   set( BAT_VERSION "0.9.4.1" )
   # Tell the user what will happen.
@@ -170,7 +170,7 @@ macro( KLFitter_add_library name )
 
   # Add include directories and library dependencies.
   target_include_directories( ${name}
-    PUBLIC ${ROOT_INCLUDE_DIRS} ${BAT_INCLUDE_DIR}
+    PUBLIC ${ROOT_INCLUDE_DIRS} ${BAT_INCLUDEDIR}
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
   )

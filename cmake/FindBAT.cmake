@@ -37,7 +37,7 @@ find_package(PkgConfig)
 pkg_check_modules(PC_BAT QUIET bat)
 
 find_path(
-  BAT_INCLUDE_DIR
+  BAT_INCLUDEDIR
   NAMES BAT/BCLog.h BAT/BCMath.h
   PATHS ${PC_BAT_INCLUDE_DIRS} ${BAT_ROOT}
   PATH_SUFFIXES include)
@@ -53,5 +53,5 @@ include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(
   BAT
   FOUND_VAR BAT_FOUND
-  REQUIRED_VARS BAT_LIBRARY BAT_INCLUDE_DIR
+  REQUIRED_VARS BAT_LIBRARY BAT_INCLUDEDIR
   VERSION_VAR BAT_VERSION)
