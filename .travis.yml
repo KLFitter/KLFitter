@@ -64,12 +64,12 @@ before_deploy:
 jobs:
   include:
     - env:
-        - KLF_CMAKE_OPTS="-DKLF_INSTALL_TESTS=TRUE"
+        - KLF_CMAKE_OPTS="-DKLF_INSTALL_TESTS=TRUE -DCMAKE_BUILD_TYPE=Release"
       script:
         - docker exec build cmake ${KLF_CMAKE_OPTS} ../src
         - docker exec build make
-        - docker exec build /bin/bash -c "export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/user/docker/build/lib && ./test-bin/unit_tests.exe"
-        - docker exec build /bin/bash -c "export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/user/docker/build/lib && ./test-bin/test-ljets-lh.exe ${KLF_SOURCE_DIR} 2>&1 |tee test-output.txt"
+        - docker exec build /bin/bash -c "export LD_LIBRARY_PATH=\${LD_LIBRARY_PATH}:/user/docker/build/lib && ./test-bin/unit_tests.exe"
+        - docker exec build /bin/bash -c "export LD_LIBRARY_PATH=\${LD_LIBRARY_PATH}:/user/docker/build/lib && ./test-bin/test-ljets-lh.exe ../src 2>&1 |tee test-output.txt"
         - docker exec build diff -u test-output.txt ../src/tests/integration/output-ref-ljets-lh.txt
     - stage: deploy
       script: skip
