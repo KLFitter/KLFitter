@@ -1,0 +1,48 @@
+FROM rootproject/root:6.24.00-ubuntu20.04
+
+LABEL maintainer.name="KLFitter developer team"
+LABEL maintainer.email="none"
+
+# Set the BAT version here and propagate this throughout the script.
+ARG BAT_VERSION=0.9.4.1
+ARG BAT_SHA=0f363bfbebc6902f451580a141dfdcba0edeaf7022e50fa88df014750f06cb74
+
+USER root
+
+WORKDIR /tmp
+
+# We need to apply some minor patches to BAT in order to avoid a stream of
+# deprecation warnings and an actual compilation error due to a missing include.
+RUN apt-get update \
+    && apt-get install -y patch
+
+COPY BAT-0.9.4.1-cxx17.patch BAT-0.9.4.1-cxx17.patch
+COPY BAT-0.9.4.1-root624.patch BAT-0.9.4.1-root624.patch
+
+# Download, unpack and install BAT, then clean up thoroughly.
+RUN wget https://github.com/bat/bat/archive/refs/tags/v${BAT_VERSION}.tar.gz \
+    && echo "${BAT_SHA} v${BAT_VERSION}.tar.gz" | sha256sum --check --status \
+    && tar xf v${BAT_VERSION}.tar.gz \
+    && cd bat-${BAT_VERSION} \
+    && patch -ruN -p1 < /tmp/BAT-0.9.4.1-cxx17.patch \
+    && patch -ruN -p1 < /tmp/BAT-0.9.4.1-root624.patch \
+    && ./autogen.sh \
+    && ./configure --prefix=/opt/bat \
+    && make -j 4 \
+    && make install \
+    && cd /tmp \
+    && rm -rf ./*
+
+ENV PATH=${PATH}${PATH:+:}/opt/bat/bin
+ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH}${LD_LIBRARY_PATH:+:}/opt/bat/lib
+ENV PKG_CONFIG_PATH=${PKG_CONFIG_PATH}${PKG_CONFIG_PATH:+:}/opt/bat/lib/pkgconfig
+
+# Create a non-privileged user 'docker' which is used for running this image.
+RUN groupadd -r docker -g 901 && useradd -u 901 -r -g docker docker
+
+ENV HOME=/user/docker
+USER docker
+WORKDIR ${HOME}
+
+ENTRYPOINT /bin/bash
+CMD /bin/bash
