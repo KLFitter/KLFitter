@@ -79,6 +79,8 @@ if( KLF_BUILD_BAT )
     URL "https://github.com/bat/bat/releases/download/v0.9.4.1/BAT-0.9.4.1.tar.gz"
     URL_HASH SHA256=D46C6F834CB5888BBF4DB393887190380132FA48816E0804F79C4A3CC344EF87
     BUILD_IN_SOURCE 1
+    PATCH_COMMAND patch -p1 < ${CMAKE_CURRENT_SOURCE_DIR}/docker/buildenv-bat0.9.4.1/BAT-0.9.4.1-cxx17.patch
+    COMMAND patch -p1 < ${CMAKE_CURRENT_SOURCE_DIR}/docker/buildenv-bat0.9.4.1/BAT-0.9.4.1-root624.patch
     CONFIGURE_COMMAND <SOURCE_DIR>/configure --with-rootsys=${ROOTSYS} --prefix=${_buildDir} --enable-silent-rules
     BUILD_COMMAND make LIBTOOLFLAGS=--silent
     INSTALL_COMMAND make install LIBTOOLFLAGS=--silent
@@ -87,6 +89,7 @@ if( KLF_BUILD_BAT )
   set( BAT_ROOT $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}> )
   set( BAT_INCLUDE_DIR ${BAT_ROOT}/include )
   set( BAT_LIBRARY ${BAT_ROOT}/lib/libBAT.so )
+  set( BAT_VERSION "0.9.4.1" )
   # Tell the user what will happen.
   message( STATUS "Using a privately downloaded BAT version for the build" )
 else()
