@@ -75,7 +75,7 @@ env:
 #       KLF_BUILD_DIR.
 #   - Create the necessary directories.
 before_install:
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker pull $DOCKER_IMAGE
   - docker run -i -d --name $DOCKER_CONTAINER -v $TRAVIS_BUILD_DIR:$TRAVIS_BUILD_DIR -w $TRAVIS_BUILD_DIR -u $(id -u) $DOCKER_IMAGE /bin/bash
   - docker ps -a
