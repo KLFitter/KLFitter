@@ -20,46 +20,25 @@ services: docker
 os: linux
 dist: xenial
 
-# Add the doxygen package from apt. Doxygen is needed to
-# automatically build and deploy the reference guide online to
-# https://KLFitter.github.io.
+# Add the doxygen package from apt. Doxygen is needed to automatically build and
+# deploy the reference guide online to https://KLFitter.github.io.
 addons:
   apt:
     packages:
       - doxygen
 
 
-# Definition of global variables. These include:
-#   - BATINSTALLDIR: the directory to install BAT into.
-#   - DOCKER_IMAGE: the name of the ROOT docker image.
-#   - DOCKER_CONTAINER: internal name to identify the docker
-#       container with the ROOT docker image.
-#   - KLF_SOURCE_DIR: location of the KLFitter source code.
-#   - KLF_BUILD_DIR: directory to be used for the KLFitter build.
-#   - CMD_DOCKER: command to be appended to other shell commands
-#       when executing them in the docker image.
-#   - CMD_EXPORT_BATINSTALL: command to export the variable
-#       BATINSTALLDIR within the docker image.
-#   - CMD_EXPORT_LIBPATH: command to export the library paths
-#       within the docker image. The command appends to an
-#       existing LD_LIBRARY_PATH and adds the library locations
-#       for ROOT, BAT, and KLFitter.
+# Set the docker image used for all following steps: this is a custom image with
+# a KLFitter build environment that comes with ROOT 6.24.00 and BAT 0.9.4.1 as
+# well as Googletest 1.10.0 installed on a vanilla ubuntu 20.04 image.
 env:
   global:
-    - BATINSTALLDIR="$TRAVIS_BUILD_DIR/external/BAT"
     - DOCKER_IMAGE="klfitter/klfitter-buildenv:ubuntu20.04-root6.24.00-bat0.9.4.1"
 
 
-# List of commands to be executed before the CI jobs:
-#   - Pull the ROOT docker image.
-#   - Start a docker container with that image, mount the
-#       TRAVIS_BUILD_DIR within the docker image, and use it as
-#       the working directory.
-#   - List all active docker containers.
-#   - Test commands, such as ROOT within the docker image, and
-#       the exported environment variables KLF_SOURCE_DIR and
-#       KLF_BUILD_DIR.
-#   - Create the necessary directories.
+# Some preparatory steps before the CI starts: authenticate against dockerhub,
+# download the specified image, start an interactive container and detach. Then
+# print some additional debug information to stdout.
 before_install:
   - echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker pull $DOCKER_IMAGE
@@ -76,16 +55,12 @@ before_deploy:
   - doxygen doc/Doxyfile 2>&1
 
 
-# Definiton of the actual CI jobs. We build KLFitter with two
-# different scenarios:
-# 1. Make a fully automatized build of KLFitter and BAT using
-#    cmake. This downloads and compiles BAT via cmake, and builds
-#    and links KLFitter against it. Run unit tests afterwards and
-#    verify their output.
-# 2. Download and compile BAT with the external shell script
-#    CompileBAT.sh. Then configure the KLFitter build via cmake
-#    and pick up that pre-built version of BAT. Run unit tests
-#    afterwards and verify their output.
+# Definiton of the actual CI job. With the KLFitter build environment in place
+# in the docker image, we can go straight ahead and start configuring with
+# cmake. Although KLFitter comes with configuration flags KLF_BUILD_BAT and
+# KLF_BUILD_GTEST, we do not test them here anymore.
+#
+# TODO: re-add jobs that run in-house builds of BAT and Googletest.
 jobs:
   include:
     - env:
@@ -93,9 +68,9 @@ jobs:
       script:
         - docker exec build cmake ${KLF_CMAKE_OPTS} ../src
         - docker exec build make
-        - docker exec build ./test-bin/unit_tests.exe
-        - docker exec build ./test-bin/test-ljets-lh.exe ${KLF_SOURCE_DIR} 2>&1 |tee test-output.txt
-        - docker exec build test-output.txt ../src/tests/integration/output-ref-ljets-lh.txt
+        - docker exec build /bin/bash -c "export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/user/docker/build/lib && ./test-bin/unit_tests.exe"
+        - docker exec build /bin/bash -c "export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/user/docker/build/lib && ./test-bin/test-ljets-lh.exe ${KLF_SOURCE_DIR} 2>&1 |tee test-output.txt"
+        - docker exec build diff -u test-output.txt ../src/tests/integration/output-ref-ljets-lh.txt
     - stage: deploy
       script: skip
       if: branch = master AND repo = KLFitter/KLFitter AND NOT type = pull_request
@@ -105,7 +80,7 @@ jobs:
         target_branch: master
         local_dir: doc/html
         token: $DOC_TOKEN
-        keep-history: true
+        keep_history: true
         strategy: git
         verbose: true
         allow_empty_commit: true
