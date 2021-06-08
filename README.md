@@ -34,8 +34,10 @@ License, respectively.
 KLFitter depends on the ROOT and BAT libraries. For information about ROOT,
 please consult the [ROOT web page](https://root.cern.ch/). Information about
 BAT, installation instructions and the latest BAT releases can be found on the
-[library's web page](http://www.mppmu.mpg.de/bat/). The following versions have
-been tested with KLFitter and are working:
+[library's web page](http://www.mppmu.mpg.de/bat/). BAT can be installed with
+KLFitter on the fly, see below for installation instructions.
+
+The following versions have been tested with KLFitter and are working:
 
 - ROOT v6.24.00
 - BAT v0.9.4.1 (developments for compatibility with v1.0.0 ongoing)
