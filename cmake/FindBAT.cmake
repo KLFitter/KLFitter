@@ -1,4 +1,4 @@
-# Copyright (c) 2009--2018, the KLFitter developer team
+# Copyright (c) 2009--2021, the KLFitter developer team
 #
 # This file is part of KLFitter.
 #
@@ -19,33 +19,39 @@
 #
 # FindBAT.cmake file to find the BAT library
 #
-# To ensure that this works correctly, please set the environment
-# variable $BATINSTALLDIR to your BAT installation directory. This
-# script will define the following variables:
+# This file assumes that a properly installed version of BAT comes with
+# pkgconfig files. Thus, use the pkgconfig module to locate BAT. Otherwise, if
+# BAT is installed within the KLFitter build environment, the $BAT_ROOT
+# environment variable will be set and can be used as a hint to locate the BAT
+# installation. This script will define the following variables:
 #
-#   BAT_FOUND    - True if the system has the BAT library
-#   BAT_VERSION  - The version of the BAT library which was found
+# BAT_FOUND    - True if the system has the BAT library
+#
+# BAT_VERSION - The version of the BAT library which was found
 #
 # and the following imported targets:
 #
 #   BAT::BAT   - The BAT library
 
-find_path(BAT_INCLUDE_DIR
+find_package(PkgConfig)
+pkg_check_modules(PC_BAT QUIET bat)
+
+find_path(
+  BAT_INCLUDEDIR
   NAMES BAT/BCLog.h BAT/BCMath.h
-  PATHS ${BAT_ROOT} $ENV{BATINSTALLDIR}
-  PATH_SUFFIXES include
-)
-find_library(BAT_LIBRARY
-  NAMES BAT
-  PATHS ${BAT_ROOT} $ENV{BATINSTALLDIR}
-  PATH_SUFFIXES lib
-)
+  PATHS ${PC_BAT_INCLUDE_DIRS} ${BAT_ROOT}
+  PATH_SUFFIXES include)
+find_library(
+  BAT_LIBRARY
+  NAMES BAT BATmodels BATmtf BATmvc
+  PATHS ${PC_BAT_LIBRARY_DIRS} ${BAT_ROOT}
+  PATH_SUFFIXES lib)
+
+set(BAT_VERSION ${PC_BAT_VERSION})
 
 include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(BAT
+find_package_handle_standard_args(
+  BAT
   FOUND_VAR BAT_FOUND
-  REQUIRED_VARS
-    BAT_LIBRARY
-    BAT_INCLUDE_DIR
-  VERSION_VAR BAT_VERSION
-)
+  REQUIRED_VARS BAT_LIBRARY BAT_INCLUDEDIR
+  VERSION_VAR BAT_VERSION)

@@ -1,4 +1,4 @@
-# Copyright (c) 2009--2018, the KLFitter developer team
+# Copyright (c) 2009--2021, the KLFitter developer team
 #
 # This file is part of KLFitter.
 #
@@ -79,14 +79,17 @@ if( KLF_BUILD_BAT )
     URL "https://github.com/bat/bat/releases/download/v0.9.4.1/BAT-0.9.4.1.tar.gz"
     URL_HASH SHA256=D46C6F834CB5888BBF4DB393887190380132FA48816E0804F79C4A3CC344EF87
     BUILD_IN_SOURCE 1
+    PATCH_COMMAND patch -p1 < ${CMAKE_CURRENT_SOURCE_DIR}/docker/buildenv-bat0.9.4.1/BAT-0.9.4.1-cxx17.patch
+    COMMAND patch -p1 < ${CMAKE_CURRENT_SOURCE_DIR}/docker/buildenv-bat0.9.4.1/BAT-0.9.4.1-root624.patch
     CONFIGURE_COMMAND <SOURCE_DIR>/configure --with-rootsys=${ROOTSYS} --prefix=${_buildDir} --enable-silent-rules
     BUILD_COMMAND make LIBTOOLFLAGS=--silent
     INSTALL_COMMAND make install LIBTOOLFLAGS=--silent
     COMMAND ${CMAKE_COMMAND} -E copy_directory ${_buildDir}/ <INSTALL_DIR> )
   # Set the include and library paths to use.
   set( BAT_ROOT $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}> )
-  set( BAT_INCLUDE_DIR ${BAT_ROOT}/include )
+  set( BAT_INCLUDEDIR ${BAT_ROOT}/include )
   set( BAT_LIBRARY ${BAT_ROOT}/lib/libBAT.so )
+  set( BAT_VERSION "0.9.4.1" )
   # Tell the user what will happen.
   message( STATUS "Using a privately downloaded BAT version for the build" )
 else()
@@ -161,13 +164,27 @@ set( lib_sources
   src/ResSingleGaussPt.cxx
   src/ResolutionBase.cxx )
 
+# Compile into object files for now. Can be reused!
+add_library(objlib OBJECT ${lib_sources})
+
+target_include_directories( objlib
+  PUBLIC ${ROOT_INCLUDE_DIRS} ${BAT_INCLUDEDIR}
+  $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
+)
+
+set_property(TARGET objlib PROPERTY POSITION_INDEPENDENT_CODE 1)
+
+if( KLF_BUILD_BAT )
+  add_dependencies( objlib BAT )
+endif()
+
 # Create a macro to build and install libraries.
 macro( KLFitter_add_library name )
   add_library( ${name} ${ARGN} )
 
   # Add include directories and library dependencies.
   target_include_directories( ${name}
-    PUBLIC ${ROOT_INCLUDE_DIRS} ${BAT_INCLUDE_DIR}
+    PUBLIC ${ROOT_INCLUDE_DIRS} ${BAT_INCLUDEDIR}
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
   )
@@ -189,9 +206,9 @@ macro( KLFitter_add_library name )
 endmacro( KLFitter_add_library )
 
 # Build the shared (and static) library.
-KLFitter_add_library( KLFitter SHARED ${lib_headers} ${lib_sources} )
+KLFitter_add_library( KLFitter SHARED ${lib_headers} $<TARGET_OBJECTS:objlib> )
 if( KLF_INSTALL_STATIC_LIB )
-  KLFitter_add_library( KLFitter-stat ${lib_headers} ${lib_sources} )
+  KLFitter_add_library( KLFitter-stat STATIC ${lib_headers} $<TARGET_OBJECTS:objlib> )
 endif()
 
 # Install the transfer functions.

@@ -15,8 +15,6 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
 
-message( STATUS "Installing KLFitter test suite ..." )
-
 # Check whether a privately downloaded version of googletest was requested.
 if( KLF_BUILD_GTEST )
   include( ExternalProject )
@@ -24,8 +22,8 @@ if( KLF_BUILD_GTEST )
   ExternalProject_Add( googletest_ext
     PREFIX ${CMAKE_BINARY_DIR}/externals
     INSTALL_DIR ${CMAKE_BINARY_DIR}
-    URL "https://github.com/google/googletest/archive/release-1.8.1.tar.gz"
-    URL_HASH SHA256=9bf1fe5182a604b4135edc1a425ae356c9ad15e9b23f9f12a02e80184c3a249c
+    URL "https://github.com/google/googletest/archive/refs/tags/release-1.10.0.tar.gz"
+    URL_HASH SHA256=9dc9157a9a1551ec7a7e43daea9a694a0bb5fb8bec81235d8a1e6ef64c716dcb
     CMAKE_ARGS
     -DBUILD_GMOCK:BOOL=Off
     -DGTEST_HAS_PTHREAD=0
@@ -69,7 +67,7 @@ if( KLF_BUILD_GTEST )
   # Write status message for the user.
   message( STATUS "Using a privately downloaded googletest version for the build" )
 else()
-  find_package( GTest 1.8.1 REQUIRED )
+  find_package( GTest 1.10.0 REQUIRED )
 endif()
 
 # List of all unit-test implementation files.
