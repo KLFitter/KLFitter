@@ -74,6 +74,7 @@ jobs:
         - docker exec build /bin/bash -c "export LD_LIBRARY_PATH=\${LD_LIBRARY_PATH}:/user/docker/build/lib && ./test-bin/unit_tests.exe"
         - docker exec build /bin/bash -c "export LD_LIBRARY_PATH=\${LD_LIBRARY_PATH}:/user/docker/build/lib && ./test-bin/test-ljets-lh.exe ../src 2>&1 |tee test-output.txt"
         - docker exec build diff -u test-output.txt ../src/tests/integration/output-ref-ljets-lh.txt
+      if: NOT type = pull_request
     - stage: deploy
       script: skip
       if: branch = master AND repo = KLFitter/KLFitter AND NOT type = pull_request
