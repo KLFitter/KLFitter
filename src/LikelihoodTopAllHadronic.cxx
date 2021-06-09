@@ -27,7 +27,7 @@
 #include "BAT/BCParameter.h"
 #include "KLFitter/DetectorBase.h"
 #include "KLFitter/ParticleCollection.h"
-#include "KLFitter/Permutations.h"
+#include "KLFitter/PermutationHandler.h"
 #include "KLFitter/PhysicsConstants.h"
 #include "KLFitter/ResolutionBase.h"
 #include "TLorentzVector.h"
@@ -86,7 +86,7 @@ int KLFitter::LikelihoodTopAllHadronic::DefineModelParticles() {
 
   fParticlesModel->AddParticle(Particles::Boson{"W 1", TLorentzVector{}});
   fParticlesModel->AddParticle(Particles::Boson{"W 2", TLorentzVector{}});
-  fParticlesModel->AddParticle(Particles::Parton{"top 2", TLorentzVector{}});
+  fParticlesModel->AddParticle(Particles::Parton{"top 1", TLorentzVector{}});
   fParticlesModel->AddParticle(Particles::Parton{"top 2", TLorentzVector{}});
 
   // no error
@@ -206,15 +206,9 @@ int KLFitter::LikelihoodTopAllHadronic::RemoveInvariantParticlePermutations() {
 
   // remove the permutation from the second and the third jet
   Particles::Type ptype = Particles::Type::kParton;
-  std::vector<int> indexVector_Jets;
-  indexVector_Jets.push_back(2);
-  indexVector_Jets.push_back(3);
-  err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Jets);
+  err *= (*fPermutations)->InvariantParticlePermutations(ptype, std::vector<int>{2, 3});
 
-  indexVector_Jets.clear();
-  indexVector_Jets.push_back(4);
-  indexVector_Jets.push_back(5);
-  err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Jets);
+  err *= (*fPermutations)->InvariantParticlePermutations(ptype, std::vector<int>{4, 5});
 
   // remove invariant permutation when exchanging both top quarks
   std::vector<int> indexVector_JetsTop1;
@@ -229,11 +223,11 @@ int KLFitter::LikelihoodTopAllHadronic::RemoveInvariantParticlePermutations() {
 
   // remove invariant jet permutations of notevent jets
   const KLFitter::ParticleCollection* particles = (*fPermutations)->Particles();
-  indexVector_Jets.clear();
+  std::vector<int> indices;
   for (size_t iPartons = 6; iPartons < particles->partons.size(); iPartons++) {
-    indexVector_Jets.push_back(iPartons);
+    indices.emplace_back(iPartons);
   }
-  err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Jets);
+  err *= (*fPermutations)->InvariantParticlePermutations(ptype, indices);
 
   // return error code
   return err;

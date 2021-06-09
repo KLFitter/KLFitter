@@ -26,7 +26,7 @@
 #include "BAT/BCParameter.h"
 #include "KLFitter/DetectorBase.h"
 #include "KLFitter/ParticleCollection.h"
-#include "KLFitter/Permutations.h"
+#include "KLFitter/PermutationHandler.h"
 #include "KLFitter/PhysicsConstants.h"
 #include "KLFitter/ResolutionBase.h"
 #include "TLorentzVector.h"
@@ -274,18 +274,15 @@ int KLFitter::LikelihoodSgTopWtLJ::RemoveInvariantParticlePermutations() {
 
   // remove the permutation from the first and the second jet
   Particles::Type ptype = Particles::Type::kParton;
-  std::vector<int> indexVector_Jets;
-  indexVector_Jets.push_back(1);
-  indexVector_Jets.push_back(2);
-  err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Jets);
+  err *= (*fPermutations)->InvariantParticlePermutations(ptype, std::vector<int>{1, 2});
 
   // remove the permutation from all jet not used for the likelihood
   const KLFitter::ParticleCollection* particles = (*fPermutations)->Particles();
-  indexVector_Jets.clear();
+  std::vector<int> indices;
   for (size_t i = 3; i < particles->partons.size(); i++) {
-    indexVector_Jets.push_back(i);
+    indices.emplace_back(i);
   }
-  err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Jets);
+  err *= (*fPermutations)->InvariantParticlePermutations(ptype, indices);
 
   // return error code
   return err;

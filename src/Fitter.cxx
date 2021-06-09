@@ -25,7 +25,7 @@
 #include "KLFitter/DetectorBase.h"
 #include "KLFitter/LikelihoodBase.h"
 #include "KLFitter/ParticleCollection.h"
-#include "KLFitter/Permutations.h"
+#include "KLFitter/PermutationHandler.h"
 
 // ---------------------------------------------------------
 KLFitter::Fitter::Fitter()
@@ -37,7 +37,7 @@ KLFitter::Fitter::Fitter()
   , fParticlesPermuted(nullptr)
   , fMyParticlesTruth(nullptr)
   , fLikelihood(nullptr)
-  , fPermutations(std::unique_ptr<KLFitter::Permutations>(new KLFitter::Permutations{&fParticles, &fParticlesPermuted}))
+  , fPermutations(std::unique_ptr<KLFitter::PermutationHandler>(new KLFitter::PermutationHandler{&fParticles, &fParticlesPermuted}))
   , fMinuitStatus(0)
   , fConvergenceStatus(0)
   , fTurnOffSA(false)
@@ -49,7 +49,7 @@ KLFitter::Fitter::Fitter()
 KLFitter::Fitter::~Fitter() = default;
 
 // ---------------------------------------------------------
-int KLFitter::Fitter::SetParticles(KLFitter::ParticleCollection * particles, int nPartonsInPermutations) {
+int KLFitter::Fitter::SetParticles(KLFitter::ParticleCollection * particles) {
   fParticles = particles;
 
   // reset old table of permutations
@@ -57,7 +57,7 @@ int KLFitter::Fitter::SetParticles(KLFitter::ParticleCollection * particles, int
     fPermutations->Reset();
 
   // create table of permutations
-  fPermutations->CreatePermutations(nPartonsInPermutations);
+  fPermutations->CreatePermutations();
 
   // remove invariant permutations if likelihood exists
   if (fLikelihood)
@@ -148,6 +148,8 @@ int KLFitter::Fitter::Fit(int index) {
   // check status
   if (!Status())
     return 0;
+
+  if (fPermutations->IsVetoed(index)) return 0;
 
   // set permutation
   if (!fPermutations->SetPermutation(index))
@@ -282,6 +284,8 @@ int KLFitter::Fitter::Fit() {
 
   // loop over all permutations
   for (int ipermutation = 0; ipermutation < npermutations; ++ipermutation) {
+    if (fPermutations->IsVetoed(ipermutation)) continue;
+
     // set permutation
     if (!fPermutations->SetPermutation(ipermutation))
       return 0;

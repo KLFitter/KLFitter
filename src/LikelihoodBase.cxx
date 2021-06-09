@@ -26,7 +26,7 @@
 #include "BAT/BCLog.h"
 #include "BAT/BCParameter.h"
 #include "KLFitter/DetectorBase.h"
-#include "KLFitter/Permutations.h"
+#include "KLFitter/PermutationHandler.h"
 #include "KLFitter/PhysicsConstants.h"
 #include "TRandom3.h"
 
@@ -136,7 +136,7 @@ int KLFitter::LikelihoodBase::SetParticlesPermuted(KLFitter::ParticleCollection*
 }
 
 // ---------------------------------------------------------
-int KLFitter::LikelihoodBase::SetPermutations(std::unique_ptr<KLFitter::Permutations>* permutations) {
+int KLFitter::LikelihoodBase::SetPermutations(std::unique_ptr<KLFitter::PermutationHandler>* permutations) {
   // error code
   int err = 1;
 
@@ -378,7 +378,7 @@ int KLFitter::LikelihoodBase::RemoveForbiddenParticlePermutations() {
   // Permutations object and run with the kVetoNoFitLight option.
   int nPartonsModel = fParticlesModel->partons.size();
   if (fBTagMethod == kVetoHybridNoFit) {
-    KLFitter::Permutations permutationsCopy(**fPermutations);
+    KLFitter::PermutationHandler permutationsCopy(**fPermutations);
     for (int iParton(0); iParton < nPartons; ++iParton) {
       bool isBtagged = particles->partons.at(iParton).GetIsBTagged();
 

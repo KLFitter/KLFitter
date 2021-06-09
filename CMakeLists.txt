@@ -118,7 +118,7 @@ set( lib_headers
   include/KLFitter/LikelihoodTopLeptonJets_JetAngles.h
   include/KLFitter/LikelihoodTwoTracks.h
   include/KLFitter/ParticleCollection.h
-  include/KLFitter/Permutations.h
+  include/KLFitter/PermutationHandler.h
   include/KLFitter/PhysicsConstants.h )
 
 # Source files for the shared/static library.
@@ -142,7 +142,7 @@ set( lib_sources
   src/LikelihoodTopLeptonJets_JetAngles.cxx
   src/LikelihoodTwoTracks.cxx
   src/ParticleCollection.cxx
-  src/Permutations.cxx
+  src/PermutationHandler.cxx
   src/PhysicsConstants.cxx
   src/ResCrystalBallBase.cxx
   src/ResCrystalBallJets.cxx

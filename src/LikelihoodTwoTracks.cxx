@@ -26,7 +26,7 @@
 #include "BAT/BCParameter.h"
 #include "KLFitter/DetectorBase.h"
 #include "KLFitter/ParticleCollection.h"
-#include "KLFitter/Permutations.h"
+#include "KLFitter/PermutationHandler.h"
 #include "KLFitter/PhysicsConstants.h"
 #include "KLFitter/ResolutionBase.h"
 
@@ -157,10 +157,7 @@ int LikelihoodTwoTracks::RemoveInvariantParticlePermutations() {
 
   // remove the permutation from the second and the third jet
   Particles::Type ptype = Particles::Type::kTrack;
-  std::vector<int> indexVector_Tracks;
-  indexVector_Tracks.push_back(0);
-  indexVector_Tracks.push_back(1);
-  err *= (*fPermutations)->InvariantParticlePermutations(ptype, indexVector_Tracks);
+  err *= (*fPermutations)->InvariantParticlePermutations(ptype, std::vector<int>{0, 1});
 
   // return error code
   return err;

@@ -17,8 +17,8 @@
  * along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KLFITTER_PERMUTATIONS_H_
-#define KLFITTER_PERMUTATIONS_H_
+#ifndef KLFITTER_PERMUTATIONHANDLER_H_
+#define KLFITTER_PERMUTATIONHANDLER_H_
 
 #include <vector>
 
@@ -28,29 +28,51 @@
 
 namespace KLFitter {
 /**
+ * Simple structure to hold multiple lists, which in turn hold
+ * indices of particles. These lists can then be used to
+ * calculate all possible permutations.
+ */
+struct Permutation {
+  std::vector<int> partons{};
+  std::vector<int> electrons{};
+  std::vector<int> muons{};
+  std::vector<int> photons{};
+  std::vector<int> tracks{};
+
+  /// Boolean whether permutation is vetoed.
+  bool vetoed{false};
+
+  /// Calculate the next possible permutation.
+  bool next_permutation();
+
+  /// Print information about the permutation.
+  std::string print();
+};
+
+/**
  * Class to calculate and provide permutations of particles. The
  * class gets a pointer to the orignal set of particles and a
  * pointer to the currently used permutations. It can calculate
  * all permutations and create a table. The pointer of the
  * current permutation is set to the entry in the table.
  */
-class Permutations final {
+class PermutationHandler final {
  public:
   /**
    * The default constructor.
    * @param p A pointer to the pointer to the original set of particles.
    * @param pp A pointer to the pointer to the permutated set of particles.
    */
-  Permutations(KLFitter::ParticleCollection** p, KLFitter::ParticleCollection** pp);
+  PermutationHandler(KLFitter::ParticleCollection** p, KLFitter::ParticleCollection** pp);
 
   /// The (defaulted) copy constructor.
-  explicit Permutations(const Permutations& o);
+  explicit PermutationHandler(const PermutationHandler& o);
 
   /// The (defaulted) destructor.
-  ~Permutations();
+  ~PermutationHandler();
 
   /// The (defaulted) assignment operator.
-  Permutations& operator=(const Permutations& obj);
+  PermutationHandler& operator=(const PermutationHandler& obj);
 
   /** \name Member functions (Get)  */
   /** @{ */
@@ -67,27 +89,18 @@ class Permutations final {
    */
   KLFitter::ParticleCollection* ParticlesPermuted() { return *m_particles_permuted; }
 
+  const std::vector<Permutation>& GetList() { return m_permutation_list; }
+
   /**
    * Return the number of permutations.
    */
   int NPermutations() const { return static_cast<int>(m_particles_table.size()); }
 
-  /**
-   * Return the current permutation index.
-   * @return The current permutation index.
-   */
-  int PermutationIndex() const { return m_permutation_index; }
-
   /** @} */
   /** \name Member functions (Set)  */
   /** @{ */
 
-  /**
-   * Set the original particles.
-   * @param particles A set of particles.
-   * @return An error code.
-   */
-  int SetParticles(KLFitter::ParticleCollection* particles);
+  bool IsVetoed(int index);
 
   /**
    * Set the permutation.
@@ -102,10 +115,8 @@ class Permutations final {
 
   /**
    * Create all possible permutations of jets and leptons.
-   * However, make permutations with exactly
-   * nPartonsInPermutations.
    */
-  int CreatePermutations(int nPartonsInPermutations = -1);
+  int CreatePermutations();
 
   /**
    * Remove permutations in which all indices in the vector
@@ -114,10 +125,10 @@ class Permutations final {
    * interchanging for example jets doesn't have any effect,
    * e.g., if two jets come from a W (top).
    * @param ptype The type of the particle.
-   * @param indexVector Vector of indices.
+   * @param indices Vector of indices.
    * @return An error code.
    */
-  int InvariantParticlePermutations(Particles::Type ptype, std::vector<int> indexVector);
+  int InvariantParticlePermutations(Particles::Type ptype, std::vector<int> indices);
 
   /**
    * Remove permutations in which all indices in the vector
@@ -151,9 +162,6 @@ class Permutations final {
    */
   int Reset();
 
-  /// Creates table of permutations.
-  int CreateSubTable(int Nobj, std::vector<std::vector<int> >* table, int Nmax = -1);
-
   /** @} */
 
  private:
@@ -169,18 +177,12 @@ class Permutations final {
   /// A table of permuted particles (jets and leptons).
   std::vector<KLFitter::ParticleCollection> m_particles_table;
 
-  /// A table of permutations. Needed for the math.
-  std::vector<std::vector<int> > m_permutation_table;
+  /// A list of permutations. Needed for the math.
+  std::vector<Permutation> m_permutation_list;
 
   /// The permutation index
   int m_permutation_index;
-
-  std::vector<std::vector<int> > m_table_partons;
-  std::vector<std::vector<int> > m_table_electrons;
-  std::vector<std::vector<int> > m_table_muons;
-  std::vector<std::vector<int> > m_table_photons;
-  std::vector<std::vector<int> > m_table_tracks;
 };
 }  // namespace KLFitter
 
-#endif  // KLFITTER_PERMUTATIONS_H_
+#endif  // KLFITTER_PERMUTATIONHANDLER_H_
