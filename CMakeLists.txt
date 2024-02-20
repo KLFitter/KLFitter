@@ -32,7 +32,7 @@ include( CTest )
 # Set up the "C++ version" to use.
 set( CMAKE_CXX_STANDARD_REQUIRED 11 CACHE STRING
    "Minimum C++ standard required for the build" )
-set( CMAKE_CXX_STANDARD 14 CACHE STRING
+set( CMAKE_CXX_STANDARD 17 CACHE STRING
    "C++ standard to use for the build" )
 set( CMAKE_CXX_EXTENSIONS FALSE CACHE BOOL
    "(Dis)allow using compiler extensions" )
@@ -76,6 +76,7 @@ if( BUILTIN_BAT )
     URL "https://github.com/bat/bat/releases/download/v0.9.4.1/BAT-0.9.4.1.tar.gz"
     URL_HASH SHA256=D46C6F834CB5888BBF4DB393887190380132FA48816E0804F79C4A3CC344EF87
     BUILD_IN_SOURCE 1
+    PATCH_COMMAND patch -p1 < ${CMAKE_SOURCE_DIR}/patches/cpp17_patch_v0_9_4_1.patch
     CONFIGURE_COMMAND <SOURCE_DIR>/configure --with-rootsys=${ROOTSYS} --prefix=${_buildDir} --enable-silent-rules
     BUILD_COMMAND make LIBTOOLFLAGS=--silent
     INSTALL_COMMAND make install LIBTOOLFLAGS=--silent

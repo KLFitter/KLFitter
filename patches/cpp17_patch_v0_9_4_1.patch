@@ -1,0 +1,74 @@
+diff --git a/BAT/BCMath.h b/BAT/BCMath.h
+index 2b743e1..47dffa6 100644
+--- a/BAT/BCMath.h
++++ b/BAT/BCMath.h
+@@ -215,7 +215,7 @@ namespace BCMath
+ 	 * @return R-value
+ 	 */
+ 	double Rvalue(const std::vector<double> & chain_means, const std::vector<double> & chain_variances,
+-                  const unsigned & chain_length, const bool & strict = true) throw (std::invalid_argument, std::domain_error);
++                  const unsigned & chain_length, const bool & strict = true) ;//throw (std::invalid_argument, std::domain_error);
+ 
+    /** \name p value methods */
+    /** @{ */
+@@ -228,7 +228,7 @@ namespace BCMath
+ 	 * @param nobservations The number of data points.
+ 	 * @return corrected p value
+ 	 */
+-	double CorrectPValue(const double & pvalue, const unsigned & npar, const unsigned & nobservations) throw (std::domain_error);
++	double CorrectPValue(const double & pvalue, const unsigned & npar, const unsigned & nobservations) ;//throw (std::domain_error);
+ 
+ 	/**
+ 	 * Calculate the p value using fast MCMC for a histogram and the likelihood as test statistic.
+@@ -241,7 +241,7 @@ namespace BCMath
+ 	 * @return The p value
+ 	 */
+ 	double FastPValue(const std::vector<unsigned> & observed, const std::vector<double> & expected,
+-	                  unsigned nIterations = 1e5, unsigned seed = 0) throw (std::invalid_argument);
++	                  unsigned nIterations = 1e5, unsigned seed = 0) ;//throw (std::invalid_argument);
+ 
+ 	/** @} */
+ }
+diff --git a/models/mvc/BCMVCombination.cxx b/models/mvc/BCMVCombination.cxx
+index 59fb72d..b517b0b 100644
+--- a/models/mvc/BCMVCombination.cxx
++++ b/models/mvc/BCMVCombination.cxx
+@@ -18,6 +18,7 @@
+ #include "../../BAT/BCMath.h"
+ #include "../../BAT/BCParameter.h"
+ 
++#include <TString.h>
+ #include <fstream>
+ #include <iomanip>
+ #include <iostream>
+diff --git a/src/BCMath.cxx b/src/BCMath.cxx
+index 0a89f67..7afb27a 100644
+--- a/src/BCMath.cxx
++++ b/src/BCMath.cxx
+@@ -549,7 +549,7 @@ double longestRunFrequency(unsigned longestObserved, unsigned int nTrials)
+ 
+ // ---------------------------------------------------------
+ double Rvalue(const std::vector<double> & chain_means, const std::vector<double> & chain_variances,
+-              const unsigned & chain_length, const bool & strict)  throw (std::invalid_argument, std::domain_error)
++              const unsigned & chain_length, const bool & strict)  //throw (std::invalid_argument, std::domain_error)
+ {
+    if (chain_means.size() != chain_variances.size())
+       throw std::invalid_argument("BCMath::RValue: chain means and chain variances are not aligned!");
+@@ -662,7 +662,7 @@ double Rvalue(const std::vector<double> & chain_means, const std::vector<double>
+ }
+ 
+ // ---------------------------------------------------------
+-double CorrectPValue(const double & pvalue, const unsigned & npar, const unsigned & nobservations) throw (std::domain_error)
++double CorrectPValue(const double & pvalue, const unsigned & npar, const unsigned & nobservations) //throw (std::domain_error)
+ {
+    // avoid pathologies
+    if (pvalue < 0 or pvalue > 1)
+@@ -688,7 +688,7 @@ double CorrectPValue(const double & pvalue, const unsigned & npar, const unsigne
+ 
+ // ---------------------------------------------------------
+ double FastPValue(const std::vector<unsigned> & observed, const std::vector<double> & expected,
+-                  unsigned nIterations, unsigned seed) throw (std::invalid_argument)
++                  unsigned nIterations, unsigned seed) //throw (std::invalid_argument)
+ {
+    size_t nbins = observed.size();
+    if (nbins != expected.size())
