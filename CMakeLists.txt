@@ -16,12 +16,7 @@
 # along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
 
 # Set the minimum CMake version required to build the project.
-cmake_minimum_required( VERSION 3.1 )
-
-# Silence some warnings on macOS with new CMake versions.
-if( NOT ${CMAKE_VERSION} VERSION_LESS 3.9 )
-   cmake_policy( SET CMP0068 NEW )
-endif()
+cmake_minimum_required( VERSION 3.10 )
 
 # Set the project's name and version.
 project( KLFitter )
