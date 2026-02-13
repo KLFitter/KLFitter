@@ -226,6 +226,6 @@ endif()
 
 # Install the CMake description of the project.
 install( EXPORT KLFitterTargets
-   FILE KLFitterConfig-targets.cmake
-   DESTINATION cmake
+   FILE KLFitterConfig.cmake
+   DESTINATION lib/cmake/KLFitter
    NAMESPACE "KLFitter::" )
