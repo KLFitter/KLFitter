@@ -40,7 +40,7 @@ endif()
 message( STATUS "Using build type: ${CMAKE_BUILD_TYPE}" )
 
 # Set the warning flag(s) to use.
-set( CMAKE_CXX_FLAGS "-Wall -pedantic" )
+set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic" )
 
 # Turn off the usage of RPATH completely:
 set( CMAKE_SKIP_RPATH ON )
