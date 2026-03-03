@@ -1,0 +1,116 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build-and-test:
+    name: Build (${{ matrix.build-type }})
+    runs-on: ubuntu-latest
+    container:
+      image: rootproject/root:6.24.06-ubuntu20.04
+    strategy:
+      fail-fast: false
+      matrix:
+        build-type: [builtin-bat, manual-bat]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: |
+        apt-get update
+        apt-get install -y doxygen cmake wget patch build-essential
+
+    - name: Setup Subdirectory Build (for manual-bat)
+      if: matrix.build-type == 'manual-bat'
+      run: |
+        mkdir KLFitter
+        mv CMakeLists.txt cmake data include src tests util external KLFitter/
+        echo "KLF_SOURCE_DIR=$GITHUB_WORKSPACE/KLFitter" >> $GITHUB_ENV
+        echo "KLF_BUILD_DIR=$GITHUB_WORKSPACE/build" >> $GITHUB_ENV
+        echo "KLF_INSTALL_DIR=$GITHUB_WORKSPACE/install" >> $GITHUB_ENV
+        echo "BAT_INSTALL_DIR=/usr/local" >> $GITHUB_ENV
+
+    - name: Setup Standard Build Env (for builtin-bat)
+      if: matrix.build-type == 'builtin-bat'
+      run: |
+        echo "KLF_SOURCE_DIR=$GITHUB_WORKSPACE" >> $GITHUB_ENV
+        echo "KLF_BUILD_DIR=$GITHUB_WORKSPACE/build" >> $GITHUB_ENV
+        echo "KLF_INSTALL_DIR=$GITHUB_WORKSPACE/install" >> $GITHUB_ENV
+
+    - name: Manual BAT Installation
+      if: matrix.build-type == 'manual-bat'
+      run: |
+        mkdir -p ${{ env.BAT_INSTALL_DIR }}
+        wget https://github.com/bat/bat/releases/download/v0.9.4.1/BAT-0.9.4.1.tar.gz
+        # Use the provided script to compile BAT
+        /bin/bash ${{ env.KLF_SOURCE_DIR }}/external/bat/CompileBAT.sh $GITHUB_WORKSPACE/BAT-0.9.4.1.tar.gz ${{ env.BAT_INSTALL_DIR }}
+
+    - name: Configure and Build
+      run: |
+        mkdir -p ${{ env.KLF_BUILD_DIR }}
+        cd ${{ env.KLF_BUILD_DIR }}
+        if [ "${{ matrix.build-type }}" = "builtin-bat" ]; then
+          cmake -DCMAKE_INSTALL_PREFIX=${{ env.KLF_INSTALL_DIR }} -DBUILTIN_BAT:BOOL=TRUE -DINSTALL_TESTS:BOOL=TRUE ${{ env.KLF_SOURCE_DIR }}
+        else
+          cmake -DCMAKE_INSTALL_PREFIX=${{ env.KLF_INSTALL_DIR }} -DBUILTIN_BAT:BOOL=FALSE -DINSTALL_TESTS:BOOL=TRUE ${{ env.KLF_SOURCE_DIR }}
+        fi
+        make -j$(nproc)
+        make install
+
+    - name: Run Unit Tests
+      run: |
+        cd ${{ env.KLF_BUILD_DIR }}
+        # Set ROOT_INCLUDE_PATH so cling can find BAT headers to avoid autoloading warnings
+        if [ "${{ matrix.build-type }}" = "builtin-bat" ]; then
+          export ROOT_INCLUDE_PATH=${{ env.KLF_INSTALL_DIR }}/include:$ROOT_INCLUDE_PATH
+        else
+          export ROOT_INCLUDE_PATH=${{ env.BAT_INSTALL_DIR }}/include:$ROOT_INCLUDE_PATH
+        fi
+        # The test executable is in the build dir, but it links against the library in the install dir via RPATH
+        ./test-bin/test-ljets-lh.exe ${{ env.KLF_SOURCE_DIR }} 2>&1 | tee test-output.txt
+
+    - name: Verify Installation (Example Run)
+      run: |
+        ${{ env.KLF_INSTALL_DIR }}/bin/example-top-ljets.exe ${{ env.KLF_SOURCE_DIR }}
+
+    - name: Verify Test Output
+      run: |
+        diff -u ${{ env.KLF_BUILD_DIR }}/test-output.txt ${{ env.KLF_SOURCE_DIR }}/tests/output-ref-ljets-lh.txt
+
+  deploy-docs:
+    name: Build and Deploy Documentation
+    needs: build-and-test
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    container:
+      image: rootproject/root:6.24.06-ubuntu20.04
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        submodules: true
+
+    - name: Install Doxygen
+      run: |
+        apt-get update
+        apt-get install -y doxygen
+
+    - name: Build Doxygen Documentation
+      run: |
+        doxygen doc/Doxyfile
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: doc/html
+        external_repository: KLFitter/KLFitter.github.io
+        publish_branch: master
+        keep_files: true

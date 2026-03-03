@@ -1,4 +1,4 @@
-# Copyright (c) 2009--2021, the KLFitter developer team
+# Copyright (c) 2009--2026, the KLFitter developer team
 #
 # This file is part of KLFitter.
 #
@@ -16,26 +16,23 @@
 # along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
 
 # Set the minimum CMake version required to build the project.
-cmake_minimum_required( VERSION 3.1 )
-
-# Silence some warnings on macOS with new CMake versions.
-if( NOT ${CMAKE_VERSION} VERSION_LESS 3.9 )
-   cmake_policy( SET CMP0068 NEW )
-endif()
+cmake_minimum_required( VERSION 3.10 )
 
 # Set the project's name and version.
-project( KLFitter )
+project( KLFitter VERSION 1.3.2 )
 
 # Enable using CTest in the project.
 include( CTest )
 
 # Set up the "C++ version" to use.
-set( CMAKE_CXX_STANDARD_REQUIRED 11 CACHE STRING
-   "Minimum C++ standard required for the build" )
-set( CMAKE_CXX_STANDARD 14 CACHE STRING
-   "C++ standard to use for the build" )
-set( CMAKE_CXX_EXTENSIONS FALSE CACHE BOOL
-   "(Dis)allow using compiler extensions" )
+set( CMAKE_CXX_STANDARD_REQUIRED ON )
+set( CMAKE_CXX_STANDARD 14 )
+set( CMAKE_CXX_EXTENSIONS FALSE )
+
+# Default to building shared libraries.
+if( NOT DEFINED BUILD_SHARED_LIBS )
+   set( BUILD_SHARED_LIBS ON )
+endif()
 
 # If the user didn't request a build type explicitly, use an optimised
 # build with debug symbols.
@@ -45,12 +42,15 @@ endif()
 message( STATUS "Using build type: ${CMAKE_BUILD_TYPE}" )
 
 # Set the warning flag(s) to use.
-set( CMAKE_CXX_FLAGS "-Wall -pedantic" )
+set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic" )
 
-# Turn off the usage of RPATH completely:
-set( CMAKE_SKIP_RPATH ON )
-set( CMAKE_SKIP_BUILD_RPATH ON )
-set( CMAKE_SKIP_INSTALL_RPATH ON )
+# Set up RPATH so that executables find the library automatically.
+set( CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib" )
+set( CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE )
+list( FIND CMAKE_PLATFORM_STAGED_RUNTIME_LIBS "${CMAKE_INSTALL_PREFIX}/lib" _isSystem )
+if( _isSystem STREQUAL "-1" )
+   set( CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib" )
+endif()
 
 # Set the location of the built libraries/executables inside the build
 # directory.
@@ -67,28 +67,28 @@ find_package( ROOT 5.34.10 REQUIRED MathCore Minuit )
 # Figure out what to do with BAT.
 set( _buildDir ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/BATBuild )
 option( BUILTIN_BAT "Acquire BAT as part of building this project" OFF )
+message( STATUS "BUILTIN_BAT is set to: ${BUILTIN_BAT}" )
 if( BUILTIN_BAT )
   # Download and install BAT using ExternalProject.
   include( ExternalProject )
   ExternalProject_Add( BAT
     PREFIX ${CMAKE_BINARY_DIR}/externals
-    INSTALL_DIR ${CMAKE_BINARY_DIR}
     URL "https://github.com/bat/bat/releases/download/v0.9.4.1/BAT-0.9.4.1.tar.gz"
     URL_HASH SHA256=D46C6F834CB5888BBF4DB393887190380132FA48816E0804F79C4A3CC344EF87
+    PATCH_COMMAND /bin/bash ${CMAKE_SOURCE_DIR}/external/bat/patch_bat.sh <SOURCE_DIR> ${CMAKE_SOURCE_DIR}/external/bat
     BUILD_IN_SOURCE 1
-    CONFIGURE_COMMAND <SOURCE_DIR>/configure --with-rootsys=${ROOTSYS} --prefix=${_buildDir} --enable-silent-rules
+    CONFIGURE_COMMAND <SOURCE_DIR>/configure --with-rootsys=${ROOTSYS} --prefix=${CMAKE_INSTALL_PREFIX} --enable-silent-rules
     BUILD_COMMAND make LIBTOOLFLAGS=--silent
-    INSTALL_COMMAND make install LIBTOOLFLAGS=--silent
-    COMMAND ${CMAKE_COMMAND} -E copy_directory ${_buildDir}/ <INSTALL_DIR> )
-  # Set the include and library paths to use.
-  set( BAT_ROOT $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}> )
-  set( BAT_INCLUDE_DIR ${BAT_ROOT}/include )
-  set( BAT_LIBRARY ${BAT_ROOT}/lib/libBAT.so )
+    INSTALL_COMMAND make install LIBTOOLFLAGS=--silent )
+  # Set the include and library paths to use for the build.
+  set( BAT_INCLUDE_DIR ${CMAKE_INSTALL_PREFIX}/include )
+  set( BAT_LIBRARY ${CMAKE_INSTALL_PREFIX}/lib/libBAT.so )
   # Tell the user what will happen.
   message( STATUS "Using a privately downloaded BAT version for the build" )
 else()
   # Look for BAT on the build system.
   find_package( BAT 0.9.4.1 EXACT REQUIRED )
+  message( STATUS "Found BAT: ${BAT_LIBRARIES} (version ${BAT_VERSION})" )
 endif()
 
 # Public header files for the shared/static library.
@@ -160,8 +160,10 @@ set( lib_sources
   src/ResSingleGaussPt.cxx
   src/ResolutionBase.cxx )
 
-# Build the shared library.
-add_library( KLFitter SHARED ${lib_headers} ${lib_sources} )
+# Build the library.
+add_library( KLFitter ${lib_headers} ${lib_sources} )
+add_library( KLFitter::KLFitter ALIAS KLFitter )
+target_compile_features( KLFitter PUBLIC cxx_std_14 )
 target_include_directories( KLFitter
    PUBLIC ${ROOT_INCLUDE_DIRS} ${BAT_INCLUDE_DIR}
    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include> )
@@ -172,20 +174,8 @@ if( BUILTIN_BAT )
   add_dependencies( KLFitter BAT )
 endif()
 
-# Build the static library.
-add_library( KLFitter-stat ${lib_headers} ${lib_sources} )
-target_include_directories( KLFitter-stat
-   PUBLIC ${ROOT_INCLUDE_DIRS} ${BAT_INCLUDE_DIR}
-   $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include> )
-target_link_libraries( KLFitter-stat ${ROOT_LIBRARIES} ${BAT_LIBRARY} )
-set_property( TARGET KLFitter-stat
-   PROPERTY PUBLIC_HEADER ${lib_headers} )
-if( BUILTIN_BAT )
-  add_dependencies( KLFitter-stat BAT )
-endif()
-
-# Install the libraries.
-install( TARGETS KLFitter KLFitter-stat
+# Install the library.
+install( TARGETS KLFitter
    EXPORT KLFitterTargets
    ARCHIVE DESTINATION lib
    LIBRARY DESTINATION lib
@@ -199,7 +189,7 @@ install( DIRECTORY data/transferfunctions/
 macro( KLFitter_add_test name )
    # Build the unit-test executable:
    add_executable( ${name} ${ARGN} )
-   target_link_libraries( ${name} KLFitter-stat )
+   target_link_libraries( ${name} KLFitter )
    set_target_properties( ${name} PROPERTIES
       RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/test-bin" )
    # Set up the test itself:
@@ -217,7 +207,7 @@ endif()
 # Helper macro for building the project's executables.
 macro( KLFitter_add_executable name )
   add_executable( ${name} ${ARGN} )
-  target_link_libraries( ${name} KLFitter-stat )
+  target_link_libraries( ${name} KLFitter )
   install( TARGETS ${name}
     EXPORT KLFitterTargets
     RUNTIME DESTINATION bin )
@@ -231,6 +221,19 @@ endif()
 
 # Install the CMake description of the project.
 install( EXPORT KLFitterTargets
-   FILE KLFitterConfig-targets.cmake
-   DESTINATION cmake
+   FILE KLFitterTargets.cmake
+   DESTINATION lib/cmake/KLFitter
    NAMESPACE "KLFitter::" )
+
+# Create a version file for the project.
+configure_file( "${CMAKE_CURRENT_SOURCE_DIR}/cmake/KLFitterConfigVersion.cmake.in"
+   "${CMAKE_CURRENT_BINARY_DIR}/KLFitterConfigVersion.cmake" @ONLY )
+
+# Create and install the main KLFitterConfig.cmake file.
+configure_file( "${CMAKE_CURRENT_SOURCE_DIR}/cmake/KLFitterConfig.cmake.in"
+   "${CMAKE_CURRENT_BINARY_DIR}/KLFitterConfig.cmake" @ONLY )
+
+install( FILES
+   "${CMAKE_CURRENT_BINARY_DIR}/KLFitterConfig.cmake"
+   "${CMAKE_CURRENT_BINARY_DIR}/KLFitterConfigVersion.cmake"
+   DESTINATION lib/cmake/KLFitter )
