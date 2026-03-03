@@ -88,19 +88,15 @@ jobs:
     needs: build-and-test
     if: github.ref == 'refs/heads/master' && github.event_name == 'push'
     runs-on: ubuntu-latest
-    container:
-      image: rootproject/root:6.24.06-ubuntu20.04
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-      with:
-        submodules: true
 
     - name: Install Doxygen
       run: |
-        apt-get update
-        apt-get install -y doxygen
+        sudo apt-get update
+        sudo apt-get install -y doxygen
 
     - name: Build Doxygen Documentation
       run: |
