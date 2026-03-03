@@ -1,0 +1,34 @@
+# Copyright (c) 2009--2026, the KLFitter developer team
+#
+# This file is part of KLFitter.
+#
+# KLFitter is free software: you can redistribute it and/or modify it
+# under the terms of the GNU Lesser General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or (at
+# your option) any later version.
+#
+# KLFitter is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+# License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with KLFitter. If not, see <http://www.gnu.org/licenses/>.
+#
+
+# Find the required dependencies.
+include( CMakeFindDependencyMacro )
+find_dependency( ROOT 5.34.10 )
+find_dependency( BAT 0.9.4.1 )
+
+# Include the targets file.
+include( "${CMAKE_CURRENT_LIST_DIR}/KLFitterTargets.cmake" )
+
+# Set some "old style" variables for using the KLFitter installation.
+get_filename_component( KLFitter_INCLUDE_DIRS "${CMAKE_CURRENT_LIST_DIR}/../../../include" ABSOLUTE )
+set( KLFitter_LIBRARIES KLFitter::KLFitter )
+
+# Tell the user what happened.
+if( NOT KLFitter_FIND_QUIETLY )
+   message( STATUS "Found KLFitter (version: @PROJECT_VERSION@)" )
+endif()

@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009--2018, the KLFitter developer team
+# Copyright (c) 2009--2026, the KLFitter developer team
 #
 # This file is part of KLFitter.
 #
@@ -29,6 +29,11 @@
 # Usage: CompileBAT.sh [tar path] [absolute install path]
 
 set -e
+
+# Support curl if wget is not available
+if ! command -v wget >/dev/null 2>&1; then
+    wget() { curl -L -O "$1"; }
+fi
 
 if [ $# -eq 2 ]
 then
@@ -78,6 +83,10 @@ fi
 # Perform the actual configure and make commands.
 tar xzf "$tar_file"
 cd BAT-0.9.4.1
+
+# Apply any patches that are found in the same directory as this script.
+/bin/bash "$(dirname "$0")/patch_bat.sh" "$PWD" "$(dirname "$0")"
+
 ./configure --with-rootsys=`root-config --prefix` --prefix=$target_dir --enable-silent-rules
 make -j LIBTOOLFLAGS=--silent || make -j LIBTOOLFLAGS=--silent || make -j LIBTOOLFLAGS=--silent
 

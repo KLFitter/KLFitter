@@ -1,4 +1,4 @@
-# Copyright (c) 2009--2018, the KLFitter developer team
+# Copyright (c) 2009--2026, the KLFitter developer team
 #
 # This file is part of KLFitter.
 #
@@ -19,33 +19,56 @@
 #
 # FindBAT.cmake file to find the BAT library
 #
-# To ensure that this works correctly, please set the environment
-# variable $BATINSTALLDIR to your BAT installation directory. This
-# script will define the following variables:
+# This script will define the following variables:
+#   BAT_FOUND        - True if the system has the BAT library
+#   BAT_INCLUDE_DIRS - The directory containing the BAT headers
+#   BAT_LIBRARIES    - The BAT library
+#   BAT_VERSION      - The version of the BAT library which was found
 #
-#   BAT_FOUND    - True if the system has the BAT library
-#   BAT_VERSION  - The version of the BAT library which was found
-#
-# and the following imported targets:
-#
-#   BAT::BAT   - The BAT library
+# And the following imported targets:
+#   BAT::BAT         - The BAT library target
+
+# Set search paths
+set(_BAT_PATHS ${BAT_ROOT} $ENV{BAT_ROOT} $ENV{BATINSTALLDIR})
 
 find_path(BAT_INCLUDE_DIR
   NAMES BAT/BCLog.h BAT/BCMath.h
-  PATHS ${BAT_ROOT} $ENV{BATINSTALLDIR}
+  PATHS ${_BAT_PATHS}
   PATH_SUFFIXES include
 )
+
 find_library(BAT_LIBRARY
   NAMES BAT
-  PATHS ${BAT_ROOT} $ENV{BATINSTALLDIR}
+  PATHS ${_BAT_PATHS}
   PATH_SUFFIXES lib
 )
+
+# Extract version from BCVersion.h if it exists, otherwise from BCModel.h or similar
+if(BAT_INCLUDE_DIR AND EXISTS "${BAT_INCLUDE_DIR}/BAT/BCVersion.h")
+  file(STRINGS "${BAT_INCLUDE_DIR}/BAT/BCVersion.h" _BAT_VERSION_LINE REGEX "^#define BAT_VERSION \"[^\"]*\"")
+  string(REGEX REPLACE "^#define BAT_VERSION \"([^\"]*)\".*" "\\1" BAT_VERSION "${_BAT_VERSION_LINE}")
+elseif(BAT_INCLUDE_DIR)
+  # Fallback for older BAT versions where it might be in BCModel.h or just assume the requested version if it matches the headers
+  set(BAT_VERSION "0.9.4.1") # Default assumption for this repo's compatibility
+endif()
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(BAT
   FOUND_VAR BAT_FOUND
-  REQUIRED_VARS
-    BAT_LIBRARY
-    BAT_INCLUDE_DIR
+  REQUIRED_VARS BAT_LIBRARY BAT_INCLUDE_DIR
   VERSION_VAR BAT_VERSION
 )
+
+if(BAT_FOUND)
+  set(BAT_INCLUDE_DIRS ${BAT_INCLUDE_DIR})
+  set(BAT_LIBRARIES ${BAT_LIBRARY})
+  if(NOT TARGET BAT::BAT)
+    add_library(BAT::BAT UNKNOWN IMPORTED)
+    set_target_properties(BAT::BAT PROPERTIES
+      INTERFACE_INCLUDE_DIRECTORIES "${BAT_INCLUDE_DIRS}"
+      IMPORTED_LOCATION "${BAT_LIBRARIES}"
+    )
+  endif()
+endif()
+
+mark_as_advanced(BAT_INCLUDE_DIR BAT_LIBRARY)

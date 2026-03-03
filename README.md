@@ -1,6 +1,6 @@
 # KLFitter – The Kinematic Likelihood Fitter
 
-[![Build Status](https://travis-ci.org/KLFitter/KLFitter.svg?branch=master)](https://travis-ci.org/KLFitter/KLFitter)
+[![CI](https://github.com/KLFitter/KLFitter/actions/workflows/ci.yml/badge.svg)](https://github.com/KLFitter/KLFitter/actions/workflows/ci.yml)
 [![GitHub release](https://img.shields.io/github/release/KLFitter/KLFitter.svg)](https://github.com/KLFitter/KLFitter/releases)
 [![Github commits (since latest release)](https://img.shields.io/github/commits-since/KLFitter/KLFitter/latest.svg)](https://github.com/KLFitter/KLFitter/commits/)
 
