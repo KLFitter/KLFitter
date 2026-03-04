@@ -4,9 +4,7 @@
 
 Please note that we strongly encourage people to use the cmake installation
 procedures described in the [README
-section](../README.md#installation-via-cmake-recommended). Installation via
-Makefile has only been tested on few systems, and might not be cross-platform
-compatible.
+section](../README.md#installation-via-cmake).
 
 #### Why is ROOT not found by cmake?
 
@@ -20,8 +18,8 @@ cmake by searching for the `root-config` executable.
 The KLFitter cmake configuration allows an integrated build of the BAT library,
 as described in the [README](../README.md#installation-via-cmake-recommended).
 If you use a local version of BAT (no download via cmake) and it cannot be
-found, make sure to set the `$BATINSTALLDIR` variable and export it. This
-variable is used by cmake to locate the library.
+found, make sure to set the `$BAT_ROOT` (or legacy `$BATINSTALLDIR`) variable
+and export it. This variable is used by cmake to locate the library.
 
 #### What to do when linkage against ROOT/BAT fails ...
 

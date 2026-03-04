@@ -62,14 +62,29 @@ repositories. For completeness we also keep a list of all SVN tags of KLFitter
 and their associated commits in [this file](doc/SVN-tags.md).
 
 
-### Installation via cmake (recommended)
+### Installation via cmake
 
 Before proceeding please make sure that you have a valid installation of ROOT on
 your system and that cmake is correctly configured (version 3.10 or higher is
-required). As cmake does fully automated configuration, it is possible to build
-KLFitter and the BAT library simultaneously. BAT will be downloaded during the
-cmake build process. For doing so, change into the KLFitter directory and then
-do:
+required).
+
+The standard way to build KLFitter is against an existing BAT installation.
+CMake will automatically search for BAT in standard system paths (e.g.,
+`/usr/local`). If BAT is installed in a non-standard location, you should
+provide its path either by setting the `BAT_ROOT` CMake variable or the
+`$BAT_ROOT` (or legacy `$BATINSTALLDIR`) environment variable.
+
+The build procedure is:
+
+```sh
+mkdir build && cd build
+cmake .. # Add -DBAT_ROOT=/path/to/bat if needed
+make -j
+```
+
+Alternatively, it is possible to build KLFitter and the BAT library
+simultaneously by letting cmake download and compile BAT automatically. For
+doing so, use the `-DBUILTIN_BAT=TRUE` flag:
 
 ```sh
 mkdir build && cd build
@@ -77,36 +92,6 @@ cmake -DBUILTIN_BAT=TRUE ..
 make -j
 ```
 
-This will build both BAT and KLFitter in the _build_ sub-folder of the KLFitter
-directory. If you already have an existing installation of BAT, you can also
-link the KLFitter library against that version and not download BAT during the
-cmake build process. For that, make sure that the environment variable
-`$BATINSTALLDIR` points to the BAT installation directory and is exported. This
-variable will be used by _FindBAT.cmake_, which locates the BAT library. With a
-local version of BAT, the `-DBUILTIN_BAT` flag of the cmake command can be
-omitted, i.e. the KLFitter build procedure becomes:
-
-```sh
-mkdir build && cd build
-cmake ..
-make -j
-```
-
-For problems with the cmake configuration, please also refer to the [Frequently
-Asked Questions](doc/FAQ.md).
-
-
-### Installation via Makefile (deprecated)
-
-The repository also comes with a _Makefile_, although using cmake to build
-KLFitter is the recommended procedure. Compilation via Makefile assumes that you
-have a working installation of ROOT and BAT. The location of the BAT library is
-determined with the `$BATINSTALLDIR` variable, so make sure to set and export
-it. Then switch to the KLFitter repository directory and call
-
-```sh
-make -j all && make -j install
-```
-
-to compile KLFitter. The latter command will create a subdirectory _build_ and
-copy the header and library files into that directory for external usage.
+This will build both BAT and KLFitter in the sub-folder of the KLFitter
+directory. For problems with the cmake configuration, please also refer to the
+[Frequently Asked Questions](doc/FAQ.md).
