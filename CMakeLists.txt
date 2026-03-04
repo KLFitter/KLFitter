@@ -19,7 +19,7 @@
 cmake_minimum_required( VERSION 3.10 )
 
 # Set the project's name and version.
-project( KLFitter VERSION 1.3.2 )
+project( KLFitter VERSION 1.5.0 )
 
 # Enable using CTest in the project.
 include( CTest )
