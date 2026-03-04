@@ -14,7 +14,7 @@ easily modified to fit other processes. Detailed documentation:
 - [Out-of-the-box example](doc/Example.md)
 - [Frequently Asked Questions](doc/FAQ.md)
 
-An auto-generated class reference guide for the KLFitter library is also uploaded to https://KLFitter.github.io. The uploaded version always corresponds to the latest version of the master branch.
+An auto-generated class reference guide for the KLFitter library is also uploaded to https://KLFitter.github.io/KLFitter/. The uploaded version always corresponds to the latest version of the master branch.
 
 
 ### Licensing terms
@@ -65,7 +65,7 @@ and their associated commits in [this file](doc/SVN-tags.md).
 ### Installation via cmake (recommended)
 
 Before proceeding please make sure that you have a valid installation of ROOT on
-your system and that cmake is correctly configured (version 3.1 or higher is
+your system and that cmake is correctly configured (version 3.10 or higher is
 required). As cmake does fully automated configuration, it is possible to build
 KLFitter and the BAT library simultaneously. BAT will be downloaded during the
 cmake build process. For doing so, change into the KLFitter directory and then

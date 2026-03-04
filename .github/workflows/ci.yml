@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ master ]
 
+permissions:
+  contents: write
+
 jobs:
   build-and-test:
     name: Build (${{ matrix.build-type }})
@@ -107,6 +110,4 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: doc/html
-        external_repository: KLFitter/KLFitter.github.io
-        publish_branch: master
-        keep_files: true
+        publish_branch: gh-pages
